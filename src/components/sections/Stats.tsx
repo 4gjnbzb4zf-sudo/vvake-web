@@ -3,6 +3,10 @@
 import { useEffect, useRef, useState } from "react";
 import { Container } from "@/components/ui/Section";
 import type { Dictionary } from "@/i18n/dictionaries";
+import { CITIES, RIVALRIES } from "@/lib/cities";
+
+/** The first two facts come from the city data, so the band can never drift from the launch list. */
+const LIVE_COUNTS = [CITIES.size, RIVALRIES.length];
 
 /** Counts from 0 to `value` once visible (instant under reduced motion). */
 function useCountUp(value: number, start: boolean, durationMs = 1200) {
@@ -63,15 +67,17 @@ export function Stats({ dict }: { dict: Dictionary["stats"] }) {
       <div className="hazard pointer-events-none absolute -right-2 bottom-6 h-24 w-6" aria-hidden="true" />
       <Container>
         <div ref={ref} className="grid grid-cols-2 divide-line lg:grid-cols-4 lg:divide-x">
-          {dict.items.map((item) => (
-            <Stat
-              key={item.label}
-              value={item.value}
-              label={item.label}
-              suffix={"suffix" in item ? item.suffix : undefined}
-              start={visible}
-            />
-          ))}
+          {dict.items
+            .map((raw, i) => ({ ...raw, value: LIVE_COUNTS[i] ?? raw.value }))
+            .map((item) => (
+              <Stat
+                key={item.label}
+                value={item.value}
+                label={item.label}
+                suffix={"suffix" in item ? item.suffix : undefined}
+                start={visible}
+              />
+            ))}
         </div>
         <p className="mt-2 text-center text-xs text-faint">{dict.note}</p>
       </Container>
