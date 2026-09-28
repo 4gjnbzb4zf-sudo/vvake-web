@@ -498,7 +498,7 @@ export const fr: Dictionary = {
           body: "L'équipe vit uniquement des frais, avec salaires et répartition publiés avant le lancement.",
         },
         {
-          title: "RWA × crypto",
+          title: "RWA × Robinhood Chain",
           href: "#rwa",
           body: "Prévu à côté des actions tokenisées : un contrat public de répartition des frais et des récompenses de saison versées on-chain.",
         },
@@ -621,6 +621,29 @@ export const fr: Dictionary = {
       { icon: "🎟️", title: "Premier servi", body: "Des créneaux 24 h en avance pour acheter dossards et billets de match partenaires." },
       { icon: "✨", title: "Finition du mois", body: "Une nouvelle finition cosmétique pour ton VVaker chaque mois." },
     ],
+    invest: {
+      kicker: "Plus + Invest",
+      title: "Abonne-toi et investis, en une seule étape.",
+      body: "Lance Plus et un plan d'investissement mensuel en même temps. Ton plan utilise ton propre argent chez ton courtier agréé (Robinhood prévu) et suit tes règles :",
+      rules: [
+        {
+          icon: "🎯",
+          title: "Objectifs",
+          body: "Atteins ton objectif de séances du mois et tout ton budget est investi ; sinon, le reste reste simplement ton argent.",
+        },
+        { icon: "🏃", title: "Scores", body: "Réparti entre tes duos sport-action selon là où tu t'es vraiment entraîné." },
+        { icon: "🪙", title: "Poche annexe", body: "Une part optionnelle pour un choix annexe, comme la crypto." },
+        {
+          icon: "🏙️",
+          title: "Bonus régional",
+          body: "Optionnel : une part pour un choix de ton marché local les mois où ta ville gagne son clash.",
+        },
+      ],
+      example: "Exemple de mois · budget {budget} · objectif 12 séances, 12 faites · ville gagnante",
+      cash: "Reste ton argent : {money}",
+      why: { pairs: "duo sport", side: "poche annexe", home: "bonus régional" },
+      note: "Plus est un abonnement aux fonctionnalités de l'app ; il n'achète jamais d'actions. L'investissement est séparé, avec ton propre argent et ton compte chez un courtier agréé, selon le pays. Tes résultats changent la façon dont ton propre plan s'exécute, jamais un lot. Un investissement peut baisser comme monter ; pas un conseil financier.",
+    },
     neverTitle: "Jamais dans Plus",
     never: [
       "Plus de récompenses, d'énergie ou de points",
@@ -630,6 +653,78 @@ export const fr: Dictionary = {
     ],
     split: "Comme tous les frais, Plus passe par notre répartition publique : 30 % reviennent aux récompenses de saison des joueurs.",
     note: "Dans les apps iOS et Android, Plus est un abonnement intégré géré par le store ; gère-le ou résilie-le dans les réglages du store. Les prix varient selon le pays et incluent les taxes quand c'est requis.",
+  },
+  coach: {
+    kicker: "Ton VVaker, ton coach",
+    title: "Il appelle. Tu parles. Tu bouges mieux.",
+    body: "Ton VVaker prend de tes nouvelles à la voix : comment se passe la semaine, ce qui t'a fait du bien, ce qu'on change. Choisis son style de voix et son ambiance, et il devient le coach que tu écoutes vraiment.",
+    call: { incoming: "Appel entrant", who: "Ton VVaker · mode coach", accept: "Répondre", decline: "Plus tard" },
+    styleLabel: "Style de voix",
+    vibeLabel: "Ambiance",
+    play: "Écouter un extrait",
+    stop: "Arrêter",
+    styles: {
+      hype: {
+        name: "Survolté",
+        lines: [
+          "C'est parti ! Trois séances cette semaine, tu es en feu !",
+          "Ton run de mercredi, c'est ton meilleur effort du mois.",
+          "Demain : 30 minutes, zone 2. Emmène Sam, on explose tout !",
+        ],
+      },
+      calm: {
+        name: "Posé",
+        lines: [
+          "Salut, comment tu te sens aujourd'hui ?",
+          "Trois séances cette semaine. C'est régulier, c'est bien.",
+          "Demain, une marche tranquille. Pas de pression, juste bouger.",
+        ],
+      },
+      drill: {
+        name: "Sergent",
+        lines: [
+          "Au rapport ! Trois séances cette semaine. Acceptable.",
+          "Vendredi a sauté. On ne saute pas les vendredis.",
+          "Demain, 6 h 30, 30 minutes. Pas d'excuses.",
+        ],
+      },
+      funny: {
+        name: "Drôle",
+        lines: [
+          "Toc toc. Qui est là ? Ton canapé. Il te regrette moins que moi.",
+          "Trois séances ! Tes jambes m'ont envoyé un mot de remerciement.",
+          "Demain : 30 minutes. Je compte, tu transpires, marché conclu ?",
+        ],
+      },
+      zen: {
+        name: "Zen",
+        lines: [
+          "Inspire. Comment ton corps s'est-il senti cette semaine ?",
+          "Trois séances, et une soirée calme. L'équilibre, c'est la force.",
+          "Demain, dix minutes de pleine conscience, puis une marche facile.",
+        ],
+      },
+      pro: {
+        name: "Coach pro",
+        lines: [
+          "Bilan de la semaine : trois séances sur quatre, effort +12 % sur ta référence.",
+          "Ta récupération est bonne. La régularité est ta meilleure stat.",
+          "Ensuite : ajoute une séance de fractionné, garde la sortie longue facile.",
+        ],
+      },
+    },
+    vibes: {
+      "morning-energy": { name: "Énergie du matin", prefix: "Bonjour ! " },
+      chill: { name: "Tranquille", prefix: "Hé toi. " },
+      "beast-mode": { name: "Mode bête", prefix: "Mode bête activé. " },
+      friendly: { name: "Amical", prefix: "Salut l'ami ! " },
+    },
+    rules: [
+      "Sur activation : 2 appels par semaine au maximum, jamais la nuit",
+      "Un coach IA pour le bien-être, pas un médecin",
+      "La voix est traitée sur ton appareil quand c'est possible ; les notes restent dans ton journal privé",
+      "Aucune voix clonée de personnes réelles",
+    ],
   },
   journal: {
     kicker: "Ton journal",
@@ -816,6 +911,18 @@ export const fr: Dictionary = {
       ghost: "Fantôme de Léo",
       ahead: "devant toi",
       clash: "Lyon +0,4",
+    },
+    devices: {
+      title: "Compatible avec les téléphones et montres récents",
+      items: [
+        { icon: "📱", name: "iPhone", spec: "iOS 17 ou plus · iPhone XR / XS et plus récents" },
+        { icon: "⌚", name: "Apple Watch", spec: "watchOS 10 ou plus · Series 4, SE, Ultra et plus récentes" },
+        { icon: "🤖", name: "Téléphones Android", spec: "Android 10 ou plus · Pixel, Samsung Galaxy et autres" },
+        { icon: "⌚", name: "Montres Wear OS", spec: "Wear OS 3 ou plus · Pixel Watch, Galaxy Watch 4 et plus récentes" },
+        { icon: "❤️", name: "Synchro santé", spec: "Apple Santé · Health Connect (Android)" },
+        { icon: "📶", name: "Ceintures cardio", spec: "Toute ceinture cardio Bluetooth" },
+      ],
+      note: "Cibles de lancement ; la liste finale est publiée à chaque version de l'app.",
     },
     platforms: "Apple Watch · Wear OS · iPhone · Android",
     soon: "Disponible au déblocage de ta ville",

@@ -24,15 +24,11 @@ export function Hero({ dict, highlights, app }: HeroProps) {
 
       <Container className="relative grid items-center gap-14 pt-16 pb-16 sm:pt-24 lg:grid-cols-[1.15fr_1fr] lg:pb-24">
         <div className="animate-rise">
-          <div className="flex flex-wrap items-center gap-2">
-            <p className="inline-flex items-center gap-3 rounded-full border border-line bg-surface/70 py-1.5 pr-4 pl-2 text-sm text-muted">
-              <LogoMark className="h-5" />
-              <span>{dict.pronounce}</span>
-            </p>
-            <a
-              href="#rwa"
-              className="inline-flex items-center gap-2 rounded-full border border-volt/40 bg-volt/10 px-3 py-1.5 font-mono text-xs text-volt transition-colors hover:bg-volt/20"
-            >
+          <div className="inline-flex max-w-full flex-wrap items-center gap-y-1 rounded-full border border-line bg-surface/70 py-1.5 pr-1.5 pl-2 text-[13px] whitespace-nowrap text-muted sm:flex-nowrap">
+            <LogoMark className="h-4 shrink-0" />
+            <span className="ml-2.5">{dict.pronounce}</span>
+            <span aria-hidden="true" className="mx-2.5 hidden h-4 w-px bg-line sm:block" />
+            <a href="#rwa" className="ml-2 rounded-full bg-volt/10 px-3 py-0.5 text-volt transition-colors hover:bg-volt/20 sm:ml-0">
               ⛓️ {dict.chain}
             </a>
           </div>
@@ -140,9 +136,6 @@ function HeroDevices({ hero, app }: { hero: Dictionary["hero"]; app: Dictionary[
         </div>
       </div>
 
-      <div className="absolute -top-3 -left-2 animate-float rounded-xl border border-volt/40 bg-night/90 px-3 py-2 font-mono text-[0.65rem] tracking-[0.08em] text-volt shadow-xl backdrop-blur sm:-left-8">
-        📅 {hero.trainingChip}
-      </div>
       <div className="absolute bottom-20 -left-2 w-44 -rotate-3 animate-float rounded-xl bg-mint p-3 text-night shadow-[0_18px_40px_-12px_rgb(91_208_138/0.55)] [animation-delay:-2s] sm:-left-16">
         <p className="font-display text-lg leading-tight font-bold">
           📈 <MoneyText template={hero.wealthChip} usd={1} />

@@ -1,6 +1,7 @@
 import { MoneyText } from "@/components/ui/Money";
 import { Section } from "@/components/ui/Section";
 import { VVaker } from "@/components/vvaker/VVaker";
+import { PlusInvest } from "./PlusInvest";
 import type { Dictionary } from "@/i18n/dictionaries";
 
 /** Optional subscription: tools, comfort and perks, never an edge (game-core plus.ts, ADR-0016). */
@@ -72,6 +73,7 @@ export function Plus({ dict, index }: { dict: Dictionary["plus"]; index: string 
           <p className="mt-3 text-xs leading-relaxed text-faint">{dict.note}</p>
         </div>
       </div>
+      <PlusInvest dict={dict.invest} />
     </Section>
   );
 }

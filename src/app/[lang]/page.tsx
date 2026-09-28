@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import { AppPreview } from "@/components/sections/AppPreview";
 import { Challenges } from "@/components/sections/Challenges";
 import { DoubleV } from "@/components/sections/DoubleV";
+import { Coach } from "@/components/sections/Coach";
 import { Crew } from "@/components/sections/Crew";
 import { Dare } from "@/components/sections/Dare";
 import { Earn } from "@/components/sections/Earn";
@@ -82,20 +83,21 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
         <Section id="plan" index="09" kicker={dict.plan.kicker} title={dict.plan.title} lead={dict.plan.body}>
           <Planner dict={dict.plan} sportNames={dict.multisport.sports} />
         </Section>
-        <Challenges dict={dict.challenges} index="10" />
-        <Dare dict={dict.dare} index="11" />
-        <Pace dict={dict.pace} index="12" />
-        <Crew dict={dict.crew} index="13" />
-        <People dict={dict.people} index="14" />
-        <DayLoop dict={dict.day} index="15" />
-        <Wellbeing dict={dict.wellbeing} index="16" />
-        <Section id="journal" index="17" kicker={dict.journal.kicker} title={dict.journal.title} lead={dict.journal.body}>
+        <Coach dict={dict.coach} index="10" />
+        <Challenges dict={dict.challenges} index="11" />
+        <Dare dict={dict.dare} index="12" />
+        <Pace dict={dict.pace} index="13" />
+        <Crew dict={dict.crew} index="14" />
+        <People dict={dict.people} index="15" />
+        <DayLoop dict={dict.day} index="16" />
+        <Wellbeing dict={dict.wellbeing} index="17" />
+        <Section id="journal" index="18" kicker={dict.journal.kicker} title={dict.journal.title} lead={dict.journal.body}>
           <Journal dict={dict.journal} />
         </Section>
-        <Plus dict={dict.plus} index="18" />
+        <Plus dict={dict.plus} index="19" />
         {/* Brand moment, then identity. */}
         <DoubleV dict={dict.doubleV} anthem={{ prefix: dict.hero.prefix, lines: dict.hero.anthem }} />
-        <Section id="vvaker" index="19" kicker={dict.vvaker.kicker} title={dict.vvaker.title} lead={dict.vvaker.body}>
+        <Section id="vvaker" index="20" kicker={dict.vvaker.kicker} title={dict.vvaker.title} lead={dict.vvaker.body}>
           <StylePicker dict={dict.vvaker} />
           <VVakerDeck />
           <VVakerStudio dict={dict.vvaker} />
@@ -104,14 +106,14 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
           <CollectorDrops dict={dict.vvaker.collect} />
         </Section>
         {/* Web3 & ownership: why we rebuilt it, the market game, real-world assets, and the open books. */}
-        <Story dict={dict.story} index="20" />
-        <Pulse dict={dict.pulse} index="21" sportNames={dict.multisport.sports} />
-        <Rwa dict={dict.rwa} index="22" />
-        <OpenBook dict={dict.openBook} index="23" />
+        <Story dict={dict.story} index="21" />
+        <Pulse dict={dict.pulse} index="22" sportNames={dict.multisport.sports} />
+        <Rwa dict={dict.rwa} index="23" />
+        <OpenBook dict={dict.openBook} index="24" />
         <VibeLink dict={dict.vibe} />
         {/* Builders and partners. */}
-        <Dev dict={dict.dev} index="24" />
-        <Partners dict={dict.partners} index="25" />
+        <Dev dict={dict.dev} index="25" />
+        <Partners dict={dict.partners} index="26" />
         <Faq dict={dict.faq} />
       </main>
       <Footer locale={lang} dict={dict.footer} />

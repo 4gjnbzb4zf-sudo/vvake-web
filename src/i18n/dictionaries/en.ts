@@ -484,7 +484,7 @@ export const en = {
           body: "The team earns from fees only, with salaries and the fee split published before launch.",
         },
         {
-          title: "RWA × crypto",
+          title: "RWA × Robinhood Chain",
           href: "#rwa",
           body: "Planned next to tokenized stocks: a public fee-split contract and season rewards paid on-chain.",
         },
@@ -590,6 +590,25 @@ export const en = {
       { icon: "🎟️", title: "First in line", body: "24-hour early windows to buy partner race bibs and match tickets." },
       { icon: "✨", title: "Monthly finish", body: "A new cosmetic finish for your VVaker every month." },
     ],
+    invest: {
+      kicker: "Plus + Invest",
+      title: "Subscribe and invest, in one setup.",
+      body: "Start Plus and a monthly invest plan together. Your plan uses your own money at your licensed broker (Robinhood planned) and follows your rules:",
+      rules: [
+        {
+          icon: "🎯",
+          title: "Goals",
+          body: "Hit your monthly session goal and your full budget is invested; miss it and the rest simply stays as your cash.",
+        },
+        { icon: "🏃", title: "Scores", body: "Split across your sport pairs by where you actually trained." },
+        { icon: "🪙", title: "Side pocket", body: "An optional slice for a side pick, like crypto." },
+        { icon: "🏙️", title: "Regional tilt", body: "Optional: a slice for a home-market pick in months your city wins its clash." },
+      ],
+      example: "Example month · budget {budget} · goal 12 sessions, done 12 · city won",
+      cash: "Kept as your cash: {money}",
+      why: { pairs: "sport pair", side: "side pocket", home: "home tilt" },
+      note: "Plus is a subscription for app features; it never buys shares. Investing is separate, with your own money and account at a licensed broker, where available. Your results change how your own plan runs, never a prize. Investments can go down as well as up; not financial advice.",
+    },
     neverTitle: "Never in Plus",
     never: [
       "More rewards, energy or points",
@@ -599,6 +618,78 @@ export const en = {
     ],
     split: "Like every fee, Plus goes through our public split: 30% goes back to players' season rewards.",
     note: "In the iOS and Android apps, Plus is an in-app subscription through the store; manage or cancel it in your store settings. Prices vary by country and include taxes where required.",
+  },
+  coach: {
+    kicker: "Your VVaker, your coach",
+    title: "It calls. You talk. You move better.",
+    body: "Your VVaker checks in by voice: how's the week going, what felt good, what to change. Pick its voice style and vibe, and it becomes the trainer you actually listen to.",
+    call: { incoming: "Incoming call", who: "Your VVaker · coach mode", accept: "Answer", decline: "Later" },
+    styleLabel: "Voice style",
+    vibeLabel: "Vibe",
+    play: "Hear a sample",
+    stop: "Stop",
+    styles: {
+      hype: {
+        name: "Hype",
+        lines: [
+          "Let's GO! Three sessions down this week, you're on fire!",
+          "Your Wednesday run was your best effort this month.",
+          "Tomorrow: 30 minutes, zone 2. Bring Sam, let's crush it together!",
+        ],
+      },
+      calm: {
+        name: "Calm",
+        lines: [
+          "Hey, how are you feeling today?",
+          "You did three sessions this week. That's steady and good.",
+          "Tomorrow could be an easy walk. No pressure, just move.",
+        ],
+      },
+      drill: {
+        name: "Drill sergeant",
+        lines: [
+          "Report! Three sessions this week. Acceptable.",
+          "Your Friday was missed. We don't miss Fridays.",
+          "Tomorrow, 06:30, 30 minutes. No excuses.",
+        ],
+      },
+      funny: {
+        name: "Funny",
+        lines: [
+          "Knock knock. Who's there? Your couch. It misses you less than I do.",
+          "Three sessions! Your legs sent me a thank-you note.",
+          "Tomorrow: 30 minutes. I'll count, you sweat, deal?",
+        ],
+      },
+      zen: {
+        name: "Zen",
+        lines: [
+          "Breathe in. How has your body felt this week?",
+          "Three sessions, and one calm evening. Balance is strength.",
+          "Tomorrow, ten mindful minutes, then an easy walk.",
+        ],
+      },
+      pro: {
+        name: "Pro coach",
+        lines: [
+          "Weekly review: three of four sessions, effort up 12% on your baseline.",
+          "Recovery looks good. Consistency is your strongest stat.",
+          "Next: add one interval session, keep the long run easy.",
+        ],
+      },
+    },
+    vibes: {
+      "morning-energy": { name: "Morning energy", prefix: "Good morning! " },
+      chill: { name: "Chill", prefix: "Hey you. " },
+      "beast-mode": { name: "Beast mode", prefix: "Beast mode ON. " },
+      friendly: { name: "Friendly", prefix: "Hi friend! " },
+    },
+    rules: [
+      "Opt-in: 2 calls a week at most, never at night",
+      "An AI coach for wellness, not a doctor",
+      "Voice handled on your device when possible; notes stay in your private journal",
+      "No cloned voices of real people",
+    ],
   },
   journal: {
     kicker: "Your journal",
@@ -777,6 +868,18 @@ export const en = {
       ghost: "Leo's ghost",
       ahead: "ahead of you",
       clash: "Lyon +0.4",
+    },
+    devices: {
+      title: "Works with recent phones and watches",
+      items: [
+        { icon: "📱", name: "iPhone", spec: "iOS 17 or later · iPhone XR / XS and newer" },
+        { icon: "⌚", name: "Apple Watch", spec: "watchOS 10 or later · Series 4, SE, Ultra and newer" },
+        { icon: "🤖", name: "Android phones", spec: "Android 10 or later · Pixel, Samsung Galaxy and more" },
+        { icon: "⌚", name: "Wear OS watches", spec: "Wear OS 3 or later · Pixel Watch, Galaxy Watch 4 and newer" },
+        { icon: "❤️", name: "Health sync", spec: "Apple Health · Health Connect (Android)" },
+        { icon: "📶", name: "Heart-rate straps", spec: "Any Bluetooth heart-rate strap" },
+      ],
+      note: "Launch targets; the final list is published with each app release.",
     },
     platforms: "Apple Watch · Wear OS · iPhone · Android",
     soon: "Coming with your city's unlock",
