@@ -11,7 +11,7 @@ export function readReferral(search: string): string | undefined {
 export function referralUrl(origin: string, locale: Locale, code: string, city: string): string {
   const url = new URL(`/${locale}/`, origin);
   url.searchParams.set("ref", code);
-  url.searchParams.set("city", city);
+  if (city) url.searchParams.set("city", city);
   return url.toString();
 }
 

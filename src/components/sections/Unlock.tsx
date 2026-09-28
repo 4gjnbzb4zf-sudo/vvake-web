@@ -23,6 +23,7 @@ export function Unlock({
     slug: c.slug,
     name: c.name,
     country: c.country,
+    metroPopulation: c.metroPopulation,
     threshold: thresholdFor(c.slug),
     rivalSlug: rivalOf(c.slug)?.slug ?? null,
   }));

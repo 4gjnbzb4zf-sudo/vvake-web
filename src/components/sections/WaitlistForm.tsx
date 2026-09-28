@@ -2,6 +2,7 @@
 
 import { useSearchParams } from "next/navigation";
 import { useEffect, useMemo, useState, type FormEvent, type ReactNode } from "react";
+import { CitySearch, type CitySelection } from "./CitySearch";
 import { buttonClass } from "@/components/ui/Button";
 import type { Locale } from "@/i18n/config";
 import { format, type Dictionary } from "@/i18n/dictionaries";
@@ -15,6 +16,7 @@ export interface CityOption {
   slug: string;
   name: string;
   country: Country;
+  metroPopulation: number;
   threshold: number;
   rivalSlug: string | null;
 }
@@ -38,14 +40,16 @@ type Status =
 
 export function WaitlistForm({ locale, dict, countryLabels, cities, endpoint, siteUrl, privacyHref, social }: WaitlistFormProps) {
   const searchParams = useSearchParams();
-  const [chosenCity, setCity] = useState<string | null>(null);
+  const [chosen, setChosen] = useState<CitySelection | null>(null);
   const [counts, setCounts] = useState<CityCounts | null>(null);
   const [status, setStatus] = useState<Status>({ kind: "idle" });
 
   const bySlug = useMemo(() => new Map(cities.map((c) => [c.slug, c])), [cities]);
   // Deep links: ?city=lyon preselects a city, ?ref=code credits the inviter.
   const cityFromUrl = searchParams.get("city") ?? "";
-  const city = chosenCity ?? (bySlug.has(cityFromUrl) ? cityFromUrl : "");
+  const selection: CitySelection | null = chosen ?? (bySlug.has(cityFromUrl) ? { kind: "city", slug: cityFromUrl } : null);
+  const city = selection?.kind === "city" ? selection.slug : "";
+  const requested = selection?.kind === "request" ? selection.name : "";
   const ref = readReferral(searchParams.toString());
   const selected = bySlug.get(city);
   const rival = selected?.rivalSlug ? bySlug.get(selected.rivalSlug) : undefined;
@@ -73,7 +77,7 @@ export function WaitlistForm({ locale, dict, countryLabels, cities, endpoint, si
     const fanbase = String(form.get("fanbase") ?? "").trim();
     const result = await submitSignup(endpoint, {
       email: String(form.get("email") ?? "").trim(),
-      city,
+      ...(city ? { city } : { requestedCity: requested }),
       ...(fanbase ? { fanbase } : {}),
       ...(ref ? { ref } : {}),
       locale,
@@ -82,37 +86,17 @@ export function WaitlistForm({ locale, dict, countryLabels, cities, endpoint, si
     setStatus(result.ok ? { kind: "success", data: result.data } : { kind: "error", code: result.error });
   }
 
-  const grouped = (["FR", "US"] as const).map((country) => ({
-    country,
-    options: cities.filter((c) => c.country === country).toSorted((a, b) => a.name.localeCompare(b.name, locale)),
-  }));
-
   return (
     <div className="grid gap-6 lg:grid-cols-[1fr_1.1fr]">
       {/* City picker + rival race */}
       <div className="rounded-3xl border border-line bg-surface/60 p-6 sm:p-8">
-        <label htmlFor="wl-city" className="font-display text-sm font-semibold">
-          {dict.form.city}
-        </label>
-        <select
-          id="wl-city"
-          value={city}
-          onChange={(e) => setCity(e.target.value)}
-          className="mt-3 h-12 w-full rounded-xl border border-line bg-night px-4 text-text transition-colors outline-none focus:border-pulse"
-        >
-          <option value="" disabled>
-            {dict.form.cityPlaceholder}
-          </option>
-          {grouped.map((g) => (
-            <optgroup key={g.country} label={countryLabels[g.country]}>
-              {g.options.map((c) => (
-                <option key={c.slug} value={c.slug}>
-                  {c.name}
-                </option>
-              ))}
-            </optgroup>
-          ))}
-        </select>
+        <CitySearch
+          cities={cities}
+          countryLabels={countryLabels}
+          dict={dict.form}
+          selectedName={selected?.name ?? requested}
+          onSelect={setChosen}
+        />
 
         <div className="mt-6 space-y-3" aria-live="polite">
           {selected ? (
@@ -126,6 +110,11 @@ export function WaitlistForm({ locale, dict, countryLabels, cities, endpoint, si
               )}
               {!counts && <p className="text-sm text-faint">{dict.form.counterPending}</p>}
             </>
+          ) : requested ? (
+            <div className="rounded-2xl border border-volt/40 bg-volt/5 p-4">
+              <p className="font-display text-lg font-semibold">{format(dict.form.requestedTitle, { city: requested })}</p>
+              <p className="mt-1 text-sm text-muted">{dict.form.requestedBody}</p>
+            </div>
           ) : (
             <p className="text-sm text-faint">{dict.body}</p>
           )}
@@ -135,7 +124,14 @@ export function WaitlistForm({ locale, dict, countryLabels, cities, endpoint, si
       {/* Form / closed / success */}
       <div className="rounded-3xl border border-line bg-surface p-6 sm:p-8">
         {status.kind === "success" ? (
-          <Success data={status.data} city={selected?.name ?? ""} citySlug={city} dict={dict.success} locale={locale} siteUrl={siteUrl} />
+          <Success
+            data={status.data}
+            city={selected?.name ?? requested}
+            citySlug={city}
+            dict={dict.success}
+            locale={locale}
+            siteUrl={siteUrl}
+          />
         ) : isOpen ? (
           <form id="waitlist" onSubmit={onSubmit} className="space-y-5">
             <Field id="wl-email" label={dict.form.email}>
@@ -179,7 +175,7 @@ export function WaitlistForm({ locale, dict, countryLabels, cities, endpoint, si
                 {dict.errors[status.code]}
               </p>
             )}
-            <button type="submit" disabled={status.kind === "submitting" || !city} className={buttonClass("primary", "w-full")}>
+            <button type="submit" disabled={status.kind === "submitting" || !selection} className={buttonClass("primary", "w-full")}>
               {status.kind === "submitting" ? dict.form.submitting : dict.form.submit}
             </button>
           </form>

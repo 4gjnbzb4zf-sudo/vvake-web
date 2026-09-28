@@ -1,12 +1,15 @@
 import { cityUnlockThreshold } from "./unlock";
 
-export type Country = "FR" | "US";
+export type Country = "FR" | "US" | "CA";
+
+/** Display order of launch countries (tabs, grouped lists). */
+export const COUNTRIES: readonly Country[] = ["FR", "US", "CA"];
 
 export interface City {
   slug: string;
   name: string;
   country: Country;
-  /** Approximate metro / urban-area population (INSEE aires d'attraction, US Census MSA). */
+  /** Approximate metro / urban-area population (INSEE aires d'attraction, US Census MSA, StatCan CMA). */
   metroPopulation: number;
 }
 
@@ -52,6 +55,16 @@ const CITY_LIST: readonly City[] = [
   { slug: "tampa", name: "Tampa", country: "US", metroPopulation: 3_300_000 },
   { slug: "minneapolis", name: "Minneapolis", country: "US", metroPopulation: 3_700_000 },
   { slug: "green-bay", name: "Green Bay", country: "US", metroPopulation: 330_000 },
+  { slug: "montreal", name: "Montréal", country: "CA", metroPopulation: 4_500_000 },
+  { slug: "toronto", name: "Toronto", country: "CA", metroPopulation: 7_100_000 },
+  { slug: "calgary", name: "Calgary", country: "CA", metroPopulation: 1_700_000 },
+  { slug: "edmonton", name: "Edmonton", country: "CA", metroPopulation: 1_600_000 },
+  { slug: "ottawa", name: "Ottawa", country: "CA", metroPopulation: 1_500_000 },
+  { slug: "quebec-city", name: "Québec City", country: "CA", metroPopulation: 860_000 },
+  { slug: "winnipeg", name: "Winnipeg", country: "CA", metroPopulation: 900_000 },
+  { slug: "regina", name: "Regina", country: "CA", metroPopulation: 270_000 },
+  { slug: "vancouver", name: "Vancouver", country: "CA", metroPopulation: 3_100_000 },
+  { slug: "victoria", name: "Victoria", country: "CA", metroPopulation: 430_000 },
 ];
 
 export const RIVALRIES: readonly Rivalry[] = [
@@ -72,6 +85,11 @@ export const RIVALRIES: readonly Rivalry[] = [
   { id: "seattle-portland", country: "US", cities: ["seattle", "portland"] },
   { id: "miami-tampa", country: "US", cities: ["miami", "tampa"] },
   { id: "minneapolis-green-bay", country: "US", cities: ["minneapolis", "green-bay"] },
+  { id: "montreal-toronto", country: "CA", cities: ["montreal", "toronto"] },
+  { id: "calgary-edmonton", country: "CA", cities: ["calgary", "edmonton"] },
+  { id: "ottawa-quebec-city", country: "CA", cities: ["ottawa", "quebec-city"] },
+  { id: "winnipeg-regina", country: "CA", cities: ["winnipeg", "regina"] },
+  { id: "vancouver-victoria", country: "CA", cities: ["vancouver", "victoria"] },
 ];
 
 export type RivalryId = (typeof RIVALRIES)[number]["id"];

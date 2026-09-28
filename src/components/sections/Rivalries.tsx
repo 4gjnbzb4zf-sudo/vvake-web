@@ -1,7 +1,7 @@
 "use client";
 
 import { useId, useState } from "react";
-import type { Country } from "@/lib/cities";
+import { COUNTRIES, type Country } from "@/lib/cities";
 import { cn } from "@/lib/cn";
 import type { Dictionary } from "@/i18n/dictionaries";
 
@@ -16,8 +16,6 @@ interface RivalriesProps {
   rivalries: readonly RivalryView[];
   numberLocale: string;
 }
-
-const COUNTRIES: readonly Country[] = ["FR", "US"];
 
 export function RivalryBoard({ dict, rivalries, numberLocale }: RivalriesProps) {
   const [country, setCountry] = useState<Country>("FR");

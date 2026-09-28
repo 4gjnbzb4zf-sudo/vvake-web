@@ -3,23 +3,31 @@ import { locales } from "@/i18n/config";
 import { CITY_SLUGS } from "./cities";
 
 /** Request body for POST {endpoint}/signup. Contract: docs/WAITLIST_API.md. */
-export const signupInputSchema = z.object({
-  email: z.email().max(254),
-  city: z.enum(CITY_SLUGS),
-  fanbase: z.string().trim().max(60).optional(),
-  ref: z
-    .string()
-    .regex(/^[a-z0-9]{6,12}$/)
-    .optional(),
-  locale: z.enum(locales),
-  consent: z.literal(true),
-});
+export const signupInputSchema = z
+  .object({
+    email: z.email().max(254),
+    /** A launch city slug… */
+    city: z.enum(CITY_SLUGS).optional(),
+    /** …or a free-text request for a city that isn't on the list yet ("Grenoble, France"). */
+    requestedCity: z.string().trim().min(2).max(80).optional(),
+    fanbase: z.string().trim().max(60).optional(),
+    ref: z
+      .string()
+      .regex(/^[a-z0-9]{6,12}$/)
+      .optional(),
+    locale: z.enum(locales),
+    consent: z.literal(true),
+  })
+  .refine((v) => (v.city === undefined) !== (v.requestedCity === undefined), {
+    message: "Provide exactly one of city or requestedCity",
+  });
 export type SignupInput = z.infer<typeof signupInputSchema>;
 
 /** Unvalidated form values; `submitSignup` validates them against `signupInputSchema`. */
 export interface SignupDraft {
   email: string;
-  city: string;
+  city?: string;
+  requestedCity?: string;
   fanbase?: string;
   ref?: string;
   locale: string;
