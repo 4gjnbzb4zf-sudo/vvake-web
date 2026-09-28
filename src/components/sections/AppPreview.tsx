@@ -2,7 +2,7 @@ import { Section } from "@/components/ui/Section";
 import { VVaker } from "@/components/vvaker/VVaker";
 import type { Dictionary } from "@/i18n/dictionaries";
 
-/** Phone + watch preview of the app's daily ritual (visual only; the apps ship city by city). */
+/** The app's promises; the phone + watch mocks are exported for the hero (visual only; the apps ship city by city). */
 export function AppPreview({ dict, index }: { dict: Dictionary["app"]; index: string }) {
   return (
     <Section id="app" index={index} kicker={dict.kicker} title={dict.title} lead={dict.body} className="isolate overflow-hidden">
@@ -13,36 +13,24 @@ export function AppPreview({ dict, index }: { dict: Dictionary["app"]; index: st
         VVAKE UP VVAKE UP
       </div>
       <div aria-hidden="true" className="hazard-pulse pointer-events-none absolute top-24 -left-2 h-32 w-6" />
-      <div className="mt-14 grid items-center gap-12 lg:grid-cols-[1.2fr_1fr]">
-        <div className="relative flex items-end justify-center gap-6 sm:gap-10" aria-hidden="true">
-          <div className="pointer-events-none absolute inset-x-10 top-10 bottom-0 rounded-full bg-pulse/15 blur-[90px]" />
-          <PhoneMock dict={dict.phone} />
-          <WatchMock dict={dict.watch} />
-        </div>
-
-        <div>
-          <ol className="space-y-6">
-            {dict.points.map((p, i) => (
-              <li key={p.title} className="flex gap-4">
-                <span className="mt-0.5 font-mono text-sm text-pulse">{String(i + 1).padStart(2, "0")}</span>
-                <div>
-                  <h3 className="font-display text-lg font-semibold">{p.title}</h3>
-                  <p className="mt-1.5 leading-relaxed text-muted">{p.body}</p>
-                </div>
-              </li>
-            ))}
-          </ol>
-          <p className="mt-8 font-mono text-xs tracking-[0.16em] text-faint uppercase">{dict.platforms}</p>
-          <p className="mt-2 inline-flex rounded-full border border-volt/40 bg-volt/10 px-3 py-1 font-mono text-xs text-volt">
-            {dict.soon}
-          </p>
-        </div>
+      <ol className="mt-12 grid gap-4 md:grid-cols-3">
+        {dict.points.map((p, i) => (
+          <li key={p.title} className="rounded-3xl border border-line bg-surface/70 p-6 backdrop-blur">
+            <span className="font-mono text-sm text-pulse">{String(i + 1).padStart(2, "0")}</span>
+            <h3 className="mt-2 font-display text-lg font-semibold">{p.title}</h3>
+            <p className="mt-1.5 leading-relaxed text-muted">{p.body}</p>
+          </li>
+        ))}
+      </ol>
+      <div className="mt-8 flex flex-wrap items-center gap-3">
+        <p className="font-mono text-xs tracking-[0.16em] text-faint uppercase">{dict.platforms}</p>
+        <p className="inline-flex rounded-full border border-volt/40 bg-volt/10 px-3 py-1 font-mono text-xs text-volt">{dict.soon}</p>
       </div>
     </Section>
   );
 }
 
-function PhoneMock({ dict }: { dict: Dictionary["app"]["phone"] }) {
+export function PhoneMock({ dict }: { dict: Dictionary["app"]["phone"] }) {
   return (
     <div className="relative w-[248px] shrink-0 rounded-[2.6rem] border-[7px] border-[#202428] bg-night shadow-2xl shadow-black/60 sm:w-[280px]">
       <div className="flex items-center justify-between px-6 pt-3 pb-2 text-[11px] font-semibold">
@@ -59,15 +47,14 @@ function PhoneMock({ dict }: { dict: Dictionary["app"]["phone"] }) {
           <span className="rounded-full border border-volt/40 px-2 py-0.5 font-mono text-[10px] text-volt">🔥 23</span>
         </div>
 
-        <div className="grid grid-cols-[84px_1fr] items-center gap-2 rounded-2xl border border-line bg-surface p-2.5">
-          <VVaker color="candy" sport="runner" headgear="none" energy={3} className="h-[104px] w-auto" />
-          <div>
-            <p className="font-mono text-[9px] tracking-[0.12em] text-volt uppercase">{dict.energy}</p>
-            <p className="mt-1 font-display text-3xl leading-none font-bold">
-              3<span className="text-base text-faint"> / 4</span>
-            </p>
-            <p className="mt-1 text-[10.5px] text-muted">{dict.minutes}</p>
-            <p className="mt-1 font-mono text-[9px] text-faint">{dict.refill}</p>
+        <div className="rounded-2xl border border-volt/40 bg-surface p-2.5">
+          <p className="font-mono text-[9px] tracking-[0.12em] text-volt uppercase">{dict.today}</p>
+          <div className="mt-1 flex items-center gap-2">
+            <VVaker color="candy" sport="runner" headgear="none" energy={3} className="h-14 w-auto" />
+            <div>
+              <p className="font-display text-[14px] leading-tight font-semibold">{dict.todaySession}</p>
+              <p className="mt-0.5 font-mono text-[9.5px] text-muted">📅 {dict.todayWhen}</p>
+            </div>
           </div>
         </div>
 
@@ -75,12 +62,16 @@ function PhoneMock({ dict }: { dict: Dictionary["app"]["phone"] }) {
           ▶&nbsp; {dict.start}
         </div>
 
-        <div className="rounded-2xl border border-down/40 bg-surface p-2.5">
-          <div className="flex items-center justify-between">
-            <span className="font-mono text-[9px] tracking-[0.12em] text-down uppercase">{dict.rally}</span>
-            <span className="rounded-full border border-line px-1.5 py-0.5 font-mono text-[9px] text-down">LULU −4.1%</span>
+        <div className="rounded-2xl border border-mint/40 bg-surface p-2.5">
+          <p className="font-mono text-[9px] tracking-[0.12em] text-mint uppercase">{dict.wealth}</p>
+          <div className="mt-1.5 flex items-center justify-between gap-2 text-[10.5px] whitespace-nowrap">
+            <span className="text-muted">📈 {dict.invested}</span>
+            <span className="font-display font-semibold text-mint">{dict.investedValue}</span>
           </div>
-          <p className="mt-1 text-[11.5px]">{dict.rallyBody}</p>
+          <div className="mt-1 flex items-center justify-between gap-2 text-[10.5px] whitespace-nowrap">
+            <span className="text-muted">🏆 {dict.rewards}</span>
+            <span className="font-display font-semibold">{dict.rewardsValue}</span>
+          </div>
         </div>
 
         <div className="rounded-2xl border border-line bg-surface p-2.5">
@@ -97,17 +88,12 @@ function PhoneMock({ dict }: { dict: Dictionary["app"]["phone"] }) {
             <div className="h-full w-[51%] rounded-full bg-pulse" />
           </div>
         </div>
-
-        <div className="flex items-center justify-between rounded-2xl border border-line bg-surface px-2.5 py-2 text-[11.5px]">
-          <span>{dict.squad}</span>
-          <span className="font-mono text-volt">74%</span>
-        </div>
       </div>
     </div>
   );
 }
 
-function WatchMock({ dict }: { dict: Dictionary["app"]["watch"] }) {
+export function WatchMock({ dict }: { dict: Dictionary["app"]["watch"] }) {
   return (
     <div className="relative mb-10 flex h-[196px] w-[160px] shrink-0 flex-col rounded-[2.6rem] border-[8px] border-[#202428] bg-black p-3.5 shadow-2xl shadow-black/60 sm:h-[216px] sm:w-[176px]">
       <span className="absolute top-14 -right-[13px] h-9 w-[7px] rounded bg-[#2b3035]" />
