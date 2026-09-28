@@ -8,6 +8,8 @@ import { Dev, Faq, Footer } from "@/components/sections/Extras";
 import { Header } from "@/components/sections/Header";
 import { Hero } from "@/components/sections/Hero";
 import { How } from "@/components/sections/How";
+import { Journal } from "@/components/sections/Journal";
+import { Live } from "@/components/sections/Live";
 import { Multisport } from "@/components/sections/Multisport";
 import { OpenBook } from "@/components/sections/OpenBook";
 import { Pace } from "@/components/sections/Pace";
@@ -48,39 +50,43 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
       <main id="main">
         <Hero dict={dict.hero} highlights={dict.highlights} />
         <Stats dict={dict.stats} />
-        <Why dict={dict.why} index="01" />
-        <Multisport dict={dict.multisport} index="02" />
-        <Challenges dict={dict.challenges} index="03" />
-        <Pace dict={dict.pace} index="04" />
-        <DayLoop dict={dict.day} index="05" />
-        <Crew dict={dict.crew} index="06" />
-        <Wellbeing dict={dict.wellbeing} index="07" />
-        <AppPreview dict={dict.app} index="08" />
-        <Story dict={dict.story} index="09" />
+        <Live dict={dict.live} index="01" numberLocale={lang} />
+        <Why dict={dict.why} index="02" />
+        <Multisport dict={dict.multisport} index="03" />
+        <Challenges dict={dict.challenges} index="04" />
+        <Pace dict={dict.pace} index="05" />
+        <DayLoop dict={dict.day} index="06" />
+        <Crew dict={dict.crew} index="07" />
+        <Section id="journal" index="08" kicker={dict.journal.kicker} title={dict.journal.title} lead={dict.journal.body}>
+          <Journal dict={dict.journal} />
+        </Section>
+        <Wellbeing dict={dict.wellbeing} index="09" />
+        <AppPreview dict={dict.app} index="10" />
+        <Story dict={dict.story} index="11" />
         <DoubleV dict={dict.doubleV} anthem={{ prefix: dict.hero.prefix, lines: dict.hero.anthem }} />
         <VibeLink dict={dict.vibe} />
-        <How dict={dict.how} index="10" />
-        <Pulse dict={dict.pulse} index="11" />
-        <Rwa dict={dict.rwa} index="12" />
+        <How dict={dict.how} index="12" />
+        <Pulse dict={dict.pulse} index="13" />
+        <Rwa dict={dict.rwa} index="14" />
         <Section
           id="rivalries"
-          index="13"
+          index="15"
           kicker={dict.rivalries.kicker}
           title={<span className="inline-block -skew-x-6 italic">{dict.rivalries.title}</span>}
           lead={dict.rivalries.body}
         >
           <RivalryBoard dict={dict.rivalries} rivalries={rivalryViews()} numberLocale={lang} />
         </Section>
-        <Unlock locale={lang} dict={dict.unlock} countryLabels={dict.rivalries.tabs} index="14" />
-        <OpenBook dict={dict.openBook} index="15" />
-        <Section id="vvaker" index="16" kicker={dict.vvaker.kicker} title={dict.vvaker.title} lead={dict.vvaker.body}>
+        <Unlock locale={lang} dict={dict.unlock} countryLabels={dict.rivalries.tabs} index="16" />
+        <OpenBook dict={dict.openBook} index="17" />
+        <Section id="vvaker" index="18" kicker={dict.vvaker.kicker} title={dict.vvaker.title} lead={dict.vvaker.body}>
           <VVakerDeck />
           <VVakerStudio dict={dict.vvaker} />
           <VVakerTiers dict={dict.vvaker.tiers} />
           <CollectorDrops dict={dict.vvaker.collect} />
         </Section>
-        <Dev dict={dict.dev} index="17" />
-        <Partners dict={dict.partners} index="18" />
+        <Dev dict={dict.dev} index="19" />
+        <Partners dict={dict.partners} index="20" />
         <Faq dict={dict.faq} />
       </main>
       <Footer locale={lang} dict={dict.footer} />

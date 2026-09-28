@@ -51,7 +51,20 @@ export const FAN_KITS = {
 
 export type FanKit = keyof typeof FAN_KITS;
 
-export const VVAKER_SPORTS = ["runner", "walker", "lifter", "cyclist", "boxer", "yogi", "baller", "coder"] as const;
+/** Append-only (order is part of the DNA format). */
+export const VVAKER_SPORTS = [
+  "runner",
+  "walker",
+  "lifter",
+  "cyclist",
+  "boxer",
+  "yogi",
+  "baller",
+  "coder",
+  "martial",
+  "paddler",
+  "meditator",
+] as const;
 export const VVAKER_HEADGEARS = ["none", "cap", "beanie", "headphones", "helmet"] as const;
 export const VVAKER_EYES = ["pixel", "happy", "fired", "sleepy", "visor", "star"] as const;
 export const VVAKER_MOUTHS = ["smile", "grin", "calm", "o", "teeth"] as const;

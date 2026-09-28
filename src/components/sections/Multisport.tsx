@@ -8,6 +8,8 @@ interface Tile {
   sport: keyof Dictionary["multisport"]["sports"];
   minutes: number;
   zone: Zone;
+  /** Meditation lowers heart rate, so it earns calm points (2/min, max 40) instead of zone effort. */
+  mindful?: boolean;
   look: Partial<VVakerTraits>;
   tint: string;
 }
@@ -51,6 +53,22 @@ const TILES: readonly Tile[] = [
     look: { color: "olive", headgear: "headphones", accent: "volt", eyes: "happy" },
     tint: "from-volt/20",
   },
+  {
+    sport: "martial",
+    minutes: 30,
+    zone: 4,
+    look: { color: "slate", eyes: "fired", mouth: "teeth", accent: "snow" },
+    tint: "from-[#eef0f2]/15",
+  },
+  { sport: "paddler", minutes: 60, zone: 2, look: { color: "sky", headgear: "cap", accent: "flame", eyes: "happy" }, tint: "from-sky/25" },
+  {
+    sport: "meditator",
+    minutes: 10,
+    zone: 1,
+    mindful: true,
+    look: { color: "lilac", eyes: "happy", mouth: "calm", accent: "calm" },
+    tint: "from-calm/25",
+  },
 ];
 
 export function Multisport({ dict, index }: { dict: Dictionary["multisport"]; index: string }) {
@@ -74,11 +92,17 @@ export function Multisport({ dict, index }: { dict: Dictionary["multisport"]; in
             <div className="border-t border-line p-4">
               <p className="font-display text-lg font-semibold">{dict.sports[tile.sport]}</p>
               <p className="mt-1 font-mono text-[0.7rem] text-faint">
-                {dict.example} · {format(dict.session, { minutes: tile.minutes, zone: tile.zone })}
+                {dict.example} · {tile.mindful ? `${tile.minutes} min` : format(dict.session, { minutes: tile.minutes, zone: tile.zone })}
               </p>
-              <p className="mt-3 font-display text-2xl font-bold text-pulse">
-                {sessionEffort(tile.minutes, tile.zone)} <span className="text-sm font-semibold text-muted">{dict.effortUnit}</span>
-              </p>
+              {tile.mindful ? (
+                <p className="mt-3 font-display text-2xl font-bold text-calm">
+                  +{Math.min(40, tile.minutes * 2)} <span className="text-sm font-semibold text-muted">{dict.mindful}</span>
+                </p>
+              ) : (
+                <p className="mt-3 font-display text-2xl font-bold text-pulse">
+                  {sessionEffort(tile.minutes, tile.zone)} <span className="text-sm font-semibold text-muted">{dict.effortUnit}</span>
+                </p>
+              )}
             </div>
           </li>
         ))}

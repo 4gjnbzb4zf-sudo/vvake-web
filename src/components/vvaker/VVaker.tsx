@@ -366,6 +366,30 @@ function SportProp({ sport, accent }: { sport: VVakerTraits["sport"]; accent: st
           />
         </g>
       );
+    case "martial":
+      return (
+        <g>
+          <path d="M100 158 L117 176 L134 158" stroke="#f4f5f6" strokeWidth={5} fill="none" />
+          <rect x="80" y="196" width="74" height="9" fill="#15181b" />
+          <rect x="112" y="204" width="6" height="16" fill="#15181b" />
+          <rect x="120" y="204" width="6" height="13" fill="#15181b" />
+        </g>
+      );
+    case "paddler":
+      return (
+        <g>
+          <path d="M44 150 L206 246" stroke="#8a5a2b" strokeWidth={5} strokeLinecap="round" />
+          <ellipse cx="40" cy="146" rx="9" ry="16" transform="rotate(-30 40 146)" fill={accent} />
+          <ellipse cx="210" cy="250" rx="9" ry="16" transform="rotate(-30 210 250)" fill={accent} />
+        </g>
+      );
+    case "meditator":
+      return (
+        <g>
+          <ellipse cx="120" cy="272" rx="58" ry="9" fill={shade(CALM, -0.2)} opacity={0.9} />
+          <circle cx="120" cy="120" r="104" fill="none" stroke={CALM} strokeWidth={2} opacity={0.35} strokeDasharray="4 8" />
+        </g>
+      );
     case "walker":
       return (
         <g>
