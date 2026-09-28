@@ -15,6 +15,7 @@ import { Live } from "@/components/sections/Live";
 import { Multisport } from "@/components/sections/Multisport";
 import { OpenBook } from "@/components/sections/OpenBook";
 import { Pace } from "@/components/sections/Pace";
+import { People } from "@/components/sections/People";
 import { Partners } from "@/components/sections/Partners";
 import { Pulse } from "@/components/sections/Pulse";
 import { RivalryBoard, type RivalryView } from "@/components/sections/Rivalries";
@@ -73,19 +74,20 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
         <Multisport dict={dict.multisport} index="08" />
         <Challenges dict={dict.challenges} index="09" />
         <Crew dict={dict.crew} index="10" />
-        <Section id="plan" index="11" kicker={dict.plan.kicker} title={dict.plan.title} lead={dict.plan.body}>
+        <People dict={dict.people} index="11" />
+        <Section id="plan" index="12" kicker={dict.plan.kicker} title={dict.plan.title} lead={dict.plan.body}>
           <Planner dict={dict.plan} sportNames={dict.multisport.sports} />
         </Section>
-        <Section id="journal" index="12" kicker={dict.journal.kicker} title={dict.journal.title} lead={dict.journal.body}>
+        <Section id="journal" index="13" kicker={dict.journal.kicker} title={dict.journal.title} lead={dict.journal.body}>
           <Journal dict={dict.journal} />
         </Section>
-        <DayLoop dict={dict.day} index="13" />
-        <Pace dict={dict.pace} index="14" />
-        <Wellbeing dict={dict.wellbeing} index="15" />
+        <DayLoop dict={dict.day} index="14" />
+        <Pace dict={dict.pace} index="15" />
+        <Wellbeing dict={dict.wellbeing} index="16" />
         {/* Brand moment, then identity. */}
-        <Story dict={dict.story} index="16" />
+        <Story dict={dict.story} index="17" />
         <DoubleV dict={dict.doubleV} anthem={{ prefix: dict.hero.prefix, lines: dict.hero.anthem }} />
-        <Section id="vvaker" index="17" kicker={dict.vvaker.kicker} title={dict.vvaker.title} lead={dict.vvaker.body}>
+        <Section id="vvaker" index="18" kicker={dict.vvaker.kicker} title={dict.vvaker.title} lead={dict.vvaker.body}>
           <VVakerDeck />
           <VVakerStudio dict={dict.vvaker} />
           <EarnedStats dict={dict.vvaker.stats} />
@@ -93,12 +95,12 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
           <CollectorDrops dict={dict.vvaker.collect} />
         </Section>
         {/* Web3 & ownership: markets and rewards, the game on top of them, and the open books. */}
-        <Rwa dict={dict.rwa} index="18" />
-        <Pulse dict={dict.pulse} index="19" />
-        <OpenBook dict={dict.openBook} index="20" />
+        <Rwa dict={dict.rwa} index="19" />
+        <Pulse dict={dict.pulse} index="20" />
+        <OpenBook dict={dict.openBook} index="21" />
         <VibeLink dict={dict.vibe} />
-        <Dev dict={dict.dev} index="21" />
-        <Partners dict={dict.partners} index="22" />
+        <Dev dict={dict.dev} index="22" />
+        <Partners dict={dict.partners} index="23" />
         <Faq dict={dict.faq} />
       </main>
       <Footer locale={lang} dict={dict.footer} />
