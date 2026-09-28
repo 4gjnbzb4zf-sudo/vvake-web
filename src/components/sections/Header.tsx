@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Logo } from "@/components/brand/Logo";
+import { Logo, VVMark } from "@/components/brand/Logo";
 import { ButtonLink } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Section";
 import { CurrencySelect } from "@/components/ui/Money";
@@ -7,6 +7,17 @@ import { StyleSelect } from "@/components/ui/StyleSelect";
 import { LocaleHint, LocaleSwitch } from "./LocaleSwitch";
 import type { Locale } from "@/i18n/config";
 import type { Dictionary } from "@/i18n/dictionaries";
+
+/** "VVaker" in the menu is written with the logo's VV. */
+function NavLabel({ label }: { label: string }) {
+  if (!label.startsWith("VV")) return <>{label}</>;
+  return (
+    <span className="inline-flex items-baseline" aria-label={label}>
+      <VVMark className="mr-px h-[1.15em] translate-y-[0.2em]" />
+      <span aria-hidden="true">{label.slice(2)}</span>
+    </span>
+  );
+}
 
 export function Header({ locale, dict }: { locale: Locale; dict: Dictionary["nav"] }) {
   const links = [
@@ -35,7 +46,7 @@ export function Header({ locale, dict }: { locale: Locale; dict: Dictionary["nav
             {links.map((l) => (
               <li key={l.href}>
                 <a href={l.href} className="border-b-2 border-transparent py-1 transition-colors hover:border-volt hover:text-text">
-                  {l.label}
+                  <NavLabel label={l.label} />
                 </a>
               </li>
             ))}
@@ -55,7 +66,7 @@ export function Header({ locale, dict }: { locale: Locale; dict: Dictionary["nav
               {links.map((l) => (
                 <li key={l.href}>
                   <a href={l.href} className="block rounded-lg px-3 py-2.5 text-muted hover:bg-surface hover:text-text">
-                    {l.label}
+                    <NavLabel label={l.label} />
                   </a>
                 </li>
               ))}

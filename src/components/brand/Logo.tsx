@@ -27,6 +27,22 @@ export function LogoMark({ className, animated = false }: { className?: string; 
   );
 }
 
+/** Just the two Vs (the W part of the mark), to write "VVaker" with the logo in small UI. */
+export function VVMark({ className }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 44 36" fill="none" className={cn("h-4 w-auto", className)} aria-hidden="true">
+      <defs>
+        <linearGradient id="vv-mark" x1="0" y1="0" x2="44" y2="0" gradientUnits="userSpaceOnUse">
+          <stop offset="0" stopColor="#ff3d6e" />
+          <stop offset="1" stopColor="#ff9fb6" />
+        </linearGradient>
+      </defs>
+      <path d="M3 9 L12.5 29 L22 9 L31.5 29 L41 9" stroke="url(#vv-mark)" strokeWidth="5" strokeLinecap="round" strokeLinejoin="round" />
+      <circle cx="22" cy="3.4" r="2.6" fill="#ff3d6e" />
+    </svg>
+  );
+}
+
 export function Logo({ className, animated = false }: { className?: string; animated?: boolean }) {
   return (
     <span className={cn("inline-flex items-center gap-2.5", className)}>

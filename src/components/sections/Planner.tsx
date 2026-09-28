@@ -2,6 +2,7 @@
 
 import { useMemo, useState } from "react";
 import { cn } from "@/lib/cn";
+import { useSportLabel } from "@/lib/sportNames";
 import { format, type Dictionary } from "@/i18n/dictionaries";
 import { placeSessions, toIcs } from "@/lib/calendar";
 import { planWeeks, type PlanGoal, type PlannedSession, type SessionIntensity, type Weekday } from "@/lib/plan";
@@ -189,7 +190,8 @@ export function Planner({ dict, sportNames }: { dict: Dictionary["plan"]; sportN
   const week = weeks[0]!;
   const maxTarget = Math.max(...weeks.map((w) => w.targetMinutes), 1);
   const toggle = <T,>(list: T[], v: T) => (list.includes(v) ? list.filter((x) => x !== v) : [...list, v]);
-  const name = (sport: string) => sportNames[sport as SportKey] ?? sport;
+  const sportLabel = useSportLabel();
+  const name = (sport: string) => sportLabel(sport as SportKey, sportNames[sport as SportKey] ?? sport);
 
   return (
     <div className="mt-12 grid items-start gap-8 lg:grid-cols-[1fr_1.5fr]">
@@ -232,7 +234,7 @@ export function Planner({ dict, sportNames }: { dict: Dictionary["plan"]; sportN
           <div className="mt-2 flex flex-wrap gap-1.5">
             {SPORTS.map((s) => (
               <Chip key={s} on={sports.includes(s)} onClick={() => setSports(toggle(sports, s))}>
-                <span aria-hidden="true">{EMOJI[s]}</span> {sportNames[s]}
+                <span aria-hidden="true">{EMOJI[s]}</span> {name(s)}
               </Chip>
             ))}
           </div>
