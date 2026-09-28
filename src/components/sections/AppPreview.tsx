@@ -1,4 +1,5 @@
 import { Section } from "@/components/ui/Section";
+import { MoneyText } from "@/components/ui/Money";
 import { VVaker } from "@/components/vvaker/VVaker";
 import type { Dictionary } from "@/i18n/dictionaries";
 
@@ -66,7 +67,9 @@ export function PhoneMock({ dict }: { dict: Dictionary["app"]["phone"] }) {
           <p className="font-mono text-[9px] tracking-[0.12em] text-mint uppercase">{dict.wealth}</p>
           <div className="mt-1.5 flex items-center justify-between gap-2 text-[10.5px] whitespace-nowrap">
             <span className="text-muted">📈 {dict.invested}</span>
-            <span className="font-display font-semibold text-mint">{dict.investedValue}</span>
+            <span className="font-display font-semibold text-mint">
+              <MoneyText template={dict.investedValue} usd={4} />
+            </span>
           </div>
           <div className="mt-1 flex items-center justify-between gap-2 text-[10.5px] whitespace-nowrap">
             <span className="text-muted">🏆 {dict.rewards}</span>

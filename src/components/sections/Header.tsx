@@ -2,6 +2,7 @@ import Link from "next/link";
 import { Logo } from "@/components/brand/Logo";
 import { ButtonLink } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Section";
+import { CurrencySelect } from "@/components/ui/Money";
 import { LocaleHint, LocaleSwitch } from "./LocaleSwitch";
 import type { Locale } from "@/i18n/config";
 import type { Dictionary } from "@/i18n/dictionaries";
@@ -41,6 +42,7 @@ export function Header({ locale, dict }: { locale: Locale; dict: Dictionary["nav
         </nav>
         <div className="flex items-center gap-3">
           <LocaleSwitch locale={locale} label={dict.language} />
+          <CurrencySelect label={dict.currency} />
           <details className="group relative lg:hidden">
             <summary className="flex h-10 cursor-pointer list-none items-center rounded-lg border border-line px-3 font-mono text-xs tracking-[0.12em] text-muted uppercase hover:text-text [&::-webkit-details-marker]:hidden">
               {dict.menu} <span className="ml-1.5 transition-transform group-open:rotate-180">▾</span>

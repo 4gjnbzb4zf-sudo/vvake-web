@@ -69,6 +69,20 @@ const TILES: readonly Tile[] = [
     look: { color: "lilac", eyes: "happy", mouth: "calm", accent: "calm" },
     tint: "from-calm/25",
   },
+  {
+    sport: "roller",
+    minutes: 40,
+    zone: 3,
+    look: { color: "candy", headgear: "helmet", accent: "volt", eyes: "star", mouth: "grin" },
+    tint: "from-pulse/25",
+  },
+  {
+    sport: "skater",
+    minutes: 45,
+    zone: 2,
+    look: { color: "sky", headgear: "beanie", accent: "snow", eyes: "happy", mouth: "smile" },
+    tint: "from-sky/25",
+  },
 ];
 
 export function Multisport({ dict, index }: { dict: Dictionary["multisport"]; index: string }) {

@@ -1,4 +1,5 @@
 import { Container, Kicker } from "@/components/ui/Section";
+import { MoneyText } from "@/components/ui/Money";
 import type { Dictionary } from "@/i18n/dictionaries";
 
 export function Story({ dict, index }: { dict: Dictionary["story"]; index: string }) {
@@ -22,7 +23,9 @@ export function Story({ dict, index }: { dict: Dictionary["story"]; index: strin
           <ul className="mt-6 divide-y divide-line">
             {dict.fixes.map((f) => (
               <li key={f.was} className="grid gap-2 py-5 first:pt-0 last:pb-0 sm:grid-cols-[1fr_auto_1.3fr] sm:items-center sm:gap-4">
-                <span className="text-faint line-through decoration-down/70">{f.was}</span>
+                <span className="text-faint line-through decoration-down/70">
+                  <MoneyText template={f.was} usd={1000} />
+                </span>
                 <span className="hidden font-mono text-pulse sm:block" aria-hidden="true">
                   →
                 </span>

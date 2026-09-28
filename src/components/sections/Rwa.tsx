@@ -1,4 +1,5 @@
 import { Section } from "@/components/ui/Section";
+import { MoneyText } from "@/components/ui/Money";
 import type { Dictionary } from "@/i18n/dictionaries";
 
 const LANE_STYLES = [
@@ -73,7 +74,9 @@ export function Rwa({ dict, index }: { dict: Dictionary["rwa"]; index: string })
             <li key={w.title} className="rounded-2xl border border-line bg-night/60 p-4">
               <span className="font-mono text-xs text-volt">{String(i + 1).padStart(2, "0")}</span>
               <p className="mt-1 font-display font-semibold">{w.title}</p>
-              <p className="mt-1.5 text-sm leading-relaxed text-muted">{w.body}</p>
+              <p className="mt-1.5 text-sm leading-relaxed text-muted">
+                <MoneyText template={w.body} usd={1} />
+              </p>
             </li>
           ))}
         </ol>

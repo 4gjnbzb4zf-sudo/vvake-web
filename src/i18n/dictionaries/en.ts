@@ -21,6 +21,7 @@ export const en = {
     join: "Unlock your city",
     skip: "Skip to content",
     language: "Language",
+    currency: "Currency",
   },
   hero: {
     pronounce: "Say it: “wake”",
@@ -28,7 +29,7 @@ export const en = {
     anthem: ["for your health.", "for your wealth.", "for yourself.", "for your squad.", "for your city.", "for your team."],
     lead: "The training app for your phone and watch: a plan that fits your week, your crew, your city. Every session also builds your wealth: perks, prizes and, where the law allows, real rewards. Scored on your heart, not your speed.",
     trainingChip: "Plan synced with your calendar",
-    wealthChip: "€1 invested per workout",
+    wealthChip: "{money} invested per workout",
     wealthNote: "Sweat & Invest · your money · licensed broker",
     ctaPrimary: "Unlock your city",
     ctaSecondary: "What you get",
@@ -102,6 +103,8 @@ export const en = {
       martial: "Martial arts",
       paddler: "Canoe & kayak",
       meditator: "Meditation",
+      roller: "Roller skating",
+      skater: "Ice skating",
     },
     session: "{minutes} min · zone {zone}",
     mindful: "Calm points · counts your day",
@@ -615,7 +618,7 @@ export const en = {
       todayWhen: "18:45 · in your calendar",
       wealth: "Your wealth · this week",
       invested: "Sweat & Invest",
-      investedValue: "€4 · 4 workouts",
+      investedValue: "{money} · 4 workouts",
       rewards: "Season rewards",
       rewardsValue: "Top 12%",
       hello: "VVake up, Sam.",
@@ -642,7 +645,7 @@ export const en = {
     ],
     fixesTitle: "What we fixed",
     fixes: [
-      { was: "$1,000 to start", now: "Free to start. No NFT paywall, ever." },
+      { was: "{money} to start", now: "Free to start. No NFT paywall, ever." },
       { was: "Rewards printed without limit", now: "Rewards only from real revenue, never from new users." },
       { was: "Speed decided everything", now: "Your heart decides. Age-fair effort scoring." },
       { was: "A new thing to buy every month", now: "One ecosystem. No pay-more-for-less treadmill." },
@@ -729,7 +732,7 @@ export const en = {
       items: [
         {
           title: "Sweat & Invest",
-          body: "Set a rule with a licensed broker partner, like “€1 into my Brand Team stock for every workout”. Your money, your account; VVake only sends the workout signal, with your consent.",
+          body: "Set a rule with a licensed broker partner, like “{money} into my Brand Team stock for every workout”. Your money, your account; VVake only sends the workout signal, with your consent.",
         },
         { title: "Stock rewards", body: "Broker partners may reward fitness-challenge winners with fractional shares, where it's legal." },
         {
@@ -880,6 +883,8 @@ export const en = {
       martial: "Karate",
       paddler: "Canoe",
       meditator: "Meditation",
+      roller: "Roller skating",
+      skater: "Ice skating",
     },
     headgears: { none: "Headband", cap: "Cap", beanie: "Beanie", headphones: "Headphones", helmet: "Bike helmet" },
     eyes: { pixel: "Pixel", happy: "Happy", fired: "Fired up", sleepy: "Sleepy", visor: "Visor", star: "Star" },
