@@ -22,6 +22,7 @@ import { Why } from "@/components/sections/Why";
 import { Section } from "@/components/ui/Section";
 import { VVakerDeck } from "@/components/vvaker/VVakerDeck";
 import { VVakerStudio } from "@/components/vvaker/VVakerStudio";
+import { VVakerTiers } from "@/components/vvaker/VVakerTiers";
 import { isLocale } from "@/i18n/config";
 import { getDictionary } from "@/i18n/dictionaries";
 import { getCity, RIVALRIES, thresholdFor } from "@/lib/cities";
@@ -70,6 +71,7 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
         <Section id="vvaker" index="14" kicker={dict.vvaker.kicker} title={dict.vvaker.title} lead={dict.vvaker.body}>
           <VVakerDeck />
           <VVakerStudio dict={dict.vvaker} />
+          <VVakerTiers dict={dict.vvaker.tiers} />
         </Section>
         <Dev dict={dict.dev} index="15" />
         <Partners dict={dict.partners} index="16" />
