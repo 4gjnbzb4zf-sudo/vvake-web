@@ -1,5 +1,9 @@
+"use client";
+
 import { shade } from "@/lib/color";
+import { useLookPref } from "@/lib/prefs";
 import { MOTIONS, type Keys, type Motion } from "./motion";
+import { VVakerAthlete } from "./VVakerAthlete";
 import { DEFAULT_TRAITS, FAN_KITS, VVAKER_ACCENTS, VVAKER_COLORS, VVAKER_SPORTS, clampBib, type VVakerTraits } from "./traits";
 
 const INK = "#15181b";
@@ -16,6 +20,8 @@ interface VVakerProps extends Partial<VVakerTraits> {
   title?: string;
   /** Sport motion loop (CSS; off for reduced motion). The pose itself is static SVG, so exports keep it. */
   animate?: boolean;
+  /** Ignore the visitor's saved style and draw exactly `look` (studio preview, comparisons). */
+  lockLook?: boolean;
   className?: string;
 }
 
@@ -25,8 +31,14 @@ interface VVakerProps extends Partial<VVakerTraits> {
  * Pure SVG with no filters or web fonts, so it rasterises identically to PNG in every browser.
  * Every trait is optional; missing ones fall back to DEFAULT_TRAITS.
  */
-export function VVaker({ title, className, animate = true, ...partial }: VVakerProps) {
+export function VVaker({ title, className, animate = true, lockLook = false, ...partial }: VVakerProps) {
+  const pref = useLookPref();
   const t: VVakerTraits = { ...DEFAULT_TRAITS, ...partial };
+  // A visitor's saved style wins over decorative defaults, unless the caller locks the look (studio, lab).
+  const look = (!lockLook && pref) || t.look;
+  if (look !== "toy") {
+    return <VVakerAthlete {...t} build={look === "athlete-b" ? "b" : "a"} title={title} className={className} animate={animate} />;
+  }
   const base = VVAKER_COLORS[t.color];
   const accent = VVAKER_ACCENTS[t.accent];
   const light = shade(base, 0.38);
@@ -293,7 +305,7 @@ export function Fade({
 }
 
 /** Things held in a hand move with that arm. */
-function HandProp({ sport, side, accent = VOLT }: { sport: VVakerTraits["sport"]; side: "left" | "right"; accent?: string }) {
+export function HandProp({ sport, side, accent = VOLT }: { sport: VVakerTraits["sport"]; side: "left" | "right"; accent?: string }) {
   if (sport === "boxer") {
     return side === "left" ? (
       <g>
@@ -528,7 +540,17 @@ function Accessory({ accessory, accent, bib }: { accessory: VVakerTraits["access
   }
 }
 
-function SportProp({ sport, accent, animate, motion }: { sport: VVakerTraits["sport"]; accent: string; animate: boolean; motion: Motion }) {
+export function SportProp({
+  sport,
+  accent,
+  animate,
+  motion,
+}: {
+  sport: VVakerTraits["sport"];
+  accent: string;
+  animate: boolean;
+  motion: Motion;
+}) {
   switch (sport) {
     case "yogi":
       return <polygon points="36,262 196,262 216,276 56,276" fill={accent} opacity={0.85} />;
@@ -624,7 +646,7 @@ function FanKitLayer({ kit }: { kit: readonly [string, string] | null }) {
 }
 
 /** Background of the sport's scene: track, bike, heavy bag, ice. */
-function Scene({ sport, m, animate }: { sport: VVakerTraits["sport"]; m: Motion; animate: boolean }) {
+export function Scene({ sport, m, animate }: { sport: VVakerTraits["sport"]; m: Motion; animate: boolean }) {
   const track = (
     <path d="M-20 290 H260" stroke="#3a4047" strokeWidth={3} strokeDasharray="16 12" className={animate ? "vv-dash" : undefined} />
   );
@@ -794,7 +816,7 @@ function Burst({ x, y, text, fill = VOLT }: { x: number; y: number; text?: strin
 }
 
 /** Foreground of the scene: water, impacts, splashes, dust, sparkles. Only while animating, except water. */
-function Front({ sport, m, animate }: { sport: VVakerTraits["sport"]; m: Motion; animate: boolean }) {
+export function Front({ sport, m, animate }: { sport: VVakerTraits["sport"]; m: Motion; animate: boolean }) {
   switch (sport) {
     case "paddler":
       return (
@@ -950,7 +972,7 @@ function Front({ sport, m, animate }: { sport: VVakerTraits["sport"]; m: Motion;
 }
 
 /** Skates ride on the shoe, so they move with the shin. `dx` shifts from the left to the right foot. */
-function Footwear({ sport, dx, accent }: { sport: VVakerTraits["sport"]; dx: number; accent: string }) {
+export function Footwear({ sport, dx, accent }: { sport: VVakerTraits["sport"]; dx: number; accent: string }) {
   if (sport === "roller") {
     return (
       <g transform={dx ? `translate(${dx} 0)` : undefined}>

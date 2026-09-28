@@ -12,6 +12,9 @@ describe("encodeDna (shared vectors with @vvfit/game-core)", () => {
       ),
     ).toBe("VV-603-4403-42-5");
   });
+  it("adds the look suffix only for Athlete styles", () => {
+    expect(encodeDna({ ...DEFAULT_TRAITS, look: "athlete-b" }, "night")).toBe("VV-000-0000-00-0-2");
+  });
   it("ignores the bib number unless a bib is worn", () => {
     expect(encodeDna({ ...DEFAULT_TRAITS, bib: 55 }, "night")).toBe("VV-000-0000-00-0");
   });
