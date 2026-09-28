@@ -193,3 +193,73 @@
     scroll-behavior: auto !important;
   }
 }
+
+/* VVaker sport motion: limbs swing around their joint (set inline via transform-origin + --from/--to). */
+.vv-swing,
+.vv-spin,
+.vv-spin-slow,
+.vv-rock {
+  transform-box: view-box;
+}
+.vv-swing {
+  animation: vv-swing 0.5s ease-in-out infinite alternate;
+}
+.vv-bob {
+  animation: vv-bob 0.3s ease-in-out infinite alternate;
+}
+.vv-spin {
+  animation: vv-spin 0.9s linear infinite;
+}
+.vv-spin-slow {
+  animation: vv-spin 24s linear infinite;
+}
+.vv-rock {
+  animation: vv-rock 1s ease-in-out infinite alternate;
+}
+.vv-dribble {
+  animation: vv-dribble 0.28s cubic-bezier(0.5, 0, 0.9, 0.6) infinite alternate;
+}
+@keyframes vv-swing {
+  from {
+    rotate: var(--from);
+  }
+  to {
+    rotate: var(--to);
+  }
+}
+@keyframes vv-bob {
+  to {
+    translate: 0 -5px;
+  }
+}
+@keyframes vv-spin {
+  to {
+    rotate: 360deg;
+  }
+}
+@keyframes vv-rock {
+  from {
+    rotate: -9deg;
+  }
+  to {
+    rotate: 9deg;
+  }
+}
+@keyframes vv-dribble {
+  from {
+    translate: 0 -26px;
+  }
+  to {
+    translate: 0 8px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .vv-swing,
+  .vv-bob,
+  .vv-spin,
+  .vv-spin-slow,
+  .vv-rock,
+  .vv-dribble {
+    animation: none;
+  }
+}

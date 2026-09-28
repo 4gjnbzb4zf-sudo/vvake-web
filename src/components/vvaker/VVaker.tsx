@@ -13,6 +13,8 @@ const ENERGY_COLORS = [PULSE, "#ff7a9a", "#e8ff7a", VOLT] as const;
 interface VVakerProps extends Partial<VVakerTraits> {
   /** Accessible label. Omit for decorative use. */
   title?: string;
+  /** Sport motion loop (CSS; off for reduced motion). The pose itself is static SVG, so exports keep it. */
+  animate?: boolean;
   className?: string;
 }
 
@@ -22,7 +24,7 @@ interface VVakerProps extends Partial<VVakerTraits> {
  * Pure SVG with no filters or web fonts, so it rasterises identically to PNG in every browser.
  * Every trait is optional; missing ones fall back to DEFAULT_TRAITS.
  */
-export function VVaker({ title, className, ...partial }: VVakerProps) {
+export function VVaker({ title, className, animate = true, ...partial }: VVakerProps) {
   const t: VVakerTraits = { ...DEFAULT_TRAITS, ...partial };
   const base = VVAKER_COLORS[t.color];
   const accent = VVAKER_ACCENTS[t.accent];
@@ -31,6 +33,7 @@ export function VVaker({ title, className, ...partial }: VVakerProps) {
   const darker = shade(base, -0.45);
   const filled = Math.max(0, Math.min(4, Math.round(t.energy)));
   const moving = t.sport === "runner" || t.sport === "cyclist";
+  const pose = POSES[t.sport];
 
   return (
     <svg
@@ -70,54 +73,68 @@ export function VVaker({ title, className, ...partial }: VVakerProps) {
         </g>
       )}
 
-      <g stroke={OUTLINE} strokeWidth={2.4} strokeLinejoin="round">
-        {/* legs + shoes */}
-        <rect x="88" y="222" width="24" height="38" fill={darker} />
-        <rect x="124" y="222" width="24" height="38" fill={darker} />
-        <rect x="82" y="256" width="34" height="14" rx="2" fill="#eef0f2" />
-        <rect x="120" y="256" width="34" height="14" rx="2" fill="#eef0f2" />
-        <rect x="82" y="266" width="34" height="5" fill={accent} />
-        <rect x="120" y="266" width="34" height="5" fill={accent} />
+      <g transform={pose.drop ? `translate(0 ${pose.drop})` : undefined}>
+        <g
+          className={animate && pose.bob ? "vv-bob" : undefined}
+          style={animate && pose.bob ? { animationDuration: `${pose.bob}s` } : undefined}
+        >
+          <g stroke={OUTLINE} strokeWidth={2.4} strokeLinejoin="round">
+            {/* legs + shoes, pivoting at the hips */}
+            <Limb x={100} y={222} angle={pose.ll} motion={animate ? pose.legs : undefined}>
+              <rect x="88" y="222" width="24" height="38" fill={darker} />
+              <rect x="82" y="256" width="34" height="14" rx="2" fill="#eef0f2" />
+              <rect x="82" y="266" width="34" height="5" fill={accent} />
+            </Limb>
+            <Limb x={136} y={222} angle={pose.rl} motion={animate ? pose.legs : undefined} opposite>
+              <rect x="124" y="222" width="24" height="38" fill={darker} />
+              <rect x="120" y="256" width="34" height="14" rx="2" fill="#eef0f2" />
+              <rect x="120" y="266" width="34" height="5" fill={accent} />
+            </Limb>
 
-        {/* body */}
-        <polygon points="154,158 170,146 170,210 154,222" fill={dark} />
-        <rect x="80" y="158" width="74" height="64" fill={base} />
-        <polygon points="80,158 96,146 170,146 154,158" fill={light} />
-        {t.accessory === "none" && <rect x="112" y="178" width="10" height="10" fill={PULSE} className="animate-pulse-glow" />}
-        <FanKitLayer kit={FAN_KITS[t.fan]} />
-        <Accessory accessory={t.accessory} accent={accent} bib={clampBib(t.bib)} />
+            {/* body */}
+            <polygon points="154,158 170,146 170,210 154,222" fill={dark} />
+            <rect x="80" y="158" width="74" height="64" fill={base} />
+            <polygon points="80,158 96,146 170,146 154,158" fill={light} />
+            {t.accessory === "none" && <rect x="112" y="178" width="10" height="10" fill={PULSE} className="animate-pulse-glow" />}
+            <FanKitLayer kit={FAN_KITS[t.fan]} />
+            <Accessory accessory={t.accessory} accent={accent} bib={clampBib(t.bib)} />
 
-        {/* arms + hands */}
-        <rect x="60" y="162" width="18" height="46" fill={base} />
-        <rect x="60" y="206" width="18" height="14" fill={light} />
-        <rect x="172" y="160" width="18" height="46" fill={dark} />
-        <rect x="172" y="204" width="18" height="14" fill={base} />
+            <SportProp sport={t.sport} accent={accent} animate={animate} />
 
-        {/* watch */}
-        <rect x="55" y="190" width="28" height="15" rx="3" fill={VOLT} opacity={0.22} />
-        <rect x="57" y="192" width="24" height="11" rx="2" fill={INK} stroke={VOLT} strokeWidth={1.5} />
-        <path d="M60 198 h4 l2 -3 l2 6 l2 -3 h6" stroke={VOLT} strokeWidth={1.4} fill="none" strokeLinejoin="round" />
+            {/* head */}
+            <polygon points="172,60 190,44 190,140 172,156" fill={dark} />
+            <rect x="60" y="60" width="112" height="96" fill={base} />
+            <polygon points="60,60 78,44 190,44 172,60" fill={light} />
 
-        <SportProp sport={t.sport} accent={accent} />
+            {/* VV headband: the knot draws a tiny W */}
+            <rect x="60" y="72" width="112" height="13" fill={accent} />
+            <polygon points="172,72 190,56 190,69 172,85" fill={shade(accent, -0.3)} />
+            <path d="M136 75.5 l4 7 l4 -7 l4 7 l4 -7" stroke={INK} strokeWidth={2} fill="none" strokeLinejoin="round" />
+            <polygon points="190,60 204,70 198,74" fill={accent} />
+            <polygon points="190,64 202,80 195,82" fill={shade(accent, -0.2)} />
 
-        {/* head */}
-        <polygon points="172,60 190,44 190,140 172,156" fill={dark} />
-        <rect x="60" y="60" width="112" height="96" fill={base} />
-        <polygon points="60,60 78,44 190,44 172,60" fill={light} />
+            <Eyes eyes={t.eyes} />
+            <rect x="68" y="126" width="14" height="8" fill={shade(PULSE, 0.45)} opacity={0.75} />
+            <rect x="150" y="126" width="14" height="8" fill={shade(PULSE, 0.45)} opacity={0.75} />
+            <Mouth mouth={t.mouth} />
 
-        {/* VV headband: the knot draws a tiny W */}
-        <rect x="60" y="72" width="112" height="13" fill={accent} />
-        <polygon points="172,72 190,56 190,69 172,85" fill={shade(accent, -0.3)} />
-        <path d="M136 75.5 l4 7 l4 -7 l4 7 l4 -7" stroke={INK} strokeWidth={2} fill="none" strokeLinejoin="round" />
-        <polygon points="190,60 204,70 198,74" fill={accent} />
-        <polygon points="190,64 202,80 195,82" fill={shade(accent, -0.2)} />
-
-        <Eyes eyes={t.eyes} />
-        <rect x="68" y="126" width="14" height="8" fill={shade(PULSE, 0.45)} opacity={0.75} />
-        <rect x="150" y="126" width="14" height="8" fill={shade(PULSE, 0.45)} opacity={0.75} />
-        <Mouth mouth={t.mouth} />
-
-        <Headgear headgear={t.headgear} accent={accent} />
+            <Headgear headgear={t.headgear} accent={accent} />
+            {/* arms + hands, pivoting at the shoulders; the watch stays on the left wrist */}
+            <Limb x={69} y={164} angle={pose.la} motion={animate ? pose.leftArm : undefined}>
+              <rect x="60" y="162" width="18" height="46" fill={base} />
+              <rect x="60" y="206" width="18" height="14" fill={light} />
+              <rect x="55" y="190" width="28" height="15" rx="3" fill={VOLT} opacity={0.22} />
+              <rect x="57" y="192" width="24" height="11" rx="2" fill={INK} stroke={VOLT} strokeWidth={1.5} />
+              <path d="M60 198 h4 l2 -3 l2 6 l2 -3 h6" stroke={VOLT} strokeWidth={1.4} fill="none" strokeLinejoin="round" />
+              <HandProp sport={t.sport} side="left" />
+            </Limb>
+            <Limb x={181} y={162} angle={pose.ra} motion={animate ? pose.rightArm : undefined} opposite={pose.rightArmOpposite}>
+              <rect x="172" y="160" width="18" height="46" fill={dark} />
+              <rect x="172" y="204" width="18" height="14" fill={base} />
+              <HandProp sport={t.sport} side="right" accent={accent} />
+            </Limb>
+          </g>
+        </g>
       </g>
 
       {t.eyes === "sleepy" && (
@@ -125,6 +142,138 @@ export function VVaker({ title, className, ...partial }: VVakerProps) {
       )}
     </svg>
   );
+}
+
+/** A swing between two angles (deg) around the limb's joint; `dur` is half a cycle in seconds. */
+interface Motion {
+  from: number;
+  to: number;
+  dur: number;
+}
+interface Pose {
+  /** Static angles (deg, clockwise) for left/right arm and leg: this is what exports and still frames show. */
+  la: number;
+  ra: number;
+  ll: number;
+  rl: number;
+  /** Moves the whole figure down (seated poses). */
+  drop?: number;
+  /** Body bounce, half-cycle seconds. */
+  bob?: number;
+  leftArm?: Motion;
+  rightArm?: Motion;
+  /** Right arm swings in counter-phase to the left (running, walking). */
+  rightArmOpposite?: boolean;
+  legs?: Motion;
+}
+
+const POSES: Record<VVakerTraits["sport"], Pose> = {
+  runner: {
+    la: 0,
+    ra: 0,
+    ll: 0,
+    rl: 0,
+    bob: 0.22,
+    leftArm: { from: -30, to: 30, dur: 0.44 },
+    rightArm: { from: -30, to: 30, dur: 0.44 },
+    rightArmOpposite: true,
+    legs: { from: -18, to: 18, dur: 0.44 },
+  },
+  walker: {
+    la: 0,
+    ra: 0,
+    ll: 0,
+    rl: 0,
+    bob: 0.4,
+    leftArm: { from: -12, to: 12, dur: 0.8 },
+    rightArm: { from: -8, to: 8, dur: 0.8 },
+    rightArmOpposite: true,
+    legs: { from: -9, to: 9, dur: 0.8 },
+  },
+  cyclist: { la: -28, ra: -12, ll: 0, rl: 0, legs: { from: -14, to: 10, dur: 0.3 } },
+  lifter: { la: 14, ra: 0, ll: 6, rl: -6, rightArm: { from: 0, to: -115, dur: 1.1 } },
+  boxer: { la: -62, ra: 62, ll: 8, rl: -8, bob: 0.3, leftArm: { from: 0, to: -28, dur: 0.35 }, rightArm: { from: 0, to: 18, dur: 0.6 } },
+  yogi: { la: 95, ra: -95, ll: 0, rl: -38, leftArm: { from: -5, to: 5, dur: 2.4 }, rightArm: { from: 5, to: -5, dur: 2.4 } },
+  baller: { la: 20, ra: -14, ll: 6, rl: -6, bob: 0.28, rightArm: { from: 0, to: -16, dur: 0.28 } },
+  coder: { la: -22, ra: 22, ll: 0, rl: 0, leftArm: { from: 0, to: -5, dur: 0.18 }, rightArm: { from: 0, to: 5, dur: 0.22 } },
+  martial: { la: -40, ra: -90, ll: 12, rl: -12, rightArm: { from: 0, to: 50, dur: 0.5 } },
+  paddler: { la: -30, ra: -38, ll: 0, rl: 0, leftArm: { from: -12, to: 12, dur: 1 }, rightArm: { from: -12, to: 12, dur: 1 } },
+  meditator: { la: 28, ra: -28, ll: 78, rl: -78, drop: 22, bob: 2.4 },
+};
+
+/** A limb group: static pose via the SVG transform, optional CSS swing around the same joint. */
+function Limb({
+  x,
+  y,
+  angle,
+  motion,
+  opposite,
+  children,
+}: {
+  x: number;
+  y: number;
+  angle: number;
+  motion?: Motion | undefined;
+  opposite?: boolean | undefined;
+  children: React.ReactNode;
+}) {
+  const inner = motion ? (
+    <g
+      className="vv-swing"
+      style={
+        {
+          transformOrigin: `${x}px ${y}px`,
+          "--from": `${opposite ? motion.to : motion.from}deg`,
+          "--to": `${opposite ? motion.from : motion.to}deg`,
+          animationDuration: `${motion.dur}s`,
+        } as React.CSSProperties
+      }
+    >
+      {children}
+    </g>
+  ) : (
+    children
+  );
+  return angle ? <g transform={`rotate(${angle} ${x} ${y})`}>{inner}</g> : <g>{inner}</g>;
+}
+
+/** Things held in a hand move with that arm. */
+function HandProp({ sport, side, accent = VOLT }: { sport: VVakerTraits["sport"]; side: "left" | "right"; accent?: string }) {
+  if (sport === "boxer") {
+    return side === "left" ? (
+      <g>
+        <rect x="54" y="200" width="30" height="26" rx="10" fill="#e0364f" />
+        <rect x="56" y="220" width="26" height="6" fill="#f4f5f6" />
+      </g>
+    ) : (
+      <g>
+        <rect x="166" y="198" width="30" height="26" rx="10" fill="#b82a40" />
+        <rect x="168" y="218" width="26" height="6" fill="#f4f5f6" />
+      </g>
+    );
+  }
+  if (side === "left") return null;
+  switch (sport) {
+    case "lifter":
+      return (
+        <g>
+          <path d="M172 214 Q181 196 190 214" stroke="#3a4047" strokeWidth={6} fill="none" />
+          <circle cx="181" cy="234" r="19" fill="#2b3036" />
+          <rect x="170" y="224" width="7" height="7" fill="#4a525b" />
+          <rect x="174" y="236" width="14" height="6" fill={accent} />
+        </g>
+      );
+    case "walker":
+      return (
+        <g>
+          <rect x="174" y="198" width="14" height="30" rx="4" fill="#7fb6f5" />
+          <rect x="176" y="192" width="10" height="7" rx="2" fill="#eef0f2" />
+          <rect x="176" y="206" width="10" height="4" fill="#fff" opacity={0.6} stroke="none" />
+        </g>
+      );
+    default:
+      return null;
+  }
 }
 
 function Eyes({ eyes }: { eyes: VVakerTraits["eyes"] }) {
@@ -303,43 +452,20 @@ function Accessory({ accessory, accent, bib }: { accessory: VVakerTraits["access
   }
 }
 
-function SportProp({ sport, accent }: { sport: VVakerTraits["sport"]; accent: string }) {
+function SportProp({ sport, accent, animate }: { sport: VVakerTraits["sport"]; accent: string; animate: boolean }) {
   switch (sport) {
-    case "lifter":
-      return (
-        <g>
-          <path d="M172 214 Q181 196 190 214" stroke="#3a4047" strokeWidth={6} fill="none" />
-          <circle cx="181" cy="234" r="19" fill="#2b3036" />
-          <rect x="170" y="224" width="7" height="7" fill="#4a525b" />
-          <rect x="174" y="236" width="14" height="6" fill={accent} />
-        </g>
-      );
     case "cyclist":
       return (
         <g>
           <circle cx="200" cy="246" r="22" fill="none" stroke="#2b3036" strokeWidth={5} />
-          <g stroke="#6b7278" strokeWidth={1.6}>
+          <g className={animate ? "vv-spin" : undefined} style={{ transformOrigin: "200px 246px" }} stroke="#6b7278" strokeWidth={1.6}>
             <path d="M200 226 V266 M180 246 H220 M186 232 L214 260 M214 232 L186 260" />
           </g>
           <circle cx="200" cy="246" r="4" fill={accent} />
         </g>
       );
-    case "boxer":
-      return (
-        <g>
-          <rect x="54" y="200" width="30" height="26" rx="10" fill="#e0364f" />
-          <rect x="166" y="198" width="30" height="26" rx="10" fill="#b82a40" />
-          <rect x="56" y="220" width="26" height="6" fill="#f4f5f6" />
-          <rect x="168" y="218" width="26" height="6" fill="#f4f5f6" />
-        </g>
-      );
     case "yogi":
-      return (
-        <g>
-          <rect x="164" y="186" width="42" height="18" rx="9" fill={accent} transform="rotate(-24 185 195)" />
-          <path d="M170 202 L200 188" stroke={shade(accent, -0.35)} strokeWidth={2} />
-        </g>
-      );
+      return <polygon points="36,262 196,262 216,276 56,276" fill={accent} opacity={0.85} />;
     case "coder":
       return (
         <g>
@@ -356,10 +482,10 @@ function SportProp({ sport, accent }: { sport: VVakerTraits["sport"]; accent: st
       );
     case "baller":
       return (
-        <g>
-          <circle cx="190" cy="226" r="17" fill="#f08a3c" />
+        <g className={animate ? "vv-dribble" : undefined}>
+          <circle cx="196" cy="246" r="17" fill="#f08a3c" />
           <path
-            d="M173 226 H207 M190 209 V243 M178 214 Q190 226 178 238 M202 214 Q190 226 202 238"
+            d="M179 246 H213 M196 229 V263 M184 234 Q196 246 184 258 M208 234 Q196 246 208 258"
             stroke="#9c4a14"
             strokeWidth={2}
             fill="none"
@@ -377,7 +503,7 @@ function SportProp({ sport, accent }: { sport: VVakerTraits["sport"]; accent: st
       );
     case "paddler":
       return (
-        <g>
+        <g className={animate ? "vv-rock" : undefined} style={{ transformOrigin: "125px 198px" }}>
           <path d="M44 150 L206 246" stroke="#8a5a2b" strokeWidth={5} strokeLinecap="round" />
           <ellipse cx="40" cy="146" rx="9" ry="16" transform="rotate(-30 40 146)" fill={accent} />
           <ellipse cx="210" cy="250" rx="9" ry="16" transform="rotate(-30 210 250)" fill={accent} />
@@ -386,16 +512,19 @@ function SportProp({ sport, accent }: { sport: VVakerTraits["sport"]; accent: st
     case "meditator":
       return (
         <g>
-          <ellipse cx="120" cy="272" rx="58" ry="9" fill={shade(CALM, -0.2)} opacity={0.9} />
-          <circle cx="120" cy="120" r="104" fill="none" stroke={CALM} strokeWidth={2} opacity={0.35} strokeDasharray="4 8" />
-        </g>
-      );
-    case "walker":
-      return (
-        <g>
-          <rect x="174" y="198" width="14" height="30" rx="4" fill="#7fb6f5" />
-          <rect x="176" y="192" width="10" height="7" rx="2" fill="#eef0f2" />
-          <rect x="176" y="206" width="10" height="4" fill="#fff" opacity={0.6} stroke="none" />
+          <ellipse cx="120" cy="252" rx="62" ry="10" fill={shade(CALM, -0.2)} opacity={0.9} />
+          <circle
+            cx="120"
+            cy="118"
+            r="104"
+            fill="none"
+            stroke={CALM}
+            strokeWidth={2}
+            opacity={0.35}
+            strokeDasharray="4 8"
+            className={animate ? "vv-spin-slow" : undefined}
+            style={{ transformOrigin: "120px 118px" }}
+          />
         </g>
       );
     default:
@@ -403,7 +532,6 @@ function SportProp({ sport, accent }: { sport: VVakerTraits["sport"]; accent: st
   }
 }
 
-/** Team colors: a jersey stripe across the chest and a two-tone scarf. */
 function FanKitLayer({ kit }: { kit: readonly [string, string] | null }) {
   if (!kit) return null;
   const [a, b] = kit;
