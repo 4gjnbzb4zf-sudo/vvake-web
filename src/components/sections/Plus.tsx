@@ -25,6 +25,17 @@ export function Plus({ dict, index }: { dict: Dictionary["plus"]; index: string 
           >
             {dict.cta}
           </a>
+          <div className="mt-5 rounded-2xl border border-pulse/50 bg-gradient-to-br from-pulse/15 to-transparent p-4">
+            <p className="font-mono text-[0.6rem] tracking-[0.12em] text-pulse uppercase">{dict.lifetime.tag}</p>
+            <p className="mt-1 flex items-baseline justify-between gap-2">
+              <span className="font-display text-lg font-semibold">♾️ {dict.lifetime.title}</span>
+              <span className="font-display text-2xl font-bold">
+                <MoneyText template={dict.lifetime.price} usd={149} />
+                <span className="ml-1 text-xs font-semibold text-muted">{dict.lifetime.per}</span>
+              </span>
+            </p>
+            <p className="mt-1.5 text-xs leading-relaxed text-muted">{dict.lifetime.body}</p>
+          </div>
           <div className="mt-6 rounded-2xl border border-down/30 bg-down/5 p-4">
             <p className="font-display text-sm font-semibold">{dict.neverTitle}</p>
             <ul className="mt-2 space-y-1.5 text-xs text-muted">

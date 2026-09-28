@@ -502,6 +502,13 @@ export const en = {
     per: "/ month",
     yearly: "or yearly, 2 months free",
     trial: "7-day free trial · cancel anytime",
+    lifetime: {
+      tag: "Founding offer · launch season only",
+      title: "Plus for life",
+      price: "{money}",
+      per: "once",
+      body: "All Plus tools, forever, for about 30 months of the monthly price. Same rule: never an edge. Counted into the public split over 36 months, so it funds the game for years.",
+    },
     cta: "Get notified at launch",
     perks: [
       { icon: "🧠", title: "Adaptive coach", body: "12-week plans that adapt to your sleep and recovery, with race-prep blocks." },
