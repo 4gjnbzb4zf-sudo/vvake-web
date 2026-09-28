@@ -5,6 +5,7 @@ import { useState } from "react";
 import { Section } from "@/components/ui/Section";
 import { VVaker } from "@/components/vvaker/VVaker";
 import { cn } from "@/lib/cn";
+import { useStudio } from "@/lib/prefs";
 import type { Dictionary } from "@/i18n/dictionaries";
 
 type Style = keyof Dictionary["coach"]["styles"];
@@ -36,28 +37,32 @@ function rankVoice(v: SpeechSynthesisVoice): number {
   return score;
 }
 
-/** The device's good voices for this language, best first (varied by region accent). */
-function bestVoices(lang: string): SpeechSynthesisVoice[] {
-  const all = window.speechSynthesis.getVoices().filter((v) => v.lang.toLowerCase().startsWith(lang) && !BLOCKED.test(v.name));
-  return all.sort((a, b) => rankVoice(b) - rankVoice(a));
-}
-const LOOK: Record<
-  Style,
-  { color: "candy" | "sky" | "coral" | "butter" | "lilac" | "mint"; eyes: "fired" | "happy" | "star" | "sleepy" | "pixel" }
-> = {
-  hype: { color: "candy", eyes: "star" },
-  calm: { color: "sky", eyes: "happy" },
-  drill: { color: "coral", eyes: "fired" },
-  funny: { color: "butter", eyes: "star" },
-  zen: { color: "lilac", eyes: "sleepy" },
-  pro: { color: "mint", eyes: "pixel" },
+type Gender = "female" | "male";
+/** Browsers don't expose a voice's gender, so we match well-known voice names (and "Female"/"Male" labels). */
+const GENDER: Record<Gender, RegExp> = {
+  female:
+    /female|samantha|ava|allison|karen|moira|serena|zoe|victoria|susan|tessa|fiona|veena|am[ée]lie|aur[ée]lie|audrey|marie|denise|julie|google us english|google français|microsoft (aria|jenny|zira|hortense|denise)/i,
+  male: /(?<!fe)male|daniel|alex|tom|evan|aaron|arthur|rishi|oliver|thomas|henri|nicolas|paul|microsoft (guy|david|mark|henri|paul)/i,
 };
+
+/** The device's good voices for this language and gender, best first. */
+function bestVoices(lang: string, gender: Gender): { voices: SpeechSynthesisVoice[]; matched: boolean } {
+  const all = window.speechSynthesis
+    .getVoices()
+    .filter((v) => v.lang.toLowerCase().startsWith(lang) && !BLOCKED.test(v.name))
+    .sort((a, b) => rankVoice(b) - rankVoice(a));
+  const matched = all.filter((v) => GENDER[gender].test(v.name));
+  return matched.length ? { voices: matched, matched: true } : { voices: all, matched: false };
+}
 
 export function Coach({ dict, index }: { dict: Dictionary["coach"]; index: string }) {
   const { lang } = useParams<{ lang: string }>();
   const [style, setStyle] = useState<Style>("hype");
   const [vibe, setVibe] = useState<Vibe>("morning-energy");
   const [speaking, setSpeaking] = useState(false);
+  const [gender, setGender] = useState<Gender>("female");
+  // The caller is the player's own VVaker from the studio (and their chosen style).
+  const { traits } = useStudio();
   const [kept, setKept] = useState<string[]>(dict.memory.notes.map((n) => n.id));
   const lines = dict.styles[style].lines.map((l, i) => (i === 0 ? dict.vibes[vibe].prefix + l : l));
 
@@ -71,12 +76,13 @@ export function Coach({ dict, index }: { dict: Dictionary["coach"]; index: strin
     }
     const u = new SpeechSynthesisUtterance(lines.join(" "));
     u.lang = lang === "fr" ? "fr-FR" : "en-US";
-    const voices = bestVoices(lang === "fr" ? "fr" : "en");
-    const top = voices.slice(0, 4);
+    const { voices, matched } = bestVoices(lang === "fr" ? "fr" : "en", gender);
+    const top = voices.slice(0, 3);
     const voice = top[VOICE[style].pick % Math.max(1, top.length)];
     if (voice) u.voice = voice;
     u.rate = VOICE[style].rate;
-    u.pitch = VOICE[style].pitch;
+    // No named voice of that gender on this device: nudge the pitch instead.
+    u.pitch = VOICE[style].pitch * (matched ? 1 : gender === "male" ? 0.85 : 1.12);
     u.onend = () => setSpeaking(false);
     u.onerror = () => setSpeaking(false);
     synth.cancel();
@@ -99,7 +105,7 @@ export function Coach({ dict, index }: { dict: Dictionary["coach"]; index: strin
           <div className="relative mx-auto mt-5 flex h-40 w-40 items-center justify-center">
             <span className={cn("absolute inset-0 rounded-full border-2 border-volt/60", speaking ? "animate-ping" : "animate-pulse")} />
             <span className="absolute inset-3 rounded-full bg-surface" />
-            <VVaker sport="runner" {...LOOK[style]} mouth="grin" className="relative h-32 w-auto" />
+            <VVaker {...traits} className="relative h-32 w-auto" />
           </div>
           <p className="mt-4 font-display text-xl font-semibold">{dict.call.who}</p>
           <p className="font-mono text-xs text-volt">
@@ -124,6 +130,16 @@ export function Coach({ dict, index }: { dict: Dictionary["coach"]; index: strin
 
         {/* choices */}
         <div className="space-y-6">
+          <fieldset>
+            <legend className="text-sm font-semibold">{dict.voiceLabel}</legend>
+            <div className="mt-2 flex flex-wrap gap-2">
+              {(["female", "male"] as const).map((g) => (
+                <button key={g} type="button" aria-pressed={gender === g} onClick={() => setGender(g)} className={chip(gender === g)}>
+                  {dict.voices[g]}
+                </button>
+              ))}
+            </div>
+          </fieldset>
           <fieldset>
             <legend className="text-sm font-semibold">{dict.styleLabel}</legend>
             <div className="mt-2 flex flex-wrap gap-2">

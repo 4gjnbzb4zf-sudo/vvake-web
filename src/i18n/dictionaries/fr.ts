@@ -659,6 +659,8 @@ export const fr: Dictionary = {
     title: "Il appelle. Tu parles. Tu bouges mieux.",
     body: "Ton VVaker prend de tes nouvelles à la voix : comment se passe la semaine, ce qui t'a fait du bien, ce qu'on change. Choisis son style de voix et son ambiance, et il devient le coach que tu écoutes vraiment.",
     call: { incoming: "Appel entrant", who: "Ton VVaker · mode coach", accept: "Répondre", decline: "Plus tard" },
+    voiceLabel: "Voix",
+    voices: { female: "Voix féminine", male: "Voix masculine" },
     styleLabel: "Style de voix",
     vibeLabel: "Ambiance",
     play: "Écouter un extrait",
