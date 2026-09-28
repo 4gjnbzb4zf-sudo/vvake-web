@@ -29,6 +29,14 @@ npm run dev    # http://localhost:3000 → redirects to /en/ or /fr/
 | `npm run check` | Format check, lint, typecheck, tests        |
 | `npm run og`    | Regenerate `public/og/{en,fr}.png`          |
 
+## Languages
+
+English is the default. `/` picks the language in the browser: an explicit earlier choice (saved when
+the visitor clicks EN/FR) wins; otherwise the first supported language in the browser/OS preference
+order (`fr-CA`, `fr-BE`… count as French); otherwise English. Localized URLs (`/en/`, `/fr/`) are never
+force-redirected, so shared links stay as sent; a small dismissible bar offers the preferred language instead.
+Logic: `src/i18n/negotiate.ts` (tested).
+
 ## Configuration (build-time)
 
 | Variable                        | Default             | Purpose                                                                                |

@@ -26,9 +26,9 @@ const ICONS: readonly ReactNode[] = [
   </svg>,
 ];
 
-export function How({ dict }: { dict: Dictionary["how"] }) {
+export function How({ dict, index }: { dict: Dictionary["how"]; index: string }) {
   return (
-    <Section id="how" kicker={dict.kicker} title={dict.title}>
+    <Section id="how" index={index} kicker={dict.kicker} title={dict.title}>
       <ul className="mt-14 grid gap-4 sm:grid-cols-2">
         {dict.items.map((item, i) => (
           <li

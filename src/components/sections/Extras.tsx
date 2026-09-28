@@ -4,9 +4,9 @@ import { siteConfig } from "@/config/site";
 import type { Locale } from "@/i18n/config";
 import type { Dictionary } from "@/i18n/dictionaries";
 
-export function Dev({ dict }: { dict: Dictionary["dev"] }) {
+export function Dev({ dict, index }: { dict: Dictionary["dev"]; index: string }) {
   return (
-    <Section id="dev" kicker={dict.kicker} title={dict.title} lead={dict.body} className="border-t border-line/60">
+    <Section id="dev" index={index} kicker={dict.kicker} title={dict.title} lead={dict.body}>
       <div className="mt-12 overflow-hidden rounded-2xl border border-line bg-[#0b0d0f] shadow-2xl shadow-black/40">
         <div className="flex items-center gap-2 border-b border-line px-4 py-3" aria-hidden="true">
           <span className="h-3 w-3 rounded-full bg-down/70" />
@@ -32,7 +32,7 @@ export function Dev({ dict }: { dict: Dictionary["dev"] }) {
 
 export function Faq({ dict }: { dict: Dictionary["faq"] }) {
   return (
-    <Section id="faq" title={dict.title} className="border-t border-line/60">
+    <Section id="faq" title={dict.title}>
       <div className="mt-10 divide-y divide-line rounded-3xl border border-line bg-surface/50">
         {dict.items.map((item) => (
           <details key={item.q} className="group px-6 py-5 sm:px-8">

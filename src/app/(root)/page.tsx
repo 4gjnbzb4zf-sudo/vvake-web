@@ -1,11 +1,22 @@
 import { Logo } from "@/components/brand/Logo";
-import { localeLabels, locales } from "@/i18n/config";
+import { defaultLocale, localeLabels, locales } from "@/i18n/config";
+import { LOCALE_STORAGE_KEY, negotiateLocale } from "@/i18n/negotiate";
 
 /**
- * GitHub Pages can't redirect by header, so "/" picks a language in the browser
- * (keeping ?ref= and ?city= for referrals). No-JS visitors get plain links.
+ * GitHub Pages can't negotiate languages server-side, so "/" decides in the browser:
+ * 1. a language the visitor explicitly chose before (saved by the switcher),
+ * 2. otherwise the first supported language in the browser/OS preference order,
+ * 3. otherwise English. Query string (?ref=, ?city=) and hash are preserved.
+ * No-JS visitors get plain links.
  */
-const REDIRECT = `(function(){try{var l=(navigator.languages||[navigator.language||"en"]).map(function(x){return String(x).toLowerCase()});var fr=l.some(function(x){return x.indexOf("fr")===0});location.replace("/"+(fr?"fr":"en")+"/"+location.search+location.hash)}catch(e){location.replace("/en/")}})();`;
+const REDIRECT = `(function(){
+var negotiate=${negotiateLocale.toString()};
+var supported=${JSON.stringify(locales)};
+var saved=null;try{saved=localStorage.getItem(${JSON.stringify(LOCALE_STORAGE_KEY)})}catch(e){}
+var prefs=navigator.languages&&navigator.languages.length?navigator.languages:[navigator.language||""];
+var lang=saved&&supported.indexOf(saved)>=0?saved:negotiate(prefs,supported,${JSON.stringify(defaultLocale)});
+location.replace("/"+lang+"/"+location.search+location.hash);
+})();`;
 
 export default function RootPage() {
   return (

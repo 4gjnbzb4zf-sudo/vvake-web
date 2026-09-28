@@ -2,9 +2,9 @@ import { InView } from "@/components/ui/InView";
 import { Section } from "@/components/ui/Section";
 import type { Dictionary } from "@/i18n/dictionaries";
 
-export function Pulse({ dict }: { dict: Dictionary["pulse"] }) {
+export function Pulse({ dict, index }: { dict: Dictionary["pulse"]; index: string }) {
   return (
-    <Section id="pulse" kicker={dict.kicker} title={dict.title} lead={dict.body} className="border-t border-line/60">
+    <Section id="pulse" index={index} kicker={dict.kicker} title={dict.title} lead={dict.body}>
       <div className="mt-14 overflow-hidden rounded-3xl border border-line bg-surface/50">
         <InView>
           <PulseChart />

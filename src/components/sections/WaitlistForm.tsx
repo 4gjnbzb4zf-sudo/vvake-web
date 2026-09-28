@@ -239,7 +239,7 @@ function CityRace(props: {
       </div>
       {progress && (
         <div
-          className="mt-3 h-2 overflow-hidden rounded-full bg-line"
+          className="stripe-bar mt-3 h-2.5 overflow-hidden rounded-full bg-line"
           role="progressbar"
           aria-valuemin={0}
           aria-valuemax={props.threshold}
