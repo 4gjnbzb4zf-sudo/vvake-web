@@ -17,10 +17,27 @@ describe("submitSignup", () => {
 
   it("validates before sending: consent, email, known city", async () => {
     const f = mockFetch(200, okBody);
-    for (const bad of [{ consent: false }, { email: "nope" }, { city: "atlantis" }, { ref: "UPPER!" }]) {
+    for (const bad of [
+      { consent: false },
+      { email: "nope" },
+      { city: "atlantis" },
+      { ref: "UPPER!" },
+      { requestedCity: "Grenoble" }, // both city and requestedCity
+      { city: undefined }, // neither
+    ]) {
       expect(await submitSignup("https://api.test", { ...draft, ...bad }, f)).toEqual({ ok: false, error: "invalid" });
     }
     expect(f).not.toHaveBeenCalled();
+  });
+
+  it("accepts a requested city instead of a launch city", async () => {
+    const f = mockFetch(200, okBody);
+    const res = await submitSignup(
+      "https://api.test",
+      { email: "a@b.co", requestedCity: "Grenoble, France", locale: "fr", consent: true },
+      f,
+    );
+    expect(res.ok).toBe(true);
   });
 
   it("posts JSON and parses a valid response", async () => {

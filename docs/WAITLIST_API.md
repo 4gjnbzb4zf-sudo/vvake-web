@@ -12,6 +12,9 @@ Request (`application/json`):
 { "email": "you@example.com", "city": "lyon", "fanbase": "OL", "ref": "ab12cd34", "locale": "fr", "consent": true }
 ```
 
+Exactly one of `city` (a launch-city slug) or `requestedCity` (free text, 2–80 chars, e.g. `"Grenoble, France"`) is required.
+Requested cities are normalized server-side (trim, case, accents) and aggregated into a demand ranking; they get no tier and no counter until the city is added to the launch list.
+
 Response `200`:
 
 ```json
