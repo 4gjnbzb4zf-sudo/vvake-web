@@ -8,8 +8,8 @@ import type { Dictionary } from "@/i18n/dictionaries";
 
 export function Header({ locale, dict }: { locale: Locale; dict: Dictionary["nav"] }) {
   const links = [
-    { href: "#story", label: dict.story },
     { href: "#challenges", label: dict.challenges },
+    { href: "#crew", label: dict.crew },
     { href: "#app", label: dict.app },
     { href: "#rivalries", label: dict.rivalries },
     { href: "#open-book", label: dict.openBook },
