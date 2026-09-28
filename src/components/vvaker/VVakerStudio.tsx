@@ -7,6 +7,7 @@ import { cn } from "@/lib/cn";
 import { encodeDna } from "@/lib/dna";
 import {
   DEFAULT_TRAITS,
+  FAN_KITS,
   VVAKER_ACCENTS,
   VVAKER_ACCESSORIES,
   VVAKER_BACKGROUNDS,
@@ -17,6 +18,7 @@ import {
   VVAKER_SPORTS,
   clampBib,
   randomTraits,
+  type FanKit,
   type VVakerAccent,
   type VVakerBackground,
   type VVakerColor,
@@ -201,6 +203,22 @@ export function VVakerStudio({ dict }: { dict: Dictionary["vvaker"] }) {
                   />
                 </div>
               )}
+              <ChipGroup label={dict.controls.fan}>
+                {(Object.keys(FAN_KITS) as FanKit[]).map((k) => {
+                  const colors = FAN_KITS[k];
+                  return (
+                    <Chip key={k} active={traits.fan === k} onClick={() => update({ fan: k })} label={dict.fanKits[k]}>
+                      {colors && (
+                        <span className="flex h-4 w-4 overflow-hidden rounded-[4px] border border-black/40">
+                          <span className="w-1/2" style={{ background: colors[0] }} />
+                          <span className="w-1/2" style={{ background: colors[1] }} />
+                        </span>
+                      )}
+                    </Chip>
+                  );
+                })}
+              </ChipGroup>
+              <p className="-mt-3 text-xs text-faint">{dict.fanNote}</p>
             </>
           )}
 

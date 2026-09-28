@@ -5,7 +5,7 @@ import type { Dictionary } from "@/i18n/dictionaries";
 import { DEMO_ROUTE_PATH } from "./routeDemo";
 
 const CREW: readonly Partial<VVakerTraits>[] = [
-  { color: "candy", eyes: "fired", mouth: "grin" },
+  { color: "candy", eyes: "fired", mouth: "grin", fan: "lyon-football" },
   { color: "mint", headgear: "cap", accent: "volt" },
   { color: "butter", headgear: "beanie", eyes: "happy", mouth: "calm" },
   { color: "sky", accessory: "bib", bib: 7 },

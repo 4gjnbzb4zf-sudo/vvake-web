@@ -91,6 +91,21 @@ export function CollectorDrops({ dict }: { dict: Dictionary["vvaker"]["collect"]
         })}
       </ul>
 
+      <h4 className="mt-10 font-display text-xl font-semibold">{dict.utilityTitle}</h4>
+      <ul className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+        {dict.utility.map((u) => (
+          <li key={u.title} className="flex gap-3 rounded-2xl border border-line bg-night/60 p-4 transition-colors hover:border-volt/40">
+            <span aria-hidden="true" className="text-2xl">
+              {u.icon}
+            </span>
+            <div>
+              <p className="font-display font-semibold">{u.title}</p>
+              <p className="mt-1 text-sm leading-relaxed text-muted">{u.body}</p>
+            </div>
+          </li>
+        ))}
+      </ul>
+
       <div className="mt-8 grid gap-4 lg:grid-cols-[1.4fr_1fr]">
         <div className="rounded-2xl border border-line bg-night/60 p-5">
           <p className="font-display font-semibold">{dict.perksTitle}</p>

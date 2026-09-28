@@ -471,6 +471,22 @@ export const en = {
         "Ask for your seed phrase",
       ],
     },
+    wealth: {
+      title: "Build wealth, the regulated way",
+      body: "Tokens and collectibles are never sold as investments. If you want your fitness habit to feed a wealth habit, here's how we'll do it, with licensed partners:",
+      items: [
+        {
+          title: "Sweat & Invest",
+          body: "Set a rule with a licensed broker partner, like “€1 into my Brand Team stock for every workout”. Your money, your account; VVake only sends the workout signal, with your consent.",
+        },
+        { title: "Stock rewards", body: "Broker partners may reward fitness-challenge winners with fractional shares, where it's legal." },
+        {
+          title: "Own a piece of VVake",
+          body: "When we raise, fans will be able to invest in the company itself through a regulated equity crowdfunding round: real shares, real disclosures.",
+        },
+      ],
+      note: "Planned, subject to partner agreements and legal approval in each country. Investing involves risk, including loss of capital. Nothing here is investment advice.",
+    },
     disclaimer:
       "Planned features, subject to legal review and regional availability; not offered in the US or UK at launch. Nothing on this site is an offer of tokens, securities or financial advice. Tickers are shown for identification only.",
   },
@@ -585,6 +601,7 @@ export const en = {
     body: "A little voxel athlete that's yours, whoever and wherever you are. Millions of combinations: pick your body, gear, sport and game face, then make it your profile picture and X banner.",
     tabs: { body: "Body", gear: "Gear", sport: "Sport", face: "Face" },
     controls: {
+      fan: "Fan kit",
       color: "Body color",
       background: "Background",
       accent: "Gear color",
@@ -630,6 +647,15 @@ export const en = {
         { name: "Pixel dust", slot: "Trail", supply: "Season 1 · capped" },
         { name: "Lyon city kit", slot: "Kit", supply: "City drop · capped" },
       ],
+      utilityTitle: "Beyond looks: what a collectible does",
+      utility: [
+        { icon: "🏕️", title: "Crew Host Pass", body: "Host bigger and public crew events, recurring event pages and a crew banner." },
+        { icon: "🎯", title: "Challenge Maker", body: "Create custom challenges for your crew or city. Always free to join." },
+        { icon: "🎟️", title: "Race & event access", body: "Priority windows to buy partner race bibs and match tickets." },
+        { icon: "👟", title: "Phygital kits", body: "Brand kits you can redeem for real gear, with our brand partners." },
+        { icon: "📜", title: "Provenance", body: "Your gear records verified milestones: first 100 km, clash champion, founder city." },
+        { icon: "🏟️", title: "Official club kits", body: "Licensed team kits for true fans, when clubs join (Fan Clash partners)." },
+      ],
       perksTitle: "Holder perks",
       perks: [
         "Show it everywhere on the web: profile, leaderboards, share cards",
@@ -642,6 +668,21 @@ export const en = {
       never: ["More rewards, energy or ranking", "Extra prize entries", "Any share of revenue", "Anything required to play"],
       note: "Web portal only, adults, not available in every country. In the iOS and Android apps, collectibles are view-only and the same looks exist as regular in-app purchases. Collectibles are not investments.",
     },
+    fanKits: {
+      none: "No team",
+      "montreal-hockey": "Montréal hockey",
+      "toronto-hockey": "Toronto hockey",
+      "calgary-hockey": "Calgary hockey",
+      "edmonton-hockey": "Edmonton hockey",
+      "paris-football": "Paris football",
+      "marseille-football": "Marseille football",
+      "lyon-football": "Lyon football",
+      "toulouse-rugby": "Toulouse rugby",
+      "boston-baseball": "Boston baseball",
+      "new-york-baseball": "New York baseball",
+      "green-bay-football": "Green Bay (NFL)",
+    },
+    fanNote: "Unofficial team colors to show your support. Official club kits come with club licences.",
     dna: {
       label: "Your VVaker DNA",
       note: "At launch you claim it: one per person, no duplicates, yours forever. If it's taken, we suggest the closest free twin.",
