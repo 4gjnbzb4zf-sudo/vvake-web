@@ -8,6 +8,11 @@ export const siteConfig = {
    * "waitlist opening soon" instead of a form. Nothing is faked.
    */
   waitlistEndpoint: (process.env.NEXT_PUBLIC_WAITLIST_ENDPOINT ?? "").replace(/\/$/, ""),
+  /**
+   * Live activity feed (GET {liveEndpoint}/live). Empty = labelled demo mode on the world map.
+   * Contract: docs/WAITLIST_API.md#live-activity.
+   */
+  liveEndpoint: (process.env.NEXT_PUBLIC_LIVE_ENDPOINT ?? "").replace(/\/$/, ""),
   social: {
     x: "https://x.com/vvake",
     xHandle: "@vvake",
