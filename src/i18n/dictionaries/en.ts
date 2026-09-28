@@ -340,7 +340,7 @@ export const en = {
       {
         tag: "On-chain (planned)",
         title: "Robinhood Chain keeps it open",
-        body: "The chain where tokenized stocks (RWA) already live. Planned: a VVake token launched on vibe/vibe, a public fee-split contract, season rewards for effort, cosmetic collectibles.",
+        body: "The chain where tokenized stocks (RWA) already live. Planned: a public fee-split contract, season rewards for effort paid in a stablecoin or perks, cosmetic collectibles, and later an optional VVake token on vibe/vibe.",
         points: ["Public fee split, on-chain", "Season rewards for effort", "Web portal only · 18+ · not in every country"],
       },
     ],
