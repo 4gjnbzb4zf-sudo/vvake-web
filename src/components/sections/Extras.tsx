@@ -25,7 +25,18 @@ export function Dev({ dict, index }: { dict: Dictionary["dev"]; index: string })
           ))}
         </pre>
       </div>
-      <p className="mt-4 text-sm text-faint">{dict.note}</p>
+      <p className="mt-3 font-mono text-xs text-volt">{dict.worksWith}</p>
+
+      <ul className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        {dict.features.map((f, i) => (
+          <li key={f.title} className="rounded-3xl border border-line bg-surface/60 p-5 transition-colors hover:border-volt/40">
+            <span className="font-mono text-xs text-pulse">{String(i + 1).padStart(2, "0")}</span>
+            <h3 className="mt-2 font-display text-lg font-semibold">{f.title}</h3>
+            <p className="mt-1.5 text-sm leading-relaxed text-muted">{f.body}</p>
+          </li>
+        ))}
+      </ul>
+      <p className="mt-6 text-sm text-faint">{dict.note}</p>
     </Section>
   );
 }

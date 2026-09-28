@@ -215,6 +215,33 @@ export const en = {
     musicNote: "Planned integrations; names are trademarks of their owners.",
     healthy: ["Rest days are part of the streak", "Zone 5 never earns more", "No guilt trips", "Quiet hours at night"],
   },
+  wellbeing: {
+    kicker: "Beyond the workout",
+    title: "Water, fuel, breathe, sleep. Gently.",
+    body: "Moving is one part of feeling good. VVake can also nudge the small things that make tomorrow's session easier, only if you turn them on.",
+    notifications: [
+      { icon: "💧", title: "Time for water", body: "You've been in the zone for 90 minutes." },
+      { icon: "🍽️", title: "Lunch, like you planned", body: "12:30. Step away from the screen." },
+      { icon: "🫁", title: "Take a breather?", body: "Your heart says 60 seconds of slow breathing might help." },
+      { icon: "🌙", title: "Wind-down", body: "Good sleep fuels tomorrow's streak." },
+    ],
+    items: [
+      { title: "Hydration", body: "Reminders every 90 minutes, every 45 around workouts and on hot days." },
+      { title: "Meal rhythm", body: "Only at the times you choose. No calories, no weight goals, ever." },
+      {
+        title: "Breathing breaks",
+        body: "When your heart-rate variability dips below your own baseline, a 60-second breather. Never a diagnosis.",
+      },
+      { title: "Sleep & recovery", body: "Wind-down nudges and rest days that count, because recovery is training." },
+    ],
+    promises: [
+      "All opt-in",
+      "No calorie counting",
+      "No weight or body goals",
+      "Quiet hours at night",
+      "Wellness guidance, not medical advice",
+    ],
+  },
   app: {
     kicker: "The app",
     title: "Built for your wrist. Made for your crew.",
@@ -292,6 +319,47 @@ export const en = {
     recover: { tag: "Green day", title: "Recover", body: "Brand up? Rest, stretch, sleep well. A challenge drops in a few hours." },
     disclaimer:
       "Illustration. Market data only sets the theme of free challenges. Rewards never depend on prices, and VVake does not sell or give away stocks.",
+  },
+  rwa: {
+    kicker: "RWA × crypto",
+    title: "Real-world markets. On-chain rewards. Your heart in between.",
+    body: "Stocks give VVake its heartbeat, your effort earns the rewards, and the chain keeps the books open. Here's how the pieces connect, and where the lines are.",
+    lanes: [
+      {
+        tag: "Real world",
+        title: "Brand stocks send the signal",
+        body: "Live market data from sport brands (e.g. LULU, NKE) triggers Rally and Recover moments. Data only: prices never decide rewards.",
+        points: ["Market data as a trigger", "Free challenges for everyone", "No trading in the app"],
+      },
+      {
+        tag: "VVake",
+        title: "Your effort does the work",
+        body: "Heart-rate effort, streaks, squads and city clashes. Everything you earn comes from moving, scored fairly for every age.",
+        points: ["Effort, not money, decides", "Points in the app", "Anti-cheat before any reward"],
+      },
+      {
+        tag: "On-chain (planned)",
+        title: "Robinhood Chain keeps it open",
+        body: "The chain where tokenized stocks (RWA) already live. Planned: a VVake token launched on vibe/vibe, a public fee-split contract, season rewards for effort, cosmetic collectibles.",
+        points: ["Public fee split, on-chain", "Season rewards for effort", "Web portal only · 18+ · not in every country"],
+      },
+    ],
+    stockRewards: {
+      title: "Stock rewards, the right way",
+      body: "A licensed broker partner may reward the winners of fitness challenges with fractional stock, through its own accounts and checks, where it's legal. Your fitness result decides, never the market. There's always a non-financial alternative.",
+    },
+    never: {
+      title: "What we'll never do",
+      items: [
+        "Let you bet on a stock",
+        "Pay yield or staking returns",
+        "Keep team tokens",
+        "Buy, hold or give out stocks ourselves",
+        "Ask for your seed phrase",
+      ],
+    },
+    disclaimer:
+      "Planned features, subject to legal review and regional availability; not offered in the US or UK at launch. Nothing on this site is an offer of tokens, securities or financial advice. Tickers are shown for identification only.",
   },
   rivalries: {
     kicker: "City Clash",
@@ -432,14 +500,27 @@ export const en = {
   dev: {
     kicker: "For builders",
     title: "Code hard. Move harder.",
-    body: "Your AI is refactoring. Your spine is filing a complaint. The VVake companion lives in your terminal and editor, and nudges you outside when the build is green.",
+    body: "Your AI is refactoring. Your spine is filing a complaint. The VVake companion lives in your terminal and editor, and turns the dead time of AI coding into movement.",
     terminal: [
-      "$ vv status",
-      "⚡ 3 energy   🫀 118 min since you moved",
-      "⚔️  PARIS 58.2 vs MARSEILLE 55.9 · 3h left",
-      "✔ PR merged. Deploy & Dash window: 20 min. Go.",
+      '$ claude "refactor the payments module"',
+      "⏳ Claude is thinking… 🫀 stand up: 60-second hip reset",
+      "⚡ 3 energy · 🫀 52 min at the desk → 50/10: move for 10",
+      "⚔️  PARIS 58.2 vs MARSEILLE 55.9 · 3h left · your squad is out",
+      "✔ PR merged. Deploy & Dash: 20-min walk window unlocked. Go.",
     ],
-    note: "Privacy first: no code or prompts ever leave your machine.",
+    features: [
+      { title: "While your AI thinks", body: "Long request? A 60-second desk reset (hips, shoulders, wrists) instead of doom-scrolling." },
+      { title: "50/10 rhythm", body: "50 minutes of flow, 10 minutes of move. The companion counts desk time, not keystrokes." },
+      {
+        title: "Deploy & Dash",
+        body: "Merged a PR or shipped a deploy? You unlock a 20-minute walk window that counts double for your squad.",
+      },
+      { title: "Walking stand-ups", body: "Turn your team's daily sync into a squad walk. Everyone's effort counts for the city." },
+      { title: "20-20-20 eyes", body: "Every 20 minutes, look 20 feet away for 20 seconds. A tiny nudge in your status line." },
+      { title: "Move streak badge", body: "Show your move streak next to your commit streak on your GitHub README." },
+    ],
+    worksWith: "Claude Code · VS Code · Cursor · any terminal",
+    note: "Privacy first: no code or prompts ever leave your machine. Quiet hours are respected.",
   },
   partners: {
     kicker: "Partners",
