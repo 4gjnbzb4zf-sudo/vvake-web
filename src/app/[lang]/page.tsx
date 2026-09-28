@@ -5,6 +5,7 @@ import { DoubleV } from "@/components/sections/DoubleV";
 import { Crew } from "@/components/sections/Crew";
 import { Dare } from "@/components/sections/Dare";
 import { Earn } from "@/components/sections/Earn";
+import { HealthWealth } from "@/components/sections/HealthWealth";
 import { DayLoop } from "@/components/sections/DayLoop";
 import { Dev, Faq, Footer } from "@/components/sections/Extras";
 import { Header } from "@/components/sections/Header";
@@ -58,6 +59,7 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
       <main id="main">
         <Hero dict={dict.hero} highlights={dict.highlights} app={dict.app} />
         <Showcase dict={dict.showcase} />
+        <HealthWealth dict={dict.healthWealth} />
         <Stats dict={dict.stats} />
         {/* Why join: the reasons, what you get, proof the world is moving, the day-one hook, the CTA. */}
         <Why dict={dict.why} index="01" />

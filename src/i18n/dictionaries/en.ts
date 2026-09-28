@@ -70,6 +70,20 @@ export const en = {
       },
     ],
   },
+  healthWealth: {
+    kicker: "Health × Wealth",
+    title: "Your health and your wealth, better together.",
+    body: "Every workout makes you stronger and, if you choose, puts a little of your own money to work in the brands you love, within a budget you set. Two good habits that feed each other: move more, build more.",
+    fitness: "Fitness",
+    invested: "Invested (your contributions)",
+    stats: [
+      { value: "+1", label: "session: stronger heart, better sleep, calmer mind" },
+      { value: "{money}", label: "per session, into a brand you pick, with a licensed partner" },
+      { value: "1 habit", label: "two wins that grow week after week" },
+    ],
+    disclaimer:
+      "Invested shows your own contributions, not investment returns. Investments can go down as well as up. Optional, where available, not financial advice.",
+  },
   stats: {
     items: [
       { value: 44, label: "Launch cities" },
@@ -826,8 +840,17 @@ export const en = {
     },
     paired: {
       title: "Train & invest, paired",
-      body: "Training and investing go together. Every sport has its stock: each verified session adds {money} of your own money to its pair, in your Robinhood account. Change any pair, set a weekly cap, pause anytime.",
+      body: "Training and investing go together. Every sport has its stock: each verified session adds {money} of your own money to its pair, in your Robinhood account. Change any pair, set your monthly budget, pause anytime.",
       session: "1 session",
+      budget: {
+        perWorkout: "Per workout",
+        monthly: "Monthly budget",
+        thisMonth: "This month",
+        pace: "At your pace: about {money} a month",
+        left: "Left this month: {money}",
+        rule: "Your budget is a hard cap: once it's used, workouts still count for the game, not for investing. Change or pause it anytime.",
+      },
+      brands: "Brand names and tickers identify listed companies. No affiliation or endorsement unless marked Partner.",
       week: "This week: {count} sessions → {money} invested, across {pairs} pairs",
       partner:
         "Planned with Robinhood: a brokerage account in the US, Robinhood stock tokens in the EU. Subject to a partnership agreement. Canada and other countries: another licensed broker. Your money, your account, where available. Investing involves risk, including loss of capital.",

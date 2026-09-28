@@ -68,6 +68,20 @@ export const fr: Dictionary = {
       },
     ],
   },
+  healthWealth: {
+    kicker: "Santé × Richesse",
+    title: "Ta santé et ta richesse, meilleures ensemble.",
+    body: "Chaque séance te rend plus fort et, si tu le veux, fait travailler un peu de ton propre argent dans les marques que tu aimes, dans un budget que tu fixes. Deux bonnes habitudes qui se nourrissent : bouge plus, construis plus.",
+    fitness: "Forme",
+    invested: "Investi (tes versements)",
+    stats: [
+      { value: "+1", label: "séance : cœur plus fort, meilleur sommeil, esprit plus calme" },
+      { value: "{money}", label: "par séance, dans une marque que tu choisis, via un partenaire agréé" },
+      { value: "1 habitude", label: "deux victoires qui grandissent semaine après semaine" },
+    ],
+    disclaimer:
+      "« Investi » montre tes propres versements, pas des rendements. Un investissement peut baisser comme monter. Optionnel, selon le pays, pas un conseil financier.",
+  },
   stats: {
     items: [
       { value: 44, label: "Villes au lancement" },
@@ -868,8 +882,18 @@ export const fr: Dictionary = {
     },
     paired: {
       title: "S'entraîner & investir, en duo",
-      body: "L'entraînement et l'investissement vont ensemble. Chaque sport a son action : chaque séance vérifiée ajoute {money} de ton propre argent à son duo, sur ton compte Robinhood. Change n'importe quel duo, fixe un plafond par semaine, mets en pause quand tu veux.",
+      body: "L'entraînement et l'investissement vont ensemble. Chaque sport a son action : chaque séance vérifiée ajoute {money} de ton propre argent à son duo, sur ton compte Robinhood. Change n'importe quel duo, fixe ton budget mensuel, mets en pause quand tu veux.",
       session: "1 séance",
+      budget: {
+        perWorkout: "Par séance",
+        monthly: "Budget mensuel",
+        thisMonth: "Ce mois-ci",
+        pace: "À ton rythme : environ {money} par mois",
+        left: "Reste ce mois-ci : {money}",
+        rule: "Ton budget est un plafond strict : une fois atteint, tes séances comptent toujours pour le jeu, plus pour l'investissement. Modifie-le ou mets-le en pause quand tu veux.",
+      },
+      brands:
+        "Les noms de marques et tickers identifient des sociétés cotées. Aucune affiliation ni recommandation, sauf mention Partenaire.",
       week: "Cette semaine : {count} séances → {money} investis, sur {pairs} duos",
       partner:
         "Prévu avec Robinhood : un compte-titres aux États-Unis, les actions tokenisées Robinhood dans l'UE. Sous réserve d'un accord de partenariat. Canada et autres pays : un autre courtier agréé. Ton argent, ton compte, selon le pays. Investir comporte des risques, dont la perte en capital.",
