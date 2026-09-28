@@ -14,8 +14,8 @@ export const siteConfig = {
    */
   liveEndpoint: (process.env.NEXT_PUBLIC_LIVE_ENDPOINT ?? "").replace(/\/$/, ""),
   social: {
-    x: "https://x.com/vvake",
-    xHandle: "@vvake",
+    x: "https://x.com/VVakeFit",
+    xHandle: "@VVakeFit",
   },
   /** Third-party launchpad (independent; not an affiliation). */
   vibeVibeUrl: "https://testnet.vibevibe.fun/",
