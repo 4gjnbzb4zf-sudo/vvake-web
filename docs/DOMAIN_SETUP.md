@@ -32,11 +32,11 @@ Delete any existing `A`/`AAAA`/`CNAME`/URL-forwarding records on `@` and `www` f
 
 Recommended extras:
 
-| Type | Host     | Value                       | Why                                                                  |
-| ---- | -------- | --------------------------- | -------------------------------------------------------------------- |
-| CAA  | `@`      | `0 issue "letsencrypt.org"` | Only Let's Encrypt (used by GitHub Pages) may issue certificates     |
-| TXT  | `@`      | `v=spf1 -all`               | Until you send email from this domain: nobody may send as @vvake.com |
-| TXT  | `_dmarc` | `v=DMARC1; p=reject;`       | Same, blocks spoofed mail (anti-phishing, see ADR-0009)              |
+| Type | Host     | Value                                            | Why                                                                         |
+| ---- | -------- | ------------------------------------------------ | --------------------------------------------------------------------------- |
+| CAA  | `@`      | `0 issue "letsencrypt.org"`                      | Only Let's Encrypt (used by GitHub Pages) may issue certificates            |
+| TXT  | `@`      | `v=spf1 -all`                                    | Until you send email from this domain: nobody may send as @vvake.com        |
+| TXT  | `_dmarc` | keep ONE record (GoDaddy default `p=quarantine`) | Anti-spoofing; move to `p=reject` once real email has SPF + DKIM (ADR-0009) |
 
 > When you set up email (e.g. hello@vvake.com), replace the SPF/DMARC records with the ones your email provider gives you.
 
