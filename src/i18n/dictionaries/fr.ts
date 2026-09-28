@@ -517,6 +517,13 @@ export const fr: Dictionary = {
     per: "/ mois",
     yearly: "ou à l'année, 2 mois offerts",
     trial: "7 jours d'essai gratuit · résiliable à tout moment",
+    lifetime: {
+      tag: "Offre fondatrice · saison de lancement uniquement",
+      title: "Plus à vie",
+      price: "{money}",
+      per: "une fois",
+      body: "Tous les outils Plus, pour toujours, pour environ 30 mois d'abonnement. Même règle : jamais d'avantage. Compté dans la répartition publique sur 36 mois, pour financer le jeu pendant des années.",
+    },
     cta: "Être prévenu au lancement",
     perks: [
       {
