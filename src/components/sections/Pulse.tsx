@@ -1,6 +1,7 @@
 import { InView } from "@/components/ui/InView";
 import { Section } from "@/components/ui/Section";
 import type { Dictionary } from "@/i18n/dictionaries";
+import { MyPulse } from "./MyPulse";
 
 export function Pulse({ dict, index }: { dict: Dictionary["pulse"]; index: string }) {
   return (
@@ -14,6 +15,7 @@ export function Pulse({ dict, index }: { dict: Dictionary["pulse"]; index: strin
           <PulseCard tone="up" tag={dict.recover.tag} title={dict.recover.title} body={dict.recover.body} ticker="NKE +3.0%" />
         </div>
       </div>
+      <MyPulse dict={dict.mine} />
       <p className="mt-4 text-sm text-faint">{dict.disclaimer}</p>
     </Section>
   );

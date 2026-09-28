@@ -703,7 +703,7 @@ export const fr: Dictionary = {
   pulse: {
     kicker: "Market Pulse",
     title: "La Bourse se réveille. Nous, on bouge.",
-    body: "Choisis ta Brand Team. Quand son marché bouge, un moment mondial s'ouvre, et tout le monde bouge ensemble.",
+    body: "Choisis ta Brand Team et suis les actions ou les cryptos qui t'intéressent. Quand ta Brand Team bouge, un moment mondial s'ouvre, et tout le monde bouge ensemble.",
     rally: {
       tag: "Jour rouge",
       title: "Rally",
@@ -713,6 +713,27 @@ export const fr: Dictionary = {
       tag: "Jour vert",
       title: "Recover",
       body: "La marque monte ? Repos, étirements, bonne nuit. Un défi tombe dans quelques heures.",
+    },
+    mine: {
+      title: "Ton Pulse",
+      body: "Suis les actions et les cryptos qui t'intéressent. Mets-en une en étoile comme Brand Team : ses mouvements ouvrent des moments Rally et Recover dans le monde entier. Tes autres choix te tiennent simplement informé, au calme.",
+      picks: "Tes choix",
+      star: "Brand Team",
+      suggested: "Suggérés d'après tes sports",
+      cryptoHint: "Crypto seulement si tu l'ajoutes",
+      today: "Aujourd'hui",
+      rally: "{line} · Rally ouvert pendant 45 min",
+      recover: "{line} · Jour Recover : repose-toi, un défi arrive ce soir",
+      move: "{line}",
+      digest: "Dans ton récap du dimanche",
+      invest: "Sweat & Invest · 4 séances → {money} dans {symbol}, chez ton courtier",
+      rules: [
+        "Des faits seulement : aucun conseil d'achat ou de vente, aucune prédiction",
+        "Une alerte marché par jour au maximum, jamais la nuit",
+        "Crypto seulement si tu l'ajoutes, via des prestataires réglementés",
+        "Les défis restent gratuits : les récompenses ne dépendent jamais des cours",
+      ],
+      demo: "Démo · chiffres d'illustration",
     },
     disclaimer:
       "Illustration. Les données de marché ne servent qu'à thématiser des défis gratuits. Les récompenses ne dépendent jamais des cours, et VVake ne vend ni ne donne d'actions.",
@@ -765,7 +786,7 @@ export const fr: Dictionary = {
       items: [
         {
           title: "Sweat & Invest",
-          body: "Crée une règle chez un courtier partenaire agréé, comme « {money} dans l'action de ma Brand Team à chaque séance ». Ton argent, ton compte ; VVake envoie seulement le signal de séance, avec ton accord.",
+          body: "Choisis un actif que tu suis, comme la marque de tes chaussures de running, et crée une règle chez un courtier agréé ou un prestataire crypto réglementé : « {money} à chaque séance ». Ton argent, ton compte ; VVake envoie seulement le nombre de séances vérifiées, avec ton accord.",
         },
         {
           title: "Récompenses en actions",
