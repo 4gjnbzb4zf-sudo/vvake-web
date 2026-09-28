@@ -1,3 +1,4 @@
+import { shade } from "@/lib/color";
 import type { VVakerTraits } from "./traits";
 
 /**
@@ -9,7 +10,6 @@ export const HAIR_COLOR = "#3b2a22";
 const HAIR_LIGHT = "#5a4034";
 const INK_TATTOO = "#1d2a44";
 const METAL = "#d9dde2";
-const SCAR = "#f2c5c5";
 const OUTLINE = "#0b0d0f";
 
 /** Hair that sits behind the head (drawn before it). */
@@ -144,18 +144,20 @@ export function Piercing({ piercing }: { piercing: VVakerTraits["piercing"] }) {
   }
 }
 
-export function Scar({ scar }: { scar: VVakerTraits["scar"] }) {
+/** Scars are drawn from the skin itself (a darker seam, a lighter ridge, dark stitches), so they read on every skin color. */
+export function Scar({ scar, skin }: { scar: VVakerTraits["scar"]; skin: string }) {
   const cut = (d: string, stitches: string) => (
-    <g stroke={SCAR} strokeLinecap="round" fill="none">
-      <path d={d} strokeWidth={4} />
-      <path d={stitches} strokeWidth={1.6} />
+    <g strokeLinecap="round" fill="none">
+      <path d={d} stroke={shade(skin, -0.45)} strokeWidth={5.5} />
+      <path d={d} stroke={shade(skin, 0.45)} strokeWidth={1.8} />
+      <path d={stitches} stroke={OUTLINE} strokeWidth={1.6} opacity={0.8} />
     </g>
   );
   switch (scar) {
     case "brow":
-      return cut("M82 84 L100 104", "M86 94 l6 -6 M92 100 l6 -6");
+      return cut("M82 86 L100 106", "M85 97 l7 -6 M91 103 l7 -6");
     case "cheek":
-      return cut("M140 124 L164 140", "M146 134 l5 -7 M154 139 l5 -7");
+      return cut("M140 124 L164 140", "M145 135 l6 -8 M154 140 l6 -8");
     default:
       return null;
   }
