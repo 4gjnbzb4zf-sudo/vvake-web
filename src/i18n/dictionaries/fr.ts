@@ -1014,6 +1014,7 @@ export const fr: Dictionary = {
     body: "Un petit athlète voxel qui est à toi, qui que tu sois et où que tu sois. Des millions de combinaisons : choisis ton corps, ton équipement, ton sport et ta tête de match, puis fais-en ta photo de profil et ta bannière X.",
     tabs: { body: "Corps", gear: "Équipement", sport: "Sport", face: "Visage" },
     controls: {
+      style: "Style",
       fan: "Kit supporter",
       color: "Couleur",
       background: "Fond",
@@ -1026,6 +1027,8 @@ export const fr: Dictionary = {
       mouth: "Bouche",
       energy: "Énergie",
     },
+    looks: { toy: "Toy", "athlete-a": "Athlète · A", "athlete-b": "Athlète · B" },
+    styleNote: "Deux styles, ouverts à toutes et tous. Ton choix est enregistré dans ce navigateur, et tout le site le suit.",
     colors: {
       candy: "Bonbon",
       lilac: "Lilas",

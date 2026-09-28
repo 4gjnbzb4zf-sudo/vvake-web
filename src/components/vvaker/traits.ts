@@ -74,6 +74,8 @@ export const VVAKER_SPORTS = [
   "skier",
   "footballer",
 ] as const;
+/** Visual style (ADR-0017). Appended to the DNA as an optional suffix: Toy codes never change. */
+export const VVAKER_LOOKS = ["toy", "athlete-a", "athlete-b"] as const;
 export const VVAKER_HEADGEARS = ["none", "cap", "beanie", "headphones", "helmet"] as const;
 export const VVAKER_EYES = ["pixel", "happy", "fired", "sleepy", "visor", "star"] as const;
 export const VVAKER_MOUTHS = ["smile", "grin", "calm", "o", "teeth"] as const;
@@ -87,6 +89,7 @@ export type VVakerHeadgear = (typeof VVAKER_HEADGEARS)[number];
 export type VVakerEyes = (typeof VVAKER_EYES)[number];
 export type VVakerMouth = (typeof VVAKER_MOUTHS)[number];
 export type VVakerAccessory = (typeof VVAKER_ACCESSORIES)[number];
+export type VVakerLook = (typeof VVAKER_LOOKS)[number];
 
 export interface VVakerTraits {
   color: VVakerColor;
@@ -96,6 +99,8 @@ export interface VVakerTraits {
   eyes: VVakerEyes;
   mouth: VVakerMouth;
   accessory: VVakerAccessory;
+  /** Toy (original) or Athlete build A / B; anyone picks any. */
+  look: VVakerLook;
   /** Race-bib number shown when `accessory` is "bib" (0–99). */
   bib: number;
   /** Filled segments of the energy bar, 0–4. */
@@ -112,6 +117,7 @@ export const DEFAULT_TRAITS: VVakerTraits = {
   eyes: "pixel",
   mouth: "smile",
   accessory: "none",
+  look: "toy",
   bib: 7,
   energy: 3,
   fan: "none",
@@ -134,8 +140,29 @@ export function randomTraits(random: () => number = Math.random): VVakerTraits {
     eyes: pick(VVAKER_EYES, random),
     mouth: pick(VVAKER_MOUTHS, random),
     accessory: pick(VVAKER_ACCESSORIES, random),
+    look: pick(VVAKER_LOOKS, random),
     bib: Math.floor(random() * 100),
     energy: 1 + Math.floor(random() * 4),
     fan: random() < 0.4 ? pick(Object.keys(FAN_KITS) as FanKit[], random) : "none",
+  };
+}
+
+/** Keeps only known trait values (e.g. from saved preferences); anything unknown falls back to the default. */
+export function sanitizeTraits(input: unknown): VVakerTraits {
+  const v = (input && typeof input === "object" ? input : {}) as Record<string, unknown>;
+  const one = <K extends keyof VVakerTraits>(key: K, allowed: readonly unknown[]): VVakerTraits[K] =>
+    (allowed.includes(v[key]) ? v[key] : DEFAULT_TRAITS[key]) as VVakerTraits[K];
+  return {
+    color: one("color", Object.keys(VVAKER_COLORS)),
+    accent: one("accent", Object.keys(VVAKER_ACCENTS)),
+    sport: one("sport", VVAKER_SPORTS),
+    headgear: one("headgear", VVAKER_HEADGEARS),
+    eyes: one("eyes", VVAKER_EYES),
+    mouth: one("mouth", VVAKER_MOUTHS),
+    accessory: one("accessory", VVAKER_ACCESSORIES),
+    look: one("look", VVAKER_LOOKS),
+    bib: clampBib(Number(v.bib)),
+    energy: Math.max(0, Math.min(4, Math.round(Number(v.energy) || DEFAULT_TRAITS.energy))),
+    fan: one("fan", Object.keys(FAN_KITS)),
   };
 }

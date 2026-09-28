@@ -39,7 +39,16 @@ export function People({ dict, index }: { dict: Dictionary["people"]; index: str
           <div className="relative mt-4 flex items-end justify-center gap-2">
             <VVaker sport="runner" color="candy" eyes="happy" mouth="grin" accent="volt" className="h-40 w-auto" />
             <span className="mb-20 animate-pulse-glow text-4xl">💘</span>
-            <VVaker sport="yogi" color="sky" headgear="cap" eyes="star" mouth="smile" accent="flame" className="h-40 w-auto -scale-x-100" />
+            <VVaker
+              sport="yogi"
+              look="athlete-b"
+              color="sky"
+              headgear="cap"
+              eyes="star"
+              mouth="smile"
+              accent="flame"
+              className="h-40 w-auto -scale-x-100"
+            />
           </div>
           <ul className="mt-4 flex flex-wrap justify-center gap-2">
             {dict.demo.reasons.map((r) => (

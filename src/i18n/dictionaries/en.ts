@@ -959,6 +959,7 @@ export const en = {
     body: "A little voxel athlete that's yours, whoever and wherever you are. Millions of combinations: pick your body, gear, sport and game face, then make it your profile picture and X banner.",
     tabs: { body: "Body", gear: "Gear", sport: "Sport", face: "Face" },
     controls: {
+      style: "Style",
       fan: "Fan kit",
       color: "Body color",
       background: "Background",
@@ -971,6 +972,8 @@ export const en = {
       mouth: "Mouth",
       energy: "Energy",
     },
+    looks: { toy: "Toy", "athlete-a": "Athlete · A", "athlete-b": "Athlete · B" },
+    styleNote: "Two styles, open to everyone. Your pick is saved in this browser, and the whole site follows it.",
     colors: { candy: "Candy", lilac: "Lilac", butter: "Butter", mint: "Mint", sky: "Sky", olive: "Olive", coral: "Coral", slate: "Slate" },
     accents: { pulse: "Pulse", volt: "Volt", calm: "Calm", ocean: "Ocean", snow: "Snow", flame: "Flame" },
     backgrounds: { night: "Night", pulse: "Pulse", volt: "Volt", lilac: "Lilac", sky: "Sky", cream: "Cream" },

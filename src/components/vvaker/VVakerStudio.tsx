@@ -5,8 +5,8 @@ import { buttonClass } from "@/components/ui/Button";
 import type { Dictionary } from "@/i18n/dictionaries";
 import { cn } from "@/lib/cn";
 import { encodeDna } from "@/lib/dna";
+import { saveStudio, setLookPref, useStudio } from "@/lib/prefs";
 import {
-  DEFAULT_TRAITS,
   FAN_KITS,
   VVAKER_ACCENTS,
   VVAKER_ACCESSORIES,
@@ -14,6 +14,7 @@ import {
   VVAKER_COLORS,
   VVAKER_EYES,
   VVAKER_HEADGEARS,
+  VVAKER_LOOKS,
   VVAKER_MOUTHS,
   VVAKER_SPORTS,
   clampBib,
@@ -30,8 +31,11 @@ type Tab = "body" | "gear" | "sport" | "face";
 const TABS: readonly Tab[] = ["body", "gear", "sport", "face"];
 
 export function VVakerStudio({ dict }: { dict: Dictionary["vvaker"] }) {
-  const [traits, setTraits] = useState<VVakerTraits>(DEFAULT_TRAITS);
-  const [background, setBackground] = useState<VVakerBackground>("night");
+  // Restored from this browser on the next visit (lib/prefs.ts); defaults until then.
+  const saved = useStudio();
+  const { traits, background } = saved;
+  const setTraits = (next: VVakerTraits) => saveStudio({ ...saved, traits: next });
+  const setBackground = (b: VVakerBackground) => saveStudio({ ...saved, background: b });
   const [tab, setTab] = useState<Tab>("body");
   const [busy, setBusy] = useState(false);
   const [version, setVersion] = useState(0);
@@ -40,7 +44,7 @@ export function VVakerStudio({ dict }: { dict: Dictionary["vvaker"] }) {
 
   /** Every change re-keys the avatar so it "pops". */
   function update(next: Partial<VVakerTraits>) {
-    setTraits((t) => ({ ...t, ...next }));
+    setTraits({ ...traits, ...next });
     setVersion((v) => v + 1);
   }
 
@@ -71,7 +75,7 @@ export function VVakerStudio({ dict }: { dict: Dictionary["vvaker"] }) {
         >
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_40%,rgb(255_255_255/0.16),transparent_60%)]" />
           <div key={version} className="relative h-full w-full animate-pop">
-            <VVaker {...traits} title={dict.alt} className="h-full w-full p-8" />
+            <VVaker {...traits} lockLook title={dict.alt} className="h-full w-full p-8" />
           </div>
         </div>
         <div className="mx-auto mt-4 flex max-w-[440px] flex-col gap-3 sm:flex-row">
@@ -125,7 +129,7 @@ export function VVakerStudio({ dict }: { dict: Dictionary["vvaker"] }) {
           <button
             type="button"
             onClick={() => {
-              setTraits(randomTraits());
+              setTraits({ ...randomTraits(), look: traits.look });
               setVersion((v) => v + 1);
             }}
             className={buttonClass("ghost", "h-10 px-4")}
@@ -138,6 +142,20 @@ export function VVakerStudio({ dict }: { dict: Dictionary["vvaker"] }) {
         <div id={`${baseId}-panel`} role="tabpanel" aria-labelledby={`${baseId}-${tab}`} className="mt-6 space-y-6">
           {tab === "body" && (
             <>
+              <ChipGroup label={dict.controls.style}>
+                {VVAKER_LOOKS.map((l) => (
+                  <Chip
+                    key={l}
+                    active={traits.look === l}
+                    onClick={() => {
+                      update({ look: l });
+                      setLookPref(l);
+                    }}
+                    label={dict.looks[l]}
+                  />
+                ))}
+              </ChipGroup>
+              <p className="-mt-3 text-xs text-faint">{dict.styleNote}</p>
               <ChipGroup label={dict.controls.color}>
                 {(Object.keys(VVAKER_COLORS) as VVakerColor[]).map((c) => (
                   <Swatch
