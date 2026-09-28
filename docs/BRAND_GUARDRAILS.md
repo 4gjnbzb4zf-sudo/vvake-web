@@ -13,3 +13,10 @@ VVake is a fitness game, not a financial product. Full rules live in the private
 | guaranteed, risk-free                                              | nothing                                                      |
 
 Pair "wealth" with **"health is the first wealth"**, never with prices or charts going up.
+
+## Referencing vibe/vibe (until a partnership is signed)
+
+- Text only: "vibe/vibe", "v/v". Never their chef-hat logo, characters, colors-as-brand or screenshots.
+- Always keep the independence line ("not affiliated with or endorsed by vibe/vibe").
+- No token details, prices, dates or calls to buy. "Nothing to buy" stays next to the link.
+- The link goes to their public site only; never ask visitors to connect a wallet from our pages.
