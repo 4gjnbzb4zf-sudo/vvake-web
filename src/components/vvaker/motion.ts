@@ -38,6 +38,9 @@ export interface Motion {
   mouth?: Keys;
   /** 0–1: effort blush. */
   strain?: Keys;
+  /** A ball in play (tennis, football): horizontal / vertical offsets in px from its start. */
+  ballX?: Keys;
+  ballY?: Keys;
   /** Arms turn full circles around the shoulders (front crawl); right arm half a cycle behind. */
   armSpin?: boolean;
   /** Seated poses sit lower. */
@@ -242,5 +245,93 @@ export const MOTIONS: Record<VVakerTraits["sport"], Motion> = {
     splashL: [1, 0.2, 0, 0.2],
     splashR: [0, 0.2, 1, 0.2],
     mouth: [0, 1, 0, 1],
+  },
+  // Uphill trail with trekking poles: leaning in, poles planted with the opposite foot.
+  hiker: {
+    period: 1.4,
+    ls: [26, 10, -4, 10],
+    le: k(-8),
+    rs: [4, -10, -26, -10],
+    re: k(8),
+    ly: [-10, -3, 0, -3],
+    ry: [0, -3, -10, -3],
+    body: [0, -3, 0, -3],
+    tilt: k(6),
+    flutter: true,
+  },
+  // Bouldering wall: hand over hand, stepping up, chalk puffs at each reach.
+  climber: {
+    period: 1.8,
+    ls: [165, 130, 120, 130],
+    le: [-10, -30, -40, -30],
+    rs: [-120, -130, -165, -130],
+    re: [40, 30, 10, 30],
+    lh: k(14),
+    rh: k(-14),
+    ly: [0, -6, -12, -6],
+    ry: [-12, -6, 0, -6],
+    body: [3, 0, -3, 0],
+    burst: [1, 0, 1, 0],
+    sweat: true,
+  },
+  // Forehand: the racket swings through as the ball arrives, then it flies back over the court.
+  racket: {
+    period: 1.3,
+    ls: k(40),
+    le: k(-30),
+    rs: [-20, -115, -60, -20],
+    re: [30, 0, -25, 30],
+    lk: k(8),
+    rk: k(-8),
+    sway: [4, -4, -2, 4],
+    tilt: [0, -5, -2, 0],
+    ballX: [-150, 0, -90, -170],
+    ballY: [-20, 0, -45, -30],
+    mouth: [0, 1, 0, 0],
+    sweat: true,
+  },
+  // On the beat: arms up in turn, hips sway, a little bounce, music in the air.
+  dancer: {
+    period: 1,
+    ls: [150, 30, 110, 30],
+    le: [0, -40, 0, -40],
+    rs: [-30, -150, -30, -110],
+    re: [40, 0, 40, 0],
+    ly: [0, -8, 0, 0],
+    ry: [0, 0, 0, -8],
+    sway: [-8, 0, 8, 0],
+    tilt: [-6, 0, 6, 0],
+    body: [0, -4, 0, -4],
+    burst: [0, 1, 0, 1],
+  },
+  // Carving down the slope: knees bent, poles out, body swinging turn to turn, snow spray.
+  skier: {
+    period: 1.8,
+    ls: k(22),
+    le: k(-30),
+    rs: k(-22),
+    re: k(30),
+    lh: k(6),
+    lk: k(-10),
+    rh: k(-6),
+    rk: k(10),
+    sway: [-14, 0, 14, 0],
+    tilt: [-10, 0, 10, 0],
+    body: k(5),
+    splashL: [1, 0.2, 0, 0.2],
+    splashR: [0, 0.2, 1, 0.2],
+    flutter: true,
+  },
+  // Keepy-uppy: the right foot lifts to meet the ball, arms out for balance.
+  footballer: {
+    period: 1,
+    ls: [30, 36, 30, 36],
+    le: k(-20),
+    rs: [-30, -36, -30, -36],
+    re: k(20),
+    ry: [-14, 0, -14, 0],
+    rk: [-24, 0, -24, 0],
+    body: [0, -2, 0, -2],
+    ballY: [0, -70, 0, -70],
   },
 };

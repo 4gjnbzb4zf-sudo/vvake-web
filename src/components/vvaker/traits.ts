@@ -67,6 +67,12 @@ export const VVAKER_SPORTS = [
   "roller",
   "skater",
   "swimmer",
+  "hiker",
+  "climber",
+  "racket",
+  "dancer",
+  "skier",
+  "footballer",
 ] as const;
 export const VVAKER_HEADGEARS = ["none", "cap", "beanie", "headphones", "helmet"] as const;
 export const VVAKER_EYES = ["pixel", "happy", "fired", "sleepy", "visor", "star"] as const;

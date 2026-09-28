@@ -34,6 +34,12 @@ export const SPORT_BRANDS: Partial<Record<VVakerSport, readonly string[]>> = {
   roller: ["NKE"],
   skater: ["NKE"],
   swimmer: ["GRMN"],
+  hiker: ["COLM", "DECK"],
+  climber: ["VFC"],
+  racket: ["NKE"],
+  dancer: ["LULU"],
+  skier: ["COLM"],
+  footballer: ["ADDYY", "NKE"],
 };
 export const WEARABLES = ["GRMN", "AAPL"] as const;
 export const MAX_WATCHLIST = 8;
