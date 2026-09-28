@@ -1,0 +1,149 @@
+@import "tailwindcss";
+
+/* ── Brand tokens (docs/06-brand/visual-direction.md) ─────────────────────── */
+@theme {
+  --color-night: #0e1012;
+  --color-night-2: #121518;
+  --color-surface: #171a1d;
+  --color-surface-2: #1d2125;
+  --color-line: #262a2f;
+  --color-text: #e6e9eb;
+  --color-muted: #9aa1a6;
+  --color-faint: #6b7278;
+
+  --color-pulse: #ff3d6e;
+  --color-pulse-soft: #ff7a9a;
+  --color-volt: #ccff00;
+  --color-calm: #8b87d9;
+  --color-up: #5bd08a;
+  --color-down: #e07856;
+
+  --color-candy: #f7a8c8;
+  --color-lilac: #b9a7f5;
+  --color-butter: #f5e27a;
+  --color-mint: #7fe0c8;
+  --color-sky: #7fb6f5;
+  --color-olive: #b8b07a;
+
+  --font-display: var(--font-unbounded), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains), ui-monospace, SFMono-Regular, monospace;
+
+  --animate-draw: draw 1.6s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+  --animate-float: float 6s ease-in-out infinite;
+  --animate-pulse-glow: pulse-glow 2.4s ease-in-out infinite;
+  --animate-rise: rise 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
+
+  @keyframes draw {
+    to {
+      stroke-dashoffset: 0;
+    }
+  }
+  @keyframes float {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+  }
+  @keyframes pulse-glow {
+    0%,
+    100% {
+      opacity: 0.55;
+    }
+    50% {
+      opacity: 1;
+    }
+  }
+  @keyframes rise {
+    from {
+      opacity: 0;
+      transform: translateY(16px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}
+
+@layer base {
+  html {
+    color-scheme: dark;
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+  body {
+    background: var(--color-night);
+    color: var(--color-text);
+    font-family: var(--font-sans);
+    font-feature-settings: "cv11", "ss01";
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+  ::selection {
+    background: var(--color-pulse);
+    color: var(--color-night);
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-volt);
+    outline-offset: 3px;
+    border-radius: 6px;
+  }
+  [id] {
+    scroll-margin-top: 88px;
+  }
+}
+
+@layer components {
+  /* Subtle voxel grid used behind hero and section heads. */
+  .bg-voxel-grid {
+    background-image:
+      linear-gradient(to right, rgb(255 255 255 / 0.035) 1px, transparent 1px),
+      linear-gradient(to bottom, rgb(255 255 255 / 0.035) 1px, transparent 1px);
+    background-size: 32px 32px;
+  }
+  .text-gradient-pulse {
+    background: linear-gradient(100deg, var(--color-pulse) 0%, var(--color-pulse-soft) 45%, var(--color-volt) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .glow-pulse {
+    box-shadow:
+      0 0 0 1px rgb(255 61 110 / 0.35),
+      0 10px 40px -10px rgb(255 61 110 / 0.55);
+  }
+  .glow-volt {
+    box-shadow:
+      0 0 0 1px rgb(204 255 0 / 0.3),
+      0 10px 40px -12px rgb(204 255 0 / 0.45);
+  }
+}
+
+/* Line drawings that start when their <InView> wrapper scrolls into view. */
+.draw-on-view {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+}
+.in-view .draw-on-view {
+  animation: draw 1.8s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .draw-on-view {
+    stroke-dashoffset: 0;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
