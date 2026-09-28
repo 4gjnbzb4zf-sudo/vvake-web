@@ -663,6 +663,7 @@ export const fr: Dictionary = {
     vibeLabel: "Ambiance",
     play: "Écouter un extrait",
     stop: "Arrêter",
+    demoNote: "La démo utilise les voix de ton appareil. L'app utilisera des voix de coach de qualité studio.",
     styles: {
       hype: {
         name: "Survolté",
@@ -718,6 +719,27 @@ export const fr: Dictionary = {
       chill: { name: "Tranquille", prefix: "Hé toi. " },
       "beast-mode": { name: "Mode bête", prefix: "Mode bête activé. " },
       friendly: { name: "Amical", prefix: "Salut l'ami ! " },
+    },
+    memory: {
+      title: "Il se souvient de toi. Et il fait le suivi.",
+      body: "Tes réponses deviennent les notes de ton coach : chaque appel reprend là où le précédent s'est arrêté. C'est toi qui décides : vois, modifie ou efface ce que tu veux.",
+      notesTitle: "Ce dont ton coach se souvient",
+      followTitle: "Prochain appel",
+      forget: "Oublier",
+      empty: "Rien à suivre. Ton coach te demandera simplement comment tu vas.",
+      notes: [
+        { id: "p", icon: "🦵", topic: "Douleur", text: "Genoux douloureux après la sortie longue de dimanche" },
+        { id: "c", icon: "🤝", topic: "Engagement", text: "Run de jeudi avec Sam" },
+        { id: "g", icon: "🎯", topic: "Objectif", text: "10 km en novembre" },
+        { id: "m", icon: "🌅", topic: "Préférence", text: "Préfère courir le matin" },
+      ],
+      followups: {
+        p: "Dimanche, tu m'as dit que tes genoux te faisaient mal. Comment ça va aujourd'hui ? On reste en douceur : 30 minutes de vélo à la place. Si la douleur persiste, consulte un kiné.",
+        c: "Alors… le run de jeudi avec Sam, c'était comment ? 🔥",
+        g: "10 km en novembre : encore six semaines, et tu es dans les temps.",
+        m: "J'ai placé tes séances le matin, comme tu aimes.",
+      },
+      privacy: "Les notes restent dans ton journal privé, jamais utilisées pour la pub, et tu peux les effacer quand tu veux.",
     },
     rules: [
       "Sur activation : 2 appels par semaine au maximum, jamais la nuit",
