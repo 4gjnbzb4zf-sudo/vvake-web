@@ -108,3 +108,58 @@ export function sweatInvestSignal(
   const workouts = Math.min(rule.maxWorkoutsPerWeek, weekEfforts.filter((e) => e >= rule.minEffort).length);
   return { asset: rule.asset, workouts, amount: workouts * rule.amountPerWorkout };
 }
+
+/**
+ * Sweat pairing (ADR-0015): training and investing go together. Each sport is paired with an asset
+ * (default: the first gear brand for that sport, editable by the player); each verified session
+ * counts toward its sport's pair. Execution happens at the player's broker (Robinhood first).
+ */
+export type SweatPairing = Partial<Record<VVakerSport, Asset>>;
+
+export function pairedAsset(sport: VVakerSport, pairing: SweatPairing = {}): Asset | null {
+  const own = pairing[sport];
+  if (own) return own;
+  const brand = SPORT_BRANDS[sport]?.[0];
+  return brand ? { symbol: brand, kind: "stock" } : null;
+}
+
+export interface PairedSignal {
+  asset: Asset;
+  workouts: number;
+  amount: number;
+}
+
+/**
+ * The week's signal per paired asset. The weekly cap applies to the total across all pairs, filled
+ * in session order; sessions under the minimum effort or without a pair don't count.
+ */
+export function pairedSignals(
+  sessions: readonly { sport: VVakerSport; effort: number }[],
+  rule: Omit<SweatInvestRule, "asset">,
+  pairing: SweatPairing = {},
+): PairedSignal[] {
+  const out = new Map<string, PairedSignal>();
+  let used = 0;
+  for (const s of sessions) {
+    if (used >= rule.maxWorkoutsPerWeek) break;
+    if (s.effort < rule.minEffort) continue;
+    const asset = pairedAsset(s.sport, pairing);
+    if (!asset) continue;
+    const key = `${asset.kind}:${asset.symbol}`;
+    const cur = out.get(key) ?? { asset, workouts: 0, amount: 0 };
+    cur.workouts++;
+    cur.amount += rule.amountPerWorkout;
+    out.set(key, cur);
+    used++;
+  }
+  return [...out.values()];
+}
+
+/** Launch broker per country (ADR-0015). Robinhood needs a signed partnership before anything goes live. */
+export type Broker = "robinhood-us" | "robinhood-eu-stock-tokens" | "licensed-partner";
+export function brokerFor(country: string): Broker {
+  if (country === "US") return "robinhood-us";
+  if (["FR", "DE", "ES", "IT", "NL", "BE", "PT", "IE", "AT", "FI", "LT", "PL", "SE", "DK"].includes(country))
+    return "robinhood-eu-stock-tokens";
+  return "licensed-partner"; // e.g. Canada: Robinhood doesn't operate there
+}

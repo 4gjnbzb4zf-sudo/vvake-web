@@ -20,3 +20,11 @@ describe("pulse mirror", () => {
     expect(s.map((x) => x.type)).toEqual(["move", "rally"]);
   });
 });
+
+describe("pairing mirror", () => {
+  it("matches game-core", async () => {
+    const { pairedAsset, brokerFor } = await import("./pulse");
+    expect(pairedAsset("runner")?.symbol).toBe("NKE");
+    expect(brokerFor("CA")).toBe("licensed-partner");
+  });
+});

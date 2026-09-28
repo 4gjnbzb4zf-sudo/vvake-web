@@ -97,7 +97,7 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
         </Section>
         {/* Web3 & ownership: why we rebuilt it, the market game, real-world assets, and the open books. */}
         <Story dict={dict.story} index="18" />
-        <Pulse dict={dict.pulse} index="19" />
+        <Pulse dict={dict.pulse} index="19" sportNames={dict.multisport.sports} />
         <Rwa dict={dict.rwa} index="20" />
         <OpenBook dict={dict.openBook} index="21" />
         <VibeLink dict={dict.vibe} />
