@@ -515,7 +515,7 @@ export const en = {
       {
         tag: "On-chain (planned)",
         title: "Robinhood Chain keeps it open",
-        body: "The chain where tokenized stocks (RWA) already live. Planned: a public fee-split contract, season rewards for effort paid in a stablecoin or perks, cosmetic collectibles, and later an optional VVake token on vibe/vibe.",
+        body: "The chain where tokenized stocks (RWA) already live. Planned: a public fee-split contract, season rewards for effort paid in a stablecoin or perks, collectibles with real utility (never an edge), and later an optional VVake token on vibe/vibe.",
         points: ["Public fee split, on-chain", "Season rewards for effort", "Web portal only · 18+ · not in every country"],
       },
     ],
@@ -701,10 +701,34 @@ export const en = {
     note: "Free for everyone. No wallet needed.",
     alt: "Your VVaker avatar",
     bannerTagline: "Two Vs make a W.",
+    stats: {
+      title: "Earned, never bought: your VVaker stats",
+      body: "Five stats grow from your real, verified activity over the last 90 days, and fade if you stop. No purchase, collectible or token can raise them. They're for bragging rights, badges and finding a crew at your level, and they never change rewards or rankings.",
+      names: { endurance: "Endurance", intensity: "Intensity", consistency: "Consistency", teamSpirit: "Team spirit", calm: "Calm" },
+      hints: {
+        endurance: "Minutes you move",
+        intensity: "How hard, by heart rate: fair across sports and bodies",
+        consistency: "Days you show up",
+        teamSpirit: "Crew sessions and training partners",
+        calm: "Mindful minutes",
+      },
+      archetypes: {
+        rookie: "Rookie",
+        marathonHeart: "Marathon heart",
+        firestarter: "Firestarter",
+        metronome: "Metronome",
+        crewCaptain: "Crew captain",
+        zenMaster: "Zen master",
+        allRounder: "All-rounder",
+      },
+      profiles: ["Weekend long-runner", "Wednesday crew lead", "Zen coder"],
+      example: "Example profiles",
+      decay: "Rolling 90 days: stop for a while and stats ease down, start again and they come back.",
+    },
     collect: {
       kicker: "Collector NFTs · optional",
       title: "Your VVaker is free. The drip is collectible.",
-      body: "Add-ons are limited seasonal collectibles in the VVake web portal: finishes, auras, trails, emotes and city kits. They look great on your VVaker, and they never change the game.",
+      body: "Add-ons are limited seasonal collectibles in the VVake web portal: finishes, auras, trails, emotes and city kits. They look great on your VVaker and unlock things to do, but never an edge in the game.",
       cards: [
         { name: "Holo finish", slot: "Finish", supply: "Season 1 · capped" },
         { name: "Flame aura", slot: "Aura", supply: "Season 1 · capped" },
@@ -767,6 +791,7 @@ export const en = {
           name: "Earned by moving",
           items: [
             "Levels 1–50: Rookie → Legend",
+            "Five stats: endurance, intensity, consistency, team spirit, calm",
             "Streak flames, league frames, city badges",
             "Founder crown for the first 100 in your city",
           ],
@@ -781,7 +806,7 @@ export const en = {
           ],
         },
       ],
-      note: "Paid add-ons are cosmetic only: they never change rewards, energy, rankings or your share of anything. Levels can't be bought.",
+      note: "Paid add-ons unlock things to do (host, create, get access), never an edge: they never change rewards, energy, rankings, stats or your share of anything. Levels and stats can't be bought.",
       cta: "See the drops",
     },
   },
@@ -836,7 +861,7 @@ export const en = {
       },
       {
         q: "Is it free?",
-        a: "Yes. Moving, squads, rivalries and your VVaker are free. Optional extras like cosmetics or a Plus subscription will never be required to take part.",
+        a: "Yes. Moving, squads, rivalries and your VVaker are free. Optional extras like collectibles or a Plus subscription will never be required to take part.",
       },
       {
         q: "What happens to my health data?",
@@ -848,7 +873,7 @@ export const en = {
       },
       {
         q: "Is there a token or NFTs?",
-        a: "A web3 layer is planned for later, subject to legal review and not available in every country. It will never be needed to play, and collectibles are cosmetic only.",
+        a: "Your VVaker is free and one of a kind. Optional collector add-ons (web portal, adults, not in every country) come with real utility: hosting bigger crew events, creating challenges, priority windows for race bibs and tickets, gear you can redeem. Stats are different: they are earned only by moving and can never be bought. A wider web3 layer, including any token, is planned for later, subject to legal review, and will never be needed to play. Nothing we sell is an investment: regulated investing goes through licensed partners.",
       },
       {
         q: "When do you launch?",

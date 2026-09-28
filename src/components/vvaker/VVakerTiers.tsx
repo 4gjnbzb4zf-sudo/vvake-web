@@ -6,7 +6,7 @@ const STYLES = [
   { border: "border-pulse/50", accent: "text-pulse", mark: "✦" },
 ] as const;
 
-/** Free forever / Earned by moving / Collector (paid): paid layers are cosmetic only (ADR-0002). */
+/** Free forever / Earned by moving / Collector (paid): paid layers add utility, never an edge (ADR-0002, ADR-0012). */
 export function VVakerTiers({ dict }: { dict: Dictionary["vvaker"]["tiers"] }) {
   return (
     <div className="mt-14">
