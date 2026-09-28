@@ -201,3 +201,68 @@ export function withinBudget(
 export function projectedMonthly(sessionsPerWeek: number, perWorkout: number, monthly: number): number {
   return Math.min(monthly, Math.round(sessionsPerWeek * (52 / 12) * perWorkout));
 }
+
+/**
+ * Plus + Invest (ADR-0019): alongside the subscription, the player runs a monthly invest plan with
+ * their own money at their licensed broker. The plan follows the player's own rules:
+ * - Goals: reach the monthly session goal to invest the full budget; otherwise only the achieved
+ *   share is invested and the rest simply stays as the player's cash (nothing is lost or won).
+ * - Scores: split across the player's sport pairs by where they actually trained this month.
+ * - Side pocket: an optional % to a side asset the player picked (e.g. crypto).
+ * - Regional tilt: optional % to a home-market pick, only in months their city won its clash.
+ * The subscription fee never buys anything; VVake only sends the resulting plan to the provider.
+ */
+export interface InvestPlanRules {
+  monthlyBudget: number;
+  monthlyGoalSessions: number;
+  sidePocket?: { asset: Asset; pct: number };
+  homeTilt?: { asset: Asset; pct: number };
+}
+
+export interface MonthActivity {
+  /** Verified sessions this month per sport. */
+  sessions: Partial<Record<VVakerSport, number>>;
+  cityWonClash: boolean;
+}
+
+export interface PlannedBuy {
+  asset: Asset;
+  amount: number;
+  why: "pairs" | "side" | "home";
+}
+
+const cents = (n: number) => Math.round(n * 100) / 100;
+
+export function monthlyInvestPlan(
+  rules: InvestPlanRules,
+  month: MonthActivity,
+  pairing: SweatPairing = {},
+): { buys: PlannedBuy[]; invested: number; keptAsCash: number } {
+  const total = Object.values(month.sessions).reduce((s, n) => s + (n ?? 0), 0);
+  const achieved = rules.monthlyGoalSessions > 0 ? Math.min(1, total / rules.monthlyGoalSessions) : 1;
+  let pot = cents(rules.monthlyBudget * achieved);
+  const buys: PlannedBuy[] = [];
+  const invested0 = pot;
+
+  const side = rules.sidePocket && rules.sidePocket.pct > 0 ? cents(pot * Math.min(0.5, rules.sidePocket.pct)) : 0;
+  const home = rules.homeTilt && month.cityWonClash && rules.homeTilt.pct > 0 ? cents(pot * Math.min(0.3, rules.homeTilt.pct)) : 0;
+  if (side) buys.push({ asset: rules.sidePocket!.asset, amount: side, why: "side" });
+  if (home) buys.push({ asset: rules.homeTilt!.asset, amount: home, why: "home" });
+  pot = cents(pot - side - home);
+
+  // Pairs: proportional to sessions per sport, merged by asset.
+  const byAsset = new Map<string, PlannedBuy>();
+  const paired = (Object.entries(month.sessions) as [VVakerSport, number][])
+    .map(([sport, n]) => ({ asset: pairedAsset(sport, pairing), n }))
+    .filter((x): x is { asset: Asset; n: number } => !!x.asset && x.n > 0);
+  const pairedTotal = paired.reduce((s, x) => s + x.n, 0);
+  for (const { asset, n } of paired) {
+    const key = `${asset.kind}:${asset.symbol}`;
+    const cur = byAsset.get(key) ?? { asset, amount: 0, why: "pairs" as const };
+    cur.amount = cents(cur.amount + (pot * n) / pairedTotal);
+    byAsset.set(key, cur);
+  }
+  buys.unshift(...[...byAsset.values()].sort((a, b) => b.amount - a.amount));
+  const invested = pairedTotal ? invested0 : cents(side + home);
+  return { buys, invested, keptAsCash: cents(rules.monthlyBudget - invested) };
+}

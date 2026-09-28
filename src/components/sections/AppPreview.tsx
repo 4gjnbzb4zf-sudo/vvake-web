@@ -23,6 +23,23 @@ export function AppPreview({ dict, index }: { dict: Dictionary["app"]; index: st
           </li>
         ))}
       </ol>
+      <div className="mt-10">
+        <h3 className="font-display text-xl font-semibold">{dict.devices.title}</h3>
+        <ul className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+          {dict.devices.items.map((d) => (
+            <li key={d.name} className="flex items-center gap-3 rounded-2xl border border-line bg-surface/70 p-4">
+              <span aria-hidden="true" className="text-2xl">
+                {d.icon}
+              </span>
+              <div>
+                <p className="font-display font-semibold">{d.name}</p>
+                <p className="text-xs text-muted">{d.spec}</p>
+              </div>
+            </li>
+          ))}
+        </ul>
+        <p className="mt-2 text-xs text-faint">{dict.devices.note}</p>
+      </div>
       <div className="mt-8 flex flex-wrap items-center gap-3">
         <p className="font-mono text-xs tracking-[0.16em] text-faint uppercase">{dict.platforms}</p>
         <p className="inline-flex rounded-full border border-volt/40 bg-volt/10 px-3 py-1 font-mono text-xs text-volt">{dict.soon}</p>
