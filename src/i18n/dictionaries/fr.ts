@@ -579,15 +579,17 @@ export const fr: Dictionary = {
           ],
         },
         {
-          name: "Collection (NFT optionnels)",
+          name: "Drops de collection · optionnels",
           items: [
-            "Finitions holo, chrome & néon",
-            "Auras, traînées & célébrations",
-            "Kits de saison ville & marque (objets de collection)",
+            "Finitions, auras, traînées & célébrations limitées",
+            "Kits de saison ville & marque",
+            "Avantages détenteurs : drops en avance, réductions partenaires, rencontres",
+            "Visibles seulement dans les apps · portail web · adultes",
           ],
         },
       ],
       note: "Les options payantes sont uniquement cosmétiques : elles ne changent jamais les récompenses, l'énergie, les classements ni ta part de quoi que ce soit. Les niveaux ne s'achètent pas.",
+      cta: "Voir les drops",
     },
   },
   dev: {

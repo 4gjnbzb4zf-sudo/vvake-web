@@ -543,11 +543,17 @@ export const en = {
           ],
         },
         {
-          name: "Collector (optional NFTs)",
-          items: ["Holo, chrome & neon finishes", "Auras, trails & victory emotes", "Seasonal city & brand kits (collectibles)"],
+          name: "Collector drops · optional",
+          items: [
+            "Limited finishes, auras, trails & emotes",
+            "Seasonal city & brand kits",
+            "Holder perks: early drops, partner discounts, meetups",
+            "View-only in the apps · web portal · adults",
+          ],
         },
       ],
       note: "Paid add-ons are cosmetic only: they never change rewards, energy, rankings or your share of anything. Levels can't be bought.",
+      cta: "See the drops",
     },
   },
   dev: {
