@@ -12,7 +12,7 @@ export const en = {
   },
   nav: {
     why: "Why join",
-    earn: "Rewards",
+    earn: "What you get",
     play: "Play",
     vvaker: "VVaker",
     web3: "Web3",
@@ -27,22 +27,51 @@ export const en = {
     pronounce: "Say it: “wake”",
     prefix: "VVake up",
     anthem: ["for your health.", "for your wealth.", "for yourself.", "for your squad.", "for your city.", "for your team."],
-    lead: "The training app for your phone and watch: a plan that fits your week, your crew, your city. Every session also builds your wealth: perks, prizes and, where the law allows, real rewards. Scored on your heart, not your speed.",
+    lead: "The training app for your phone and watch: a plan that fits your week, your crew, your city. Move for perks, prizes and, where the law allows, real rewards. Scored on your heart, not your speed.",
     trainingChip: "Plan synced with your calendar",
     wealthChip: "{money} invested per workout",
-    wealthNote: "Sweat & Invest · your money · licensed broker",
+    wealthNote: "Sweat & Invest · optional · your money · licensed partner · where available",
     ctaPrimary: "Unlock your city",
     ctaSecondary: "What you get",
-    chips: ["Free to start", "Heart, not speed", "Open-book team", "Watch & phone"],
   },
   highlights: {
-    sticker: { label: "Team token allocation", value: "0%", note: "Paid only from fees" },
     strip: ["Heart, not speed", "City rivalries", "Open-book team"],
+  },
+  showcase: {
+    label: "Highlights",
+    pause: "Pause",
+    play: "Play",
+    slides: [
+      {
+        tag: "Compete",
+        title: "Your city vs theirs. Every day.",
+        body: "12-hour City Clashes scored on effort per mover, so a small town can beat a metro.",
+        cta: "See the rivalries",
+      },
+      {
+        tag: "Crew mode",
+        title: "Someone's waiting. So you go.",
+        body: "Plan sessions with your crew, get reminded, and earn more together when you actually show up.",
+        cta: "Train together",
+      },
+      {
+        tag: "RWA × Web3",
+        title: "Real-world markets. On-chain transparency.",
+        body: "Built next to tokenized stocks: a public fee split and season rewards paid on-chain (planned, where legal).",
+        cta: "How it works",
+      },
+      {
+        tag: "Sweat & Invest",
+        title: "Your workouts. Your picks.",
+        body: "Follow the stocks and crypto you care about. Optionally invest {money} of your own money per workout, with a licensed partner.",
+        cta: "Build your Pulse",
+      },
+    ],
   },
   stats: {
     items: [
-      { value: 34, label: "Launch cities" },
-      { value: 17, label: "Rivalries" },
+      { value: 44, label: "Launch cities" },
+      { value: 22, label: "Rivalries" },
       { value: 4, label: "Energy refills a day" },
       { value: 0, label: "Team tokens", suffix: "%" },
     ],
@@ -105,6 +134,7 @@ export const en = {
       meditator: "Meditation",
       roller: "Roller skating",
       skater: "Ice skating",
+      swimmer: "Swimming",
     },
     session: "{minutes} min · zone {zone}",
     mindful: "Calm points · counts your day",
@@ -145,7 +175,7 @@ export const en = {
         title: "7 days. No excuses.",
         goal: "1 real session a day",
         window: "7 days in a row",
-        reward: "Streak freeze + Founder perks activated",
+        reward: "Streak freeze + streak flame",
       },
       {
         tag: "Squad goal",
@@ -316,7 +346,7 @@ export const en = {
   earn: {
     kicker: "What you get",
     title: "Move. Get more than fit.",
-    body: "Health is the start. Every verified session also builds your status, your city's glory, real-life perks and, where the law allows, real rewards. The team is paid from fees only, never from your pocket.",
+    body: "Health is the start. Every verified session also builds your status, your city's glory, real-life perks and, where the law allows, real rewards. The team is paid from fees only: never from tokens, never from new players' money.",
     when: ["Day one", "Seasons · where legal", "Licensed partners", "Planned"],
     items: [
       {
@@ -329,7 +359,7 @@ export const en = {
         icon: "⚔️",
         when: 0,
         title: "Glory for your city",
-        body: "City Clash from day one, leagues, badges and a Founder crown for the first 100 movers in each city.",
+        body: "City Clash from day one, leagues, badges and a Founder crown for the first 100 to join in each city.",
       },
       {
         icon: "🧬",
@@ -353,13 +383,13 @@ export const en = {
         icon: "💵",
         when: 1,
         title: "Season rewards for effort",
-        body: "A share of fee revenue goes back to movers, in a regulated stablecoin or perks. Based on effort, capped, never pay-to-earn.",
+        body: "A share of fee revenue goes back to movers, in a regulated stablecoin or perks, once anti-cheat and appeals are live. Based on effort, capped, never pay-to-earn.",
       },
       {
         icon: "📈",
         when: 2,
         title: "Stocks for winners, investing for you",
-        body: "Stock rewards for challenge winners run by a licensed broker, and Sweat & Invest: auto-invest your own money after each workout.",
+        body: "Where it's legal, a licensed broker may reward challenge winners with fractional shares (a non-financial prize is always available). And Sweat & Invest lets you auto-invest your own money after each workout.",
       },
       {
         icon: "🏛️",
@@ -380,7 +410,7 @@ export const en = {
         {
           title: "RWA × crypto",
           href: "#rwa",
-          body: "Built next to tokenized stocks, with a public fee-split contract and on-chain season rewards.",
+          body: "Planned next to tokenized stocks: a public fee-split contract and season rewards paid on-chain.",
         },
         {
           title: "Regulated paths",
@@ -474,29 +504,28 @@ export const en = {
       { label: "Trained with", value: "6 people" },
     ],
     onThisDay: { label: "On this day · 1 year ago", text: "Your first VVake run: 3.0 km in 20 min. Look how far you've come." },
-    pb: "Personal best",
     months: [
       {
-        name: "September 2026",
+        name: "September 2027",
         items: [
-          { kind: "workout", date: "Sun 27", title: "Tempo run", meta: "5.2 km · 28:14 · effort 86" },
+          { kind: "workout", date: "Sun 26", title: "Tempo run", meta: "5.2 km · 28:14 · effort 86" },
           {
             kind: "crew",
-            date: "Wed 24",
+            date: "Wed 22",
             title: "Wednesday run · Crew Traboules",
             meta: "7.1 km · trained together ×5 · +35 pts",
             badge: "Longest run",
           },
-          { kind: "workout", date: "Mon 22", title: "Gym · push day", meta: "50 min · effort 110", badge: "Biggest effort" },
-          { kind: "clash", date: "Sat 20", title: "Lyon vs Saint-Étienne", meta: "Won 61.3 – 58.9 · you added +0.4" },
-          { kind: "challenge", date: "Tue 01", title: "Halftime Sprint", meta: "12 min in zone 3+ · Fan Clash points" },
+          { kind: "workout", date: "Mon 20", title: "Gym · push day", meta: "50 min · effort 110", badge: "Biggest effort" },
+          { kind: "clash", date: "Sat 18", title: "Lyon vs Saint-Étienne", meta: "Won 61.3 – 58.9 · you added +0.4" },
+          { kind: "challenge", date: "Tue 07", title: "Halftime Sprint", meta: "12 min in zone 3+ · Fan Clash points" },
         ],
       },
       {
-        name: "August 2026",
+        name: "August 2027",
         items: [
-          { kind: "workout", date: "Fri 28", title: "Easy walk", meta: "3.5 km · 40 min · effort 40" },
-          { kind: "crew", date: "Sat 15", title: "Sunday hike · Monts d'Or", meta: "11 km · trained together ×4", badge: "Biggest crew" },
+          { kind: "workout", date: "Fri 27", title: "Easy walk", meta: "3.5 km · 40 min · effort 40" },
+          { kind: "crew", date: "Sat 14", title: "Saturday hike · Monts d'Or", meta: "11 km · trained together ×4", badge: "Biggest crew" },
         ],
       },
     ],
@@ -569,7 +598,7 @@ export const en = {
       goal: "of 6,500 · your goal",
       note: "Steps count too: 1,500 steps keep your streak alive, and on phone-only days they turn into effort.",
     },
-    cheers: ["Cheers, not guilt", "Right moment, not every moment", "Max 2 nudges a day", "Silent at night"],
+    cheers: ["Cheers, not guilt", "Right moment, not every moment", "Max 2 training nudges a day", "Silent at night"],
   },
   wellbeing: {
     kicker: "Beyond the workout",
@@ -605,7 +634,7 @@ export const en = {
   app: {
     kicker: "The app",
     title: "Built for your wrist. Made for your crew.",
-    body: "Start in two taps. Your watch runs the session, your phone tells the story: energy, squads and city clashes in one place.",
+    body: "Start in two taps. Your watch runs the session, your phone tells the story: today's plan, your squad and your city's clash in one place.",
     points: [
       { title: "Two taps to start", body: "From a watch complication or the Action Button. No phone needed." },
       { title: "Battery first", body: "Runs on the watch's own workout engine: no worse than the native Workout app." },
@@ -616,20 +645,14 @@ export const en = {
       today: "Today's plan",
       todaySession: "Easy run · 30 min · zone 2",
       todayWhen: "18:45 · in your calendar",
-      wealth: "Your wealth · this week",
-      invested: "Sweat & Invest",
-      investedValue: "{money} · 4 workouts",
-      rewards: "Season rewards",
-      rewardsValue: "Top 12%",
+      wealth: "This week",
+      invested: "Points",
+      investedValue: "1,240 · 4 workouts",
+      rewards: "Squad rank",
+      rewardsValue: "#3 of 8",
       hello: "VVake up, Sam.",
-      energy: "Energy refilled",
-      minutes: "= 15 min of real effort",
-      refill: "next refill 12:00",
       start: "Start session",
-      rally: "Rally · open 32 min",
-      rallyBody: "12,408 movers are out.",
       clash: "City Clash · 3h left",
-      squad: "Squad goal",
     },
     watch: { zone: "Run · zone 3", effort: "Effort", time: "Time" },
     platforms: "Apple Watch · Wear OS · iPhone · Android",
@@ -683,8 +706,16 @@ export const en = {
     kicker: "Market Pulse",
     title: "The market wakes. We move.",
     body: "Pick a Brand Team and follow the stocks or crypto you care about. When your Brand Team moves, a worldwide moment opens, and everyone moves together.",
-    rally: { tag: "Red day", title: "Rally", body: "Brand down? A 45-minute worldwide Rally opens. Lace up with thousands of others." },
-    recover: { tag: "Green day", title: "Recover", body: "Brand up? Rest, stretch, sleep well. A challenge drops in a few hours." },
+    rally: {
+      tag: "Red day",
+      title: "Rally",
+      body: "Your Brand Team down? A 45-minute worldwide Rally opens. Lace up with thousands of others.",
+    },
+    recover: {
+      tag: "Green day",
+      title: "Recover",
+      body: "Your Brand Team up? Rest, stretch, sleep well. A challenge drops in a few hours.",
+    },
     mine: {
       title: "Your Pulse",
       body: "Follow the stocks and crypto you care about. Star one as your Brand Team: its moves open worldwide Rally and Recover moments. Your other picks just keep you posted, calmly.",
@@ -707,7 +738,7 @@ export const en = {
       demo: "Demo · illustrative figures",
     },
     disclaimer:
-      "Illustration. Market data only sets the theme of free challenges. Rewards never depend on prices, and VVake does not sell or give away stocks.",
+      "Illustration. Market data only sets the theme of free challenges. Rewards never depend on prices. VVake never sells, holds or gives out stocks itself; any stock reward is run by a licensed broker.",
   },
   rwa: {
     kicker: "RWA × crypto",
@@ -716,8 +747,8 @@ export const en = {
     lanes: [
       {
         tag: "Real world",
-        title: "Brand stocks send the signal",
-        body: "Live market data from sport brands (e.g. LULU, NKE) triggers Rally and Recover moments. Data only: prices never decide rewards.",
+        title: "Your picks send the signal",
+        body: "Market data from the brands you follow (e.g. LULU, NKE) triggers Rally and Recover moments. Data only: prices never decide rewards.",
         points: ["Market data as a trigger", "Free challenges for everyone", "No trading in the app"],
       },
       {
@@ -764,7 +795,7 @@ export const en = {
       note: "Planned, subject to partner agreements and legal approval in each country. Investing involves risk, including loss of capital. Nothing here is investment advice.",
     },
     disclaimer:
-      "Planned features, subject to legal review and regional availability; not offered in the US or UK at launch. Nothing on this site is an offer of tokens, securities or financial advice. Tickers are shown for identification only.",
+      "Planned features, subject to legal review and regional availability; token and on-chain features are not offered in the US or UK at launch. Nothing on this site is an offer of tokens, securities or financial advice. Tickers are shown for identification only.",
   },
   rivalries: {
     kicker: "City Clash",
@@ -808,10 +839,10 @@ export const en = {
       {
         name: "City Founder",
         who: "First 100 in your city",
-        perks: "Name on the Founders Wall · Founder gear skin · Captain eligibility · 48h early access",
+        perks: "Name on the Founders Wall · Founder crown · Captain eligibility · 48h early access",
       },
-      { name: "Pioneer", who: "First 1,000", perks: "Pioneer skin · 2 streak freezes · 24h early access" },
-      { name: "Early Mover", who: "Everyone before unlock", perks: "Early Mover badge · 1 streak freeze" },
+      { name: "Pioneer", who: "#101 to #1,000 in your city", perks: "Pioneer skin · 2 streak freezes · 24h early access" },
+      { name: "Early Mover", who: "Everyone else who joins before launch", perks: "Early Mover badge · 1 streak freeze" },
     ],
     tiersNote: "Perks are in-game only and activate after your first 3 real sessions. Fake signups get nothing.",
     form: {
@@ -861,15 +892,15 @@ export const en = {
   },
   openBook: {
     kicker: "Open book",
-    title: "Our salary is public before you ask.",
-    body: "The team has no token allocation and is paid only from fees. Every dollar goes through one public split.",
+    title: "Where every fee goes. Public before you ask.",
+    body: "The team has no token allocation and is paid only from fees. Every fee goes through one public split.",
     split: [
       { label: "Players", note: "Season rewards, paid for effort, never for holding", value: 30 },
-      { label: "Team", note: "Our only income: salaries & infrastructure", value: 40 },
+      { label: "Operations", note: "Salaries & infrastructure. Any surplus is company profit, shown in the season report", value: 40 },
       { label: "Growth", note: "Events, rivalries, community", value: 20 },
       { label: "Reserve", note: "Keeps rewards steady in down seasons", value: 10 },
     ],
-    promise: "No hidden wallets. No second token. A public report every season.",
+    promise: "No hidden wallets. No team tokens. A public report every season.",
   },
   vvaker: {
     kicker: "Your VVaker",
@@ -906,6 +937,7 @@ export const en = {
       meditator: "Meditation",
       roller: "Roller skating",
       skater: "Ice skating",
+      swimmer: "Swimming",
     },
     headgears: { none: "Headband", cap: "Cap", beanie: "Beanie", headphones: "Headphones", helmet: "Bike helmet" },
     eyes: { pixel: "Pixel", happy: "Happy", fired: "Fired up", sleepy: "Sleepy", visor: "Visor", star: "Star" },
@@ -971,7 +1003,7 @@ export const en = {
       ],
       neverTitle: "Never included",
       never: ["More rewards, energy or ranking", "Extra prize entries", "Any share of revenue", "Anything required to play"],
-      note: "Web portal only, adults, not available in every country. In the iOS and Android apps, collectibles are view-only and the same looks exist as regular in-app purchases. Collectibles are not investments.",
+      note: "Web portal only, adults, not available in every country. In the iOS and Android apps, collectibles are view-only and the same looks and passes exist as regular in-app purchases. Collectibles are not investments.",
     },
     fanKits: {
       none: "No team",
@@ -1042,7 +1074,7 @@ export const en = {
       { title: "50/10 rhythm", body: "50 minutes of flow, 10 minutes of move. The companion counts desk time, not keystrokes." },
       {
         title: "Deploy & Dash",
-        body: "Merged a PR or shipped a deploy? You unlock a 20-minute walk window that counts double for your squad.",
+        body: "Merged a PR or shipped a deploy? You unlock a 20-minute walk window and a Builder badge; every minute counts for your squad.",
       },
       { title: "Walking stand-ups", body: "Turn your team's daily sync into a squad walk. Everyone's effort counts for the city." },
       { title: "20-20-20 eyes", body: "Every 20 minutes, look 20 feet away for 20 seconds. A tiny nudge in your status line." },
@@ -1058,7 +1090,7 @@ export const en = {
     offers: [
       { title: "Sponsored Rallies & Clashes", body: "Put your name on a city-wide challenge. Free for players, decided by effort." },
       { title: "Real-life perks", body: "Day passes, gear, race bibs, tickets: rewards people earn by moving, not by paying." },
-      { title: "Gyms & run clubs", body: "Become a City Founder partner: bring your community, unlock your city first." },
+      { title: "Gyms & run clubs", body: "Become a founding partner in your city: bring your community, unlock your city first." },
       { title: "Clubs & events", body: "Fan Clash on your match days, warm-ups and halftime sprints with your supporters." },
     ],
     promises: ["Free to enter for players", "No betting, no stakes", "Anonymized, aggregated insights only", "Never any health data"],
@@ -1073,11 +1105,11 @@ export const en = {
     items: [
       {
         q: "Is VVake an investment?",
-        a: "No. VVake is a fitness game. Rewards are small perks funded by real revenue, and nothing on VVake is a promise of profit. Move because it feels good.",
+        a: "The game isn't. VVake is a fitness game: season rewards are small and funded by real revenue, and nothing we sell (collectibles, any future token) is an investment or a promise of profit. If you want to invest, that happens separately through licensed partners: a broker for your own money, or a regulated equity round in the company.",
       },
       {
         q: "Is it free?",
-        a: "Yes. Moving, squads, rivalries and your VVaker are free. Optional extras like collectibles or a Plus subscription will never be required to take part.",
+        a: "Yes. Moving, squads, rivalries and your VVaker are free. Optional extras like collector add-ons are never required to take part.",
       },
       {
         q: "What happens to my health data?",

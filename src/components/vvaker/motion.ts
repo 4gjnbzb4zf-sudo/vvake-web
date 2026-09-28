@@ -38,6 +38,8 @@ export interface Motion {
   mouth?: Keys;
   /** 0–1: effort blush. */
   strain?: Keys;
+  /** Arms turn full circles around the shoulders (front crawl); right arm half a cycle behind. */
+  armSpin?: boolean;
   /** Seated poses sit lower. */
   drop?: number;
   sweat?: boolean;
@@ -227,5 +229,18 @@ export const MOTIONS: Record<VVakerTraits["sport"], Motion> = {
     re: k(0),
     burst: [0.3, 1, 0.3, 1],
     flutter: true,
+  },
+  // Front crawl in a pool lane: chest-deep, arms windmilling, splashes on each stroke, head bobbing.
+  swimmer: {
+    period: 1.4,
+    drop: 46,
+    armSpin: true,
+    ls: k(180),
+    rs: k(0),
+    body: [0, -3, 0, -3],
+    tilt: [-4, 0, 4, 0],
+    splashL: [1, 0.2, 0, 0.2],
+    splashR: [0, 0.2, 1, 0.2],
+    mouth: [0, 1, 0, 1],
   },
 };

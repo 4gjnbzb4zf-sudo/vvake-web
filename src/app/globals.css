@@ -339,3 +339,19 @@
     opacity: 0;
   }
 }
+
+.vv-progress {
+  width: 0;
+  animation: vv-progress linear forwards;
+}
+@keyframes vv-progress {
+  to {
+    width: 100%;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .vv-progress {
+    animation: none;
+    width: 100%;
+  }
+}

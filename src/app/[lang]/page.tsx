@@ -16,6 +16,7 @@ import { Multisport } from "@/components/sections/Multisport";
 import { OpenBook } from "@/components/sections/OpenBook";
 import { Pace } from "@/components/sections/Pace";
 import { People } from "@/components/sections/People";
+import { Showcase } from "@/components/sections/Showcase";
 import { Partners } from "@/components/sections/Partners";
 import { Pulse } from "@/components/sections/Pulse";
 import { RivalryBoard, type RivalryView } from "@/components/sections/Rivalries";
@@ -53,6 +54,7 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
       <Header locale={lang} dict={dict.nav} />
       <main id="main">
         <Hero dict={dict.hero} highlights={dict.highlights} app={dict.app} />
+        <Showcase dict={dict.showcase} />
         <Stats dict={dict.stats} />
         {/* Why join: the reasons, what you get, proof the world is moving, the day-one hook, the CTA. */}
         <Why dict={dict.why} index="01" />
@@ -68,37 +70,38 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
           <RivalryBoard dict={dict.rivalries} rivalries={rivalryViews()} numberLocale={lang} />
         </Section>
         <Unlock locale={lang} dict={dict.unlock} countryLabels={dict.rivalries.tabs} index="05" />
-        {/* Play: how it works, every sport, then the tools that keep you going. */}
+        {/* Play: how it works, the app, every sport, then the tools that keep you going. */}
         <How dict={dict.how} index="06" />
         <AppPreview dict={dict.app} index="07" />
         <Multisport dict={dict.multisport} index="08" />
-        <Challenges dict={dict.challenges} index="09" />
-        <Crew dict={dict.crew} index="10" />
-        <People dict={dict.people} index="11" />
-        <Section id="plan" index="12" kicker={dict.plan.kicker} title={dict.plan.title} lead={dict.plan.body}>
+        <Section id="plan" index="09" kicker={dict.plan.kicker} title={dict.plan.title} lead={dict.plan.body}>
           <Planner dict={dict.plan} sportNames={dict.multisport.sports} />
         </Section>
-        <Section id="journal" index="13" kicker={dict.journal.kicker} title={dict.journal.title} lead={dict.journal.body}>
+        <Challenges dict={dict.challenges} index="10" />
+        <Pace dict={dict.pace} index="11" />
+        <Crew dict={dict.crew} index="12" />
+        <People dict={dict.people} index="13" />
+        <DayLoop dict={dict.day} index="14" />
+        <Wellbeing dict={dict.wellbeing} index="15" />
+        <Section id="journal" index="16" kicker={dict.journal.kicker} title={dict.journal.title} lead={dict.journal.body}>
           <Journal dict={dict.journal} />
         </Section>
-        <DayLoop dict={dict.day} index="14" />
-        <Pace dict={dict.pace} index="15" />
-        <Wellbeing dict={dict.wellbeing} index="16" />
         {/* Brand moment, then identity. */}
-        <Story dict={dict.story} index="17" />
         <DoubleV dict={dict.doubleV} anthem={{ prefix: dict.hero.prefix, lines: dict.hero.anthem }} />
-        <Section id="vvaker" index="18" kicker={dict.vvaker.kicker} title={dict.vvaker.title} lead={dict.vvaker.body}>
+        <Section id="vvaker" index="17" kicker={dict.vvaker.kicker} title={dict.vvaker.title} lead={dict.vvaker.body}>
           <VVakerDeck />
           <VVakerStudio dict={dict.vvaker} />
           <EarnedStats dict={dict.vvaker.stats} />
           <VVakerTiers dict={dict.vvaker.tiers} />
           <CollectorDrops dict={dict.vvaker.collect} />
         </Section>
-        {/* Web3 & ownership: markets and rewards, the game on top of them, and the open books. */}
-        <Rwa dict={dict.rwa} index="19" />
-        <Pulse dict={dict.pulse} index="20" />
+        {/* Web3 & ownership: why we rebuilt it, the market game, real-world assets, and the open books. */}
+        <Story dict={dict.story} index="18" />
+        <Pulse dict={dict.pulse} index="19" />
+        <Rwa dict={dict.rwa} index="20" />
         <OpenBook dict={dict.openBook} index="21" />
         <VibeLink dict={dict.vibe} />
+        {/* Builders and partners. */}
         <Dev dict={dict.dev} index="22" />
         <Partners dict={dict.partners} index="23" />
         <Faq dict={dict.faq} />

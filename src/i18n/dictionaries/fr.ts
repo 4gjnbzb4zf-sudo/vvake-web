@@ -5,12 +5,12 @@ export const fr: Dictionary = {
   meta: {
     title: "VVake : la Bourse se réveille, nous on bouge",
     description:
-      "VVake (dites « wake ») est le jeu fitness gratuit où ta ville, ton équipe et ton squad bougent ensemble. Le cœur avant la hype. Une équipe à livre ouvert. Débloque ta ville.",
+      "VVake (ça se dit « wake ») est le jeu fitness gratuit où ta ville, ton équipe et ton squad bougent ensemble. Le cœur avant la hype. Une équipe à livre ouvert. Débloque ta ville.",
     ogAlt: "VVake : deux V font un W. La Bourse se réveille, nous on bouge.",
   },
   nav: {
     why: "Pourquoi",
-    earn: "Récompenses",
+    earn: "Avantages",
     play: "Jouer",
     vvaker: "VVaker",
     web3: "Web3",
@@ -25,22 +25,51 @@ export const fr: Dictionary = {
     pronounce: "Ça se dit « wake »",
     prefix: "VVake up",
     anthem: ["pour ta santé.", "pour ta richesse.", "pour toi.", "pour ton squad.", "pour ta ville.", "pour ton équipe."],
-    lead: "L'app d'entraînement pour ton téléphone et ta montre : un plan qui colle à ta semaine, ta crew, ta ville. Chaque séance construit aussi ta richesse : avantages, lots et, là où la loi le permet, de vraies récompenses. Noté sur ton cœur, pas sur ta vitesse.",
+    lead: "L'app d'entraînement pour ton téléphone et ta montre : un plan qui colle à ta semaine, ta crew, ta ville. Bouge pour des avantages, des lots et, là où la loi le permet, de vraies récompenses. Noté sur ton cœur, pas sur ta vitesse.",
     trainingChip: "Plan synchronisé avec ton agenda",
     wealthChip: "{money} investi par séance",
-    wealthNote: "Sweat & Invest · ton argent · courtier agréé",
+    wealthNote: "Sweat & Invest · optionnel · ton argent · partenaire agréé · selon le pays",
     ctaPrimary: "Débloque ta ville",
-    ctaSecondary: "Ce que tu y gagnes",
-    chips: ["Gratuit pour commencer", "Le cœur, pas la vitesse", "Équipe à livre ouvert", "Montre & téléphone"],
+    ctaSecondary: "Ce que tu y trouves",
   },
   highlights: {
-    sticker: { label: "Tokens réservés à l'équipe", value: "0 %", note: "Payée uniquement par les frais" },
     strip: ["Le cœur, pas la vitesse", "Rivalités de villes", "Équipe à livre ouvert"],
+  },
+  showcase: {
+    label: "À la une",
+    pause: "Pause",
+    play: "Lecture",
+    slides: [
+      {
+        tag: "Compétition",
+        title: "Ta ville contre la leur. Chaque jour.",
+        body: "Des City Clashs de 12 heures notés sur l'effort par personne : une petite ville peut battre une métropole.",
+        cta: "Voir les rivalités",
+      },
+      {
+        tag: "Mode crew",
+        title: "Quelqu'un t'attend. Alors tu y vas.",
+        body: "Planifie tes séances avec ta crew, reçois un rappel, et gagnez plus ensemble quand vous venez vraiment.",
+        cta: "S'entraîner ensemble",
+      },
+      {
+        tag: "RWA × Web3",
+        title: "Les marchés réels. La transparence on-chain.",
+        body: "Construit à côté des actions tokenisées : une répartition publique des frais et des récompenses de saison versées on-chain (prévu, selon le pays).",
+        cta: "Comment ça marche",
+      },
+      {
+        tag: "Sweat & Invest",
+        title: "Tes séances. Tes choix.",
+        body: "Suis les actions et cryptos qui t'intéressent. Si tu veux, investis {money} de ton propre argent par séance, via un partenaire agréé.",
+        cta: "Crée ton Pulse",
+      },
+    ],
   },
   stats: {
     items: [
-      { value: 34, label: "Villes au lancement" },
-      { value: 17, label: "Rivalités" },
+      { value: 44, label: "Villes au lancement" },
+      { value: 22, label: "Rivalités" },
       { value: 4, label: "Recharges d'énergie par jour" },
       { value: 0, label: "Tokens pour l'équipe", suffix: "%" },
     ],
@@ -103,6 +132,7 @@ export const fr: Dictionary = {
       meditator: "Méditation",
       roller: "Roller",
       skater: "Patin à glace",
+      swimmer: "Natation",
     },
     session: "{minutes} min · zone {zone}",
     mindful: "Points calme · compte pour ta journée",
@@ -143,7 +173,7 @@ export const fr: Dictionary = {
         title: "7 jours. Aucune excuse.",
         goal: "1 vraie séance par jour",
         window: "7 jours d'affilée",
-        reward: "Gel de série + avantages Founder activés",
+        reward: "Gel de série + flamme de série",
       },
       {
         tag: "Objectif squad",
@@ -239,9 +269,9 @@ export const fr: Dictionary = {
   crew: {
     kicker: "S'entraîner ensemble",
     title: "Quelqu'un t'attend. Alors tu viens.",
-    body: "Planifie une marche, un run, une rando ou une séance de salle avec ta team. VVake rappelle tous ceux qui ont dit oui, et célèbre quand vous bougez vraiment ensemble.",
+    body: "Planifie une marche, un run, une rando ou une séance de salle avec ta crew. VVake rappelle tous ceux qui ont dit oui, et célèbre quand vous bougez vraiment ensemble.",
     invite: {
-      label: "Invitation de la team",
+      label: "Invitation de la crew",
       sport: "Course · 45 min",
       when: "Mercredi · 19:00",
       where: "Parc de la Tête d'Or, grande porte",
@@ -250,7 +280,7 @@ export const fr: Dictionary = {
       buttons: ["J'y vais", "Peut-être", "Pas dispo"],
     },
     routeCard: {
-      label: "Mercredi dernier · run de la team",
+      label: "Mercredi dernier · run de la crew",
       stats: [
         { label: "Distance", value: "5,2 km" },
         { label: "Temps", value: "28:14" },
@@ -260,10 +290,10 @@ export const fr: Dictionary = {
       privacy: "Départ & arrivée masqués · zones privées · sans carte par défaut",
     },
     reminders: [
-      { when: "Mar 20:00", text: "Demain 19h : run avec la Team Traboules. 5 inscrits." },
+      { when: "Mar 20:00", text: "Demain 19h : run avec la Crew Traboules. 5 inscrits." },
       { when: "Mer 17:00", text: "Dans 2 heures. Prends de l'eau, il fait 24 °C." },
       { when: "Mer 18:40", text: "Tu pars ? Ana et Leo sont en route." },
-      { when: "Mer 19:52", text: "Ensemble ×5 : +35 points · série de la team : 6 semaines 🔥" },
+      { when: "Mer 19:52", text: "Ensemble ×5 : +35 points · série de la crew : 6 semaines 🔥" },
     ],
     features: [
       { title: "Planifié en 10 secondes", body: "Sport, heure, lieu de rendez-vous, places. Une fois ou chaque semaine." },
@@ -274,18 +304,18 @@ export const fr: Dictionary = {
       { title: "Liste d'attente automatique", body: "Quelqu'un se désiste ? La personne suivante est inscrite, automatiquement." },
       {
         title: "Bonus « ensemble »",
-        body: "Tous ceux qui bougent pendant la séance gagnent des points bonus et font grandir la série de la team.",
+        body: "Tous ceux qui bougent pendant la séance gagnent des points bonus et font grandir la série de la crew.",
       },
-      { title: "Objectifs team & squad", body: "Les séances de team comptent pour l'objectif de ton squad et le clash de ta ville." },
+      { title: "Objectifs crew & squad", body: "Les séances de crew comptent pour l'objectif de ton squad et le clash de ta ville." },
       {
         title: "Sûr par défaut",
-        body: "Amis et team uniquement, un lieu que tu écris. Localisation en direct seulement si vous êtes tous les deux d'accord, seulement pendant la séance, coupée automatiquement ensuite.",
+        body: "Amis et crew uniquement, un lieu que tu écris. Localisation en direct seulement si vous êtes tous les deux d'accord, seulement pendant la séance, coupée automatiquement ensuite.",
       },
     ],
     note: "Planifier en groupe est l'un des outils d'habitude les plus puissants : quand quelqu'un t'attend, sauter la séance devient bien plus difficile.",
   },
   people: {
-    kicker: "Trouve ta team",
+    kicker: "Trouve ta crew",
     title: "Mieux à deux. Et peut-être plus.",
     body: "Entraîne-toi avec un ami, trouve une crew à ton niveau ou, si tu es célibataire et majeur, rencontre quelqu'un qui bouge comme toi. Mis en relation selon les sports que tu aimes, les jours où tu es libre et ton niveau, pas d'abord sur le physique.",
     modes: [
@@ -328,9 +358,9 @@ export const fr: Dictionary = {
     note: "Sweat date est réservé aux adultes et pourrait ne pas être disponible dans tous les pays au lancement.",
   },
   earn: {
-    kicker: "Ce que tu y gagnes",
+    kicker: "Ce que tu y trouves",
     title: "Bouge. Gagne plus que la forme.",
-    body: "La santé, c'est le début. Chaque séance vérifiée construit aussi ton statut, la gloire de ta ville, des avantages bien réels et, là où la loi le permet, de vraies récompenses. L'équipe est payée uniquement par les frais, jamais par ta poche.",
+    body: "La santé, c'est le début. Chaque séance vérifiée construit aussi ton statut, la gloire de ta ville, des avantages bien réels et, là où la loi le permet, de vraies récompenses. L'équipe est payée uniquement par les frais : jamais par des tokens, jamais par l'argent des nouveaux joueurs.",
     when: ["Dès le jour 1", "Saisons · selon le pays", "Partenaires agréés", "Prévu"],
     items: [
       {
@@ -343,7 +373,7 @@ export const fr: Dictionary = {
         icon: "⚔️",
         when: 0,
         title: "La gloire pour ta ville",
-        body: "City Clash dès le premier jour, ligues, badges et une couronne Founder pour les 100 premiers de chaque ville.",
+        body: "City Clash dès le premier jour, ligues, badges et une couronne Founder pour les 100 premiers inscrits de chaque ville.",
       },
       {
         icon: "🧬",
@@ -367,13 +397,13 @@ export const fr: Dictionary = {
         icon: "💵",
         when: 1,
         title: "Récompenses de saison pour l'effort",
-        body: "Une part des revenus de frais revient à ceux qui bougent, en stablecoin réglementé ou en avantages. Selon l'effort, plafonné, jamais pay-to-earn.",
+        body: "Une part des revenus de frais revient à ceux qui bougent, en stablecoin réglementé ou en avantages, une fois l'anti-triche et les recours en place. Selon l'effort, plafonné, jamais pay-to-earn.",
       },
       {
         icon: "📈",
         when: 2,
         title: "Des actions pour les gagnants, l'investissement pour toi",
-        body: "Des actions pour les gagnants des défis via un courtier agréé, et Sweat & Invest : investis automatiquement ton propre argent après chaque séance.",
+        body: "Là où c'est légal, un courtier agréé pourra récompenser les gagnants de défis avec des fractions d'actions (un lot non financier est toujours proposé). Et Sweat & Invest te permet d'investir automatiquement ton propre argent après chaque séance.",
       },
       {
         icon: "🏛️",
@@ -394,7 +424,7 @@ export const fr: Dictionary = {
         {
           title: "RWA × crypto",
           href: "#rwa",
-          body: "Construit à côté des actions tokenisées, avec un contrat public de répartition des frais et des récompenses de saison on-chain.",
+          body: "Prévu à côté des actions tokenisées : un contrat public de répartition des frais et des récompenses de saison versées on-chain.",
         },
         {
           title: "Voies réglementées",
@@ -475,7 +505,7 @@ export const fr: Dictionary = {
   journal: {
     kicker: "Ton journal",
     title: "Chaque run, rencontre et victoire. À portée de doigt.",
-    body: "Ton historique, c'est la meilleure motivation. VVake garde chaque séance, rencontre de team, défi et clash dans un journal agréable à parcourir, avec tes records et tes souvenirs mis en avant.",
+    body: "Ton historique, c'est la meilleure motivation. VVake garde chaque séance, rencontre de crew, défi et clash dans un journal agréable à parcourir, avec tes records et tes souvenirs mis en avant.",
     example: "Exemple de journal",
     filters: { all: "Tout", workout: "Séances", crew: "Rencontres", challenge: "Défis", clash: "Clashs" },
     heatmap: "12 dernières semaines",
@@ -489,29 +519,28 @@ export const fr: Dictionary = {
       { label: "Entraîné avec", value: "6 personnes" },
     ],
     onThisDay: { label: "Ce jour-là · il y a 1 an", text: "Ton premier run VVake : 3,0 km en 20 min. Regarde le chemin parcouru." },
-    pb: "Record perso",
     months: [
       {
-        name: "Septembre 2026",
+        name: "Septembre 2027",
         items: [
-          { kind: "workout", date: "Dim 27", title: "Course tempo", meta: "5,2 km · 28:14 · effort 86" },
+          { kind: "workout", date: "Dim 26", title: "Course tempo", meta: "5,2 km · 28:14 · effort 86" },
           {
             kind: "crew",
-            date: "Mer 24",
-            title: "Run du mercredi · Team Traboules",
+            date: "Mer 22",
+            title: "Run du mercredi · Crew Traboules",
             meta: "7,1 km · ensemble ×5 · +35 pts",
             badge: "Plus long run",
           },
-          { kind: "workout", date: "Lun 22", title: "Salle · push day", meta: "50 min · effort 110", badge: "Plus gros effort" },
-          { kind: "clash", date: "Sam 20", title: "Lyon vs Saint-Étienne", meta: "Gagné 61,3 – 58,9 · ta part +0,4" },
-          { kind: "challenge", date: "Mar 01", title: "Halftime Sprint", meta: "12 min en zone 3+ · points Fan Clash" },
+          { kind: "workout", date: "Lun 20", title: "Salle · push day", meta: "50 min · effort 110", badge: "Plus gros effort" },
+          { kind: "clash", date: "Sam 18", title: "Lyon vs Saint-Étienne", meta: "Gagné 61,3 – 58,9 · ta part +0,4" },
+          { kind: "challenge", date: "Mar 07", title: "Halftime Sprint", meta: "12 min en zone 3+ · points Fan Clash" },
         ],
       },
       {
-        name: "Août 2026",
+        name: "Août 2027",
         items: [
-          { kind: "workout", date: "Ven 28", title: "Marche tranquille", meta: "3,5 km · 40 min · effort 40" },
-          { kind: "crew", date: "Sam 15", title: "Rando du dimanche · Monts d'Or", meta: "11 km · ensemble ×4", badge: "Plus grosse team" },
+          { kind: "workout", date: "Ven 27", title: "Marche tranquille", meta: "3,5 km · 40 min · effort 40" },
+          { kind: "crew", date: "Sam 14", title: "Rando du samedi · Monts d'Or", meta: "11 km · ensemble ×4", badge: "Plus grosse crew" },
         ],
       },
     ],
@@ -584,14 +613,19 @@ export const fr: Dictionary = {
       goal: "sur 6 500 · ton objectif",
       note: "Les pas comptent aussi : 1 500 pas suffisent à garder ta série, et les jours sans montre, ils deviennent de l'effort.",
     },
-    cheers: ["Des encouragements, pas de culpabilité", "Le bon moment, pas tout le temps", "2 rappels max par jour", "Silence la nuit"],
+    cheers: [
+      "Des encouragements, pas de culpabilité",
+      "Le bon moment, pas tout le temps",
+      "2 relances d'entraînement max par jour",
+      "Silence la nuit",
+    ],
   },
   wellbeing: {
     kicker: "Au-delà de la séance",
     title: "Boire, manger, respirer, dormir. En douceur.",
     body: "Bouger n'est qu'une partie du bien-être. VVake peut aussi te rappeler les petites choses qui rendent la séance de demain plus facile, seulement si tu les actives.",
     notifications: [
-      { icon: "💧", title: "Un verre d'eau ?", body: "Tu es à fond depuis 90 minutes." },
+      { icon: "💧", title: "Un verre d'eau ?", body: "Tu es concentré depuis 90 minutes." },
       { icon: "🍽️", title: "Déjeuner, comme prévu", body: "12:30. Éloigne-toi de l'écran." },
       { icon: "🫁", title: "Une pause pour respirer ?", body: "Ton cœur suggère 60 secondes de respiration lente." },
       { icon: "🌙", title: "On ralentit", body: "Un bon sommeil nourrit la série de demain." },
@@ -622,8 +656,8 @@ export const fr: Dictionary = {
   },
   app: {
     kicker: "L'app",
-    title: "Pensée pour ton poignet. Faite pour ta team.",
-    body: "Deux taps pour démarrer. Ta montre gère la séance, ton téléphone raconte l'histoire : énergie, squads et clashs de villes au même endroit.",
+    title: "Pensée pour ton poignet. Faite pour ta crew.",
+    body: "Deux taps pour démarrer. Ta montre gère la séance, ton téléphone raconte l'histoire : ton plan du jour, ton squad et le clash de ta ville au même endroit.",
     points: [
       { title: "Deux taps pour démarrer", body: "Depuis une complication de montre ou le bouton Action. Pas besoin du téléphone." },
       { title: "La batterie d'abord", body: "Utilise le moteur d'entraînement de la montre : pas pire que l'app Exercice native." },
@@ -633,21 +667,15 @@ export const fr: Dictionary = {
       greeting: "Bonjour · Lyon",
       today: "Plan du jour",
       todaySession: "Footing facile · 30 min · zone 2",
-      todayWhen: "18:45 · dans ton agenda",
-      wealth: "Ta richesse · cette semaine",
-      invested: "Sweat & Invest",
-      investedValue: "{money} · 4 séances",
-      rewards: "Récompenses de saison",
-      rewardsValue: "Top 12 %",
+      todayWhen: "18h45 · dans ton agenda",
+      wealth: "Cette semaine",
+      invested: "Points",
+      investedValue: "1 240 · 4 séances",
+      rewards: "Rang du squad",
+      rewardsValue: "3e sur 8",
       hello: "VVake up, Sam.",
-      energy: "Énergie rechargée",
-      minutes: "= 15 min d'effort réel",
-      refill: "prochaine recharge 12:00",
       start: "Démarrer",
-      rally: "Rally · ouvert 32 min",
-      rallyBody: "12 408 personnes bougent.",
       clash: "City Clash · encore 3 h",
-      squad: "Objectif du squad",
     },
     watch: { zone: "Course · zone 3", effort: "Effort", time: "Temps" },
     platforms: "Apple Watch · Wear OS · iPhone · Android",
@@ -657,7 +685,7 @@ export const fr: Dictionary = {
     kicker: "06:00",
     title: "Tu te souviens de cette sensation.",
     paragraphs: [
-      "2022. Ton énergie vient de se recharger. Tu lasses tes chaussures, tu ouvres l'app, et tu pars. Partout dans le monde, des centaines de milliers de personnes faisaient la même chose au même moment.",
+      "2022. Ton énergie vient de se recharger. Tu laces tes chaussures, tu ouvres l'app, et tu pars. Partout dans le monde, des centaines de milliers de personnes faisaient la même chose au même moment.",
       "Pour beaucoup d'entre nous, c'était le moment le plus fun de la crypto. Puis tout a cassé. Des sneakers plus chères que des vraies. Un nouveau truc à acheter chaque mois. Ceux qui venaient pour bouger finissaient par payer pour ceux qui venaient pour extraire.",
       "Le rituel était réel. L'économie, non. Alors on a tout reconstruit : on a gardé la magie et jeté tout ce qui l'avait cassée.",
     ],
@@ -707,12 +735,12 @@ export const fr: Dictionary = {
     rally: {
       tag: "Jour rouge",
       title: "Rally",
-      body: "La marque baisse ? Un Rally mondial de 45 minutes s'ouvre. Chausse-toi avec des milliers d'autres.",
+      body: "Ta Brand Team baisse ? Un Rally mondial de 45 minutes s'ouvre. Chausse-toi avec des milliers d'autres.",
     },
     recover: {
       tag: "Jour vert",
       title: "Recover",
-      body: "La marque monte ? Repos, étirements, bonne nuit. Un défi tombe dans quelques heures.",
+      body: "Ta Brand Team monte ? Repos, étirements, bonne nuit. Un défi tombe dans quelques heures.",
     },
     mine: {
       title: "Ton Pulse",
@@ -736,7 +764,7 @@ export const fr: Dictionary = {
       demo: "Démo · chiffres d'illustration",
     },
     disclaimer:
-      "Illustration. Les données de marché ne servent qu'à thématiser des défis gratuits. Les récompenses ne dépendent jamais des cours, et VVake ne vend ni ne donne d'actions.",
+      "Illustration. Les données de marché ne servent qu'à thématiser des défis gratuits. Les récompenses ne dépendent jamais des cours. VVake ne vend, ne détient ni ne distribue jamais d'actions lui-même ; toute récompense en actions est gérée par un courtier agréé.",
   },
   rwa: {
     kicker: "RWA × crypto",
@@ -745,8 +773,8 @@ export const fr: Dictionary = {
     lanes: [
       {
         tag: "Monde réel",
-        title: "Les actions des marques donnent le signal",
-        body: "Les données de marché des marques de sport (ex. LULU, NKE) déclenchent les moments Rally et Recover. Des données seulement : les cours ne décident jamais des récompenses.",
+        title: "Tes choix donnent le signal",
+        body: "Les données de marché des marques que tu suis (ex. LULU, NKE) déclenchent les moments Rally et Recover. Des données seulement : les cours ne décident jamais des récompenses.",
         points: ["Les données comme déclencheur", "Défis gratuits pour tous", "Aucun trading dans l'app"],
       },
       {
@@ -800,7 +828,7 @@ export const fr: Dictionary = {
       note: "Prévu, sous réserve d'accords avec des partenaires et d'autorisations légales dans chaque pays. Investir comporte des risques, dont la perte en capital. Rien ici n'est un conseil en investissement.",
     },
     disclaimer:
-      "Fonctionnalités prévues, sous réserve de revue juridique et de disponibilité régionale ; non proposées aux États-Unis ni au Royaume-Uni au lancement. Rien sur ce site n'est une offre de tokens, de titres ou un conseil financier. Les tickers sont affichés à des fins d'identification uniquement.",
+      "Fonctionnalités prévues, sous réserve de revue juridique et de disponibilité régionale ; les fonctionnalités token et on-chain ne sont pas proposées aux États-Unis ni au Royaume-Uni au lancement. Rien sur ce site n'est une offre de tokens, de titres ou un conseil financier. Les tickers sont affichés à des fins d'identification uniquement.",
   },
   rivalries: {
     kicker: "City Clash",
@@ -845,10 +873,10 @@ export const fr: Dictionary = {
       {
         name: "City Founder",
         who: "Les 100 premiers de ta ville",
-        perks: "Ton nom sur le Mur des Fondateurs · Skin Founder · Éligible capitaine · Accès 48 h en avance",
+        perks: "Ton nom sur le Mur des Fondateurs · Couronne Founder · Éligible capitaine · Accès 48 h en avance",
       },
-      { name: "Pioneer", who: "Les 1 000 premiers", perks: "Skin Pioneer · 2 gels de série · Accès 24 h en avance" },
-      { name: "Early Mover", who: "Tous avant le lancement", perks: "Badge Early Mover · 1 gel de série" },
+      { name: "Pioneer", who: "Du 101e au 1 000e de ta ville", perks: "Skin Pioneer · 2 gels de série · Accès 24 h en avance" },
+      { name: "Early Mover", who: "Tous les autres inscrits avant le lancement", perks: "Badge Early Mover · 1 gel de série" },
     ],
     tiersNote: "Avantages uniquement dans le jeu, activés après tes 3 premières vraies sessions. Les faux inscrits n'obtiennent rien.",
     form: {
@@ -874,7 +902,7 @@ export const fr: Dictionary = {
       counterPending: "Les compteurs en direct apparaîtront à l'ouverture de la liste.",
     },
     success: {
-      title: "Tu es dedans. Maintenant, ramène ta team.",
+      title: "Tu es dedans. Maintenant, ramène ta crew.",
       pending: "Vérifie ta boîte mail pour confirmer ton adresse. Seules les inscriptions confirmées font avancer le compteur.",
       rank: "Tu es n°{rank} à {city}.",
       tier: { founder: "Place City Founder réservée", pioneer: "Place Pioneer réservée", early: "Place Early Mover réservée" },
@@ -899,15 +927,19 @@ export const fr: Dictionary = {
   },
   openBook: {
     kicker: "Livre ouvert",
-    title: "Notre salaire est public avant même que tu demandes.",
-    body: "L'équipe n'a aucune allocation de tokens et n'est payée que par les frais. Chaque dollar passe par une seule répartition publique.",
+    title: "Où va chaque frais. Public avant même que tu demandes.",
+    body: "L'équipe n'a aucune allocation de tokens et n'est payée que par les frais. Chaque frais passe par une seule répartition publique.",
     split: [
       { label: "Joueurs", note: "Récompenses de saison, pour l'effort, jamais pour la détention", value: 30 },
-      { label: "Équipe", note: "Notre seul revenu : salaires et infrastructure", value: 40 },
+      {
+        label: "Opérations",
+        note: "Salaires et infrastructure. Tout surplus est le bénéfice de l'entreprise, publié dans le rapport de saison",
+        value: 40,
+      },
       { label: "Croissance", note: "Événements, rivalités, communauté", value: 20 },
       { label: "Réserve", note: "Stabilise les récompenses en saison difficile", value: 10 },
     ],
-    promise: "Pas de wallets cachés. Pas de second token. Un rapport public chaque saison.",
+    promise: "Pas de wallets cachés. Aucun token pour l'équipe. Un rapport public chaque saison.",
   },
   vvaker: {
     kicker: "Ton VVaker",
@@ -953,6 +985,7 @@ export const fr: Dictionary = {
       meditator: "Méditation",
       roller: "Roller",
       skater: "Patin à glace",
+      swimmer: "Natation",
     },
     headgears: { none: "Bandeau", cap: "Casquette", beanie: "Bonnet", headphones: "Casque audio", helmet: "Casque vélo" },
     eyes: { pixel: "Pixel", happy: "Content", fired: "À fond", sleepy: "Endormi", visor: "Visière", star: "Étoiles" },
@@ -1003,13 +1036,13 @@ export const fr: Dictionary = {
       utility: [
         {
           icon: "🏕️",
-          title: "Pass Hôte de team",
-          body: "Organise des événements de team plus grands et publics, des pages récurrentes et une bannière de team.",
+          title: "Pass Hôte de crew",
+          body: "Organise des événements de crew plus grands et publics, des pages récurrentes et une bannière de crew.",
         },
         {
           icon: "🎯",
           title: "Créateur de défis",
-          body: "Crée des défis sur mesure pour ta team ou ta ville. Toujours gratuits pour participer.",
+          body: "Crée des défis sur mesure pour ta crew ou ta ville. Toujours gratuits pour participer.",
         },
         {
           icon: "🎟️",
@@ -1047,7 +1080,7 @@ export const fr: Dictionary = {
         "Une part des revenus",
         "Quoi que ce soit d'obligatoire pour jouer",
       ],
-      note: "Portail web uniquement, adultes, pas dans tous les pays. Dans les apps iOS et Android, les objets de collection sont visibles uniquement, et les mêmes looks existent en achats intégrés classiques. Les objets de collection ne sont pas des investissements.",
+      note: "Portail web uniquement, adultes, pas dans tous les pays. Dans les apps iOS et Android, les objets de collection sont visibles uniquement, et les mêmes looks et pass existent en achats intégrés classiques. Les objets de collection ne sont pas des investissements.",
     },
     fanKits: {
       none: "Aucune équipe",
@@ -1124,7 +1157,7 @@ export const fr: Dictionary = {
       },
       {
         title: "Deploy & Dash",
-        body: "PR mergée ou déploiement réussi ? Tu débloques une fenêtre de marche de 20 minutes qui compte double pour ton squad.",
+        body: "PR mergée ou déploiement réussi ? Tu débloques une fenêtre de marche de 20 minutes et un badge Builder ; chaque minute compte pour ton squad.",
       },
       {
         title: "Stand-ups en marchant",
@@ -1154,7 +1187,7 @@ export const fr: Dictionary = {
       },
       {
         title: "Salles & clubs de running",
-        body: "Devenez partenaire City Founder : amenez votre communauté, débloquez votre ville en premier.",
+        body: "Devenez partenaire fondateur de votre ville : amenez votre communauté, débloquez votre ville en premier.",
       },
       { title: "Clubs & événements", body: "Fan Clash les jours de match, échauffements et sprints de mi-temps avec vos supporters." },
     ],
@@ -1175,11 +1208,11 @@ export const fr: Dictionary = {
     items: [
       {
         q: "VVake, c'est un investissement ?",
-        a: "Non. VVake est un jeu fitness. Les récompenses sont de petits bonus financés par de vrais revenus, et rien sur VVake n'est une promesse de gain. Bouge parce que ça fait du bien.",
+        a: "Le jeu, non. VVake est un jeu fitness : les récompenses de saison sont modestes et financées par de vrais revenus, et rien de ce qu'on vend (objets de collection, futur token éventuel) n'est un investissement ni une promesse de gain. Si tu veux investir, ça se passe à part, via des partenaires agréés : un courtier pour ton propre argent, ou une levée en capital réglementée dans l'entreprise.",
       },
       {
         q: "C'est gratuit ?",
-        a: "Oui. Bouger, les squads, les rivalités et ton VVaker sont gratuits. Les options (objets de collection, abonnement Plus) ne seront jamais nécessaires pour participer.",
+        a: "Oui. Bouger, les squads, les rivalités et ton VVaker sont gratuits. Les options, comme les objets de collection, ne sont jamais nécessaires pour participer.",
       },
       {
         q: "Que deviennent mes données de santé ?",

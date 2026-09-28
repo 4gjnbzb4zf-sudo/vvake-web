@@ -48,7 +48,7 @@ export function VVaker({ title, className, animate = true, ...partial }: VVakerP
       aria-hidden={title ? undefined : true}
     >
       {/* ground shadow */}
-      {t.sport !== "paddler" && <ellipse cx="122" cy="282" rx="70" ry="9" fill="#000" opacity="0.35" />}
+      {t.sport !== "paddler" && t.sport !== "swimmer" && <ellipse cx="122" cy="282" rx="70" ry="9" fill="#000" opacity="0.35" />}
 
       {/* energy bar */}
       <g>
@@ -148,25 +148,29 @@ export function VVaker({ title, className, animate = true, ...partial }: VVakerP
             <Headgear headgear={t.headgear} accent={accent} />
 
             {/* arms: shoulder → upper arm → elbow → forearm + hand; the watch stays on the left wrist */}
-            <Joint x={69} y={164} k={m.ls} period={m.period} animate={animate}>
-              <rect x="60" y="162" width="18" height="25" fill={base} />
-              <Joint x={69} y={186} k={m.le} period={m.period} animate={animate}>
-                <rect x="60" y="184" width="18" height="24" fill={base} />
-                <rect x="60" y="206" width="18" height="14" fill={light} />
-                <rect x="55" y="190" width="28" height="15" rx="3" fill={VOLT} opacity={0.22} />
-                <rect x="57" y="192" width="24" height="11" rx="2" fill={INK} stroke={VOLT} strokeWidth={1.5} />
-                <path d="M60 198 h4 l2 -3 l2 6 l2 -3 h6" stroke={VOLT} strokeWidth={1.4} fill="none" strokeLinejoin="round" />
-                <HandProp sport={t.sport} side="left" />
+            <Spin on={animate && !!m.armSpin} x={69} y={164} period={m.period}>
+              <Joint x={69} y={164} k={m.ls} period={m.period} animate={animate}>
+                <rect x="60" y="162" width="18" height="25" fill={base} />
+                <Joint x={69} y={186} k={m.le} period={m.period} animate={animate}>
+                  <rect x="60" y="184" width="18" height="24" fill={base} />
+                  <rect x="60" y="206" width="18" height="14" fill={light} />
+                  <rect x="55" y="190" width="28" height="15" rx="3" fill={VOLT} opacity={0.22} />
+                  <rect x="57" y="192" width="24" height="11" rx="2" fill={INK} stroke={VOLT} strokeWidth={1.5} />
+                  <path d="M60 198 h4 l2 -3 l2 6 l2 -3 h6" stroke={VOLT} strokeWidth={1.4} fill="none" strokeLinejoin="round" />
+                  <HandProp sport={t.sport} side="left" />
+                </Joint>
               </Joint>
-            </Joint>
-            <Joint x={181} y={162} k={m.rs} period={m.period} animate={animate}>
-              <rect x="172" y="160" width="18" height="25" fill={dark} />
-              <Joint x={181} y={184} k={m.re} period={m.period} animate={animate}>
-                <rect x="172" y="182" width="18" height="24" fill={dark} />
-                <rect x="172" y="204" width="18" height="14" fill={base} />
-                <HandProp sport={t.sport} side="right" accent={accent} />
+            </Spin>
+            <Spin on={animate && !!m.armSpin} x={181} y={162} period={m.period} late>
+              <Joint x={181} y={162} k={m.rs} period={m.period} animate={animate}>
+                <rect x="172" y="160" width="18" height="25" fill={dark} />
+                <Joint x={181} y={184} k={m.re} period={m.period} animate={animate}>
+                  <rect x="172" y="182" width="18" height="24" fill={dark} />
+                  <rect x="172" y="204" width="18" height="14" fill={base} />
+                  <HandProp sport={t.sport} side="right" accent={accent} />
+                </Joint>
               </Joint>
-            </Joint>
+            </Spin>
           </g>
 
           {animate && m.sweat && (
@@ -235,6 +239,33 @@ function Joint({
       ) : (
         children
       )}
+    </g>
+  );
+}
+
+/** Full turns around a shoulder (front crawl). `late` runs half a cycle behind. */
+function Spin({
+  on,
+  x,
+  y,
+  period,
+  late,
+  children,
+}: {
+  on: boolean;
+  x: number;
+  y: number;
+  period: number;
+  late?: boolean;
+  children: React.ReactNode;
+}) {
+  if (!on) return <>{children}</>;
+  return (
+    <g
+      className="vv-spin"
+      style={{ transformOrigin: `${x}px ${y}px`, animationDuration: `${period}s`, animationDelay: late ? `-${period / 2}s` : undefined }}
+    >
+      {children}
     </g>
   );
 }
@@ -692,6 +723,35 @@ function Front({ sport, m, animate }: { sport: VVakerTraits["sport"]; m: Motion;
           {animate && m.splashR && (
             <Fade keys={m.splashR} period={m.period} animate>
               <path d="M218 262 l-6 -13 M226 260 l0 -16 M234 262 l6 -14" stroke="#dff4ff" strokeWidth={3} strokeLinecap="round" />
+            </Fade>
+          )}
+        </g>
+      );
+    case "swimmer":
+      return (
+        <g>
+          <rect x="0" y="222" width="240" height="78" fill="#1c8fd6" opacity={0.88} />
+          <g className={animate ? "vv-wave" : undefined}>
+            <path
+              d="M-40 224 q10 -7 20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0"
+              stroke="#bfe9ff"
+              strokeWidth={3}
+              fill="none"
+            />
+          </g>
+          {/* lane rope */}
+          {Array.from({ length: 13 }, (_, i) => (
+            <circle key={i} cx={6 + i * 19} cy={292} r={6} fill={i % 2 ? "#f4f5f6" : PULSE} stroke={OUTLINE} strokeWidth={1.5} />
+          ))}
+          <path d="M60 250 q8 -4 16 0 M150 262 q8 -4 16 0" stroke="#bfe9ff" strokeWidth={2} fill="none" opacity={0.6} />
+          {animate && m.splashL && (
+            <Fade keys={m.splashL} period={m.period} animate>
+              <path d="M40 222 l-7 -14 M50 220 l0 -17 M60 222 l6 -13" stroke="#ffffff" strokeWidth={3} strokeLinecap="round" />
+            </Fade>
+          )}
+          {animate && m.splashR && (
+            <Fade keys={m.splashR} period={m.period} animate>
+              <path d="M180 222 l-6 -13 M190 220 l0 -17 M200 222 l7 -14" stroke="#ffffff" strokeWidth={3} strokeLinecap="round" />
             </Fade>
           )}
         </g>

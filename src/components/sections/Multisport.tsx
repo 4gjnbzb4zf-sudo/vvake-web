@@ -77,6 +77,13 @@ const TILES: readonly Tile[] = [
     tint: "from-pulse/25",
   },
   {
+    sport: "swimmer",
+    minutes: 30,
+    zone: 3,
+    look: { color: "mint", headgear: "none", accent: "ocean", eyes: "pixel", mouth: "grin" },
+    tint: "from-sky/25",
+  },
+  {
     sport: "skater",
     minutes: 45,
     zone: 2,

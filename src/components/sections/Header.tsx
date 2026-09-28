@@ -13,7 +13,7 @@ export function Header({ locale, dict }: { locale: Locale; dict: Dictionary["nav
     { href: "#earn", label: dict.earn },
     { href: "#how", label: dict.play },
     { href: "#vvaker", label: dict.vvaker },
-    { href: "#rwa", label: dict.web3 },
+    { href: "#story", label: dict.web3 },
     { href: "#faq", label: dict.faq },
   ];
   return (
