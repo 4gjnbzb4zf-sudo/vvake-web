@@ -1,14 +1,17 @@
 import { shade } from "@/lib/color";
-import { MOTIONS } from "./motion";
-import { DEFAULT_TRAITS, VVAKER_ACCENTS, VVAKER_COLORS, type VVakerTraits } from "./traits";
-import { Fade, Footwear, Front, HandProp, Joint, Scene, SportProp } from "./VVaker";
+import { MOTIONS, type Keys } from "./motion";
+import { DEFAULT_TRAITS, FAN_KITS, VVAKER_ACCENTS, VVAKER_COLORS, VVAKER_EYE_COLORS, clampBib, type VVakerTraits } from "./traits";
+import { ArmTattoo, Facial, FaceTattoo, HairBack, HairFront, PHYSIQUE, PhysiqueDetail, Piercing, Scar, widen } from "./styleLayers";
+import { Accessory, Eyes, Fade, FanKitLayer, Footwear, Front, HandProp, Headgear, Joint, Mouth, Scene, SportProp } from "./VVaker";
 
 const INK = "#15181b";
 const OUTLINE = "#0b0d0f";
 const VOLT = "#ccff00";
 const PULSE = "#ff3d6e";
 const ENERGY = [PULSE, "#ff7a9a", "#e8ff7a", VOLT] as const;
-const HAIR = "#3b2a22";
+/** Maps the Toy's head (x 60–172, y 60–156) onto the Athlete's smaller head (x 88–152, y 30–90). */
+const FACE = "translate(88 30) scale(0.5714 0.625) translate(-60 -60)";
+const mapKeys = (k: Keys, f: (v: number) => number): Keys => [f(k[0]), f(k[1]), f(k[2]), f(k[3])];
 /** Scenes where the figure sits lower (water, boat, cushion): the Athlete is taller than the Toy. */
 const ATHLETE_DROP: Partial<Record<VVakerTraits["sport"], number>> = { swimmer: 78, paddler: 50, meditator: 30 };
 const WATER = new Set<VVakerTraits["sport"]>(["swimmer", "paddler"]);
@@ -40,7 +43,11 @@ export function VVakerAthlete({
   const filled = Math.max(0, Math.min(4, Math.round(t.energy)));
   const jp = { period: m.period, animate };
   const drop = ATHLETE_DROP[t.sport] ?? m.drop ?? 0;
+  const P = PHYSIQUE[t.physique];
   const fem = build === "b";
+  // "auto" hair follows the build: a short crop for A, a ponytail for B.
+  const hair = t.hair === "auto" ? (fem ? "ponytail" : "crop") : t.hair;
+  const blinks = t.eyes !== "sleepy" && t.eyes !== "visor" && t.sport !== "meditator";
 
   return (
     <svg
@@ -68,10 +75,10 @@ export function VVakerAthlete({
               ] as const
             ).map(([hx, hip, knee, lift]) => (
               <Joint key={hx} {...jp} x={hx} y={212} k={hip} lift={lift}>
-                <rect x={hx - 11} y={210} width={22} height={38} fill={fem ? INK : skin} />
+                <rect x={hx - 11} y={210} width={22} height={38} fill={fem ? INK : skin} transform={widen(hx, P.legs)} />
                 <path d={`M${hx - 4} 218 q-3 14 2 26`} stroke={fem ? kit : dark} strokeWidth={2} fill="none" />
                 <Joint {...jp} x={hx} y={246} k={knee}>
-                  <rect x={hx - 10} y={244} width={20} height={28} fill={fem ? INK : skin} />
+                  <rect x={hx - 10} y={244} width={20} height={28} fill={fem ? INK : skin} transform={widen(hx, P.legs)} />
                   {fem && <rect x={hx - 10} y={250} width={20} height={3} fill={kit} stroke="none" />}
                   <rect x={hx - 10} y={258} width={20} height={6} fill="#f4f5f6" />
                   <path d={`M${hx - 16} 270 h30 q6 0 6 8 v4 h-38 z`} fill="#f4f5f6" />
@@ -84,65 +91,82 @@ export function VVakerAthlete({
               </Joint>
             ))}
 
-            {fem ? (
-              <>
-                {/* leggings waist + hips */}
-                <polygon points="94,184 146,184 156,214 84,214" fill={INK} />
-                <path d="M94 190 H146" stroke={kit} strokeWidth={3} />
-                {/* torso: narrower shoulders, waist, sports top + bare midriff */}
-                <polygon points="80,102 160,102 146,160 150,188 90,188 94,160" fill={skin} />
-                <polygon points="160,102 170,95 158,154 146,160" fill={dark} />
-                <polygon points="88,108 152,108 146,150 94,150" fill={kit} />
-                <polygon points="152,108 160,102 154,144 146,150" fill={kitDark} />
-                <path d="M100 108 Q120 122 140 108" fill={skin} />
-                <path d="M112 124 l4 8 l4 -8 l4 8 l4 -8" stroke={INK} strokeWidth={2.2} fill="none" />
-                <path d="M112 164 H128 M112 174 H128 M120 158 V184" stroke={dark} strokeWidth={1.4} />
-              </>
-            ) : (
-              <>
-                {/* shorts */}
-                <polygon points="90,188 150,188 154,222 124,222 120,210 116,222 86,222" fill={INK} />
-                <path d="M92 196 H148" stroke={kit} strokeWidth={3} />
-                {/* V-taper torso: tank top over skin */}
-                <polygon points="72,100 168,100 150,190 90,190" fill={skin} />
-                <polygon points="168,100 180,92 162,184 150,190" fill={dark} />
-                <polygon points="84,106 156,106 146,190 94,190" fill={kit} />
-                <polygon points="156,106 164,100 154,184 146,190" fill={kitDark} />
-                <path d="M100 106 Q120 124 140 106" fill={skin} />
-                <path d="M112 146 l4 8 l4 -8 l4 8 l4 -8" stroke={INK} strokeWidth={2.4} fill="none" />
-                <path d="M112 166 H128 M112 176 H128 M120 160 V184" stroke={kitDark} strokeWidth={1.6} />
-              </>
-            )}
+            <g transform={widen(120, P.torso)}>
+              {fem ? (
+                <>
+                  {/* leggings waist + hips */}
+                  <polygon points="94,184 146,184 156,214 84,214" fill={INK} />
+                  <path d="M94 190 H146" stroke={kit} strokeWidth={3} />
+                  {/* torso: narrower shoulders, waist, sports top + bare midriff */}
+                  <polygon points="80,102 160,102 146,160 150,188 90,188 94,160" fill={skin} />
+                  <polygon points="160,102 170,95 158,154 146,160" fill={dark} />
+                  <polygon points="88,108 152,108 146,150 94,150" fill={kit} />
+                  <polygon points="152,108 160,102 154,144 146,150" fill={kitDark} />
+                  <path d="M100 108 Q120 122 140 108" fill={skin} />
+                  <path d="M112 124 l4 8 l4 -8 l4 8 l4 -8" stroke={INK} strokeWidth={2.2} fill="none" />
+                  <path d="M112 164 H128 M112 174 H128 M120 158 V184" stroke={dark} strokeWidth={1.4} />
+                </>
+              ) : (
+                <>
+                  {/* shorts */}
+                  <polygon points="90,188 150,188 154,222 124,222 120,210 116,222 86,222" fill={INK} />
+                  <path d="M92 196 H148" stroke={kit} strokeWidth={3} />
+                  {/* V-taper torso: tank top over skin */}
+                  <polygon points="72,100 168,100 150,190 90,190" fill={skin} />
+                  <polygon points="168,100 180,92 162,184 150,190" fill={dark} />
+                  <polygon points="84,106 156,106 146,190 94,190" fill={kit} />
+                  <polygon points="156,106 164,100 154,184 146,190" fill={kitDark} />
+                  <path d="M100 106 Q120 124 140 106" fill={skin} />
+                  <path d="M112 146 l4 8 l4 -8 l4 8 l4 -8" stroke={INK} strokeWidth={2.4} fill="none" />
+                  <path d="M112 166 H128 M112 176 H128 M120 160 V184" stroke={kitDark} strokeWidth={1.6} />
+                </>
+              )}
+              <PhysiqueDetail physique={t.physique} cx={120} y={106} skin={shade(skin, 0.12)} />
+              {/* the Toy's fan kit and accessories (medal, bib, towel), mapped onto the Athlete's torso */}
+              <g transform="translate(84 106) scale(0.973 1.3125) translate(-80 -158)">
+                <FanKitLayer kit={FAN_KITS[t.fan]} />
+                <Accessory accessory={t.accessory} accent={kit} bib={clampBib(t.bib)} />
+              </g>
+            </g>
 
             {/* neck + head (smaller cube) */}
             <rect x="110" y="84" width="20" height="18" fill={dark} />
             <polygon points="152,30 164,20 164,80 152,90" fill={dark} />
-            {fem && (
-              <g className={animate ? "vv-flutter" : undefined} style={{ transformOrigin: "160px 34px" }}>
-                <path d="M158 30 Q186 34 180 70 Q176 84 168 90 Q172 60 156 44 Z" fill={HAIR} />
-                <rect x="156" y="30" width="8" height="8" rx="2" fill={kit} />
-              </g>
-            )}
+            <g transform={FACE}>
+              <HairBack hair={hair} accent={kit} animate={animate} />
+            </g>
             <rect x="88" y="30" width="64" height="60" fill={skin} />
             <polygon points="88,30 100,20 164,20 152,30" fill={light} />
-            <polygon points="88,30 100,20 164,20 152,30" fill={HAIR} />
-            <rect x="88" y="30" width="64" height={fem ? 12 : 7} fill={HAIR} />
-            {fem && <polygon points="152,30 164,20 164,40 152,50" fill={shade(HAIR, -0.2)} />}
+            <g transform={FACE}>
+              <HairFront hair={hair} accent={kit} />
+            </g>
             <rect x="88" y="38" width="64" height="9" fill={kit} />
             <polygon points="152,38 164,28 164,37 152,47" fill={kitDark} />
             <path d="M130 40 l3 5 l3 -5 l3 5 l3 -5" stroke={INK} strokeWidth={1.6} fill="none" />
             <polygon points="164,31 176,39 171,42" fill={kit} />
-            <Fade keys={undefined} period={m.period} animate={animate}>
-              <g className={animate ? "vv-blink" : undefined} style={{ transformOrigin: "120px 60px" }}>
-                <rect x="98" y="54" width="12" height="12" rx="2" fill="#fff" />
-                <rect x="128" y="54" width="12" height="12" rx="2" fill="#fff" />
-                <rect x="103" y="56" width="6" height="7" fill={INK} />
-                <rect x="133" y="56" width="6" height="7" fill={INK} />
+            {/* the face uses the same eyes, mouth, cheeks, headgear and style layers as the Toy, scaled */}
+            <g transform={FACE}>
+              <g className={animate && blinks ? "vv-blink" : undefined}>
+                <Eyes eyes={t.eyes} color={VVAKER_EYE_COLORS[t.eyeColor]} />
               </g>
-            </Fade>
-            <path d="M108 76 Q120 84 132 76" stroke={INK} strokeWidth={3} strokeLinecap="round" fill="none" />
-            <rect x="92" y="70" width="8" height="5" fill={shade(PULSE, 0.45)} opacity={0.7} stroke="none" />
-            <rect x="140" y="70" width="8" height="5" fill={shade(PULSE, 0.45)} opacity={0.7} stroke="none" />
+              <Scar scar={t.scar} />
+              <Fade keys={m.strain ? mapKeys(m.strain, (v) => 0.75 + v * 0.25) : undefined} period={m.period} animate={animate}>
+                <rect x="68" y="126" width="14" height="8" fill={shade(PULSE, 0.45)} opacity={m.strain ? undefined : 0.75} />
+                <rect x="150" y="126" width="14" height="8" fill={shade(PULSE, 0.45)} opacity={m.strain ? undefined : 0.75} />
+              </Fade>
+              <FaceTattoo tattoo={t.tattoo} />
+              <Facial facial={t.facial} />
+              <Fade keys={animate && m.mouth ? mapKeys(m.mouth, (v) => 1 - v) : undefined} period={m.period} animate={animate}>
+                <Mouth mouth={t.mouth} />
+              </Fade>
+              {animate && m.mouth && (
+                <Fade keys={m.mouth} period={m.period} animate>
+                  <ellipse cx="116" cy="137" rx="6" ry="7" fill={INK} />
+                </Fade>
+              )}
+              <Piercing piercing={t.piercing} />
+              <Headgear headgear={t.headgear} accent={kit} />
+            </g>
 
             {PROPS.has(t.sport) && (
               <g transform="translate(0 -12)">
@@ -152,10 +176,20 @@ export function VVakerAthlete({
 
             {/* arms: shoulder → upper arm (bicep) → elbow → forearm + fist; HR watch on the left wrist */}
             <Joint {...jp} x={76} y={106} k={m.ls}>
-              <rect x="66" y="102" width="20" height="44" rx="3" fill={skin} />
+              <g transform={widen(76, P.arms)}>
+                <rect x="66" y="102" width="20" height="44" rx="3" fill={skin} />
+                <g transform="translate(66 102) scale(1.111 1.76) translate(-60 -162)">
+                  <ArmTattoo tattoo={t.tattoo} part="upper-left" accent={kit} />
+                </g>
+              </g>
               <path d="M84 110 q6 14 0 30" stroke={dark} strokeWidth={2} fill="none" />
               <Joint {...jp} x={76} y={144} k={m.le}>
-                <rect x="67" y="142" width="18" height="40" rx="3" fill={skin} />
+                <g transform={widen(76, P.arms)}>
+                  <rect x="67" y="142" width="18" height="40" rx="3" fill={skin} />
+                  <g transform="translate(67 142) scale(1 1.667) translate(-60 -184)">
+                    <ArmTattoo tattoo={t.tattoo} part="fore-left" accent={kit} />
+                  </g>
+                </g>
                 <rect x="64" y="162" width="24" height="11" rx="2" fill={INK} stroke={VOLT} strokeWidth={1.5} />
                 <path d="M67 167 h3 l2 -3 l2 5 l2 -3 h5" stroke={VOLT} strokeWidth={1.2} fill="none" />
                 <rect x="66" y="180" width="20" height="16" rx="5" fill={light} />
@@ -165,10 +199,15 @@ export function VVakerAthlete({
               </Joint>
             </Joint>
             <Joint {...jp} x={164} y={106} k={m.rs}>
-              <rect x="154" y="102" width="20" height="44" rx="3" fill={dark} />
+              <rect x="154" y="102" width="20" height="44" rx="3" fill={dark} transform={widen(164, P.arms)} />
               <path d="M156 110 q-6 14 0 30" stroke={shade(skin, -0.45)} strokeWidth={2} fill="none" />
               <Joint {...jp} x={164} y={144} k={m.re}>
-                <rect x="155" y="142" width="18" height="40" rx="3" fill={dark} />
+                <g transform={widen(164, P.arms)}>
+                  <rect x="155" y="142" width="18" height="40" rx="3" fill={dark} />
+                  <g transform="translate(155 142) scale(1 1.667) translate(-172 -182)">
+                    <ArmTattoo tattoo={t.tattoo} part="fore-right" accent={kit} />
+                  </g>
+                </g>
                 <rect x="154" y="180" width="20" height="16" rx="5" fill={skin} />
                 <g transform="translate(-17 -20)">
                   <HandProp sport={t.sport} side="right" accent={kit} />

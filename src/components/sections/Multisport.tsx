@@ -1,4 +1,5 @@
 import { Section } from "@/components/ui/Section";
+import { SportName } from "@/lib/sportNames";
 import type { VVakerTraits } from "@/components/vvaker/traits";
 import { VVaker } from "@/components/vvaker/VVaker";
 import { format, type Dictionary } from "@/i18n/dictionaries";
@@ -141,7 +142,9 @@ export function Multisport({ dict, index }: { dict: Dictionary["multisport"]; in
               />
             </div>
             <div className="border-t border-line p-4">
-              <p className="font-display text-lg font-semibold">{dict.sports[tile.sport]}</p>
+              <p className="font-display text-lg font-semibold">
+                <SportName sport={tile.sport} name={dict.sports[tile.sport]} />
+              </p>
               <p className="mt-1 font-mono text-[0.7rem] text-faint">
                 {dict.example} · {tile.mindful ? `${tile.minutes} min` : format(dict.session, { minutes: tile.minutes, zone: tile.zone })}
               </p>

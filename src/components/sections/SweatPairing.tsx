@@ -1,6 +1,7 @@
 "use client";
 
 import { MoneyText, useCurrency } from "@/components/ui/Money";
+import { SportName } from "@/lib/sportNames";
 import { VVaker } from "@/components/vvaker/VVaker";
 import type { VVakerSport } from "@/components/vvaker/traits";
 import { exampleAmount, formatMoney } from "@/lib/currency";
@@ -44,7 +45,9 @@ export function SweatPairing({
           return (
             <li key={sport} className="flex flex-col items-center rounded-2xl border border-line bg-night/60 p-3 text-center">
               <VVaker sport={sport} color={COLORS[sport as keyof typeof COLORS]} className="h-24 w-auto" />
-              <p className="mt-1 text-xs font-semibold">{sportNames[sport]}</p>
+              <p className="mt-1 text-xs font-semibold">
+                <SportName sport={sport} name={sportNames[sport]} />
+              </p>
               <p className="my-1 font-mono text-[0.65rem] text-faint">
                 {dict.session} → <MoneyText template="{money}" usd={1} />
               </p>

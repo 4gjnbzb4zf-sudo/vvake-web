@@ -1,6 +1,7 @@
 "use client";
 
 import { useId, useRef, useState, type ReactNode } from "react";
+import { useSportLabel } from "@/lib/sportNames";
 import { buttonClass } from "@/components/ui/Button";
 import type { Dictionary } from "@/i18n/dictionaries";
 import { cn } from "@/lib/cn";
@@ -15,6 +16,13 @@ import {
   VVAKER_EYES,
   VVAKER_HEADGEARS,
   VVAKER_LOOKS,
+  VVAKER_HAIRS,
+  VVAKER_FACIALS,
+  VVAKER_TATTOOS,
+  VVAKER_PIERCINGS,
+  VVAKER_SCARS,
+  VVAKER_PHYSIQUES,
+  VVAKER_EYE_COLORS,
   VVAKER_MOUTHS,
   VVAKER_SPORTS,
   clampBib,
@@ -23,15 +31,17 @@ import {
   type VVakerAccent,
   type VVakerBackground,
   type VVakerColor,
+  type VVakerEyeColor,
   type VVakerTraits,
 } from "./traits";
 import { VVaker } from "./VVaker";
 
-type Tab = "body" | "gear" | "sport" | "face";
-const TABS: readonly Tab[] = ["body", "gear", "sport", "face"];
+type Tab = "body" | "gear" | "sport" | "face" | "ink";
+const TABS: readonly Tab[] = ["body", "gear", "sport", "face", "ink"];
 
 export function VVakerStudio({ dict }: { dict: Dictionary["vvaker"] }) {
   // Restored from this browser on the next visit (lib/prefs.ts); defaults until then.
+  const sportLabel = useSportLabel();
   const saved = useStudio();
   const pref = useLookPref();
   // The style is the site-wide switch (header menu or here); the rest is this studio's own VVaker.
@@ -159,6 +169,11 @@ export function VVakerStudio({ dict }: { dict: Dictionary["vvaker"] }) {
                 ))}
               </ChipGroup>
               <p className="-mt-3 text-xs text-faint">{dict.styleNote}</p>
+              <ChipGroup label={dict.controls.physique}>
+                {VVAKER_PHYSIQUES.map((v) => (
+                  <Chip key={v} active={traits.physique === v} onClick={() => update({ physique: v })} label={dict.physiques[v]} />
+                ))}
+              </ChipGroup>
               <ChipGroup label={dict.controls.color}>
                 {(Object.keys(VVAKER_COLORS) as VVakerColor[]).map((c) => (
                   <Swatch
@@ -246,13 +261,54 @@ export function VVakerStudio({ dict }: { dict: Dictionary["vvaker"] }) {
           {tab === "sport" && (
             <ChipGroup label={dict.controls.sport}>
               {VVAKER_SPORTS.map((s) => (
-                <Chip key={s} active={traits.sport === s} onClick={() => update({ sport: s })} label={dict.sports[s]} />
+                <Chip key={s} active={traits.sport === s} onClick={() => update({ sport: s })} label={sportLabel(s, dict.sports[s])} />
               ))}
             </ChipGroup>
           )}
 
+          {tab === "ink" && (
+            <>
+              <ChipGroup label={dict.controls.hair}>
+                {VVAKER_HAIRS.map((v) => (
+                  <Chip key={v} active={traits.hair === v} onClick={() => update({ hair: v })} label={dict.hairs[v]} />
+                ))}
+              </ChipGroup>
+              <ChipGroup label={dict.controls.facial}>
+                {VVAKER_FACIALS.map((v) => (
+                  <Chip key={v} active={traits.facial === v} onClick={() => update({ facial: v })} label={dict.facials[v]} />
+                ))}
+              </ChipGroup>
+              <ChipGroup label={dict.controls.tattoo}>
+                {VVAKER_TATTOOS.map((v) => (
+                  <Chip key={v} active={traits.tattoo === v} onClick={() => update({ tattoo: v })} label={dict.tattoos[v]} />
+                ))}
+              </ChipGroup>
+              <ChipGroup label={dict.controls.piercing}>
+                {VVAKER_PIERCINGS.map((v) => (
+                  <Chip key={v} active={traits.piercing === v} onClick={() => update({ piercing: v })} label={dict.piercings[v]} />
+                ))}
+              </ChipGroup>
+              <ChipGroup label={dict.controls.scar}>
+                {VVAKER_SCARS.map((v) => (
+                  <Chip key={v} active={traits.scar === v} onClick={() => update({ scar: v })} label={dict.scars[v]} />
+                ))}
+              </ChipGroup>
+            </>
+          )}
+
           {tab === "face" && (
             <>
+              <ChipGroup label={dict.controls.eyeColor}>
+                {(Object.keys(VVAKER_EYE_COLORS) as VVakerEyeColor[]).map((c) => (
+                  <Swatch
+                    key={c}
+                    color={VVAKER_EYE_COLORS[c]}
+                    label={dict.eyeColors[c]}
+                    active={traits.eyeColor === c}
+                    onClick={() => update({ eyeColor: c })}
+                  />
+                ))}
+              </ChipGroup>
               <ChipGroup label={dict.controls.eyes}>
                 {VVAKER_EYES.map((e) => (
                   <Chip key={e} active={traits.eyes === e} onClick={() => update({ eyes: e })} label={dict.eyes[e]} />

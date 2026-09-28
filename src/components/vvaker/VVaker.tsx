@@ -3,8 +3,18 @@
 import { shade } from "@/lib/color";
 import { useLookPref } from "@/lib/prefs";
 import { MOTIONS, type Keys, type Motion } from "./motion";
+import { ArmTattoo, Facial, FaceTattoo, HairBack, HairFront, PHYSIQUE, PhysiqueDetail, Piercing, Scar, widen } from "./styleLayers";
 import { VVakerAthlete } from "./VVakerAthlete";
-import { DEFAULT_TRAITS, FAN_KITS, VVAKER_ACCENTS, VVAKER_COLORS, VVAKER_SPORTS, clampBib, type VVakerTraits } from "./traits";
+import {
+  DEFAULT_TRAITS,
+  FAN_KITS,
+  VVAKER_EYE_COLORS,
+  VVAKER_ACCENTS,
+  VVAKER_COLORS,
+  VVAKER_SPORTS,
+  clampBib,
+  type VVakerTraits,
+} from "./traits";
 
 const INK = "#15181b";
 const PULSE = "#ff3d6e";
@@ -47,6 +57,7 @@ export function VVaker({ title, className, animate = true, lockLook = false, ...
   const filled = Math.max(0, Math.min(4, Math.round(t.energy)));
   const moving = t.sport === "runner" || t.sport === "cyclist" || t.sport === "roller";
   const m = MOTIONS[t.sport];
+  const P = PHYSIQUE[t.physique];
   const blinks = t.eyes !== "sleepy" && t.eyes !== "visor" && t.sport !== "meditator";
   const blinkDelay = (VVAKER_SPORTS.indexOf(t.sport) * 1.3) % 4;
 
@@ -95,38 +106,43 @@ export function VVaker({ title, className, animate = true, lockLook = false, ...
           <g stroke={OUTLINE} strokeWidth={2.4} strokeLinejoin="round">
             {/* legs: hip → thigh → knee → shin + shoe */}
             <Joint x={100} y={222} k={m.lh} lift={m.ly} period={m.period} animate={animate}>
-              <rect x="88" y="222" width="24" height="21" fill={darker} />
+              <rect x="88" y="222" width="24" height="21" fill={darker} transform={widen(100, P.legs)} />
               <Joint x={100} y={241} k={m.lk} period={m.period} animate={animate}>
-                <rect x="88" y="240" width="24" height="20" fill={darker} />
+                <rect x="88" y="240" width="24" height="20" fill={darker} transform={widen(100, P.legs)} />
                 <rect x="82" y="256" width="34" height="14" rx="2" fill="#eef0f2" />
                 <rect x="82" y="266" width="34" height="5" fill={accent} />
                 <Footwear sport={t.sport} dx={0} accent={accent} />
               </Joint>
             </Joint>
             <Joint x={136} y={222} k={m.rh} lift={m.ry} period={m.period} animate={animate}>
-              <rect x="124" y="222" width="24" height="21" fill={darker} />
+              <rect x="124" y="222" width="24" height="21" fill={darker} transform={widen(136, P.legs)} />
               <Joint x={136} y={241} k={m.rk} period={m.period} animate={animate}>
-                <rect x="124" y="240" width="24" height="20" fill={darker} />
+                <rect x="124" y="240" width="24" height="20" fill={darker} transform={widen(136, P.legs)} />
                 <rect x="120" y="256" width="34" height="14" rx="2" fill="#eef0f2" />
                 <rect x="120" y="266" width="34" height="5" fill={accent} />
                 <Footwear sport={t.sport} dx={38} accent={accent} />
               </Joint>
             </Joint>
 
-            {/* body */}
-            <polygon points="154,158 170,146 170,210 154,222" fill={dark} />
-            <rect x="80" y="158" width="74" height="64" fill={base} />
-            <polygon points="80,158 96,146 170,146 154,158" fill={light} />
-            {t.accessory === "none" && <rect x="112" y="178" width="10" height="10" fill={PULSE} className="animate-pulse-glow" />}
-            <FanKitLayer kit={FAN_KITS[t.fan]} />
-            <Accessory accessory={t.accessory} accent={accent} bib={clampBib(t.bib)} />
+            {/* body (width follows the body type) */}
+            <g transform={widen(117, P.torso)}>
+              <polygon points="154,158 170,146 170,210 154,222" fill={dark} />
+              <rect x="80" y="158" width="74" height="64" fill={base} />
+              <polygon points="80,158 96,146 170,146 154,158" fill={light} />
+              <PhysiqueDetail physique={t.physique} cx={117} y={158} skin={shade(base, 0.12)} />
+              {t.accessory === "none" && <rect x="112" y="178" width="10" height="10" fill={PULSE} className="animate-pulse-glow" />}
+              <FanKitLayer kit={FAN_KITS[t.fan]} />
+              <Accessory accessory={t.accessory} accent={accent} bib={clampBib(t.bib)} />
+            </g>
 
             <SportProp sport={t.sport} accent={accent} animate={animate} motion={m} />
 
-            {/* head */}
+            {/* head, with hair behind and on top */}
+            <HairBack hair={t.hair} accent={accent} animate={animate} />
             <polygon points="172,60 190,44 190,140 172,156" fill={dark} />
             <rect x="60" y="60" width="112" height="96" fill={base} />
             <polygon points="60,60 78,44 190,44 172,60" fill={light} />
+            <HairFront hair={t.hair} accent={accent} />
 
             {/* VV headband: the knot draws a tiny W; the tails flutter when moving */}
             <rect x="60" y="72" width="112" height="13" fill={accent} />
@@ -141,12 +157,15 @@ export function VVaker({ title, className, animate = true, lockLook = false, ...
               className={animate && blinks ? "vv-blink" : undefined}
               style={animate && blinks ? { animationDelay: `-${blinkDelay}s` } : undefined}
             >
-              <Eyes eyes={t.eyes} />
+              <Eyes eyes={t.eyes} color={VVAKER_EYE_COLORS[t.eyeColor]} />
             </g>
+            <Scar scar={t.scar} />
             <Fade keys={m.strain ? mapKeys(m.strain, (v) => 0.75 + v * 0.25) : undefined} period={m.period} animate={animate}>
               <rect x="68" y="126" width="14" height="8" fill={shade(PULSE, 0.45)} opacity={m.strain ? undefined : 0.75} />
               <rect x="150" y="126" width="14" height="8" fill={shade(PULSE, 0.45)} opacity={m.strain ? undefined : 0.75} />
             </Fade>
+            <FaceTattoo tattoo={t.tattoo} />
+            <Facial facial={t.facial} />
             {/* breathing: the trait mouth hands over to an open "o" at effort peaks */}
             <Fade keys={animate && m.mouth ? mapKeys(m.mouth, (v) => 1 - v) : undefined} period={m.period} animate={animate}>
               <Mouth mouth={t.mouth} />
@@ -156,15 +175,22 @@ export function VVaker({ title, className, animate = true, lockLook = false, ...
                 <ellipse cx="116" cy="137" rx="6" ry="7" fill={INK} />
               </Fade>
             )}
+            <Piercing piercing={t.piercing} />
 
             <Headgear headgear={t.headgear} accent={accent} />
 
             {/* arms: shoulder → upper arm → elbow → forearm + hand; the watch stays on the left wrist */}
             <Spin on={animate && !!m.armSpin} x={69} y={164} period={m.period}>
               <Joint x={69} y={164} k={m.ls} period={m.period} animate={animate}>
-                <rect x="60" y="162" width="18" height="25" fill={base} />
+                <g transform={widen(69, P.arms)}>
+                  <rect x="60" y="162" width="18" height="25" fill={base} />
+                  <ArmTattoo tattoo={t.tattoo} part="upper-left" accent={accent} />
+                </g>
                 <Joint x={69} y={186} k={m.le} period={m.period} animate={animate}>
-                  <rect x="60" y="184" width="18" height="24" fill={base} />
+                  <g transform={widen(69, P.arms)}>
+                    <rect x="60" y="184" width="18" height="24" fill={base} />
+                    <ArmTattoo tattoo={t.tattoo} part="fore-left" accent={accent} />
+                  </g>
                   <rect x="60" y="206" width="18" height="14" fill={light} />
                   <rect x="55" y="190" width="28" height="15" rx="3" fill={VOLT} opacity={0.22} />
                   <rect x="57" y="192" width="24" height="11" rx="2" fill={INK} stroke={VOLT} strokeWidth={1.5} />
@@ -175,9 +201,12 @@ export function VVaker({ title, className, animate = true, lockLook = false, ...
             </Spin>
             <Spin on={animate && !!m.armSpin} x={181} y={162} period={m.period} late>
               <Joint x={181} y={162} k={m.rs} period={m.period} animate={animate}>
-                <rect x="172" y="160" width="18" height="25" fill={dark} />
+                <rect x="172" y="160" width="18" height="25" fill={dark} transform={widen(181, P.arms)} />
                 <Joint x={181} y={184} k={m.re} period={m.period} animate={animate}>
-                  <rect x="172" y="182" width="18" height="24" fill={dark} />
+                  <g transform={widen(181, P.arms)}>
+                    <rect x="172" y="182" width="18" height="24" fill={dark} />
+                    <ArmTattoo tattoo={t.tattoo} part="fore-right" accent={accent} />
+                  </g>
                   <rect x="172" y="204" width="18" height="14" fill={base} />
                   <HandProp sport={t.sport} side="right" accent={accent} />
                 </Joint>
@@ -364,25 +393,26 @@ export function HandProp({ sport, side, accent = VOLT }: { sport: VVakerTraits["
   }
 }
 
-function Eyes({ eyes }: { eyes: VVakerTraits["eyes"] }) {
+export function Eyes({ eyes, color = INK }: { eyes: VVakerTraits["eyes"]; color?: string }) {
+  const line = color === INK ? INK : shade(color, -0.15);
   switch (eyes) {
     case "happy":
       return (
-        <g stroke={INK} strokeWidth={5} strokeLinecap="round" fill="none">
+        <g stroke={line} strokeWidth={5} strokeLinecap="round" fill="none">
           <path d="M80 114 Q90 100 100 114" />
           <path d="M132 114 Q142 100 152 114" />
         </g>
       );
     case "fired":
       return (
-        <g stroke={INK} strokeWidth={6} strokeLinecap="square" fill="none">
+        <g stroke={line} strokeWidth={6} strokeLinecap="square" fill="none">
           <path d="M80 100 L98 110 L80 120" />
           <path d="M152 100 L134 110 L152 120" />
         </g>
       );
     case "sleepy":
       return (
-        <g stroke={INK} strokeWidth={6} strokeLinecap="square">
+        <g stroke={line} strokeWidth={6} strokeLinecap="square">
           <path d="M80 112 H100" />
           <path d="M132 112 H152" />
         </g>
@@ -408,8 +438,8 @@ function Eyes({ eyes }: { eyes: VVakerTraits["eyes"] }) {
         <g>
           <rect x="78" y="96" width="24" height="24" rx="3" fill="#fff" />
           <rect x="130" y="96" width="24" height="24" rx="3" fill="#fff" />
-          <rect x="88" y="100" width="11" height="12" fill={INK} />
-          <rect x="140" y="100" width="11" height="12" fill={INK} />
+          <rect x="88" y="100" width="11" height="12" fill={color} />
+          <rect x="140" y="100" width="11" height="12" fill={color} />
           <rect x="92" y="101" width="4" height="4" fill="#fff" stroke="none" />
           <rect x="144" y="101" width="4" height="4" fill="#fff" stroke="none" />
         </g>
@@ -426,7 +456,7 @@ function Star({ cx, cy, r }: { cx: number; cy: number; r: number }) {
   return <polygon points={points} />;
 }
 
-function Mouth({ mouth }: { mouth: VVakerTraits["mouth"] }) {
+export function Mouth({ mouth }: { mouth: VVakerTraits["mouth"] }) {
   switch (mouth) {
     case "grin":
       return <path d="M104 132 H128 V138 Q116 150 104 138 Z" fill={INK} />;
@@ -446,7 +476,7 @@ function Mouth({ mouth }: { mouth: VVakerTraits["mouth"] }) {
   }
 }
 
-function Headgear({ headgear, accent }: { headgear: VVakerTraits["headgear"]; accent: string }) {
+export function Headgear({ headgear, accent }: { headgear: VVakerTraits["headgear"]; accent: string }) {
   switch (headgear) {
     case "cap":
       return (
@@ -498,7 +528,7 @@ function Headgear({ headgear, accent }: { headgear: VVakerTraits["headgear"]; ac
   }
 }
 
-function Accessory({ accessory, accent, bib }: { accessory: VVakerTraits["accessory"]; accent: string; bib: number }) {
+export function Accessory({ accessory, accent, bib }: { accessory: VVakerTraits["accessory"]; accent: string; bib: number }) {
   switch (accessory) {
     case "medal":
       return (
@@ -626,7 +656,7 @@ export function SportProp({
   }
 }
 
-function FanKitLayer({ kit }: { kit: readonly [string, string] | null }) {
+export function FanKitLayer({ kit }: { kit: readonly [string, string] | null }) {
   if (!kit) return null;
   const [a, b] = kit;
   return (
