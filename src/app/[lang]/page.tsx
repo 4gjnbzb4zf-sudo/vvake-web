@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import { AppPreview } from "@/components/sections/AppPreview";
 import { Challenges } from "@/components/sections/Challenges";
 import { DoubleV } from "@/components/sections/DoubleV";
+import { DayLoop } from "@/components/sections/DayLoop";
 import { Dev, Faq, Footer } from "@/components/sections/Extras";
 import { Header } from "@/components/sections/Header";
 import { Hero } from "@/components/sections/Hero";
@@ -50,33 +51,34 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
         <Multisport dict={dict.multisport} index="02" />
         <Challenges dict={dict.challenges} index="03" />
         <Pace dict={dict.pace} index="04" />
-        <Wellbeing dict={dict.wellbeing} index="05" />
-        <AppPreview dict={dict.app} index="06" />
-        <Story dict={dict.story} index="07" />
+        <DayLoop dict={dict.day} index="05" />
+        <Wellbeing dict={dict.wellbeing} index="06" />
+        <AppPreview dict={dict.app} index="07" />
+        <Story dict={dict.story} index="08" />
         <DoubleV dict={dict.doubleV} anthem={{ prefix: dict.hero.prefix, lines: dict.hero.anthem }} />
         <VibeLink dict={dict.vibe} />
-        <How dict={dict.how} index="08" />
-        <Pulse dict={dict.pulse} index="09" />
-        <Rwa dict={dict.rwa} index="10" />
+        <How dict={dict.how} index="09" />
+        <Pulse dict={dict.pulse} index="10" />
+        <Rwa dict={dict.rwa} index="11" />
         <Section
           id="rivalries"
-          index="11"
+          index="12"
           kicker={dict.rivalries.kicker}
           title={<span className="inline-block -skew-x-6 italic">{dict.rivalries.title}</span>}
           lead={dict.rivalries.body}
         >
           <RivalryBoard dict={dict.rivalries} rivalries={rivalryViews()} numberLocale={lang} />
         </Section>
-        <Unlock locale={lang} dict={dict.unlock} countryLabels={dict.rivalries.tabs} index="12" />
-        <OpenBook dict={dict.openBook} index="13" />
-        <Section id="vvaker" index="14" kicker={dict.vvaker.kicker} title={dict.vvaker.title} lead={dict.vvaker.body}>
+        <Unlock locale={lang} dict={dict.unlock} countryLabels={dict.rivalries.tabs} index="13" />
+        <OpenBook dict={dict.openBook} index="14" />
+        <Section id="vvaker" index="15" kicker={dict.vvaker.kicker} title={dict.vvaker.title} lead={dict.vvaker.body}>
           <VVakerDeck />
           <VVakerStudio dict={dict.vvaker} />
           <VVakerTiers dict={dict.vvaker.tiers} />
           <CollectorDrops dict={dict.vvaker.collect} />
         </Section>
-        <Dev dict={dict.dev} index="15" />
-        <Partners dict={dict.partners} index="16" />
+        <Dev dict={dict.dev} index="16" />
+        <Partners dict={dict.partners} index="17" />
         <Faq dict={dict.faq} />
       </main>
       <Footer locale={lang} dict={dict.footer} />
