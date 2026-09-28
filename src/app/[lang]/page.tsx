@@ -16,6 +16,7 @@ import { Multisport } from "@/components/sections/Multisport";
 import { OpenBook } from "@/components/sections/OpenBook";
 import { Pace } from "@/components/sections/Pace";
 import { People } from "@/components/sections/People";
+import { Plus } from "@/components/sections/Plus";
 import { Showcase } from "@/components/sections/Showcase";
 import { Partners } from "@/components/sections/Partners";
 import { Pulse } from "@/components/sections/Pulse";
@@ -86,9 +87,10 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
         <Section id="journal" index="16" kicker={dict.journal.kicker} title={dict.journal.title} lead={dict.journal.body}>
           <Journal dict={dict.journal} />
         </Section>
+        <Plus dict={dict.plus} index="17" />
         {/* Brand moment, then identity. */}
         <DoubleV dict={dict.doubleV} anthem={{ prefix: dict.hero.prefix, lines: dict.hero.anthem }} />
-        <Section id="vvaker" index="17" kicker={dict.vvaker.kicker} title={dict.vvaker.title} lead={dict.vvaker.body}>
+        <Section id="vvaker" index="18" kicker={dict.vvaker.kicker} title={dict.vvaker.title} lead={dict.vvaker.body}>
           <VVakerDeck />
           <VVakerStudio dict={dict.vvaker} />
           <EarnedStats dict={dict.vvaker.stats} />
@@ -96,14 +98,14 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
           <CollectorDrops dict={dict.vvaker.collect} />
         </Section>
         {/* Web3 & ownership: why we rebuilt it, the market game, real-world assets, and the open books. */}
-        <Story dict={dict.story} index="18" />
-        <Pulse dict={dict.pulse} index="19" sportNames={dict.multisport.sports} />
-        <Rwa dict={dict.rwa} index="20" />
-        <OpenBook dict={dict.openBook} index="21" />
+        <Story dict={dict.story} index="19" />
+        <Pulse dict={dict.pulse} index="20" sportNames={dict.multisport.sports} />
+        <Rwa dict={dict.rwa} index="21" />
+        <OpenBook dict={dict.openBook} index="22" />
         <VibeLink dict={dict.vibe} />
         {/* Builders and partners. */}
-        <Dev dict={dict.dev} index="22" />
-        <Partners dict={dict.partners} index="23" />
+        <Dev dict={dict.dev} index="23" />
+        <Partners dict={dict.partners} index="24" />
         <Faq dict={dict.faq} />
       </main>
       <Footer locale={lang} dict={dict.footer} />
