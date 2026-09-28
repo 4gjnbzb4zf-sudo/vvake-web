@@ -15,7 +15,10 @@ export function VVakerTiers({ dict }: { dict: Dictionary["vvaker"]["tiers"] }) {
         {dict.columns.map((col, i) => {
           const s = STYLES[i % STYLES.length]!;
           return (
-            <div key={col.name} className={`rounded-3xl border ${s.border} bg-surface/60 p-6`}>
+            <div
+              key={col.name}
+              className={`flex flex-col rounded-3xl border ${s.border} p-6 ${i === 2 ? "bg-gradient-to-b from-pulse/15 to-surface/60 shadow-[0_18px_50px_-24px_rgb(255_61_110/0.6)]" : "bg-surface/60"}`}
+            >
               <p className={`font-display text-lg font-semibold ${s.accent}`}>{col.name}</p>
               <ul className="mt-4 space-y-2.5 text-sm text-muted">
                 {col.items.map((item) => (
@@ -27,6 +30,14 @@ export function VVakerTiers({ dict }: { dict: Dictionary["vvaker"]["tiers"] }) {
                   </li>
                 ))}
               </ul>
+              {i === 2 && (
+                <a
+                  href="#collector"
+                  className="mt-auto inline-flex pt-5 font-display text-sm font-semibold text-pulse hover:text-pulse-soft"
+                >
+                  {dict.cta} ↓
+                </a>
+              )}
             </div>
           );
         })}

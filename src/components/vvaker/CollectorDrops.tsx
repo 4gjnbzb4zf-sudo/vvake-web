@@ -60,7 +60,10 @@ function Effected({ effect, children }: { effect: Effect; children: ReactNode })
 
 export function CollectorDrops({ dict }: { dict: Dictionary["vvaker"]["collect"] }) {
   return (
-    <div className="mt-16 rounded-[2rem] border border-pulse/30 bg-gradient-to-b from-pulse/10 to-transparent p-6 sm:p-10">
+    <div
+      id="collector"
+      className="mt-16 scroll-mt-24 rounded-[2rem] border border-pulse/30 bg-gradient-to-b from-pulse/10 to-transparent p-6 sm:p-10"
+    >
       <p className="font-mono text-xs tracking-[0.18em] text-pulse uppercase">{dict.kicker}</p>
       <h3 className="mt-3 max-w-3xl font-display text-2xl leading-tight font-semibold sm:text-4xl">{dict.title}</h3>
       <p className="mt-4 max-w-3xl leading-relaxed text-muted">{dict.body}</p>
