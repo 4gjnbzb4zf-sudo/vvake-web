@@ -16,7 +16,7 @@ function DuelArt() {
     <div className="flex items-end justify-center gap-1">
       <VVaker sport="runner" color="candy" eyes="fired" mouth="grin" className="h-24 w-auto" />
       <span className="mb-10 -skew-x-6 font-display text-2xl font-bold text-pulse italic">VS</span>
-      <VVaker sport="boxer" look="athlete-a" color="sky" eyes="fired" className="h-24 w-auto -scale-x-100" />
+      <VVaker sport="boxer" color="sky" eyes="fired" className="h-24 w-auto -scale-x-100" />
     </div>
   );
 }
@@ -26,12 +26,12 @@ function CrewArt() {
     <div className="flex items-end justify-center">
       <div className="flex -space-x-8">
         <VVaker sport="walker" color="mint" className="h-16 w-auto" />
-        <VVaker sport="runner" look="athlete-b" color="candy" className="h-16 w-auto" />
+        <VVaker sport="runner" color="candy" className="h-16 w-auto" />
         <VVaker sport="cyclist" color="butter" className="h-16 w-auto" />
       </div>
       <span className="mx-1 mb-7 font-display text-lg font-bold text-lilac italic">VS</span>
       <div className="flex -scale-x-100 -space-x-7">
-        <VVaker sport="baller" look="athlete-a" color="coral" className="h-16 w-auto" />
+        <VVaker sport="baller" color="coral" className="h-16 w-auto" />
         <VVaker sport="roller" color="lilac" className="h-16 w-auto" />
         <VVaker sport="runner" color="slate" className="h-16 w-auto" />
       </div>
@@ -42,12 +42,12 @@ function CrewArt() {
 function WorldArt() {
   return (
     <div className="flex items-end justify-center gap-3">
-      <VVaker sport="runner" look="athlete-b" color="olive" className="h-24 w-auto" />
+      <VVaker sport="runner" color="olive" className="h-24 w-auto" />
       <div className="relative mb-4 flex h-16 w-16 items-center justify-center rounded-full border border-sky/50 bg-sky/10 text-3xl">
         🌍
         <span className="absolute -top-1 -right-1 h-3 w-3 animate-ping rounded-full bg-sky" />
       </div>
-      <VVaker sport="yogi" look="athlete-b" color="butter" eyes="happy" className="h-24 w-auto -scale-x-100" />
+      <VVaker sport="yogi" color="butter" eyes="happy" className="h-24 w-auto -scale-x-100" />
     </div>
   );
 }
@@ -57,7 +57,7 @@ function GhostArt() {
     <div className="relative flex items-end justify-center">
       <VVaker sport="runner" color="candy" accessory="bib" bib={10} className="h-24 w-auto" />
       <div className="-ml-10 opacity-35 grayscale">
-        <VVaker sport="runner" look="athlete-a" color="sky" className="h-24 w-auto" />
+        <VVaker sport="runner" color="sky" className="h-24 w-auto" />
       </div>
       <span className="absolute top-0 right-6 rounded-md bg-volt px-1.5 py-0.5 font-mono text-[0.65rem] font-semibold text-night">
         +20 m

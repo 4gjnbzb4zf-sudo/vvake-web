@@ -22,6 +22,8 @@ export const en = {
     skip: "Skip to content",
     language: "Language",
     currency: "Currency",
+    style: "VVaker style",
+    looks: { toy: "Toy", "athlete-a": "Athlete A", "athlete-b": "Athlete B" },
   },
   hero: {
     pronounce: "VVake Fit · say it “wake fit”",
@@ -1026,7 +1028,8 @@ export const en = {
       energy: "Energy",
     },
     looks: { toy: "Toy", "athlete-a": "Athlete · A", "athlete-b": "Athlete · B" },
-    styleNote: "Two styles, open to everyone. Your pick is saved in this browser, and the whole site follows it.",
+    styleNote:
+      "Two styles, open to everyone. Switch anytime (here or in the menu): every VVaker on the site changes, and your pick is saved in this browser.",
     colors: { candy: "Candy", lilac: "Lilac", butter: "Butter", mint: "Mint", sky: "Sky", olive: "Olive", coral: "Coral", slate: "Slate" },
     accents: { pulse: "Pulse", volt: "Volt", calm: "Calm", ocean: "Ocean", snow: "Snow", flame: "Flame" },
     backgrounds: { night: "Night", pulse: "Pulse", volt: "Volt", lilac: "Lilac", sky: "Sky", cream: "Cream" },

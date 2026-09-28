@@ -14,9 +14,6 @@ interface Tile {
   tint: string;
 }
 
-/** Both styles side by side until the visitor picks one in the studio (their pick then wins everywhere). */
-const LOOKS = ["toy", "athlete-a", "athlete-b"] as const;
-
 const TILES: readonly Tile[] = [
   {
     sport: "runner",
@@ -130,7 +127,7 @@ export function Multisport({ dict, index }: { dict: Dictionary["multisport"]; in
     <Section id="multisport" index={index} kicker={dict.kicker} title={dict.title} lead={dict.body}>
       <p className="mt-6 inline-flex rounded-xl border border-volt/30 bg-volt/10 px-4 py-2 font-mono text-xs text-volt">{dict.formula}</p>
       <ul className="mt-10 grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
-        {TILES.map((tile, i) => (
+        {TILES.map((tile) => (
           <li
             key={tile.sport}
             className="group relative overflow-hidden rounded-3xl border border-line bg-surface/60 transition-all duration-300 hover:-translate-y-1 hover:border-pulse/40"
@@ -138,7 +135,6 @@ export function Multisport({ dict, index }: { dict: Dictionary["multisport"]; in
             <div className={`bg-gradient-to-b ${tile.tint} to-transparent px-3 pt-4`}>
               <VVaker
                 sport={tile.sport}
-                look={LOOKS[i % LOOKS.length]}
                 energy={4}
                 {...tile.look}
                 className="mx-auto h-36 w-auto transition-transform duration-300 group-hover:scale-105 sm:h-44"

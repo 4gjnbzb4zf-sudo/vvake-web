@@ -41,7 +41,7 @@ export function People({ dict, index }: { dict: Dictionary["people"]; index: str
             <span className="mb-20 animate-pulse-glow text-4xl">💘</span>
             <VVaker
               sport="yogi"
-              look="athlete-b"
+
               color="sky"
               headgear="cap"
               eyes="star"

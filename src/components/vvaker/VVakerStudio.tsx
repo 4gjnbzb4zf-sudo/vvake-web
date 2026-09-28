@@ -5,7 +5,7 @@ import { buttonClass } from "@/components/ui/Button";
 import type { Dictionary } from "@/i18n/dictionaries";
 import { cn } from "@/lib/cn";
 import { encodeDna } from "@/lib/dna";
-import { saveStudio, setLookPref, useStudio } from "@/lib/prefs";
+import { saveStudio, setLookPref, useLookPref, useStudio } from "@/lib/prefs";
 import {
   FAN_KITS,
   VVAKER_ACCENTS,
@@ -33,7 +33,10 @@ const TABS: readonly Tab[] = ["body", "gear", "sport", "face"];
 export function VVakerStudio({ dict }: { dict: Dictionary["vvaker"] }) {
   // Restored from this browser on the next visit (lib/prefs.ts); defaults until then.
   const saved = useStudio();
-  const { traits, background } = saved;
+  const pref = useLookPref();
+  // The style is the site-wide switch (header menu or here); the rest is this studio's own VVaker.
+  const traits: VVakerTraits = { ...saved.traits, look: pref ?? saved.traits.look };
+  const { background } = saved;
   const setTraits = (next: VVakerTraits) => saveStudio({ ...saved, traits: next });
   const setBackground = (b: VVakerBackground) => saveStudio({ ...saved, background: b });
   const [tab, setTab] = useState<Tab>("body");

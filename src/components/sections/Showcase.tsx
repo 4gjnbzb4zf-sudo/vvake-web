@@ -41,9 +41,9 @@ function Crew() {
   return (
     <div className="flex h-full items-end justify-center -space-x-6">
       <VVaker sport="runner" color="mint" headgear="cap" accent="volt" className="h-32 w-auto sm:h-40" />
-      <VVaker sport="roller" look="athlete-b" color="candy" headgear="helmet" eyes="star" className="h-32 w-auto sm:h-40" />
+      <VVaker sport="roller" color="candy" headgear="helmet" eyes="star" className="h-32 w-auto sm:h-40" />
       <VVaker sport="walker" color="sky" eyes="happy" className="h-32 w-auto sm:h-40" />
-      <VVaker sport="baller" look="athlete-a" color="butter" headgear="beanie" className="h-32 w-auto sm:h-40" />
+      <VVaker sport="baller" color="butter" headgear="beanie" className="h-32 w-auto sm:h-40" />
     </div>
   );
 }
