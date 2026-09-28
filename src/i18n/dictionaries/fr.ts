@@ -165,6 +165,59 @@ export const fr: Dictionary = {
     disclaimer:
       "VVake est un projet indépendant, ni affilié à vibe/vibe ni soutenu par lui. Toute fonctionnalité web3 est soumise à une revue juridique et ne sera pas disponible dans tous les pays.",
   },
+  pace: {
+    kicker: "Garde le rythme",
+    title: "Pensé pour que demain soit plus facile qu'aujourd'hui.",
+    body: "La meilleure séance, c'est celle que tu refais. VVake est construit autour des petites victoires quotidiennes qui transforment une bonne semaine en habitude, sans culpabilisation.",
+    items: [
+      {
+        title: "Des séries qui pardonnent",
+        body: "Ta série compte les jours actifs, garde 2 jours de repos protégés par semaine, et te donne des gels pour la vraie vie.",
+      },
+      {
+        title: "Ligues hebdomadaires",
+        body: "30 personnes à ton niveau. Les 7 premiers montent, de Warm-up à Legend. Classement sur la régularité et les progrès, pas sur le volume brut.",
+      },
+      {
+        title: "Quêtes du jour",
+        body: "Trois petits objectifs par jour, adaptés à toi : 10 minutes en zone 2, un high-five au squad, un effort pour ta ville.",
+      },
+      {
+        title: "Des rappels qui te connaissent",
+        body: "Les rappels apprennent ton meilleur moment. Ton squad te prévient quand il sort. Jamais tard le soir, jamais culpabilisant.",
+      },
+      {
+        title: "La musique qui tient ton rythme",
+        body: "Connecte ton app de musique et lance une playlist calée sur ton rythme, avec les commandes au poignet.",
+      },
+      {
+        title: "Ton année, résumée",
+        body: "Séries, rivalités gagnées, villes débloquées, les morceaux qui t'ont poussé. Fait pour être partagé.",
+      },
+    ],
+    widgets: {
+      streak: "Série",
+      days: "jours",
+      week: ["L", "M", "M", "J", "V", "S", "D"],
+      rest: "repos",
+      league: "Ligue Tempo",
+      rank: "sur 30 · les 7 premiers montent",
+      quests: "Quêtes du jour",
+      questList: ["10 min en zone 2", "High-five au squad", "Un effort pour Lyon"],
+      nowPlaying: "En écoute",
+      track: "Mix course tempo",
+      tempo: "calé sur ton rythme",
+    },
+    musicLabel: "Fonctionne avec ta musique",
+    musicServices: ["Spotify", "Apple Music", "Amazon Music"],
+    musicNote: "Intégrations prévues ; ces noms sont des marques de leurs propriétaires.",
+    healthy: [
+      "Les jours de repos font partie de la série",
+      "La zone 5 ne rapporte jamais plus",
+      "Aucune culpabilisation",
+      "Heures calmes la nuit",
+    ],
+  },
   app: {
     kicker: "L'app",
     title: "Pensée pour ton poignet. Faite pour ta team.",
