@@ -96,30 +96,76 @@ export function PhoneMock({ dict }: { dict: Dictionary["app"]["phone"] }) {
   );
 }
 
+/** Apple-Watch-style face cycling through a live workout, a Rally alert and a ghost race (pure CSS). */
 export function WatchMock({ dict }: { dict: Dictionary["app"]["watch"] }) {
   return (
-    <div className="relative mb-10 flex h-[196px] w-[160px] shrink-0 flex-col rounded-[2.6rem] border-[8px] border-[#202428] bg-black p-3.5 shadow-2xl shadow-black/60 sm:h-[216px] sm:w-[176px]">
-      <span className="absolute top-14 -right-[13px] h-9 w-[7px] rounded bg-[#2b3035]" />
-      <p className="text-right text-[10px] font-semibold">6:14</p>
-      <p className="font-mono text-[9px] tracking-[0.1em] text-pulse uppercase">{dict.zone}</p>
-      <p className="mt-1 font-display text-[40px] leading-none font-bold">
-        152<span className="text-sm text-pulse"> ♥</span>
-      </p>
-      <div className="mt-2 flex gap-3">
-        <div>
-          <p className="font-mono text-[8px] text-faint uppercase">{dict.effort}</p>
-          <p className="font-display text-sm font-semibold">42</p>
+    <div className="relative mb-10 shrink-0">
+      {/* straps */}
+      <div className="absolute -top-10 left-1/2 h-12 w-[104px] -translate-x-1/2 rounded-t-3xl bg-gradient-to-b from-[#1a1d21] to-[#2a2f35]" />
+      <div className="absolute -bottom-10 left-1/2 h-12 w-[104px] -translate-x-1/2 rounded-b-3xl bg-gradient-to-t from-[#1a1d21] to-[#2a2f35]" />
+      <div className="relative h-[196px] w-[160px] overflow-hidden rounded-[2.6rem] border-[8px] border-[#2a2f35] bg-black shadow-2xl ring-1 shadow-black/60 ring-white/10 sm:h-[216px] sm:w-[176px]">
+        {/* digital crown + side button */}
+        <span className="absolute top-12 -right-[3px] z-10 h-8 w-[5px] rounded bg-pulse shadow-[0_0_10px_#ff3d6e]" />
+
+        {/* 1 · live workout */}
+        <div className="vv-watch absolute inset-0 flex flex-col p-3.5" style={{ animationDelay: "0s" }}>
+          <div className="flex items-center justify-between">
+            <p className="font-mono text-[9px] tracking-[0.1em] text-pulse uppercase">{dict.zone}</p>
+            <p className="text-[10px] font-semibold">6:14</p>
+          </div>
+          <div className="mt-1 flex items-center gap-1.5">
+            <p className="font-display text-[38px] leading-none font-bold tabular-nums">152</p>
+            <span className="animate-heartbeat text-lg text-pulse">♥</span>
+          </div>
+          <svg viewBox="0 0 120 24" className="mt-1 h-5 w-full" aria-hidden="true">
+            <path
+              d="M0 12 H30 L36 12 L40 2 L46 22 L50 12 H78 L82 6 L86 18 L90 12 H120"
+              stroke="#ff3d6e"
+              strokeWidth="2.2"
+              fill="none"
+              pathLength={1}
+              className="vv-ecg"
+            />
+          </svg>
+          <div className="mt-1 flex items-end justify-between">
+            <div>
+              <p className="font-mono text-[8px] text-faint uppercase">{dict.effort}</p>
+              <p className="font-display text-sm font-semibold">42</p>
+              <p className="mt-0.5 font-mono text-[8px] text-faint uppercase">{dict.time}</p>
+              <p className="font-display text-sm font-semibold tabular-nums">12:08</p>
+            </div>
+            <VVaker sport="runner" color="candy" energy={3} className="h-16 w-auto" />
+          </div>
+          <div className="mt-auto flex gap-1">
+            {["bg-sky", "bg-mint", "bg-pulse", "bg-[#343a41]", "bg-[#343a41]"].map((c, i) => (
+              <i key={i} className={`h-2 flex-1 rounded-sm ${c} ${i === 2 ? "animate-pulse shadow-[0_0_8px_#ff3d6e]" : ""}`} />
+            ))}
+          </div>
         </div>
-        <div>
-          <p className="font-mono text-[8px] text-faint uppercase">{dict.time}</p>
-          <p className="font-display text-sm font-semibold">12:08</p>
+
+        {/* 2 · Rally alert */}
+        <div
+          className="vv-watch absolute inset-0 flex flex-col items-center justify-center bg-gradient-to-b from-down/30 to-black p-3.5 text-center"
+          style={{ animationDelay: "-8s" }}
+        >
+          <span className="text-2xl">⚡</span>
+          <p className="mt-1 font-display text-lg font-bold text-down">{dict.rally}</p>
+          <p className="mt-0.5 font-mono text-[9px] text-muted">{dict.rallyBody}</p>
+          <span className="mt-3 rounded-full bg-pulse px-3 py-1.5 font-display text-[10px] font-semibold text-night">{dict.join}</span>
+          <p className="mt-2 font-mono text-[8px] text-volt">⚔️ {dict.clash}</p>
         </div>
-      </div>
-      <div className="mt-auto flex gap-1">
-        <i className="h-2 flex-1 rounded-sm bg-pulse" />
-        <i className="h-2 flex-1 rounded-sm bg-pulse-soft" />
-        <i className="h-2 flex-1 rounded-sm border border-[#343a41] bg-[#22262b]" />
-        <i className="h-2 flex-1 rounded-sm border border-[#343a41] bg-[#22262b]" />
+
+        {/* 3 · ghost race */}
+        <div className="vv-watch absolute inset-0 flex flex-col p-3.5" style={{ animationDelay: "-4s" }}>
+          <p className="font-mono text-[9px] tracking-[0.1em] text-volt uppercase">👻 {dict.ghost}</p>
+          <p className="mt-2 font-display text-[34px] leading-none font-bold text-volt">+42 m</p>
+          <p className="font-mono text-[9px] text-muted">{dict.ahead}</p>
+          <div className="relative mt-auto h-8">
+            <div className="absolute inset-x-0 top-1/2 h-1 -translate-y-1/2 rounded-full bg-[#343a41]" />
+            <span className="absolute top-1/2 left-[46%] h-3 w-3 -translate-y-1/2 rounded-full bg-white/40" />
+            <span className="vv-ghost-me absolute top-1/2 h-4 w-4 -translate-y-1/2 rounded-full bg-volt shadow-[0_0_10px_#ccff00]" />
+          </div>
+        </div>
       </div>
     </div>
   );

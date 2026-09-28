@@ -355,3 +355,81 @@
     width: 100%;
   }
 }
+
+/* Watch preview: three screens take turns (12 s loop), a sweeping ECG and a moving ghost-race dot. */
+.vv-watch {
+  opacity: 0;
+  animation: vv-watch 12s infinite;
+}
+.vv-watch:first-of-type {
+  opacity: 1;
+}
+@keyframes vv-watch {
+  0%,
+  30% {
+    opacity: 1;
+  }
+  34%,
+  96% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+.vv-ecg {
+  stroke-dasharray: 1;
+  animation: vv-ecg 1.6s linear infinite;
+}
+@keyframes vv-ecg {
+  from {
+    stroke-dashoffset: 1;
+  }
+  to {
+    stroke-dashoffset: -1;
+  }
+}
+.animate-heartbeat {
+  animation: vv-heartbeat 0.8s ease-in-out infinite;
+}
+@keyframes vv-heartbeat {
+  0%,
+  100% {
+    scale: 1;
+  }
+  15% {
+    scale: 1.3;
+  }
+  30% {
+    scale: 1;
+  }
+  45% {
+    scale: 1.18;
+  }
+}
+.vv-ghost-me {
+  left: 50%;
+  animation: vv-ghost-me 4s ease-in-out infinite alternate;
+}
+@keyframes vv-ghost-me {
+  from {
+    left: 50%;
+  }
+  to {
+    left: 72%;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .vv-watch,
+  .vv-ecg,
+  .animate-heartbeat,
+  .vv-ghost-me {
+    animation: none;
+  }
+  .vv-watch {
+    opacity: 0;
+  }
+  .vv-watch:first-of-type {
+    opacity: 1;
+  }
+}
