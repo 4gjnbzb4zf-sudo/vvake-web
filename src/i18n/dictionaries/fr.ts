@@ -538,7 +538,7 @@ export const fr: Dictionary = {
       {
         tag: "On-chain (prévu)",
         title: "Robinhood Chain garde tout ouvert",
-        body: "La chaîne où vivent déjà les actions tokenisées (RWA). Prévu : un contrat public de répartition des frais, des récompenses de saison pour l'effort versées en stablecoin ou en avantages, des objets de collection cosmétiques, et plus tard un token VVake optionnel sur vibe/vibe.",
+        body: "La chaîne où vivent déjà les actions tokenisées (RWA). Prévu : un contrat public de répartition des frais, des récompenses de saison pour l'effort versées en stablecoin ou en avantages, des objets de collection avec une vraie utilité (jamais un avantage), et plus tard un token VVake optionnel sur vibe/vibe.",
         points: [
           "Répartition des frais publique, on-chain",
           "Récompenses de saison pour l'effort",
@@ -742,10 +742,34 @@ export const fr: Dictionary = {
     note: "Gratuit pour tout le monde. Pas besoin de wallet.",
     alt: "Ton avatar VVaker",
     bannerTagline: "Deux V font un W.",
+    stats: {
+      title: "Mérités, jamais achetés : les stats de ton VVaker",
+      body: "Cinq stats grandissent avec ton activité réelle et vérifiée des 90 derniers jours, et redescendent si tu t'arrêtes. Aucun achat, objet de collection ni token ne peut les augmenter. Elles servent à frimer, à gagner des badges et à trouver une crew à ton niveau, et ne changent jamais les récompenses ni les classements.",
+      names: { endurance: "Endurance", intensity: "Intensité", consistency: "Régularité", teamSpirit: "Esprit d'équipe", calm: "Calme" },
+      hints: {
+        endurance: "Les minutes où tu bouges",
+        intensity: "L'intensité, au cardio : équitable entre sports et morphologies",
+        consistency: "Les jours où tu es là",
+        teamSpirit: "Séances en crew et partenaires d'entraînement",
+        calm: "Minutes de pleine conscience",
+      },
+      archetypes: {
+        rookie: "Rookie",
+        marathonHeart: "Cœur de marathonien",
+        firestarter: "Boute-feu",
+        metronome: "Métronome",
+        crewCaptain: "Capitaine de crew",
+        zenMaster: "Maître zen",
+        allRounder: "Polyvalent",
+      },
+      profiles: ["Coureur longue distance du week-end", "Leader de la crew du mercredi", "Codeur zen"],
+      example: "Profils d'exemple",
+      decay: "Sur 90 jours glissants : fais une pause et les stats baissent doucement, reprends et elles reviennent.",
+    },
     collect: {
       kicker: "NFT de collection · optionnels",
       title: "Ton VVaker est gratuit. Le style se collectionne.",
-      body: "Les options sont des objets de collection saisonniers et limités, dans le portail web VVake : finitions, auras, traînées, célébrations et kits de ville. Ils subliment ton VVaker, et ne changent jamais le jeu.",
+      body: "Les options sont des objets de collection saisonniers et limités, dans le portail web VVake : finitions, auras, traînées, célébrations et kits de ville. Ils subliment ton VVaker et débloquent des choses à faire, mais jamais un avantage dans le jeu.",
       cards: [
         { name: "Finition holo", slot: "Finition", supply: "Saison 1 · limité" },
         { name: "Aura flamme", slot: "Aura", supply: "Saison 1 · limité" },
@@ -837,6 +861,7 @@ export const fr: Dictionary = {
           name: "Gagné en bougeant",
           items: [
             "Niveaux 1 à 50 : Rookie → Legend",
+            "Cinq stats : endurance, intensité, régularité, esprit d'équipe, calme",
             "Flammes de série, cadres de ligue, badges de ville",
             "Couronne Founder pour les 100 premiers de ta ville",
           ],
@@ -851,7 +876,7 @@ export const fr: Dictionary = {
           ],
         },
       ],
-      note: "Les options payantes sont uniquement cosmétiques : elles ne changent jamais les récompenses, l'énergie, les classements ni ta part de quoi que ce soit. Les niveaux ne s'achètent pas.",
+      note: "Les options payantes débloquent des choses à faire (organiser, créer, accéder), jamais un avantage : elles ne changent jamais les récompenses, l'énergie, les classements, les stats ni ta part de quoi que ce soit. Niveaux et stats ne s'achètent pas.",
       cta: "Voir les drops",
     },
   },
@@ -932,7 +957,7 @@ export const fr: Dictionary = {
       },
       {
         q: "C'est gratuit ?",
-        a: "Oui. Bouger, les squads, les rivalités et ton VVaker sont gratuits. Les options (cosmétiques, abonnement Plus) ne seront jamais nécessaires pour participer.",
+        a: "Oui. Bouger, les squads, les rivalités et ton VVaker sont gratuits. Les options (objets de collection, abonnement Plus) ne seront jamais nécessaires pour participer.",
       },
       {
         q: "Que deviennent mes données de santé ?",
@@ -944,7 +969,7 @@ export const fr: Dictionary = {
       },
       {
         q: "Il y a un token ou des NFT ?",
-        a: "Une couche web3 est prévue plus tard, sous réserve d'une revue juridique et pas dans tous les pays. Elle ne sera jamais nécessaire pour jouer, et les objets de collection seront purement cosmétiques.",
+        a: "Ton VVaker est gratuit et unique. Les options de collection (portail web, adultes, pas dans tous les pays) ont une vraie utilité : organiser de plus grands événements de crew, créer des défis, des créneaux prioritaires pour acheter dossards et billets, de l'équipement à récupérer. Les stats, elles, se gagnent uniquement en bougeant et ne s'achètent jamais. Une couche web3 plus large, token compris, est prévue plus tard, sous réserve d'une revue juridique, et ne sera jamais nécessaire pour jouer. Rien de ce que nous vendons n'est un investissement : l'investissement réglementé passe par des partenaires agréés.",
       },
       {
         q: "Quand est-ce que vous lancez ?",

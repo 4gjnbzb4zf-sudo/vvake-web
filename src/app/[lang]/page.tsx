@@ -25,6 +25,7 @@ import { Wellbeing } from "@/components/sections/Wellbeing";
 import { Why } from "@/components/sections/Why";
 import { Section } from "@/components/ui/Section";
 import { CollectorDrops } from "@/components/vvaker/CollectorDrops";
+import { EarnedStats } from "@/components/vvaker/EarnedStats";
 import { VVakerDeck } from "@/components/vvaker/VVakerDeck";
 import { VVakerStudio } from "@/components/vvaker/VVakerStudio";
 import { VVakerTiers } from "@/components/vvaker/VVakerTiers";
@@ -82,6 +83,7 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
         <Section id="vvaker" index="18" kicker={dict.vvaker.kicker} title={dict.vvaker.title} lead={dict.vvaker.body}>
           <VVakerDeck />
           <VVakerStudio dict={dict.vvaker} />
+          <EarnedStats dict={dict.vvaker.stats} />
           <VVakerTiers dict={dict.vvaker.tiers} />
           <CollectorDrops dict={dict.vvaker.collect} />
         </Section>
