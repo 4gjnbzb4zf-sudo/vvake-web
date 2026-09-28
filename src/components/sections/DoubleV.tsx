@@ -1,9 +1,10 @@
+import { Marquee } from "@/components/ui/Marquee";
 import { Container } from "@/components/ui/Section";
 import type { Dictionary } from "@/i18n/dictionaries";
 
-export function DoubleV({ dict }: { dict: Dictionary["doubleV"] }) {
+export function DoubleV({ dict, anthem }: { dict: Dictionary["doubleV"]; anthem: { prefix: string; lines: readonly string[] } }) {
   return (
-    <section aria-labelledby="doublev-title" className="relative overflow-hidden py-20 sm:py-24">
+    <section aria-labelledby="doublev-title" className="relative overflow-hidden pt-20 pb-10 sm:pt-24">
       <div className="pointer-events-none absolute inset-x-0 top-1/2 h-72 -translate-y-1/2 bg-gradient-to-r from-pulse/10 via-transparent to-volt/10 blur-3xl" />
       <Container className="relative flex flex-col items-center text-center">
         <div className="flex items-end gap-3 font-display text-7xl font-bold sm:text-9xl" aria-hidden="true">
@@ -26,6 +27,9 @@ export function DoubleV({ dict }: { dict: Dictionary["doubleV"] }) {
         </ul>
         <p className="mt-8 font-mono text-sm tracking-[0.2em] text-volt uppercase">{dict.healthIsWealth}</p>
       </Container>
+      <div className="relative mt-20 -rotate-2 border-y-2 border-night bg-pulse py-4 font-display text-2xl font-bold text-night uppercase sm:text-3xl">
+        <Marquee items={anthem.lines.map((line) => `${anthem.prefix} ${line}`)} separator="♥" />
+      </div>
     </section>
   );
 }

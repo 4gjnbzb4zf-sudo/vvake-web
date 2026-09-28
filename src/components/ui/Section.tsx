@@ -7,6 +7,8 @@ export function Container({ children, className }: { children: ReactNode; classN
 
 interface SectionProps {
   id?: string;
+  /** Editorial number shown before the kicker, e.g. "03". */
+  index?: string;
   kicker?: string;
   title: ReactNode;
   lead?: ReactNode;
@@ -15,13 +17,13 @@ interface SectionProps {
   align?: "left" | "center";
 }
 
-export function Section({ id, kicker, title, lead, children, className, align = "left" }: SectionProps) {
+export function Section({ id, index, kicker, title, lead, children, className, align = "left" }: SectionProps) {
   const headingId = id ? `${id}-title` : undefined;
   return (
-    <section id={id} aria-labelledby={headingId} className={cn("relative py-20 sm:py-28", className)}>
+    <section id={id} aria-labelledby={headingId} className={cn("relative border-t border-line/60 py-20 sm:py-28", className)}>
       <Container>
         <header className={cn("max-w-3xl", align === "center" && "mx-auto text-center")}>
-          {kicker && <Kicker>{kicker}</Kicker>}
+          {kicker && <Kicker index={index}>{kicker}</Kicker>}
           <h2 id={headingId} className="mt-4 font-display text-3xl leading-[1.1] font-semibold tracking-tight text-text sm:text-5xl">
             {title}
           </h2>
@@ -33,20 +35,17 @@ export function Section({ id, kicker, title, lead, children, className, align = 
   );
 }
 
-export function Kicker({ children, tone = "pulse" }: { children: ReactNode; tone?: "pulse" | "volt" | "calm" }) {
-  const tones = {
-    pulse: "text-pulse border-pulse/30 bg-pulse/10",
-    volt: "text-volt border-volt/30 bg-volt/10",
-    calm: "text-calm border-calm/30 bg-calm/10",
-  } as const;
+/** Editorial kicker: "03 / MARKET PULSE". */
+export function Kicker({ children, index }: { children: ReactNode; index?: string }) {
   return (
-    <span
-      className={cn(
-        "inline-flex items-center gap-2 rounded-full border px-3 py-1 font-mono text-xs font-medium tracking-[0.18em] uppercase",
-        tones[tone],
+    <p className="font-mono text-xs tracking-[0.2em] text-faint uppercase">
+      {index && (
+        <>
+          <span className="text-pulse">{index}</span>
+          <span aria-hidden="true"> / </span>
+        </>
       )}
-    >
       {children}
-    </span>
+    </p>
   );
 }

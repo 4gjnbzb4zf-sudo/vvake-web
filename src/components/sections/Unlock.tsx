@@ -12,10 +12,12 @@ export function Unlock({
   locale,
   dict,
   countryLabels,
+  index,
 }: {
   locale: Locale;
   dict: Dictionary["unlock"];
   countryLabels: Dictionary["rivalries"]["tabs"];
+  index: string;
 }) {
   const cities: CityOption[] = [...CITIES.values()].map((c) => ({
     slug: c.slug,
@@ -26,7 +28,7 @@ export function Unlock({
   }));
 
   return (
-    <Section id="unlock" kicker={dict.kicker} title={dict.title} lead={dict.body} className="border-t border-line/60">
+    <Section id="unlock" index={index} kicker={dict.kicker} title={dict.title} lead={dict.body}>
       <div className="mt-12">
         {/* useSearchParams needs a Suspense boundary in a static export; the fallback keeps the layout stable. */}
         <Suspense fallback={<div className="h-[420px] rounded-3xl border border-line bg-surface/40" />}>

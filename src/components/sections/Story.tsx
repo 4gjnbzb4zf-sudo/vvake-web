@@ -1,12 +1,12 @@
 import { Container, Kicker } from "@/components/ui/Section";
 import type { Dictionary } from "@/i18n/dictionaries";
 
-export function Story({ dict }: { dict: Dictionary["story"] }) {
+export function Story({ dict, index }: { dict: Dictionary["story"]; index: string }) {
   return (
     <section id="story" aria-labelledby="story-title" className="relative border-t border-line/60 py-20 sm:py-28">
       <Container className="grid gap-14 lg:grid-cols-[1fr_1fr] lg:gap-20">
         <div>
-          <Kicker>{dict.kicker}</Kicker>
+          <Kicker index={index}>{dict.kicker}</Kicker>
           <h2 id="story-title" className="mt-4 font-display text-3xl leading-[1.1] font-semibold tracking-tight sm:text-5xl">
             {dict.title}
           </h2>

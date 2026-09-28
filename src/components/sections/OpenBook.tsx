@@ -4,9 +4,9 @@ import type { Dictionary } from "@/i18n/dictionaries";
 const SEGMENT_COLORS = ["bg-volt", "bg-pulse", "bg-lilac", "bg-calm"] as const;
 const TEXT_COLORS = ["text-volt", "text-pulse", "text-lilac", "text-calm"] as const;
 
-export function OpenBook({ dict }: { dict: Dictionary["openBook"] }) {
+export function OpenBook({ dict, index }: { dict: Dictionary["openBook"]; index: string }) {
   return (
-    <Section id="open-book" kicker={dict.kicker} title={dict.title} lead={dict.body} className="border-t border-line/60">
+    <Section id="open-book" index={index} kicker={dict.kicker} title={dict.title} lead={dict.body}>
       <div className="mt-12 rounded-3xl border border-line bg-surface/50 p-6 sm:p-8">
         <div
           className="flex h-5 w-full overflow-hidden rounded-full"

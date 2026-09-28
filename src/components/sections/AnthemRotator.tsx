@@ -2,9 +2,14 @@
 
 import { useEffect, useState } from "react";
 
-/** Cycles through the anthem endings ("for your health.", …). Holds still for reduced-motion users. */
+/**
+ * Cycles through the anthem endings ("for your health.", …).
+ * Only the active line is rendered, re-keyed so it animates in; an invisible copy of the longest
+ * line reserves the space, so nothing overlaps and the layout never jumps. Holds still for reduced motion.
+ */
 export function AnthemRotator({ lines, intervalMs = 2200 }: { lines: readonly string[]; intervalMs?: number }) {
   const [index, setIndex] = useState(0);
+  const longest = lines.reduce((a, b) => (b.length > a.length ? b : a), "");
 
   useEffect(() => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
@@ -14,17 +19,10 @@ export function AnthemRotator({ lines, intervalMs = 2200 }: { lines: readonly st
 
   return (
     <span className="relative inline-grid" aria-hidden="true">
-      {/* The widest line reserves space so the layout never jumps. */}
-      {lines.map((line, i) => (
-        <span
-          key={line}
-          className={`col-start-1 row-start-1 transition-[opacity,translate] ease-out ${
-            i === index ? "translate-y-0 opacity-100 delay-200 duration-300" : "pointer-events-none -translate-y-2 opacity-0 duration-200"
-          }`}
-        >
-          {line}
-        </span>
-      ))}
+      <span className="invisible col-start-1 row-start-1">{longest}</span>
+      <span key={index} className="col-start-1 row-start-1 animate-rise">
+        {lines[index]}
+      </span>
     </span>
   );
 }

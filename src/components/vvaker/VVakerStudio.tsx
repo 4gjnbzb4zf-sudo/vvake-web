@@ -1,103 +1,241 @@
 "use client";
 
-import { useRef, useState, type ReactNode } from "react";
+import { useId, useRef, useState, type ReactNode } from "react";
 import { buttonClass } from "@/components/ui/Button";
 import type { Dictionary } from "@/i18n/dictionaries";
 import { cn } from "@/lib/cn";
 import {
   DEFAULT_TRAITS,
+  VVAKER_ACCENTS,
+  VVAKER_ACCESSORIES,
+  VVAKER_BACKGROUNDS,
   VVAKER_COLORS,
+  VVAKER_EYES,
   VVAKER_HEADGEARS,
-  VVAKER_MOODS,
+  VVAKER_MOUTHS,
   VVAKER_SPORTS,
+  clampBib,
   randomTraits,
+  type VVakerAccent,
+  type VVakerBackground,
   type VVakerColor,
   type VVakerTraits,
 } from "./traits";
 import { VVaker } from "./VVaker";
 
-const EXPORT_SIZE = 1024;
+type Tab = "body" | "gear" | "sport" | "face";
+const TABS: readonly Tab[] = ["body", "gear", "sport", "face"];
 
 export function VVakerStudio({ dict }: { dict: Dictionary["vvaker"] }) {
   const [traits, setTraits] = useState<VVakerTraits>(DEFAULT_TRAITS);
+  const [background, setBackground] = useState<VVakerBackground>("night");
+  const [tab, setTab] = useState<Tab>("body");
   const [busy, setBusy] = useState(false);
+  const [version, setVersion] = useState(0);
   const stageRef = useRef<HTMLDivElement>(null);
-  const set = <K extends keyof VVakerTraits>(key: K, value: VVakerTraits[K]) => setTraits((t) => ({ ...t, [key]: value }));
+  const baseId = useId();
 
-  async function download() {
+  /** Every change re-keys the avatar so it "pops". */
+  function update(next: Partial<VVakerTraits>) {
+    setTraits((t) => ({ ...t, ...next }));
+    setVersion((v) => v + 1);
+  }
+
+  async function exportImage(kind: "avatar" | "banner") {
     const svg = stageRef.current?.querySelector("svg");
     if (!svg) return;
     setBusy(true);
     try {
-      const blob = await renderPng(svg);
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement("a");
-      a.href = url;
-      a.download = `vvaker-${traits.color}-${traits.sport}.png`;
-      a.click();
-      URL.revokeObjectURL(url);
+      const blob = kind === "avatar" ? await renderAvatar(svg, background) : await renderBanner(svg, background, dict.bannerTagline);
+      download(blob, `vvaker-${traits.color}-${traits.sport}-${kind}.png`);
     } finally {
       setBusy(false);
     }
   }
 
-  return (
-    <div className="mt-12 grid items-center gap-8 lg:grid-cols-[1fr_1.1fr]">
-      <div
-        ref={stageRef}
-        className="bg-voxel-grid relative mx-auto aspect-square w-full max-w-[440px] overflow-hidden rounded-[2rem] border border-line bg-night-2"
-      >
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_40%,rgb(255_61_110/0.18),transparent_60%)]" />
-        <VVaker {...traits} title={dict.alt} className="relative h-full w-full p-8" />
-      </div>
+  const bg = VVAKER_BACKGROUNDS[background];
 
-      <div className="space-y-6">
-        <ChipGroup label={dict.controls.color}>
-          {(Object.keys(VVAKER_COLORS) as VVakerColor[]).map((c) => (
-            <Chip key={c} active={traits.color === c} onClick={() => set("color", c)} label={dict.colors[c]}>
-              <span className="h-4 w-4 rounded-[4px]" style={{ background: VVAKER_COLORS[c] }} />
-            </Chip>
-          ))}
-        </ChipGroup>
-        <ChipGroup label={dict.controls.sport}>
-          {VVAKER_SPORTS.map((s) => (
-            <Chip key={s} active={traits.sport === s} onClick={() => set("sport", s)} label={dict.sports[s]} />
-          ))}
-        </ChipGroup>
-        <ChipGroup label={dict.controls.headgear}>
-          {VVAKER_HEADGEARS.map((h) => (
-            <Chip key={h} active={traits.headgear === h} onClick={() => set("headgear", h)} label={dict.headgears[h]} />
-          ))}
-        </ChipGroup>
-        <ChipGroup label={dict.controls.mood}>
-          {VVAKER_MOODS.map((m) => (
-            <Chip key={m} active={traits.mood === m} onClick={() => set("mood", m)} label={dict.moods[m]} />
-          ))}
-        </ChipGroup>
-        <div>
-          <label htmlFor="vvaker-energy" className="font-display text-sm font-semibold">
-            {dict.controls.energy}: <span className="font-mono text-volt">{traits.energy}/4</span>
-          </label>
-          <input
-            id="vvaker-energy"
-            type="range"
-            min={0}
-            max={4}
-            step={1}
-            value={traits.energy}
-            onChange={(e) => set("energy", Number(e.target.value))}
-            className="mt-3 w-full accent-pulse"
-          />
+  return (
+    <div className="mt-14 grid items-start gap-8 lg:grid-cols-[1fr_1.15fr]">
+      <div className="lg:sticky lg:top-24">
+        <div
+          ref={stageRef}
+          className={cn(
+            "relative mx-auto aspect-square w-full max-w-[440px] overflow-hidden rounded-[2rem] border border-line",
+            background === "night" && "bg-voxel-grid",
+          )}
+          style={{ backgroundColor: bg }}
+        >
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_40%,rgb(255_255_255/0.16),transparent_60%)]" />
+          <div key={version} className="relative h-full w-full animate-pop">
+            <VVaker {...traits} title={dict.alt} className="h-full w-full p-8" />
+          </div>
         </div>
-        <div className="flex flex-col gap-3 pt-2 sm:flex-row">
-          <button type="button" onClick={download} disabled={busy} className={buttonClass("primary")}>
+        <div className="mx-auto mt-4 flex max-w-[440px] flex-col gap-3 sm:flex-row">
+          <button
+            type="button"
+            onClick={() => exportImage("avatar")}
+            disabled={busy}
+            className={buttonClass("primary", "flex-1 px-4 whitespace-nowrap")}
+          >
             {dict.download}
           </button>
-          <button type="button" onClick={() => setTraits(randomTraits())} className={buttonClass("ghost")}>
+          <button
+            type="button"
+            onClick={() => exportImage("banner")}
+            disabled={busy}
+            className={buttonClass("ghost", "flex-1 px-4 whitespace-nowrap")}
+          >
+            {dict.downloadBanner}
+          </button>
+        </div>
+      </div>
+
+      <div className="rounded-3xl border border-line bg-surface/60 p-5 sm:p-6">
+        <div className="flex flex-wrap items-center justify-between gap-3">
+          <div role="tablist" aria-label={dict.title} className="flex rounded-xl border border-line bg-night p-1">
+            {TABS.map((t) => (
+              <button
+                key={t}
+                id={`${baseId}-${t}`}
+                role="tab"
+                type="button"
+                aria-selected={tab === t}
+                aria-controls={`${baseId}-panel`}
+                onClick={() => setTab(t)}
+                className={cn(
+                  "rounded-lg px-3.5 py-2 font-display text-xs font-semibold transition-colors sm:px-4 sm:text-sm",
+                  tab === t ? "bg-pulse text-night" : "text-muted hover:text-text",
+                )}
+              >
+                {dict.tabs[t]}
+              </button>
+            ))}
+          </div>
+          <button
+            type="button"
+            onClick={() => {
+              setTraits(randomTraits());
+              setVersion((v) => v + 1);
+            }}
+            className={buttonClass("ghost", "h-10 px-4")}
+          >
+            <span aria-hidden="true">🎲</span>
             {dict.shuffle}
           </button>
         </div>
-        <p className="text-sm text-faint">{dict.note}</p>
+
+        <div id={`${baseId}-panel`} role="tabpanel" aria-labelledby={`${baseId}-${tab}`} className="mt-6 space-y-6">
+          {tab === "body" && (
+            <>
+              <ChipGroup label={dict.controls.color}>
+                {(Object.keys(VVAKER_COLORS) as VVakerColor[]).map((c) => (
+                  <Swatch
+                    key={c}
+                    color={VVAKER_COLORS[c]}
+                    label={dict.colors[c]}
+                    active={traits.color === c}
+                    onClick={() => update({ color: c })}
+                  />
+                ))}
+              </ChipGroup>
+              <ChipGroup label={dict.controls.background}>
+                {(Object.keys(VVAKER_BACKGROUNDS) as VVakerBackground[]).map((b) => (
+                  <Swatch
+                    key={b}
+                    color={VVAKER_BACKGROUNDS[b]}
+                    label={dict.backgrounds[b]}
+                    active={background === b}
+                    onClick={() => setBackground(b)}
+                  />
+                ))}
+              </ChipGroup>
+            </>
+          )}
+
+          {tab === "gear" && (
+            <>
+              <ChipGroup label={dict.controls.accent}>
+                {(Object.keys(VVAKER_ACCENTS) as VVakerAccent[]).map((a) => (
+                  <Swatch
+                    key={a}
+                    color={VVAKER_ACCENTS[a]}
+                    label={dict.accents[a]}
+                    active={traits.accent === a}
+                    onClick={() => update({ accent: a })}
+                  />
+                ))}
+              </ChipGroup>
+              <ChipGroup label={dict.controls.headgear}>
+                {VVAKER_HEADGEARS.map((h) => (
+                  <Chip key={h} active={traits.headgear === h} onClick={() => update({ headgear: h })} label={dict.headgears[h]} />
+                ))}
+              </ChipGroup>
+              <ChipGroup label={dict.controls.accessory}>
+                {VVAKER_ACCESSORIES.map((a) => (
+                  <Chip key={a} active={traits.accessory === a} onClick={() => update({ accessory: a })} label={dict.accessories[a]} />
+                ))}
+              </ChipGroup>
+              {traits.accessory === "bib" && (
+                <div>
+                  <label htmlFor={`${baseId}-bib`} className="font-display text-sm font-semibold">
+                    {dict.controls.bib}
+                  </label>
+                  <input
+                    id={`${baseId}-bib`}
+                    type="number"
+                    inputMode="numeric"
+                    min={0}
+                    max={99}
+                    value={traits.bib}
+                    onChange={(e) => update({ bib: clampBib(Number(e.target.value)) })}
+                    className="mt-3 block h-11 w-28 rounded-xl border border-line bg-night px-4 font-mono text-text outline-none focus:border-pulse"
+                  />
+                </div>
+              )}
+            </>
+          )}
+
+          {tab === "sport" && (
+            <ChipGroup label={dict.controls.sport}>
+              {VVAKER_SPORTS.map((s) => (
+                <Chip key={s} active={traits.sport === s} onClick={() => update({ sport: s })} label={dict.sports[s]} />
+              ))}
+            </ChipGroup>
+          )}
+
+          {tab === "face" && (
+            <>
+              <ChipGroup label={dict.controls.eyes}>
+                {VVAKER_EYES.map((e) => (
+                  <Chip key={e} active={traits.eyes === e} onClick={() => update({ eyes: e })} label={dict.eyes[e]} />
+                ))}
+              </ChipGroup>
+              <ChipGroup label={dict.controls.mouth}>
+                {VVAKER_MOUTHS.map((m) => (
+                  <Chip key={m} active={traits.mouth === m} onClick={() => update({ mouth: m })} label={dict.mouths[m]} />
+                ))}
+              </ChipGroup>
+            </>
+          )}
+
+          <div>
+            <label htmlFor={`${baseId}-energy`} className="font-display text-sm font-semibold">
+              {dict.controls.energy}: <span className="font-mono text-volt">{traits.energy}/4</span>
+            </label>
+            <input
+              id={`${baseId}-energy`}
+              type="range"
+              min={0}
+              max={4}
+              step={1}
+              value={traits.energy}
+              onChange={(e) => update({ energy: Number(e.target.value) })}
+              className="mt-3 w-full accent-pulse"
+            />
+          </div>
+        </div>
+        <p className="mt-6 text-sm text-faint">{dict.note}</p>
       </div>
     </div>
   );
@@ -119,8 +257,8 @@ function Chip(props: { active: boolean; onClick: () => void; label: string; chil
       aria-pressed={props.active}
       onClick={props.onClick}
       className={cn(
-        "inline-flex h-10 items-center gap-2 rounded-xl border px-3.5 text-sm transition-colors",
-        props.active ? "border-pulse bg-pulse/15 text-text" : "border-line bg-surface text-muted hover:border-muted/50 hover:text-text",
+        "inline-flex h-10 items-center gap-2 rounded-xl border px-3.5 text-sm transition-all duration-150 active:scale-95",
+        props.active ? "border-pulse bg-pulse/15 text-text" : "border-line bg-night text-muted hover:border-muted/50 hover:text-text",
       )}
     >
       {props.children}
@@ -129,31 +267,100 @@ function Chip(props: { active: boolean; onClick: () => void; label: string; chil
   );
 }
 
-/** Rasterises the avatar SVG onto a branded square canvas. */
-async function renderPng(svg: SVGSVGElement): Promise<Blob> {
+function Swatch({ color, label, active, onClick }: { color: string; label: string; active: boolean; onClick: () => void }) {
+  return (
+    <Chip active={active} onClick={onClick} label={label}>
+      <span className="h-4 w-4 rounded-[4px] border border-black/40" style={{ background: color }} />
+    </Chip>
+  );
+}
+
+function download(blob: Blob, filename: string) {
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = filename;
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+async function loadSvg(svg: SVGSVGElement): Promise<HTMLImageElement> {
   const markup = new XMLSerializer().serializeToString(svg);
   const img = new Image();
   img.src = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(markup)}`;
   await img.decode();
+  return img;
+}
 
+function canvas2d(width: number, height: number) {
   const canvas = document.createElement("canvas");
-  canvas.width = EXPORT_SIZE;
-  canvas.height = EXPORT_SIZE;
+  canvas.width = width;
+  canvas.height = height;
   const ctx = canvas.getContext("2d");
   if (!ctx) throw new Error("Canvas 2D context unavailable");
+  return { canvas, ctx };
+}
 
-  ctx.fillStyle = "#0e1012";
-  ctx.fillRect(0, 0, EXPORT_SIZE, EXPORT_SIZE);
-  const glow = ctx.createRadialGradient(512, 420, 40, 512, 420, 560);
-  glow.addColorStop(0, "rgba(255,61,110,0.28)");
-  glow.addColorStop(1, "rgba(255,61,110,0)");
-  ctx.fillStyle = glow;
-  ctx.fillRect(0, 0, EXPORT_SIZE, EXPORT_SIZE);
-
-  // viewBox is 240×300: fit by height with padding.
-  const h = EXPORT_SIZE * 0.86;
-  const w = h * (240 / 300);
-  ctx.drawImage(img, (EXPORT_SIZE - w) / 2, EXPORT_SIZE * 0.08, w, h);
-
+function toPng(canvas: HTMLCanvasElement): Promise<Blob> {
   return new Promise((resolve, reject) => canvas.toBlob((b) => (b ? resolve(b) : reject(new Error("PNG export failed"))), "image/png"));
+}
+
+/** Relative luminance check so text stays readable on light backgrounds. */
+function isLight(hex: string): boolean {
+  const n = parseInt(hex.slice(1), 16);
+  const [r, g, b] = [(n >> 16) & 0xff, (n >> 8) & 0xff, n & 0xff];
+  return 0.2126 * r + 0.7152 * g + 0.0722 * b > 150;
+}
+
+function paintBackground(ctx: CanvasRenderingContext2D, width: number, height: number, background: VVakerBackground, glowX: number) {
+  ctx.fillStyle = VVAKER_BACKGROUNDS[background];
+  ctx.fillRect(0, 0, width, height);
+  const glow = ctx.createRadialGradient(glowX, height * 0.42, 40, glowX, height * 0.42, height * 0.6);
+  glow.addColorStop(0, "rgba(255,255,255,0.22)");
+  glow.addColorStop(1, "rgba(255,255,255,0)");
+  ctx.fillStyle = glow;
+  ctx.fillRect(0, 0, width, height);
+}
+
+async function renderAvatar(svg: SVGSVGElement, background: VVakerBackground): Promise<Blob> {
+  const size = 1024;
+  const img = await loadSvg(svg);
+  const { canvas, ctx } = canvas2d(size, size);
+  paintBackground(ctx, size, size, background, size / 2);
+  // viewBox is 240×300: fit by height with padding.
+  const h = size * 0.86;
+  const w = h * (240 / 300);
+  ctx.drawImage(img, (size - w) / 2, size * 0.08, w, h);
+  return toPng(canvas);
+}
+
+/** 1500×500 X/Twitter header: wordmark + tagline on the left, the VVaker on the right. */
+async function renderBanner(svg: SVGSVGElement, background: VVakerBackground, tagline: string): Promise<Blob> {
+  const [width, height] = [1500, 500];
+  const img = await loadSvg(svg);
+  await document.fonts.ready;
+  const { canvas, ctx } = canvas2d(width, height);
+  paintBackground(ctx, width, height, background, width * 0.78);
+
+  const ink = isLight(VVAKER_BACKGROUNDS[background]) ? "#0e1012" : "#e6e9eb";
+  const rootStyle = getComputedStyle(document.documentElement);
+  const display = rootStyle.getPropertyValue("--font-unbounded").trim() || "sans-serif";
+  const mono = rootStyle.getPropertyValue("--font-jetbrains").trim() || "monospace";
+
+  ctx.fillStyle = ink;
+  ctx.font = `700 132px ${display}`;
+  ctx.textBaseline = "alphabetic";
+  ctx.fillText("VVAKE", 96, 270);
+  ctx.font = `600 40px ${display}`;
+  ctx.fillText(tagline, 100, 340);
+  ctx.font = `500 26px ${mono}`;
+  ctx.globalAlpha = 0.75;
+  ctx.fillText("vvake.com", 100, 400);
+  ctx.globalAlpha = 1;
+
+  // X crops the banner's lower-left for the profile picture, so the avatar sits on the right.
+  const h = height * 0.92;
+  const w = h * (240 / 300);
+  ctx.drawImage(img, width * 0.78 - w / 2, height * 0.04, w, h);
+  return toPng(canvas);
 }
