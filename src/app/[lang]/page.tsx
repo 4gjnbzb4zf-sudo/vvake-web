@@ -20,6 +20,7 @@ import { VibeLink } from "@/components/sections/VibeLink";
 import { Wellbeing } from "@/components/sections/Wellbeing";
 import { Why } from "@/components/sections/Why";
 import { Section } from "@/components/ui/Section";
+import { CollectorDrops } from "@/components/vvaker/CollectorDrops";
 import { VVakerDeck } from "@/components/vvaker/VVakerDeck";
 import { VVakerStudio } from "@/components/vvaker/VVakerStudio";
 import { VVakerTiers } from "@/components/vvaker/VVakerTiers";
@@ -72,6 +73,7 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
           <VVakerDeck />
           <VVakerStudio dict={dict.vvaker} />
           <VVakerTiers dict={dict.vvaker.tiers} />
+          <CollectorDrops dict={dict.vvaker.collect} />
         </Section>
         <Dev dict={dict.dev} index="15" />
         <Partners dict={dict.partners} index="16" />
