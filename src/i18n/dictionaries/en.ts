@@ -12,6 +12,7 @@ export const en = {
   },
   nav: {
     story: "Story",
+    crew: "Crew",
     challenges: "Challenges",
     app: "The app",
     how: "How it works",
@@ -214,6 +215,48 @@ export const en = {
     musicServices: ["Spotify", "Apple Music", "Amazon Music"],
     musicNote: "Planned integrations; names are trademarks of their owners.",
     healthy: ["Rest days are part of the streak", "Zone 5 never earns more", "No guilt trips", "Quiet hours at night"],
+  },
+  crew: {
+    kicker: "Train together",
+    title: "Someone's expecting you. So you show up.",
+    body: "Plan a walk, a run, a hike or a gym session with your crew. VVake reminds everyone who said yes, and celebrates when you actually move together.",
+    invite: {
+      label: "Crew invite",
+      sport: "Run · 45 min",
+      when: "Wednesday · 19:00",
+      where: "Parc de la Tête d'Or, main gate",
+      repeat: "Every week",
+      going: "5 going · 3 spots left",
+      buttons: ["Going", "Maybe", "Can't"],
+    },
+    routeCard: {
+      label: "Last Wednesday · crew run",
+      stats: [
+        { label: "Distance", value: "5.2 km" },
+        { label: "Time", value: "28:14" },
+        { label: "Effort", value: "86" },
+        { label: "Together", value: "×5" },
+      ],
+      privacy: "Start & finish hidden · privacy zones · no map by default",
+    },
+    reminders: [
+      { when: "Tue 20:00", text: "Tomorrow 19:00: run with Crew Traboules. 5 going." },
+      { when: "Wed 17:00", text: "In 2 hours. Bring water, it's 24°C." },
+      { when: "Wed 18:40", text: "Leaving now? Ana and Leo are on their way." },
+      { when: "Wed 19:52", text: "Trained together ×5: +35 points · crew streak 6 weeks 🔥" },
+    ],
+    features: [
+      { title: "Plan in 10 seconds", body: "Sport, time, meeting point, spots. One-off or every week." },
+      { title: "Reminders that respect you", body: "Evening before, 2 hours before, and “leaving now?”, only for people who said yes." },
+      { title: "Waitlist that fills itself", body: "Someone drops out? The next person on the waitlist is in, automatically." },
+      { title: "Trained-together bonus", body: "Everyone who moves in the session window earns bonus points and grows the crew streak." },
+      { title: "Crew & squad goals", body: "Crew sessions feed your squad's weekly goal and your city's clash." },
+      {
+        title: "Safe by default",
+        body: "Friends and crew only, a meeting point you type. Live location only if both of you agree, only during the session, off automatically after.",
+      },
+    ],
+    note: "Group plans are one of the strongest habit tools there is: when someone's waiting for you, skipping gets a lot harder.",
   },
   day: {
     kicker: "A day with VVake",

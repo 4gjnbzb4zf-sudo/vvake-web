@@ -10,6 +10,7 @@ export const fr: Dictionary = {
   },
   nav: {
     story: "L'histoire",
+    crew: "Team",
     challenges: "Défis",
     app: "L'app",
     how: "Comment ça marche",
@@ -217,6 +218,54 @@ export const fr: Dictionary = {
       "Aucune culpabilisation",
       "Heures calmes la nuit",
     ],
+  },
+  crew: {
+    kicker: "S'entraîner ensemble",
+    title: "Quelqu'un t'attend. Alors tu viens.",
+    body: "Planifie une marche, un run, une rando ou une séance de salle avec ta team. VVake rappelle tous ceux qui ont dit oui, et célèbre quand vous bougez vraiment ensemble.",
+    invite: {
+      label: "Invitation de la team",
+      sport: "Course · 45 min",
+      when: "Mercredi · 19:00",
+      where: "Parc de la Tête d'Or, grande porte",
+      repeat: "Chaque semaine",
+      going: "5 inscrits · 3 places restantes",
+      buttons: ["J'y vais", "Peut-être", "Pas dispo"],
+    },
+    routeCard: {
+      label: "Mercredi dernier · run de la team",
+      stats: [
+        { label: "Distance", value: "5,2 km" },
+        { label: "Temps", value: "28:14" },
+        { label: "Effort", value: "86" },
+        { label: "Ensemble", value: "×5" },
+      ],
+      privacy: "Départ & arrivée masqués · zones privées · sans carte par défaut",
+    },
+    reminders: [
+      { when: "Mar 20:00", text: "Demain 19h : run avec la Team Traboules. 5 inscrits." },
+      { when: "Mer 17:00", text: "Dans 2 heures. Prends de l'eau, il fait 24 °C." },
+      { when: "Mer 18:40", text: "Tu pars ? Ana et Leo sont en route." },
+      { when: "Mer 19:52", text: "Ensemble ×5 : +35 points · série de la team : 6 semaines 🔥" },
+    ],
+    features: [
+      { title: "Planifié en 10 secondes", body: "Sport, heure, lieu de rendez-vous, places. Une fois ou chaque semaine." },
+      {
+        title: "Des rappels qui te respectent",
+        body: "La veille au soir, 2 heures avant, et « tu pars ? », seulement pour ceux qui ont dit oui.",
+      },
+      { title: "Liste d'attente automatique", body: "Quelqu'un se désiste ? La personne suivante est inscrite, automatiquement." },
+      {
+        title: "Bonus « ensemble »",
+        body: "Tous ceux qui bougent pendant la séance gagnent des points bonus et font grandir la série de la team.",
+      },
+      { title: "Objectifs team & squad", body: "Les séances de team comptent pour l'objectif de ton squad et le clash de ta ville." },
+      {
+        title: "Sûr par défaut",
+        body: "Amis et team uniquement, un lieu que tu écris. Localisation en direct seulement si vous êtes tous les deux d'accord, seulement pendant la séance, coupée automatiquement ensuite.",
+      },
+    ],
+    note: "Planifier en groupe est l'un des outils d'habitude les plus puissants : quand quelqu'un t'attend, sauter la séance devient bien plus difficile.",
   },
   day: {
     kicker: "Une journée avec VVake",
