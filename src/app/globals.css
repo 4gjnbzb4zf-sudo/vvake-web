@@ -194,18 +194,19 @@
   }
 }
 
-/* VVaker sport motion: limbs swing around their joint (set inline via transform-origin + --from/--to). */
-.vv-swing,
+/* VVaker sport motion: joints run a shared 4-key cycle; each joint sets its keys inline (--r0..3, --y0..3). */
+.vv-key,
 .vv-spin,
 .vv-spin-slow,
-.vv-rock {
+.vv-flutter,
+.vv-blink {
   transform-box: view-box;
 }
-.vv-swing {
-  animation: vv-swing 0.5s ease-in-out infinite alternate;
+.vv-key {
+  animation: vv-key 1s ease-in-out infinite;
 }
-.vv-bob {
-  animation: vv-bob 0.3s ease-in-out infinite alternate;
+.vv-fade {
+  animation: vv-fade 1s ease-in-out infinite;
 }
 .vv-spin {
   animation: vv-spin 0.9s linear infinite;
@@ -213,23 +214,68 @@
 .vv-spin-slow {
   animation: vv-spin 24s linear infinite;
 }
-.vv-rock {
-  animation: vv-rock 1s ease-in-out infinite alternate;
+.vv-flutter {
+  transform-origin: 190px 64px;
+  animation: vv-flutter 0.32s ease-in-out infinite alternate;
+}
+.vv-blink {
+  transform-origin: 116px 110px;
+  animation: vv-blink 4.2s linear infinite;
+}
+.vv-sweat {
+  animation: vv-sweat 1.2s ease-in infinite;
 }
 .vv-dribble {
   animation: vv-dribble 0.28s cubic-bezier(0.5, 0, 0.9, 0.6) infinite alternate;
 }
-@keyframes vv-swing {
-  from {
-    rotate: var(--from);
-  }
+.vv-dash {
+  animation: vv-dash 0.45s linear infinite;
+}
+.vv-wave {
+  animation: vv-wave 1.6s linear infinite;
+}
+@keyframes vv-dash {
   to {
-    rotate: var(--to);
+    stroke-dashoffset: 28;
   }
 }
-@keyframes vv-bob {
+@keyframes vv-wave {
   to {
-    translate: 0 -5px;
+    translate: -40px 0;
+  }
+}
+@keyframes vv-key {
+  0%,
+  100% {
+    rotate: var(--r0, 0deg);
+    translate: var(--x0, 0px) var(--y0, 0px);
+  }
+  25% {
+    rotate: var(--r1, 0deg);
+    translate: var(--x1, 0px) var(--y1, 0px);
+  }
+  50% {
+    rotate: var(--r2, 0deg);
+    translate: var(--x2, 0px) var(--y2, 0px);
+  }
+  75% {
+    rotate: var(--r3, 0deg);
+    translate: var(--x3, 0px) var(--y3, 0px);
+  }
+}
+@keyframes vv-fade {
+  0%,
+  100% {
+    opacity: var(--o0, 1);
+  }
+  25% {
+    opacity: var(--o1, 1);
+  }
+  50% {
+    opacity: var(--o2, 1);
+  }
+  75% {
+    opacity: var(--o3, 1);
   }
 }
 @keyframes vv-spin {
@@ -237,12 +283,35 @@
     rotate: 360deg;
   }
 }
-@keyframes vv-rock {
+@keyframes vv-flutter {
   from {
-    rotate: -9deg;
+    rotate: -14deg;
   }
   to {
-    rotate: 9deg;
+    rotate: 10deg;
+  }
+}
+@keyframes vv-blink {
+  0%,
+  93%,
+  100% {
+    scale: 1 1;
+  }
+  95% {
+    scale: 1 0.1;
+  }
+}
+@keyframes vv-sweat {
+  0% {
+    translate: 0 0;
+    opacity: 0;
+  }
+  20% {
+    opacity: 0.9;
+  }
+  100% {
+    translate: 6px 34px;
+    opacity: 0;
   }
 }
 @keyframes vv-dribble {
@@ -254,12 +323,19 @@
   }
 }
 @media (prefers-reduced-motion: reduce) {
-  .vv-swing,
-  .vv-bob,
+  .vv-key,
+  .vv-fade,
   .vv-spin,
   .vv-spin-slow,
-  .vv-rock,
-  .vv-dribble {
+  .vv-flutter,
+  .vv-blink,
+  .vv-sweat,
+  .vv-dribble,
+  .vv-dash,
+  .vv-wave {
     animation: none;
+  }
+  .vv-sweat {
+    opacity: 0;
   }
 }

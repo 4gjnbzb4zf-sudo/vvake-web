@@ -9,7 +9,20 @@ import { planWeeks, type PlanGoal, type PlannedSession, type SessionIntensity, t
 type SportKey = keyof Dictionary["multisport"]["sports"];
 
 const GOALS: readonly PlanGoal[] = ["start", "consistency", "endurance", "strength", "calm", "event"];
-const SPORTS: readonly SportKey[] = ["runner", "walker", "cyclist", "lifter", "yogi", "boxer", "martial", "paddler", "baller", "meditator"];
+const SPORTS: readonly SportKey[] = [
+  "runner",
+  "walker",
+  "cyclist",
+  "lifter",
+  "yogi",
+  "boxer",
+  "martial",
+  "paddler",
+  "baller",
+  "roller",
+  "skater",
+  "meditator",
+];
 const EMOJI: Record<string, string> = {
   runner: "🏃",
   walker: "🚶",
@@ -21,6 +34,8 @@ const EMOJI: Record<string, string> = {
   paddler: "🛶",
   baller: "⛹️",
   meditator: "🧘",
+  roller: "🛼",
+  skater: "⛸️",
   coder: "💻",
 };
 const INTENSITY: Record<SessionIntensity, string> = {

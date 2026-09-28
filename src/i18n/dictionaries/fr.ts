@@ -19,6 +19,7 @@ export const fr: Dictionary = {
     join: "Débloque ta ville",
     skip: "Aller au contenu",
     language: "Langue",
+    currency: "Devise",
   },
   hero: {
     pronounce: "Ça se dit « wake »",
@@ -26,7 +27,7 @@ export const fr: Dictionary = {
     anthem: ["pour ta santé.", "pour ta richesse.", "pour toi.", "pour ton squad.", "pour ta ville.", "pour ton équipe."],
     lead: "L'app d'entraînement pour ton téléphone et ta montre : un plan qui colle à ta semaine, ta crew, ta ville. Chaque séance construit aussi ta richesse : avantages, lots et, là où la loi le permet, de vraies récompenses. Noté sur ton cœur, pas sur ta vitesse.",
     trainingChip: "Plan synchronisé avec ton agenda",
-    wealthChip: "1 € investi par séance",
+    wealthChip: "{money} investi par séance",
     wealthNote: "Sweat & Invest · ton argent · courtier agréé",
     ctaPrimary: "Débloque ta ville",
     ctaSecondary: "Ce que tu y gagnes",
@@ -100,6 +101,8 @@ export const fr: Dictionary = {
       martial: "Arts martiaux",
       paddler: "Canoë & kayak",
       meditator: "Méditation",
+      roller: "Roller",
+      skater: "Patin à glace",
     },
     session: "{minutes} min · zone {zone}",
     mindful: "Points calme · compte pour ta journée",
@@ -633,7 +636,7 @@ export const fr: Dictionary = {
       todayWhen: "18:45 · dans ton agenda",
       wealth: "Ta richesse · cette semaine",
       invested: "Sweat & Invest",
-      investedValue: "4 € · 4 séances",
+      investedValue: "{money} · 4 séances",
       rewards: "Récompenses de saison",
       rewardsValue: "Top 12 %",
       hello: "VVake up, Sam.",
@@ -660,7 +663,7 @@ export const fr: Dictionary = {
     ],
     fixesTitle: "Ce qu'on a réparé",
     fixes: [
-      { was: "1 000 $ pour commencer", now: "Gratuit pour commencer. Jamais de NFT obligatoire." },
+      { was: "{money} pour commencer", now: "Gratuit pour commencer. Jamais de NFT obligatoire." },
       {
         was: "Des récompenses imprimées sans limite",
         now: "Des récompenses financées uniquement par de vrais revenus, jamais par les nouveaux.",
@@ -762,7 +765,7 @@ export const fr: Dictionary = {
       items: [
         {
           title: "Sweat & Invest",
-          body: "Crée une règle chez un courtier partenaire agréé, comme « 1 € dans l'action de ma Brand Team à chaque séance ». Ton argent, ton compte ; VVake envoie seulement le signal de séance, avec ton accord.",
+          body: "Crée une règle chez un courtier partenaire agréé, comme « {money} dans l'action de ma Brand Team à chaque séance ». Ton argent, ton compte ; VVake envoie seulement le signal de séance, avec ton accord.",
         },
         {
           title: "Récompenses en actions",
@@ -927,6 +930,8 @@ export const fr: Dictionary = {
       martial: "Karaté",
       paddler: "Canoë",
       meditator: "Méditation",
+      roller: "Roller",
+      skater: "Patin à glace",
     },
     headgears: { none: "Bandeau", cap: "Casquette", beanie: "Bonnet", headphones: "Casque audio", helmet: "Casque vélo" },
     eyes: { pixel: "Pixel", happy: "Content", fired: "À fond", sleepy: "Endormi", visor: "Visière", star: "Étoiles" },

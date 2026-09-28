@@ -1,4 +1,5 @@
 import { LogoMark } from "@/components/brand/Logo";
+import { MoneyText } from "@/components/ui/Money";
 import { ButtonLink } from "@/components/ui/Button";
 import { Marquee } from "@/components/ui/Marquee";
 import { Container } from "@/components/ui/Section";
@@ -135,7 +136,9 @@ function HeroDevices({ hero, app }: { hero: Dictionary["hero"]; app: Dictionary[
         📅 {hero.trainingChip}
       </div>
       <div className="absolute bottom-20 -left-2 w-44 -rotate-3 animate-float rounded-xl bg-mint p-3 text-night shadow-[0_18px_40px_-12px_rgb(91_208_138/0.55)] [animation-delay:-2s] sm:-left-16">
-        <p className="font-display text-lg leading-tight font-bold">📈 {hero.wealthChip}</p>
+        <p className="font-display text-lg leading-tight font-bold">
+          📈 <MoneyText template={hero.wealthChip} usd={1} />
+        </p>
         <p className="mt-1 font-mono text-[0.58rem] leading-tight tracking-[0.06em] uppercase">{hero.wealthNote}</p>
       </div>
     </div>
