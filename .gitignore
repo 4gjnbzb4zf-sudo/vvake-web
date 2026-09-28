@@ -40,3 +40,7 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 /public/og/
+
+# Local design lab (proposals, not deployed)
+/src/app/[[]lang]/lab/
+/src/components/vvaker/VVakerAthlete.tsx

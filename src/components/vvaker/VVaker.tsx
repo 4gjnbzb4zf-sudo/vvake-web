@@ -198,7 +198,7 @@ const mapKeys = (k: Keys, f: (v: number) => number): Keys => [f(k[0]), f(k[1]), 
  * A joint: the static pose (key 0) is plain SVG, so exports and still frames keep it; when animated,
  * a CSS 4-key cycle rotates (and lifts) the group around the same pivot, relative to that pose.
  */
-function Joint({
+export function Joint({
   x,
   y,
   k,
@@ -271,7 +271,7 @@ function Spin({
 }
 
 /** Opacity on the same 4-key cycle (breathing mouth, effort blush). */
-function Fade({
+export function Fade({
   keys,
   period,
   animate,
