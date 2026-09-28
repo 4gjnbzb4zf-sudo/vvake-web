@@ -169,3 +169,35 @@ export function brokerFor(country: string): Broker {
     return "robinhood-eu-stock-tokens";
   return "licensed-partner"; // e.g. Canada: Robinhood doesn't operate there
 }
+
+/**
+ * Investment budget (player-set): Sweat & Invest never goes over the monthly budget. Signals stop
+ * once it's used up, and the player sees what's left; the budget resets on their provider's month.
+ */
+export interface Budget {
+  monthly: number;
+  spentThisMonth: number;
+}
+
+/** Trims a week's paired signals to what's left of the monthly budget, in session order. */
+export function withinBudget(
+  signals: readonly PairedSignal[],
+  perWorkout: number,
+  budget: Budget,
+): { signals: PairedSignal[]; left: number } {
+  let left = Math.max(0, budget.monthly - budget.spentThisMonth);
+  const out: PairedSignal[] = [];
+  for (const s of signals) {
+    const workouts = Math.min(s.workouts, perWorkout > 0 ? Math.floor(left / perWorkout) : 0);
+    if (workouts > 0) {
+      out.push({ ...s, workouts, amount: workouts * perWorkout });
+      left -= workouts * perWorkout;
+    }
+  }
+  return { signals: out, left };
+}
+
+/** Projected monthly total at the player's current pace (sessions per week), capped by the budget. */
+export function projectedMonthly(sessionsPerWeek: number, perWorkout: number, monthly: number): number {
+  return Math.min(monthly, Math.round(sessionsPerWeek * (52 / 12) * perWorkout));
+}

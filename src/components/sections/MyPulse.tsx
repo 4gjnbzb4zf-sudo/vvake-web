@@ -2,6 +2,7 @@
 
 import { useMemo, useState } from "react";
 import { MoneyText } from "@/components/ui/Money";
+import { brandName } from "@/lib/brands";
 import { cn } from "@/lib/cn";
 import { format, type Dictionary } from "@/i18n/dictionaries";
 import { dailySignals, pulseLine, type Asset, type Quote } from "@/lib/pulse";
@@ -40,7 +41,8 @@ export function MyPulse({ dict }: { dict: Dictionary["pulse"]["mine"] }) {
           onClick={() => toggle(q.symbol)}
           className={cn("px-3 py-1.5 font-mono text-xs", on ? "bg-volt text-night" : "text-muted hover:text-text")}
         >
-          {q.symbol}
+          {brandName(q.symbol)}
+          <span className="ml-1 opacity-60">{q.symbol}</span>
         </button>
         {q.kind === "stock" && on && (
           <button
