@@ -502,6 +502,52 @@ export const fr: Dictionary = {
     disclaimer:
       "Conseils bien-être, pas un avis médical. Blessure, grossesse ou problème de santé ? Demande d'abord l'avis d'un professionnel.",
   },
+  plus: {
+    kicker: "VVake Fit Plus · optionnel",
+    title: "Plus d'outils. Jamais d'avantage.",
+    body: "Le jeu gratuit est complet. Plus, c'est pour celles et ceux qui veulent un coaching plus poussé, de plus grandes crews et quelques petits plaisirs.",
+    name: "VVake Fit Plus",
+    price: "{money}",
+    per: "/ mois",
+    yearly: "ou à l'année, 2 mois offerts",
+    trial: "7 jours d'essai gratuit · résiliable à tout moment",
+    cta: "Être prévenu au lancement",
+    perks: [
+      {
+        icon: "🧠",
+        title: "Coach adaptatif",
+        body: "Des plans de 12 semaines qui s'adaptent à ton sommeil et à ta récupération, avec des blocs de préparation de course.",
+      },
+      {
+        icon: "📅",
+        title: "Replanification auto",
+        body: "Nouvelle réunion ? Ta séance se déplace toute seule sur ton prochain créneau libre.",
+      },
+      { icon: "👥", title: "Organise en grand", body: "Des crews jusqu'à 50 personnes, 10 événements récurrents et ta bannière de crew." },
+      {
+        icon: "🎯",
+        title: "Challenge Maker",
+        body: "Crée des défis sur mesure pour ta crew ou ta ville. Toujours gratuits pour participer.",
+      },
+      {
+        icon: "📊",
+        title: "Analyses poussées",
+        body: "Tes zones dans le temps, ton effort face à ta référence et une vidéo récap de l'année.",
+      },
+      { icon: "📈", title: "Pulse Plus", body: "Suis jusqu'à 25 actions et cryptos, avec tes propres seuils d'alerte." },
+      { icon: "🎟️", title: "Premier servi", body: "Des créneaux 24 h en avance pour acheter dossards et billets de match partenaires." },
+      { icon: "✨", title: "Finition du mois", body: "Une nouvelle finition cosmétique pour ton VVaker chaque mois." },
+    ],
+    neverTitle: "Jamais dans Plus",
+    never: [
+      "Plus de récompenses, d'énergie ou de points",
+      "Un meilleur classement ou de meilleures stats",
+      "Des participations en plus aux tirages",
+      "Tes données : ton journal complet et tes exports restent gratuits",
+    ],
+    split: "Comme tous les frais, Plus passe par notre répartition publique : 30 % reviennent aux récompenses de saison des joueurs.",
+    note: "Dans les apps iOS et Android, Plus est un abonnement intégré géré par le store ; gère-le ou résilie-le dans les réglages du store. Les prix varient selon le pays et incluent les taxes quand c'est requis.",
+  },
   journal: {
     kicker: "Ton journal",
     title: "Chaque run, rencontre et victoire. À portée de doigt.",
@@ -1220,7 +1266,7 @@ export const fr: Dictionary = {
       },
       {
         q: "C'est gratuit ?",
-        a: "Oui. Bouger, les squads, les rivalités et ton VVaker sont gratuits. Les options, comme les objets de collection, ne sont jamais nécessaires pour participer.",
+        a: "Oui. Bouger, les squads, les rivalités et ton VVaker sont gratuits. Les options, comme les objets de collection ou VVake Fit Plus, ne sont jamais nécessaires pour participer, et ne donnent jamais d'avantage.",
       },
       {
         q: "Que deviennent mes données de santé ?",
