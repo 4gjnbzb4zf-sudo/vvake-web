@@ -167,6 +167,54 @@ export const en = {
     disclaimer:
       "VVake is an independent project, not affiliated with or endorsed by vibe/vibe. Any web3 feature is subject to legal review and won't be available in every country.",
   },
+  pace: {
+    kicker: "Keep your pace",
+    title: "Built to make tomorrow easier than today.",
+    body: "The best workout is the one you actually do again. VVake is designed around the small daily wins that turn a good week into a habit, without guilt trips.",
+    items: [
+      {
+        title: "Streaks that forgive",
+        body: "Your streak counts active days, keeps 2 protected rest days a week, and gives you freezes for real life.",
+      },
+      {
+        title: "Weekly leagues",
+        body: "30 movers at your level. Top 7 move up, from Warm-up to Legend. Ranked on consistency and progress, not raw volume.",
+      },
+      {
+        title: "Daily quests",
+        body: "Three small goals a day, tuned to you: 10 minutes in zone 2, a squad high-five, a push for your city.",
+      },
+      {
+        title: "Nudges that know you",
+        body: "Reminders learn your best time. Your squad pings you when they head out. Never late at night, never shaming.",
+      },
+      {
+        title: "Music that keeps your pace",
+        body: "Connect your music app and start a playlist matched to your pace, with controls on your wrist.",
+      },
+      {
+        title: "Your year, wrapped",
+        body: "Streaks, rivalries won, cities unlocked, the songs that pushed you. Made to share.",
+      },
+    ],
+    widgets: {
+      streak: "Streak",
+      days: "days",
+      week: ["M", "T", "W", "T", "F", "S", "S"],
+      rest: "rest",
+      league: "Tempo league",
+      rank: "of 30 · top 7 move up",
+      quests: "Today's quests",
+      questList: ["10 min in zone 2", "High-five your squad", "Push for Lyon"],
+      nowPlaying: "Now playing",
+      track: "Tempo run mix",
+      tempo: "matched to your pace",
+    },
+    musicLabel: "Works with your music",
+    musicServices: ["Spotify", "Apple Music", "Amazon Music"],
+    musicNote: "Planned integrations; names are trademarks of their owners.",
+    healthy: ["Rest days are part of the streak", "Zone 5 never earns more", "No guilt trips", "Quiet hours at night"],
+  },
   app: {
     kicker: "The app",
     title: "Built for your wrist. Made for your crew.",
