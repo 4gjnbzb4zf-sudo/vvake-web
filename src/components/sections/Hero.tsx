@@ -24,10 +24,18 @@ export function Hero({ dict, highlights, app }: HeroProps) {
 
       <Container className="relative grid items-center gap-14 pt-16 pb-16 sm:pt-24 lg:grid-cols-[1.15fr_1fr] lg:pb-24">
         <div className="animate-rise">
-          <p className="inline-flex items-center gap-3 rounded-full border border-line bg-surface/70 py-1.5 pr-4 pl-2 text-sm text-muted">
-            <LogoMark className="h-5" />
-            <span>{dict.pronounce}</span>
-          </p>
+          <div className="flex flex-wrap items-center gap-2">
+            <p className="inline-flex items-center gap-3 rounded-full border border-line bg-surface/70 py-1.5 pr-4 pl-2 text-sm text-muted">
+              <LogoMark className="h-5" />
+              <span>{dict.pronounce}</span>
+            </p>
+            <a
+              href="#rwa"
+              className="inline-flex items-center gap-2 rounded-full border border-volt/40 bg-volt/10 px-3 py-1.5 font-mono text-xs text-volt transition-colors hover:bg-volt/20"
+            >
+              ⛓️ {dict.chain}
+            </a>
+          </div>
 
           <h1 id="hero-title" className="mt-8 font-display text-5xl leading-[1.02] font-bold tracking-tight sm:text-7xl">
             <span className="sr-only">{dict.anthem.map((line) => `${dict.prefix} ${line}`).join(" ")}</span>

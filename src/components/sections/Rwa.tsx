@@ -12,6 +12,27 @@ const LANE_STYLES = [
 export function Rwa({ dict, index }: { dict: Dictionary["rwa"]; index: string }) {
   return (
     <Section id="rwa" index={index} kicker={dict.kicker} title={dict.title} lead={dict.body}>
+      <div className="mt-10 rounded-[2rem] border border-volt/40 bg-gradient-to-br from-volt/15 via-transparent to-mint/10 p-6 sm:p-8">
+        <p className="font-mono text-xs tracking-[0.18em] text-volt uppercase">{dict.robinhood.kicker}</p>
+        <h3 className="mt-2 font-display text-2xl leading-tight font-bold sm:text-3xl">{dict.robinhood.title}</h3>
+        <p className="mt-3 max-w-3xl leading-relaxed text-muted">{dict.robinhood.body}</p>
+        <ul className="mt-6 grid gap-3 md:grid-cols-3">
+          {dict.robinhood.rails.map((r) => (
+            <li key={r.title} className="flex flex-col rounded-2xl border border-line bg-night/70 p-5">
+              <span aria-hidden="true" className="text-3xl">
+                {r.icon}
+              </span>
+              <p className="mt-3 font-display text-lg font-semibold">{r.title}</p>
+              <p className="mt-1.5 flex-1 text-sm leading-relaxed text-muted">{r.body}</p>
+              <span className="mt-4 self-start rounded-md border border-volt/40 px-2 py-0.5 font-mono text-[0.62rem] tracking-[0.1em] text-volt uppercase">
+                {r.status}
+              </span>
+            </li>
+          ))}
+        </ul>
+        <p className="mt-5 text-xs leading-relaxed text-faint">{dict.robinhood.notice}</p>
+      </div>
+
       <ol className="relative mt-12 grid gap-4 lg:grid-cols-3">
         {dict.lanes.map((lane, i) => {
           const style = LANE_STYLES[i % LANE_STYLES.length]!;
