@@ -218,6 +218,36 @@ export const fr: Dictionary = {
       "Heures calmes la nuit",
     ],
   },
+  wellbeing: {
+    kicker: "Au-delà de la séance",
+    title: "Boire, manger, respirer, dormir. En douceur.",
+    body: "Bouger n'est qu'une partie du bien-être. VVake peut aussi te rappeler les petites choses qui rendent la séance de demain plus facile, seulement si tu les actives.",
+    notifications: [
+      { icon: "💧", title: "Un verre d'eau ?", body: "Tu es à fond depuis 90 minutes." },
+      { icon: "🍽️", title: "Déjeuner, comme prévu", body: "12:30. Éloigne-toi de l'écran." },
+      { icon: "🫁", title: "Une pause pour respirer ?", body: "Ton cœur suggère 60 secondes de respiration lente." },
+      { icon: "🌙", title: "On ralentit", body: "Un bon sommeil nourrit la série de demain." },
+    ],
+    items: [
+      { title: "Hydratation", body: "Rappels toutes les 90 minutes, toutes les 45 autour des séances et les jours de chaleur." },
+      { title: "Rythme des repas", body: "Seulement aux heures que tu choisis. Jamais de calories, jamais d'objectif de poids." },
+      {
+        title: "Pauses respiration",
+        body: "Quand ta variabilité cardiaque passe sous ta propre base, 60 secondes pour respirer. Jamais un diagnostic.",
+      },
+      {
+        title: "Sommeil & récupération",
+        body: "Des rappels pour ralentir et des jours de repos qui comptent, parce que récupérer, c'est s'entraîner.",
+      },
+    ],
+    promises: [
+      "Tout est optionnel",
+      "Aucun comptage de calories",
+      "Aucun objectif de poids ou de corps",
+      "Heures calmes la nuit",
+      "Conseils bien-être, pas médicaux",
+    ],
+  },
   app: {
     kicker: "L'app",
     title: "Pensée pour ton poignet. Faite pour ta team.",
@@ -306,6 +336,51 @@ export const fr: Dictionary = {
     },
     disclaimer:
       "Illustration. Les données de marché ne servent qu'à thématiser des défis gratuits. Les récompenses ne dépendent jamais des cours, et VVake ne vend ni ne donne d'actions.",
+  },
+  rwa: {
+    kicker: "RWA × crypto",
+    title: "Marchés réels. Récompenses on-chain. Ton cœur au milieu.",
+    body: "Les actions donnent son pouls à VVake, ton effort gagne les récompenses, et la chaîne garde les comptes ouverts. Voici comment tout s'assemble, et où sont les limites.",
+    lanes: [
+      {
+        tag: "Monde réel",
+        title: "Les actions des marques donnent le signal",
+        body: "Les données de marché des marques de sport (ex. LULU, NKE) déclenchent les moments Rally et Recover. Des données seulement : les cours ne décident jamais des récompenses.",
+        points: ["Les données comme déclencheur", "Défis gratuits pour tous", "Aucun trading dans l'app"],
+      },
+      {
+        tag: "VVake",
+        title: "Ton effort fait le travail",
+        body: "Effort cardiaque, séries, squads et clashs de villes. Tout ce que tu gagnes vient du mouvement, noté équitablement à tout âge.",
+        points: ["L'effort décide, pas l'argent", "Des points dans l'app", "Anti-triche avant toute récompense"],
+      },
+      {
+        tag: "On-chain (prévu)",
+        title: "Robinhood Chain garde tout ouvert",
+        body: "La chaîne où vivent déjà les actions tokenisées (RWA). Prévu : un token VVake lancé sur vibe/vibe, un contrat public de répartition des frais, des récompenses de saison pour l'effort, des objets de collection cosmétiques.",
+        points: [
+          "Répartition des frais publique, on-chain",
+          "Récompenses de saison pour l'effort",
+          "Portail web uniquement · 18+ · pas dans tous les pays",
+        ],
+      },
+    ],
+    stockRewards: {
+      title: "Des récompenses en actions, dans les règles",
+      body: "Un courtier partenaire agréé pourra récompenser les gagnants de défis fitness avec des fractions d'actions, via ses propres comptes et vérifications, là où c'est légal. C'est ton résultat sportif qui décide, jamais le marché. Il y a toujours une alternative non financière.",
+    },
+    never: {
+      title: "Ce que nous ne ferons jamais",
+      items: [
+        "Te faire parier sur une action",
+        "Verser du rendement ou du staking",
+        "Garder des tokens pour l'équipe",
+        "Acheter, détenir ou distribuer des actions nous-mêmes",
+        "Te demander ta seed phrase",
+      ],
+    },
+    disclaimer:
+      "Fonctionnalités prévues, sous réserve de revue juridique et de disponibilité régionale ; non proposées aux États-Unis ni au Royaume-Uni au lancement. Rien sur ce site n'est une offre de tokens, de titres ou un conseil financier. Les tickers sont affichés à des fins d'identification uniquement.",
   },
   rivalries: {
     kicker: "City Clash",
@@ -456,14 +531,39 @@ export const fr: Dictionary = {
   dev: {
     kicker: "Pour les builders",
     title: "Code dur. Bouge plus fort.",
-    body: "Ton IA refactore. Ton dos porte plainte. Le compagnon VVake vit dans ton terminal et ton éditeur, et te pousse dehors quand le build est vert.",
+    body: "Ton IA refactore. Ton dos porte plainte. Le compagnon VVake vit dans ton terminal et ton éditeur, et transforme les temps morts du code avec l'IA en mouvement.",
     terminal: [
-      "$ vv status",
-      "⚡ 3 énergie   🫀 118 min sans bouger",
-      "⚔️  PARIS 58.2 vs MARSEILLE 55.9 · encore 3 h",
-      "✔ PR mergée. Fenêtre Deploy & Dash : 20 min. Go.",
+      '$ claude "refactor le module paiements"',
+      "⏳ Claude réfléchit… 🫀 debout : 60 secondes pour les hanches",
+      "⚡ 3 énergie · 🫀 52 min au bureau → 50/10 : bouge 10 min",
+      "⚔️  PARIS 58.2 vs MARSEILLE 55.9 · encore 3 h · ton squad est dehors",
+      "✔ PR mergée. Deploy & Dash : fenêtre de marche de 20 min débloquée. Go.",
     ],
-    note: "La vie privée d'abord : ni code ni prompt ne quitte jamais ta machine.",
+    features: [
+      {
+        title: "Pendant que ton IA réfléchit",
+        body: "Requête longue ? 60 secondes de réveil au bureau (hanches, épaules, poignets) plutôt que de scroller.",
+      },
+      {
+        title: "Rythme 50/10",
+        body: "50 minutes de flow, 10 minutes de mouvement. Le compagnon compte le temps au bureau, pas les frappes.",
+      },
+      {
+        title: "Deploy & Dash",
+        body: "PR mergée ou déploiement réussi ? Tu débloques une fenêtre de marche de 20 minutes qui compte double pour ton squad.",
+      },
+      {
+        title: "Stand-ups en marchant",
+        body: "Transforme le point quotidien de ton équipe en marche de squad. L'effort de chacun compte pour la ville.",
+      },
+      {
+        title: "Yeux 20-20-20",
+        body: "Toutes les 20 minutes, regarde à 6 mètres pendant 20 secondes. Un petit rappel dans ta barre d'état.",
+      },
+      { title: "Badge de série", body: "Affiche ta série de mouvement à côté de ta série de commits sur ton README GitHub." },
+    ],
+    worksWith: "Claude Code · VS Code · Cursor · n'importe quel terminal",
+    note: "La vie privée d'abord : ni code ni prompt ne quitte jamais ta machine. Les heures calmes sont respectées.",
   },
   partners: {
     kicker: "Partenaires",
