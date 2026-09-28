@@ -25,6 +25,7 @@ export const fr: Dictionary = {
   },
   hero: {
     pronounce: "VVake Fit · ça se dit « wake fit »",
+    chain: "RWA × Robinhood Chain · prévu",
     prefix: "VVake up",
     anthem: ["pour ta santé.", "pour ta richesse.", "pour toi.", "pour ton squad.", "pour ta ville.", "pour ton équipe."],
     lead: "L'app d'entraînement pour ton téléphone et ta montre : un plan qui colle à ta semaine, ta crew, ta ville. Bouge pour des avantages, des lots et, là où la loi le permet, de vraies récompenses. Noté sur ton cœur, pas sur ta vitesse.",
@@ -55,9 +56,9 @@ export const fr: Dictionary = {
         cta: "S'entraîner ensemble",
       },
       {
-        tag: "RWA × Web3",
-        title: "Les marchés réels. La transparence on-chain.",
-        body: "Construit à côté des actions tokenisées : une répartition publique des frais et des récompenses de saison versées on-chain (prévu, selon le pays).",
+        tag: "RWA × Robinhood Chain",
+        title: "Les actifs réels, sur Robinhood Chain.",
+        body: "Prévu sur Robinhood Chain, là où vivent déjà les actions tokenisées : une répartition publique des frais, des récompenses de saison on-chain et le duo sport-action avec les actions tokenisées Robinhood (selon le pays).",
         cta: "Comment ça marche",
       },
       {
@@ -923,9 +924,36 @@ export const fr: Dictionary = {
       "Illustration. Les données de marché ne servent qu'à thématiser des défis gratuits. Les récompenses ne dépendent jamais des cours. VVake ne vend, ne détient ni ne distribue jamais d'actions lui-même ; toute récompense en actions est gérée par un courtier agréé.",
   },
   rwa: {
-    kicker: "RWA × crypto",
+    kicker: "RWA × Robinhood Chain",
     title: "Marchés réels. Récompenses on-chain. Ton cœur au milieu.",
     body: "Les actions donnent son pouls à VVake, ton effort gagne les récompenses, et la chaîne garde les comptes ouverts. Voici comment tout s'assemble, et où sont les limites.",
+    robinhood: {
+      kicker: "La connexion Robinhood",
+      title: "Pensé pour l'écosystème Robinhood.",
+      body: "Les rails web3 et investissement de VVake Fit sont conçus autour de Robinhood : la chaîne où vivent les actions tokenisées, les actions tokenisées qui font duo avec tes sports, et le courtage pour les achats récurrents.",
+      rails: [
+        {
+          icon: "⛓️",
+          title: "Robinhood Chain",
+          body: "Notre future maison on-chain, lancée via le launchpad vibe/vibe : contrat public de répartition des frais, récompenses de saison, objets de collection.",
+          status: "Prévu",
+        },
+        {
+          icon: "📈",
+          title: "Actions tokenisées Robinhood · UE",
+          body: "Des actions tokenisées pour le duo sport-action en Europe : chaque séance peut abonder ton choix, sur ton propre compte.",
+          status: "Prévu · accord en attente",
+        },
+        {
+          icon: "🇺🇸",
+          title: "Courtage Robinhood · États-Unis",
+          body: "Sweat & Invest en achats récurrents sur ton propre compte Robinhood, dans ton budget.",
+          status: "Prévu · accord en attente",
+        },
+      ],
+      notice:
+        "Robinhood et Robinhood Chain sont des marques de Robinhood Markets, Inc. VVake Fit est indépendant, sans affiliation ni recommandation de Robinhood. Les intégrations sont prévues et dépendent d'accords, de la réglementation et de la disponibilité dans ton pays.",
+    },
     lanes: [
       {
         tag: "Monde réel",

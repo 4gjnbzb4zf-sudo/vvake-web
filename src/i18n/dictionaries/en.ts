@@ -27,6 +27,7 @@ export const en = {
   },
   hero: {
     pronounce: "VVake Fit · say it “wake fit”",
+    chain: "RWA × Robinhood Chain · planned",
     prefix: "VVake up",
     anthem: ["for your health.", "for your wealth.", "for yourself.", "for your squad.", "for your city.", "for your team."],
     lead: "The training app for your phone and watch: a plan that fits your week, your crew, your city. Move for perks, prizes and, where the law allows, real rewards. Scored on your heart, not your speed.",
@@ -57,9 +58,9 @@ export const en = {
         cta: "Train together",
       },
       {
-        tag: "RWA × Web3",
-        title: "Real-world markets. On-chain transparency.",
-        body: "Built next to tokenized stocks: a public fee split and season rewards paid on-chain (planned, where legal).",
+        tag: "RWA × Robinhood Chain",
+        title: "Real-world assets, on Robinhood Chain.",
+        body: "Planned on Robinhood Chain, where tokenized stocks already live: a public fee split, season rewards on-chain and sport pairing with Robinhood stock tokens (where legal).",
         cta: "How it works",
       },
       {
@@ -880,9 +881,36 @@ export const en = {
       "Illustration. Market data only sets the theme of free challenges. Rewards never depend on prices. VVake never sells, holds or gives out stocks itself; any stock reward is run by a licensed broker.",
   },
   rwa: {
-    kicker: "RWA × crypto",
+    kicker: "RWA × Robinhood Chain",
     title: "Real-world markets. On-chain rewards. Your heart in between.",
     body: "Stocks give VVake its heartbeat, your effort earns the rewards, and the chain keeps the books open. Here's how the pieces connect, and where the lines are.",
+    robinhood: {
+      kicker: "The Robinhood connection",
+      title: "Built for the Robinhood ecosystem.",
+      body: "VVake Fit's web3 and investing rails are designed around Robinhood: the chain where tokenized stocks live, the stock tokens that pair with your sports, and the brokerage for recurring buys.",
+      rails: [
+        {
+          icon: "⛓️",
+          title: "Robinhood Chain",
+          body: "Our planned on-chain home, launching through the vibe/vibe launchpad: public fee-split contract, season rewards, collectibles.",
+          status: "Planned",
+        },
+        {
+          icon: "📈",
+          title: "Robinhood stock tokens · EU",
+          body: "Tokenized stocks for sport pairing in Europe: each workout can add to your pick, in your own account.",
+          status: "Planned · agreement pending",
+        },
+        {
+          icon: "🇺🇸",
+          title: "Robinhood brokerage · US",
+          body: "Sweat & Invest as recurring buys on your own Robinhood account, within your budget.",
+          status: "Planned · agreement pending",
+        },
+      ],
+      notice:
+        "Robinhood and Robinhood Chain are trademarks of Robinhood Markets, Inc. VVake Fit is independent and is not affiliated with or endorsed by Robinhood. Integrations are planned and depend on agreements, regulation and availability in your country.",
+    },
     lanes: [
       {
         tag: "Real world",
