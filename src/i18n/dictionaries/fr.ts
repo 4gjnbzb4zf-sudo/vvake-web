@@ -20,6 +20,8 @@ export const fr: Dictionary = {
     skip: "Aller au contenu",
     language: "Langue",
     currency: "Devise",
+    style: "Style des VVakers",
+    looks: { toy: "Toy", "athlete-a": "Athlète A", "athlete-b": "Athlète B" },
   },
   hero: {
     pronounce: "VVake Fit · ça se dit « wake fit »",
@@ -1081,7 +1083,8 @@ export const fr: Dictionary = {
       energy: "Énergie",
     },
     looks: { toy: "Toy", "athlete-a": "Athlète · A", "athlete-b": "Athlète · B" },
-    styleNote: "Deux styles, ouverts à toutes et tous. Ton choix est enregistré dans ce navigateur, et tout le site le suit.",
+    styleNote:
+      "Deux styles, ouverts à toutes et tous. Change quand tu veux (ici ou dans le menu) : tous les VVakers du site suivent, et ton choix est enregistré dans ce navigateur.",
     colors: {
       candy: "Bonbon",
       lilac: "Lilas",
