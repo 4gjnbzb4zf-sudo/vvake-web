@@ -5,10 +5,10 @@
  */
 export const en = {
   meta: {
-    title: "VVake: the market wakes, we move",
+    title: "VVake Fit: the market wakes, we move",
     description:
-      "VVake (say “wake”) is the free fitness game where your city, your team and your squad move together. Heart over hype. Open-book team. Unlock your city.",
-    ogAlt: "VVake: two Vs make a W. The market wakes, we move.",
+      "VVake Fit (say “wake fit”) is the free training game where your city, your crew and your squad move together, and your workouts pair with the stocks you follow. Heart over hype. Open books. Unlock your city.",
+    ogAlt: "VVake Fit: two Vs make a W. The market wakes, we move.",
   },
   nav: {
     why: "Why join",
@@ -24,13 +24,13 @@ export const en = {
     currency: "Currency",
   },
   hero: {
-    pronounce: "Say it: “wake”",
+    pronounce: "VVake Fit · say it “wake fit”",
     prefix: "VVake up",
     anthem: ["for your health.", "for your wealth.", "for yourself.", "for your squad.", "for your city.", "for your team."],
     lead: "The training app for your phone and watch: a plan that fits your week, your crew, your city. Move for perks, prizes and, where the law allows, real rewards. Scored on your heart, not your speed.",
     trainingChip: "Plan synced with your calendar",
     wealthChip: "{money} invested per workout",
-    wealthNote: "Sweat & Invest · optional · your money · licensed partner · where available",
+    wealthNote: "Sweat & Invest · with Robinhood (planned) · your money · where available",
     ctaPrimary: "Unlock your city",
     ctaSecondary: "What you get",
   },
@@ -62,8 +62,8 @@ export const en = {
       },
       {
         tag: "Sweat & Invest",
-        title: "Your workouts. Your picks.",
-        body: "Follow the stocks and crypto you care about. Optionally invest {money} of your own money per workout, with a licensed partner.",
+        title: "Train & invest, paired.",
+        body: "Every sport pairs with a stock: run → NKE, yoga → LULU. Each session can invest {money} of your own money in its pair, with Robinhood (planned).",
         cta: "Build your Pulse",
       },
     ],
@@ -716,6 +716,14 @@ export const en = {
       title: "Recover",
       body: "Your Brand Team up? Rest, stretch, sleep well. A challenge drops in a few hours.",
     },
+    paired: {
+      title: "Train & invest, paired",
+      body: "Training and investing go together. Every sport has its stock: each verified session adds {money} of your own money to its pair, in your Robinhood account. Change any pair, set a weekly cap, pause anytime.",
+      session: "1 session",
+      week: "This week: {count} sessions → {money} invested, across {pairs} pairs",
+      partner:
+        "Planned with Robinhood: a brokerage account in the US, Robinhood stock tokens in the EU. Subject to a partnership agreement. Canada and other countries: another licensed broker. Your money, your account, where available. Investing involves risk, including loss of capital.",
+    },
     mine: {
       title: "Your Pulse",
       body: "Follow the stocks and crypto you care about. Star one as your Brand Team: its moves open worldwide Rally and Recover moments. Your other picks just keep you posted, calmly.",
@@ -784,7 +792,7 @@ export const en = {
       items: [
         {
           title: "Sweat & Invest",
-          body: "Pick an asset you follow, like the brand of your running shoes, and set a rule with a licensed broker or regulated crypto provider: “{money} for every workout”. Your money, your account; VVake only sends the verified-workout count, with your consent.",
+          body: "Every sport pairs with an asset you choose, like the brand of your running shoes. Set a rule at your broker (Robinhood planned, or another licensed broker; crypto via a regulated provider): “{money} for every workout”. Your money, your account; VVake only sends the verified-workout count, with your consent.",
         },
         { title: "Stock rewards", body: "Broker partners may reward fitness-challenge winners with fractional shares, where it's legal." },
         {
@@ -875,7 +883,7 @@ export const en = {
       copy: "Copy",
       copied: "Copied",
       shareX: "Share on X",
-      shareText: "{city} is waking up. Help unlock VVake in our city 👇",
+      shareText: "{city} is waking up. Help unlock VVake Fit in our city 👇 @VVakeFit",
     },
     closed: {
       title: "The waitlist opens very soon.",
@@ -1130,9 +1138,9 @@ export const en = {
     ],
   },
   footer: {
-    tagline: "Two Vs make a W.",
+    tagline: "VVake Fit · Two Vs make a W.",
     legal:
-      "VVake is a fitness game, not a financial product. Nothing on this site is investment advice or an offer of any token, security or financial instrument. Market data is shown for entertainment only. Team names and tickers are used for identification only; no affiliation or endorsement is implied.",
+      "VVake Fit is a fitness game, not a financial product. Nothing on this site is investment advice or an offer of any token, security or financial instrument. Market data is shown for entertainment only. Team names and tickers are used for identification only; no affiliation or endorsement is implied.",
     privacy: "Privacy",
     partners: "Partners",
     contact: "Contact",

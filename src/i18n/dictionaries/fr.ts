@@ -3,10 +3,10 @@ import type { Dictionary } from "./en";
 /** French copy. Must match the English structure exactly (checked by the type system). */
 export const fr: Dictionary = {
   meta: {
-    title: "VVake : la Bourse se réveille, nous on bouge",
+    title: "VVake Fit : la Bourse se réveille, nous on bouge",
     description:
-      "VVake (ça se dit « wake ») est le jeu fitness gratuit où ta ville, ton équipe et ton squad bougent ensemble. Le cœur avant la hype. Une équipe à livre ouvert. Débloque ta ville.",
-    ogAlt: "VVake : deux V font un W. La Bourse se réveille, nous on bouge.",
+      "VVake Fit (ça se dit « wake fit ») est le jeu d'entraînement gratuit où ta ville, ta crew et ton squad bougent ensemble, et où tes séances font duo avec les actions que tu suis. Le cœur avant la hype. Des comptes ouverts. Débloque ta ville.",
+    ogAlt: "VVake Fit : deux V font un W. La Bourse se réveille, nous on bouge.",
   },
   nav: {
     why: "Pourquoi",
@@ -22,13 +22,13 @@ export const fr: Dictionary = {
     currency: "Devise",
   },
   hero: {
-    pronounce: "Ça se dit « wake »",
+    pronounce: "VVake Fit · ça se dit « wake fit »",
     prefix: "VVake up",
     anthem: ["pour ta santé.", "pour ta richesse.", "pour toi.", "pour ton squad.", "pour ta ville.", "pour ton équipe."],
     lead: "L'app d'entraînement pour ton téléphone et ta montre : un plan qui colle à ta semaine, ta crew, ta ville. Bouge pour des avantages, des lots et, là où la loi le permet, de vraies récompenses. Noté sur ton cœur, pas sur ta vitesse.",
     trainingChip: "Plan synchronisé avec ton agenda",
     wealthChip: "{money} investi par séance",
-    wealthNote: "Sweat & Invest · optionnel · ton argent · partenaire agréé · selon le pays",
+    wealthNote: "Sweat & Invest · avec Robinhood (prévu) · ton argent · selon le pays",
     ctaPrimary: "Débloque ta ville",
     ctaSecondary: "Ce que tu y trouves",
   },
@@ -60,8 +60,8 @@ export const fr: Dictionary = {
       },
       {
         tag: "Sweat & Invest",
-        title: "Tes séances. Tes choix.",
-        body: "Suis les actions et cryptos qui t'intéressent. Si tu veux, investis {money} de ton propre argent par séance, via un partenaire agréé.",
+        title: "S'entraîner & investir, en duo.",
+        body: "Chaque sport fait duo avec une action : course → NKE, yoga → LULU. Chaque séance peut investir {money} de ton propre argent dans son duo, avec Robinhood (prévu).",
         cta: "Crée ton Pulse",
       },
     ],
@@ -742,6 +742,14 @@ export const fr: Dictionary = {
       title: "Recover",
       body: "Ta Brand Team monte ? Repos, étirements, bonne nuit. Un défi tombe dans quelques heures.",
     },
+    paired: {
+      title: "S'entraîner & investir, en duo",
+      body: "L'entraînement et l'investissement vont ensemble. Chaque sport a son action : chaque séance vérifiée ajoute {money} de ton propre argent à son duo, sur ton compte Robinhood. Change n'importe quel duo, fixe un plafond par semaine, mets en pause quand tu veux.",
+      session: "1 séance",
+      week: "Cette semaine : {count} séances → {money} investis, sur {pairs} duos",
+      partner:
+        "Prévu avec Robinhood : un compte-titres aux États-Unis, les actions tokenisées Robinhood dans l'UE. Sous réserve d'un accord de partenariat. Canada et autres pays : un autre courtier agréé. Ton argent, ton compte, selon le pays. Investir comporte des risques, dont la perte en capital.",
+    },
     mine: {
       title: "Ton Pulse",
       body: "Suis les actions et les cryptos qui t'intéressent. Mets-en une en étoile comme Brand Team : ses mouvements ouvrent des moments Rally et Recover dans le monde entier. Tes autres choix te tiennent simplement informé, au calme.",
@@ -814,7 +822,7 @@ export const fr: Dictionary = {
       items: [
         {
           title: "Sweat & Invest",
-          body: "Choisis un actif que tu suis, comme la marque de tes chaussures de running, et crée une règle chez un courtier agréé ou un prestataire crypto réglementé : « {money} à chaque séance ». Ton argent, ton compte ; VVake envoie seulement le nombre de séances vérifiées, avec ton accord.",
+          body: "Chaque sport fait duo avec un actif que tu choisis, comme la marque de tes chaussures de running. Crée une règle chez ton courtier (Robinhood prévu, ou un autre courtier agréé ; crypto via un prestataire réglementé) : « {money} à chaque séance ». Ton argent, ton compte ; VVake envoie seulement le nombre de séances vérifiées, avec ton accord.",
         },
         {
           title: "Récompenses en actions",
@@ -910,7 +918,7 @@ export const fr: Dictionary = {
       copy: "Copier",
       copied: "Copié",
       shareX: "Partager sur X",
-      shareText: "{city} se réveille. Aide-nous à débloquer VVake dans notre ville 👇",
+      shareText: "{city} se réveille. Aide-nous à débloquer VVake Fit dans notre ville 👇 @VVakeFit",
     },
     closed: {
       title: "La liste d'attente ouvre très bientôt.",
@@ -1233,9 +1241,9 @@ export const fr: Dictionary = {
     ],
   },
   footer: {
-    tagline: "Deux V font un W.",
+    tagline: "VVake Fit · Deux V font un W.",
     legal:
-      "VVake est un jeu fitness, pas un produit financier. Rien sur ce site ne constitue un conseil en investissement ni une offre de token, de titre ou d'instrument financier. Les données de marché sont affichées à titre de divertissement. Les noms d'équipes et les tickers sont utilisés à des fins d'identification uniquement ; aucune affiliation ni aucun partenariat n'est sous-entendu.",
+      "VVake Fit est un jeu fitness, pas un produit financier. Rien sur ce site ne constitue un conseil en investissement ni une offre de token, de titre ou d'instrument financier. Les données de marché sont affichées à titre de divertissement. Les noms d'équipes et les tickers sont utilisés à des fins d'identification uniquement ; aucune affiliation ni aucun partenariat n'est sous-entendu.",
     privacy: "Confidentialité",
     partners: "Partenaires",
     contact: "Contact",

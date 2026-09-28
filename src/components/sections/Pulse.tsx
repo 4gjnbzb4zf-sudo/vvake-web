@@ -2,8 +2,17 @@ import { InView } from "@/components/ui/InView";
 import { Section } from "@/components/ui/Section";
 import type { Dictionary } from "@/i18n/dictionaries";
 import { MyPulse } from "./MyPulse";
+import { SweatPairing } from "./SweatPairing";
 
-export function Pulse({ dict, index }: { dict: Dictionary["pulse"]; index: string }) {
+export function Pulse({
+  dict,
+  index,
+  sportNames,
+}: {
+  dict: Dictionary["pulse"];
+  index: string;
+  sportNames: Dictionary["multisport"]["sports"];
+}) {
   return (
     <Section id="pulse" index={index} kicker={dict.kicker} title={dict.title} lead={dict.body}>
       <div className="mt-14 overflow-hidden rounded-3xl border border-line bg-surface/50">
@@ -16,6 +25,7 @@ export function Pulse({ dict, index }: { dict: Dictionary["pulse"]; index: strin
         </div>
       </div>
       <MyPulse dict={dict.mine} />
+      <SweatPairing dict={dict.paired} sportNames={sportNames} />
       <p className="mt-4 text-sm text-faint">{dict.disclaimer}</p>
     </Section>
   );
