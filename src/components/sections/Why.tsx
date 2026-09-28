@@ -7,7 +7,7 @@ import type { Dictionary } from "@/i18n/dictionaries";
 const AVATARS: readonly Partial<VVakerTraits>[] = [
   { color: "coral", sport: "runner", headgear: "none", eyes: "fired", mouth: "grin", accessory: "bib", bib: 42, energy: 4 },
   { color: "sky", sport: "walker", headgear: "cap", accent: "flame", accessory: "towel", energy: 3 },
-  { color: "butter", sport: "baller", headgear: "beanie", eyes: "star", mouth: "grin", accessory: "medal", energy: 3 },
+  { color: "butter", sport: "baller", headgear: "beanie", eyes: "star", mouth: "grin", fan: "montreal-hockey", energy: 3 },
   { color: "mint", sport: "coder", headgear: "headphones", accent: "volt", eyes: "happy", mouth: "calm", energy: 2 },
 ];
 

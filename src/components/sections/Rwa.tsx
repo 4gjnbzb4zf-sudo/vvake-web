@@ -64,6 +64,21 @@ export function Rwa({ dict, index }: { dict: Dictionary["rwa"]; index: string })
           </ul>
         </div>
       </div>
+
+      <div className="mt-6 rounded-3xl border border-volt/30 bg-volt/5 p-6 sm:p-8">
+        <h3 className="font-display text-xl font-semibold">💹 {dict.wealth.title}</h3>
+        <p className="mt-2 max-w-3xl text-sm leading-relaxed text-muted">{dict.wealth.body}</p>
+        <ol className="mt-5 grid gap-3 md:grid-cols-3">
+          {dict.wealth.items.map((w, i) => (
+            <li key={w.title} className="rounded-2xl border border-line bg-night/60 p-4">
+              <span className="font-mono text-xs text-volt">{String(i + 1).padStart(2, "0")}</span>
+              <p className="mt-1 font-display font-semibold">{w.title}</p>
+              <p className="mt-1.5 text-sm leading-relaxed text-muted">{w.body}</p>
+            </li>
+          ))}
+        </ol>
+        <p className="mt-4 text-xs leading-relaxed text-faint">{dict.wealth.note}</p>
+      </div>
       <p className="mt-4 text-xs leading-relaxed text-faint">{dict.disclaimer}</p>
     </Section>
   );

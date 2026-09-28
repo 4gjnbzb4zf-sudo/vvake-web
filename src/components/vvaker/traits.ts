@@ -30,6 +30,27 @@ export const VVAKER_BACKGROUNDS = {
   cream: "#f1ead9",
 } as const;
 
+/**
+ * Fan kits: unofficial team *colors* (scarf + jersey stripe), labelled by city and sport, never club logos
+ * or names (C15). Official club kits need a licence. Not part of the DNA: fans pledge per season.
+ */
+export const FAN_KITS = {
+  none: null,
+  "montreal-hockey": ["#af1e2d", "#192168"],
+  "toronto-hockey": ["#00205b", "#ffffff"],
+  "calgary-hockey": ["#c8102e", "#f1be48"],
+  "edmonton-hockey": ["#041e42", "#ff4c00"],
+  "paris-football": ["#004170", "#da291c"],
+  "marseille-football": ["#2faee0", "#ffffff"],
+  "lyon-football": ["#ffffff", "#1b3f8b"],
+  "toulouse-rugby": ["#e30613", "#111111"],
+  "boston-baseball": ["#bd3039", "#0c2340"],
+  "new-york-baseball": ["#0c2340", "#c4ced4"],
+  "green-bay-football": ["#203731", "#ffb612"],
+} as const satisfies Record<string, readonly [string, string] | null>;
+
+export type FanKit = keyof typeof FAN_KITS;
+
 export const VVAKER_SPORTS = ["runner", "walker", "lifter", "cyclist", "boxer", "yogi", "baller", "coder"] as const;
 export const VVAKER_HEADGEARS = ["none", "cap", "beanie", "headphones", "helmet"] as const;
 export const VVAKER_EYES = ["pixel", "happy", "fired", "sleepy", "visor", "star"] as const;
@@ -57,6 +78,8 @@ export interface VVakerTraits {
   bib: number;
   /** Filled segments of the energy bar, 0–4. */
   energy: number;
+  /** Seasonal team-colors kit (not part of the DNA). */
+  fan: FanKit;
 }
 
 export const DEFAULT_TRAITS: VVakerTraits = {
@@ -69,6 +92,7 @@ export const DEFAULT_TRAITS: VVakerTraits = {
   accessory: "none",
   bib: 7,
   energy: 3,
+  fan: "none",
 };
 
 export function clampBib(value: number): number {
@@ -90,5 +114,6 @@ export function randomTraits(random: () => number = Math.random): VVakerTraits {
     accessory: pick(VVAKER_ACCESSORIES, random),
     bib: Math.floor(random() * 100),
     energy: 1 + Math.floor(random() * 4),
+    fan: random() < 0.4 ? pick(Object.keys(FAN_KITS) as FanKit[], random) : "none",
   };
 }

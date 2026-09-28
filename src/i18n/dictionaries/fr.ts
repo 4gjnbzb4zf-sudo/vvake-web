@@ -498,6 +498,25 @@ export const fr: Dictionary = {
         "Te demander ta seed phrase",
       ],
     },
+    wealth: {
+      title: "Construire son patrimoine, dans les règles",
+      body: "Les tokens et objets de collection ne sont jamais vendus comme des investissements. Si tu veux que ton habitude sportive nourrisse une habitude d'épargne, voici comment on le fera, avec des partenaires agréés :",
+      items: [
+        {
+          title: "Sweat & Invest",
+          body: "Crée une règle chez un courtier partenaire agréé, comme « 1 € dans l'action de ma Brand Team à chaque séance ». Ton argent, ton compte ; VVake envoie seulement le signal de séance, avec ton accord.",
+        },
+        {
+          title: "Récompenses en actions",
+          body: "Des courtiers partenaires pourront récompenser les gagnants de défis avec des fractions d'actions, là où c'est légal.",
+        },
+        {
+          title: "Devenir actionnaire de VVake",
+          body: "Lors d'une levée, les fans pourront investir dans l'entreprise elle-même via une campagne de financement participatif en capital réglementée : de vraies actions, de vraies informations.",
+        },
+      ],
+      note: "Prévu, sous réserve d'accords avec des partenaires et d'autorisations légales dans chaque pays. Investir comporte des risques, dont la perte en capital. Rien ici n'est un conseil en investissement.",
+    },
     disclaimer:
       "Fonctionnalités prévues, sous réserve de revue juridique et de disponibilité régionale ; non proposées aux États-Unis ni au Royaume-Uni au lancement. Rien sur ce site n'est une offre de tokens, de titres ou un conseil financier. Les tickers sont affichés à des fins d'identification uniquement.",
   },
@@ -614,6 +633,7 @@ export const fr: Dictionary = {
     body: "Un petit athlète voxel qui est à toi, qui que tu sois et où que tu sois. Des millions de combinaisons : choisis ton corps, ton équipement, ton sport et ta tête de match, puis fais-en ta photo de profil et ta bannière X.",
     tabs: { body: "Corps", gear: "Équipement", sport: "Sport", face: "Visage" },
     controls: {
+      fan: "Kit supporter",
       color: "Couleur",
       background: "Fond",
       accent: "Couleur de l'équipement",
@@ -668,6 +688,39 @@ export const fr: Dictionary = {
         { name: "Poussière pixel", slot: "Traînée", supply: "Saison 1 · limité" },
         { name: "Kit ville Lyon", slot: "Kit", supply: "Drop de ville · limité" },
       ],
+      utilityTitle: "Au-delà du style : ce qu'un objet de collection permet",
+      utility: [
+        {
+          icon: "🏕️",
+          title: "Pass Hôte de team",
+          body: "Organise des événements de team plus grands et publics, des pages récurrentes et une bannière de team.",
+        },
+        {
+          icon: "🎯",
+          title: "Créateur de défis",
+          body: "Crée des défis sur mesure pour ta team ou ta ville. Toujours gratuits pour participer.",
+        },
+        {
+          icon: "🎟️",
+          title: "Accès courses & événements",
+          body: "Des fenêtres prioritaires pour acheter des dossards et des billets partenaires.",
+        },
+        {
+          icon: "👟",
+          title: "Kits phygitaux",
+          body: "Des kits de marque échangeables contre du vrai équipement, avec nos marques partenaires.",
+        },
+        {
+          icon: "📜",
+          title: "Provenance",
+          body: "Ton équipement enregistre des exploits vérifiés : premiers 100 km, champion de clash, ville fondatrice.",
+        },
+        {
+          icon: "🏟️",
+          title: "Kits officiels de clubs",
+          body: "Des kits d'équipe sous licence pour les vrais fans, quand les clubs nous rejoignent (partenaires Fan Clash).",
+        },
+      ],
       perksTitle: "Avantages des détenteurs",
       perks: [
         "Affiche-le partout sur le web : profil, classements, cartes de partage",
@@ -685,6 +738,21 @@ export const fr: Dictionary = {
       ],
       note: "Portail web uniquement, adultes, pas dans tous les pays. Dans les apps iOS et Android, les objets de collection sont visibles uniquement, et les mêmes looks existent en achats intégrés classiques. Les objets de collection ne sont pas des investissements.",
     },
+    fanKits: {
+      none: "Aucune équipe",
+      "montreal-hockey": "Montréal hockey",
+      "toronto-hockey": "Toronto hockey",
+      "calgary-hockey": "Calgary hockey",
+      "edmonton-hockey": "Edmonton hockey",
+      "paris-football": "Paris foot",
+      "marseille-football": "Marseille foot",
+      "lyon-football": "Lyon foot",
+      "toulouse-rugby": "Toulouse rugby",
+      "boston-baseball": "Boston baseball",
+      "new-york-baseball": "New York baseball",
+      "green-bay-football": "Green Bay (NFL)",
+    },
+    fanNote: "Couleurs d'équipe non officielles pour montrer ton soutien. Les kits officiels arrivent avec les licences des clubs.",
     dna: {
       label: "L'ADN de ton VVaker",
       note: "Au lancement, tu le réserves : un par personne, pas de doublon, à toi pour toujours. S'il est pris, on te propose le jumeau libre le plus proche.",

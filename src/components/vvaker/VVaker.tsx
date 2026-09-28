@@ -1,5 +1,5 @@
 import { shade } from "@/lib/color";
-import { DEFAULT_TRAITS, VVAKER_ACCENTS, VVAKER_COLORS, clampBib, type VVakerTraits } from "./traits";
+import { DEFAULT_TRAITS, FAN_KITS, VVAKER_ACCENTS, VVAKER_COLORS, clampBib, type VVakerTraits } from "./traits";
 
 const INK = "#15181b";
 const PULSE = "#ff3d6e";
@@ -84,6 +84,7 @@ export function VVaker({ title, className, ...partial }: VVakerProps) {
         <rect x="80" y="158" width="74" height="64" fill={base} />
         <polygon points="80,158 96,146 170,146 154,158" fill={light} />
         {t.accessory === "none" && <rect x="112" y="178" width="10" height="10" fill={PULSE} className="animate-pulse-glow" />}
+        <FanKitLayer kit={FAN_KITS[t.fan]} />
         <Accessory accessory={t.accessory} accent={accent} bib={clampBib(t.bib)} />
 
         {/* arms + hands */}
@@ -376,4 +377,24 @@ function SportProp({ sport, accent }: { sport: VVakerTraits["sport"]; accent: st
     default:
       return null;
   }
+}
+
+/** Team colors: a jersey stripe across the chest and a two-tone scarf. */
+function FanKitLayer({ kit }: { kit: readonly [string, string] | null }) {
+  if (!kit) return null;
+  const [a, b] = kit;
+  return (
+    <g>
+      <rect x="80" y="196" width="74" height="10" fill={a} />
+      <rect x="80" y="206" width="74" height="4" fill={b} />
+      <polygon points="154,196 170,184 170,198 154,210" fill={shade(a, -0.3)} />
+      <path d="M78 150 H158 V162 H78 Z" fill={a} />
+      {[86, 102, 118, 134, 150].map((x) => (
+        <rect key={x} x={x} y="150" width="8" height="12" fill={b} stroke="none" />
+      ))}
+      <rect x="84" y="160" width="14" height="36" fill={a} />
+      <rect x="84" y="172" width="14" height="6" fill={b} stroke="none" />
+      <rect x="84" y="186" width="14" height="6" fill={b} stroke="none" />
+    </g>
+  );
 }
