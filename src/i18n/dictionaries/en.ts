@@ -628,6 +628,7 @@ export const en = {
     vibeLabel: "Vibe",
     play: "Hear a sample",
     stop: "Stop",
+    demoNote: "Demo uses your device's own voices. The app will use studio-quality coach voices.",
     styles: {
       hype: {
         name: "Hype",
@@ -683,6 +684,27 @@ export const en = {
       chill: { name: "Chill", prefix: "Hey you. " },
       "beast-mode": { name: "Beast mode", prefix: "Beast mode ON. " },
       friendly: { name: "Friendly", prefix: "Hi friend! " },
+    },
+    memory: {
+      title: "It remembers you. And follows up.",
+      body: "Your answers become your coach's notes, so every call picks up where the last one left off. You're in control: see, edit or forget anything.",
+      notesTitle: "What your coach remembers",
+      followTitle: "Next call",
+      forget: "Forget",
+      empty: "Nothing to follow up. Your coach will just ask how you're doing.",
+      notes: [
+        { id: "p", icon: "🦵", topic: "Pain", text: "Knees sore after Sunday's long run" },
+        { id: "c", icon: "🤝", topic: "Commitment", text: "Thursday run with Sam" },
+        { id: "g", icon: "🎯", topic: "Goal", text: "10K in November" },
+        { id: "m", icon: "🌅", topic: "Preference", text: "Prefers morning runs" },
+      ],
+      followups: {
+        p: "Last Sunday you said your knees were sore. How are they today? Let's keep it gentle: 30 minutes on the bike instead. If the pain sticks around, check in with a physio.",
+        c: "So… did Thursday's run with Sam happen? 🔥",
+        g: "10K in November: six weeks out and right on track.",
+        m: "I've put your sessions in the morning, like you like them.",
+      },
+      privacy: "Notes live in your private journal, never used for ads, and you can delete them anytime.",
     },
     rules: [
       "Opt-in: 2 calls a week at most, never at night",
