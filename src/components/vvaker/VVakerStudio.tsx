@@ -4,6 +4,7 @@ import { useId, useRef, useState, type ReactNode } from "react";
 import { buttonClass } from "@/components/ui/Button";
 import type { Dictionary } from "@/i18n/dictionaries";
 import { cn } from "@/lib/cn";
+import { encodeDna } from "@/lib/dna";
 import {
   DEFAULT_TRAITS,
   VVAKER_ACCENTS,
@@ -88,6 +89,13 @@ export function VVakerStudio({ dict }: { dict: Dictionary["vvaker"] }) {
           >
             {dict.downloadBanner}
           </button>
+        </div>
+        <div className="mx-auto mt-4 max-w-[440px] rounded-2xl border border-volt/30 bg-volt/5 p-4">
+          <p className="font-mono text-[0.68rem] tracking-[0.16em] text-faint uppercase">{dict.dna.label}</p>
+          <p className="mt-1 font-mono text-xl font-medium tracking-wider text-volt" aria-live="polite">
+            {encodeDna(traits, background)}
+          </p>
+          <p className="mt-2 text-xs leading-relaxed text-muted">{dict.dna.note}</p>
         </div>
       </div>
 

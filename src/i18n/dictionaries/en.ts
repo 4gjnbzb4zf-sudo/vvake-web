@@ -496,6 +496,36 @@ export const en = {
     note: "Free for everyone. No wallet needed.",
     alt: "Your VVaker avatar",
     bannerTagline: "Two Vs make a W.",
+    dna: {
+      label: "Your VVaker DNA",
+      note: "At launch you claim it: one per person, no duplicates, yours forever. If it's taken, we suggest the closest free twin.",
+    },
+    tiers: {
+      title: "Free forever. Earned. Collector.",
+      columns: [
+        {
+          name: "Free forever",
+          items: [
+            "Your unique VVaker, claimed once, never transferable",
+            "All bodies, sports, faces and base gear",
+            "Avatar PNG & X banner",
+          ],
+        },
+        {
+          name: "Earned by moving",
+          items: [
+            "Levels 1–50: Rookie → Legend",
+            "Streak flames, league frames, city badges",
+            "Founder crown for the first 100 in your city",
+          ],
+        },
+        {
+          name: "Collector (paid)",
+          items: ["Holo, chrome & neon finishes", "Auras, trails & victory emotes", "Seasonal city & brand kits (collectibles)"],
+        },
+      ],
+      note: "Paid add-ons are cosmetic only: they never change rewards, energy, rankings or your share of anything. Levels can't be bought.",
+    },
   },
   dev: {
     kicker: "For builders",

@@ -527,6 +527,40 @@ export const fr: Dictionary = {
     note: "Gratuit pour tout le monde. Pas besoin de wallet.",
     alt: "Ton avatar VVaker",
     bannerTagline: "Deux V font un W.",
+    dna: {
+      label: "L'ADN de ton VVaker",
+      note: "Au lancement, tu le réserves : un par personne, pas de doublon, à toi pour toujours. S'il est pris, on te propose le jumeau libre le plus proche.",
+    },
+    tiers: {
+      title: "Gratuit pour toujours. Mérité. Collection.",
+      columns: [
+        {
+          name: "Gratuit pour toujours",
+          items: [
+            "Ton VVaker unique, réservé une fois, jamais transférable",
+            "Tous les corps, sports, visages et l'équipement de base",
+            "Avatar PNG & bannière X",
+          ],
+        },
+        {
+          name: "Gagné en bougeant",
+          items: [
+            "Niveaux 1 à 50 : Rookie → Legend",
+            "Flammes de série, cadres de ligue, badges de ville",
+            "Couronne Founder pour les 100 premiers de ta ville",
+          ],
+        },
+        {
+          name: "Collection (payant)",
+          items: [
+            "Finitions holo, chrome & néon",
+            "Auras, traînées & célébrations",
+            "Kits de saison ville & marque (objets de collection)",
+          ],
+        },
+      ],
+      note: "Les options payantes sont uniquement cosmétiques : elles ne changent jamais les récompenses, l'énergie, les classements ni ta part de quoi que ce soit. Les niveaux ne s'achètent pas.",
+    },
   },
   dev: {
     kicker: "Pour les builders",
