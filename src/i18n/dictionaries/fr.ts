@@ -527,6 +527,34 @@ export const fr: Dictionary = {
     note: "Gratuit pour tout le monde. Pas besoin de wallet.",
     alt: "Ton avatar VVaker",
     bannerTagline: "Deux V font un W.",
+    collect: {
+      kicker: "NFT de collection · optionnels",
+      title: "Ton VVaker est gratuit. Le style se collectionne.",
+      body: "Les options sont des objets de collection saisonniers et limités, dans le portail web VVake : finitions, auras, traînées, célébrations et kits de ville. Ils subliment ton VVaker, et ne changent jamais le jeu.",
+      cards: [
+        { name: "Finition holo", slot: "Finition", supply: "Saison 1 · limité" },
+        { name: "Aura flamme", slot: "Aura", supply: "Saison 1 · limité" },
+        { name: "Néon volt", slot: "Finition", supply: "Saison 1 · limité" },
+        { name: "Poussière pixel", slot: "Traînée", supply: "Saison 1 · limité" },
+        { name: "Kit ville Lyon", slot: "Kit", supply: "Drop de ville · limité" },
+      ],
+      perksTitle: "Avantages des détenteurs",
+      perks: [
+        "Affiche-le partout sur le web : profil, classements, cartes de partage",
+        "Accès anticipé aux drops limités et aux kits de ville",
+        "Avantages partenaires bien réels : réductions salles et équipement, financées par les partenaires",
+        "Rencontres entre détenteurs et sessions de run club avec les ambassadeurs",
+        "Vote sur les designs de la saison suivante",
+      ],
+      neverTitle: "Jamais inclus",
+      never: [
+        "Plus de récompenses, d'énergie ou de classement",
+        "Des participations en plus aux tirages",
+        "Une part des revenus",
+        "Quoi que ce soit d'obligatoire pour jouer",
+      ],
+      note: "Portail web uniquement, adultes, pas dans tous les pays. Dans les apps iOS et Android, les objets de collection sont visibles uniquement, et les mêmes looks existent en achats intégrés classiques. Les objets de collection ne sont pas des investissements.",
+    },
     dna: {
       label: "L'ADN de ton VVaker",
       note: "Au lancement, tu le réserves : un par personne, pas de doublon, à toi pour toujours. S'il est pris, on te propose le jumeau libre le plus proche.",
@@ -551,7 +579,7 @@ export const fr: Dictionary = {
           ],
         },
         {
-          name: "Collection (payant)",
+          name: "Collection (NFT optionnels)",
           items: [
             "Finitions holo, chrome & néon",
             "Auras, traînées & célébrations",

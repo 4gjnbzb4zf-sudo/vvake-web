@@ -496,6 +496,29 @@ export const en = {
     note: "Free for everyone. No wallet needed.",
     alt: "Your VVaker avatar",
     bannerTagline: "Two Vs make a W.",
+    collect: {
+      kicker: "Collector NFTs · optional",
+      title: "Your VVaker is free. The drip is collectible.",
+      body: "Add-ons are limited seasonal collectibles in the VVake web portal: finishes, auras, trails, emotes and city kits. They look great on your VVaker, and they never change the game.",
+      cards: [
+        { name: "Holo finish", slot: "Finish", supply: "Season 1 · capped" },
+        { name: "Flame aura", slot: "Aura", supply: "Season 1 · capped" },
+        { name: "Neon volt", slot: "Finish", supply: "Season 1 · capped" },
+        { name: "Pixel dust", slot: "Trail", supply: "Season 1 · capped" },
+        { name: "Lyon city kit", slot: "Kit", supply: "City drop · capped" },
+      ],
+      perksTitle: "Holder perks",
+      perks: [
+        "Show it everywhere on the web: profile, leaderboards, share cards",
+        "Early access to limited drops and city kits",
+        "Real-life partner perks: gym and gear discounts, paid for by partners",
+        "Holder meetups and run-club sessions with ambassadors",
+        "Vote on next season's designs",
+      ],
+      neverTitle: "Never included",
+      never: ["More rewards, energy or ranking", "Extra prize entries", "Any share of revenue", "Anything required to play"],
+      note: "Web portal only, adults, not available in every country. In the iOS and Android apps, collectibles are view-only and the same looks exist as regular in-app purchases. Collectibles are not investments.",
+    },
     dna: {
       label: "Your VVaker DNA",
       note: "At launch you claim it: one per person, no duplicates, yours forever. If it's taken, we suggest the closest free twin.",
@@ -520,7 +543,7 @@ export const en = {
           ],
         },
         {
-          name: "Collector (paid)",
+          name: "Collector (optional NFTs)",
           items: ["Holo, chrome & neon finishes", "Auras, trails & victory emotes", "Seasonal city & brand kits (collectibles)"],
         },
       ],
