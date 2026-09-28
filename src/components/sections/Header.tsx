@@ -8,13 +8,11 @@ import type { Dictionary } from "@/i18n/dictionaries";
 
 export function Header({ locale, dict }: { locale: Locale; dict: Dictionary["nav"] }) {
   const links = [
-    { href: "#challenges", label: dict.challenges },
-    { href: "#crew", label: dict.crew },
-    { href: "#app", label: dict.app },
-    { href: "#rivalries", label: dict.rivalries },
-    { href: "#open-book", label: dict.openBook },
+    { href: "#why", label: dict.why },
+    { href: "#earn", label: dict.earn },
+    { href: "#how", label: dict.play },
     { href: "#vvaker", label: dict.vvaker },
-    { href: "#partners", label: dict.partners },
+    { href: "#rwa", label: dict.web3 },
     { href: "#faq", label: dict.faq },
   ];
   return (
@@ -31,7 +29,7 @@ export function Header({ locale, dict }: { locale: Locale; dict: Dictionary["nav
           <Logo />
         </Link>
         <nav aria-label="Main" className="hidden lg:block">
-          <ul className="flex items-center gap-6 font-mono text-[0.72rem] tracking-[0.14em] text-muted uppercase">
+          <ul className="flex items-center gap-5 font-mono text-[0.72rem] tracking-[0.12em] whitespace-nowrap text-muted uppercase xl:gap-7">
             {links.map((l) => (
               <li key={l.href}>
                 <a href={l.href} className="border-b-2 border-transparent py-1 transition-colors hover:border-volt hover:text-text">
@@ -43,8 +41,27 @@ export function Header({ locale, dict }: { locale: Locale; dict: Dictionary["nav
         </nav>
         <div className="flex items-center gap-3">
           <LocaleSwitch locale={locale} label={dict.language} />
+          <details className="group relative lg:hidden">
+            <summary className="flex h-10 cursor-pointer list-none items-center rounded-lg border border-line px-3 font-mono text-xs tracking-[0.12em] text-muted uppercase hover:text-text [&::-webkit-details-marker]:hidden">
+              {dict.menu} <span className="ml-1.5 transition-transform group-open:rotate-180">▾</span>
+            </summary>
+            <ul className="absolute right-0 mt-2 w-52 space-y-1 rounded-2xl border border-line bg-night/95 p-2 font-mono text-xs tracking-[0.12em] uppercase shadow-xl backdrop-blur-xl">
+              {links.map((l) => (
+                <li key={l.href}>
+                  <a href={l.href} className="block rounded-lg px-3 py-2.5 text-muted hover:bg-surface hover:text-text">
+                    {l.label}
+                  </a>
+                </li>
+              ))}
+              <li className="sm:hidden">
+                <a href="#unlock" className="block rounded-lg bg-pulse px-3 py-2.5 text-night">
+                  {dict.join}
+                </a>
+              </li>
+            </ul>
+          </details>
           <div className="hidden sm:block">
-            <ButtonLink href="#unlock" className="h-10 px-4">
+            <ButtonLink href="#unlock" className="h-10 px-4 whitespace-nowrap">
               {dict.join}
             </ButtonLink>
           </div>
