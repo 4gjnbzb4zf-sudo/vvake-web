@@ -357,7 +357,7 @@ export const fr: Dictionary = {
       {
         tag: "On-chain (prévu)",
         title: "Robinhood Chain garde tout ouvert",
-        body: "La chaîne où vivent déjà les actions tokenisées (RWA). Prévu : un token VVake lancé sur vibe/vibe, un contrat public de répartition des frais, des récompenses de saison pour l'effort, des objets de collection cosmétiques.",
+        body: "La chaîne où vivent déjà les actions tokenisées (RWA). Prévu : un contrat public de répartition des frais, des récompenses de saison pour l'effort versées en stablecoin ou en avantages, des objets de collection cosmétiques, et plus tard un token VVake optionnel sur vibe/vibe.",
         points: [
           "Répartition des frais publique, on-chain",
           "Récompenses de saison pour l'effort",
