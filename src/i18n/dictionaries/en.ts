@@ -1062,6 +1062,17 @@ export const en = {
     scars: { none: "None", brow: "Brow", cheek: "Cheek" },
     physiques: { regular: "Regular", slim: "Slim", chubby: "Curvy", muscular: "Muscular" },
     eyeColors: { dark: "Dark", brown: "Brown", blue: "Blue", green: "Green", hazel: "Hazel", grey: "Grey", amber: "Amber" },
+    picker: {
+      title: "Pick your style",
+      note: "Changes every VVaker on the site · saved in this browser",
+      blurbs: {
+        toy: "Playful voxel toy. Big head, big heart.",
+        "athlete-a": "Sporty build: V-taper, tank top, shorts.",
+        "athlete-b": "Sporty build: curves, sports top, leggings.",
+      },
+      selected: "Selected",
+      choose: "Choose",
+    },
     looks: { toy: "Toy", "athlete-a": "Athlete · A", "athlete-b": "Athlete · B" },
     styleNote:
       "Two styles, open to everyone. Switch anytime (here or in the menu): every VVaker on the site changes, and your pick is saved in this browser.",

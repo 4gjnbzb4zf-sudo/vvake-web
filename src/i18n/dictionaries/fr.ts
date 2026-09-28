@@ -1117,6 +1117,17 @@ export const fr: Dictionary = {
     scars: { none: "Aucune", brow: "Sourcil", cheek: "Joue" },
     physiques: { regular: "Standard", slim: "Mince", chubby: "Rond", muscular: "Musclé" },
     eyeColors: { dark: "Foncés", brown: "Marron", blue: "Bleus", green: "Verts", hazel: "Noisette", grey: "Gris", amber: "Ambre" },
+    picker: {
+      title: "Choisis ton style",
+      note: "Change tous les VVakers du site · enregistré dans ce navigateur",
+      blurbs: {
+        toy: "Jouet voxel rigolo. Grosse tête, grand cœur.",
+        "athlete-a": "Silhouette sportive : en V, débardeur, short.",
+        "athlete-b": "Silhouette sportive : courbes, brassière, legging.",
+      },
+      selected: "Choisi",
+      choose: "Choisir",
+    },
     looks: { toy: "Toy", "athlete-a": "Athlète · A", "athlete-b": "Athlète · B" },
     styleNote:
       "Deux styles, ouverts à toutes et tous. Change quand tu veux (ici ou dans le menu) : tous les VVakers du site suivent, et ton choix est enregistré dans ce navigateur.",

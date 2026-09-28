@@ -149,7 +149,7 @@ export function VVakerAthlete({
               <g className={animate && blinks ? "vv-blink" : undefined}>
                 <Eyes eyes={t.eyes} color={VVAKER_EYE_COLORS[t.eyeColor]} />
               </g>
-              <Scar scar={t.scar} />
+              <Scar scar={t.scar} skin={skin} />
               <Fade keys={m.strain ? mapKeys(m.strain, (v) => 0.75 + v * 0.25) : undefined} period={m.period} animate={animate}>
                 <rect x="68" y="126" width="14" height="8" fill={shade(PULSE, 0.45)} opacity={m.strain ? undefined : 0.75} />
                 <rect x="150" y="126" width="14" height="8" fill={shade(PULSE, 0.45)} opacity={m.strain ? undefined : 0.75} />
