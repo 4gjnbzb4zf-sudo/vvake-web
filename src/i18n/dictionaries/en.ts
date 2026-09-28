@@ -624,6 +624,8 @@ export const en = {
     title: "It calls. You talk. You move better.",
     body: "Your VVaker checks in by voice: how's the week going, what felt good, what to change. Pick its voice style and vibe, and it becomes the trainer you actually listen to.",
     call: { incoming: "Incoming call", who: "Your VVaker · coach mode", accept: "Answer", decline: "Later" },
+    voiceLabel: "Voice",
+    voices: { female: "Female voice", male: "Male voice" },
     styleLabel: "Voice style",
     vibeLabel: "Vibe",
     play: "Hear a sample",
