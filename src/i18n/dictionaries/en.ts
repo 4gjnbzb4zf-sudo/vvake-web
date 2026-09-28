@@ -682,9 +682,30 @@ export const en = {
   pulse: {
     kicker: "Market Pulse",
     title: "The market wakes. We move.",
-    body: "Pick a Brand Team. When its market moves, a worldwide moment opens, and everyone moves together.",
+    body: "Pick a Brand Team and follow the stocks or crypto you care about. When your Brand Team moves, a worldwide moment opens, and everyone moves together.",
     rally: { tag: "Red day", title: "Rally", body: "Brand down? A 45-minute worldwide Rally opens. Lace up with thousands of others." },
     recover: { tag: "Green day", title: "Recover", body: "Brand up? Rest, stretch, sleep well. A challenge drops in a few hours." },
+    mine: {
+      title: "Your Pulse",
+      body: "Follow the stocks and crypto you care about. Star one as your Brand Team: its moves open worldwide Rally and Recover moments. Your other picks just keep you posted, calmly.",
+      picks: "Your picks",
+      star: "Brand Team",
+      suggested: "Suggested from your sports",
+      cryptoHint: "Crypto only if you add it",
+      today: "Today",
+      rally: "{line} · Rally open for 45 min",
+      recover: "{line} · Recover day: rest well, a challenge drops tonight",
+      move: "{line}",
+      digest: "In your Sunday digest",
+      invest: "Sweat & Invest · 4 workouts → {money} into {symbol}, at your broker",
+      rules: [
+        "Facts only: no buy or sell tips, no predictions",
+        "One market alert a day at most, never at night",
+        "Crypto only if you add it, through regulated providers",
+        "Challenges stay free: rewards never depend on prices",
+      ],
+      demo: "Demo · illustrative figures",
+    },
     disclaimer:
       "Illustration. Market data only sets the theme of free challenges. Rewards never depend on prices, and VVake does not sell or give away stocks.",
   },
@@ -732,7 +753,7 @@ export const en = {
       items: [
         {
           title: "Sweat & Invest",
-          body: "Set a rule with a licensed broker partner, like “{money} into my Brand Team stock for every workout”. Your money, your account; VVake only sends the workout signal, with your consent.",
+          body: "Pick an asset you follow, like the brand of your running shoes, and set a rule with a licensed broker or regulated crypto provider: “{money} for every workout”. Your money, your account; VVake only sends the verified-workout count, with your consent.",
         },
         { title: "Stock rewards", body: "Broker partners may reward fitness-challenge winners with fractional shares, where it's legal." },
         {
