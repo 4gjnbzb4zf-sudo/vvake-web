@@ -22,6 +22,12 @@ const SPORTS: readonly SportKey[] = [
   "roller",
   "skater",
   "swimmer",
+  "hiker",
+  "climber",
+  "racket",
+  "dancer",
+  "skier",
+  "footballer",
   "meditator",
 ];
 const EMOJI: Record<string, string> = {
@@ -38,6 +44,12 @@ const EMOJI: Record<string, string> = {
   roller: "🛼",
   skater: "⛸️",
   swimmer: "🏊",
+  hiker: "🥾",
+  climber: "🧗",
+  racket: "🎾",
+  dancer: "💃",
+  skier: "⛷️",
+  footballer: "⚽",
   coder: "💻",
 };
 const INTENSITY: Record<SessionIntensity, string> = {

@@ -307,8 +307,29 @@ function HandProp({ sport, side, accent = VOLT }: { sport: VVakerTraits["sport"]
       </g>
     );
   }
+  if (sport === "hiker" || sport === "skier") {
+    return side === "left" ? (
+      <g>
+        <path d="M66 210 L50 288" stroke="#3a4047" strokeWidth={4} strokeLinecap="round" />
+        <circle cx="50" cy="286" r="4" fill={VOLT} />
+      </g>
+    ) : (
+      <g>
+        <path d="M184 208 L198 288" stroke="#3a4047" strokeWidth={4} strokeLinecap="round" />
+        <circle cx="198" cy="286" r="4" fill={VOLT} />
+      </g>
+    );
+  }
   if (side === "left") return null;
   switch (sport) {
+    case "racket":
+      return (
+        <g>
+          <rect x="177" y="212" width="8" height="22" rx="3" fill="#2b3036" />
+          <ellipse cx="181" cy="254" rx="16" ry="21" fill="none" stroke={accent} strokeWidth={5} />
+          <path d="M170 244 H192 M168 254 H194 M170 264 H192 M176 236 V272 M186 236 V272" stroke="#dfe6ee" strokeWidth={1} />
+        </g>
+      );
     case "lifter":
       return (
         <g>
@@ -657,6 +678,85 @@ function Scene({ sport, m, animate }: { sport: VVakerTraits["sport"]; m: Motion;
           </g>
         </Joint>
       );
+    case "hiker":
+      return (
+        <g stroke={OUTLINE} strokeWidth={2} strokeLinejoin="round">
+          <polygon points="-10,236 60,120 130,236" fill="#2f3a46" />
+          <polygon points="60,120 44,146 60,140 76,146" fill="#eef0f2" />
+          <polygon points="80,236 170,84 260,236" fill="#3b4755" />
+          <polygon points="170,84 150,116 170,108 190,116" fill="#eef0f2" />
+          <path d="M-10 292 Q120 262 250 250" stroke="#8a6a4a" strokeWidth={6} fill="none" />
+        </g>
+      );
+    case "climber":
+      return (
+        <g stroke={OUTLINE} strokeWidth={2}>
+          <rect x="18" y="14" width="204" height="276" rx="10" fill="#6b4f3a" />
+          {[
+            [40, 40, PULSE],
+            [96, 30, VOLT],
+            [180, 48, "#7fb6f5"],
+            [30, 120, "#7fe0c8"],
+            [210, 110, PULSE],
+            [44, 200, VOLT],
+            [200, 190, "#f5c542"],
+            [120, 20, "#b9a7f5"],
+            [210, 256, "#7fe0c8"],
+            [30, 260, "#f5c542"],
+          ].map(([x, y, c]) => (
+            <path key={`${x}-${y}`} d={`M${x} ${y} q8 -8 14 0 q2 8 -6 10 q-10 0 -8 -10 Z`} fill={c as string} />
+          ))}
+        </g>
+      );
+    case "racket":
+      return (
+        <g>
+          <polygon points="-20,300 30,228 210,228 260,300" fill="#2f7d5b" opacity={0.85} />
+          <path d="M30 228 L-20 300 M210 228 L260 300 M10 256 H230" stroke="#eef0f2" strokeWidth={2.5} opacity={0.8} />
+          <path d="M6 210 H234" stroke="#dfe6ee" strokeWidth={2} strokeDasharray="3 3" opacity={0.6} />
+        </g>
+      );
+    case "dancer":
+      return (
+        <g opacity={0.9}>
+          {Array.from({ length: 12 }, (_, i) => (
+            <rect
+              key={i}
+              x={(i % 6) * 40}
+              y={i < 6 ? 252 : 276}
+              width="40"
+              height="24"
+              fill={[PULSE, VOLT, "#7fb6f5", "#b9a7f5", "#7fe0c8", "#f5c542"][(i + (i < 6 ? 0 : 3)) % 6]}
+              opacity={0.35}
+              className={animate ? "animate-pulse-glow" : undefined}
+              style={animate ? { animationDelay: `-${(i * 0.37) % 2}s` } : undefined}
+            />
+          ))}
+        </g>
+      );
+    case "skier":
+      return (
+        <g stroke={OUTLINE} strokeWidth={2} strokeLinejoin="round">
+          <polygon points="-10,300 -10,236 250,196 250,300" fill="#eef4fa" />
+          {[
+            [26, 214, 22],
+            [206, 176, 26],
+            [224, 196, 18],
+          ].map(([x, y, h]) => (
+            <g key={x}>
+              <polygon points={`${x},${y - h} ${x - 12},${y + 6} ${x + 12},${y + 6}`} fill="#2f7d5b" />
+              <rect x={x - 2} y={y + 6} width="4" height="6" fill="#6b4f3a" />
+            </g>
+          ))}
+        </g>
+      );
+    case "footballer":
+      return (
+        <g>
+          <ellipse cx="120" cy="286" rx="124" ry="18" fill="#2f7d5b" opacity={0.7} />
+          <path d="M20 280 l3 -8 l3 8 M200 284 l3 -8 l3 8 M60 292 l3 -8 l3 8" stroke="#7fe0a0" strokeWidth={2} fill="none" />
+        </g>
+      );
     case "skater":
       return (
         <g>
@@ -778,6 +878,62 @@ function Front({ sport, m, animate }: { sport: VVakerTraits["sport"]; m: Motion;
           </g>
         </Fade>
       ) : null;
+    case "climber":
+      return animate && m.burst ? (
+        <Fade keys={m.burst} period={m.period} animate>
+          <g fill="#ffffff" opacity={0.7}>
+            <circle cx="50" cy="96" r="7" />
+            <circle cx="40" cy="88" r="4" />
+            <circle cx="190" cy="100" r="6" />
+            <circle cx="200" cy="90" r="3.5" />
+          </g>
+        </Fade>
+      ) : null;
+    case "racket":
+      return (
+        <Joint x={0} y={0} shift={m.ballX} lift={m.ballY} period={m.period} animate={animate}>
+          <circle cx="226" cy="168" r="7" fill="#d9f24a" stroke={OUTLINE} strokeWidth={1.5} />
+          <path d="M221 164 Q226 168 221 173" stroke="#ffffff" strokeWidth={1.2} fill="none" />
+        </Joint>
+      );
+    case "dancer":
+      return animate && m.burst ? (
+        <Fade keys={m.burst} period={m.period} animate>
+          <g fill={VOLT} stroke={OUTLINE} strokeWidth={1.5}>
+            <path d="M28 70 v-22 l14 -4 v22" fill="none" stroke={VOLT} strokeWidth={3} />
+            <circle cx="24" cy="72" r="5" />
+            <circle cx="38" cy="68" r="5" />
+            <path d="M206 50 v-20" stroke={PULSE} strokeWidth={3} />
+            <circle cx="202" cy="52" r="5" fill={PULSE} />
+          </g>
+        </Fade>
+      ) : null;
+    case "skier":
+      return animate ? (
+        <g fill="#ffffff">
+          {m.splashL && (
+            <Fade keys={m.splashL} period={m.period} animate>
+              <circle cx="40" cy="270" r="5" />
+              <circle cx="30" cy="262" r="3.5" />
+              <circle cx="48" cy="258" r="3" />
+            </Fade>
+          )}
+          {m.splashR && (
+            <Fade keys={m.splashR} period={m.period} animate>
+              <circle cx="196" cy="268" r="5" />
+              <circle cx="206" cy="260" r="3.5" />
+              <circle cx="188" cy="256" r="3" />
+            </Fade>
+          )}
+        </g>
+      ) : null;
+    case "footballer":
+      return (
+        <Joint x={0} y={0} lift={m.ballY} period={m.period} animate={animate}>
+          <circle cx="146" cy="252" r="13" fill="#f4f5f6" stroke={OUTLINE} strokeWidth={2} />
+          <polygon points="146,245 152,250 150,257 142,257 140,250" fill={INK} />
+        </Joint>
+      );
     case "skater":
       return animate && m.burst ? (
         <Fade keys={m.burst} period={m.period} animate>
@@ -803,6 +959,14 @@ function Footwear({ sport, dx, accent }: { sport: VVakerTraits["sport"]; dx: num
         {[88, 99, 110].map((cx) => (
           <circle key={cx} cx={cx} cy={277} r={4.5} fill={GOLD} />
         ))}
+      </g>
+    );
+  }
+  if (sport === "skier") {
+    return (
+      <g transform={dx ? `translate(${dx} 0)` : undefined}>
+        <rect x="84" y="246" width="30" height="14" rx="2" fill="#2b3036" />
+        <path d="M64 276 H132 Q140 276 138 268" stroke={accent} strokeWidth={5} fill="none" strokeLinecap="round" />
       </g>
     );
   }
