@@ -12,6 +12,9 @@ export const siteConfig = {
     x: "https://x.com/vvake",
     xHandle: "@vvake",
   },
+  /** Third-party launchpad (independent; not an affiliation). */
+  vibeVibeUrl: "https://testnet.vibevibe.fun/",
   contactEmail: "hello@vvake.com",
+  partnersEmail: "partners@vvake.com",
   privacyEmail: "privacy@vvake.com",
 } as const;

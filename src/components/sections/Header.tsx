@@ -9,11 +9,12 @@ import type { Dictionary } from "@/i18n/dictionaries";
 export function Header({ locale, dict }: { locale: Locale; dict: Dictionary["nav"] }) {
   const links = [
     { href: "#story", label: dict.story },
+    { href: "#challenges", label: dict.challenges },
     { href: "#app", label: dict.app },
-    { href: "#how", label: dict.how },
     { href: "#rivalries", label: dict.rivalries },
     { href: "#open-book", label: dict.openBook },
     { href: "#vvaker", label: dict.vvaker },
+    { href: "#partners", label: dict.partners },
     { href: "#faq", label: dict.faq },
   ];
   return (
