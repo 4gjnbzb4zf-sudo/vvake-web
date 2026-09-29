@@ -3,7 +3,6 @@ import { Logo, VVMark } from "@/components/brand/Logo";
 import { ButtonLink } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Section";
 import { CurrencySelect } from "@/components/ui/Money";
-import { StyleSelect } from "@/components/ui/StyleSelect";
 import { LocaleHint, LocaleSwitch } from "./LocaleSwitch";
 import type { Locale } from "@/i18n/config";
 import type { Dictionary } from "@/i18n/dictionaries";
@@ -54,9 +53,6 @@ export function Header({ locale, dict }: { locale: Locale; dict: Dictionary["nav
         </nav>
         <div className="flex items-center gap-3">
           <LocaleSwitch locale={locale} label={dict.language} />
-          <div className="hidden md:block">
-            <StyleSelect label={dict.style} looks={dict.looks} />
-          </div>
           <CurrencySelect label={dict.currency} />
           <details className="group relative lg:hidden">
             <summary className="flex h-10 cursor-pointer list-none items-center rounded-lg border border-line px-3 font-mono text-xs tracking-[0.12em] text-muted uppercase hover:text-text [&::-webkit-details-marker]:hidden">
@@ -70,9 +66,6 @@ export function Header({ locale, dict }: { locale: Locale; dict: Dictionary["nav
                   </a>
                 </li>
               ))}
-              <li className="px-3 py-2 md:hidden">
-                <StyleSelect label={dict.style} looks={dict.looks} />
-              </li>
               <li className="sm:hidden">
                 <a href="#unlock" className="block rounded-lg bg-pulse px-3 py-2.5 text-night">
                   {dict.join}

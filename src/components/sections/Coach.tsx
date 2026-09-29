@@ -5,7 +5,7 @@ import { useState } from "react";
 import { Section } from "@/components/ui/Section";
 import { VVaker } from "@/components/vvaker/VVaker";
 import { cn } from "@/lib/cn";
-import { useStudio } from "@/lib/prefs";
+import { usePersona } from "@/lib/prefs";
 import type { Dictionary } from "@/i18n/dictionaries";
 
 type Style = keyof Dictionary["coach"]["styles"];
@@ -61,8 +61,8 @@ export function Coach({ dict, index }: { dict: Dictionary["coach"]; index: strin
   const [vibe, setVibe] = useState<Vibe>("morning-energy");
   const [speaking, setSpeaking] = useState(false);
   const [gender, setGender] = useState<Gender>("female");
-  // The caller is the player's own VVaker from the studio (and their chosen style).
-  const { traits } = useStudio();
+  // The caller is the player's own VVaker from the persona generator.
+  const persona = usePersona();
   const [kept, setKept] = useState<string[]>(dict.memory.notes.map((n) => n.id));
   const lines = dict.styles[style].lines.map((l, i) => (i === 0 ? dict.vibes[vibe].prefix + l : l));
 
@@ -105,7 +105,7 @@ export function Coach({ dict, index }: { dict: Dictionary["coach"]; index: strin
           <div className="relative mx-auto mt-5 flex h-40 w-40 items-center justify-center">
             <span className={cn("absolute inset-0 rounded-full border-2 border-volt/60", speaking ? "animate-ping" : "animate-pulse")} />
             <span className="absolute inset-3 rounded-full bg-surface" />
-            <VVaker {...traits} className="relative h-32 w-auto" />
+            <VVaker sport={persona.sport} title={persona.name || undefined} className="relative h-32 w-auto" />
           </div>
           <p className="mt-4 font-display text-xl font-semibold">{dict.call.who}</p>
           <p className="font-mono text-xs text-volt">

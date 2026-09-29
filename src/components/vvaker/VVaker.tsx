@@ -1,6 +1,9 @@
 "use client";
 
+import Image from "next/image";
+import { cn } from "@/lib/cn";
 import { shade } from "@/lib/color";
+import { PERSONAS, personaSrc } from "@/lib/personas";
 import { useLookPref } from "@/lib/prefs";
 import { MOTIONS, type Keys, type Motion } from "./motion";
 import { ArmTattoo, Facial, FaceTattoo, HairBack, HairFront, PHYSIQUE, PhysiqueDetail, Piercing, Scar, widen } from "./styleLayers";
@@ -32,6 +35,8 @@ interface VVakerProps extends Partial<VVakerTraits> {
   animate?: boolean;
   /** Ignore the visitor's saved style and draw exactly `look` (studio preview, comparisons). */
   lockLook?: boolean;
+  /** Draw the original SVG VVaker (Toy/Athlete) instead of the persona image. */
+  drawn?: boolean;
   className?: string;
 }
 
@@ -41,9 +46,25 @@ interface VVakerProps extends Partial<VVakerTraits> {
  * Pure SVG with no filters or web fonts, so it rasterises identically to PNG in every browser.
  * Every trait is optional; missing ones fall back to DEFAULT_TRAITS.
  */
-export function VVaker({ title, className, animate = true, lockLook = false, ...partial }: VVakerProps) {
+export function VVaker({ title, className, animate = true, lockLook = false, drawn = false, ...partial }: VVakerProps) {
   const pref = useLookPref();
   const t: VVakerTraits = { ...DEFAULT_TRAITS, ...partial };
+  // VVake Fit personas (photoreal animal athletes) are the site's characters; the drawn Toy/Athlete
+  // styles below stay available behind `drawn` for exports and experiments.
+  if (!drawn) {
+    const p = PERSONAS[t.sport];
+    return (
+      <Image
+        src={personaSrc(t.sport)}
+        width={p.w}
+        height={p.h}
+        alt={title ?? ""}
+        aria-hidden={title ? undefined : true}
+        className={cn("object-contain", className)}
+        draggable={false}
+      />
+    );
+  }
   // A visitor's saved style wins over decorative defaults, unless the caller locks the look (studio, lab).
   const look = (!lockLook && pref) || t.look;
   if (look !== "toy") {

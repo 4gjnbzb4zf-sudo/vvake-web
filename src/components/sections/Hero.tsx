@@ -3,10 +3,10 @@ import { MoneyText } from "@/components/ui/Money";
 import { ButtonLink } from "@/components/ui/Button";
 import { Marquee } from "@/components/ui/Marquee";
 import { Container } from "@/components/ui/Section";
-import { VVaker } from "@/components/vvaker/VVaker";
 import type { Dictionary } from "@/i18n/dictionaries";
 import { getCity, RIVALRIES } from "@/lib/cities";
 import { AnthemRotator } from "./AnthemRotator";
+import { HeroPersona } from "./HeroPersona";
 import { PhoneMock, WatchMock } from "./AppPreview";
 
 interface HeroProps {
@@ -22,7 +22,7 @@ export function Hero({ dict, highlights, app }: HeroProps) {
       <div className="pointer-events-none absolute -top-40 left-1/2 h-[520px] w-[820px] -translate-x-1/2 rounded-full bg-pulse/15 blur-[120px]" />
       <div className="pointer-events-none absolute right-0 -bottom-40 h-[380px] w-[520px] rounded-full bg-volt/10 blur-[120px]" />
 
-      <Container className="relative grid items-center gap-14 pt-16 pb-16 sm:pt-24 lg:grid-cols-[1.15fr_1fr] lg:pb-24">
+      <Container className="relative grid items-center gap-14 pt-16 pb-16 sm:pt-24 lg:grid-cols-[1fr_1.15fr] lg:pb-24">
         <div className="animate-rise">
           <div className="inline-flex max-w-full flex-wrap items-center gap-y-1 rounded-full border border-line bg-surface/70 py-1.5 pr-1.5 pl-2 text-[13px] whitespace-nowrap text-muted sm:flex-nowrap">
             <LogoMark className="h-4 shrink-0" />
@@ -90,7 +90,7 @@ const PIXELS = [
 /** Training first, wealth a close second: the phone + watch in action, a heartbeat line out of market candles. */
 function HeroDevices({ hero, app }: { hero: Dictionary["hero"]; app: Dictionary["app"] }) {
   return (
-    <div className="relative mx-auto w-full max-w-[520px] pb-6">
+    <div className="relative mx-auto w-full max-w-[640px] pb-6">
       <svg viewBox="0 0 520 520" className="absolute inset-0 h-full w-full" aria-hidden="true">
         <g opacity="0.4">
           {CANDLES.map((c) => (
@@ -123,20 +123,24 @@ function HeroDevices({ hero, app }: { hero: Dictionary["hero"]; app: Dictionary[
         />
       ))}
 
-      <div className="relative mx-auto w-fit" aria-hidden="true">
+      {/* the VVaker in front of the phone, a different one at each load */}
+      <div
+        className="absolute bottom-0 left-0 z-10 h-[86%] animate-rise drop-shadow-[0_30px_40px_rgb(0_0_0/0.6)] sm:h-[96%]"
+        aria-hidden="true"
+      >
+        <HeroPersona className="h-full w-auto" />
+      </div>
+      <div className="relative mr-4 ml-auto w-fit sm:mr-24" aria-hidden="true">
         <div className="pointer-events-none absolute inset-x-0 top-10 bottom-0 rounded-full bg-pulse/20 blur-[80px]" />
         <div className="relative -rotate-2">
           <PhoneMock dict={app.phone} />
         </div>
-        <div className="absolute -right-16 -bottom-4 origin-bottom-right scale-[0.62] rotate-3 sm:-right-40 sm:scale-100">
+        <div className="absolute -right-8 -bottom-4 origin-bottom-right scale-[0.62] rotate-3 sm:-right-28 sm:scale-100">
           <WatchMock dict={app.watch} />
-        </div>
-        <div className="absolute -top-10 -right-12 hidden w-20 animate-float sm:block">
-          <VVaker color="butter" sport="lifter" headgear="cap" accent="ocean" eyes="fired" mouth="teeth" energy={3} />
         </div>
       </div>
 
-      <div className="absolute bottom-20 -left-2 w-44 -rotate-3 animate-float rounded-xl bg-mint p-3 text-night shadow-[0_18px_40px_-12px_rgb(91_208_138/0.55)] [animation-delay:-2s] sm:-left-16">
+      <div className="absolute top-2 -right-2 z-20 w-44 rotate-3 animate-float rounded-xl bg-mint p-3 text-night shadow-[0_18px_40px_-12px_rgb(91_208_138/0.55)] [animation-delay:-2s] sm:-right-10">
         <p className="font-display text-lg leading-tight font-bold">
           📈 <MoneyText template={hero.wealthChip} usd={1} />
         </p>

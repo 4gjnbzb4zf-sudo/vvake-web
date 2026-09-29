@@ -34,9 +34,8 @@ import { Why } from "@/components/sections/Why";
 import { Section } from "@/components/ui/Section";
 import { CollectorDrops } from "@/components/vvaker/CollectorDrops";
 import { EarnedStats } from "@/components/vvaker/EarnedStats";
-import { StylePicker } from "@/components/vvaker/StylePicker";
 import { VVakerDeck } from "@/components/vvaker/VVakerDeck";
-import { VVakerStudio } from "@/components/vvaker/VVakerStudio";
+import { PersonaBuilder } from "@/components/vvaker/PersonaBuilder";
 import { VVakerTiers } from "@/components/vvaker/VVakerTiers";
 import { isLocale } from "@/i18n/config";
 import { getDictionary } from "@/i18n/dictionaries";
@@ -98,9 +97,8 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
         {/* Brand moment, then identity. */}
         <DoubleV dict={dict.doubleV} anthem={{ prefix: dict.hero.prefix, lines: dict.hero.anthem }} />
         <Section id="vvaker" index="20" kicker={dict.vvaker.kicker} title={dict.vvaker.title} lead={dict.vvaker.body}>
-          <StylePicker dict={dict.vvaker} />
           <VVakerDeck />
-          <VVakerStudio dict={dict.vvaker} />
+          <PersonaBuilder dict={dict.vvaker.persona} tagline={dict.vvaker.bannerTagline} sportNames={dict.multisport.sports} />
           <EarnedStats dict={dict.vvaker.stats} />
           <VVakerTiers dict={dict.vvaker.tiers} />
           <CollectorDrops dict={dict.vvaker.collect} />

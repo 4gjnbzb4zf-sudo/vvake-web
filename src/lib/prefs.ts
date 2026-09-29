@@ -5,11 +5,13 @@ import {
   DEFAULT_TRAITS,
   VVAKER_BACKGROUNDS,
   VVAKER_LOOKS,
+  VVAKER_SPORTS,
   sanitizeTraits,
   type VVakerBackground,
   type VVakerLook,
   type VVakerTraits,
 } from "@/components/vvaker/traits";
+import { ANIMALS, ATTITUDES, BOTTOMS, BUILDS, DEFAULT_PERSONA, GEAR, HEADWEAR, SHOES, TOPS, type Persona } from "@/lib/personaPrompt";
 
 /**
  * Per-visitor preferences kept in this browser only (localStorage): nothing is sent anywhere.
@@ -82,3 +84,29 @@ const studioStore = createStore<StudioState>(
 /** The VVaker being built in the studio, restored on the next visit. */
 export const useStudio = studioStore.use;
 export const saveStudio = studioStore.set;
+
+const personaStore = createStore<Persona>(
+  "vvake-persona",
+  (raw) => {
+    const v = JSON.parse(raw) as Partial<Persona>;
+    if (!v || typeof v !== "object") return null;
+    const pick = <K extends keyof Persona>(k: K, allowed: readonly unknown[]) =>
+      (allowed.includes(v[k]) ? v[k] : DEFAULT_PERSONA[k]) as Persona[K];
+    return {
+      name: typeof v.name === "string" ? v.name.slice(0, 24) : "",
+      animal: pick("animal", Object.keys(ANIMALS)),
+      sport: pick("sport", VVAKER_SPORTS),
+      top: pick("top", Object.keys(TOPS)),
+      bottoms: pick("bottoms", Object.keys(BOTTOMS)),
+      headwear: pick("headwear", Object.keys(HEADWEAR)),
+      shoes: pick("shoes", Object.keys(SHOES)),
+      gear: Array.isArray(v.gear) ? (v.gear.filter((g) => g in GEAR) as Persona["gear"]) : [],
+      build: pick("build", Object.keys(BUILDS)),
+      attitude: pick("attitude", Object.keys(ATTITUDES)),
+    };
+  },
+  DEFAULT_PERSONA,
+);
+/** The player's persona from the generator (animal, sport, fit, gear), restored on the next visit. */
+export const usePersona = personaStore.use;
+export const savePersona = personaStore.set;
