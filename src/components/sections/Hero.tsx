@@ -28,7 +28,7 @@ export function Hero({ dict, highlights, app }: HeroProps) {
             <LogoMark className="h-4 shrink-0" />
             <span className="ml-2.5">{dict.pronounce}</span>
             <span aria-hidden="true" className="mx-2.5 hidden h-4 w-px bg-line sm:block" />
-            <a href="#rwa" className="ml-2 rounded-full bg-volt/10 px-3 py-0.5 text-volt transition-colors hover:bg-volt/20 sm:ml-0">
+            <a href="#rwa" className="ml-2 rounded-full bg-volt/10 px-3 py-0.5 text-volt-fg transition-colors hover:bg-volt/20 sm:ml-0">
               ⛓️ {dict.chain}
             </a>
           </div>
@@ -43,7 +43,11 @@ export function Hero({ dict, highlights, app }: HeroProps) {
             </span>
           </h1>
 
-          <p className="mt-6 max-w-xl text-lg leading-relaxed text-muted">{dict.lead}</p>
+          <p className="mt-6 max-w-xl font-display text-xl leading-snug font-semibold text-balance text-text sm:text-2xl">
+            {dict.love} <span className="text-pulse-fg">{dict.loveKicker}</span>
+          </p>
+
+          <p className="mt-4 max-w-xl text-lg leading-relaxed text-muted">{dict.lead}</p>
 
           <div className="mt-9 flex flex-col gap-3 sm:flex-row">
             <ButtonLink href="#unlock">{dict.ctaPrimary}</ButtonLink>
@@ -56,7 +60,7 @@ export function Hero({ dict, highlights, app }: HeroProps) {
         <HeroDevices hero={dict} app={app} />
       </Container>
 
-      <div className="relative z-10 -mx-4 -rotate-1 border-y-2 border-volt/40 bg-night-2 py-4 font-mono text-xs tracking-[0.2em] text-volt uppercase italic">
+      <div className="relative z-10 -mx-4 -rotate-1 border-y-2 border-volt-fg/40 bg-night-2 py-4 font-mono text-xs tracking-[0.2em] text-volt-fg uppercase italic">
         <Marquee items={[...highlights.strip, ...RIVALRY_TICKER]} />
       </div>
     </section>
@@ -140,7 +144,7 @@ function HeroDevices({ hero, app }: { hero: Dictionary["hero"]; app: Dictionary[
         </div>
       </div>
 
-      <div className="absolute top-2 -right-2 z-20 w-44 rotate-3 animate-float rounded-xl bg-mint p-3 text-night shadow-[0_18px_40px_-12px_rgb(91_208_138/0.55)] [animation-delay:-2s] sm:-right-10">
+      <div className="absolute top-2 -right-2 z-20 w-44 rotate-3 animate-float rounded-xl bg-mint p-3 text-ink shadow-[0_18px_40px_-12px_rgb(91_208_138/0.55)] [animation-delay:-2s] sm:-right-10">
         <p className="font-display text-lg leading-tight font-bold">
           📈 <MoneyText template={hero.wealthChip} usd={1} />
         </p>

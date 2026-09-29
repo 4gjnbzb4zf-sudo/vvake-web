@@ -68,13 +68,13 @@ export function LocaleHint({ locale }: { locale: Locale }) {
   if (!suggested) return null;
   const hint = HINTS[suggested];
   return (
-    <div role="region" aria-label={hint.text} lang={suggested} className="border-b border-volt/30 bg-volt/10 text-sm">
+    <div role="region" aria-label={hint.text} lang={suggested} className="border-b border-volt-fg/30 bg-volt/10 text-sm">
       <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-center gap-3 px-4 py-2 text-center">
         <span>{hint.text}</span>
         <Link
           href={`/${suggested}/${typeof window === "undefined" ? "" : window.location.search}`}
           onClick={() => saveLocale(suggested)}
-          className="font-semibold text-volt underline underline-offset-4"
+          className="font-semibold text-volt-fg underline underline-offset-4"
         >
           {hint.cta}
         </Link>

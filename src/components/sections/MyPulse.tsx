@@ -34,12 +34,12 @@ export function MyPulse({ dict }: { dict: Dictionary["pulse"]["mine"] }) {
     const on = picked.includes(q.symbol);
     const starred = team === q.symbol;
     return (
-      <span key={q.symbol} className={cn("inline-flex overflow-hidden rounded-full border", on ? "border-volt" : "border-line")}>
+      <span key={q.symbol} className={cn("inline-flex overflow-hidden rounded-full border", on ? "border-volt-fg" : "border-line")}>
         <button
           type="button"
           aria-pressed={on}
           onClick={() => toggle(q.symbol)}
-          className={cn("px-3 py-1.5 font-mono text-xs", on ? "bg-volt text-night" : "text-muted hover:text-text")}
+          className={cn("px-3 py-1.5 font-mono text-xs", on ? "bg-volt text-ink" : "text-muted hover:text-text")}
         >
           {brandName(q.symbol)}
           <span className="ml-1 opacity-60">{q.symbol}</span>
@@ -51,10 +51,7 @@ export function MyPulse({ dict }: { dict: Dictionary["pulse"]["mine"] }) {
             aria-label={`${dict.star}: ${q.symbol}`}
             title={dict.star}
             onClick={() => setBrandTeam(q.symbol)}
-            className={cn(
-              "border-l border-night/30 px-2 text-xs",
-              starred ? "bg-pulse text-night" : "bg-volt/80 text-night/60 hover:text-night",
-            )}
+            className={cn("border-l border-night/30 px-2 text-xs", starred ? "bg-pulse text-ink" : "bg-volt/80 text-ink/60 hover:text-ink")}
           >
             ★
           </button>
@@ -94,13 +91,14 @@ export function MyPulse({ dict }: { dict: Dictionary["pulse"]["mine"] }) {
                 className={cn(
                   "rounded-2xl border p-3 text-sm",
                   s.type === "rally"
-                    ? "border-down/50 bg-down/10"
+                    ? "border-down-fg/50 bg-down/10"
                     : s.type === "recover"
-                      ? "border-up/50 bg-up/10"
+                      ? "border-up-fg/50 bg-up/10"
                       : "border-line bg-surface/60",
                 )}
               >
-                <span className={cn("font-mono", s.changePct < 0 ? "text-down" : "text-up")}>{s.type === "move" ? "•" : "⚡"}</span> {text}
+                <span className={cn("font-mono", s.changePct < 0 ? "text-down-fg" : "text-up-fg")}>{s.type === "move" ? "•" : "⚡"}</span>{" "}
+                {text}
               </li>
             );
           })}
@@ -110,7 +108,7 @@ export function MyPulse({ dict }: { dict: Dictionary["pulse"]["mine"] }) {
             </li>
           )}
           {team && (
-            <li className="rounded-2xl border border-mint/40 bg-mint/10 p-3 text-sm">
+            <li className="rounded-2xl border border-mint-fg/40 bg-mint/10 p-3 text-sm">
               📈 <MoneyText template={format(dict.invest, { symbol: team, money: "{money}" })} usd={4} />
             </li>
           )}

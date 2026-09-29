@@ -25,6 +25,23 @@
   --color-sky: #7fb6f5;
   --color-olive: #b8b07a;
 
+  /* Constant dark ink for text on bright accent fills (buttons, chips): never flips with the theme. */
+  --color-ink: #0e1012;
+
+  /* Accents used as text, icon strokes and borders: the accent itself on dark, a deeper shade on light. */
+  --color-pulse-fg: #ff3d6e;
+  --color-pulse-soft-fg: #ff7a9a;
+  --color-volt-fg: #ccff00;
+  --color-calm-fg: #8b87d9;
+  --color-up-fg: #5bd08a;
+  --color-down-fg: #e07856;
+  --color-candy-fg: #f7a8c8;
+  --color-lilac-fg: #b9a7f5;
+  --color-butter-fg: #f5e27a;
+  --color-mint-fg: #7fe0c8;
+  --color-sky-fg: #7fb6f5;
+  --color-olive-fg: #b8b07a;
+
   --font-display: var(--font-unbounded), ui-sans-serif, system-ui, sans-serif;
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-jetbrains), ui-monospace, SFMono-Regular, monospace;
@@ -97,9 +114,67 @@
   }
 }
 
+/* ── Themes ───────────────────────────────────────────────────────────────────
+ * Dark is the brand default (@theme above). <html data-theme="light"> swaps the neutrals and
+ * the accent foregrounds; accent fills stay bright and keep dark ink on top. Any element can
+ * pin a theme for its subtree (data-theme="dark" on phone and watch mockups, which are app
+ * screens and stay dark like the watch app, docs/06-brand/identity.md).
+ */
+[data-theme="dark"] {
+  --color-night: #0e1012;
+  --color-night-2: #121518;
+  --color-surface: #171a1d;
+  --color-surface-2: #1d2125;
+  --color-line: #262a2f;
+  --color-text: #e6e9eb;
+  --color-muted: #9aa1a6;
+  --color-faint: #6b7278;
+  --color-pulse-fg: #ff3d6e;
+  --color-pulse-soft-fg: #ff7a9a;
+  --color-volt-fg: #ccff00;
+  --color-calm-fg: #8b87d9;
+  --color-up-fg: #5bd08a;
+  --color-down-fg: #e07856;
+  --color-candy-fg: #f7a8c8;
+  --color-lilac-fg: #b9a7f5;
+  --color-butter-fg: #f5e27a;
+  --color-mint-fg: #7fe0c8;
+  --color-sky-fg: #7fb6f5;
+  --color-olive-fg: #b8b07a;
+  --grid-line: rgb(255 255 255 / 0.035);
+  color-scheme: dark;
+  color: var(--color-text);
+}
+[data-theme="light"] {
+  --color-night: #f5f6f3;
+  --color-night-2: #eceee9;
+  --color-surface: #ffffff;
+  --color-surface-2: #eef0ec;
+  --color-line: #d8dcd6;
+  --color-text: #14171a;
+  --color-muted: #4c545b;
+  --color-faint: #687077;
+  --color-pulse-fg: #d4144a;
+  --color-pulse-soft-fg: #c92c58;
+  --color-volt-fg: #4f6e00;
+  --color-calm-fg: #5550b8;
+  --color-up-fg: #1d8048;
+  --color-down-fg: #b64a26;
+  --color-candy-fg: #b8336f;
+  --color-lilac-fg: #6a4fd6;
+  --color-butter-fg: #806500;
+  --color-mint-fg: #0d7d63;
+  --color-sky-fg: #1f67b8;
+  --color-olive-fg: #676227;
+  --grid-line: rgb(14 16 18 / 0.05);
+  color-scheme: light;
+  color: var(--color-text);
+}
+
 @layer base {
   html {
     color-scheme: dark;
+    --grid-line: rgb(255 255 255 / 0.035);
     scroll-behavior: smooth;
     -webkit-text-size-adjust: 100%;
   }
@@ -114,10 +189,10 @@
   }
   ::selection {
     background: var(--color-pulse);
-    color: var(--color-night);
+    color: var(--color-ink);
   }
   :focus-visible {
-    outline: 2px solid var(--color-volt);
+    outline: 2px solid var(--color-volt-fg);
     outline-offset: 3px;
     border-radius: 6px;
   }
@@ -130,12 +205,11 @@
   /* Subtle voxel grid used behind hero and section heads. */
   .bg-voxel-grid {
     background-image:
-      linear-gradient(to right, rgb(255 255 255 / 0.035) 1px, transparent 1px),
-      linear-gradient(to bottom, rgb(255 255 255 / 0.035) 1px, transparent 1px);
+      linear-gradient(to right, var(--grid-line) 1px, transparent 1px), linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
     background-size: 32px 32px;
   }
   .text-gradient-pulse {
-    background: linear-gradient(100deg, var(--color-pulse) 0%, var(--color-pulse-soft) 45%, var(--color-volt) 100%);
+    background: linear-gradient(100deg, var(--color-pulse-fg) 0%, var(--color-pulse-soft-fg) 45%, var(--color-volt-fg) 100%);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;

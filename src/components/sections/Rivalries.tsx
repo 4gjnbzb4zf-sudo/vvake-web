@@ -36,7 +36,7 @@ export function RivalryBoard({ dict, rivalries, numberLocale }: RivalriesProps) 
             onClick={() => setCountry(c)}
             className={cn(
               "rounded-lg px-5 py-2 font-display text-sm font-semibold transition-colors",
-              country === c ? "bg-pulse text-night" : "text-muted hover:text-text",
+              country === c ? "bg-pulse text-ink" : "text-muted hover:text-text",
             )}
           >
             {dict.tabs[c]}
@@ -48,10 +48,10 @@ export function RivalryBoard({ dict, rivalries, numberLocale }: RivalriesProps) 
         {rivalries
           .filter((r) => r.country === country)
           .map((r) => (
-            <li key={r.id} className="rounded-2xl border border-line bg-surface/60 p-5 transition-colors hover:border-pulse/40">
+            <li key={r.id} className="rounded-2xl border border-line bg-surface/60 p-5 transition-colors hover:border-pulse-fg/40">
               <div className="grid grid-cols-[1fr_auto_1fr] items-center gap-3">
                 <Side name={r.sides[0].name} threshold={nf.format(r.sides[0].threshold)} caption={dict.toUnlock} />
-                <span className="font-mono text-xs tracking-widest text-pulse uppercase">{dict.vs}</span>
+                <span className="font-mono text-xs tracking-widest text-pulse-fg uppercase">{dict.vs}</span>
                 <Side name={r.sides[1].name} threshold={nf.format(r.sides[1].threshold)} caption={dict.toUnlock} align="right" />
               </div>
               <p className="mt-4 border-t border-line pt-3 text-sm text-muted">{dict.stories[r.id]}</p>
@@ -78,7 +78,7 @@ function Side({
     <div className={align === "right" ? "text-right" : undefined}>
       <p className="font-display text-lg leading-tight font-semibold">{name}</p>
       <p className="mt-1 font-mono text-xs text-faint">
-        <span className="text-volt">{threshold}</span> {caption}
+        <span className="text-volt-fg">{threshold}</span> {caption}
       </p>
     </div>
   );

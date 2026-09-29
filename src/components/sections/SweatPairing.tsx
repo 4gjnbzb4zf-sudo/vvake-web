@@ -45,7 +45,7 @@ export function SweatPairing({
   const pace = projectedMonthly(WEEK.length, perWorkout, monthly);
 
   return (
-    <div className="mt-6 rounded-3xl border border-mint/40 bg-gradient-to-br from-mint/10 via-transparent to-volt/10 p-6 sm:p-8">
+    <div className="mt-6 rounded-3xl border border-mint-fg/40 bg-gradient-to-br from-mint/10 via-transparent to-volt/10 p-6 sm:p-8">
       <h3 className="font-display text-2xl font-semibold">🤝 {dict.title}</h3>
       <p className="mt-2 max-w-3xl leading-relaxed text-muted">
         <MoneyText template={dict.body} usd={1} />
@@ -62,7 +62,7 @@ export function SweatPairing({
               <p className="my-1 font-mono text-[0.65rem] text-faint">
                 {dict.session} → {fmt(perWorkout)}
               </p>
-              <p className="rounded-md bg-mint px-2 py-0.5 text-xs font-semibold text-night">{asset ? brandName(asset.symbol) : ""}</p>
+              <p className="rounded-md bg-mint px-2 py-0.5 text-xs font-semibold text-ink">{asset ? brandName(asset.symbol) : ""}</p>
               <p className="mt-0.5 font-mono text-[0.6rem] text-faint">{asset?.symbol}</p>
             </li>
           );
@@ -81,7 +81,7 @@ export function SweatPairing({
                   onClick={() => setPerWorkout(v)}
                   className={cn(
                     "rounded-full border px-3 py-1.5 text-sm",
-                    perWorkout === v ? "border-mint bg-mint text-night" : "border-line text-muted hover:text-text",
+                    perWorkout === v ? "border-mint-fg bg-mint text-ink" : "border-line text-muted hover:text-text",
                   )}
                 >
                   {fmt(v)}
@@ -100,7 +100,7 @@ export function SweatPairing({
                   onClick={() => setMonthly(v)}
                   className={cn(
                     "rounded-full border px-3 py-1.5 text-sm",
-                    monthly === v ? "border-mint bg-mint text-night" : "border-line text-muted hover:text-text",
+                    monthly === v ? "border-mint-fg bg-mint text-ink" : "border-line text-muted hover:text-text",
                   )}
                 >
                   {fmt(v)}
@@ -119,7 +119,7 @@ export function SweatPairing({
           <div className="mt-2 h-3 overflow-hidden rounded-full bg-line">
             <div className="h-full rounded-full bg-mint transition-all duration-500" style={{ width: `${(used / monthly) * 100}%` }} />
           </div>
-          <p className="mt-3 font-mono text-xs text-mint">📈 {format(dict.week, { count, money, pairs: signals.length })}</p>
+          <p className="mt-3 font-mono text-xs text-mint-fg">📈 {format(dict.week, { count, money, pairs: signals.length })}</p>
           <p className="mt-1 font-mono text-xs text-muted">{format(dict.budget.pace, { money: fmt(pace) })}</p>
           <p className="mt-1 font-mono text-xs text-faint">{format(dict.budget.left, { money: fmt(Math.max(0, left)) })}</p>
           <p className="mt-3 text-xs text-faint">{dict.budget.rule}</p>

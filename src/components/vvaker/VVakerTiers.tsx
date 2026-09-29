@@ -2,8 +2,8 @@ import type { Dictionary } from "@/i18n/dictionaries";
 
 const STYLES = [
   { border: "border-line", accent: "text-text", mark: "✓" },
-  { border: "border-volt/40", accent: "text-volt", mark: "★" },
-  { border: "border-pulse/50", accent: "text-pulse", mark: "✦" },
+  { border: "border-volt-fg/40", accent: "text-volt-fg", mark: "★" },
+  { border: "border-pulse-fg/50", accent: "text-pulse-fg", mark: "✦" },
 ] as const;
 
 /** Free forever / Earned by moving / Collector (paid): paid layers add utility, never an edge (ADR-0002, ADR-0012). */
@@ -33,7 +33,7 @@ export function VVakerTiers({ dict }: { dict: Dictionary["vvaker"]["tiers"] }) {
               {i === 2 && (
                 <a
                   href="#collector"
-                  className="mt-auto inline-flex pt-5 font-display text-sm font-semibold text-pulse hover:text-pulse-soft"
+                  className="mt-auto inline-flex pt-5 font-display text-sm font-semibold text-pulse-fg hover:text-pulse-soft-fg"
                 >
                   {dict.cta} ↓
                 </a>

@@ -2,7 +2,7 @@ import { Section } from "@/components/ui/Section";
 import type { Dictionary } from "@/i18n/dictionaries";
 
 const SEGMENT_COLORS = ["bg-volt", "bg-pulse", "bg-lilac", "bg-calm"] as const;
-const TEXT_COLORS = ["text-volt", "text-pulse", "text-lilac", "text-calm"] as const;
+const TEXT_COLORS = ["text-volt-fg", "text-pulse-fg", "text-lilac-fg", "text-calm-fg"] as const;
 
 export function OpenBook({ dict, index }: { dict: Dictionary["openBook"]; index: string }) {
   return (

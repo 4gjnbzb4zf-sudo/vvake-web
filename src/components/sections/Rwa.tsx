@@ -4,17 +4,17 @@ import type { Dictionary } from "@/i18n/dictionaries";
 import { TokenHolders } from "./TokenHolders";
 
 const LANE_STYLES = [
-  { tag: "bg-down text-night", border: "border-down/40", glow: "from-down/15" },
-  { tag: "bg-pulse text-night", border: "border-pulse/50", glow: "from-pulse/20" },
-  { tag: "bg-volt text-night", border: "border-volt/40", glow: "from-volt/15" },
+  { tag: "bg-down text-ink", border: "border-down-fg/40", glow: "from-down/15" },
+  { tag: "bg-pulse text-ink", border: "border-pulse-fg/50", glow: "from-pulse/20" },
+  { tag: "bg-volt text-ink", border: "border-volt-fg/40", glow: "from-volt/15" },
 ] as const;
 
 /** How real-world market data, the game and the (planned) on-chain layer connect, with the compliance lines visible. */
 export function Rwa({ dict, index }: { dict: Dictionary["rwa"]; index: string }) {
   return (
     <Section id="rwa" index={index} kicker={dict.kicker} title={dict.title} lead={dict.body}>
-      <div className="mt-10 rounded-[2rem] border border-volt/40 bg-gradient-to-br from-volt/15 via-transparent to-mint/10 p-6 sm:p-8">
-        <p className="font-mono text-xs tracking-[0.18em] text-volt uppercase">{dict.robinhood.kicker}</p>
+      <div className="mt-10 rounded-[2rem] border border-volt-fg/40 bg-gradient-to-br from-volt/15 via-transparent to-mint/10 p-6 sm:p-8">
+        <p className="font-mono text-xs tracking-[0.18em] text-volt-fg uppercase">{dict.robinhood.kicker}</p>
         <h3 className="mt-2 font-display text-2xl leading-tight font-bold sm:text-3xl">{dict.robinhood.title}</h3>
         <p className="mt-3 max-w-3xl leading-relaxed text-muted">{dict.robinhood.body}</p>
         <ul className="mt-6 grid gap-3 md:grid-cols-2 lg:grid-cols-4">
@@ -25,7 +25,7 @@ export function Rwa({ dict, index }: { dict: Dictionary["rwa"]; index: string })
               </span>
               <p className="mt-3 font-display text-lg font-semibold">{r.title}</p>
               <p className="mt-1.5 flex-1 text-sm leading-relaxed text-muted">{r.body}</p>
-              <span className="mt-4 self-start rounded-md border border-volt/40 px-2 py-0.5 font-mono text-[0.62rem] tracking-[0.1em] text-volt uppercase">
+              <span className="mt-4 self-start rounded-md border border-volt-fg/40 px-2 py-0.5 font-mono text-[0.62rem] tracking-[0.1em] text-volt-fg uppercase">
                 {r.status}
               </span>
             </li>
@@ -53,7 +53,7 @@ export function Rwa({ dict, index }: { dict: Dictionary["rwa"]; index: string })
               <ul className="mt-auto space-y-1.5 pt-5 font-mono text-xs text-text">
                 {lane.points.map((p) => (
                   <li key={p}>
-                    <span className="mr-2 text-volt">→</span>
+                    <span className="mr-2 text-volt-fg">→</span>
                     {p}
                   </li>
                 ))}
@@ -61,7 +61,7 @@ export function Rwa({ dict, index }: { dict: Dictionary["rwa"]; index: string })
               {i < dict.lanes.length - 1 && (
                 <span
                   aria-hidden="true"
-                  className="absolute top-1/2 -right-4 z-10 hidden h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full border border-line bg-night font-mono text-pulse lg:flex"
+                  className="absolute top-1/2 -right-4 z-10 hidden h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full border border-line bg-night font-mono text-pulse-fg lg:flex"
                 >
                   →
                 </span>
@@ -76,12 +76,12 @@ export function Rwa({ dict, index }: { dict: Dictionary["rwa"]; index: string })
           <h3 className="font-display text-lg font-semibold">📈 {dict.stockRewards.title}</h3>
           <p className="mt-2 text-sm leading-relaxed text-muted">{dict.stockRewards.body}</p>
         </div>
-        <div className="rounded-3xl border border-down/30 bg-down/5 p-6">
+        <div className="rounded-3xl border border-down-fg/30 bg-down/5 p-6">
           <h3 className="font-display text-lg font-semibold">{dict.never.title}</h3>
           <ul className="mt-3 space-y-1.5 text-sm">
             {dict.never.items.map((item) => (
               <li key={item} className="text-muted">
-                <span className="mr-2 font-mono text-down">✕</span>
+                <span className="mr-2 font-mono text-down-fg">✕</span>
                 {item}
               </li>
             ))}
@@ -89,13 +89,13 @@ export function Rwa({ dict, index }: { dict: Dictionary["rwa"]; index: string })
         </div>
       </div>
 
-      <div className="mt-6 rounded-3xl border border-volt/30 bg-volt/5 p-6 sm:p-8">
+      <div className="mt-6 rounded-3xl border border-volt-fg/30 bg-volt/5 p-6 sm:p-8">
         <h3 className="font-display text-xl font-semibold">💹 {dict.wealth.title}</h3>
         <p className="mt-2 max-w-3xl text-sm leading-relaxed text-muted">{dict.wealth.body}</p>
         <ol className="mt-5 grid gap-3 md:grid-cols-3">
           {dict.wealth.items.map((w, i) => (
             <li key={w.title} className="rounded-2xl border border-line bg-night/60 p-4">
-              <span className="font-mono text-xs text-volt">{String(i + 1).padStart(2, "0")}</span>
+              <span className="font-mono text-xs text-volt-fg">{String(i + 1).padStart(2, "0")}</span>
               <p className="mt-1 font-display font-semibold">{w.title}</p>
               <p className="mt-1.5 text-sm leading-relaxed text-muted">
                 <MoneyText template={w.body} usd={1} />

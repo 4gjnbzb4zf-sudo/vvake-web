@@ -41,7 +41,7 @@ export function Kicker({ children, index }: { children: ReactNode; index?: strin
     <p className="font-mono text-xs tracking-[0.2em] text-faint uppercase">
       {index && (
         <>
-          <span className="text-pulse">{index}</span>
+          <span className="text-pulse-fg">{index}</span>
           <span aria-hidden="true"> / </span>
         </>
       )}

@@ -1,14 +1,14 @@
 import { siteConfig } from "@/config/site";
 import type { Dictionary } from "@/i18n/dictionaries";
 
-const TIER_STYLES = ["border-line", "border-mint/40", "border-volt/40", "border-pulse/50"] as const;
+const TIER_STYLES = ["border-line", "border-mint-fg/40", "border-volt-fg/40", "border-pulse-fg/50"] as const;
 const LINKS = { vibe: siteConfig.vibeVibeUrl, x: siteConfig.social.x, charter: "#open-book", faq: "#faq" } as const;
 
 /** What the planned $VVAKE token is for: holder perks with or without Plus, what stays equal, what it never does (ADR-0020). */
 export function TokenHolders({ dict }: { dict: Dictionary["rwa"]["token"] }) {
   return (
-    <div className="mt-8 rounded-[2rem] border border-pulse/40 bg-gradient-to-br from-pulse/10 via-transparent to-volt/10 p-6 sm:p-8">
-      <p className="font-mono text-xs tracking-[0.18em] text-pulse uppercase">{dict.kicker}</p>
+    <div className="mt-8 rounded-[2rem] border border-pulse-fg/40 bg-gradient-to-br from-pulse/10 via-transparent to-volt/10 p-6 sm:p-8">
+      <p className="font-mono text-xs tracking-[0.18em] text-pulse-fg uppercase">{dict.kicker}</p>
       <h3 className="mt-2 font-display text-2xl leading-tight font-bold sm:text-3xl">{dict.title}</h3>
       <p className="mt-3 max-w-3xl leading-relaxed text-muted">{dict.body}</p>
 
@@ -25,7 +25,7 @@ export function TokenHolders({ dict }: { dict: Dictionary["rwa"]["token"] }) {
             <ul className="mt-3 space-y-1.5 text-sm leading-relaxed text-muted">
               {t.perks.map((p) => (
                 <li key={p}>
-                  <span className="mr-2 text-volt">→</span>
+                  <span className="mr-2 text-volt-fg">→</span>
                   {p}
                 </li>
               ))}
@@ -56,7 +56,7 @@ export function TokenHolders({ dict }: { dict: Dictionary["rwa"]["token"] }) {
                 {i > 0 && <li className="text-faint">+ {dict.levels.items[i - 1]!.name}</li>}
                 {l.perks.map((p) => (
                   <li key={p}>
-                    <span className="mr-2 text-volt">→</span>
+                    <span className="mr-2 text-volt-fg">→</span>
                     {p}
                   </li>
                 ))}
@@ -64,7 +64,7 @@ export function TokenHolders({ dict }: { dict: Dictionary["rwa"]["token"] }) {
             </li>
           ))}
         </ol>
-        <p className="mt-3 font-mono text-xs text-mint">🗳️ {dict.levels.vote}</p>
+        <p className="mt-3 font-mono text-xs text-mint-fg">🗳️ {dict.levels.vote}</p>
       </div>
 
       <div className="mt-8 grid gap-3 lg:grid-cols-[1fr_1.1fr]">
@@ -79,13 +79,13 @@ export function TokenHolders({ dict }: { dict: Dictionary["rwa"]["token"] }) {
             ))}
           </dl>
         </div>
-        <div className="rounded-2xl border border-pulse/50 bg-gradient-to-br from-pulse/15 to-night/60 p-5">
+        <div className="rounded-2xl border border-pulse-fg/50 bg-gradient-to-br from-pulse/15 to-night/60 p-5">
           <p className="font-display text-xl font-semibold">{dict.burn.title}</p>
           <p className="mt-2 text-sm leading-relaxed text-muted">{dict.burn.body}</p>
           <ol className="mt-3 space-y-1.5 text-sm">
             {dict.burn.steps.map((s, i) => (
               <li key={s}>
-                <span className="mr-2 font-mono text-pulse">{i + 1}.</span>
+                <span className="mr-2 font-mono text-pulse-fg">{i + 1}.</span>
                 {s}
               </li>
             ))}
@@ -95,12 +95,12 @@ export function TokenHolders({ dict }: { dict: Dictionary["rwa"]["token"] }) {
       </div>
 
       <div className="mt-4 grid gap-3 lg:grid-cols-2">
-        <div className="rounded-2xl border border-mint/40 bg-night/60 p-5">
-          <p className="text-sm font-semibold text-mint">{dict.equal.title}</p>
+        <div className="rounded-2xl border border-mint-fg/40 bg-night/60 p-5">
+          <p className="text-sm font-semibold text-mint-fg">{dict.equal.title}</p>
           <p className="mt-1.5 text-sm leading-relaxed text-muted">{dict.equal.body}</p>
         </div>
-        <div className="rounded-2xl border border-down/40 bg-night/60 p-5">
-          <p className="text-sm font-semibold text-down">{dict.never.title}</p>
+        <div className="rounded-2xl border border-down-fg/40 bg-night/60 p-5">
+          <p className="text-sm font-semibold text-down-fg">{dict.never.title}</p>
           <ul className="mt-1.5 flex flex-wrap gap-x-4 gap-y-1 text-sm text-muted">
             {dict.never.items.map((n) => (
               <li key={n}>✕ {n}</li>
@@ -118,7 +118,7 @@ export function TokenHolders({ dict }: { dict: Dictionary["rwa"]["token"] }) {
               key={l.to}
               href={href}
               {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-              className="rounded-full border border-line px-3 py-1.5 text-sm text-muted transition hover:border-volt hover:text-text"
+              className="rounded-full border border-line px-3 py-1.5 text-sm text-muted transition hover:border-volt-fg hover:text-text"
             >
               {l.label}
               {external ? " ↗" : ""}

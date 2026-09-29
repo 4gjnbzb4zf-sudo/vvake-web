@@ -54,10 +54,10 @@ const EMOJI: Record<string, string> = {
   coder: "💻",
 };
 const INTENSITY: Record<SessionIntensity, string> = {
-  easy: "border-mint/50 bg-mint/10",
-  moderate: "border-sky/50 bg-sky/10",
-  hard: "border-pulse/60 bg-pulse/15",
-  mindful: "border-calm/50 bg-calm/10",
+  easy: "border-mint-fg/50 bg-mint/10",
+  moderate: "border-sky-fg/50 bg-sky/10",
+  hard: "border-pulse-fg/60 bg-pulse/15",
+  mindful: "border-calm-fg/50 bg-calm/10",
 };
 const DOT: Record<SessionIntensity, string> = { easy: "bg-mint", moderate: "bg-sky", hard: "bg-pulse", mindful: "bg-calm" };
 const DONE_RATES = [1, 0.7, 0.4] as const;
@@ -71,7 +71,7 @@ function Chip({ on, onClick, children }: { on: boolean; onClick: () => void; chi
       onClick={onClick}
       className={cn(
         "rounded-full border px-3 py-1.5 text-sm transition-colors",
-        on ? "border-volt bg-volt text-night" : "border-line text-muted hover:border-volt/50 hover:text-text",
+        on ? "border-volt-fg bg-volt text-ink" : "border-line text-muted hover:border-volt-fg/50 hover:text-text",
       )}
     >
       {children}
@@ -90,11 +90,11 @@ function SessionCard({ s, dict, sportName }: { s: PlannedSession; dict: Dictiona
         {s.durationMin} min · {dict.intensity[s.intensity]}
       </p>
       <div className="mt-1.5 flex flex-wrap gap-1 font-mono text-[0.6rem]">
-        <span className={cn("rounded px-1.5 py-0.5", s.with === "crew" ? "bg-lilac text-night" : "bg-night/70 text-muted")}>
+        <span className={cn("rounded px-1.5 py-0.5", s.with === "crew" ? "bg-lilac text-ink" : "bg-night/70 text-muted")}>
           {s.with === "crew" ? `👥 ${dict.crew}` : dict.solo}
         </span>
         {s.recurrence === "weekly" && <span className="rounded bg-night/70 px-1.5 py-0.5 text-muted">↻</span>}
-        {s.long && <span className="rounded bg-butter px-1.5 py-0.5 text-night">{dict.long}</span>}
+        {s.long && <span className="rounded bg-butter px-1.5 py-0.5 text-ink">{dict.long}</span>}
       </div>
     </div>
   );
@@ -131,7 +131,7 @@ function CalendarSync({
     URL.revokeObjectURL(url);
   };
   return (
-    <div className="rounded-3xl border border-sky/40 bg-gradient-to-br from-sky/10 to-transparent p-5 sm:p-6">
+    <div className="rounded-3xl border border-sky-fg/40 bg-gradient-to-br from-sky/10 to-transparent p-5 sm:p-6">
       <p className="font-display text-lg font-semibold">📅 {dict.title}</p>
       <p className="mt-1.5 text-sm leading-relaxed text-muted">{dict.body}</p>
       <div className="mt-4 flex flex-wrap gap-2">
@@ -148,7 +148,7 @@ function CalendarSync({
         <button
           type="button"
           onClick={download}
-          className="rounded-xl bg-sky px-3 py-2 text-sm font-semibold text-night transition-transform hover:-translate-y-0.5"
+          className="rounded-xl bg-sky px-3 py-2 text-sm font-semibold text-ink transition-transform hover:-translate-y-0.5"
         >
           ⬇ {dict.download}
         </button>
@@ -196,7 +196,7 @@ export function Planner({ dict, sportNames }: { dict: Dictionary["plan"]; sportN
   return (
     <div className="mt-12 grid items-start gap-8 lg:grid-cols-[1fr_1.5fr]">
       <form className="space-y-6 rounded-3xl border border-line bg-surface/70 p-5 sm:p-6" onSubmit={(e) => e.preventDefault()}>
-        <p className="font-mono text-[0.7rem] tracking-[0.16em] text-volt uppercase">{dict.example}</p>
+        <p className="font-mono text-[0.7rem] tracking-[0.16em] text-volt-fg uppercase">{dict.example}</p>
         <fieldset>
           <legend className="text-sm font-semibold">{dict.labels.goal}</legend>
           <div className="mt-2 flex flex-wrap gap-2">
@@ -226,7 +226,7 @@ export function Planner({ dict, sportNames }: { dict: Dictionary["plan"]; sportN
             step={5}
             value={minutes}
             onChange={(e) => setMinutes(Number(e.target.value))}
-            className="mt-2 w-full accent-volt"
+            className="mt-2 w-full accent-volt-fg"
           />
         </label>
         <fieldset>
@@ -239,8 +239,8 @@ export function Planner({ dict, sportNames }: { dict: Dictionary["plan"]; sportN
             ))}
           </div>
         </fieldset>
-        <label className="flex cursor-pointer items-center gap-3 rounded-2xl border border-lilac/40 bg-lilac/10 p-3">
-          <input type="checkbox" checked={crew} onChange={(e) => setCrew(e.target.checked)} className="h-4 w-4 accent-lilac" />
+        <label className="flex cursor-pointer items-center gap-3 rounded-2xl border border-lilac-fg/40 bg-lilac/10 p-3">
+          <input type="checkbox" checked={crew} onChange={(e) => setCrew(e.target.checked)} className="h-4 w-4 accent-lilac-fg" />
           <span className="text-sm">👥 {dict.labels.crew}</span>
         </label>
         <label className="block">
@@ -252,7 +252,7 @@ export function Planner({ dict, sportNames }: { dict: Dictionary["plan"]; sportN
             step={10}
             value={recent}
             onChange={(e) => setRecent(Number(e.target.value))}
-            className="mt-2 w-full accent-volt"
+            className="mt-2 w-full accent-volt-fg"
           />
         </label>
         <fieldset>
@@ -271,7 +271,7 @@ export function Planner({ dict, sportNames }: { dict: Dictionary["plan"]; sportN
         <div className="rounded-3xl border border-line bg-surface/70 p-5 sm:p-6">
           <div className="flex flex-wrap items-baseline justify-between gap-2">
             <p className="font-display text-xl font-semibold">{dict.thisWeek}</p>
-            <p className="font-mono text-sm text-volt">{format(dict.planned, { minutes: week.plannedMinutes })}</p>
+            <p className="font-mono text-sm text-volt-fg">{format(dict.planned, { minutes: week.plannedMinutes })}</p>
           </div>
           <ol className="mt-4 grid grid-cols-1 gap-2 sm:grid-cols-7">
             {WEEK.map((d) => {
@@ -295,7 +295,7 @@ export function Planner({ dict, sportNames }: { dict: Dictionary["plan"]; sportN
           <ul className="mt-4 space-y-1 text-sm text-muted">
             {week.notes.map((n) => (
               <li key={n}>
-                <span className="mr-2 text-volt" aria-hidden="true">
+                <span className="mr-2 text-volt-fg" aria-hidden="true">
                   →
                 </span>
                 {dict.notes[n]}
@@ -335,7 +335,7 @@ export function Planner({ dict, sportNames }: { dict: Dictionary["plan"]; sportN
           <ul className="space-y-2 rounded-3xl border border-line bg-surface/70 p-5 text-sm text-muted">
             {dict.features.map((f) => (
               <li key={f} className="flex gap-2">
-                <span className="text-volt" aria-hidden="true">
+                <span className="text-volt-fg" aria-hidden="true">
                   ✦
                 </span>
                 {f}

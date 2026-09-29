@@ -28,8 +28,8 @@ export function PlusInvest({ dict }: { dict: Dictionary["plus"]["invest"] }) {
   const fmt = (usd: number) => formatMoney(Math.round(usd * scale * 100) / 100, currency, lang ?? "en");
 
   return (
-    <div className="mt-6 rounded-3xl border border-mint/40 bg-gradient-to-br from-mint/10 via-transparent to-volt/10 p-6 sm:p-8">
-      <p className="font-mono text-xs tracking-[0.18em] text-mint uppercase">{dict.kicker}</p>
+    <div className="mt-6 rounded-3xl border border-mint-fg/40 bg-gradient-to-br from-mint/10 via-transparent to-volt/10 p-6 sm:p-8">
+      <p className="font-mono text-xs tracking-[0.18em] text-mint-fg uppercase">{dict.kicker}</p>
       <h3 className="mt-2 font-display text-2xl font-semibold">{dict.title}</h3>
       <p className="mt-2 max-w-3xl leading-relaxed text-muted">{dict.body}</p>
       <div className="mt-6 grid gap-6 lg:grid-cols-[1.1fr_1fr]">

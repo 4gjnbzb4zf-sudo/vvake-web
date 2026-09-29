@@ -14,7 +14,7 @@ export function Pace({ dict, index }: { dict: Dictionary["pace"]; index: string 
         <div className="space-y-3" aria-hidden="true">
           <div className="rounded-3xl border border-line bg-surface p-5">
             <div className="flex items-baseline justify-between">
-              <p className="font-mono text-[0.7rem] tracking-[0.16em] text-pulse uppercase">{w.streak}</p>
+              <p className="font-mono text-[0.7rem] tracking-[0.16em] text-pulse-fg uppercase">{w.streak}</p>
               <p className="font-display text-3xl font-bold">
                 23 <span className="text-base font-semibold text-muted">{w.days} 🔥</span>
               </p>
@@ -26,7 +26,7 @@ export function Pace({ dict, index }: { dict: Dictionary["pace"]; index: string 
                     className={
                       d === "on"
                         ? "mx-auto h-9 w-9 rounded-xl bg-pulse shadow-[0_6px_18px_-6px_rgb(255_61_110/0.7)]"
-                        : "mx-auto flex h-9 w-9 items-center justify-center rounded-xl border border-dashed border-calm/60 text-[0.6rem] text-calm"
+                        : "mx-auto flex h-9 w-9 items-center justify-center rounded-xl border border-dashed border-calm-fg/60 text-[0.6rem] text-calm-fg"
                     }
                   >
                     {d === "rest" ? "zz" : null}
@@ -35,14 +35,14 @@ export function Pace({ dict, index }: { dict: Dictionary["pace"]; index: string 
                 </div>
               ))}
             </div>
-            <p className="mt-3 font-mono text-[0.65rem] text-calm">
+            <p className="mt-3 font-mono text-[0.65rem] text-calm-fg">
               ▢ = {w.rest} · {dict.healthy[0]}
             </p>
           </div>
 
           <div className="grid gap-3 sm:grid-cols-2">
             <div className="rounded-3xl border border-line bg-surface p-5">
-              <p className="font-mono text-[0.7rem] tracking-[0.16em] text-volt uppercase">🏆 {w.league}</p>
+              <p className="font-mono text-[0.7rem] tracking-[0.16em] text-volt-fg uppercase">🏆 {w.league}</p>
               <p className="mt-3 font-display text-2xl font-bold">#4</p>
               <p className="mt-1 text-xs text-muted">{w.rank}</p>
               <div className="stripe-bar mt-3 h-2 overflow-hidden rounded-full bg-line">
@@ -50,14 +50,14 @@ export function Pace({ dict, index }: { dict: Dictionary["pace"]; index: string 
               </div>
             </div>
             <div className="rounded-3xl border border-line bg-surface p-5">
-              <p className="font-mono text-[0.7rem] tracking-[0.16em] text-lilac uppercase">{w.quests}</p>
+              <p className="font-mono text-[0.7rem] tracking-[0.16em] text-lilac-fg uppercase">{w.quests}</p>
               <ul className="mt-3 space-y-2 text-sm">
                 {w.questList.map((q, i) => (
                   <li key={q} className="flex items-center gap-2">
                     <span
                       className={
                         i < 2
-                          ? "flex h-5 w-5 items-center justify-center rounded-md bg-lilac text-[0.65rem] text-night"
+                          ? "flex h-5 w-5 items-center justify-center rounded-md bg-lilac text-[0.65rem] text-ink"
                           : "h-5 w-5 rounded-md border border-line"
                       }
                     >
@@ -77,7 +77,7 @@ export function Pace({ dict, index }: { dict: Dictionary["pace"]; index: string 
             <div className="min-w-0 flex-1">
               <p className="font-mono text-[0.7rem] tracking-[0.16em] text-faint uppercase">{w.nowPlaying}</p>
               <p className="truncate font-display text-lg font-semibold">{w.track}</p>
-              <p className="text-xs text-volt">♪ {w.tempo}</p>
+              <p className="text-xs text-volt-fg">♪ {w.tempo}</p>
             </div>
             <div className="flex gap-2 text-lg text-muted">
               <span>⏮</span>
@@ -90,7 +90,7 @@ export function Pace({ dict, index }: { dict: Dictionary["pace"]; index: string 
         <div>
           <ul className="grid gap-4 sm:grid-cols-2">
             {dict.items.map((item, i) => (
-              <li key={item.title} className="rounded-3xl border border-line bg-surface/60 p-5 transition-colors hover:border-pulse/40">
+              <li key={item.title} className="rounded-3xl border border-line bg-surface/60 p-5 transition-colors hover:border-pulse-fg/40">
                 <span aria-hidden="true" className="text-2xl">
                   {ICONS[i % ICONS.length]}
                 </span>
@@ -116,7 +116,7 @@ export function Pace({ dict, index }: { dict: Dictionary["pace"]; index: string 
 
       <ul className="mt-8 flex flex-wrap gap-2">
         {dict.healthy.map((h) => (
-          <li key={h} className="rounded-full border border-calm/40 bg-calm/10 px-3.5 py-1.5 font-mono text-xs text-calm">
+          <li key={h} className="rounded-full border border-calm-fg/40 bg-calm/10 px-3.5 py-1.5 font-mono text-xs text-calm-fg">
             ♥ {h}
           </li>
         ))}

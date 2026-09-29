@@ -16,6 +16,7 @@ export function DayLoop({ dict, index }: { dict: Dictionary["day"]; index: strin
               <li key={m.time} className="relative grid grid-cols-[3.25rem_1fr] items-start gap-5">
                 <span className="pt-3 text-right font-mono text-xs text-faint">{m.time}</span>
                 <div
+                  data-theme={watch ? "dark" : undefined}
                   className={`relative flex gap-3 border p-3.5 transition-transform duration-300 hover:-translate-y-0.5 ${
                     watch ? "max-w-sm rounded-[1.6rem] border-line bg-black" : "rounded-2xl border-line bg-surface"
                   }`}
@@ -69,12 +70,12 @@ export function DayLoop({ dict, index }: { dict: Dictionary["day"]; index: strin
               </text>
             </svg>
             <p className="mt-1 font-mono text-xs text-muted">{dict.steps.goal}</p>
-            <p className="mt-2 font-mono text-xs tracking-[0.16em] text-volt uppercase">👟 {dict.steps.label}</p>
+            <p className="mt-2 font-mono text-xs tracking-[0.16em] text-volt-fg uppercase">👟 {dict.steps.label}</p>
             <p className="mt-3 text-sm leading-relaxed text-muted">{dict.steps.note}</p>
           </div>
           <ul className="mt-4 flex flex-wrap justify-center gap-2">
             {dict.cheers.map((c) => (
-              <li key={c} className="rounded-full border border-pulse/30 bg-pulse/10 px-3 py-1 font-mono text-xs text-pulse-soft">
+              <li key={c} className="rounded-full border border-pulse-fg/30 bg-pulse/10 px-3 py-1 font-mono text-xs text-pulse-soft-fg">
                 {c}
               </li>
             ))}

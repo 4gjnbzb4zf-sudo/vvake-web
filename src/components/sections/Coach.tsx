@@ -166,22 +166,25 @@ export function Coach({ dict, index }: { dict: Dictionary["coach"]; index: strin
   const chip = (on: boolean) =>
     cn(
       "rounded-full border px-3 py-1.5 text-sm transition-colors",
-      on ? "border-volt bg-volt text-night" : "border-line text-muted hover:text-text",
+      on ? "border-volt-fg bg-volt text-ink" : "border-line text-muted hover:text-text",
     );
 
   return (
     <Section id="coach" index={index} kicker={dict.kicker} title={dict.title} lead={dict.body}>
       <div className="mt-12 grid items-start gap-8 lg:grid-cols-[0.9fr_1.1fr]">
         {/* incoming call */}
-        <div className="mx-auto w-full max-w-sm rounded-[2.4rem] border-[7px] border-[#202428] bg-gradient-to-b from-lilac/20 to-night p-6 text-center shadow-2xl">
+        <div
+          data-theme="dark"
+          className="mx-auto w-full max-w-sm rounded-[2.4rem] border-[7px] border-[#202428] bg-gradient-to-b from-lilac/20 to-night p-6 text-center shadow-2xl"
+        >
           <p className="font-mono text-xs tracking-[0.14em] text-muted uppercase">{dict.call.incoming}</p>
           <div className="relative mx-auto mt-5 flex h-40 w-40 items-center justify-center">
-            <span className={cn("absolute inset-0 rounded-full border-2 border-volt/60", speaking ? "animate-ping" : "animate-pulse")} />
+            <span className={cn("absolute inset-0 rounded-full border-2 border-volt-fg/60", speaking ? "animate-ping" : "animate-pulse")} />
             <span className="absolute inset-3 rounded-full bg-surface" />
             <VVaker sport={persona.sport} title={persona.name || undefined} className="relative h-32 w-auto" />
           </div>
           <p className="mt-4 font-display text-xl font-semibold">{dict.call.who}</p>
-          <p className="font-mono text-xs text-volt">
+          <p className="font-mono text-xs text-volt-fg">
             {dict.styles[style].name} · {dict.vibes[vibe].name}
           </p>
           <ul className="mt-5 space-y-2 text-left" aria-live="polite">
@@ -236,20 +239,20 @@ export function Coach({ dict, index }: { dict: Dictionary["coach"]; index: strin
           <button
             type="button"
             onClick={play}
-            className="inline-flex h-12 items-center gap-2 rounded-xl bg-volt px-5 font-display text-sm font-semibold text-night transition-transform hover:-translate-y-0.5"
+            className="inline-flex h-12 items-center gap-2 rounded-xl bg-volt px-5 font-display text-sm font-semibold text-ink transition-transform hover:-translate-y-0.5"
           >
             {speaking ? "■" : "▶"} {speaking ? dict.stop : dict.play}
           </button>
           <p className="-mt-3 text-xs text-faint">{dict.demoNote}</p>
           {silent && (
-            <p role="status" className="-mt-3 rounded-xl border border-butter/40 bg-butter/10 px-3 py-2 text-xs text-butter">
+            <p role="status" className="-mt-3 rounded-xl border border-butter-fg/40 bg-butter/10 px-3 py-2 text-xs text-butter-fg">
               {dict.voiceUnavailable}
             </p>
           )}
           <ul className="space-y-2 rounded-3xl border border-line bg-surface/60 p-5 text-sm text-muted">
             {dict.rules.map((r) => (
               <li key={r} className="flex gap-2">
-                <span className="text-volt" aria-hidden="true">
+                <span className="text-volt-fg" aria-hidden="true">
                   ✓
                 </span>
                 {r}
@@ -258,7 +261,7 @@ export function Coach({ dict, index }: { dict: Dictionary["coach"]; index: strin
           </ul>
         </div>
       </div>
-      <div className="mt-8 rounded-[2rem] border border-lilac/40 bg-gradient-to-br from-lilac/10 to-transparent p-6 sm:p-8">
+      <div className="mt-8 rounded-[2rem] border border-lilac-fg/40 bg-gradient-to-br from-lilac/10 to-transparent p-6 sm:p-8">
         <h3 className="font-display text-2xl font-semibold">🧠 {dict.memory.title}</h3>
         <p className="mt-2 max-w-3xl leading-relaxed text-muted">{dict.memory.body}</p>
         <div className="mt-6 grid gap-4 lg:grid-cols-2">
@@ -273,13 +276,13 @@ export function Coach({ dict, index }: { dict: Dictionary["coach"]; index: strin
                       {n.icon}
                     </span>
                     <div className="flex-1">
-                      <p className="font-mono text-[0.6rem] tracking-[0.1em] text-lilac uppercase">{n.topic}</p>
+                      <p className="font-mono text-[0.6rem] tracking-[0.1em] text-lilac-fg uppercase">{n.topic}</p>
                       <p className="text-sm">{n.text}</p>
                     </div>
                     <button
                       type="button"
                       onClick={() => setKept((k) => k.filter((id) => id !== n.id))}
-                      className="rounded-lg border border-line px-2 py-1 text-xs text-muted hover:border-down/60 hover:text-down"
+                      className="rounded-lg border border-line px-2 py-1 text-xs text-muted hover:border-down-fg/60 hover:text-down-fg"
                     >
                       ✕ {dict.memory.forget}
                     </button>

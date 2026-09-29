@@ -50,7 +50,7 @@ function Effected({ effect, children }: { effect: Effect; children: ReactNode })
       return (
         <div className="relative">
           {children}
-          <span className="absolute top-3 right-2 rotate-6 rounded-md bg-pulse px-2 py-0.5 font-mono text-[0.6rem] font-medium tracking-widest text-night">
+          <span className="absolute top-3 right-2 rotate-6 rounded-md bg-pulse px-2 py-0.5 font-mono text-[0.6rem] font-medium tracking-widest text-ink">
             LYON
           </span>
         </div>
@@ -62,9 +62,9 @@ export function CollectorDrops({ dict }: { dict: Dictionary["vvaker"]["collect"]
   return (
     <div
       id="collector"
-      className="mt-16 scroll-mt-24 rounded-[2rem] border border-pulse/30 bg-gradient-to-b from-pulse/10 to-transparent p-6 sm:p-10"
+      className="mt-16 scroll-mt-24 rounded-[2rem] border border-pulse-fg/30 bg-gradient-to-b from-pulse/10 to-transparent p-6 sm:p-10"
     >
-      <p className="font-mono text-xs tracking-[0.18em] text-pulse uppercase">{dict.kicker}</p>
+      <p className="font-mono text-xs tracking-[0.18em] text-pulse-fg uppercase">{dict.kicker}</p>
       <h3 className="mt-3 max-w-3xl font-display text-2xl leading-tight font-semibold sm:text-4xl">{dict.title}</h3>
       <p className="mt-4 max-w-3xl leading-relaxed text-muted">{dict.body}</p>
 
@@ -84,7 +84,7 @@ export function CollectorDrops({ dict }: { dict: Dictionary["vvaker"]["collect"]
               <div className="border-t border-line p-3">
                 <p className="font-mono text-[0.62rem] tracking-[0.14em] text-faint uppercase">{info.slot}</p>
                 <p className="font-display text-sm font-semibold">{info.name}</p>
-                <p className="mt-1 font-mono text-[0.62rem] text-volt">{info.supply}</p>
+                <p className="mt-1 font-mono text-[0.62rem] text-volt-fg">{info.supply}</p>
               </div>
             </li>
           );
@@ -94,7 +94,7 @@ export function CollectorDrops({ dict }: { dict: Dictionary["vvaker"]["collect"]
       <h4 className="mt-10 font-display text-xl font-semibold">{dict.utilityTitle}</h4>
       <ul className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
         {dict.utility.map((u) => (
-          <li key={u.title} className="flex gap-3 rounded-2xl border border-line bg-night/60 p-4 transition-colors hover:border-volt/40">
+          <li key={u.title} className="flex gap-3 rounded-2xl border border-line bg-night/60 p-4 transition-colors hover:border-volt-fg/40">
             <span aria-hidden="true" className="text-2xl">
               {u.icon}
             </span>
@@ -112,7 +112,7 @@ export function CollectorDrops({ dict }: { dict: Dictionary["vvaker"]["collect"]
           <ul className="mt-3 space-y-2 text-sm text-muted">
             {dict.perks.map((p) => (
               <li key={p} className="flex gap-2">
-                <span className="text-volt" aria-hidden="true">
+                <span className="text-volt-fg" aria-hidden="true">
                   ✦
                 </span>
                 {p}
@@ -120,12 +120,12 @@ export function CollectorDrops({ dict }: { dict: Dictionary["vvaker"]["collect"]
             ))}
           </ul>
         </div>
-        <div className="rounded-2xl border border-down/30 bg-down/5 p-5">
+        <div className="rounded-2xl border border-down-fg/30 bg-down/5 p-5">
           <p className="font-display font-semibold">{dict.neverTitle}</p>
           <ul className="mt-3 space-y-2 text-sm text-muted">
             {dict.never.map((n) => (
               <li key={n} className="flex gap-2">
-                <span className="font-mono text-down" aria-hidden="true">
+                <span className="font-mono text-down-fg" aria-hidden="true">
                   ✕
                 </span>
                 {n}

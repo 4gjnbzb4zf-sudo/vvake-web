@@ -8,7 +8,7 @@ import { VVaker } from "./VVaker";
 
 /** Each card shows the same VVaker in one style, so the choice is about the look, not the character. */
 const PREVIEW: Partial<VVakerTraits> = { sport: "runner", color: "candy", accent: "volt", eyes: "happy", mouth: "grin", energy: 4 };
-const BLURB_TONE: Record<VVakerLook, string> = { toy: "text-pulse", "athlete-a": "text-volt", "athlete-b": "text-sky" };
+const BLURB_TONE: Record<VVakerLook, string> = { toy: "text-pulse-fg", "athlete-a": "text-volt-fg", "athlete-b": "text-sky-fg" };
 
 /** Big style chooser at the top of the VVaker section (same switch as the header and the studio). */
 export function StylePicker({ dict }: { dict: Dictionary["vvaker"] }) {
@@ -32,8 +32,8 @@ export function StylePicker({ dict }: { dict: Dictionary["vvaker"] }) {
               className={cn(
                 "group relative flex items-center gap-4 overflow-hidden rounded-3xl border p-4 text-left transition-all duration-300",
                 active
-                  ? "border-volt bg-volt/10 shadow-[0_18px_50px_-24px_rgb(204_255_0/0.6)]"
-                  : "border-line bg-surface/60 hover:-translate-y-1 hover:border-volt/40",
+                  ? "border-volt-fg bg-volt/10 shadow-[0_18px_50px_-24px_rgb(204_255_0/0.6)]"
+                  : "border-line bg-surface/60 hover:-translate-y-1 hover:border-volt-fg/40",
               )}
             >
               <VVaker {...PREVIEW} look={look} lockLook className="h-28 w-auto shrink-0 transition-transform group-hover:scale-105" />
@@ -43,7 +43,7 @@ export function StylePicker({ dict }: { dict: Dictionary["vvaker"] }) {
                 <span
                   className={cn(
                     "mt-3 inline-flex rounded-full px-2.5 py-0.5 font-mono text-[0.65rem] tracking-[0.1em] uppercase",
-                    active ? "bg-volt text-night" : "border border-line text-faint",
+                    active ? "bg-volt text-ink" : "border border-line text-faint",
                   )}
                 >
                   {active ? dict.picker.selected : dict.picker.choose}

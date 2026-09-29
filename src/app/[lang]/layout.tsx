@@ -5,6 +5,7 @@ import { siteConfig } from "@/config/site";
 import { isLocale, locales, ogLocales } from "@/i18n/config";
 import { getDictionary } from "@/i18n/dictionaries";
 import { OG_SIZE } from "@/og/OgCard";
+import { THEME_SCRIPT } from "@/lib/theme";
 import { fontVariables } from "../fonts";
 import "../globals.css";
 
@@ -17,8 +18,11 @@ export function generateStaticParams() {
 }
 
 export const viewport: Viewport = {
-  themeColor: "#0e1012",
-  colorScheme: "dark",
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#f5f6f3" },
+    { media: "(prefers-color-scheme: dark)", color: "#0e1012" },
+  ],
+  colorScheme: "dark light",
 };
 
 export async function generateMetadata({ params }: { params: Params }): Promise<Metadata> {
@@ -60,7 +64,11 @@ export default async function LocaleLayout({ children, params }: { children: Rea
   const { lang } = await params;
   if (!isLocale(lang)) notFound();
   return (
-    <html lang={lang} className={fontVariables}>
+    <html lang={lang} className={fontVariables} suppressHydrationWarning>
+      <head>
+        {/* Sets data-theme before first paint (no flash of the other theme). */}
+        <script dangerouslySetInnerHTML={{ __html: THEME_SCRIPT }} />
+      </head>
       <body className="min-h-dvh">{children}</body>
     </html>
   );

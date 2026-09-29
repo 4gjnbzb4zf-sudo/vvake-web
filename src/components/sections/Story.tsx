@@ -23,10 +23,10 @@ export function Story({ dict, index }: { dict: Dictionary["story"]; index: strin
           <ul className="mt-6 divide-y divide-line">
             {dict.fixes.map((f) => (
               <li key={f.was} className="grid gap-2 py-5 first:pt-0 last:pb-0 sm:grid-cols-[1fr_auto_1.3fr] sm:items-center sm:gap-4">
-                <span className="text-faint line-through decoration-down/70">
+                <span className="text-faint line-through decoration-down-fg/70">
                   <MoneyText template={f.was} usd={1000} />
                 </span>
-                <span className="hidden font-mono text-pulse sm:block" aria-hidden="true">
+                <span className="hidden font-mono text-pulse-fg sm:block" aria-hidden="true">
                   →
                 </span>
                 <span className="font-medium text-text">{f.now}</span>

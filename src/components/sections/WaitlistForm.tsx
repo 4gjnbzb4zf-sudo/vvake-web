@@ -111,7 +111,7 @@ export function WaitlistForm({ locale, dict, countryLabels, cities, endpoint, si
               {!counts && <p className="text-sm text-faint">{dict.form.counterPending}</p>}
             </>
           ) : requested ? (
-            <div className="rounded-2xl border border-volt/40 bg-volt/5 p-4">
+            <div className="rounded-2xl border border-volt-fg/40 bg-volt/5 p-4">
               <p className="font-display text-lg font-semibold">{format(dict.form.requestedTitle, { city: requested })}</p>
               <p className="mt-1 text-sm text-muted">{dict.form.requestedBody}</p>
             </div>
@@ -162,16 +162,16 @@ export function WaitlistForm({ locale, dict, countryLabels, cities, endpoint, si
               <input id="wl-company" name="company" type="text" tabIndex={-1} autoComplete="off" />
             </div>
             <label className="flex items-start gap-3 text-sm text-muted">
-              <input name="consent" type="checkbox" required className="mt-1 h-4 w-4 shrink-0 accent-pulse" />
+              <input name="consent" type="checkbox" required className="mt-1 h-4 w-4 shrink-0 accent-pulse-fg" />
               <span>
                 {dict.form.consent}{" "}
-                <a href={privacyHref} className="text-text underline decoration-line underline-offset-4 hover:decoration-pulse">
+                <a href={privacyHref} className="text-text underline decoration-line underline-offset-4 hover:decoration-pulse-fg">
                   {dict.form.privacy}
                 </a>
               </span>
             </label>
             {status.kind === "error" && (
-              <p role="alert" className="rounded-xl border border-down/40 bg-down/10 px-4 py-3 text-sm text-down">
+              <p role="alert" className="rounded-xl border border-down-fg/40 bg-down/10 px-4 py-3 text-sm text-down-fg">
                 {dict.errors[status.code]}
               </p>
             )}
@@ -194,7 +194,7 @@ export function WaitlistForm({ locale, dict, countryLabels, cities, endpoint, si
 }
 
 const inputClass =
-  "h-12 w-full rounded-xl border border-line bg-night px-4 text-text placeholder:text-faint outline-none transition-colors focus:border-pulse";
+  "h-12 w-full rounded-xl border border-line bg-night px-4 text-text placeholder:text-faint outline-none transition-colors focus:border-pulse-fg";
 
 function Field({ id, label, children }: { id: string; label: string; children: ReactNode }) {
   return (
@@ -217,7 +217,7 @@ function CityRace(props: {
 }) {
   const progress = props.count === undefined ? null : unlockProgress(props.count, props.threshold);
   return (
-    <div className={cn("rounded-2xl border p-4", props.highlight ? "border-pulse/40 bg-pulse/5" : "border-line bg-night/60")}>
+    <div className={cn("rounded-2xl border p-4", props.highlight ? "border-pulse-fg/40 bg-pulse/5" : "border-line bg-night/60")}>
       <div className="flex items-baseline justify-between gap-3">
         <p className="font-display text-lg font-semibold">{props.name}</p>
         <p className="font-mono text-xs text-muted">
@@ -228,7 +228,7 @@ function CityRace(props: {
             </>
           ) : (
             <>
-              <span className="text-volt">{props.nf.format(props.threshold)}</span> {props.dict.form.threshold.toLowerCase()}
+              <span className="text-volt-fg">{props.nf.format(props.threshold)}</span> {props.dict.form.threshold.toLowerCase()}
             </>
           )}
         </p>
@@ -279,7 +279,7 @@ function Success(props: {
       <h3 className="font-display text-2xl font-semibold">{props.dict.title}</h3>
       <p className="mt-3 text-muted">{format(props.dict.rank, { rank: props.data.cityRank, city: props.city })}</p>
       {props.data.tier && (
-        <p className="mt-4 inline-flex rounded-full border border-volt/40 bg-volt/10 px-3 py-1 font-mono text-xs tracking-[0.15em] text-volt uppercase">
+        <p className="mt-4 inline-flex rounded-full border border-volt-fg/40 bg-volt/10 px-3 py-1 font-mono text-xs tracking-[0.15em] text-volt-fg uppercase">
           {props.dict.tier[props.data.tier]}
         </p>
       )}

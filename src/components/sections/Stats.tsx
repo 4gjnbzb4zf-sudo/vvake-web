@@ -38,7 +38,7 @@ function Stat({ value, label, suffix, start }: { value: number; label: string; s
         {n}
         {suffix}
       </p>
-      <p className="mt-2 font-mono text-[0.7rem] tracking-[0.18em] text-volt uppercase">{label}</p>
+      <p className="mt-2 font-mono text-[0.7rem] tracking-[0.18em] text-volt-fg uppercase">{label}</p>
     </div>
   );
 }

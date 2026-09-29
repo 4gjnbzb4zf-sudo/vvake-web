@@ -4,7 +4,7 @@ import { cn } from "@/lib/cn";
 type Variant = "primary" | "ghost";
 
 const variants: Record<Variant, string> = {
-  primary: "bg-pulse text-night hover:bg-pulse-soft glow-pulse focus-visible:outline-volt",
+  primary: "bg-pulse text-ink hover:bg-pulse-soft glow-pulse focus-visible:outline-volt-fg",
   ghost: "border border-line bg-surface/60 text-text hover:border-muted/60 hover:bg-surface-2",
 };
 

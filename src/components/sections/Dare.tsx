@@ -5,17 +5,17 @@ import { cn } from "@/lib/cn";
 import type { Dictionary } from "@/i18n/dictionaries";
 
 const TONES = [
-  { ring: "border-pulse/50", tag: "bg-pulse", glow: "from-pulse/15" },
-  { ring: "border-lilac/50", tag: "bg-lilac", glow: "from-lilac/15" },
-  { ring: "border-sky/50", tag: "bg-sky", glow: "from-sky/15" },
-  { ring: "border-volt/40", tag: "bg-volt", glow: "from-volt/10" },
+  { ring: "border-pulse-fg/50", tag: "bg-pulse", glow: "from-pulse/15" },
+  { ring: "border-lilac-fg/50", tag: "bg-lilac", glow: "from-lilac/15" },
+  { ring: "border-sky-fg/50", tag: "bg-sky", glow: "from-sky/15" },
+  { ring: "border-volt-fg/40", tag: "bg-volt", glow: "from-volt/10" },
 ] as const;
 
 function DuelArt() {
   return (
     <div className="flex items-end justify-center gap-1">
       <VVaker sport="runner" color="candy" eyes="fired" mouth="grin" className="h-24 w-auto" />
-      <span className="mb-10 -skew-x-6 font-display text-2xl font-bold text-pulse italic">VS</span>
+      <span className="mb-10 -skew-x-6 font-display text-2xl font-bold text-pulse-fg italic">VS</span>
       <VVaker sport="boxer" color="sky" eyes="fired" className="h-24 w-auto -scale-x-100" />
     </div>
   );
@@ -29,7 +29,7 @@ function CrewArt() {
         <VVaker sport="runner" color="candy" className="h-16 w-auto" />
         <VVaker sport="cyclist" color="butter" className="h-16 w-auto" />
       </div>
-      <span className="mx-1 mb-7 font-display text-lg font-bold text-lilac italic">VS</span>
+      <span className="mx-1 mb-7 font-display text-lg font-bold text-lilac-fg italic">VS</span>
       <div className="flex -scale-x-100 -space-x-7">
         <VVaker sport="baller" color="coral" className="h-16 w-auto" />
         <VVaker sport="roller" color="lilac" className="h-16 w-auto" />
@@ -43,7 +43,7 @@ function WorldArt() {
   return (
     <div className="flex items-end justify-center gap-3">
       <VVaker sport="runner" color="olive" className="h-24 w-auto" />
-      <div className="relative mb-4 flex h-16 w-16 items-center justify-center rounded-full border border-sky/50 bg-sky/10 text-3xl">
+      <div className="relative mb-4 flex h-16 w-16 items-center justify-center rounded-full border border-sky-fg/50 bg-sky/10 text-3xl">
         🌍
         <span className="absolute -top-1 -right-1 h-3 w-3 animate-ping rounded-full bg-sky" />
       </div>
@@ -59,9 +59,7 @@ function GhostArt() {
       <div className="-ml-10 opacity-35 grayscale">
         <VVaker sport="runner" color="sky" className="h-24 w-auto" />
       </div>
-      <span className="absolute top-0 right-6 rounded-md bg-volt px-1.5 py-0.5 font-mono text-[0.65rem] font-semibold text-night">
-        +20 m
-      </span>
+      <span className="absolute top-0 right-6 rounded-md bg-volt px-1.5 py-0.5 font-mono text-[0.65rem] font-semibold text-ink">+20 m</span>
     </div>
   );
 }
@@ -91,7 +89,7 @@ export function Dare({ dict, index }: { dict: Dictionary["dare"]; index: string 
               <div className="flex flex-1 flex-col border-t border-line/60 bg-night/60 p-4">
                 <span
                   className={cn(
-                    "self-start rounded-md px-2 py-0.5 font-mono text-[0.62rem] font-medium tracking-[0.1em] text-night uppercase",
+                    "self-start rounded-md px-2 py-0.5 font-mono text-[0.62rem] font-medium tracking-[0.1em] text-ink uppercase",
                     tone.tag,
                   )}
                 >
@@ -115,7 +113,7 @@ export function Dare({ dict, index }: { dict: Dictionary["dare"]; index: string 
       </ul>
 
       <div className="mt-6 grid gap-4 lg:grid-cols-[1.3fr_1fr]">
-        <div className="rounded-3xl border border-pulse/40 bg-surface/70 p-5 sm:p-6">
+        <div className="rounded-3xl border border-pulse-fg/40 bg-surface/70 p-5 sm:p-6">
           <div className="flex items-center justify-between">
             <p className="flex items-center gap-2 font-display font-semibold">
               <span className="h-2 w-2 animate-ping rounded-full bg-pulse" aria-hidden="true" />
@@ -139,12 +137,12 @@ export function Dare({ dict, index }: { dict: Dictionary["dare"]; index: string 
               </div>
             </div>
           ))}
-          <p className="mt-4 text-sm text-volt">⚖️ {dict.live.fair}</p>
+          <p className="mt-4 text-sm text-volt-fg">⚖️ {dict.live.fair}</p>
         </div>
         <ul className="space-y-2 rounded-3xl border border-line bg-surface/60 p-5 text-sm text-muted sm:p-6">
           {dict.rules.map((r) => (
             <li key={r} className="flex gap-2">
-              <span className="text-volt" aria-hidden="true">
+              <span className="text-volt-fg" aria-hidden="true">
                 ✓
               </span>
               {r}
