@@ -1,0 +1,82 @@
+import type { Metadata } from "next";
+import { notFound } from "next/navigation";
+import { AppPreview } from "@/components/sections/AppPreview";
+import { Challenges } from "@/components/sections/Challenges";
+import { Crew } from "@/components/sections/Crew";
+import { Dare } from "@/components/sections/Dare";
+import { DayLoop } from "@/components/sections/DayLoop";
+import { Earn } from "@/components/sections/Earn";
+import { How } from "@/components/sections/How";
+import { Journal } from "@/components/sections/Journal";
+import { Live } from "@/components/sections/Live";
+import { Multisport } from "@/components/sections/Multisport";
+import { Pace } from "@/components/sections/Pace";
+import { People } from "@/components/sections/People";
+import { Planner } from "@/components/sections/Planner";
+import { Plus } from "@/components/sections/Plus";
+import { RivalryBoard, type RivalryView } from "@/components/sections/Rivalries";
+import { Showcase } from "@/components/sections/Showcase";
+import { Unlock } from "@/components/sections/Unlock";
+import { Wellbeing } from "@/components/sections/Wellbeing";
+import { Why } from "@/components/sections/Why";
+import { Section } from "@/components/ui/Section";
+import { isLocale } from "@/i18n/config";
+import { getDictionary } from "@/i18n/dictionaries";
+import { getCity, RIVALRIES, thresholdFor } from "@/lib/cities";
+import { Subpage, subpageMetadata } from "../subpage";
+
+type Params = Promise<{ lang: string }>;
+
+export async function generateMetadata({ params }: { params: Params }): Promise<Metadata> {
+  const { lang } = await params;
+  return isLocale(lang) ? subpageMetadata(lang, "app/") : {};
+}
+
+function rivalryViews(): RivalryView[] {
+  return RIVALRIES.map((r) => {
+    const side = (slug: string) => ({ name: getCity(slug)?.name ?? slug, threshold: thresholdFor(slug) });
+    return { id: r.id as RivalryView["id"], country: r.country, sides: [side(r.cities[0]), side(r.cities[1])] as const };
+  });
+}
+
+/** The app in depth: the plan, the app itself, a day, every sport, rewards, competing, crews, your city, wellbeing, Plus. */
+export default async function AppPage({ params }: { params: Params }) {
+  const { lang } = await params;
+  if (!isLocale(lang)) notFound();
+  const dict = getDictionary(lang);
+  return (
+    <Subpage lang={lang} page="app/">
+      <Section id="plan" index="01" kicker={dict.plan.kicker} title={dict.plan.title} lead={dict.plan.body}>
+        <Planner dict={dict.plan} sportNames={dict.multisport.sports} />
+      </Section>
+      <AppPreview dict={dict.app} index="02" />
+      <How dict={dict.how} index="03" />
+      <DayLoop dict={dict.day} index="04" />
+      <Multisport dict={dict.multisport} index="05" />
+      <Why dict={dict.why} index="06" />
+      <Earn locale={lang} dict={dict.earn} index="07" />
+      <Showcase locale={lang} dict={dict.showcase} />
+      <Challenges dict={dict.challenges} index="08" />
+      <Dare dict={dict.dare} index="09" />
+      <Pace dict={dict.pace} index="10" />
+      <Crew dict={dict.crew} index="11" />
+      <People dict={dict.people} index="12" />
+      <Section
+        id="rivalries"
+        index="13"
+        kicker={dict.rivalries.kicker}
+        title={<span className="inline-block -skew-x-6 italic">{dict.rivalries.title}</span>}
+        lead={dict.rivalries.body}
+      >
+        <RivalryBoard dict={dict.rivalries} rivalries={rivalryViews()} numberLocale={lang} />
+      </Section>
+      <Live dict={dict.live} index="14" numberLocale={lang} />
+      <Wellbeing dict={dict.wellbeing} index="15" />
+      <Section id="journal" index="16" kicker={dict.journal.kicker} title={dict.journal.title} lead={dict.journal.body}>
+        <Journal dict={dict.journal} />
+      </Section>
+      <Plus dict={dict.plus} index="17" />
+      <Unlock locale={lang} dict={dict.unlock} countryLabels={dict.rivalries.tabs} index="18" />
+    </Subpage>
+  );
+}

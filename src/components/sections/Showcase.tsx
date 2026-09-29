@@ -5,9 +5,11 @@ import { MoneyText } from "@/components/ui/Money";
 import { Container } from "@/components/ui/Section";
 import { VVaker } from "@/components/vvaker/VVaker";
 import { cn } from "@/lib/cn";
+import type { Locale } from "@/i18n/config";
 import type { Dictionary } from "@/i18n/dictionaries";
+import { sectionHref } from "@/lib/routes";
 
-const HREFS = ["#rivalries", "#crew", "#rwa", "#pulse"] as const;
+const TARGETS = ["rivalries", "crew", "rwa", "pulse"] as const;
 const TONES = ["from-pulse/25", "from-lilac/25", "from-volt/15", "from-mint/20"] as const;
 const TAG = ["bg-pulse", "bg-lilac", "bg-volt", "bg-mint"] as const;
 const ROTATE_MS = 5500;
@@ -113,7 +115,7 @@ function Invest() {
 const VISUALS = [Compete, Crew, Web3, Invest] as const;
 
 /** Rotating highlights under the hero: compete, crew, RWA × web3, Sweat & Invest. */
-export function Showcase({ dict }: { dict: Dictionary["showcase"] }) {
+export function Showcase({ locale, dict }: { locale: Locale; dict: Dictionary["showcase"] }) {
   const [active, setActive] = useState(0);
   const [paused, setPaused] = useState(false);
   const [hovered, setHovered] = useState(false);
@@ -158,7 +160,7 @@ export function Showcase({ dict }: { dict: Dictionary["showcase"] }) {
                 <MoneyText template={slide.body} usd={1} />
               </p>
               <a
-                href={HREFS[active]}
+                href={sectionHref(locale, TARGETS[active]!)}
                 className="mt-6 inline-flex h-11 items-center rounded-xl bg-text px-5 font-display text-sm font-semibold text-night transition-transform hover:-translate-y-0.5"
               >
                 {slide.cta} →

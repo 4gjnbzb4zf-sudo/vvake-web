@@ -3,6 +3,7 @@ import { Container, Section } from "@/components/ui/Section";
 import { siteConfig } from "@/config/site";
 import type { Locale } from "@/i18n/config";
 import type { Dictionary } from "@/i18n/dictionaries";
+import { sectionHref } from "@/lib/routes";
 
 export function Dev({ dict, index }: { dict: Dictionary["dev"]; index: string }) {
   return (
@@ -75,7 +76,7 @@ export function Footer({ locale, dict }: { locale: Locale; dict: Dictionary["foo
             <a href={`/${locale}/privacy/`} className="hover:text-text">
               {dict.privacy}
             </a>
-            <a href="#partners" className="hover:text-text">
+            <a href={sectionHref(locale, "partners")} className="hover:text-text">
               {dict.partners}
             </a>
             <a href={`mailto:${siteConfig.contactEmail}`} className="hover:text-text">

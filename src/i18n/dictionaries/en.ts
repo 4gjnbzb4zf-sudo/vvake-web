@@ -11,6 +11,8 @@ export const en = {
     ogAlt: "VVake Fit: two Vs make a W. The market wakes, we move.",
   },
   nav: {
+    app: "The app",
+    backers: "Backers",
     why: "Why join",
     earn: "What you get",
     play: "Play",
@@ -36,12 +38,88 @@ export const en = {
     anthem: ["for your health.", "for your wealth.", "for yourself.", "for your squad.", "for your city.", "for your team."],
     love: "Running, yoga, padel, dancing, lifting, a long walk: you already know what you love to do.",
     loveKicker: "It's just time to VVake up and do it more often.",
-    lead: "The training app for your phone and watch: a plan that fits your week, your crew, your city. Move for perks, prizes and, where the law allows, real rewards. Scored on your heart, not your speed.",
+    lead: "Your coach calls you and plans your week. Every workout counts toward perks, prizes and your city's rank.",
     trainingChip: "Plan synced with your calendar",
     wealthChip: "{money} invested per workout",
     wealthNote: "Sweat & Invest · with Robinhood (planned) · your money · where available",
     ctaPrimary: "Unlock your city",
-    ctaSecondary: "What you get",
+    ctaSecondary: "Meet your coach",
+  },
+  benefits: {
+    kicker: "What's in it for you",
+    title: "Move more. Get more.",
+    items: [
+      {
+        target: "coach",
+        icon: "🎧",
+        title: "A coach that calls you",
+        body: "It checks in by voice, remembers how you feel and adjusts your week.",
+        cta: "Hear it",
+      },
+      {
+        target: "plan",
+        icon: "🗓️",
+        title: "A plan that fits your week",
+        body: "Tell it when you're free and what you love. It builds and adapts your training.",
+        cta: "Build my week",
+      },
+      {
+        target: "earn",
+        icon: "🏆",
+        title: "Rewards for showing up",
+        body: "Perks, prizes, season rewards and a Founder spot in your city. Scored on your heart, not your speed.",
+        cta: "See the rewards",
+      },
+    ],
+  },
+  paths: {
+    label: "Go deeper",
+    items: [
+      {
+        key: "try",
+        icon: "📱",
+        kicker: "The app",
+        title: "Everything it does for you",
+        body: "Coach, plan, challenges, crews, city clashes and Plus.",
+        cta: "Explore the app",
+        page: "app/",
+      },
+      {
+        key: "learn",
+        icon: "🎨",
+        kicker: "Your VVaker",
+        title: "Build your animal athlete",
+        body: "Make it your profile picture. It grows as you move.",
+        cta: "Build yours",
+        page: "vvaker/",
+      },
+      {
+        key: "back",
+        icon: "📖",
+        kicker: "Backers",
+        title: "Open books, open plan",
+        body: "Where every fee goes, $VVAKE and how to own a piece (planned).",
+        cta: "See the plan",
+        page: "backers/",
+      },
+    ],
+  },
+  pages: {
+    app: {
+      kicker: "The app",
+      title: "Your coach, your plan, your city.",
+      lead: "Everything VVake does for you, from the first call to the season finale.",
+    },
+    vvaker: {
+      kicker: "Your VVaker",
+      title: "Build it. Grow it. Make it yours.",
+      lead: "Your animal athlete: free, earned by moving, never bought.",
+    },
+    backers: {
+      kicker: "Backers",
+      title: "Open books. Real assets. Fees only.",
+      lead: "Why we build on Robinhood Chain, where every fee goes, and how to own a piece of VVake (planned).",
+    },
   },
   highlights: {
     strip: ["Heart, not speed", "City rivalries", "Open-book team"],
@@ -1326,6 +1404,7 @@ export const en = {
   vvaker: {
     kicker: "Your VVaker",
     title: "Build your VVaker.",
+    grow: { kicker: "Your VVaker, levelled up", title: "It grows with you. The drip is optional." },
     body: "Your own animal athlete, in full VVake Fit streetwear, throwing the VVake sign. Pick your animal, sport, fit and gear, then make it your profile picture and X banner.",
     tabs: { body: "Body", gear: "Gear", sport: "Sport", face: "Face", ink: "Hair & ink" },
     controls: {

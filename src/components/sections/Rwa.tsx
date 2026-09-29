@@ -1,5 +1,6 @@
 import { Section } from "@/components/ui/Section";
 import { MoneyText } from "@/components/ui/Money";
+import type { Locale } from "@/i18n/config";
 import type { Dictionary } from "@/i18n/dictionaries";
 import { TokenHolders } from "./TokenHolders";
 
@@ -10,7 +11,7 @@ const LANE_STYLES = [
 ] as const;
 
 /** How real-world market data, the game and the (planned) on-chain layer connect, with the compliance lines visible. */
-export function Rwa({ dict, index }: { dict: Dictionary["rwa"]; index: string }) {
+export function Rwa({ locale, dict, index }: { locale: Locale; dict: Dictionary["rwa"]; index: string }) {
   return (
     <Section id="rwa" index={index} kicker={dict.kicker} title={dict.title} lead={dict.body}>
       <div className="mt-10 rounded-[2rem] border border-volt-fg/40 bg-gradient-to-br from-volt/15 via-transparent to-mint/10 p-6 sm:p-8">
@@ -33,7 +34,7 @@ export function Rwa({ dict, index }: { dict: Dictionary["rwa"]; index: string })
         </ul>
         <p className="mt-5 text-xs leading-relaxed text-faint">{dict.robinhood.notice}</p>
       </div>
-      <TokenHolders dict={dict.token} />
+      <TokenHolders locale={locale} dict={dict.token} />
 
       <ol className="relative mt-12 grid gap-4 lg:grid-cols-3">
         {dict.lanes.map((lane, i) => {
