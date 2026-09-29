@@ -43,3 +43,6 @@ next-env.d.ts
 
 # Local design lab (proposals, not deployed)
 /src/app/[[]lang]/lab/
+
+# Local VVaker renders (render-server, dev only)
+/public/renders/

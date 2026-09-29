@@ -1,10 +1,11 @@
 "use client";
 
 import { useParams } from "next/navigation";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { Section } from "@/components/ui/Section";
 import { VVaker } from "@/components/vvaker/VVaker";
 import { cn } from "@/lib/cn";
+import { COACH_CLIPS, clipName } from "@/lib/coachClips";
 import { usePersona } from "@/lib/prefs";
 import type { Dictionary } from "@/i18n/dictionaries";
 
@@ -29,11 +30,12 @@ const BLOCKED =
 
 function rankVoice(v: SpeechSynthesisVoice): number {
   let score = 0;
-  if (/natural|neural|premium|enhanced|siri/i.test(v.name)) score += 6;
-  if (/google/i.test(v.name)) score += 4;
+  // Installed voices are reliable; Chrome's online voices can end silently without speaking.
+  if (v.localService) score += 5;
+  if (/premium|enhanced|natural|neural|siri/i.test(v.name)) score += 4;
   if (/samantha|ava|allison|daniel|karen|moira|serena|tom|evan|zoe|am[ée]lie|aur[ée]lie|thomas|audrey|marie|denise|henri/i.test(v.name))
     score += 2;
-  if (!v.localService) score += 1; // cloud voices are usually the nicer ones
+  if (/google/i.test(v.name)) score += 1;
   return score;
 }
 
@@ -60,6 +62,9 @@ export function Coach({ dict, index }: { dict: Dictionary["coach"]; index: strin
   const [style, setStyle] = useState<Style>("hype");
   const [vibe, setVibe] = useState<Vibe>("morning-energy");
   const [speaking, setSpeaking] = useState(false);
+  const [silent, setSilent] = useState(false);
+  const audio = useRef<HTMLAudioElement | null>(null);
+  const anyStarted = useRef(false);
   const [gender, setGender] = useState<Gender>("female");
   // The caller is the player's own VVaker from the persona generator.
   const persona = usePersona();
@@ -67,27 +72,86 @@ export function Coach({ dict, index }: { dict: Dictionary["coach"]; index: strin
   const lines = dict.styles[style].lines.map((l, i) => (i === 0 ? dict.vibes[vibe].prefix + l : l));
 
   const play = () => {
-    if (typeof window === "undefined" || !("speechSynthesis" in window)) return;
-    const synth = window.speechSynthesis;
+    if (typeof window === "undefined") return;
+    setSilent(false);
     if (speaking) {
-      synth.cancel();
+      audio.current?.pause();
+      window.speechSynthesis?.cancel();
       setSpeaking(false);
       return;
     }
-    const u = new SpeechSynthesisUtterance(lines.join(" "));
-    u.lang = lang === "fr" ? "fr-FR" : "en-US";
+    // 1. Recorded clip (works on every browser).
+    const clip = clipName(lang === "fr" ? "fr" : "en", gender, style);
+    if (COACH_CLIPS.has(clip)) {
+      const a = new Audio(`/coach/${clip}`);
+      audio.current = a;
+      a.onended = () => setSpeaking(false);
+      a.onerror = () => setSpeaking(false);
+      setSpeaking(true);
+      void a.play().catch(() => setSpeaking(false));
+      return;
+    }
+    // 2. Browser voice, with a watchdog: some engines (e.g. Chrome on macOS) end without ever speaking.
+    if (!("speechSynthesis" in window)) {
+      setSilent(true);
+      return;
+    }
+    const synth = window.speechSynthesis;
+    if (synth.speaking || synth.pending) synth.cancel();
+    synth.resume();
+
     const { voices, matched } = bestVoices(lang === "fr" ? "fr" : "en", gender);
     const top = voices.slice(0, 3);
-    const voice = top[VOICE[style].pick % Math.max(1, top.length)];
-    if (voice) u.voice = voice;
-    u.rate = VOICE[style].rate;
-    // No named voice of that gender on this device: nudge the pitch instead.
-    u.pitch = VOICE[style].pitch * (matched ? 1 : gender === "male" ? 0.85 : 1.12);
-    u.onend = () => setSpeaking(false);
-    u.onerror = () => setSpeaking(false);
-    synth.cancel();
-    synth.speak(u);
+    const preferred = top[VOICE[style].pick % Math.max(1, top.length)];
+    // Online voices (e.g. Google's) sound best but can fail: fall back to a voice installed on the device.
+    const local =
+      voices.find((v) => v.localService) ??
+      window.speechSynthesis.getVoices().find((v) => v.localService && v.lang.startsWith(lang === "fr" ? "fr" : "en"));
+
+    const speakLines = (voice: SpeechSynthesisVoice | undefined, retried: boolean) => {
+      lines.forEach((text, i) => {
+        const u = new SpeechSynthesisUtterance(text);
+        u.lang = voice?.lang ?? (lang === "fr" ? "fr-FR" : "en-US");
+        if (voice) u.voice = voice;
+        u.rate = VOICE[style].rate;
+        // No named voice of that gender on this device: nudge the pitch instead.
+        u.pitch = VOICE[style].pitch * (matched ? 1 : gender === "male" ? 0.85 : 1.12);
+        let started = false;
+        u.onstart = () => {
+          started = true;
+          anyStarted.current = true;
+        };
+        u.onend = () => {
+          // Ended without ever starting = the voice failed silently: retry once with an installed voice.
+          if (!started && !retried && local && voice !== local) {
+            synth.cancel();
+            speakLines(local, true);
+            return;
+          }
+          if (i === lines.length - 1) setSpeaking(false);
+        };
+        u.onerror = (e) => {
+          if (e.error === "interrupted" || e.error === "canceled") return;
+          if (!retried && voice && !voice.localService && local) {
+            synth.cancel();
+            speakLines(local, true);
+          } else {
+            setSpeaking(false);
+          }
+        };
+        synth.speak(u);
+      });
+    };
+
+    anyStarted.current = false;
     setSpeaking(true);
+    speakLines(preferred, false);
+    window.setTimeout(() => {
+      if (anyStarted.current || synth.speaking) return;
+      synth.cancel();
+      setSpeaking(false);
+      setSilent(true);
+    }, 1500);
   };
 
   const chip = (on: boolean) =>
@@ -168,6 +232,11 @@ export function Coach({ dict, index }: { dict: Dictionary["coach"]; index: strin
             {speaking ? "■" : "▶"} {speaking ? dict.stop : dict.play}
           </button>
           <p className="-mt-3 text-xs text-faint">{dict.demoNote}</p>
+          {silent && (
+            <p role="status" className="-mt-3 rounded-xl border border-butter/40 bg-butter/10 px-3 py-2 text-xs text-butter">
+              {dict.voiceUnavailable}
+            </p>
+          )}
           <ul className="space-y-2 rounded-3xl border border-line bg-surface/60 p-5 text-sm text-muted">
             {dict.rules.map((r) => (
               <li key={r} className="flex gap-2">

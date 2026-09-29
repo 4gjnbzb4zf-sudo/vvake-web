@@ -110,3 +110,20 @@ const personaStore = createStore<Persona>(
 /** The player's persona from the generator (animal, sport, fit, gear), restored on the next visit. */
 export const usePersona = personaStore.use;
 export const savePersona = personaStore.set;
+
+const rendersStore = createStore<Record<string, string>>(
+  "vvake-renders",
+  (raw) => {
+    const v = JSON.parse(raw) as unknown;
+    if (!v || typeof v !== "object") return null;
+    return Object.fromEntries(
+      Object.entries(v as Record<string, unknown>).filter(
+        ([k, u]) => /^VVP-/.test(k) && typeof u === "string" && u.startsWith("/renders/"),
+      ),
+    ) as Record<string, string>;
+  },
+  {},
+);
+/** Local renders (dev render server): persona code → image URL. */
+export const useRenders = rendersStore.use;
+export const saveRenders = rendersStore.set;
