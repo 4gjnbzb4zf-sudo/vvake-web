@@ -34,6 +34,66 @@ export function TokenHolders({ dict }: { dict: Dictionary["rwa"]["token"] }) {
         ))}
       </ul>
 
+      <div className="mt-8">
+        <p className="font-display text-xl font-semibold">{dict.levels.title}</p>
+        <p className="mt-1.5 max-w-3xl text-sm leading-relaxed text-muted">{dict.levels.body}</p>
+        <ol className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+          {dict.levels.items.map((l, i) => (
+            <li key={l.name} className="relative rounded-2xl border border-line bg-night/70 p-5">
+              <div
+                aria-hidden="true"
+                className="absolute inset-x-5 top-0 h-1 rounded-b-full bg-pulse"
+                style={{ opacity: 0.35 + i * 0.2 }}
+              />
+              <p className="font-display text-lg font-semibold">
+                <span aria-hidden="true" className="mr-2">
+                  {l.icon}
+                </span>
+                {l.name}
+              </p>
+              <p className="mt-0.5 font-mono text-[0.65rem] tracking-[0.08em] text-faint uppercase">{l.hold}</p>
+              <ul className="mt-3 space-y-1.5 text-sm leading-relaxed text-muted">
+                {i > 0 && <li className="text-faint">+ {dict.levels.items[i - 1]!.name}</li>}
+                {l.perks.map((p) => (
+                  <li key={p}>
+                    <span className="mr-2 text-volt">→</span>
+                    {p}
+                  </li>
+                ))}
+              </ul>
+            </li>
+          ))}
+        </ol>
+        <p className="mt-3 font-mono text-xs text-mint">🗳️ {dict.levels.vote}</p>
+      </div>
+
+      <div className="mt-8 grid gap-3 lg:grid-cols-[1fr_1.1fr]">
+        <div className="rounded-2xl border border-line bg-night/60 p-5">
+          <p className="font-display text-xl font-semibold">{dict.tokenomics.title}</p>
+          <dl className="mt-3 divide-y divide-line text-sm">
+            {dict.tokenomics.items.map((t) => (
+              <div key={t.label} className="flex items-baseline justify-between gap-4 py-2">
+                <dt className="text-muted">{t.label}</dt>
+                <dd className="text-right font-mono text-xs text-text">{t.value}</dd>
+              </div>
+            ))}
+          </dl>
+        </div>
+        <div className="rounded-2xl border border-pulse/50 bg-gradient-to-br from-pulse/15 to-night/60 p-5">
+          <p className="font-display text-xl font-semibold">{dict.burn.title}</p>
+          <p className="mt-2 text-sm leading-relaxed text-muted">{dict.burn.body}</p>
+          <ol className="mt-3 space-y-1.5 text-sm">
+            {dict.burn.steps.map((s, i) => (
+              <li key={s}>
+                <span className="mr-2 font-mono text-pulse">{i + 1}.</span>
+                {s}
+              </li>
+            ))}
+          </ol>
+          <p className="mt-3 text-xs leading-relaxed text-faint">{dict.burn.note}</p>
+        </div>
+      </div>
+
       <div className="mt-4 grid gap-3 lg:grid-cols-2">
         <div className="rounded-2xl border border-mint/40 bg-night/60 p-5">
           <p className="text-sm font-semibold text-mint">{dict.equal.title}</p>
