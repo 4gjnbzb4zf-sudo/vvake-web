@@ -22,7 +22,7 @@ export const PERSONAS: Record<VVakerSport, { animal: string; w: number; h: numbe
   swimmer: { animal: "otter", w: 385, h: 900 },
   hiker: { animal: "grizzly bear", w: 503, h: 900 },
   climber: { animal: "snow leopard", w: 515, h: 900 },
-  racket: { animal: "hare", w: 533, h: 900 },
+  racket: { animal: "hare", w: 475, h: 900 },
   dancer: { animal: "zebra", w: 674, h: 900 },
   skier: { animal: "husky", w: 619, h: 900 },
   footballer: { animal: "lion", w: 449, h: 900 },
