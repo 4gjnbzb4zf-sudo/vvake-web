@@ -1,6 +1,8 @@
 import { Section } from "@/components/ui/Section";
 import { cn } from "@/lib/cn";
+import type { Locale } from "@/i18n/config";
 import type { Dictionary } from "@/i18n/dictionaries";
+import { sectionHref } from "@/lib/routes";
 
 /** Availability tag per item: 0 = day one, 1 = seasons (where legal), 2 = licensed partners, 3 = planned. */
 const WHEN_STYLE = ["bg-volt text-ink", "bg-butter text-ink", "bg-sky text-ink", "bg-lilac text-ink"] as const;
@@ -9,7 +11,7 @@ const WHEN_STYLE = ["bg-volt text-ink", "bg-butter text-ink", "bg-sky text-ink",
  * "What you get": everything a member gains beyond health, ordered from what exists on day one
  * to what depends on partners and legal review (C12, C13, C17, C20, C25). No promised returns.
  */
-export function Earn({ dict, index }: { dict: Dictionary["earn"]; index: string }) {
+export function Earn({ locale, dict, index }: { locale: Locale; dict: Dictionary["earn"]; index: string }) {
   return (
     <Section id="earn" index={index} kicker={dict.kicker} title={dict.title} lead={dict.body}>
       <ul className="mt-12 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
@@ -46,7 +48,7 @@ export function Earn({ dict, index }: { dict: Dictionary["earn"]; index: string 
           {dict.investors.points.map((p) => (
             <li key={p.title}>
               <a
-                href={p.href}
+                href={sectionHref(locale, p.href.replace(/^#/, ""))}
                 className="group block h-full rounded-2xl border border-line bg-night/60 p-4 transition-colors hover:border-volt-fg/50"
               >
                 <p className="font-display font-semibold">

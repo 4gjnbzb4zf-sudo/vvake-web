@@ -1,11 +1,18 @@
 import { siteConfig } from "@/config/site";
+import type { Locale } from "@/i18n/config";
 import type { Dictionary } from "@/i18n/dictionaries";
+import { sectionHref } from "@/lib/routes";
 
 const TIER_STYLES = ["border-line", "border-mint-fg/40", "border-volt-fg/40", "border-pulse-fg/50"] as const;
-const LINKS = { vibe: siteConfig.vibeVibeUrl, x: siteConfig.social.x, charter: "#open-book", faq: "#faq" } as const;
 
 /** What the planned $VVAKE token is for: holder perks with or without Plus, what stays equal, what it never does (ADR-0020). */
-export function TokenHolders({ dict }: { dict: Dictionary["rwa"]["token"] }) {
+export function TokenHolders({ locale, dict }: { locale: Locale; dict: Dictionary["rwa"]["token"] }) {
+  const LINKS = {
+    vibe: siteConfig.vibeVibeUrl,
+    x: siteConfig.social.x,
+    charter: sectionHref(locale, "open-book"),
+    faq: sectionHref(locale, "faq"),
+  };
   return (
     <div className="mt-8 rounded-[2rem] border border-pulse-fg/40 bg-gradient-to-br from-pulse/10 via-transparent to-volt/10 p-6 sm:p-8">
       <p className="font-mono text-xs tracking-[0.18em] text-pulse-fg uppercase">{dict.kicker}</p>

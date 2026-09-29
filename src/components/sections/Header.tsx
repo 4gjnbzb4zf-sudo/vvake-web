@@ -6,6 +6,7 @@ import { CurrencySelect } from "@/components/ui/Money";
 import { ThemeToggle } from "@/components/ui/ThemeToggle";
 import { LocaleHint, LocaleSwitch } from "./LocaleSwitch";
 import type { Locale } from "@/i18n/config";
+import { pageHref, sectionHref } from "@/lib/routes";
 import type { Dictionary } from "@/i18n/dictionaries";
 
 /** "VVaker" in the menu is written with the logo's VV. */
@@ -21,12 +22,10 @@ function NavLabel({ label }: { label: string }) {
 
 export function Header({ locale, dict }: { locale: Locale; dict: Dictionary["nav"] }) {
   const links = [
-    { href: "#why", label: dict.why },
-    { href: "#earn", label: dict.earn },
-    { href: "#how", label: dict.play },
-    { href: "#vvaker", label: dict.vvaker },
-    { href: "#story", label: dict.web3 },
-    { href: "#faq", label: dict.faq },
+    { href: pageHref(locale, "app/"), label: dict.app },
+    { href: pageHref(locale, "vvaker/"), label: dict.vvaker },
+    { href: pageHref(locale, "backers/"), label: dict.backers },
+    { href: sectionHref(locale, "faq"), label: dict.faq },
   ];
   return (
     <header className="sticky top-0 z-50 border-b border-line/60 bg-night/75 backdrop-blur-xl supports-[backdrop-filter]:bg-night/60">
@@ -76,14 +75,14 @@ export function Header({ locale, dict }: { locale: Locale; dict: Dictionary["nav
                 <ThemeToggle labels={{ light: dict.themeLight, dark: dict.themeDark }} />
               </li>
               <li className="sm:hidden">
-                <a href="#unlock" className="block rounded-lg bg-pulse px-3 py-2.5 text-ink">
+                <a href={`/${locale}/#unlock`} className="block rounded-lg bg-pulse px-3 py-2.5 text-ink">
                   {dict.join}
                 </a>
               </li>
             </ul>
           </details>
           <div className="hidden sm:block">
-            <ButtonLink href="#unlock" className="h-10 px-4 whitespace-nowrap">
+            <ButtonLink href={`/${locale}/#unlock`} className="h-10 px-4 whitespace-nowrap">
               {dict.join}
             </ButtonLink>
           </div>

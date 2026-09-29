@@ -1,3 +1,5 @@
+import type { Locale } from "@/i18n/config";
+import { sectionHref } from "@/lib/routes";
 import { LogoMark } from "@/components/brand/Logo";
 import { MoneyText } from "@/components/ui/Money";
 import { ButtonLink } from "@/components/ui/Button";
@@ -10,12 +12,13 @@ import { HeroPersona } from "./HeroPersona";
 import { PhoneMock, WatchMock } from "./AppPreview";
 
 interface HeroProps {
+  locale: Locale;
   dict: Dictionary["hero"];
   highlights: Dictionary["highlights"];
   app: Dictionary["app"];
 }
 
-export function Hero({ dict, highlights, app }: HeroProps) {
+export function Hero({ locale, dict, highlights, app }: HeroProps) {
   return (
     <section className="relative overflow-hidden" aria-labelledby="hero-title">
       <div className="bg-voxel-grid pointer-events-none absolute inset-0 [mask-image:radial-gradient(ellipse_at_top,black_30%,transparent_75%)]" />
@@ -28,7 +31,10 @@ export function Hero({ dict, highlights, app }: HeroProps) {
             <LogoMark className="h-4 shrink-0" />
             <span className="ml-2.5">{dict.pronounce}</span>
             <span aria-hidden="true" className="mx-2.5 hidden h-4 w-px bg-line sm:block" />
-            <a href="#rwa" className="ml-2 rounded-full bg-volt/10 px-3 py-0.5 text-volt-fg transition-colors hover:bg-volt/20 sm:ml-0">
+            <a
+              href={sectionHref(locale, "rwa")}
+              className="ml-2 rounded-full bg-volt/10 px-3 py-0.5 text-volt-fg transition-colors hover:bg-volt/20 sm:ml-0"
+            >
               ⛓️ {dict.chain}
             </a>
           </div>
@@ -51,7 +57,7 @@ export function Hero({ dict, highlights, app }: HeroProps) {
 
           <div className="mt-9 flex flex-col gap-3 sm:flex-row">
             <ButtonLink href="#unlock">{dict.ctaPrimary}</ButtonLink>
-            <ButtonLink href="#earn" variant="ghost">
+            <ButtonLink href="#coach" variant="ghost">
               {dict.ctaSecondary}
             </ButtonLink>
           </div>

@@ -9,6 +9,8 @@ export const fr: Dictionary = {
     ogAlt: "VVake Fit : deux V font un W. La Bourse se réveille, nous on bouge.",
   },
   nav: {
+    app: "L'app",
+    backers: "Soutenir",
     why: "Pourquoi",
     earn: "Avantages",
     play: "Jouer",
@@ -34,12 +36,88 @@ export const fr: Dictionary = {
     anthem: ["pour ta santé.", "pour ta richesse.", "pour toi.", "pour ton squad.", "pour ta ville.", "pour ton équipe."],
     love: "Course, yoga, padel, danse, muscu, une grande balade : tu sais déjà ce que tu aimes faire.",
     loveKicker: "Il est temps de VVake up et de le faire plus souvent.",
-    lead: "L'app d'entraînement pour ton téléphone et ta montre : un plan qui colle à ta semaine, ta crew, ta ville. Bouge pour des avantages, des lots et, là où la loi le permet, de vraies récompenses. Noté sur ton cœur, pas sur ta vitesse.",
+    lead: "Ton coach t'appelle et planifie ta semaine. Chaque séance compte pour des avantages, des lots et le classement de ta ville.",
     trainingChip: "Plan synchronisé avec ton agenda",
     wealthChip: "{money} investi par séance",
     wealthNote: "Sweat & Invest · avec Robinhood (prévu) · ton argent · selon le pays",
     ctaPrimary: "Débloque ta ville",
-    ctaSecondary: "Ce que tu y trouves",
+    ctaSecondary: "Rencontre ton coach",
+  },
+  benefits: {
+    kicker: "Ce que tu y gagnes",
+    title: "Bouge plus. Profite plus.",
+    items: [
+      {
+        target: "coach",
+        icon: "🎧",
+        title: "Un coach qui t'appelle",
+        body: "Il prend de tes nouvelles à la voix, se souvient de ce que tu ressens et ajuste ta semaine.",
+        cta: "L'écouter",
+      },
+      {
+        target: "plan",
+        icon: "🗓️",
+        title: "Un plan qui colle à ta semaine",
+        body: "Dis-lui quand tu es libre et ce que tu aimes. Il construit et adapte ton entraînement.",
+        cta: "Construire ma semaine",
+      },
+      {
+        target: "earn",
+        icon: "🏆",
+        title: "Des récompenses pour être là",
+        body: "Avantages, lots, récompenses de saison et une place de Fondateur dans ta ville. Noté sur ton cœur, pas sur ta vitesse.",
+        cta: "Voir les récompenses",
+      },
+    ],
+  },
+  paths: {
+    label: "Va plus loin",
+    items: [
+      {
+        key: "try",
+        icon: "📱",
+        kicker: "L'app",
+        title: "Tout ce qu'elle fait pour toi",
+        body: "Coach, plan, défis, crews, duels de villes et Plus.",
+        cta: "Explorer l'app",
+        page: "app/",
+      },
+      {
+        key: "learn",
+        icon: "🎨",
+        kicker: "Ton VVaker",
+        title: "Crée ton athlète animal",
+        body: "Mets-le en photo de profil. Il grandit quand tu bouges.",
+        cta: "Crée le tien",
+        page: "vvaker/",
+      },
+      {
+        key: "back",
+        icon: "📖",
+        kicker: "Soutenir",
+        title: "Comptes ouverts, plan ouvert",
+        body: "Où partent les frais, $VVAKE et comment détenir une part (prévu).",
+        cta: "Voir le plan",
+        page: "backers/",
+      },
+    ],
+  },
+  pages: {
+    app: {
+      kicker: "L'app",
+      title: "Ton coach, ton plan, ta ville.",
+      lead: "Tout ce que VVake fait pour toi, du premier appel à la finale de saison.",
+    },
+    vvaker: {
+      kicker: "Ton VVaker",
+      title: "Crée-le. Fais-le grandir. Il est à toi.",
+      lead: "Ton athlète animal : gratuit, gagné en bougeant, jamais acheté.",
+    },
+    backers: {
+      kicker: "Soutenir",
+      title: "Comptes ouverts. Actifs réels. Frais uniquement.",
+      lead: "Pourquoi on construit sur Robinhood Chain, où partent les frais, et comment détenir une part de VVake (prévu).",
+    },
   },
   highlights: {
     strip: ["Le cœur, pas la vitesse", "Rivalités de villes", "Équipe à livre ouvert"],
@@ -1402,6 +1480,7 @@ export const fr: Dictionary = {
   vvaker: {
     kicker: "Ton VVaker",
     title: "Crée ton VVaker.",
+    grow: { kicker: "Ton VVaker, niveau supérieur", title: "Il grandit avec toi. Le style en plus est optionnel." },
     body: "Ton propre athlète animal, en streetwear VVake Fit, qui fait le signe VVake. Choisis ton animal, ton sport, ta tenue et ton équipement, puis fais-en ta photo de profil et ta bannière X.",
     tabs: { body: "Corps", gear: "Équipement", sport: "Sport", face: "Visage", ink: "Cheveux & encre" },
     controls: {
