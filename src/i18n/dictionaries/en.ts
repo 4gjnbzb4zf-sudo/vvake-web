@@ -1025,6 +1025,12 @@ export const en = {
           status: "Planned",
         },
         {
+          icon: "🪙",
+          title: "$VVAKE token",
+          body: "$VVAKE is the planned ticker of the VVake Fit token, to launch on Robinhood Chain through vibe/vibe. Optional, never needed to play, never a way to buy stats. Not issued yet, nothing to buy today.",
+          status: "Planned · ticker $VVAKE",
+        },
+        {
           icon: "📈",
           title: "Robinhood stock tokens · EU",
           body: "Tokenized stocks for sport pairing in Europe: each workout can add to your pick, in your own account.",
@@ -1056,7 +1062,7 @@ export const en = {
       {
         tag: "On-chain (planned)",
         title: "Robinhood Chain keeps it open",
-        body: "The chain where tokenized stocks (RWA) already live. Planned: a public fee-split contract, season rewards for effort paid in a stablecoin or perks, collectibles with real utility (never an edge), and later an optional VVake token on vibe/vibe.",
+        body: "The chain where tokenized stocks (RWA) already live. Planned: a public fee-split contract, season rewards for effort paid in a stablecoin or perks, collectibles with real utility (never an edge), and later an optional VVake token, ticker $VVAKE, on vibe/vibe.",
         points: ["Public fee split, on-chain", "Season rewards for effort", "Web portal only · 18+ · not in every country"],
       },
     ],
@@ -1551,7 +1557,7 @@ export const en = {
       },
       {
         q: "Is there a token or NFTs?",
-        a: "Your VVaker is free and one of a kind. Optional collector add-ons (web portal, adults, not in every country) come with real utility: hosting bigger crew events, creating challenges, priority windows for race bibs and tickets, gear you can redeem. Stats are different: they are earned only by moving and can never be bought. A wider web3 layer, including any token, is planned for later, subject to legal review, and will never be needed to play. Nothing we sell is an investment: regulated investing goes through licensed partners.",
+        a: "Your VVaker is free and one of a kind. Optional collector add-ons (web portal, adults, not in every country) come with real utility: hosting bigger crew events, creating challenges, priority windows for race bibs and tickets, gear you can redeem. Stats are different: they are earned only by moving and can never be bought. A wider web3 layer, including the $VVAKE token on Robinhood Chain, is planned for later, subject to legal review, and will never be needed to play. Nothing we sell is an investment: regulated investing goes through licensed partners.",
       },
       {
         q: "When do you launch?",
