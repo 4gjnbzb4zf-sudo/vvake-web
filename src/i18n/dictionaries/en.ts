@@ -1363,6 +1363,14 @@ export const en = {
     eyeColors: { dark: "Dark", brown: "Brown", blue: "Blue", green: "Green", hazel: "Hazel", grey: "Grey", amber: "Amber" },
     persona: {
       title: "Build your VVaker",
+      bank: {
+        title: "Built VVakers",
+        count: "{n} of {total}",
+        mix: "Your mix",
+        show: "Show the built one",
+        prev: "Previous VVaker",
+        next: "Next VVaker",
+      },
       intro: "Pick your animal, your sport, your fit and your gear. We turn it into your own VVaker, throwing the VVake sign.",
       tabs: { animal: "Animal", sport: "Sport", fit: "Fit", gear: "Gear & vibe" },
       name: "Name your VVaker",

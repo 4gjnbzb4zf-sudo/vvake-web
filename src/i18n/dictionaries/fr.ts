@@ -1439,6 +1439,14 @@ export const fr: Dictionary = {
     eyeColors: { dark: "Foncés", brown: "Marron", blue: "Bleus", green: "Verts", hazel: "Noisette", grey: "Gris", amber: "Ambre" },
     persona: {
       title: "Crée ton VVaker",
+      bank: {
+        title: "VVakers déjà créés",
+        count: "{n} sur {total}",
+        mix: "Ton mélange",
+        show: "Voir celui déjà créé",
+        prev: "VVaker précédent",
+        next: "VVaker suivant",
+      },
       intro: "Choisis ton animal, ton sport, ta tenue et ton équipement. On en fait ton propre VVaker, qui fait le signe VVake.",
       tabs: { animal: "Animal", sport: "Sport", fit: "Tenue", gear: "Équipement & style" },
       name: "Donne un nom à ton VVaker",

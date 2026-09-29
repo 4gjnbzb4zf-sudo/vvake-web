@@ -4,7 +4,6 @@ import { useEffect, useSyncExternalStore } from "react";
 import { THEME_STORAGE_KEY, isTheme, resolveTheme, type Theme } from "@/lib/theme";
 
 const EVENT = "vvake-pref:theme";
-const LIGHT_QUERY = "(prefers-color-scheme: light)";
 
 function current(): Theme {
   const t = document.documentElement.dataset.theme;
@@ -29,23 +28,17 @@ function readSaved(): string | null {
   }
 }
 
-/** Light/dark switch. A click is remembered in this browser; until then the site follows the OS setting. */
+/** Light/dark switch. Dark by default; a click is remembered in this browser. */
 export function ThemeToggle({ labels }: { labels: { light: string; dark: string } }) {
   const theme = useSyncExternalStore(subscribe, current, () => "dark" as Theme);
 
   useEffect(() => {
-    const media = window.matchMedia(LIGHT_QUERY);
-    const onOsChange = () => apply(resolveTheme(readSaved(), media.matches));
-    media.addEventListener("change", onOsChange);
     // Other tabs: follow a choice made there.
     const onStorage = (e: StorageEvent) => {
-      if (e.key === THEME_STORAGE_KEY) onOsChange();
+      if (e.key === THEME_STORAGE_KEY) apply(resolveTheme(readSaved()));
     };
     window.addEventListener("storage", onStorage);
-    return () => {
-      media.removeEventListener("change", onOsChange);
-      window.removeEventListener("storage", onStorage);
-    };
+    return () => window.removeEventListener("storage", onStorage);
   }, []);
 
   const next: Theme = theme === "dark" ? "light" : "dark";
