@@ -43,7 +43,7 @@ export function Dev({ dict, index }: { dict: Dictionary["dev"]; index: string })
 
 export function Faq({ dict }: { dict: Dictionary["faq"] }) {
   return (
-    <Section id="faq" title={dict.title}>
+    <Section id="faq" title={dict.title} nav={dict.title}>
       <div className="mt-10 divide-y divide-line rounded-3xl border border-line bg-surface/50">
         {dict.items.map((item) => (
           <details key={item.q} className="group px-6 py-5 sm:px-8">

@@ -22,6 +22,8 @@ export const en = {
     skip: "Skip to content",
     language: "Language",
     currency: "Currency",
+    sections: "Page sections",
+    jump: "Jump to a section",
     themeLight: "Switch to light theme",
     themeDark: "Switch to dark theme",
     style: "VVaker style",
@@ -919,6 +921,7 @@ export const en = {
   },
   story: {
     kicker: "06:00 AM",
+    nav: "Why Web3",
     title: "You remember this feeling.",
     paragraphs: [
       "2022. Your energy just refilled. You lace up, open the app, and go. Around the world, hundreds of thousands of people were doing the same thing at the same moment.",
