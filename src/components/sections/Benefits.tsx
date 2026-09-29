@@ -6,7 +6,7 @@ import { sectionHref } from "@/lib/routes";
 /** Home page, right under the hero: what's in it for you, in three cards. */
 export function Benefits({ locale, dict }: { locale: Locale; dict: Dictionary["benefits"] }) {
   return (
-    <section id="benefits" aria-labelledby="benefits-title" className="relative py-16 sm:py-20">
+    <section id="benefits" aria-labelledby="benefits-title" data-nav={dict.kicker} className="relative py-16 sm:py-20">
       <Container>
         <Kicker>{dict.kicker}</Kicker>
         <h2 id="benefits-title" className="mt-4 font-display text-3xl leading-[1.1] font-semibold tracking-tight sm:text-5xl">
