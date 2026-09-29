@@ -5,7 +5,7 @@ import { useRef, useState } from "react";
 import { Section } from "@/components/ui/Section";
 import { VVaker } from "@/components/vvaker/VVaker";
 import { cn } from "@/lib/cn";
-import { COACH_CLIPS, clipName } from "@/lib/coachClips";
+import { COACH_CLIPS, clipName, vibeClipName } from "@/lib/coachClips";
 import { usePersona } from "@/lib/prefs";
 import type { Dictionary } from "@/i18n/dictionaries";
 
@@ -81,14 +81,23 @@ export function Coach({ dict, index }: { dict: Dictionary["coach"]; index: strin
       return;
     }
     // 1. Recorded clip (works on every browser).
-    const clip = clipName(lang === "fr" ? "fr" : "en", gender, style);
+    // The vibe's opening words play first, then the style's lines, in the same voice.
+    const code = lang === "fr" ? "fr" : "en";
+    const clip = clipName(code, gender, style);
     if (COACH_CLIPS.has(clip)) {
-      const a = new Audio(`/coach/${clip}`);
-      audio.current = a;
-      a.onended = () => setSpeaking(false);
-      a.onerror = () => setSpeaking(false);
+      const intro = vibeClipName(code, gender, style, vibe);
+      const queue = [...(COACH_CLIPS.has(intro) ? [intro] : []), clip];
+      const next = () => {
+        const name = queue.shift();
+        if (!name) return setSpeaking(false);
+        const a = new Audio(`/coach/${name}`);
+        audio.current = a;
+        a.onended = next;
+        a.onerror = () => setSpeaking(false);
+        void a.play().catch(() => setSpeaking(false));
+      };
       setSpeaking(true);
-      void a.play().catch(() => setSpeaking(false));
+      next();
       return;
     }
     // 2. Browser voice, with a watchdog: some engines (e.g. Chrome on macOS) end without ever speaking.
