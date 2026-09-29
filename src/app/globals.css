@@ -430,21 +430,21 @@
   }
 }
 
-/* Watch preview: three screens take turns (12 s loop), a sweeping ECG and a moving ghost-race dot. */
+/* Watch preview: four screens take turns (16 s loop, 4 s each), a sweeping ECG and a moving ghost-race dot. */
 .vv-watch {
   opacity: 0;
-  animation: vv-watch 12s infinite;
+  animation: vv-watch 16s infinite;
 }
 .vv-watch:first-of-type {
   opacity: 1;
 }
 @keyframes vv-watch {
   0%,
-  30% {
+  22.5% {
     opacity: 1;
   }
-  34%,
-  96% {
+  25.5%,
+  97% {
     opacity: 0;
   }
   100% {

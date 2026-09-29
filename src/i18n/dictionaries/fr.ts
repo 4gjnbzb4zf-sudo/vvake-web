@@ -941,6 +941,9 @@ export const fr: Dictionary = {
       ghost: "Fantôme de Léo",
       ahead: "devant toi",
       clash: "Lyon +0,4",
+      call: "Appel entrant",
+      caller: "Ton VVaker · coach",
+      callLine: "20 min en zone 2 avec Sam ?",
     },
     devices: {
       title: "Compatible avec les téléphones et montres récents",
@@ -1590,7 +1593,7 @@ export const fr: Dictionary = {
     shuffle: "Au hasard",
     note: "Gratuit pour tout le monde. Pas besoin de wallet.",
     alt: "Ton VVaker",
-    bannerTagline: "Deux V font un W.",
+    bannerTagline: "Bouge pour ta santé, ta première richesse.",
     stats: {
       title: "Mérités, jamais achetés : les stats de ton VVaker",
       body: "Cinq stats grandissent avec ton activité réelle et vérifiée des 90 derniers jours, et redescendent si tu t'arrêtes. Aucun achat, objet de collection ni token ne peut les augmenter. Elles servent à frimer, à gagner des badges et à trouver une crew à ton niveau, et ne changent jamais les récompenses ni les classements.",
@@ -1827,7 +1830,7 @@ export const fr: Dictionary = {
     ],
   },
   footer: {
-    tagline: "VVake Fit · Deux V font un W.",
+    tagline: "VVake Fit · Bouge pour ta santé, ta première richesse.",
     legal:
       "VVake Fit est un jeu fitness, pas un produit financier. Rien sur ce site ne constitue un conseil en investissement ni une offre de token, de titre ou d'instrument financier. Les données de marché sont affichées à titre de divertissement. Les noms d'équipes et les tickers sont utilisés à des fins d'identification uniquement ; aucune affiliation ni aucun partenariat n'est sous-entendu.",
     privacy: "Confidentialité",
