@@ -1,5 +1,5 @@
-import Link from "next/link";
 import { Logo, VVMark } from "@/components/brand/Logo";
+import { LogoLink } from "@/components/brand/LogoLink";
 import { ButtonLink } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Section";
 import { CurrencySelect } from "@/components/ui/Money";
@@ -37,9 +37,9 @@ export function Header({ locale, dict }: { locale: Locale; dict: Dictionary["nav
       </a>
       <LocaleHint locale={locale} />
       <Container className="flex h-16 items-center justify-between gap-3 sm:gap-6">
-        <Link href={`/${locale}/`} aria-label="VVake" className="shrink-0">
+        <LogoLink href={`/${locale}/`}>
           <Logo />
-        </Link>
+        </LogoLink>
         <nav aria-label="Main" className="hidden lg:block">
           <ul className="flex items-center gap-5 font-mono text-[0.72rem] tracking-[0.12em] whitespace-nowrap text-muted uppercase xl:gap-7">
             {links.map((l) => (
