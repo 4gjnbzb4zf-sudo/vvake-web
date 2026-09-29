@@ -12,6 +12,8 @@ export const siteConfig = {
    * Live activity feed (GET {liveEndpoint}/live). Empty = labelled demo mode on the world map.
    * Contract: docs/WAITLIST_API.md#live-activity.
    */
+  /** Cloudflare Turnstile site key (public). When empty, the signup form shows no bot check. */
+  turnstileSiteKey: process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY ?? "",
   liveEndpoint: (process.env.NEXT_PUBLIC_LIVE_ENDPOINT ?? "").replace(/\/$/, ""),
   social: {
     x: "https://x.com/VVakeFit",
