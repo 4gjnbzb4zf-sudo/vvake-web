@@ -6,6 +6,7 @@ import { Header } from "@/components/sections/Header";
 import { Hero } from "@/components/sections/Hero";
 import { Paths } from "@/components/sections/Paths";
 import { Unlock } from "@/components/sections/Unlock";
+import { SectionNav } from "@/components/ui/SectionNav";
 import { isLocale } from "@/i18n/config";
 import { getDictionary } from "@/i18n/dictionaries";
 
@@ -30,6 +31,7 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
         <Faq dict={dict.faq} />
       </main>
       <Footer locale={lang} dict={dict.footer} />
+      <SectionNav label={dict.nav.sections} open={dict.nav.jump} />
     </>
   );
 }

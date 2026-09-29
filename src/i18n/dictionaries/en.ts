@@ -1367,7 +1367,7 @@ export const en = {
     },
     success: {
       title: "You're in. Now bring your crew.",
-      pending: "Check your inbox to confirm your email. Only confirmed signups move the counter.",
+      pending: "We'll email you a link to confirm your spot. Only confirmed signups move the counter.",
       rank: "You're #{rank} in {city}.",
       tier: { founder: "City Founder reserved", pioneer: "Pioneer reserved", early: "Early Mover reserved" },
       referralLabel: "Your invite link",

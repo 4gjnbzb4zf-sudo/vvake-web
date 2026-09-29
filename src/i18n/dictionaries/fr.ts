@@ -1439,7 +1439,7 @@ export const fr: Dictionary = {
     },
     success: {
       title: "Tu es dedans. Maintenant, ramène ta crew.",
-      pending: "Vérifie ta boîte mail pour confirmer ton adresse. Seules les inscriptions confirmées font avancer le compteur.",
+      pending: "On t'envoie un e-mail pour confirmer ta place. Seules les inscriptions confirmées font avancer le compteur.",
       rank: "Tu es n°{rank} à {city}.",
       tier: { founder: "Place City Founder réservée", pioneer: "Place Pioneer réservée", early: "Place Early Mover réservée" },
       referralLabel: "Ton lien d'invitation",
