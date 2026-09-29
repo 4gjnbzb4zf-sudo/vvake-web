@@ -1065,7 +1065,12 @@ export const en = {
           icon: "⭐",
           name: "Plus",
           who: "Subscription, no token",
-          perks: ["Deeper coaching and your voice coach", "Bigger crews and more challenges", "VVaker renders and treats"],
+          perks: [
+            "Deeper coaching and your voice coach",
+            "Bigger crews and more challenges",
+            "VVaker renders and treats",
+            "Pay by card, or by burning $VVAKE",
+          ],
         },
         {
           icon: "🪙",
@@ -1073,9 +1078,8 @@ export const en = {
           who: "Token, no subscription",
           perks: [
             "Vote on community picks: the next sports, city unlock order, season themes, the charity run",
-            "Holder-only cosmetics: VVaker kit colourways, frames and a holder badge",
-            "Holder crew events and meetups, online and in real life",
-            "Early access to new sports and betas",
+            "Holder badge and early access to new sports and betas",
+            "More with each tier: cosmetics, holder crew events, meetup seats",
           ],
         },
         {
@@ -1084,12 +1088,56 @@ export const en = {
           who: "Token and subscription",
           perks: [
             "Everything on both sides",
-            "Put your own proposals to the community vote",
+            "Put your own proposals to the community vote, at any tier",
             "Mint your rendered VVaker as a cosmetic collectible",
             "Host holder events and bigger holder crew challenges",
           ],
         },
       ],
+      levels: {
+        title: "Holder tiers",
+        body: "Your tier comes from the lowest balance you've held over the last 30 days, so buying right before a vote or an event doesn't count. Tier amounts are set at launch with the white paper.",
+        vote: "One verified mover, one vote. Tiers never add votes.",
+        items: [
+          {
+            icon: "🌅",
+            name: "Wake",
+            hold: "Any amount · 30 days",
+            perks: ["Holder badge", "One community vote", "Early access to betas"],
+          },
+          { icon: "🌊", name: "Rise", hold: "Tier 2 · 30 days", perks: ["Holder kit colourways and frames", "Holder crew events"] },
+          { icon: "⚡", name: "Surge", hold: "Tier 3 · 30 days", perks: ["Priority seats at holder meetups", "Animated VVaker frame"] },
+          {
+            icon: "🏔️",
+            name: "Peak",
+            hold: "Tier 4 · 30 days",
+            perks: ["Put proposals to the community vote", "Name on the Holders Wall"],
+          },
+        ],
+      },
+      tokenomics: {
+        title: "Tokenomics",
+        items: [
+          { label: "Ticker", value: "$VVAKE" },
+          { label: "Chain", value: "Robinhood Chain, via vibe/vibe" },
+          { label: "Team allocation", value: "0%" },
+          { label: "Launch", value: "Public launch with anti-snipe settings" },
+          { label: "Supply and tier amounts", value: "Fixed at launch, in the white paper" },
+          { label: "Launchpad trading fees", value: "70% season rewards · 30% reserve" },
+          { label: "Rewards pool", value: "Never buys $VVAKE" },
+          { label: "Plus paid in $VVAKE", value: "Burned on-chain, never kept or resold" },
+        ],
+      },
+      burn: {
+        title: "🔥 Burn $VVAKE to pay for Plus",
+        body: "Pay your Plus month or year with $VVAKE instead of a card. You burn the amount worth the Plus price in your currency at that moment; the tokens go to the burn address, and VVake never receives, keeps or resells them.",
+        steps: [
+          "Pick Plus monthly or yearly",
+          "See the live quote (price checked within the last minute)",
+          "Confirm in your wallet: the tokens are burned and Plus starts",
+        ],
+        note: "Same price as paying by card: no discount, no bonus. Up to a quarter of Plus seats each season can be paid this way, so Plus keeps funding the public fee split. Every burn is listed in the Open book.",
+      },
       equal: {
         title: "Same for everyone, token or not",
         body: "Stats, levels, rankings, matchmaking and season rewards. Rewards pay for effort in a stablecoin or perks, never for holding, and the rewards pool never buys $VVAKE.",

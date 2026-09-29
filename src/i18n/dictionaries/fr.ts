@@ -1112,7 +1112,12 @@ export const fr: Dictionary = {
           icon: "⭐",
           name: "Plus",
           who: "Abonnement, sans token",
-          perks: ["Coaching plus poussé et ton coach vocal", "Crews plus grands et plus de défis", "Rendus de VVaker et petits plus"],
+          perks: [
+            "Coaching plus poussé et ton coach vocal",
+            "Crews plus grands et plus de défis",
+            "Rendus de VVaker et petits plus",
+            "Paiement par carte, ou en brûlant des $VVAKE",
+          ],
         },
         {
           icon: "🪙",
@@ -1120,9 +1125,8 @@ export const fr: Dictionary = {
           who: "Token, sans abonnement",
           perks: [
             "Vote sur les choix de la communauté : prochains sports, ordre de déblocage des villes, thèmes de saison, course solidaire",
-            "Cosmétiques réservés : coloris de tenue VVaker, cadres et badge détenteur",
-            "Événements et rencontres de crew entre détenteurs, en ligne et en vrai",
-            "Accès anticipé aux nouveaux sports et aux bêtas",
+            "Badge détenteur et accès anticipé aux nouveaux sports et aux bêtas",
+            "Plus à chaque palier : cosmétiques, événements de crew entre détenteurs, places aux rencontres",
           ],
         },
         {
@@ -1131,12 +1135,66 @@ export const fr: Dictionary = {
           who: "Token et abonnement",
           perks: [
             "Tout ce qui précède, des deux côtés",
-            "Soumettre tes propres propositions au vote",
+            "Soumettre tes propres propositions au vote, à tout palier",
             "Minter ton VVaker rendu en objet de collection cosmétique",
             "Organiser des événements et de plus grands défis de crew entre détenteurs",
           ],
         },
       ],
+      levels: {
+        title: "Paliers de détenteur",
+        body: "Ton palier vient du plus petit solde que tu as gardé sur les 30 derniers jours : acheter juste avant un vote ou un événement ne compte pas. Les montants des paliers sont fixés au lancement, dans le livre blanc.",
+        vote: "Un sportif vérifié, une voix. Les paliers n'ajoutent jamais de voix.",
+        items: [
+          {
+            icon: "🌅",
+            name: "Wake",
+            hold: "Tout montant · 30 jours",
+            perks: ["Badge détenteur", "Une voix aux votes de la communauté", "Accès anticipé aux bêtas"],
+          },
+          {
+            icon: "🌊",
+            name: "Rise",
+            hold: "Palier 2 · 30 jours",
+            perks: ["Coloris de tenue et cadres détenteur", "Événements de crew entre détenteurs"],
+          },
+          {
+            icon: "⚡",
+            name: "Surge",
+            hold: "Palier 3 · 30 jours",
+            perks: ["Places prioritaires aux rencontres de détenteurs", "Cadre VVaker animé"],
+          },
+          {
+            icon: "🏔️",
+            name: "Peak",
+            hold: "Palier 4 · 30 jours",
+            perks: ["Soumettre des propositions au vote", "Nom sur le mur des détenteurs"],
+          },
+        ],
+      },
+      tokenomics: {
+        title: "Tokenomics",
+        items: [
+          { label: "Ticker", value: "$VVAKE" },
+          { label: "Chaîne", value: "Robinhood Chain, via vibe/vibe" },
+          { label: "Allocation équipe", value: "0 %" },
+          { label: "Lancement", value: "Lancement public avec réglages anti-snipe" },
+          { label: "Offre et montants des paliers", value: "Fixés au lancement, dans le livre blanc" },
+          { label: "Frais de trading du launchpad", value: "70 % récompenses de saison · 30 % réserve" },
+          { label: "Cagnotte de récompenses", value: "N'achète jamais de $VVAKE" },
+          { label: "Plus payé en $VVAKE", value: "Brûlé on-chain, jamais gardé ni revendu" },
+        ],
+      },
+      burn: {
+        title: "🔥 Brûle des $VVAKE pour payer Plus",
+        body: "Paie ton mois ou ton année Plus en $VVAKE plutôt que par carte. Tu brûles le montant qui vaut le prix de Plus dans ta devise à ce moment-là ; les tokens partent à l'adresse de burn, et VVake ne les reçoit, ne les garde ni ne les revend jamais.",
+        steps: [
+          "Choisis Plus mensuel ou annuel",
+          "Vois le devis en direct (prix vérifié dans la dernière minute)",
+          "Confirme dans ton wallet : les tokens sont brûlés et Plus démarre",
+        ],
+        note: "Même prix que par carte : ni remise, ni bonus. Jusqu'à un quart des abonnements Plus de chaque saison peuvent être payés ainsi, pour que Plus continue de financer la répartition publique des frais. Chaque burn est listé dans le Livre ouvert.",
+      },
       equal: {
         title: "Pareil pour tous, avec ou sans token",
         body: "Stats, niveaux, classements, matchmaking et récompenses de saison. Les récompenses paient l'effort en stablecoin ou en avantages, jamais la détention, et la cagnotte n'achète jamais de $VVAKE.",
