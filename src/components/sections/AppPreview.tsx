@@ -116,7 +116,7 @@ export function PhoneMock({ dict }: { dict: Dictionary["app"]["phone"] }) {
   );
 }
 
-/** Apple-Watch-style face cycling through a live workout, a Rally alert and a ghost race (pure CSS). */
+/** Apple-Watch-style face cycling through a live workout, a Rally alert, a ghost race and a coach call (pure CSS, 16 s loop). */
 export function WatchMock({ dict }: { dict: Dictionary["app"]["watch"] }) {
   return (
     <div className="relative mb-10 shrink-0">
@@ -169,7 +169,7 @@ export function WatchMock({ dict }: { dict: Dictionary["app"]["watch"] }) {
         {/* 2 · Rally alert */}
         <div
           className="vv-watch absolute inset-0 flex flex-col items-center justify-center bg-gradient-to-b from-down/30 to-black p-3.5 text-center"
-          style={{ animationDelay: "-8s" }}
+          style={{ animationDelay: "-12s" }}
         >
           <span className="text-2xl">⚡</span>
           <p className="mt-1 font-display text-lg font-bold text-down-fg">{dict.rally}</p>
@@ -179,7 +179,7 @@ export function WatchMock({ dict }: { dict: Dictionary["app"]["watch"] }) {
         </div>
 
         {/* 3 · ghost race */}
-        <div className="vv-watch absolute inset-0 flex flex-col p-3.5" style={{ animationDelay: "-4s" }}>
+        <div className="vv-watch absolute inset-0 flex flex-col p-3.5" style={{ animationDelay: "-8s" }}>
           <p className="font-mono text-[9px] tracking-[0.1em] text-volt-fg uppercase">👻 {dict.ghost}</p>
           <p className="mt-2 font-display text-[34px] leading-none font-bold text-volt-fg">+42 m</p>
           <p className="font-mono text-[9px] text-muted">{dict.ahead}</p>
@@ -187,6 +187,30 @@ export function WatchMock({ dict }: { dict: Dictionary["app"]["watch"] }) {
             <div className="absolute inset-x-0 top-1/2 h-1 -translate-y-1/2 rounded-full bg-[#343a41]" />
             <span className="absolute top-1/2 left-[46%] h-3 w-3 -translate-y-1/2 rounded-full bg-white/40" />
             <span className="vv-ghost-me absolute top-1/2 h-4 w-4 -translate-y-1/2 rounded-full bg-volt shadow-[0_0_10px_#ccff00]" />
+          </div>
+        </div>
+
+        {/* 4 · coach call: the player's VVaker rings in coach mode */}
+        <div
+          className="vv-watch absolute inset-0 flex flex-col items-center bg-gradient-to-b from-lilac/25 to-black px-3 pt-3 pb-2.5 text-center"
+          style={{ animationDelay: "-4s" }}
+        >
+          <p className="font-mono text-[8px] tracking-[0.12em] text-muted uppercase">📞 {dict.call}</p>
+          <div className="relative mt-1.5 flex h-[58px] w-[58px] items-end justify-center overflow-hidden rounded-full bg-surface">
+            <span className="absolute inset-0 animate-pulse rounded-full border-2 border-volt-fg/70" />
+            <VVaker sport="walker" className="relative h-[92px] w-auto translate-y-[34px]" />
+          </div>
+          <p className="mt-1 font-display text-[11px] leading-tight font-semibold">{dict.caller}</p>
+          <p className="mt-0.5 text-[8.5px] leading-snug text-volt-fg">“{dict.callLine}”</p>
+          <div className="mt-auto flex w-full justify-between px-2">
+            <span className="flex h-7 w-7 items-center justify-center rounded-full bg-down text-[11px] text-ink" aria-hidden="true">
+              ✕
+            </span>
+            <span className="animate-heartbeat flex h-7 w-7 items-center justify-center rounded-full bg-up text-ink" aria-hidden="true">
+              <svg viewBox="0 0 24 24" className="h-3.5 w-3.5" fill="currentColor">
+                <path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.57a1 1 0 0 1-.25 1z" />
+              </svg>
+            </span>
           </div>
         </div>
       </div>

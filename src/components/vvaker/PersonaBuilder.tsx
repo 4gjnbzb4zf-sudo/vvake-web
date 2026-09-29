@@ -93,11 +93,19 @@ async function renderCard(img: HTMLImageElement, kind: "avatar" | "banner", name
     ctx.fillStyle = "#e6e9eb";
     ctx.font = `700 120px ${display}`;
     ctx.fillText("VVAKE", 90, 250);
+    // The line wraps before the character (it stands at 78 % of the width).
     ctx.font = `600 40px ${display}`;
-    ctx.fillText(name || tagline, 94, 320);
+    const maxWidth = cx - iw / 2 - 94 - 40;
+    const lines: string[] = [];
+    for (const word of (name || tagline).split(" ")) {
+      const last = lines.at(-1);
+      if (last !== undefined && ctx.measureText(`${last} ${word}`).width <= maxWidth) lines[lines.length - 1] = `${last} ${word}`;
+      else lines.push(word);
+    }
+    lines.slice(0, 3).forEach((line, i) => ctx.fillText(line, 94, 320 + i * 50));
     ctx.fillStyle = "#ccff00";
     ctx.font = `600 26px ${display}`;
-    ctx.fillText("vvake.com", 94, 380);
+    ctx.fillText("vvake.com", 94, 320 + Math.min(lines.length, 3) * 50 + 22);
   }
   return new Promise((resolve) => canvas.toBlob((b) => resolve(b!), "image/png"));
 }

@@ -898,6 +898,9 @@ export const en = {
       ghost: "Leo's ghost",
       ahead: "ahead of you",
       clash: "Lyon +0.4",
+      call: "Incoming call",
+      caller: "Your VVaker · coach",
+      callLine: "20 min, zone 2 with Sam?",
     },
     devices: {
       title: "Works with recent phones and watches",
@@ -1505,7 +1508,7 @@ export const en = {
     shuffle: "Shuffle",
     note: "Free for everyone. No wallet needed.",
     alt: "Your VVaker",
-    bannerTagline: "Two Vs make a W.",
+    bannerTagline: "Move for your health, your first wealth.",
     stats: {
       title: "Earned, never bought: your VVaker stats",
       body: "Five stats grow from your real, verified activity over the last 90 days, and fade if you stop. No purchase, collectible or token can raise them. They're for bragging rights, badges and finding a crew at your level, and they never change rewards or rankings.",
@@ -1687,7 +1690,7 @@ export const en = {
     ],
   },
   footer: {
-    tagline: "VVake Fit · Two Vs make a W.",
+    tagline: "VVake Fit · Move for your health, your first wealth.",
     legal:
       "VVake Fit is a fitness game, not a financial product. Nothing on this site is investment advice or an offer of any token, security or financial instrument. Market data is shown for entertainment only. Team names and tickers are used for identification only; no affiliation or endorsement is implied.",
     privacy: "Privacy",
