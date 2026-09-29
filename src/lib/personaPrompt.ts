@@ -293,6 +293,57 @@ export const DEFAULT_PERSONA: Persona = {
   attitude: "cool",
 };
 
+/**
+ * The ready-made cast (public/personas, one per sport) expressed in the generator's own options, so browsing
+ * the cast sets the selectors to the character on screen. Closest option where the cast wears sport-specific kit
+ * (tools/imagine/personas.json has the exact wording).
+ */
+type CastLook = Omit<Persona, "name" | "sport">;
+const cast = (
+  animal: Animal,
+  top: Persona["top"],
+  bottoms: Persona["bottoms"],
+  headwear: Persona["headwear"],
+  shoes: Persona["shoes"],
+  build: Persona["build"] = "athletic",
+  attitude: Persona["attitude"] = "cool",
+  gear: Persona["gear"] = [],
+): CastLook => ({ animal, top, bottoms, headwear, shoes, build, attitude, gear });
+
+export const CAST: Record<VVakerSport, CastLook> = {
+  runner: cast("cheetah", "singlet", "shorts", "snapback", "sport", "lean", "cool", ["sweatband"]),
+  walker: cast("retriever", "jersey", "trackpants", "snapback", "retro", "athletic", "cool", ["bottle"]),
+  cyclist: cast("greyhound", "tee", "bibs", "helmet", "sport", "lean"),
+  lifter: cast("gorilla", "tank", "trackpants", "snapback", "retro", "muscular"),
+  boxer: cast("elephant", "tank", "trackpants", "snapback", "retro", "muscular"),
+  yogi: cast("flamingo", "tank", "leggings", "none", "barefoot", "lean"),
+  baller: cast("cat", "jersey", "trackpants", "snapback", "retro"),
+  coder: cast("raccoon", "hoodie", "trackpants", "none", "retro"),
+  martial: cast("panda", "tee", "trackpants", "headband", "barefoot"),
+  paddler: cast("eagle", "track", "trackpants", "snapback", "retro"),
+  meditator: cast("owl", "hoodie", "joggers", "none", "barefoot", "lean", "serene"),
+  roller: cast("fox", "jersey", "trackpants", "snapback", "sport", "lean", "playful"),
+  skater: cast("arcticFox", "puffer", "trackpants", "beanie", "sport"),
+  swimmer: cast("otter", "tank", "shorts", "none", "sport", "athletic", "cool", ["towel"]),
+  hiker: cast("bear", "track", "trackpants", "beanie", "trail", "big", "cool", ["backpack"]),
+  climber: cast("snowLeopard", "tank", "joggers", "none", "sport", "muscular"),
+  racket: cast("hare", "polo", "shorts", "snapback", "retro", "lean"),
+  dancer: cast("zebra", "hoodie", "trackpants", "snapback", "retro", "athletic", "playful"),
+  skier: cast("husky", "puffer", "skipants", "helmet", "sport"),
+  footballer: cast("lion", "jersey", "shorts", "none", "sport"),
+};
+
+/** The cast member for a sport as a full persona (the player's name is kept). */
+export const castPersona = (sport: VVakerSport, name = ""): Persona => ({ name, sport, ...CAST[sport], gear: [...CAST[sport].gear] });
+
+/** True when the persona is exactly the cast member for its sport (so the preview is that character). */
+export function isCastPersona(p: Persona): boolean {
+  const c = CAST[p.sport];
+  return (Object.keys(c) as (keyof CastLook)[]).every((k) =>
+    k === "gear" ? c.gear.length === p.gear.length && c.gear.every((g) => p.gear.includes(g)) : c[k] === p[k],
+  );
+}
+
 /** Master prompt v0.3 for a player's persona (same wording as tools/imagine/generate.mjs). */
 export function buildPersonaPrompt(p: Persona): string {
   const sport = SPORTS[p.sport];

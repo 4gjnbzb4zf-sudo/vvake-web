@@ -15,9 +15,12 @@ import {
   SPORTS,
   TOPS,
   buildPersonaPrompt,
+  castPersona,
+  isCastPersona,
   personaCode,
   type Persona,
 } from "@/lib/personaPrompt";
+import { personaSrc } from "@/lib/personas";
 import { savePersona, saveRenders, usePersona, useRenders } from "@/lib/prefs";
 import { useSportLabel } from "@/lib/sportNames";
 import { VVAKER_SPORTS } from "./traits";
@@ -130,11 +133,23 @@ export function PersonaBuilder({
   const localRender = useLocalRenderer();
   const renders = useRenders();
   const stage = useRef<HTMLDivElement>(null);
+  const strip = useRef<HTMLUListElement>(null);
   const update = (next: Partial<Persona>) => savePersona({ ...persona, ...next });
   const prompt = buildPersonaPrompt(persona);
   const castAnimal = SPORTS[persona.sport].animal;
   const code = personaCode(persona, VVAKER_SPORTS);
   const rendered = renders[code];
+  const inBank = isCastPersona(persona);
+  const bankIndex = VVAKER_SPORTS.indexOf(persona.sport);
+  /** Show a ready-made VVaker from the bank: every selector follows the character on screen. */
+  const showCast = (sport: Persona["sport"]) => savePersona(castPersona(sport, persona.name));
+  // Keep the character on screen visible in the thumbnail strip (horizontal scroll only, the page stays put).
+  useEffect(() => {
+    const ul = strip.current;
+    const li = ul?.children[bankIndex] as HTMLElement | undefined;
+    if (ul && li) ul.scrollTo({ left: li.offsetLeft - ul.clientWidth / 2 + li.clientWidth / 2, behavior: "smooth" });
+  }, [bankIndex]);
+  const browse = (step: number) => showCast(VVAKER_SPORTS[(bankIndex + step + VVAKER_SPORTS.length) % VVAKER_SPORTS.length]);
 
   const renderMine = async () => {
     setRendering(true);
@@ -178,13 +193,72 @@ export function PersonaBuilder({
               <VVaker sport={persona.sport} title={persona.name || dict.title} className="h-full w-auto" />
             )}
           </div>
+          <button
+            type="button"
+            onClick={() => browse(-1)}
+            aria-label={dict.bank.prev}
+            title={dict.bank.prev}
+            className="absolute top-1/2 left-3 z-10 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-line bg-night/70 text-lg text-text backdrop-blur transition-colors hover:border-volt-fg"
+          >
+            ‹
+          </button>
+          <button
+            type="button"
+            onClick={() => browse(1)}
+            aria-label={dict.bank.next}
+            title={dict.bank.next}
+            className="absolute top-1/2 right-3 z-10 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-line bg-night/70 text-lg text-text backdrop-blur transition-colors hover:border-volt-fg"
+          >
+            ›
+          </button>
+          <p
+            className="absolute top-4 right-4 rounded-full bg-night/80 px-3 py-1 font-mono text-[0.68rem] tracking-[0.12em] text-muted uppercase backdrop-blur"
+            aria-live="polite"
+          >
+            {inBank
+              ? dict.bank.count.replace("{n}", String(bankIndex + 1)).replace("{total}", String(VVAKER_SPORTS.length))
+              : dict.bank.mix}
+          </p>
           {persona.name && (
             <p className="absolute top-4 left-4 rounded-full bg-night/80 px-3 py-1 font-display text-sm font-semibold backdrop-blur">
               {persona.name}
             </p>
           )}
         </div>
-        <p className="mx-auto mt-3 max-w-[460px] text-center text-xs text-faint">
+        <div className="mx-auto mt-4 max-w-[460px]">
+          <p className="flex items-center justify-between gap-3 text-xs">
+            <span className="font-mono tracking-[0.12em] text-faint uppercase">{dict.bank.title}</span>
+            {!inBank && (
+              <button type="button" onClick={() => showCast(persona.sport)} className="text-volt-fg underline underline-offset-4">
+                {dict.bank.show}
+              </button>
+            )}
+          </p>
+          <ul ref={strip} className="relative mt-2 flex snap-x gap-2 overflow-x-auto pb-2" aria-label={dict.bank.title}>
+            {VVAKER_SPORTS.map((s) => {
+              const active = inBank && persona.sport === s;
+              return (
+                <li key={s} className="shrink-0 snap-start">
+                  <button
+                    type="button"
+                    onClick={() => showCast(s)}
+                    aria-pressed={active}
+                    aria-label={sportLabel(s, sportNames[s])}
+                    title={sportLabel(s, sportNames[s])}
+                    className={cn(
+                      "flex h-16 w-14 items-end justify-center overflow-hidden rounded-xl border bg-surface pt-1 transition-colors",
+                      active ? "border-volt-fg" : "border-line opacity-70 hover:opacity-100",
+                    )}
+                  >
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img src={personaSrc(s)} alt="" loading="lazy" className="h-full w-auto object-contain" />
+                  </button>
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+        <p className="mx-auto mt-2 max-w-[460px] text-center text-xs text-faint">
           {rendered
             ? dict.yours
             : dict.preview.replace("{animal}", castAnimal).replace("{mine}", dict.animals[persona.animal].toLowerCase())}
