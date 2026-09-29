@@ -632,7 +632,7 @@ export const en = {
     stop: "Stop",
     voiceUnavailable:
       "Your browser's voice engine didn't answer. Recorded coach samples are on their way; meanwhile the lines above are what your coach says.",
-    demoNote: "Demo uses your device's own voices. The app will use studio-quality coach voices.",
+    demoNote: "Sample voices by ElevenLabs. In the app, your coach talks back and follows up.",
     styles: {
       hype: {
         name: "Hype",

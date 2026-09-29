@@ -667,7 +667,7 @@ export const fr: Dictionary = {
     stop: "Arrêter",
     voiceUnavailable:
       "Le moteur vocal de ton navigateur n'a pas répondu. Des extraits enregistrés arrivent bientôt ; en attendant, les répliques ci-dessus sont ce que dit ton coach.",
-    demoNote: "La démo utilise les voix de ton appareil. L'app utilisera des voix de coach de qualité studio.",
+    demoNote: "Voix d'exemple par ElevenLabs. Dans l'app, ton coach te répond et fait le suivi.",
     styles: {
       hype: {
         name: "Survolté",
