@@ -1093,6 +1093,73 @@ export const fr: Dictionary = {
       notice:
         "Robinhood et Robinhood Chain sont des marques de Robinhood Markets, Inc. VVake Fit est indépendant, sans affiliation ni recommandation de Robinhood. Les intégrations sont prévues et dépendent d'accords, de la réglementation et de la disponibilité dans ton pays.",
     },
+    token: {
+      kicker: "$VVAKE · prévu · Robinhood Chain",
+      title: "À quoi sert $VVAKE.",
+      body: "$VVAKE est une clé de communauté, pas un tableau des scores. Le détenir te donne une voix dans le jeu, des looks à montrer et des portes qui s'ouvrent avec les autres sportifs. Il fonctionne seul, et en fait un peu plus avec Plus. Tout ce qui compte dans le jeu se gagne toujours en bougeant.",
+      tiers: [
+        {
+          icon: "🏃",
+          name: "Joueur gratuit",
+          who: "Sans token, sans abonnement",
+          perks: [
+            "Le jeu complet : plan, crews, défis, déblocage des villes",
+            "Stats, niveaux et classements gagnés en bougeant",
+            "Récompenses de saison pour l'effort, là où la loi le permet",
+          ],
+        },
+        {
+          icon: "⭐",
+          name: "Plus",
+          who: "Abonnement, sans token",
+          perks: ["Coaching plus poussé et ton coach vocal", "Crews plus grands et plus de défis", "Rendus de VVaker et petits plus"],
+        },
+        {
+          icon: "🪙",
+          name: "Détenteur $VVAKE",
+          who: "Token, sans abonnement",
+          perks: [
+            "Vote sur les choix de la communauté : prochains sports, ordre de déblocage des villes, thèmes de saison, course solidaire",
+            "Cosmétiques réservés : coloris de tenue VVaker, cadres et badge détenteur",
+            "Événements et rencontres de crew entre détenteurs, en ligne et en vrai",
+            "Accès anticipé aux nouveaux sports et aux bêtas",
+          ],
+        },
+        {
+          icon: "🔥",
+          name: "Détenteur + Plus",
+          who: "Token et abonnement",
+          perks: [
+            "Tout ce qui précède, des deux côtés",
+            "Soumettre tes propres propositions au vote",
+            "Minter ton VVaker rendu en objet de collection cosmétique",
+            "Organiser des événements et de plus grands défis de crew entre détenteurs",
+          ],
+        },
+      ],
+      equal: {
+        title: "Pareil pour tous, avec ou sans token",
+        body: "Stats, niveaux, classements, matchmaking et récompenses de saison. Les récompenses paient l'effort en stablecoin ou en avantages, jamais la détention, et la cagnotte n'achète jamais de $VVAKE.",
+      },
+      never: {
+        title: "Ce que $VVAKE ne fait jamais",
+        items: [
+          "Rendement ou staking",
+          "Partage de revenus ou rachats",
+          "Acheter des stats ou un avantage",
+          "Allocation à l'équipe",
+          "Obligatoire pour jouer",
+        ],
+      },
+      links: [
+        { to: "vibe", label: "Launchpad vibe/vibe (testnet)" },
+        { to: "x", label: "Annonces sur X @VVakeFit" },
+        { to: "charter", label: "Où vont les frais du token" },
+        { to: "faq", label: "FAQ token" },
+      ],
+      notice:
+        "Pas encore émis : rien à acheter aujourd'hui, et les fonctions détenteur peuvent changer après revue juridique. La seule adresse de contrat officielle sera publiée sur vvake.com et @VVakeFit ; tout le reste est faux. Non proposé aux États-Unis ni au Royaume-Uni au lancement. Rien ici n'est une offre de tokens ni un conseil financier. Robinhood Chain est une marque de Robinhood Markets, Inc. ; VVake Fit n'est pas affilié à Robinhood.",
+    },
     lanes: [
       {
         tag: "Monde réel",

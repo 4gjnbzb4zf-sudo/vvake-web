@@ -1,6 +1,7 @@
 import { Section } from "@/components/ui/Section";
 import { MoneyText } from "@/components/ui/Money";
 import type { Dictionary } from "@/i18n/dictionaries";
+import { TokenHolders } from "./TokenHolders";
 
 const LANE_STYLES = [
   { tag: "bg-down text-night", border: "border-down/40", glow: "from-down/15" },
@@ -32,6 +33,7 @@ export function Rwa({ dict, index }: { dict: Dictionary["rwa"]; index: string })
         </ul>
         <p className="mt-5 text-xs leading-relaxed text-faint">{dict.robinhood.notice}</p>
       </div>
+      <TokenHolders dict={dict.token} />
 
       <ol className="relative mt-12 grid gap-4 lg:grid-cols-3">
         {dict.lanes.map((lane, i) => {

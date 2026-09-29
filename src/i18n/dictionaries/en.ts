@@ -1046,6 +1046,67 @@ export const en = {
       notice:
         "Robinhood and Robinhood Chain are trademarks of Robinhood Markets, Inc. VVake Fit is independent and is not affiliated with or endorsed by Robinhood. Integrations are planned and depend on agreements, regulation and availability in your country.",
     },
+    token: {
+      kicker: "$VVAKE · planned · Robinhood Chain",
+      title: "What $VVAKE is for.",
+      body: "$VVAKE is a community key, not a scoreboard. Holding it gives you a voice in the game, looks to show off and doors to open with other movers. It works on its own, and does a bit more with Plus. Everything that counts in the game stays earned by moving.",
+      tiers: [
+        {
+          icon: "🏃",
+          name: "Free player",
+          who: "No token, no subscription",
+          perks: [
+            "The full game: plan, crews, challenges, city unlocks",
+            "Stats, levels and rankings earned by moving",
+            "Season rewards for effort, where the law allows",
+          ],
+        },
+        {
+          icon: "⭐",
+          name: "Plus",
+          who: "Subscription, no token",
+          perks: ["Deeper coaching and your voice coach", "Bigger crews and more challenges", "VVaker renders and treats"],
+        },
+        {
+          icon: "🪙",
+          name: "$VVAKE holder",
+          who: "Token, no subscription",
+          perks: [
+            "Vote on community picks: the next sports, city unlock order, season themes, the charity run",
+            "Holder-only cosmetics: VVaker kit colourways, frames and a holder badge",
+            "Holder crew events and meetups, online and in real life",
+            "Early access to new sports and betas",
+          ],
+        },
+        {
+          icon: "🔥",
+          name: "Holder + Plus",
+          who: "Token and subscription",
+          perks: [
+            "Everything on both sides",
+            "Put your own proposals to the community vote",
+            "Mint your rendered VVaker as a cosmetic collectible",
+            "Host holder events and bigger holder crew challenges",
+          ],
+        },
+      ],
+      equal: {
+        title: "Same for everyone, token or not",
+        body: "Stats, levels, rankings, matchmaking and season rewards. Rewards pay for effort in a stablecoin or perks, never for holding, and the rewards pool never buys $VVAKE.",
+      },
+      never: {
+        title: "What $VVAKE never does",
+        items: ["Yield or staking returns", "Revenue share or buybacks", "Buy stats or an edge", "Team allocation", "Needed to play"],
+      },
+      links: [
+        { to: "vibe", label: "vibe/vibe launchpad (testnet)" },
+        { to: "x", label: "Announcements on X @VVakeFit" },
+        { to: "charter", label: "Where token fees go" },
+        { to: "faq", label: "Token FAQ" },
+      ],
+      notice:
+        "Not issued yet: nothing to buy today, and holder features may change after legal review. The only official contract address will be posted on vvake.com and @VVakeFit; anything else is fake. Not offered in the US or UK at launch. Nothing here is an offer of tokens or financial advice. Robinhood Chain is a trademark of Robinhood Markets, Inc.; VVake Fit is not affiliated with Robinhood.",
+    },
     lanes: [
       {
         tag: "Real world",
