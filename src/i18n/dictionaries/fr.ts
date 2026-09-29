@@ -1072,6 +1072,12 @@ export const fr: Dictionary = {
           status: "Prévu",
         },
         {
+          icon: "🪙",
+          title: "Token $VVAKE",
+          body: "$VVAKE est le ticker prévu du token VVake Fit, lancé sur Robinhood Chain via vibe/vibe. Optionnel, jamais nécessaire pour jouer, jamais un moyen d'acheter des stats. Pas encore émis, rien à acheter aujourd'hui.",
+          status: "Prévu · ticker $VVAKE",
+        },
+        {
           icon: "📈",
           title: "Actions tokenisées Robinhood · UE",
           body: "Des actions tokenisées pour le duo sport-action en Europe : chaque séance peut abonder ton choix, sur ton propre compte.",
@@ -1103,7 +1109,7 @@ export const fr: Dictionary = {
       {
         tag: "On-chain (prévu)",
         title: "Robinhood Chain garde tout ouvert",
-        body: "La chaîne où vivent déjà les actions tokenisées (RWA). Prévu : un contrat public de répartition des frais, des récompenses de saison pour l'effort versées en stablecoin ou en avantages, des objets de collection avec une vraie utilité (jamais un avantage), et plus tard un token VVake optionnel sur vibe/vibe.",
+        body: "La chaîne où vivent déjà les actions tokenisées (RWA). Prévu : un contrat public de répartition des frais, des récompenses de saison pour l'effort versées en stablecoin ou en avantages, des objets de collection avec une vraie utilité (jamais un avantage), et plus tard un token VVake optionnel, ticker $VVAKE, sur vibe/vibe.",
         points: [
           "Répartition des frais publique, on-chain",
           "Récompenses de saison pour l'effort",
@@ -1675,7 +1681,7 @@ export const fr: Dictionary = {
       },
       {
         q: "Il y a un token ou des NFT ?",
-        a: "Ton VVaker est gratuit et unique. Les options de collection (portail web, adultes, pas dans tous les pays) ont une vraie utilité : organiser de plus grands événements de crew, créer des défis, des créneaux prioritaires pour acheter dossards et billets, de l'équipement à récupérer. Les stats, elles, se gagnent uniquement en bougeant et ne s'achètent jamais. Une couche web3 plus large, token compris, est prévue plus tard, sous réserve d'une revue juridique, et ne sera jamais nécessaire pour jouer. Rien de ce que nous vendons n'est un investissement : l'investissement réglementé passe par des partenaires agréés.",
+        a: "Ton VVaker est gratuit et unique. Les options de collection (portail web, adultes, pas dans tous les pays) ont une vraie utilité : organiser de plus grands événements de crew, créer des défis, des créneaux prioritaires pour acheter dossards et billets, de l'équipement à récupérer. Les stats, elles, se gagnent uniquement en bougeant et ne s'achètent jamais. Une couche web3 plus large, dont le token $VVAKE sur Robinhood Chain, est prévue plus tard, sous réserve d'une revue juridique, et ne sera jamais nécessaire pour jouer. Rien de ce que nous vendons n'est un investissement : l'investissement réglementé passe par des partenaires agréés.",
       },
       {
         q: "Quand est-ce que vous lancez ?",

@@ -16,7 +16,7 @@ export function Rwa({ dict, index }: { dict: Dictionary["rwa"]; index: string })
         <p className="font-mono text-xs tracking-[0.18em] text-volt uppercase">{dict.robinhood.kicker}</p>
         <h3 className="mt-2 font-display text-2xl leading-tight font-bold sm:text-3xl">{dict.robinhood.title}</h3>
         <p className="mt-3 max-w-3xl leading-relaxed text-muted">{dict.robinhood.body}</p>
-        <ul className="mt-6 grid gap-3 md:grid-cols-3">
+        <ul className="mt-6 grid gap-3 md:grid-cols-2 lg:grid-cols-4">
           {dict.robinhood.rails.map((r) => (
             <li key={r.title} className="flex flex-col rounded-2xl border border-line bg-night/70 p-5">
               <span aria-hidden="true" className="text-3xl">
