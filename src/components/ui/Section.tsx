@@ -15,12 +15,21 @@ interface SectionProps {
   children?: ReactNode;
   className?: string;
   align?: "left" | "center";
+  /** Label in the section navigator for a section without a numbered kicker (e.g. the FAQ). */
+  nav?: string;
 }
 
-export function Section({ id, index, kicker, title, lead, children, className, align = "left" }: SectionProps) {
+export function Section({ id, index, kicker, title, lead, children, className, align = "left", nav }: SectionProps) {
   const headingId = id ? `${id}-title` : undefined;
   return (
-    <section id={id} aria-labelledby={headingId} className={cn("relative border-t border-line/60 py-20 sm:py-28", className)}>
+    <section
+      id={id}
+      aria-labelledby={headingId}
+      // Picked up by the section navigator (SectionNav): numbered sections with a kicker, or an explicit label.
+      data-nav={id ? (nav ?? (index && typeof kicker === "string" ? kicker : undefined)) : undefined}
+      data-nav-index={id && index ? index : undefined}
+      className={cn("relative border-t border-line/60 py-20 sm:py-28", className)}
+    >
       <Container>
         <header className={cn("max-w-3xl", align === "center" && "mx-auto text-center")}>
           {kicker && <Kicker index={index}>{kicker}</Kicker>}

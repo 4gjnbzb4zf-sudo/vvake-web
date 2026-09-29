@@ -4,7 +4,13 @@ import type { Dictionary } from "@/i18n/dictionaries";
 
 export function Story({ dict, index }: { dict: Dictionary["story"]; index: string }) {
   return (
-    <section id="story" aria-labelledby="story-title" className="relative border-t border-line/60 py-20 sm:py-28">
+    <section
+      id="story"
+      aria-labelledby="story-title"
+      data-nav={dict.nav}
+      data-nav-index={index}
+      className="relative border-t border-line/60 py-20 sm:py-28"
+    >
       <Container className="grid gap-14 lg:grid-cols-[1fr_1fr] lg:gap-20">
         <div>
           <Kicker index={index}>{dict.kicker}</Kicker>

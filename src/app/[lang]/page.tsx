@@ -32,6 +32,7 @@ import { VibeLink } from "@/components/sections/VibeLink";
 import { Wellbeing } from "@/components/sections/Wellbeing";
 import { Why } from "@/components/sections/Why";
 import { Section } from "@/components/ui/Section";
+import { SectionNav } from "@/components/ui/SectionNav";
 import { CollectorDrops } from "@/components/vvaker/CollectorDrops";
 import { EarnedStats } from "@/components/vvaker/EarnedStats";
 import { VVakerDeck } from "@/components/vvaker/VVakerDeck";
@@ -115,6 +116,7 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
         <Faq dict={dict.faq} />
       </main>
       <Footer locale={lang} dict={dict.footer} />
+      <SectionNav label={dict.nav.sections} open={dict.nav.jump} />
     </>
   );
 }

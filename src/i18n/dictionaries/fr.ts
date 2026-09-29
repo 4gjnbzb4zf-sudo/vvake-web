@@ -20,6 +20,8 @@ export const fr: Dictionary = {
     skip: "Aller au contenu",
     language: "Langue",
     currency: "Devise",
+    sections: "Sections de la page",
+    jump: "Aller à une section",
     themeLight: "Passer au thème clair",
     themeDark: "Passer au thème sombre",
     style: "Style des VVakers",
@@ -962,6 +964,7 @@ export const fr: Dictionary = {
   },
   story: {
     kicker: "06:00",
+    nav: "Pourquoi le Web3",
     title: "Tu te souviens de cette sensation.",
     paragraphs: [
       "2022. Ton énergie vient de se recharger. Tu laces tes chaussures, tu ouvres l'app, et tu pars. Partout dans le monde, des centaines de milliers de personnes faisaient la même chose au même moment.",
