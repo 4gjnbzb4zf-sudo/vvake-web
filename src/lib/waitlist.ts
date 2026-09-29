@@ -17,6 +17,8 @@ export const signupInputSchema = z
       .optional(),
     locale: z.enum(locales),
     consent: z.literal(true),
+    /** Cloudflare Turnstile token (bot check), when the check is on. */
+    turnstileToken: z.string().max(2048).optional(),
   })
   .refine((v) => (v.city === undefined) !== (v.requestedCity === undefined), {
     message: "Provide exactly one of city or requestedCity",
@@ -32,6 +34,7 @@ export interface SignupDraft {
   ref?: string;
   locale: string;
   consent: boolean;
+  turnstileToken?: string;
 }
 
 export const signupResponseSchema = z.object({
@@ -40,8 +43,10 @@ export const signupResponseSchema = z.object({
   citySignups: z.number().int().nonnegative(),
   /** Reserved tier; activates after 3 real sessions (ADR-0007). */
   tier: z.enum(["founder", "pioneer", "early"]).nullable(),
-  /** True when the email still needs to be confirmed via the link we sent. */
+  /** True when the email still needs to be verified. */
   pendingVerification: z.boolean(),
+  /** "code": a 6-digit code was emailed, type it in the form · "later": the email follows · "done": verified. */
+  verification: z.enum(["code", "later", "done"]).optional(),
 });
 export type SignupResponse = z.infer<typeof signupResponseSchema>;
 
@@ -50,7 +55,8 @@ export const cityCountsSchema = z.record(z.string(), z.number().int().nonnegativ
 export type CityCounts = z.infer<typeof cityCountsSchema>;
 
 export type SignupResult =
-  { ok: true; data: SignupResponse } | { ok: false; error: "not-configured" | "invalid" | "rate-limited" | "network" | "server" };
+  | { ok: true; data: SignupResponse }
+  | { ok: false; error: "not-configured" | "invalid" | "rate-limited" | "network" | "server" | "bot" | "wrong-code" | "expired" };
 
 type FetchLike = (input: string, init?: RequestInit) => Promise<Response>;
 
@@ -69,11 +75,33 @@ export async function submitSignup(endpoint: string, input: SignupDraft, fetchIm
   } catch {
     return { ok: false, error: "network" };
   }
+  return readResult(res);
+}
+
+/** POST {endpoint}/verify: the 6-digit code from the email. */
+export async function verifyCode(endpoint: string, email: string, code: string, fetchImpl: FetchLike = fetch): Promise<SignupResult> {
+  let res: Response;
+  try {
+    res = await fetchImpl(`${endpoint}/verify`, {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({ email, code }),
+    });
+  } catch {
+    return { ok: false, error: "network" };
+  }
+  return readResult(res);
+}
+
+async function readResult(res: Response): Promise<SignupResult> {
+  const json = (await res.json().catch(() => null)) as { error?: string } | null;
   if (res.status === 429) return { ok: false, error: "rate-limited" };
+  if (res.status === 403 && json?.error === "bot") return { ok: false, error: "bot" };
+  if (res.status === 410) return { ok: false, error: "expired" };
+  if (res.status === 422 && json?.error === "wrong-code") return { ok: false, error: "wrong-code" };
   if (res.status === 400 || res.status === 422) return { ok: false, error: "invalid" };
   if (!res.ok) return { ok: false, error: "server" };
-
-  const body = signupResponseSchema.safeParse(await res.json().catch(() => null));
+  const body = signupResponseSchema.safeParse(json);
   return body.success ? { ok: true, data: body.data } : { ok: false, error: "server" };
 }
 

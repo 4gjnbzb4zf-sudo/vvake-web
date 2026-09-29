@@ -1416,6 +1416,14 @@ export const fr: Dictionary = {
     ],
     tiersNote: "Avantages uniquement dans le jeu, activés après tes 3 premières vraies sessions. Les faux inscrits n'obtiennent rien.",
     form: {
+      step1: "1 · Choisis ta ville",
+      step2: "2 · Inscris-toi pour débloquer {city}",
+      step2Empty: "2 · Inscris-toi",
+      signupIntro:
+        "Une place par e-mail, vérifiée avec un code qu'on t'envoie. Seules les inscriptions vérifiées font avancer le compteur.",
+      submitCity: "M'inscrire et débloquer {city}",
+      submitNoCity: "Choisis d'abord ta ville",
+      addTeam: "Ajouter ton équipe (optionnel)",
       email: "E-mail",
       emailPlaceholder: "toi@exemple.com",
       city: "Ta ville",
@@ -1436,6 +1444,16 @@ export const fr: Dictionary = {
       threshold: "Inscriptions pour débloquer",
       counterLive: "inscrits",
       counterPending: "Les compteurs en direct apparaîtront à l'ouverture de la liste.",
+    },
+    code: {
+      title: "Regarde tes e-mails",
+      body: "On a envoyé un code à 6 chiffres à {email}. Tape-le ici pour réserver ta place.",
+      label: "Code à 6 chiffres",
+      submit: "Vérifier et réserver ma place",
+      verifying: "Vérification…",
+      resend: "Renvoyer un code",
+      resent: "Nouveau code envoyé.",
+      changeEmail: "Utiliser un autre e-mail",
     },
     success: {
       title: "Tu es dedans. Maintenant, ramène ta crew.",
@@ -1473,6 +1491,9 @@ export const fr: Dictionary = {
       cta: "Suivre sur X",
     },
     errors: {
+      bot: "La vérification anti-robot n'est pas passée. Recharge la page et réessaie.",
+      "wrong-code": "Ce code ne correspond pas. Vérifie l'e-mail et réessaie.",
+      expired: "Ce code a expiré ou a eu trop d'essais. Demande-en un nouveau.",
       invalid: "Vérifie ton e-mail et ta ville.",
       "rate-limited": "Trop d'essais. Respire, et réessaie dans une minute.",
       network: "Problème de réseau. Vérifie ta connexion et réessaie.",

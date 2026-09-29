@@ -10,7 +10,16 @@ import type { Country } from "@/lib/cities";
 import { cn } from "@/lib/cn";
 import { readReferral, referralUrl, shareUrl, type ShareNetwork } from "@/lib/referral";
 import { unlockProgress } from "@/lib/unlock";
-import { fetchCityCounts, submitSignup, type CityCounts, type SignupResponse, type SignupResult } from "@/lib/waitlist";
+import {
+  fetchCityCounts,
+  submitSignup,
+  verifyCode,
+  type CityCounts,
+  type SignupDraft,
+  type SignupResponse,
+  type SignupResult,
+} from "@/lib/waitlist";
+import { Turnstile } from "@/components/ui/Turnstile";
 import { personaSrc } from "@/lib/personas";
 import { usePersona } from "@/lib/prefs";
 import { renderStoryCard } from "@/lib/storyCard";
@@ -33,19 +42,35 @@ interface WaitlistFormProps {
   siteUrl: string;
   privacyHref: string;
   social: { x: string; xHandle: string };
+  /** Cloudflare Turnstile site key; empty = no bot check widget. */
+  turnstileSiteKey: string;
 }
 
 type Status =
   | { kind: "idle" }
   | { kind: "submitting" }
+  | { kind: "code"; email: string; draft: SignupDraft; verifying?: boolean; note?: "resent"; error?: SignupErrorCode }
   | { kind: "success"; data: SignupResponse }
   | { kind: "error"; code: Extract<SignupResult, { ok: false }>["error"] };
 
-export function WaitlistForm({ locale, dict, countryLabels, cities, endpoint, siteUrl, privacyHref, social }: WaitlistFormProps) {
+type SignupErrorCode = Extract<SignupResult, { ok: false }>["error"];
+
+export function WaitlistForm({
+  locale,
+  dict,
+  countryLabels,
+  cities,
+  endpoint,
+  siteUrl,
+  privacyHref,
+  social,
+  turnstileSiteKey,
+}: WaitlistFormProps) {
   const searchParams = useSearchParams();
   const [chosen, setChosen] = useState<CitySelection | null>(null);
   const [counts, setCounts] = useState<CityCounts | null>(null);
   const [status, setStatus] = useState<Status>({ kind: "idle" });
+  const [human, setHuman] = useState("");
 
   const bySlug = useMemo(() => new Map(cities.map((c) => [c.slug, c])), [cities]);
   // Deep links: ?city=lyon preselects a city, ?ref=code credits the inviter.
@@ -78,21 +103,42 @@ export function WaitlistForm({ locale, dict, countryLabels, cities, endpoint, si
 
     setStatus({ kind: "submitting" });
     const fanbase = String(form.get("fanbase") ?? "").trim();
-    const result = await submitSignup(endpoint, {
+    const draft: SignupDraft = {
       email: String(form.get("email") ?? "").trim(),
       ...(city ? { city } : { requestedCity: requested }),
       ...(fanbase ? { fanbase } : {}),
       ...(ref ? { ref } : {}),
       locale,
       consent: form.get("consent") === "on",
-    });
-    setStatus(result.ok ? { kind: "success", data: result.data } : { kind: "error", code: result.error });
+      ...(human ? { turnstileToken: human } : {}),
+    };
+    const result = await submitSignup(endpoint, draft);
+    if (!result.ok) return setStatus({ kind: "error", code: result.error });
+    // A code went to the inbox: verify it here before counting the signup.
+    if (result.data.verification === "code") return setStatus({ kind: "code", email: draft.email, draft });
+    setStatus({ kind: "success", data: result.data });
+  }
+
+  async function onVerify(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    if (status.kind !== "code") return;
+    const code = String(new FormData(event.currentTarget).get("code") ?? "").replace(/\D/g, "");
+    setStatus({ ...status, verifying: true, note: undefined, error: undefined });
+    const result = await verifyCode(endpoint, status.email, code);
+    setStatus(result.ok ? { kind: "success", data: result.data } : { ...status, verifying: false, error: result.error });
+  }
+
+  async function resendCode() {
+    if (status.kind !== "code") return;
+    const result = await submitSignup(endpoint, status.draft);
+    setStatus(result.ok ? { ...status, note: "resent", error: undefined } : { ...status, error: result.error });
   }
 
   return (
     <div className="grid gap-6 lg:grid-cols-[1fr_1.1fr]">
       {/* City picker + rival race */}
       <div className="rounded-3xl border border-line bg-surface/60 p-6 sm:p-8">
+        <p className="mb-4 font-mono text-xs tracking-[0.16em] text-pulse-fg uppercase">{dict.form.step1}</p>
         <CitySearch
           cities={cities}
           countryLabels={countryLabels}
@@ -135,8 +181,56 @@ export function WaitlistForm({ locale, dict, countryLabels, cities, endpoint, si
             locale={locale}
             siteUrl={siteUrl}
           />
+        ) : status.kind === "code" ? (
+          <form key="code" onSubmit={onVerify} className="space-y-5">
+            <div>
+              <h3 className="font-display text-2xl font-semibold">{dict.code.title}</h3>
+              <p className="mt-2 text-muted">{format(dict.code.body, { email: status.email })}</p>
+            </div>
+            <Field id="wl-code" label={dict.code.label}>
+              <input
+                id="wl-code"
+                name="code"
+                required
+                autoFocus
+                autoComplete="one-time-code"
+                inputMode="numeric"
+                pattern="[0-9 ]{6,7}"
+                maxLength={7}
+                placeholder="000000"
+                className={cn(inputClass, "text-center font-mono text-2xl tracking-[0.4em]")}
+              />
+            </Field>
+            {status.error && (
+              <p role="alert" className="rounded-xl border border-down-fg/40 bg-down/10 px-4 py-3 text-sm text-down-fg">
+                {dict.errors[status.error]}
+              </p>
+            )}
+            {status.note === "resent" && <p className="text-sm text-up-fg">{dict.code.resent}</p>}
+            <button type="submit" disabled={status.verifying} className={buttonClass("primary", "w-full")}>
+              {status.verifying ? dict.code.verifying : dict.code.submit}
+            </button>
+            <div className="flex justify-between text-sm">
+              <button type="button" onClick={resendCode} className="text-muted underline underline-offset-4 hover:text-text">
+                {dict.code.resend}
+              </button>
+              <button
+                type="button"
+                onClick={() => setStatus({ kind: "idle" })}
+                className="text-muted underline underline-offset-4 hover:text-text"
+              >
+                {dict.code.changeEmail}
+              </button>
+            </div>
+          </form>
         ) : isOpen ? (
-          <form id="waitlist" onSubmit={onSubmit} className="space-y-5">
+          <form key="signup" id="waitlist" onSubmit={onSubmit} className="space-y-5">
+            <div>
+              <p className="font-mono text-xs tracking-[0.16em] text-pulse-fg uppercase">
+                {selection ? format(dict.form.step2, { city: selected?.name ?? requested }) : dict.form.step2Empty}
+              </p>
+              <p className="mt-2 text-sm text-muted">{dict.form.signupIntro}</p>
+            </div>
             <Field id="wl-email" label={dict.form.email}>
               <input
                 id="wl-email"
@@ -150,16 +244,21 @@ export function WaitlistForm({ locale, dict, countryLabels, cities, endpoint, si
                 className={inputClass}
               />
             </Field>
-            <Field id="wl-fanbase" label={dict.form.fanbase}>
-              <input
-                id="wl-fanbase"
-                name="fanbase"
-                type="text"
-                maxLength={60}
-                placeholder={dict.form.fanbasePlaceholder}
-                className={inputClass}
-              />
-            </Field>
+            <details className="group">
+              <summary className="cursor-pointer text-sm text-muted hover:text-text">{dict.form.addTeam}</summary>
+              <div className="mt-3">
+                <Field id="wl-fanbase" label={dict.form.fanbase}>
+                  <input
+                    id="wl-fanbase"
+                    name="fanbase"
+                    type="text"
+                    maxLength={60}
+                    placeholder={dict.form.fanbasePlaceholder}
+                    className={inputClass}
+                  />
+                </Field>
+              </div>
+            </details>
             <div className="absolute -left-[9999px]" aria-hidden="true">
               <label htmlFor="wl-company">Company</label>
               <input id="wl-company" name="company" type="text" tabIndex={-1} autoComplete="off" />
@@ -178,8 +277,17 @@ export function WaitlistForm({ locale, dict, countryLabels, cities, endpoint, si
                 {dict.errors[status.code]}
               </p>
             )}
-            <button type="submit" disabled={status.kind === "submitting" || !selection} className={buttonClass("primary", "w-full")}>
-              {status.kind === "submitting" ? dict.form.submitting : dict.form.submit}
+            {turnstileSiteKey && <Turnstile siteKey={turnstileSiteKey} onToken={setHuman} />}
+            <button
+              type="submit"
+              disabled={status.kind === "submitting" || !selection || (turnstileSiteKey !== "" && !human)}
+              className={buttonClass("primary", "w-full")}
+            >
+              {status.kind === "submitting"
+                ? dict.form.submitting
+                : selection
+                  ? format(dict.form.submitCity, { city: selected?.name ?? requested })
+                  : dict.form.submitNoCity}
             </button>
           </form>
         ) : (

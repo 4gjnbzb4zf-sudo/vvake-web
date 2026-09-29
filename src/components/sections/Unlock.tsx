@@ -39,6 +39,7 @@ export function Unlock({
             countryLabels={countryLabels}
             cities={cities}
             endpoint={siteConfig.waitlistEndpoint}
+            turnstileSiteKey={siteConfig.turnstileSiteKey}
             siteUrl={siteConfig.url}
             privacyHref={`/${locale}/privacy/`}
             social={siteConfig.social}
