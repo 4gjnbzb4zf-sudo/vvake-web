@@ -94,8 +94,11 @@ export function SectionNav({ label, open: openLabel }: { label: string; open: st
               >
                 <span
                   className={cn(
-                    "max-w-0 overflow-hidden font-mono text-[10px] tracking-[0.12em] whitespace-nowrap uppercase opacity-0 transition-all duration-200 group-focus-within:max-w-56 group-focus-within:opacity-100 group-hover:max-w-56 group-hover:opacity-100",
-                    i === active ? "text-text" : "text-faint hover:text-text",
+                    "overflow-hidden font-mono text-[10px] tracking-[0.12em] whitespace-nowrap uppercase transition-all duration-200",
+                    // The current section's name always shows (on a pill, readable over the page); all names on hover.
+                    i === active
+                      ? "max-w-56 rounded-full border border-line bg-night/85 px-2 py-0.5 text-text opacity-100 backdrop-blur group-focus-within:border-transparent group-focus-within:bg-transparent group-focus-within:px-0 group-hover:border-transparent group-hover:bg-transparent group-hover:px-0"
+                      : "max-w-0 text-faint opacity-0 group-focus-within:max-w-56 group-focus-within:opacity-100 group-hover:max-w-56 group-hover:opacity-100 hover:text-text",
                   )}
                 >
                   {item.index && <span className="text-pulse-fg">{item.index} </span>}
@@ -160,6 +163,9 @@ export function SectionNav({ label, open: openLabel }: { label: string; open: st
             <rect x="1" y="12" width="6" height="2" rx="1" />
           </svg>
           {counter}
+          {!hidden && (
+            <span className="max-w-[11rem] truncate font-sans tracking-normal text-muted normal-case">{items[active]?.label}</span>
+          )}
         </button>
       </div>
     </>
