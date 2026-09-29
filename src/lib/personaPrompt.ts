@@ -303,7 +303,7 @@ export function buildPersonaPrompt(p: Persona): string {
   return [
     `Hyper-realistic 3D character render of an anthropomorphic ${animal} athlete, ${BUILDS[p.build]} build, human-like hands with ${fur} texture, confident ${ATTITUDES[p.attitude]} expression, full body from head to ${barefoot ? "feet" : "shoes"}, ${sport.pose}.`,
     `VVake Fit streetwear kit: ${TOPS[p.top]} in black and chrome-silver with a large glossy gold 3D "VV" monogram on the chest (two identical capital V letters side by side, their inner arms touching so together they form a W), silver Cuban link chain, silver over-ear headphones resting around the neck, ${HEADWEAR[p.headwear]}, ${BOTTOMS[p.bottoms]} with two white side stripes, ${shoes}.`,
-    `A black sport smartwatch on the left wrist with a glowing screen showing the VVake app: a neon lime heart-rate line and a heart icon.`,
+    `A black sport smartwatch worn naturally on the left wrist like a real watch: strap wrapped around the wrist, screen on top of the wrist facing up, glowing with the VVake app (a neon lime heart-rate line and a heart icon).`,
     extras ? `Sport elements: ${extras}.` : "",
     `One hand raised at shoulder height making the VVake sign: exactly three fingers raised straight up and pressed together side by side in a row (the index, middle and ring fingers), the little finger folded down and held under the thumb, palm facing the camera, clearly readable. Not a peace sign, not an OK sign, not four fingers.`,
     `Colour palette: black, chrome silver and gold, with neon lime (#ccff00) and a touch of hot pink (#ff3d6e) as accents.`,

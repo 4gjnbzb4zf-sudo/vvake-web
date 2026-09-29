@@ -665,6 +665,8 @@ export const fr: Dictionary = {
     vibeLabel: "Ambiance",
     play: "Écouter un extrait",
     stop: "Arrêter",
+    voiceUnavailable:
+      "Le moteur vocal de ton navigateur n'a pas répondu. Des extraits enregistrés arrivent bientôt ; en attendant, les répliques ci-dessus sont ce que dit ton coach.",
     demoNote: "La démo utilise les voix de ton appareil. L'app utilisera des voix de coach de qualité studio.",
     styles: {
       hype: {
@@ -1316,9 +1318,12 @@ export const fr: Dictionary = {
       preview: "Aperçu : notre {animal}. Ton {mine} est généré à partir de tes choix au lancement.",
       code: "Ton code VVaker",
       codeNote: "Au lancement, tu le réserves : un par personne, à toi pour toujours.",
-      prompt: "Voir le prompt de rendu",
-      copy: "Copier",
-      copied: "Copié",
+      yours: "Ton propre VVaker, généré à partir de tes choix.",
+      rendering: "Génération…",
+      localRender: "Rendu local · utilise tes crédits xAI",
+      renderFailed: "Échec du rendu · vérifie le serveur de rendu",
+      downloadVVaker: "Télécharger le VVaker",
+      downloadBanner: "Télécharger la bannière X",
       generate: "Générer mon VVaker",
       soon: "Au lancement · 3 rendus offerts, plus avec Plus",
       animals: {
@@ -1437,11 +1442,11 @@ export const fr: Dictionary = {
     eyes: { pixel: "Pixel", happy: "Content", fired: "À fond", sleepy: "Endormi", visor: "Visière", star: "Étoiles" },
     mouths: { smile: "Sourire", grin: "Grand sourire", calm: "Calme", o: "Oh !", teeth: "Tête de match" },
     accessories: { none: "Aucun", medal: "Médaille", towel: "Serviette", bib: "Dossard" },
-    download: "Télécharger l'avatar",
+    download: "Télécharger le VVaker",
     downloadBanner: "Télécharger la bannière X",
     shuffle: "Au hasard",
     note: "Gratuit pour tout le monde. Pas besoin de wallet.",
-    alt: "Ton avatar VVaker",
+    alt: "Ton VVaker",
     bannerTagline: "Deux V font un W.",
     stats: {
       title: "Mérités, jamais achetés : les stats de ton VVaker",
@@ -1555,7 +1560,7 @@ export const fr: Dictionary = {
           items: [
             "Ton VVaker unique, réservé une fois, jamais transférable",
             "Tous les corps, sports, visages et l'équipement de base",
-            "Avatar PNG & bannière X",
+            "VVaker PNG & bannière X",
           ],
         },
         {

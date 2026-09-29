@@ -630,6 +630,8 @@ export const en = {
     vibeLabel: "Vibe",
     play: "Hear a sample",
     stop: "Stop",
+    voiceUnavailable:
+      "Your browser's voice engine didn't answer. Recorded coach samples are on their way; meanwhile the lines above are what your coach says.",
     demoNote: "Demo uses your device's own voices. The app will use studio-quality coach voices.",
     styles: {
       hype: {
@@ -1256,9 +1258,12 @@ export const en = {
       preview: "Preview: our {animal}. Your {mine} is rendered from your choices at launch.",
       code: "Your VVaker code",
       codeNote: "At launch you claim it: one per person, yours forever.",
-      prompt: "See the render prompt",
-      copy: "Copy",
-      copied: "Copied",
+      yours: "Your own VVaker, rendered from your choices.",
+      rendering: "Rendering…",
+      localRender: "Local render · uses your xAI credits",
+      renderFailed: "Render failed · check the render server",
+      downloadVVaker: "Download VVaker",
+      downloadBanner: "Download X banner",
       generate: "Render my VVaker",
       soon: "At launch · 3 free renders, more with Plus",
       animals: {
@@ -1368,11 +1373,11 @@ export const en = {
     eyes: { pixel: "Pixel", happy: "Happy", fired: "Fired up", sleepy: "Sleepy", visor: "Visor", star: "Star" },
     mouths: { smile: "Smile", grin: "Grin", calm: "Calm", o: "Oh!", teeth: "Game face" },
     accessories: { none: "None", medal: "Medal", towel: "Towel", bib: "Race bib" },
-    download: "Download avatar",
+    download: "Download VVaker",
     downloadBanner: "Download X banner",
     shuffle: "Shuffle",
     note: "Free for everyone. No wallet needed.",
-    alt: "Your VVaker avatar",
+    alt: "Your VVaker",
     bannerTagline: "Two Vs make a W.",
     stats: {
       title: "Earned, never bought: your VVaker stats",
@@ -1457,7 +1462,7 @@ export const en = {
           items: [
             "Your unique VVaker, claimed once, never transferable",
             "All bodies, sports, faces and base gear",
-            "Avatar PNG & X banner",
+            "VVaker PNG & X banner",
           ],
         },
         {

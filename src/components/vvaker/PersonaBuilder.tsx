@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState, type ReactNode } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 import { buttonClass } from "@/components/ui/Button";
 import type { Dictionary } from "@/i18n/dictionaries";
 import { cn } from "@/lib/cn";
@@ -18,7 +18,7 @@ import {
   personaCode,
   type Persona,
 } from "@/lib/personaPrompt";
-import { savePersona, usePersona } from "@/lib/prefs";
+import { savePersona, saveRenders, usePersona, useRenders } from "@/lib/prefs";
 import { useSportLabel } from "@/lib/sportNames";
 import { VVAKER_SPORTS } from "./traits";
 import { VVaker } from "./VVaker";
@@ -49,6 +49,24 @@ function Chip({ active, onClick, children }: { active: boolean; onClick: () => v
       {children}
     </button>
   );
+}
+
+const RENDER_SERVER = "http://localhost:3101";
+
+/** True only on localhost with the dev render server running (tools/imagine/render-server.mjs). */
+function useLocalRenderer(): boolean {
+  const [ok, setOk] = useState(false);
+  useEffect(() => {
+    if (!["localhost", "127.0.0.1"].includes(window.location.hostname)) return;
+    let alive = true;
+    fetch(`${RENDER_SERVER}/health`)
+      .then((r) => r.ok && alive && setOk(true))
+      .catch(() => {});
+    return () => {
+      alive = false;
+    };
+  }, []);
+  return ok;
 }
 
 /** Draws the persona on the dark VVake stage for avatar / X banner downloads. */
@@ -107,12 +125,35 @@ export function PersonaBuilder({
   const persona = usePersona();
   const sportLabel = useSportLabel();
   const [tab, setTab] = useState<Tab>("animal");
-  const [copied, setCopied] = useState(false);
-  const [showPrompt, setShowPrompt] = useState(false);
+  const [rendering, setRendering] = useState(false);
+  const [renderError, setRenderError] = useState(false);
+  const localRender = useLocalRenderer();
+  const renders = useRenders();
   const stage = useRef<HTMLDivElement>(null);
   const update = (next: Partial<Persona>) => savePersona({ ...persona, ...next });
   const prompt = buildPersonaPrompt(persona);
   const castAnimal = SPORTS[persona.sport].animal;
+  const code = personaCode(persona, VVAKER_SPORTS);
+  const rendered = renders[code];
+
+  const renderMine = async () => {
+    setRendering(true);
+    setRenderError(false);
+    try {
+      const r = await fetch(`${RENDER_SERVER}/render`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ prompt, code }),
+      });
+      const json = (await r.json()) as { url?: string };
+      if (!r.ok || !json.url) throw new Error("render failed");
+      saveRenders({ ...renders, [code]: json.url });
+    } catch {
+      setRenderError(true);
+    } finally {
+      setRendering(false);
+    }
+  };
 
   const exportImage = async (kind: "avatar" | "banner") => {
     const img = stage.current?.querySelector("img");
@@ -129,8 +170,13 @@ export function PersonaBuilder({
           className="relative mx-auto aspect-[4/5] w-full max-w-[460px] overflow-hidden rounded-[2rem] border border-line bg-[radial-gradient(circle_at_50%_40%,#2b2f33,#0e1012_70%)]"
         >
           <div className="pointer-events-none absolute inset-x-10 bottom-6 h-10 rounded-full bg-volt/20 blur-2xl" />
-          <div key={persona.sport} className="relative flex h-full w-full animate-pop items-end justify-center px-6 pt-6">
-            <VVaker sport={persona.sport} title={persona.name || dict.title} className="h-full w-auto" />
+          <div key={rendered ?? persona.sport} className="relative flex h-full w-full animate-pop items-end justify-center px-6 pt-6">
+            {rendered ? (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img src={rendered} alt={persona.name || dict.title} className="h-full w-auto object-contain" />
+            ) : (
+              <VVaker sport={persona.sport} title={persona.name || dict.title} className="h-full w-auto" />
+            )}
           </div>
           {persona.name && (
             <p className="absolute top-4 left-4 rounded-full bg-night/80 px-3 py-1 font-display text-sm font-semibold backdrop-blur">
@@ -139,20 +185,22 @@ export function PersonaBuilder({
           )}
         </div>
         <p className="mx-auto mt-3 max-w-[460px] text-center text-xs text-faint">
-          {dict.preview.replace("{animal}", castAnimal).replace("{mine}", dict.animals[persona.animal].toLowerCase())}
+          {rendered
+            ? dict.yours
+            : dict.preview.replace("{animal}", castAnimal).replace("{mine}", dict.animals[persona.animal].toLowerCase())}
         </p>
         <div className="mx-auto mt-4 flex max-w-[460px] flex-col gap-3 sm:flex-row">
           <button type="button" onClick={() => exportImage("avatar")} className={buttonClass("primary", "flex-1 px-4 whitespace-nowrap")}>
-            ⬇ Avatar
+            ⬇ {dict.downloadVVaker}
           </button>
           <button type="button" onClick={() => exportImage("banner")} className={buttonClass("ghost", "flex-1 px-4 whitespace-nowrap")}>
-            ⬇ X banner
+            ⬇ {dict.downloadBanner}
           </button>
         </div>
         <div className="mx-auto mt-4 max-w-[460px] rounded-2xl border border-volt/30 bg-volt/5 p-4">
           <p className="font-mono text-[0.68rem] tracking-[0.16em] text-faint uppercase">{dict.code}</p>
           <p className="mt-1 font-mono text-xl font-medium tracking-wider text-volt" aria-live="polite">
-            {personaCode(persona, VVAKER_SPORTS)}
+            {code}
           </p>
           <p className="mt-2 text-xs leading-relaxed text-muted">{dict.codeNote}</p>
         </div>
@@ -273,36 +321,20 @@ export function PersonaBuilder({
         </div>
 
         <div className="mt-6 flex flex-wrap items-center gap-3">
-          <span aria-disabled="true" className={buttonClass("primary", "cursor-not-allowed px-5 opacity-60")}>
-            ✨ {dict.generate}
-          </span>
-          <span className="font-mono text-xs text-faint">{dict.soon}</span>
-        </div>
-
-        <div className="mt-5 rounded-2xl border border-line bg-night/60">
-          <button
-            type="button"
-            onClick={() => setShowPrompt((v) => !v)}
-            aria-expanded={showPrompt}
-            className="flex w-full items-center justify-between px-4 py-3 text-left text-sm font-semibold"
-          >
-            {dict.prompt} <span aria-hidden="true">{showPrompt ? "▴" : "▾"}</span>
-          </button>
-          {showPrompt && (
-            <div className="border-t border-line px-4 pt-3 pb-4">
-              <p className="font-mono text-xs leading-relaxed text-muted">{prompt}</p>
-              <button
-                type="button"
-                onClick={async () => {
-                  await navigator.clipboard.writeText(prompt);
-                  setCopied(true);
-                  setTimeout(() => setCopied(false), 1500);
-                }}
-                className="mt-3 rounded-lg border border-line px-3 py-1.5 text-xs text-muted hover:text-text"
-              >
-                {copied ? `✓ ${dict.copied}` : dict.copy}
+          {localRender ? (
+            <>
+              <button type="button" onClick={renderMine} disabled={rendering} className={buttonClass("primary", "px-5")}>
+                {rendering ? `⏳ ${dict.rendering}` : `✨ ${dict.generate}`}
               </button>
-            </div>
+              <span className="font-mono text-xs text-faint">{renderError ? dict.renderFailed : dict.localRender}</span>
+            </>
+          ) : (
+            <>
+              <span aria-disabled="true" className={buttonClass("primary", "cursor-not-allowed px-5 opacity-60")}>
+                ✨ {dict.generate}
+              </span>
+              <span className="font-mono text-xs text-faint">{dict.soon}</span>
+            </>
           )}
         </div>
       </div>
