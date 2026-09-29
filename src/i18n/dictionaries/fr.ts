@@ -1446,7 +1446,26 @@ export const fr: Dictionary = {
       copy: "Copier",
       copied: "Copié",
       shareX: "Partager sur X",
-      shareText: "{city} se réveille. Aide-nous à débloquer VVake Fit dans notre ville 👇 @VVakeFit",
+      shareText:
+        "Fais le signe. Réveille ta ville. Je suis n°{rank} à {city} sur VVake Fit, le jeu fitness où ta ville s'affronte. Rejoins-moi 👇 @VVakeFit",
+      campaign: ["Fais le signe.", "Réveille ta ville."],
+      shareLabel: "Fais tourner : chaque ami qui rejoint rapproche {city} du lancement",
+      nativeShare: "Partager",
+      networks: { x: "X", whatsapp: "WhatsApp", telegram: "Telegram", linkedin: "LinkedIn", threads: "Threads" },
+      story: "Télécharger ma story",
+      storyHint: "Pour les stories Instagram et TikTok : ton VVaker, ton rang, ton code.",
+      storyRank: "N°{rank} à {city}",
+      storyFooter: "vvake.com · code {code}",
+      ladder: {
+        title: "Paliers d'invitation",
+        note: "Un ami compte quand il confirme et termine ses 3 premières séances. Avantages dans le jeu uniquement, jusqu'à 25 par saison.",
+        steps: [
+          { n: 1, icon: "⏰", title: "Réveil", body: "Un badge sur ton profil" },
+          { n: 3, icon: "🎨", title: "Skin exclusif", body: "Une finition de VVaker qu'on ne peut pas acheter" },
+          { n: 10, icon: "🧢", title: "Capitaine de crew", body: "Ton nom sur le mur des Fondateurs de ta ville" },
+          { n: 25, icon: "👑", title: "Légende de saison", body: "Une aura légendaire pour la saison" },
+        ],
+      },
     },
     closed: {
       title: "La liste d'attente ouvre très bientôt.",

@@ -21,3 +21,21 @@ export function xShareUrl(text: string, url: string): string {
   intent.searchParams.set("url", url);
   return intent.toString();
 }
+
+/** Where the post-signup share buttons go. Each opens the network's own share screen, prefilled. */
+export type ShareNetwork = "x" | "whatsapp" | "telegram" | "linkedin" | "threads";
+
+export function shareUrl(network: ShareNetwork, text: string, url: string): string {
+  switch (network) {
+    case "x":
+      return xShareUrl(text, url);
+    case "whatsapp":
+      return `https://wa.me/?text=${encodeURIComponent(`${text} ${url}`)}`;
+    case "telegram":
+      return `https://t.me/share/url?url=${encodeURIComponent(url)}&text=${encodeURIComponent(text)}`;
+    case "linkedin":
+      return `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`;
+    case "threads":
+      return `https://www.threads.net/intent/post?text=${encodeURIComponent(`${text} ${url}`)}`;
+  }
+}

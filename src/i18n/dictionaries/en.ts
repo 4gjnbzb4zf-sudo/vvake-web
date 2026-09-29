@@ -1374,7 +1374,26 @@ export const en = {
       copy: "Copy",
       copied: "Copied",
       shareX: "Share on X",
-      shareText: "{city} is waking up. Help unlock VVake Fit in our city 👇 @VVakeFit",
+      shareText:
+        "Throw the sign. Wake your city. I'm #{rank} in {city} on VVake Fit, the fitness game where your city competes. Join me 👇 @VVakeFit",
+      campaign: ["Throw the sign.", "Wake your city."],
+      shareLabel: "Spread it: every friend who joins moves {city} closer to unlock",
+      nativeShare: "Share",
+      networks: { x: "X", whatsapp: "WhatsApp", telegram: "Telegram", linkedin: "LinkedIn", threads: "Threads" },
+      story: "Download my story card",
+      storyHint: "For Instagram & TikTok stories: your VVaker, your rank, your code.",
+      storyRank: "#{rank} in {city}",
+      storyFooter: "vvake.com · code {code}",
+      ladder: {
+        title: "Invite ladder",
+        note: "A friend counts once they confirm and finish their first 3 sessions. In-game perks only, up to 25 a season.",
+        steps: [
+          { n: 1, icon: "⏰", title: "Wake-up call", body: "Badge on your profile" },
+          { n: 3, icon: "🎨", title: "Exclusive skin", body: "A VVaker finish nobody can buy" },
+          { n: 10, icon: "🧢", title: "Crew Captain", body: "Your name on your city's Founders Wall" },
+          { n: 25, icon: "👑", title: "Season legend", body: "A legendary aura for the season" },
+        ],
+      },
     },
     closed: {
       title: "The waitlist opens very soon.",

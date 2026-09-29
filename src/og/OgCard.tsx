@@ -17,15 +17,15 @@ export function OgCard({ dict }: { dict: Dictionary }) {
         color: "#e6e9eb",
       }}
     >
-      <svg width="220" height="108" viewBox="0 0 74 36" fill="none">
+      <svg width="220" height="119" viewBox="0 0 74 40" fill="none">
         <path
-          d="M3 9 L12.5 29 L22 9 L31.5 29 L41 9 L46 19 L50 19 L54 7 L58.5 31 L62.5 19 L71 19"
+          d="M4 13 L13 34 L22 9 L31 34 L40 13 L45.5 23 L49.5 23 L53.5 11 L58 35 L62 23 L71 23"
           stroke="#ff3d6e"
-          strokeWidth="4.2"
+          strokeWidth="5.2"
           strokeLinecap="round"
           strokeLinejoin="round"
         />
-        <circle cx="22" cy="3.4" r="2.6" fill="#ccff00" />
+        <circle cx="22" cy="3" r="2.6" fill="#ccff00" />
       </svg>
       <div style={{ display: "flex", flexDirection: "column" }}>
         <div style={{ fontSize: 132, fontWeight: 800, letterSpacing: 8 }}>VVAKE</div>
