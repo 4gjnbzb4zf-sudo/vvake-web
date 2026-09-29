@@ -17,22 +17,21 @@ export function OgCard({ dict }: { dict: Dictionary }) {
         color: "#e6e9eb",
       }}
     >
-      <svg width="220" height="119" viewBox="0 0 74 40" fill="none">
-        <path
-          d="M4 13 L13 34 L22 9 L31 34 L40 13 L45.5 23 L49.5 23 L53.5 11 L58 35 L62 23 L71 23"
-          stroke="#ff3d6e"
-          strokeWidth="5.2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-        <circle cx="22" cy="3" r="2.6" fill="#ccff00" />
+      <svg width="104" height="120" viewBox="0 0 40 46" fill="none">
+        <g stroke="#ff3d6e" strokeWidth="6" strokeLinecap="round">
+          <path d="M14 34 L5.5 13" />
+          <path d="M20 33 L20 9" />
+          <path d="M26 34 L34.5 13" />
+        </g>
+        <path d="M11.5 30 Q11 43 20 43 Q29 43 28.5 30 Z" fill="#ff3d6e" />
+        <circle cx="20" cy="3" r="2.8" fill="#ccff00" />
       </svg>
       <div style={{ display: "flex", flexDirection: "column" }}>
         <div style={{ fontSize: 132, fontWeight: 800, letterSpacing: 8 }}>VVAKE</div>
-        <div style={{ fontSize: 44, color: "#ccff00", marginTop: 8 }}>{dict.pulse.title}</div>
+        <div style={{ fontSize: 44, color: "#ccff00", marginTop: 8 }}>{dict.unlock.success.campaign.join(" ")}</div>
       </div>
       <div style={{ display: "flex", justifyContent: "space-between", fontSize: 28, color: "#9aa1a6" }}>
-        <span>{dict.doubleV.title}</span>
+        <span>{dict.benefits.title}</span>
         <span>{dict.hero.pronounce}</span>
       </div>
     </div>
