@@ -19,9 +19,9 @@ export function Crew({ dict, index }: { dict: Dictionary["crew"]; index: string 
       <div className="mt-12 grid items-start gap-8 lg:grid-cols-[1fr_1.1fr]">
         <div className="space-y-4" aria-hidden="true">
           {/* Invitation card */}
-          <div className="rounded-[2rem] border border-pulse/40 bg-gradient-to-b from-pulse/15 to-surface p-6 shadow-[0_24px_60px_-30px_rgb(255_61_110/0.7)]">
+          <div className="rounded-[2rem] border border-pulse-fg/40 bg-gradient-to-b from-pulse/15 to-surface p-6 shadow-[0_24px_60px_-30px_rgb(255_61_110/0.7)]">
             <div className="flex items-center justify-between">
-              <p className="font-mono text-[0.7rem] tracking-[0.16em] text-pulse uppercase">{inv.label}</p>
+              <p className="font-mono text-[0.7rem] tracking-[0.16em] text-pulse-fg uppercase">{inv.label}</p>
               <span className="rounded-full border border-line bg-night px-2 py-0.5 font-mono text-[0.65rem] text-muted">
                 ↻ {inv.repeat}
               </span>
@@ -37,7 +37,7 @@ export function Crew({ dict, index }: { dict: Dictionary["crew"]; index: string 
                   </div>
                 ))}
               </div>
-              <p className="font-mono text-xs text-volt">{inv.going}</p>
+              <p className="font-mono text-xs text-volt-fg">{inv.going}</p>
             </div>
             <div className="mt-5 grid grid-cols-3 gap-2">
               {inv.buttons.map((b, i) => (
@@ -45,7 +45,7 @@ export function Crew({ dict, index }: { dict: Dictionary["crew"]; index: string 
                   key={b}
                   className={
                     i === 0
-                      ? "rounded-xl bg-pulse py-2.5 text-center font-display text-sm font-semibold text-night"
+                      ? "rounded-xl bg-pulse py-2.5 text-center font-display text-sm font-semibold text-ink"
                       : "rounded-xl border border-line bg-night py-2.5 text-center font-display text-sm font-semibold text-muted"
                   }
                 >
@@ -96,7 +96,7 @@ export function Crew({ dict, index }: { dict: Dictionary["crew"]; index: string 
                 </div>
               ))}
             </dl>
-            <p className="border-t border-line px-4 py-2.5 font-mono text-[0.65rem] text-calm">🔒 {dict.routeCard.privacy}</p>
+            <p className="border-t border-line px-4 py-2.5 font-mono text-[0.65rem] text-calm-fg">🔒 {dict.routeCard.privacy}</p>
           </div>
 
           {/* Reminder sequence */}
@@ -104,10 +104,10 @@ export function Crew({ dict, index }: { dict: Dictionary["crew"]; index: string 
             {dict.reminders.map((r, i) => (
               <li
                 key={r.when}
-                className={`flex gap-3 rounded-2xl border p-3 text-sm ${i === dict.reminders.length - 1 ? "border-volt/40 bg-volt/10" : "border-line bg-surface/70"}`}
+                className={`flex gap-3 rounded-2xl border p-3 text-sm ${i === dict.reminders.length - 1 ? "border-volt-fg/40 bg-volt/10" : "border-line bg-surface/70"}`}
               >
                 <span className="w-20 shrink-0 font-mono text-xs text-faint">{r.when}</span>
-                <span className={i === dict.reminders.length - 1 ? "text-volt" : "text-text"}>{r.text}</span>
+                <span className={i === dict.reminders.length - 1 ? "text-volt-fg" : "text-text"}>{r.text}</span>
               </li>
             ))}
           </ol>
@@ -116,13 +116,13 @@ export function Crew({ dict, index }: { dict: Dictionary["crew"]; index: string 
         <div>
           <ul className="grid gap-4 sm:grid-cols-2">
             {dict.features.map((f) => (
-              <li key={f.title} className="rounded-3xl border border-line bg-surface/60 p-5 transition-colors hover:border-pulse/40">
+              <li key={f.title} className="rounded-3xl border border-line bg-surface/60 p-5 transition-colors hover:border-pulse-fg/40">
                 <h3 className="font-display text-lg font-semibold">{f.title}</h3>
                 <p className="mt-1.5 text-sm leading-relaxed text-muted">{f.body}</p>
               </li>
             ))}
           </ul>
-          <p className="mt-6 rounded-2xl border border-calm/30 bg-calm/10 p-4 text-sm text-calm">♥ {dict.note}</p>
+          <p className="mt-6 rounded-2xl border border-calm-fg/30 bg-calm/10 p-4 text-sm text-calm-fg">♥ {dict.note}</p>
         </div>
       </div>
     </Section>

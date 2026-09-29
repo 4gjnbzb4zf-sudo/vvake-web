@@ -109,9 +109,9 @@ export function VVakerStudio({ dict }: { dict: Dictionary["vvaker"] }) {
             {dict.downloadBanner}
           </button>
         </div>
-        <div className="mx-auto mt-4 max-w-[440px] rounded-2xl border border-volt/30 bg-volt/5 p-4">
+        <div className="mx-auto mt-4 max-w-[440px] rounded-2xl border border-volt-fg/30 bg-volt/5 p-4">
           <p className="font-mono text-[0.68rem] tracking-[0.16em] text-faint uppercase">{dict.dna.label}</p>
-          <p className="mt-1 font-mono text-xl font-medium tracking-wider text-volt" aria-live="polite">
+          <p className="mt-1 font-mono text-xl font-medium tracking-wider text-volt-fg" aria-live="polite">
             {encodeDna(traits, background)}
           </p>
           <p className="mt-2 text-xs leading-relaxed text-muted">{dict.dna.note}</p>
@@ -132,7 +132,7 @@ export function VVakerStudio({ dict }: { dict: Dictionary["vvaker"] }) {
                 onClick={() => setTab(t)}
                 className={cn(
                   "rounded-lg px-3.5 py-2 font-display text-xs font-semibold transition-colors sm:px-4 sm:text-sm",
-                  tab === t ? "bg-pulse text-night" : "text-muted hover:text-text",
+                  tab === t ? "bg-pulse text-ink" : "text-muted hover:text-text",
                 )}
               >
                 {dict.tabs[t]}
@@ -235,7 +235,7 @@ export function VVakerStudio({ dict }: { dict: Dictionary["vvaker"] }) {
                     max={99}
                     value={traits.bib}
                     onChange={(e) => update({ bib: clampBib(Number(e.target.value)) })}
-                    className="mt-3 block h-11 w-28 rounded-xl border border-line bg-night px-4 font-mono text-text outline-none focus:border-pulse"
+                    className="mt-3 block h-11 w-28 rounded-xl border border-line bg-night px-4 font-mono text-text outline-none focus:border-pulse-fg"
                   />
                 </div>
               )}
@@ -324,7 +324,7 @@ export function VVakerStudio({ dict }: { dict: Dictionary["vvaker"] }) {
 
           <div>
             <label htmlFor={`${baseId}-energy`} className="font-display text-sm font-semibold">
-              {dict.controls.energy}: <span className="font-mono text-volt">{traits.energy}/4</span>
+              {dict.controls.energy}: <span className="font-mono text-volt-fg">{traits.energy}/4</span>
             </label>
             <input
               id={`${baseId}-energy`}
@@ -334,7 +334,7 @@ export function VVakerStudio({ dict }: { dict: Dictionary["vvaker"] }) {
               step={1}
               value={traits.energy}
               onChange={(e) => update({ energy: Number(e.target.value) })}
-              className="mt-3 w-full accent-pulse"
+              className="mt-3 w-full accent-pulse-fg"
             />
           </div>
         </div>
@@ -361,7 +361,7 @@ function Chip(props: { active: boolean; onClick: () => void; label: string; chil
       onClick={props.onClick}
       className={cn(
         "inline-flex h-10 items-center gap-2 rounded-xl border px-3.5 text-sm transition-all duration-150 active:scale-95",
-        props.active ? "border-pulse bg-pulse/15 text-text" : "border-line bg-night text-muted hover:border-muted/50 hover:text-text",
+        props.active ? "border-pulse-fg bg-pulse/15 text-text" : "border-line bg-night text-muted hover:border-muted/50 hover:text-text",
       )}
     >
       {props.children}

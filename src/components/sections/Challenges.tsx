@@ -4,12 +4,12 @@ import { VVaker } from "@/components/vvaker/VVaker";
 import type { Dictionary } from "@/i18n/dictionaries";
 
 const TAG_STYLES = [
-  "bg-down text-night",
-  "bg-pulse text-night",
-  "bg-butter text-night",
-  "bg-volt text-night",
-  "bg-lilac text-night",
-  "bg-mint text-night",
+  "bg-down text-ink",
+  "bg-pulse text-ink",
+  "bg-butter text-ink",
+  "bg-volt text-ink",
+  "bg-lilac text-ink",
+  "bg-mint text-ink",
 ] as const;
 
 export function Challenges({ dict, index }: { dict: Dictionary["challenges"]; index: string }) {
@@ -19,7 +19,7 @@ export function Challenges({ dict, index }: { dict: Dictionary["challenges"]; in
         {dict.items.map((c, i) => (
           <li
             key={c.tag}
-            className="group relative flex flex-col rounded-3xl border border-line bg-surface/60 p-6 transition-all duration-300 hover:-translate-y-1 hover:-rotate-[0.6deg] hover:border-pulse/40"
+            className="group relative flex flex-col rounded-3xl border border-line bg-surface/60 p-6 transition-all duration-300 hover:-translate-y-1 hover:-rotate-[0.6deg] hover:border-pulse-fg/40"
           >
             <span
               className={`inline-flex -rotate-2 self-start rounded-md px-2.5 py-1 font-mono text-[0.7rem] font-medium tracking-[0.12em] uppercase ${TAG_STYLES[i % TAG_STYLES.length]}`}
@@ -42,7 +42,7 @@ export function Challenges({ dict, index }: { dict: Dictionary["challenges"]; in
           <VVaker color="candy" eyes="star" mouth="grin" accessory="medal" energy={4} className="relative w-full" />
         </div>
         <div>
-          <p className="font-mono text-xs tracking-[0.18em] text-volt uppercase">{dict.results.example}</p>
+          <p className="font-mono text-xs tracking-[0.18em] text-volt-fg uppercase">{dict.results.example}</p>
           <h3 className="mt-2 font-display text-2xl font-semibold sm:text-3xl">{dict.results.title}</h3>
           <dl className="mt-6 divide-y divide-line rounded-2xl border border-line bg-surface/70">
             {dict.results.rows.map((row) => (
@@ -56,7 +56,7 @@ export function Challenges({ dict, index }: { dict: Dictionary["challenges"]; in
         </div>
       </div>
 
-      <div className="relative mt-12 overflow-hidden rounded-[2rem] bg-pulse px-6 py-10 text-center text-night sm:px-10">
+      <div className="relative mt-12 overflow-hidden rounded-[2rem] bg-pulse px-6 py-10 text-center text-ink sm:px-10">
         <div className="hazard pointer-events-none absolute -top-2 left-8 h-6 w-40 opacity-40" aria-hidden="true" />
         <p className="mx-auto max-w-2xl font-display text-3xl leading-tight font-bold italic sm:text-4xl">{dict.cta.title}</p>
         <ButtonLink href="#unlock" className="mt-6 bg-night text-text shadow-none hover:bg-night-2 focus-visible:outline-night">
@@ -71,7 +71,7 @@ function Row({ label, value, highlight = false }: { label: string; value: string
   return (
     <div className="flex items-baseline justify-between gap-3 border-b border-line/60 pb-2 last:border-0 last:pb-0">
       <dt className="font-mono text-[0.68rem] tracking-[0.14em] text-faint uppercase">{label}</dt>
-      <dd className={highlight ? "text-right font-semibold text-volt" : "text-right text-text"}>{value}</dd>
+      <dd className={highlight ? "text-right font-semibold text-volt-fg" : "text-right text-text"}>{value}</dd>
     </div>
   );
 }

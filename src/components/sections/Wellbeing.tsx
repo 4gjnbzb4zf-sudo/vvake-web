@@ -1,7 +1,7 @@
 import { Section } from "@/components/ui/Section";
 import type { Dictionary } from "@/i18n/dictionaries";
 
-const TINTS = ["border-sky/40", "border-butter/40", "border-calm/50", "border-lilac/40"] as const;
+const TINTS = ["border-sky-fg/40", "border-butter-fg/40", "border-calm-fg/50", "border-lilac-fg/40"] as const;
 
 /** Everyday wellbeing nudges: opt-in, no calories, no weight goals, wellness not medical advice. */
 export function Wellbeing({ dict, index }: { dict: Dictionary["wellbeing"]; index: string }) {
@@ -39,7 +39,7 @@ export function Wellbeing({ dict, index }: { dict: Dictionary["wellbeing"]; inde
           </ul>
           <ul className="mt-6 flex flex-wrap gap-2">
             {dict.promises.map((p) => (
-              <li key={p} className="rounded-full border border-calm/40 bg-calm/10 px-3.5 py-1.5 font-mono text-xs text-calm">
+              <li key={p} className="rounded-full border border-calm-fg/40 bg-calm/10 px-3.5 py-1.5 font-mono text-xs text-calm-fg">
                 ♥ {p}
               </li>
             ))}

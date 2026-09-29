@@ -25,7 +25,7 @@ export default async function PrivacyPage({ params }: { params: Params }) {
       <main id="main" className="py-20">
         <Container className="max-w-3xl">
           <h1 className="font-display text-4xl font-semibold tracking-tight">{dict.privacy.title}</h1>
-          <p className="mt-4 rounded-xl border border-butter/30 bg-butter/10 px-4 py-3 text-sm text-butter">{dict.privacy.updated}</p>
+          <p className="mt-4 rounded-xl border border-butter-fg/30 bg-butter/10 px-4 py-3 text-sm text-butter-fg">{dict.privacy.updated}</p>
           <div className="mt-10 space-y-8">
             {dict.privacy.sections.map((s) => (
               <section key={s.h}>

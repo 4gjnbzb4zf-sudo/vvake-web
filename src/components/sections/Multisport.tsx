@@ -126,12 +126,14 @@ const TILES: readonly Tile[] = [
 export function Multisport({ dict, index }: { dict: Dictionary["multisport"]; index: string }) {
   return (
     <Section id="multisport" index={index} kicker={dict.kicker} title={dict.title} lead={dict.body}>
-      <p className="mt-6 inline-flex rounded-xl border border-volt/30 bg-volt/10 px-4 py-2 font-mono text-xs text-volt">{dict.formula}</p>
+      <p className="mt-6 inline-flex rounded-xl border border-volt-fg/30 bg-volt/10 px-4 py-2 font-mono text-xs text-volt-fg">
+        {dict.formula}
+      </p>
       <ul className="mt-10 grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
         {TILES.map((tile) => (
           <li
             key={tile.sport}
-            className="group relative overflow-hidden rounded-3xl border border-line bg-surface/60 transition-all duration-300 hover:-translate-y-1 hover:border-pulse/40"
+            className="group relative overflow-hidden rounded-3xl border border-line bg-surface/60 transition-all duration-300 hover:-translate-y-1 hover:border-pulse-fg/40"
           >
             <div className={`bg-gradient-to-b ${tile.tint} to-transparent px-3 pt-4`}>
               <VVaker
@@ -149,11 +151,11 @@ export function Multisport({ dict, index }: { dict: Dictionary["multisport"]; in
                 {dict.example} · {tile.mindful ? `${tile.minutes} min` : format(dict.session, { minutes: tile.minutes, zone: tile.zone })}
               </p>
               {tile.mindful ? (
-                <p className="mt-3 font-display text-2xl font-bold text-calm">
+                <p className="mt-3 font-display text-2xl font-bold text-calm-fg">
                   +{Math.min(40, tile.minutes * 2)} <span className="text-sm font-semibold text-muted">{dict.mindful}</span>
                 </p>
               ) : (
-                <p className="mt-3 font-display text-2xl font-bold text-pulse">
+                <p className="mt-3 font-display text-2xl font-bold text-pulse-fg">
                   {sessionEffort(tile.minutes, tile.zone)} <span className="text-sm font-semibold text-muted">{dict.effortUnit}</span>
                 </p>
               )}

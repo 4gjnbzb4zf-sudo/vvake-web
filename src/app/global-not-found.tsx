@@ -18,7 +18,7 @@ export default function GlobalNotFound() {
           {en.notFound.body} <span lang="fr">{fr.notFound.body}</span>
         </p>
         <div className="flex gap-3">
-          <Link href="/en/" className="rounded-xl bg-pulse px-5 py-2.5 font-display text-sm font-semibold text-night">
+          <Link href="/en/" className="rounded-xl bg-pulse px-5 py-2.5 font-display text-sm font-semibold text-ink">
             {en.notFound.cta}
           </Link>
           <Link href="/fr/" lang="fr" className="rounded-xl border border-line px-5 py-2.5 font-display text-sm font-semibold">

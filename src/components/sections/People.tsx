@@ -11,7 +11,7 @@ export function People({ dict, index }: { dict: Dictionary["people"]; index: str
           {dict.modes.map((m, i) => (
             <div
               key={m.name}
-              className={`flex gap-4 rounded-3xl border p-5 ${i === 2 ? "border-pulse/50 bg-gradient-to-r from-pulse/15 to-transparent" : "border-line bg-surface/60"}`}
+              className={`flex gap-4 rounded-3xl border p-5 ${i === 2 ? "border-pulse-fg/50 bg-gradient-to-r from-pulse/15 to-transparent" : "border-line bg-surface/60"}`}
             >
               <span aria-hidden="true" className="text-3xl">
                 {m.icon}
@@ -20,7 +20,7 @@ export function People({ dict, index }: { dict: Dictionary["people"]; index: str
                 <p className="flex flex-wrap items-center gap-2 font-display text-lg font-semibold">
                   {m.name}
                   <span
-                    className={`rounded-md px-2 py-0.5 font-mono text-[0.6rem] tracking-[0.1em] uppercase ${i === 2 ? "bg-pulse text-night" : "bg-line text-muted"}`}
+                    className={`rounded-md px-2 py-0.5 font-mono text-[0.6rem] tracking-[0.1em] uppercase ${i === 2 ? "bg-pulse text-ink" : "bg-line text-muted"}`}
                   >
                     {m.tag}
                   </span>
@@ -31,10 +31,10 @@ export function People({ dict, index }: { dict: Dictionary["people"]; index: str
           ))}
         </div>
 
-        <div className="rounded-[2rem] border border-pulse/40 bg-gradient-to-b from-pulse/10 to-surface p-6" aria-hidden="true">
+        <div className="rounded-[2rem] border border-pulse-fg/40 bg-gradient-to-b from-pulse/10 to-surface p-6" aria-hidden="true">
           <div className="flex items-center justify-between">
-            <p className="font-mono text-[0.7rem] tracking-[0.16em] text-pulse uppercase">{dict.demo.label}</p>
-            <p className="rounded-full bg-pulse px-3 py-1 font-display text-sm font-bold text-night">{dict.demo.score}</p>
+            <p className="font-mono text-[0.7rem] tracking-[0.16em] text-pulse-fg uppercase">{dict.demo.label}</p>
+            <p className="rounded-full bg-pulse px-3 py-1 font-display text-sm font-bold text-ink">{dict.demo.score}</p>
           </div>
           <div className="relative mt-4 flex items-end justify-center gap-2">
             <VVaker sport="runner" color="candy" eyes="happy" mouth="grin" accent="volt" className="h-40 w-auto" />
@@ -57,18 +57,18 @@ export function People({ dict, index }: { dict: Dictionary["people"]; index: str
               </li>
             ))}
           </ul>
-          <p className="mt-4 flex h-11 items-center justify-center rounded-xl bg-pulse font-display text-sm font-semibold text-night">
+          <p className="mt-4 flex h-11 items-center justify-center rounded-xl bg-pulse font-display text-sm font-semibold text-ink">
             🏃 {dict.demo.cta}
           </p>
         </div>
       </div>
 
-      <div className="mt-6 rounded-3xl border border-mint/30 bg-mint/5 p-6">
+      <div className="mt-6 rounded-3xl border border-mint-fg/30 bg-mint/5 p-6">
         <p className="font-display text-lg font-semibold">🛡️ {dict.safetyTitle}</p>
         <ul className="mt-3 grid gap-x-6 gap-y-2 text-sm text-muted sm:grid-cols-2">
           {dict.safety.map((s) => (
             <li key={s} className="flex gap-2">
-              <span className="text-mint" aria-hidden="true">
+              <span className="text-mint-fg" aria-hidden="true">
                 ✓
               </span>
               {s}

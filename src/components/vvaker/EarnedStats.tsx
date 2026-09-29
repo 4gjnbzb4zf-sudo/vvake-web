@@ -55,7 +55,7 @@ function Radar({ stats, label, names }: { stats: Record<Stat, number>; label: st
       ))}
       <polygon
         points={STATS.map((s, i) => point(i, stats[s] / 100)).join(" ")}
-        className="fill-volt/25 stroke-volt transition-all duration-500"
+        className="fill-volt-fg/25 stroke-volt-fg transition-all duration-500"
         strokeWidth="2"
         strokeLinejoin="round"
       />
@@ -81,7 +81,7 @@ export function EarnedStats({ dict }: { dict: Dictionary["vvaker"]["stats"] }) {
   const [active, setActive] = useState(0);
   const profile = PROFILES[active]!;
   return (
-    <div className="mt-14 rounded-[2rem] border border-volt/30 bg-gradient-to-b from-volt/10 to-transparent p-6 sm:p-10">
+    <div className="mt-14 rounded-[2rem] border border-volt-fg/30 bg-gradient-to-b from-volt/10 to-transparent p-6 sm:p-10">
       <h3 className="max-w-3xl font-display text-2xl leading-tight font-semibold sm:text-3xl">{dict.title}</h3>
       <p className="mt-3 max-w-3xl leading-relaxed text-muted">{dict.body}</p>
 
@@ -93,7 +93,7 @@ export function EarnedStats({ dict }: { dict: Dictionary["vvaker"]["stats"] }) {
             role="tab"
             aria-selected={i === active}
             onClick={() => setActive(i)}
-            className={`rounded-full border px-3.5 py-1.5 text-sm transition-colors ${i === active ? "border-volt bg-volt text-night" : "border-line text-muted hover:border-volt/50 hover:text-text"}`}
+            className={`rounded-full border px-3.5 py-1.5 text-sm transition-colors ${i === active ? "border-volt-fg bg-volt text-ink" : "border-line text-muted hover:border-volt-fg/50 hover:text-text"}`}
           >
             {name}
           </button>
@@ -103,7 +103,7 @@ export function EarnedStats({ dict }: { dict: Dictionary["vvaker"]["stats"] }) {
       <div role="tabpanel" className="mt-6 grid items-center gap-6 md:grid-cols-[auto_1fr_1.2fr]">
         <div className="text-center">
           <VVaker {...profile.look} energy={4} className="mx-auto h-40 w-auto" />
-          <p className="mt-2 inline-flex rounded-md bg-volt px-2.5 py-1 font-mono text-[0.7rem] font-medium tracking-[0.12em] text-night uppercase">
+          <p className="mt-2 inline-flex rounded-md bg-volt px-2.5 py-1 font-mono text-[0.7rem] font-medium tracking-[0.12em] text-ink uppercase">
             {dict.archetypes[profile.archetype]}
           </p>
         </div>

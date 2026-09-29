@@ -16,8 +16,8 @@ export function HealthWealth({ dict }: { dict: Dictionary["healthWealth"] }) {
         <div className="grid items-center gap-8 rounded-[2rem] border border-line bg-gradient-to-br from-pulse/10 via-transparent to-mint/15 p-6 sm:p-10 lg:grid-cols-[1fr_1.1fr]">
           <div>
             <p className="font-mono text-xs tracking-[0.18em] uppercase">
-              <span className="text-pulse">♥ Health</span> <span className="text-faint">×</span>{" "}
-              <span className="text-mint">Wealth 📈</span>
+              <span className="text-pulse-fg">♥ Health</span> <span className="text-faint">×</span>{" "}
+              <span className="text-mint-fg">Wealth 📈</span>
             </p>
             <h2 id="health-wealth-title" className="mt-3 font-display text-3xl leading-tight font-bold sm:text-4xl">
               {dict.title}

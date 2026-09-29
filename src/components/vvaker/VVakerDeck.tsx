@@ -51,7 +51,7 @@ export function VVakerDeck() {
           className={`relative ${i === 2 ? "z-10" : "z-0"} -mx-5 w-28 shrink-0 sm:-mx-6 sm:w-40 ${card.rotate} ${card.offset} transition-transform duration-300 hover:z-20 hover:-translate-y-4`}
         >
           <div
-            className={`aspect-[3/4] overflow-hidden rounded-2xl border-2 ${i === 2 ? "border-volt" : "border-night"} ${card.bg} shadow-2xl shadow-black/60`}
+            className={`aspect-[3/4] overflow-hidden rounded-2xl border-2 ${i === 2 ? "border-volt-fg" : "border-night"} ${card.bg} shadow-2xl shadow-black/60`}
           >
             <VVaker {...card.look} className="h-full w-full p-3" />
           </div>

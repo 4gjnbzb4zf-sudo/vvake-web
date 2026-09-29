@@ -32,7 +32,7 @@ export function Pulse({
 }
 
 function PulseCard(props: { tone: "up" | "down"; tag: string; title: string; body: string; ticker: string }) {
-  const color = props.tone === "down" ? "text-down" : "text-up";
+  const color = props.tone === "down" ? "text-down-fg" : "text-up-fg";
   return (
     <div className="p-7 first:border-b first:border-line sm:first:border-r sm:first:border-b-0">
       <div className="flex items-center justify-between">

@@ -17,13 +17,13 @@ function Compete() {
     <div className="flex h-full flex-col items-center justify-center">
       <div className="flex items-end gap-2">
         <VVaker sport="runner" color="candy" eyes="fired" mouth="grin" fan="lyon-football" className="h-36 w-auto sm:h-44" />
-        <span className="mb-16 -skew-x-6 font-display text-3xl font-bold text-pulse italic">VS</span>
+        <span className="mb-16 -skew-x-6 font-display text-3xl font-bold text-pulse-fg italic">VS</span>
         <VVaker sport="boxer" color="coral" eyes="fired" mouth="teeth" className="h-36 w-auto -scale-x-100 sm:h-44" />
       </div>
       <div className="mt-2 w-full max-w-sm">
         <div className="flex justify-between font-display text-sm font-semibold">
           <span>
-            Lyon <span className="text-pulse">61.3</span>
+            Lyon <span className="text-pulse-fg">61.3</span>
           </span>
           <span>
             <span className="text-muted">58.9</span> St-Étienne
@@ -73,7 +73,7 @@ function Web3() {
       </svg>
       <div className="mt-3 flex flex-wrap justify-center gap-2 font-mono text-[0.7rem]">
         {["Tokenized stocks", "On-chain fee split", "Robinhood Chain", "0% team tokens"].map((c) => (
-          <span key={c} className="rounded-full border border-volt/40 bg-volt/10 px-2.5 py-1 text-volt">
+          <span key={c} className="rounded-full border border-volt-fg/40 bg-volt/10 px-2.5 py-1 text-volt-fg">
             {c}
           </span>
         ))}
@@ -94,13 +94,13 @@ function Invest() {
         {rows.map((r) => (
           <li key={r.s} className="flex items-center justify-between rounded-xl border border-line bg-night/70 px-3 py-2 font-mono text-sm">
             <span>{r.s}</span>
-            <span className={r.down ? "text-down" : "text-up"}>
-              {r.c} {r.note && <span className="ml-1 text-xs text-pulse">{r.note}</span>}
+            <span className={r.down ? "text-down-fg" : "text-up-fg"}>
+              {r.c} {r.note && <span className="ml-1 text-xs text-pulse-fg">{r.note}</span>}
             </span>
           </li>
         ))}
       </ul>
-      <div className="hidden rotate-3 rounded-2xl bg-mint p-4 text-night shadow-[0_18px_40px_-12px_rgb(91_208_138/0.55)] sm:block">
+      <div className="hidden rotate-3 rounded-2xl bg-mint p-4 text-ink shadow-[0_18px_40px_-12px_rgb(91_208_138/0.55)] sm:block">
         <p className="font-display text-2xl leading-tight font-bold">
           📈 <MoneyText template="{money}" usd={1} />
         </p>
@@ -147,7 +147,7 @@ export function Showcase({ dict }: { dict: Dictionary["showcase"] }) {
             <div>
               <span
                 className={cn(
-                  "rounded-md px-2.5 py-1 font-mono text-[0.7rem] font-medium tracking-[0.12em] text-night uppercase",
+                  "rounded-md px-2.5 py-1 font-mono text-[0.7rem] font-medium tracking-[0.12em] text-ink uppercase",
                   TAG[active],
                 )}
               >

@@ -3,6 +3,7 @@ import { Logo, VVMark } from "@/components/brand/Logo";
 import { ButtonLink } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Section";
 import { CurrencySelect } from "@/components/ui/Money";
+import { ThemeToggle } from "@/components/ui/ThemeToggle";
 import { LocaleHint, LocaleSwitch } from "./LocaleSwitch";
 import type { Locale } from "@/i18n/config";
 import type { Dictionary } from "@/i18n/dictionaries";
@@ -31,12 +32,12 @@ export function Header({ locale, dict }: { locale: Locale; dict: Dictionary["nav
     <header className="sticky top-0 z-50 border-b border-line/60 bg-night/75 backdrop-blur-xl supports-[backdrop-filter]:bg-night/60">
       <a
         href="#main"
-        className="sr-only focus:not-sr-only focus:absolute focus:top-3 focus:left-4 focus:rounded-lg focus:bg-volt focus:px-3 focus:py-2 focus:text-night"
+        className="sr-only focus:not-sr-only focus:absolute focus:top-3 focus:left-4 focus:rounded-lg focus:bg-volt focus:px-3 focus:py-2 focus:text-ink"
       >
         {dict.skip}
       </a>
       <LocaleHint locale={locale} />
-      <Container className="flex h-16 items-center justify-between gap-6">
+      <Container className="flex h-16 items-center justify-between gap-3 sm:gap-6">
         <Link href={`/${locale}/`} aria-label="VVake" className="shrink-0">
           <Logo />
         </Link>
@@ -44,7 +45,7 @@ export function Header({ locale, dict }: { locale: Locale; dict: Dictionary["nav
           <ul className="flex items-center gap-5 font-mono text-[0.72rem] tracking-[0.12em] whitespace-nowrap text-muted uppercase xl:gap-7">
             {links.map((l) => (
               <li key={l.href}>
-                <a href={l.href} className="border-b-2 border-transparent py-1 transition-colors hover:border-volt hover:text-text">
+                <a href={l.href} className="border-b-2 border-transparent py-1 transition-colors hover:border-volt-fg hover:text-text">
                   <NavLabel label={l.label} />
                 </a>
               </li>
@@ -53,7 +54,11 @@ export function Header({ locale, dict }: { locale: Locale; dict: Dictionary["nav
         </nav>
         <div className="flex items-center gap-3">
           <LocaleSwitch locale={locale} label={dict.language} />
-          <CurrencySelect label={dict.currency} />
+          {/* On phones these two live in the menu, so the bar fits 375 px. */}
+          <div className="hidden items-center gap-3 sm:flex">
+            <CurrencySelect label={dict.currency} />
+            <ThemeToggle labels={{ light: dict.themeLight, dark: dict.themeDark }} />
+          </div>
           <details className="group relative lg:hidden">
             <summary className="flex h-10 cursor-pointer list-none items-center rounded-lg border border-line px-3 font-mono text-xs tracking-[0.12em] text-muted uppercase hover:text-text [&::-webkit-details-marker]:hidden">
               {dict.menu} <span className="ml-1.5 transition-transform group-open:rotate-180">▾</span>
@@ -66,8 +71,12 @@ export function Header({ locale, dict }: { locale: Locale; dict: Dictionary["nav
                   </a>
                 </li>
               ))}
+              <li className="flex items-center justify-between gap-2 border-t border-line px-1 pt-2 sm:hidden">
+                <CurrencySelect label={dict.currency} />
+                <ThemeToggle labels={{ light: dict.themeLight, dark: dict.themeDark }} />
+              </li>
               <li className="sm:hidden">
-                <a href="#unlock" className="block rounded-lg bg-pulse px-3 py-2.5 text-night">
+                <a href="#unlock" className="block rounded-lg bg-pulse px-3 py-2.5 text-ink">
                   {dict.join}
                 </a>
               </li>

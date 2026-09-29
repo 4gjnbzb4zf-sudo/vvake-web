@@ -6,7 +6,7 @@ import type { Dictionary } from "@/i18n/dictionaries";
 import { CITIES, rivalOf, thresholdFor } from "@/lib/cities";
 import { WaitlistForm, type CityOption } from "./WaitlistForm";
 
-const TIER_ACCENTS = ["border-volt/50 text-volt", "border-pulse/50 text-pulse", "border-calm/50 text-calm"] as const;
+const TIER_ACCENTS = ["border-volt-fg/50 text-volt-fg", "border-pulse-fg/50 text-pulse-fg", "border-calm-fg/50 text-calm-fg"] as const;
 
 export function Unlock({
   locale,

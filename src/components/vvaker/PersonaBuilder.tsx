@@ -43,7 +43,7 @@ function Chip({ active, onClick, children }: { active: boolean; onClick: () => v
       onClick={onClick}
       className={cn(
         "rounded-full border px-3 py-1.5 text-sm transition-colors",
-        active ? "border-volt bg-volt text-night" : "border-line text-muted hover:border-volt/50 hover:text-text",
+        active ? "border-volt-fg bg-volt text-ink" : "border-line text-muted hover:border-volt-fg/50 hover:text-text",
       )}
     >
       {children}
@@ -197,9 +197,9 @@ export function PersonaBuilder({
             ⬇ {dict.downloadBanner}
           </button>
         </div>
-        <div className="mx-auto mt-4 max-w-[460px] rounded-2xl border border-volt/30 bg-volt/5 p-4">
+        <div className="mx-auto mt-4 max-w-[460px] rounded-2xl border border-volt-fg/30 bg-volt/5 p-4">
           <p className="font-mono text-[0.68rem] tracking-[0.16em] text-faint uppercase">{dict.code}</p>
-          <p className="mt-1 font-mono text-xl font-medium tracking-wider text-volt" aria-live="polite">
+          <p className="mt-1 font-mono text-xl font-medium tracking-wider text-volt-fg" aria-live="polite">
             {code}
           </p>
           <p className="mt-2 text-xs leading-relaxed text-muted">{dict.codeNote}</p>
@@ -216,7 +216,7 @@ export function PersonaBuilder({
             maxLength={24}
             placeholder={dict.namePlaceholder}
             onChange={(e) => update({ name: e.target.value })}
-            className="mt-2 h-10 w-full rounded-xl border border-line bg-night px-3 text-sm outline-none focus:border-volt"
+            className="mt-2 h-10 w-full rounded-xl border border-line bg-night px-3 text-sm outline-none focus:border-volt-fg"
           />
         </label>
 
@@ -230,7 +230,7 @@ export function PersonaBuilder({
               onClick={() => setTab(t)}
               className={cn(
                 "flex-1 rounded-lg px-3 py-2 font-display text-sm font-semibold transition-colors",
-                tab === t ? "bg-pulse text-night" : "text-muted hover:text-text",
+                tab === t ? "bg-pulse text-ink" : "text-muted hover:text-text",
               )}
             >
               {dict.tabs[t]}

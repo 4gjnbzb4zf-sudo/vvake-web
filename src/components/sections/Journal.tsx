@@ -10,10 +10,10 @@ type Filter = "all" | Kind;
 const FILTERS: readonly Filter[] = ["all", "workout", "crew", "challenge", "clash"];
 
 const KIND_STYLE: Record<Kind, { icon: string; ring: string }> = {
-  workout: { icon: "🏃", ring: "border-pulse/40" },
-  crew: { icon: "👥", ring: "border-lilac/50" },
-  challenge: { icon: "🎯", ring: "border-butter/40" },
-  clash: { icon: "⚔️", ring: "border-volt/40" },
+  workout: { icon: "🏃", ring: "border-pulse-fg/40" },
+  crew: { icon: "👥", ring: "border-lilac-fg/50" },
+  challenge: { icon: "🎯", ring: "border-butter-fg/40" },
+  clash: { icon: "⚔️", ring: "border-volt-fg/40" },
 };
 
 /** Deterministic 12-week heatmap (84 days) for the showcase: rest days included, a busier recent month. */
@@ -59,8 +59,8 @@ export function Journal({ dict }: { dict: Dictionary["journal"] }) {
           ))}
         </dl>
 
-        <div className="rounded-3xl border border-calm/40 bg-calm/10 p-5">
-          <p className="font-mono text-[0.7rem] tracking-[0.16em] text-calm uppercase">📅 {dict.onThisDay.label}</p>
+        <div className="rounded-3xl border border-calm-fg/40 bg-calm/10 p-5">
+          <p className="font-mono text-[0.7rem] tracking-[0.16em] text-calm-fg uppercase">📅 {dict.onThisDay.label}</p>
           <p className="mt-2 text-sm leading-relaxed text-text">{dict.onThisDay.text}</p>
         </div>
       </div>
@@ -75,7 +75,7 @@ export function Journal({ dict }: { dict: Dictionary["journal"] }) {
               onClick={() => setFilter(f)}
               className={cn(
                 "rounded-xl border px-3.5 py-2 text-sm transition-colors",
-                filter === f ? "border-pulse bg-pulse/15 text-text" : "border-line bg-night text-muted hover:text-text",
+                filter === f ? "border-pulse-fg bg-pulse/15 text-text" : "border-line bg-night text-muted hover:text-text",
               )}
             >
               {f !== "all" && <span aria-hidden="true">{KIND_STYLE[f].icon} </span>}
@@ -125,7 +125,7 @@ export function Journal({ dict }: { dict: Dictionary["journal"] }) {
                           </svg>
                         )}
                         {it.badge && (
-                          <span className="shrink-0 rounded-full border border-volt/40 bg-volt/10 px-2 py-0.5 font-mono text-[0.6rem] text-volt">
+                          <span className="shrink-0 rounded-full border border-volt-fg/40 bg-volt/10 px-2 py-0.5 font-mono text-[0.6rem] text-volt-fg">
                             🏅 {it.badge}
                           </span>
                         )}

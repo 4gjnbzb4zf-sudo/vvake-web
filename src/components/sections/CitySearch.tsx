@@ -102,7 +102,7 @@ export function CitySearch({ cities, countryLabels, dict, selectedName, onSelect
         onFocus={() => setOpen(true)}
         onBlur={() => setOpen(false)}
         onKeyDown={onKeyDown}
-        className="mt-3 h-12 w-full rounded-xl border border-line bg-night px-4 text-text transition-colors outline-none placeholder:text-faint focus:border-pulse"
+        className="mt-3 h-12 w-full rounded-xl border border-line bg-night px-4 text-text transition-colors outline-none placeholder:text-faint focus:border-pulse-fg"
       />
       <p className="mt-2 text-xs text-faint">{dict.requestHint}</p>
 
@@ -128,7 +128,7 @@ export function CitySearch({ cities, countryLabels, dict, selectedName, onSelect
               className={cn(
                 "flex cursor-pointer items-center justify-between gap-3 rounded-lg px-3 py-2.5 text-sm",
                 i === active ? "bg-pulse/15 text-text" : "text-muted",
-                o.selection.kind === "request" && "border-t border-line text-volt",
+                o.selection.kind === "request" && "border-t border-line text-volt-fg",
               )}
             >
               <span>{o.label}</span>

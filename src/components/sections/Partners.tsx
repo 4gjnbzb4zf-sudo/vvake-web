@@ -12,7 +12,10 @@ export function Partners({ dict, index }: { dict: Dictionary["partners"]; index:
     <Section id="partners" index={index} kicker={dict.kicker} title={dict.title} lead={dict.body}>
       <ul className="mt-12 grid gap-4 sm:grid-cols-2">
         {dict.offers.map((o, i) => (
-          <li key={o.title} className="flex gap-4 rounded-3xl border border-line bg-surface/60 p-6 transition-colors hover:border-volt/40">
+          <li
+            key={o.title}
+            className="flex gap-4 rounded-3xl border border-line bg-surface/60 p-6 transition-colors hover:border-volt-fg/40"
+          >
             <span
               aria-hidden="true"
               className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl border border-line bg-night text-2xl"
@@ -27,11 +30,11 @@ export function Partners({ dict, index }: { dict: Dictionary["partners"]; index:
         ))}
       </ul>
 
-      <div className="mt-8 flex flex-col gap-6 rounded-3xl border border-volt/30 bg-volt/5 p-6 sm:p-8 lg:flex-row lg:items-center lg:justify-between">
+      <div className="mt-8 flex flex-col gap-6 rounded-3xl border border-volt-fg/30 bg-volt/5 p-6 sm:p-8 lg:flex-row lg:items-center lg:justify-between">
         <ul className="flex flex-wrap gap-2">
           {dict.promises.map((p) => (
             <li key={p} className="rounded-full border border-line bg-night px-3.5 py-1.5 font-mono text-xs text-muted">
-              <span className="mr-1.5 text-volt">✓</span>
+              <span className="mr-1.5 text-volt-fg">✓</span>
               {p}
             </li>
           ))}

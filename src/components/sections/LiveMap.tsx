@@ -71,7 +71,7 @@ export function LiveMap({ dict, dots, cities, width, height, endpoint, numberLoc
       <div className="relative overflow-hidden rounded-[2rem] border border-line bg-night-2 p-3 sm:p-5">
         <span
           className={`absolute top-4 left-4 z-10 inline-flex items-center gap-2 rounded-full border px-3 py-1 font-mono text-[0.65rem] tracking-[0.14em] uppercase ${
-            isLive ? "border-down/50 bg-down/15 text-down" : "border-line bg-night text-faint"
+            isLive ? "border-down-fg/50 bg-down/15 text-down-fg" : "border-line bg-night text-faint"
           }`}
         >
           <span className={`h-2 w-2 rounded-full ${isLive ? "animate-pulse-glow bg-down" : "bg-faint"}`} />
@@ -106,7 +106,7 @@ export function LiveMap({ dict, dots, cities, width, height, endpoint, numberLoc
       <div className="space-y-3">
         <div className="rounded-3xl border border-line bg-surface/70 p-5">
           <p className="font-mono text-[0.7rem] tracking-[0.16em] text-faint uppercase">{dict.now}</p>
-          <p className="mt-1 font-display text-4xl font-bold text-pulse tabular-nums">{nf.format(total)}</p>
+          <p className="mt-1 font-display text-4xl font-bold text-pulse-fg tabular-nums">{nf.format(total)}</p>
         </div>
         <div className="rounded-3xl border border-line bg-surface/70 p-5">
           <p className="font-mono text-[0.7rem] tracking-[0.16em] text-faint uppercase">{dict.top}</p>
@@ -117,7 +117,7 @@ export function LiveMap({ dict, dots, cities, width, height, endpoint, numberLoc
                   <span className="mr-2 font-mono text-xs text-faint">{i + 1}</span>
                   {c.name}
                 </span>
-                <span className="font-mono text-xs text-volt tabular-nums">{nf.format(c.n)}</span>
+                <span className="font-mono text-xs text-volt-fg tabular-nums">{nf.format(c.n)}</span>
               </li>
             ))}
           </ol>
