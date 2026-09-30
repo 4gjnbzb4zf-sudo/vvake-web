@@ -18,14 +18,17 @@ export function OgCard({ dict }: { dict: Dictionary }) {
         color: "#e6e9eb",
       }}
     >
-      <svg width="69" height="120" viewBox={HAND_VIEWBOX}>
-        <g transform={HAND_TRANSFORM} fill="#e6e9eb">
-          <path d={HAND_PATH} />
-        </g>
-        <circle {...HAND_DOT} fill="#ccff00" />
-      </svg>
+      <div style={{ display: "flex", fontSize: 28, color: "#9aa1a6" }}>vvake.com</div>
       <div style={{ display: "flex", flexDirection: "column" }}>
-        <div style={{ fontSize: 132, fontWeight: 800, letterSpacing: 8 }}>VVAKE</div>
+        <div style={{ display: "flex", alignItems: "flex-end" }}>
+          <svg width="112" height="196" viewBox={HAND_VIEWBOX} style={{ marginBottom: 22 }}>
+            <g transform={HAND_TRANSFORM} fill="#e6e9eb">
+              <path d={HAND_PATH} />
+            </g>
+            <circle {...HAND_DOT} fill="#ccff00" />
+          </svg>
+          <div style={{ fontSize: 150, fontWeight: 800, letterSpacing: 8, lineHeight: 1 }}>AKE</div>
+        </div>
         <div style={{ fontSize: 44, color: "#ccff00", marginTop: 8 }}>{dict.unlock.success.campaign.join(" ")}</div>
       </div>
       <div style={{ display: "flex", justifyContent: "space-between", fontSize: 28, color: "#9aa1a6" }}>
