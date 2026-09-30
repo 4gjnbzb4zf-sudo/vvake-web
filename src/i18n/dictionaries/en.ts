@@ -38,7 +38,7 @@ export const en = {
     anthem: ["for your health.", "for your wealth.", "for yourself.", "for your squad.", "for your city.", "for your team."],
     love: "Running, yoga, padel, dancing, lifting, a long walk: you already know what you love to do.",
     loveKicker: "It's just time to VVake up and do it more often.",
-    lead: "Your coach calls you and plans your week. Every workout counts toward perks, prizes and your city's rank.",
+    lead: "An AI coach that checks in by voice in the app, and a plan that fits your week. Every workout counts toward perks and your city's rank.",
     trainingChip: "Plan synced with your calendar",
     wealthChip: "{money} invested per workout",
     wealthNote: "Sweat & Invest · with Robinhood (planned) · your money · where available",
@@ -52,8 +52,8 @@ export const en = {
       {
         target: "coach",
         icon: "🎧",
-        title: "A coach that calls you",
-        body: "It checks in by voice, remembers how you feel and adjusts your week.",
+        title: "An AI coach that checks in",
+        body: "Opt-in voice check-ins in the app, 2 a week at most. It remembers how you feel and adjusts your week.",
         cta: "Hear it",
       },
       {
@@ -67,7 +67,7 @@ export const en = {
         target: "earn",
         icon: "🏆",
         title: "Rewards for showing up",
-        body: "Perks, prizes, season rewards and a Founder spot in your city. Scored on your heart, not your speed.",
+        body: "In-game perks, season rewards and, where the law allows, prizes. The first 100 confirmed in your city become Founders. Scored on your heart, not your speed.",
         cta: "See the rewards",
       },
     ],
@@ -714,7 +714,7 @@ export const en = {
   coach: {
     kicker: "Your VVaker, your coach",
     title: "It calls. You talk. You move better.",
-    body: "Your VVaker checks in by voice: how's the week going, what felt good, what to change. Pick its voice style and vibe, and it becomes the trainer you actually listen to.",
+    body: "Your VVaker checks in by voice, in the app and only if you opt in: how's the week going, what felt good, what to change. Pick its voice style and vibe, and it becomes the trainer you actually listen to.",
     call: { incoming: "Incoming call", who: "Your VVaker · coach mode", accept: "Answer", decline: "Later" },
     voiceLabel: "Voice",
     voices: { female: "Female voice", male: "Male voice" },

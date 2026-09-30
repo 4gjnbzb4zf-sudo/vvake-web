@@ -38,7 +38,7 @@ export const FEMALE_PERSONAS = {
   "footballer-f": { sport: "footballer", animal: "lioness", w: 389, h: 900 },
   "lifter-f": { sport: "lifter", animal: "wolf", w: 500, h: 900 },
   "skater-f": { sport: "skater", animal: "arctic fox", w: 622, h: 900 },
-  "baller-f": { sport: "baller", animal: "kangaroo", w: 376, h: 900 },
+  "baller-f": { sport: "baller", animal: "kangaroo", w: 435, h: 900 },
   "hiker-f": { sport: "hiker", animal: "grizzly bear", w: 482, h: 900 },
   "walker-f": { sport: "walker", animal: "golden retriever", w: 376, h: 900 },
 } as const satisfies Record<string, { sport: VVakerSport; animal: string; w: number; h: number }>;

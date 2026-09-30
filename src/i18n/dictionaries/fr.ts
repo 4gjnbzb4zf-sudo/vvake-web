@@ -36,7 +36,7 @@ export const fr: Dictionary = {
     anthem: ["pour ta santé.", "pour ta richesse.", "pour toi.", "pour ton squad.", "pour ta ville.", "pour ton équipe."],
     love: "Course, yoga, padel, danse, muscu, une grande balade : tu sais déjà ce que tu aimes faire.",
     loveKicker: "Il est temps de VVake up et de le faire plus souvent.",
-    lead: "Ton coach t'appelle et planifie ta semaine. Chaque séance compte pour des avantages, des lots et le classement de ta ville.",
+    lead: "Un coach IA qui prend de tes nouvelles à la voix dans l'app, et un plan qui colle à ta semaine. Chaque séance compte pour des avantages et le classement de ta ville.",
     trainingChip: "Plan synchronisé avec ton agenda",
     wealthChip: "{money} investi par séance",
     wealthNote: "Sweat & Invest · avec Robinhood (prévu) · ton argent · selon le pays",
@@ -50,8 +50,8 @@ export const fr: Dictionary = {
       {
         target: "coach",
         icon: "🎧",
-        title: "Un coach qui t'appelle",
-        body: "Il prend de tes nouvelles à la voix, se souvient de ce que tu ressens et ajuste ta semaine.",
+        title: "Un coach IA qui prend de tes nouvelles",
+        body: "Des appels vocaux dans l'app, sur demande, 2 par semaine au plus. Il se souvient de ce que tu ressens et ajuste ta semaine.",
         cta: "L'écouter",
       },
       {
@@ -65,7 +65,7 @@ export const fr: Dictionary = {
         target: "earn",
         icon: "🏆",
         title: "Des récompenses pour être là",
-        body: "Avantages, lots, récompenses de saison et une place de Fondateur dans ta ville. Noté sur ton cœur, pas sur ta vitesse.",
+        body: "Avantages dans le jeu, récompenses de saison et, là où la loi le permet, des lots. Les 100 premiers confirmés de ta ville deviennent Fondateurs. Noté sur ton cœur, pas sur ta vitesse.",
         cta: "Voir les récompenses",
       },
     ],
@@ -749,7 +749,7 @@ export const fr: Dictionary = {
   coach: {
     kicker: "Ton VVaker, ton coach",
     title: "Il appelle. Tu parles. Tu bouges mieux.",
-    body: "Ton VVaker prend de tes nouvelles à la voix : comment se passe la semaine, ce qui t'a fait du bien, ce qu'on change. Choisis son style de voix et son ambiance, et il devient le coach que tu écoutes vraiment.",
+    body: "Ton VVaker prend de tes nouvelles à la voix, dans l'app et seulement si tu le veux : comment se passe la semaine, ce qui t'a fait du bien, ce qu'on change. Choisis son style de voix et son ambiance, et il devient le coach que tu écoutes vraiment.",
     call: { incoming: "Appel entrant", who: "Ton VVaker · mode coach", accept: "Répondre", decline: "Plus tard" },
     voiceLabel: "Voix",
     voices: { female: "Voix féminine", male: "Voix masculine" },
