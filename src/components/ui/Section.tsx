@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { SignText } from "@/components/brand/SignText";
 import { cn } from "@/lib/cn";
 
 export function Container({ children, className }: { children: ReactNode; className?: string }) {
@@ -34,7 +35,7 @@ export function Section({ id, index, kicker, title, lead, children, className, a
         <header className={cn("max-w-3xl", align === "center" && "mx-auto text-center")}>
           {kicker && <Kicker index={index}>{kicker}</Kicker>}
           <h2 id={headingId} className="mt-4 font-display text-3xl leading-[1.1] font-semibold tracking-tight text-text sm:text-5xl">
-            {title}
+            {typeof title === "string" ? <SignText text={title} /> : title}
           </h2>
           {lead && <p className="mt-5 text-lg leading-relaxed text-muted">{lead}</p>}
         </header>
