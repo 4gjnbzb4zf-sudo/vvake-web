@@ -95,9 +95,10 @@ export function SectionNav({ label, open: openLabel }: { label: string; open: st
                 <span
                   className={cn(
                     "overflow-hidden font-mono text-[10px] tracking-[0.12em] whitespace-nowrap uppercase transition-all duration-200",
-                    // The current section's name always shows (on a pill, readable over the page); all names on hover.
+                    // The current section's name shows on a pill only where the margin fits it (≥ 1680 px, so it never covers the
+                    // page); narrower, just the ticks. All names on hover, in their own panel.
                     i === active
-                      ? "max-w-56 rounded-full border border-line bg-night/85 px-2 py-0.5 text-text opacity-100 backdrop-blur group-focus-within:border-transparent group-focus-within:bg-transparent group-focus-within:px-0 group-hover:border-transparent group-hover:bg-transparent group-hover:px-0"
+                      ? "max-w-0 text-text opacity-0 group-focus-within:max-w-56 group-focus-within:opacity-100 group-hover:max-w-56 group-hover:opacity-100 min-[1680px]:max-w-56 min-[1680px]:rounded-full min-[1680px]:border min-[1680px]:border-line min-[1680px]:bg-night/85 min-[1680px]:px-2 min-[1680px]:py-0.5 min-[1680px]:opacity-100 min-[1680px]:backdrop-blur min-[1680px]:group-focus-within:border-transparent min-[1680px]:group-focus-within:bg-transparent min-[1680px]:group-focus-within:px-0 min-[1680px]:group-hover:border-transparent min-[1680px]:group-hover:bg-transparent min-[1680px]:group-hover:px-0"
                       : "max-w-0 text-faint opacity-0 group-focus-within:max-w-56 group-focus-within:opacity-100 group-hover:max-w-56 group-hover:opacity-100 hover:text-text",
                   )}
                 >
