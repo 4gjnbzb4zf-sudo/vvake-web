@@ -6,26 +6,26 @@ import type { VVakerSport } from "@/components/vvaker/traits";
  * One per sport; the persona generator builds the exact prompt for a player's own combination.
  */
 export const PERSONAS: Record<VVakerSport, { animal: string; w: number; h: number }> = {
-  runner: { animal: "cheetah", w: 410, h: 900 },
-  walker: { animal: "golden retriever", w: 406, h: 900 },
-  cyclist: { animal: "greyhound", w: 543, h: 900 },
+  runner: { animal: "cheetah", w: 411, h: 900 },
+  walker: { animal: "golden retriever", w: 405, h: 900 },
+  cyclist: { animal: "greyhound", w: 542, h: 900 },
   lifter: { animal: "gorilla", w: 521, h: 900 },
   boxer: { animal: "elephant", w: 501, h: 900 },
-  yogi: { animal: "flamingo", w: 416, h: 900 },
-  baller: { animal: "tabby cat", w: 473, h: 900 },
+  yogi: { animal: "flamingo", w: 415, h: 900 },
+  baller: { animal: "tabby cat", w: 471, h: 900 },
   coder: { animal: "raccoon", w: 512, h: 900 },
-  martial: { animal: "giant panda", w: 558, h: 900 },
-  paddler: { animal: "eagle", w: 684, h: 900 },
-  meditator: { animal: "snowy owl", w: 647, h: 900 },
-  roller: { animal: "red fox", w: 547, h: 900 },
-  skater: { animal: "arctic fox", w: 568, h: 900 },
-  swimmer: { animal: "otter", w: 385, h: 900 },
-  hiker: { animal: "grizzly bear", w: 503, h: 900 },
-  climber: { animal: "snow leopard", w: 515, h: 900 },
+  martial: { animal: "giant panda", w: 559, h: 900 },
+  paddler: { animal: "eagle", w: 686, h: 900 },
+  meditator: { animal: "snowy owl", w: 648, h: 900 },
+  roller: { animal: "red fox", w: 545, h: 900 },
+  skater: { animal: "arctic fox", w: 566, h: 900 },
+  swimmer: { animal: "otter", w: 384, h: 900 },
+  hiker: { animal: "grizzly bear", w: 502, h: 900 },
+  climber: { animal: "snow leopard", w: 514, h: 900 },
   racket: { animal: "hare", w: 475, h: 900 },
-  dancer: { animal: "zebra", w: 674, h: 900 },
-  skier: { animal: "husky", w: 619, h: 900 },
-  footballer: { animal: "lion", w: 449, h: 900 },
+  dancer: { animal: "zebra", w: 673, h: 900 },
+  skier: { animal: "husky", w: 618, h: 900 },
+  footballer: { animal: "lion", w: 447, h: 900 },
 };
 
 export const personaSrc = (sport: VVakerSport) => `/personas/${sport}.webp`;
@@ -40,16 +40,16 @@ export const FEMALE_PERSONAS = {
   "skater-f": { sport: "skater", animal: "arctic fox", w: 622, h: 900 },
   "baller-f": { sport: "baller", animal: "kangaroo", w: 435, h: 900 },
   "hiker-f": { sport: "hiker", animal: "grizzly bear", w: 482, h: 900 },
-  "walker-f": { sport: "walker", animal: "golden retriever", w: 376, h: 900 },
+  "walker-f": { sport: "walker", animal: "golden retriever", w: 377, h: 900 },
 } as const satisfies Record<string, { sport: VVakerSport; animal: string; w: number; h: number }>;
 export type FemalePersona = keyof typeof FEMALE_PERSONAS;
 
 /** Expressive men (faces visible, no sunglasses): same pipeline, ids ending in "-m". */
 export const EXTRA_MEN = {
-  "runner-m": { sport: "runner", animal: "grey wolf", w: 479, h: 900 },
-  "dancer-m": { sport: "dancer", animal: "husky", w: 456, h: 900 },
-  "coder-m": { sport: "coder", animal: "penguin", w: 461, h: 900 },
-  "boxer-m": { sport: "boxer", animal: "giant panda", w: 608, h: 900 },
+  "runner-m": { sport: "runner", animal: "grey wolf", w: 480, h: 900 },
+  "dancer-m": { sport: "dancer", animal: "husky", w: 457, h: 900 },
+  "coder-m": { sport: "coder", animal: "penguin", w: 460, h: 900 },
+  "boxer-m": { sport: "boxer", animal: "giant panda", w: 609, h: 900 },
 } as const satisfies Record<string, { sport: VVakerSport; animal: string; w: number; h: number }>;
 export type ExtraMan = keyof typeof EXTRA_MEN;
 
