@@ -30,5 +30,29 @@ export const PERSONAS: Record<VVakerSport, { animal: string; w: number; h: numbe
 
 export const personaSrc = (sport: VVakerSport) => `/personas/${sport}.webp`;
 
-/** Characters that shine big in the hero (one is picked at each page load). */
-export const HERO_PERSONAS: readonly VVakerSport[] = ["baller", "runner", "footballer", "racket", "roller", "walker", "coder", "lifter"];
+/** Women of the cast (same pipeline, VVFit/tools/imagine personas.json ids ending in "-f"). */
+export const FEMALE_PERSONAS = {
+  "runner-f": { sport: "runner", animal: "cheetah", w: 472, h: 900 },
+  "boxer-f": { sport: "boxer", animal: "tigress", w: 537, h: 900 },
+  "climber-f": { sport: "climber", animal: "snow leopard", w: 397, h: 900 },
+  "footballer-f": { sport: "footballer", animal: "lioness", w: 389, h: 900 },
+  "lifter-f": { sport: "lifter", animal: "wolf", w: 500, h: 900 },
+} as const satisfies Record<string, { sport: VVakerSport; animal: string; w: number; h: number }>;
+export type FemalePersona = keyof typeof FEMALE_PERSONAS;
+
+/** Any cast image: a sport (the men's cast) or a woman's id. */
+export type CastId = VVakerSport | FemalePersona;
+export function castImage(id: CastId): { src: string; w: number; h: number; animal: string } {
+  const f = (FEMALE_PERSONAS as Record<string, { animal: string; w: number; h: number }>)[id];
+  const p = f ?? PERSONAS[id as VVakerSport];
+  return { src: `/personas/${id}.webp`, w: p.w, h: p.h, animal: p.animal };
+}
+
+/** The hero shows a woman and a man side by side; one pair is picked at each page load. */
+export const HERO_PAIRS: readonly (readonly [FemalePersona, VVakerSport])[] = [
+  ["runner-f", "baller"],
+  ["footballer-f", "footballer"],
+  ["boxer-f", "runner"],
+  ["lifter-f", "walker"],
+  ["climber-f", "racket"],
+];
