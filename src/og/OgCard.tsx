@@ -4,7 +4,8 @@ import type { Dictionary } from "@/i18n/dictionaries";
 export const OG_SIZE = { width: 1200, height: 630 } as const;
 
 /** Social preview card, rendered to PNG by scripts/generate-og.tsx (satori subset of CSS). */
-export function OgCard({ dict }: { dict: Dictionary }) {
+export function OgCard({ dict, cast = [], challenge }: { dict: Dictionary; cast?: string[]; challenge?: number }) {
+  const c = challenge === undefined ? undefined : dict.og.challenges[challenge % dict.og.challenges.length]!;
   return (
     <div
       style={{
@@ -18,6 +19,14 @@ export function OgCard({ dict }: { dict: Dictionary }) {
         color: "#e6e9eb",
       }}
     >
+      {cast.length > 0 && (
+        <div style={{ position: "absolute", right: 20, bottom: 0, display: "flex", alignItems: "flex-end" }}>
+          {cast.map((src, i) => (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img key={src.slice(-24)} src={src} alt="" height={i === 0 ? 560 : 530} style={{ marginLeft: i === 0 ? 0 : -70 }} />
+          ))}
+        </div>
+      )}
       <div style={{ display: "flex", fontSize: 28, color: "#9aa1a6" }}>vvake.com</div>
       <div style={{ display: "flex", flexDirection: "column" }}>
         <div style={{ display: "flex", alignItems: "flex-end" }}>
@@ -29,11 +38,28 @@ export function OgCard({ dict }: { dict: Dictionary }) {
           </svg>
           <div style={{ fontSize: 150, fontWeight: 800, letterSpacing: 8, lineHeight: 1 }}>AKE</div>
         </div>
-        <div style={{ fontSize: 44, color: "#ccff00", marginTop: 8 }}>{dict.unlock.success.campaign.join(" ")}</div>
+        <div style={{ fontSize: 38, color: "#ccff00", marginTop: 8 }}>{dict.unlock.success.campaign.join(" ")}</div>
       </div>
       <div style={{ display: "flex", justifyContent: "space-between", fontSize: 28, color: "#9aa1a6" }}>
-        <span>{dict.benefits.title}</span>
-        <span>{dict.hero.pronounce}</span>
+        {c ? (
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              padding: "18px 24px",
+              borderRadius: 24,
+              border: "2px solid rgba(204,255,0,0.45)",
+              background: "rgba(23,26,29,0.92)",
+              color: "#e6e9eb",
+            }}
+          >
+            <span style={{ fontSize: 22, color: "#ccff00", letterSpacing: 2 }}>{c.kicker.toUpperCase()}</span>
+            <span style={{ fontSize: 34, fontWeight: 800, marginTop: 6 }}>{c.title}</span>
+            <span style={{ fontSize: 22, color: "#9aa1a6", marginTop: 6 }}>{c.cta} →</span>
+          </div>
+        ) : (
+          <span>{dict.benefits.title}</span>
+        )}
       </div>
     </div>
   );

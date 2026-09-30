@@ -119,6 +119,14 @@ export const fr: Dictionary = {
       lead: "Pourquoi on construit sur Robinhood Chain, où partent les frais, et comment détenir une part de VVake (prévu).",
     },
   },
+  og: {
+    challenges: [
+      { kicker: "⚔️ Duel de villes · encore 3 h", title: "Lyon 61,3 vs Saint-Étienne 58,9", cta: "Chaque séance compte pour ta ville" },
+      { kicker: "⚡ Rally ouvert · 45 min", title: "On transpire ensemble quand la Bourse baisse", cta: "Rejoins le Rally" },
+      { kicker: "👻 Course fantôme", title: "+42 m devant le fantôme de Léo", cta: "Défie tes amis, quand tu veux" },
+      { kicker: "🔥 Défi de crew", title: "Le plus de minutes actives ce week-end", cta: "Relève le défi" },
+    ],
+  },
   highlights: {
     strip: ["Le cœur, pas la vitesse", "Rivalités de villes", "Équipe à livre ouvert"],
   },

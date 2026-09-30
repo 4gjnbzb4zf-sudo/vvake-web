@@ -5,6 +5,7 @@ import { siteConfig } from "@/config/site";
 import { isLocale, locales, ogLocales } from "@/i18n/config";
 import { getDictionary } from "@/i18n/dictionaries";
 import { OG_SIZE } from "@/og/OgCard";
+import { SignSweep } from "@/components/brand/SignSweep";
 import { THEME_SCRIPT } from "@/lib/theme";
 import { fontVariables } from "../fonts";
 import "../globals.css";
@@ -66,7 +67,10 @@ export default async function LocaleLayout({ children, params }: { children: Rea
         {/* Sets data-theme before first paint (no flash of the other theme). */}
         <script dangerouslySetInnerHTML={{ __html: THEME_SCRIPT }} />
       </head>
-      <body className="min-h-dvh">{children}</body>
+      <body className="min-h-dvh">
+        {children}
+        <SignSweep />
+      </body>
     </html>
   );
 }
