@@ -10,6 +10,7 @@ import type { Dictionary } from "@/i18n/dictionaries";
 import { getCity, RIVALRIES } from "@/lib/cities";
 import { AnthemRotator } from "./AnthemRotator";
 import { HeroPersona } from "./HeroPersona";
+import { HeroTrio } from "./HeroTrio";
 import { PhoneMock, WatchMock } from "./AppPreview";
 
 interface HeroProps {
@@ -26,8 +27,9 @@ export function Hero({ locale, dict, highlights, app }: HeroProps) {
       <div className="pointer-events-none absolute -top-40 left-1/2 h-[520px] w-[820px] -translate-x-1/2 rounded-full bg-pulse/15 blur-[120px]" />
       <div className="pointer-events-none absolute right-0 -bottom-40 h-[380px] w-[520px] rounded-full bg-volt/10 blur-[120px]" />
 
-      <Container className="relative grid items-center gap-14 pt-16 pb-16 sm:pt-24 lg:grid-cols-[1fr_1.15fr] lg:pb-24">
+      <Container className="relative grid items-center gap-14 pt-6 pb-16 sm:pt-24 lg:grid-cols-[1fr_1.15fr] lg:pb-24">
         <div className="animate-rise">
+          <HeroTrio />
           <div className="inline-flex max-w-full flex-wrap items-center gap-y-1 rounded-full border border-line bg-surface/70 py-1.5 pr-1.5 pl-2 text-[13px] whitespace-nowrap text-muted sm:flex-nowrap">
             {/* "VVake Fit · say it…" with the sign as the W: [hand]ake Fit, no repeated VV. */}
             <span className="ml-1.5 inline-flex items-end" aria-label={dict.pronounce}>
@@ -43,7 +45,7 @@ export function Hero({ locale, dict, highlights, app }: HeroProps) {
             </a>
           </div>
 
-          <h1 id="hero-title" className="mt-8 font-display text-5xl leading-[1.02] font-bold tracking-tight sm:text-7xl">
+          <h1 id="hero-title" className="mt-6 font-display text-5xl leading-[1.02] font-bold tracking-tight sm:mt-8 sm:text-7xl">
             <span className="sr-only">{dict.anthem.map((line) => `${dict.prefix} ${line}`).join(" ")}</span>
             <span aria-hidden="true" className="block text-text">
               <SignText text={dict.prefix} />
@@ -140,9 +142,10 @@ function HeroDevices({ hero, app }: { hero: Dictionary["hero"]; app: Dictionary[
         />
       ))}
 
-      {/* a woman and a man of the cast in front of the phone, a different pair at each load */}
+      {/* a woman and a man of the cast in front of the phone, a different pair at each load (on phones the trio
+          at the top of the hero plays that part) */}
       <div
-        className="absolute bottom-0 left-0 z-10 h-[86%] animate-rise drop-shadow-[0_30px_40px_rgb(0_0_0/0.6)] sm:h-[96%]"
+        className="absolute bottom-0 left-0 z-10 hidden h-[96%] animate-rise drop-shadow-[0_30px_40px_rgb(0_0_0/0.6)] lg:block"
         aria-hidden="true"
       >
         <HeroPersona />
