@@ -1,6 +1,6 @@
 # Copy guardrails (read before editing any text)
 
-VVake is a fitness game, not a financial product. Full rules live in the private monorepo
+VVake is a fitness and training service, not a financial product. Full rules live in the private monorepo
 (`docs/04-compliance/constraints.md`, `docs/06-brand/storytelling.md` §9).
 
 | ❌ Never                                                           | ✅ Instead                                                   |
