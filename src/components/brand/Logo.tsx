@@ -13,27 +13,19 @@ export function LogoMark({ className }: { className?: string; animated?: boolean
   );
 }
 
-/** Just the two Vs (the W part of the mark), to write "VVaker" with the logo in small UI. */
+/** The hand as the W in text ("VVaker" in the menu reads [hand]AKER). */
 export function VVMark({ className }: { className?: string }) {
-  return (
-    <svg viewBox="0 0 44 40" fill="none" className={cn("h-4 w-auto", className)} aria-hidden="true">
-      <defs>
-        <linearGradient id="vv-mark" x1="0" y1="0" x2="44" y2="0" gradientUnits="userSpaceOnUse">
-          <stop offset="0" stopColor="#ff3d6e" />
-          <stop offset="1" stopColor="#ff9fb6" />
-        </linearGradient>
-      </defs>
-      <path d="M4 13 L13 34 L22 9 L31 34 L40 13" stroke="url(#vv-mark)" strokeWidth="5.6" strokeLinecap="round" strokeLinejoin="round" />
-      <circle cx="22" cy="3" r="2.6" fill="#ff3d6e" />
-    </svg>
-  );
+  return <LogoMark className={cn("h-[1.35em] text-current", className)} />;
 }
 
-export function Logo({ className, animated = false }: { className?: string; animated?: boolean }) {
+/** The wordmark: the hand is the W of WAKE, so the sign and the name read as one word ([hand]AKE). */
+export function Logo({ className }: { className?: string; animated?: boolean }) {
   return (
-    <span className={cn("inline-flex items-center gap-2", className)}>
-      <LogoMark animated={animated} />
-      <span className="font-display text-[1.05rem] font-semibold tracking-[0.14em] text-text">VVAKE</span>
+    <span className={cn("inline-flex items-end", className)} aria-label="VVake">
+      <LogoMark className="-mr-0.5 h-[1.9rem]" />
+      <span aria-hidden="true" className="font-display text-[1.15rem] leading-[1.02] font-semibold tracking-[0.12em] text-text">
+        AKE
+      </span>
     </span>
   );
 }
