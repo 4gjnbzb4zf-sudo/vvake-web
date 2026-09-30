@@ -28,8 +28,11 @@ export function Hero({ locale, dict, highlights, app }: HeroProps) {
       <Container className="relative grid items-center gap-14 pt-16 pb-16 sm:pt-24 lg:grid-cols-[1fr_1.15fr] lg:pb-24">
         <div className="animate-rise">
           <div className="inline-flex max-w-full flex-wrap items-center gap-y-1 rounded-full border border-line bg-surface/70 py-1.5 pr-1.5 pl-2 text-[13px] whitespace-nowrap text-muted sm:flex-nowrap">
-            <LogoMark className="h-4 shrink-0" />
-            <span className="ml-2.5">{dict.pronounce}</span>
+            {/* "VVake Fit · say it…" with the sign as the W: [hand]ake Fit, no repeated VV. */}
+            <span className="ml-1.5 inline-flex items-end" aria-label={dict.pronounce}>
+              <LogoMark className="mr-px h-[1.45em] shrink-0 text-text" />
+              <span aria-hidden="true">{dict.pronounce.replace(/^VV/, "")}</span>
+            </span>
             <span aria-hidden="true" className="mx-2.5 hidden h-4 w-px bg-line sm:block" />
             <a
               href={sectionHref(locale, "rwa")}
