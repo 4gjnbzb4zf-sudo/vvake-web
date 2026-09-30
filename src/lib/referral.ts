@@ -8,8 +8,15 @@ export function readReferral(search: string): string | undefined {
   return ref && REF_PATTERN.test(ref) ? ref : undefined;
 }
 
-export function referralUrl(origin: string, locale: Locale, code: string, city: string): string {
-  const url = new URL(`/${locale}/`, origin);
+/** Share pages /[lang]/s/1…N/: same destination, each with its own preview image (duo + app challenge). */
+export const SHARE_VARIANTS = 8;
+
+/**
+ * The invite link. With a `variant` (1…SHARE_VARIANTS) it goes through that share page, so the post's preview
+ * shows a different picture; the page forwards to the home page with ?ref and ?city intact.
+ */
+export function referralUrl(origin: string, locale: Locale, code: string, city: string, variant?: number): string {
+  const url = new URL(variant ? `/${locale}/s/${variant}/` : `/${locale}/`, origin);
   url.searchParams.set("ref", code);
   if (city) url.searchParams.set("city", city);
   return url.toString();
@@ -39,3 +46,6 @@ export function shareUrl(network: ShareNetwork, text: string, url: string): stri
       return `https://www.threads.net/intent/post?text=${encodeURIComponent(`${text} ${url}`)}`;
   }
 }
+
+/** A random share page for one post. */
+export const randomVariant = () => 1 + Math.floor(Math.random() * SHARE_VARIANTS);

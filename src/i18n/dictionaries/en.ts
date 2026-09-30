@@ -121,6 +121,14 @@ export const en = {
       lead: "Why we build on Robinhood Chain, where every fee goes, and how to own a piece of VVake (planned).",
     },
   },
+  og: {
+    challenges: [
+      { kicker: "⚔️ City Clash · 3h left", title: "Lyon 61.3 vs Saint-Étienne 58.9", cta: "Every session counts for your city" },
+      { kicker: "⚡ Rally open · 45 min", title: "Sweat together when the market dips", cta: "Tap to join the Rally" },
+      { kicker: "👻 Ghost race", title: "+42 m ahead of Leo's ghost", cta: "Race your friends, anytime" },
+      { kicker: "🔥 Crew dare", title: "Most active minutes this weekend", cta: "Accept the dare" },
+    ],
+  },
   highlights: {
     strip: ["Heart, not speed", "City rivalries", "Open-book team"],
   },

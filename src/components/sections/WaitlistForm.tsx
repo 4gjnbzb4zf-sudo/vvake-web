@@ -8,7 +8,7 @@ import type { Locale } from "@/i18n/config";
 import { format, type Dictionary } from "@/i18n/dictionaries";
 import type { Country } from "@/lib/cities";
 import { cn } from "@/lib/cn";
-import { readReferral, referralUrl, shareUrl, type ShareNetwork } from "@/lib/referral";
+import { randomVariant, readReferral, referralUrl, shareUrl, type ShareNetwork } from "@/lib/referral";
 import { unlockProgress } from "@/lib/unlock";
 import {
   fetchCityCounts,
@@ -379,6 +379,8 @@ function Success(props: {
   const persona = usePersona();
   const d = props.dict;
   const link = referralUrl(props.siteUrl, props.locale, props.data.referralCode, props.citySlug);
+  // Each post gets a random share page, so its preview shows a different duo and challenge.
+  const postLink = () => referralUrl(props.siteUrl, props.locale, props.data.referralCode, props.citySlug, randomVariant());
   const shareText = format(d.shareText, { city: props.city, rank: props.data.cityRank });
 
   useEffect(() => {
@@ -425,8 +427,9 @@ function Success(props: {
   async function nativeShare() {
     try {
       const file = new File([await storyCard()], "vvake-story.png", { type: "image/png" });
-      const withFile = { text: shareText, url: link, files: [file] };
-      await navigator.share(navigator.canShare?.(withFile) ? withFile : { text: shareText, url: link });
+      const url = postLink();
+      const withFile = { text: shareText, url, files: [file] };
+      await navigator.share(navigator.canShare?.(withFile) ? withFile : { text: shareText, url });
     } catch {
       // Dismissed or unsupported: nothing to do.
     }
@@ -471,6 +474,10 @@ function Success(props: {
           <a
             key={n}
             href={shareUrl(n, shareText, link)}
+            onClick={(e) => {
+              e.preventDefault();
+              window.open(shareUrl(n, shareText, postLink()), "_blank", "noopener,noreferrer");
+            }}
             target="_blank"
             rel="noopener noreferrer"
             className={cn(
