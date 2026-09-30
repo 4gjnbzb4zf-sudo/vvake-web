@@ -1,27 +1,14 @@
 import { cn } from "@/lib/cn";
+import { HAND_DOT, HAND_PATH, HAND_TRANSFORM, HAND_VIEWBOX } from "./handMark";
 
-/**
- * The VVake sign as a mark: the hand throwing it (index, middle and ring fingers raised and spread from the palm,
- * so the gaps between them draw the W), with the sunrise dot over the middle finger.
- */
-export function LogoMark({ className, animated = false }: { className?: string; animated?: boolean }) {
-  const draw = animated ? { pathLength: 1, strokeDasharray: 1, strokeDashoffset: 1, className: "animate-draw" } : {};
+/** The VVake sign: the hand (in the text color, so it follows the theme) and the lime sunrise dot. */
+export function LogoMark({ className }: { className?: string; animated?: boolean }) {
   return (
-    <svg viewBox="0 0 40 46" fill="none" className={cn("h-8 w-auto", className)} aria-hidden="true">
-      <defs>
-        <linearGradient id="vv-hand" x1="0" y1="46" x2="40" y2="0" gradientUnits="userSpaceOnUse">
-          <stop offset="0" stopColor="#ff3d6e" />
-          <stop offset="0.6" stopColor="#ff7a9a" />
-          <stop offset="1" stopColor="#ccff00" />
-        </linearGradient>
-      </defs>
-      <g stroke="url(#vv-hand)" strokeWidth="6" strokeLinecap="round">
-        <path d="M14 34 L5.5 13" {...draw} />
-        <path d="M20 33 L20 9" {...draw} />
-        <path d="M26 34 L34.5 13" {...draw} />
+    <svg viewBox={HAND_VIEWBOX} className={cn("h-8 w-auto text-text", className)} aria-hidden="true">
+      <g transform={HAND_TRANSFORM} fill="currentColor">
+        <path d={HAND_PATH} />
       </g>
-      <path d="M11.5 30 Q11 43 20 43 Q29 43 28.5 30 Z" fill="url(#vv-hand)" />
-      <circle cx="20" cy="3" r="2.8" fill="#ff3d6e" />
+      <circle {...HAND_DOT} fill="var(--color-volt-fg)" />
     </svg>
   );
 }
