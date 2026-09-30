@@ -1,6 +1,7 @@
 import type { Locale } from "@/i18n/config";
 import { sectionHref } from "@/lib/routes";
 import { LogoMark } from "@/components/brand/Logo";
+import { SignText } from "@/components/brand/SignText";
 import { MoneyText } from "@/components/ui/Money";
 import { ButtonLink } from "@/components/ui/Button";
 import { Marquee } from "@/components/ui/Marquee";
@@ -45,7 +46,7 @@ export function Hero({ locale, dict, highlights, app }: HeroProps) {
           <h1 id="hero-title" className="mt-8 font-display text-5xl leading-[1.02] font-bold tracking-tight sm:text-7xl">
             <span className="sr-only">{dict.anthem.map((line) => `${dict.prefix} ${line}`).join(" ")}</span>
             <span aria-hidden="true" className="block text-text">
-              {dict.prefix}
+              <SignText text={dict.prefix} />
             </span>
             <span aria-hidden="true" className="text-gradient-pulse block pb-2">
               <AnthemRotator lines={dict.anthem} />
@@ -53,7 +54,10 @@ export function Hero({ locale, dict, highlights, app }: HeroProps) {
           </h1>
 
           <p className="mt-6 max-w-xl font-display text-xl leading-snug font-semibold text-balance text-text sm:text-2xl">
-            {dict.love} <span className="text-pulse-fg">{dict.loveKicker}</span>
+            {dict.love}{" "}
+            <span className="text-pulse-fg">
+              <SignText text={dict.loveKicker} />
+            </span>
           </p>
 
           <p className="mt-4 max-w-xl text-lg leading-relaxed text-muted">{dict.lead}</p>

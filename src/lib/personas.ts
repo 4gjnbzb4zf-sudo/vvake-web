@@ -48,11 +48,17 @@ export function castImage(id: CastId): { src: string; w: number; h: number; anim
   return { src: `/personas/${id}.webp`, w: p.w, h: p.h, animal: p.animal };
 }
 
-/** The hero shows a woman and a man side by side; one pair is picked at each page load. */
-export const HERO_PAIRS: readonly (readonly [FemalePersona, VVakerSport])[] = [
-  ["runner-f", "baller"],
-  ["footballer-f", "footballer"],
-  ["boxer-f", "runner"],
-  ["lifter-f", "walker"],
-  ["climber-f", "racket"],
+/** The hero shows a woman and a man side by side, each drawn independently from these at each visit. */
+export const HERO_WOMEN = Object.keys(FEMALE_PERSONAS) as FemalePersona[];
+export const HERO_MEN: readonly VVakerSport[] = [
+  "baller",
+  "runner",
+  "footballer",
+  "racket",
+  "walker",
+  "coder",
+  "lifter",
+  "boxer",
+  "hiker",
+  "roller",
 ];
