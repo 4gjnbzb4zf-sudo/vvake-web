@@ -9,12 +9,15 @@ import type { Locale } from "@/i18n/config";
 import { pageHref, sectionHref } from "@/lib/routes";
 import type { Dictionary } from "@/i18n/dictionaries";
 
-/** "VVaker" in the menu is written with the logo's VV. */
+/**
+ * "VVaker" in the menu is written with the sign as its W. The hand sits out of the text flow (absolute, resting on
+ * the baseline), so the label's line box and text line up exactly with the other menu items.
+ */
 function NavLabel({ label }: { label: string }) {
   if (!label.startsWith("VV")) return <>{label}</>;
   return (
-    <span className="inline-flex items-baseline" aria-label={label}>
-      <VVMark className="mr-px h-[1.15em] translate-y-[0.2em]" />
+    <span className="relative inline-block pl-[0.9em]" aria-label={label}>
+      <VVMark className="absolute bottom-[0.12em] left-0 h-[1.4em]" />
       <span aria-hidden="true">{label.slice(2)}</span>
     </span>
   );
