@@ -1,6 +1,6 @@
 # VVake: website
 
-> **VVake** (say _“wake”_): the free fitness game where your city, your team and your market move together.
+> **VVake** (say _“wake”_): a new way to train: challenge yourself, your crew and your city, with an AI coach and much more at your wrist.
 > Two Vs make a W.
 
 Marketing and launch site for VVake: storytelling, city-unlock waitlist, rivalries, open-book split and the
@@ -69,7 +69,7 @@ Push to `main` → **CI checks → static build → GitHub Pages**. Domain setup
 
 ## Content rules
 
-All copy follows [docs/BRAND_GUARDRAILS.md](docs/BRAND_GUARDRAILS.md): VVake is a fitness game, not a financial product.
+All copy follows [docs/BRAND_GUARDRAILS.md](docs/BRAND_GUARDRAILS.md): VVake is a fitness and training service, not a financial product.
 
 ---
 

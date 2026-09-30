@@ -5,7 +5,7 @@ export const fr: Dictionary = {
   meta: {
     title: "VVake Fit : la Bourse se réveille, nous on bouge",
     description:
-      "VVake Fit (ça se dit « wake fit ») est le jeu d'entraînement gratuit où ta ville, ta crew et ton squad bougent ensemble, et où tes séances font duo avec les actions que tu suis. Le cœur avant la hype. Des comptes ouverts. Débloque ta ville.",
+      "VVake Fit (ça se dit « wake fit ») est une nouvelle façon de s'entraîner : bouge avec ta crew, planifie ta semaine avec un assistant IA, et défie-toi, toi et ta ville. Le cœur avant la hype. Des comptes ouverts. Débloque ta ville.",
     ogAlt: "VVake Fit : deux V font un W. La Bourse se réveille, nous on bouge.",
   },
   nav: {
@@ -65,7 +65,7 @@ export const fr: Dictionary = {
         target: "earn",
         icon: "🏆",
         title: "Des récompenses pour être là",
-        body: "Avantages dans le jeu, récompenses de saison et, là où la loi le permet, des lots. Les 100 premiers confirmés de ta ville deviennent Fondateurs. Noté sur ton cœur, pas sur ta vitesse.",
+        body: "Avantages dans l'app, récompenses de saison et, là où la loi le permet, des lots. Les 100 premiers confirmés de ta ville deviennent Fondateurs. Noté sur ton cœur, pas sur ta vitesse.",
         cta: "Voir les récompenses",
       },
     ],
@@ -553,7 +553,7 @@ export const fr: Dictionary = {
         icon: "🤝",
         when: 0,
         title: "Avantages parrainage",
-        body: "Invite tes amis, débloque ta ville plus tôt et gagne des avantages en jeu dès qu'ils bougent vraiment.",
+        body: "Invite tes amis, débloque ta ville plus tôt et gagne des avantages dans l'app dès qu'ils bougent vraiment.",
       },
       {
         icon: "🎟️",
@@ -673,7 +673,7 @@ export const fr: Dictionary = {
   plus: {
     kicker: "VVake Fit Plus · optionnel",
     title: "Plus d'outils. Jamais d'avantage.",
-    body: "Le jeu gratuit est complet. Plus, c'est pour celles et ceux qui veulent un coaching plus poussé, de plus grandes crews et quelques petits plaisirs.",
+    body: "L'offre gratuite est complète. Plus, c'est pour celles et ceux qui veulent un coaching plus poussé, de plus grandes crews et quelques petits plaisirs.",
     name: "VVake Fit Plus",
     price: "{money}",
     per: "/ mois",
@@ -684,7 +684,7 @@ export const fr: Dictionary = {
       title: "Plus à vie",
       price: "{money}",
       per: "une fois",
-      body: "Tous les outils Plus, pour toujours, pour environ 30 mois d'abonnement. Même règle : jamais d'avantage. Compté dans la répartition publique sur 36 mois, pour financer le jeu pendant des années.",
+      body: "Tous les outils Plus, pour toujours, pour environ 30 mois d'abonnement. Même règle : jamais d'avantage. Compté dans la répartition publique sur 36 mois, pour financer VVake pendant des années.",
     },
     cta: "Être prévenu au lancement",
     perks: [
@@ -1120,7 +1120,7 @@ export const fr: Dictionary = {
         thisMonth: "Ce mois-ci",
         pace: "À ton rythme : environ {money} par mois",
         left: "Reste ce mois-ci : {money}",
-        rule: "Ton budget est un plafond strict : une fois atteint, tes séances comptent toujours pour le jeu, plus pour l'investissement. Modifie-le ou mets-le en pause quand tu veux.",
+        rule: "Ton budget est un plafond strict : une fois atteint, tes séances comptent toujours pour tes défis et ta ville, plus pour l'investissement. Modifie-le ou mets-le en pause quand tu veux.",
       },
       brands:
         "Les noms de marques et tickers identifient des sociétés cotées. Aucune affiliation ni recommandation, sauf mention Partenaire.",
@@ -1192,14 +1192,14 @@ export const fr: Dictionary = {
     token: {
       kicker: "$VVAKE · prévu · Robinhood Chain",
       title: "À quoi sert $VVAKE.",
-      body: "$VVAKE est une clé de communauté, pas un tableau des scores. Le détenir te donne une voix dans le jeu, des looks à montrer et des portes qui s'ouvrent avec les autres sportifs. Il fonctionne seul, et en fait un peu plus avec Plus. Tout ce qui compte dans le jeu se gagne toujours en bougeant.",
+      body: "$VVAKE est une clé de communauté, pas un tableau des scores. Le détenir te donne une voix dans la communauté, des looks à montrer et des portes qui s'ouvrent avec les autres sportifs. Il fonctionne seul, et en fait un peu plus avec Plus. Tout ce qui compte dans tes défis se gagne toujours en bougeant.",
       tiers: [
         {
           icon: "🏃",
           name: "Joueur gratuit",
           who: "Sans token, sans abonnement",
           perks: [
-            "Le jeu complet : plan, crews, défis, déblocage des villes",
+            "Tout le gratuit : plan, crews, défis, déblocage des villes",
             "Stats, niveaux et classements gagnés en bougeant",
             "Récompenses de saison pour l'effort, là où la loi le permet",
           ],
@@ -1422,7 +1422,7 @@ export const fr: Dictionary = {
       { name: "Pioneer", who: "Du 101e au 1 000e de ta ville", perks: "Skin Pioneer · 2 gels de série · Accès 24 h en avance" },
       { name: "Early Mover", who: "Tous les autres inscrits avant le lancement", perks: "Badge Early Mover · 1 gel de série" },
     ],
-    tiersNote: "Avantages uniquement dans le jeu, activés après tes 3 premières vraies sessions. Les faux inscrits n'obtiennent rien.",
+    tiersNote: "Avantages uniquement dans l'app, activés après tes 3 premières vraies sessions. Les faux inscrits n'obtiennent rien.",
     form: {
       step1: "1 · Choisis ta ville",
       step2: "2 · Inscris-toi pour débloquer {city}",
@@ -1473,7 +1473,7 @@ export const fr: Dictionary = {
       copied: "Copié",
       shareX: "Partager sur X",
       shareText:
-        "Fais le signe. Réveille ta ville. Je suis n°{rank} à {city} sur VVake Fit, le jeu fitness où ta ville s'affronte. Rejoins-moi 👇 @VVakeFit",
+        "Fais le signe. Réveille ta ville. Je suis n°{rank} à {city} sur VVake Fit, la nouvelle façon de s'entraîner où ta ville s'affronte. Rejoins-moi 👇 @VVakeFit",
       campaign: ["Fais le signe.", "Réveille ta ville."],
       shareLabel: "Fais tourner : chaque ami qui rejoint rapproche {city} du lancement",
       nativeShare: "Partager",
@@ -1484,7 +1484,7 @@ export const fr: Dictionary = {
       storyFooter: "vvake.com · code {code}",
       ladder: {
         title: "Paliers d'invitation",
-        note: "Un ami compte quand il confirme et termine ses 3 premières séances. Avantages dans le jeu uniquement, jusqu'à 25 par saison.",
+        note: "Un ami compte quand il confirme et termine ses 3 premières séances. Avantages dans l'app uniquement, jusqu'à 25 par saison.",
         steps: [
           { n: 1, icon: "⏰", title: "Réveil", body: "Un badge sur ton profil" },
           { n: 3, icon: "🎨", title: "Skin exclusif", body: "Une finition de VVaker qu'on ne peut pas acheter" },
@@ -1751,7 +1751,7 @@ export const fr: Dictionary = {
     collect: {
       kicker: "NFT de collection · optionnels",
       title: "Ton VVaker est gratuit. Le style se collectionne.",
-      body: "Les options sont des objets de collection saisonniers et limités, dans le portail web VVake : finitions, auras, traînées, célébrations et kits de ville. Ils subliment ton VVaker et débloquent des choses à faire, mais jamais un avantage dans le jeu.",
+      body: "Les options sont des objets de collection saisonniers et limités, dans le portail web VVake : finitions, auras, traînées, célébrations et kits de ville. Ils subliment ton VVaker et débloquent des choses à faire, mais jamais un avantage dans un défi.",
       cards: [
         { name: "Finition holo", slot: "Finition", supply: "Saison 1 · limité" },
         { name: "Aura flamme", slot: "Aura", supply: "Saison 1 · limité" },
@@ -1935,7 +1935,7 @@ export const fr: Dictionary = {
     items: [
       {
         q: "VVake, c'est un investissement ?",
-        a: "Le jeu, non. VVake est un jeu fitness : les récompenses de saison sont modestes et financées par de vrais revenus, et rien de ce qu'on vend (objets de collection, futur token éventuel) n'est un investissement ni une promesse de gain. Si tu veux investir, ça se passe à part, via des partenaires agréés : un courtier pour ton propre argent, ou une levée en capital réglementée dans l'entreprise.",
+        a: "Non. VVake est une app d'entraînement avec des défis : les récompenses de saison sont modestes et financées par de vrais revenus, et rien de ce qu'on vend (objets de collection, futur token éventuel) n'est un investissement ni une promesse de gain. Si tu veux investir, ça se passe à part, via des partenaires agréés : un courtier pour ton propre argent, ou une levée en capital réglementée dans l'entreprise.",
       },
       {
         q: "C'est gratuit ?",
@@ -1962,7 +1962,7 @@ export const fr: Dictionary = {
   footer: {
     tagline: "VVake Fit · Bouge pour ta santé, ta première richesse.",
     legal:
-      "VVake Fit est un jeu fitness, pas un produit financier. Rien sur ce site ne constitue un conseil en investissement ni une offre de token, de titre ou d'instrument financier. Les données de marché sont affichées à titre de divertissement. Les noms d'équipes et les tickers sont utilisés à des fins d'identification uniquement ; aucune affiliation ni aucun partenariat n'est sous-entendu.",
+      "VVake Fit est un service de fitness et d'entraînement, pas un produit financier. Rien sur ce site ne constitue un conseil en investissement ni une offre de token, de titre ou d'instrument financier. Les données de marché sont affichées à titre de divertissement. Les noms d'équipes et les tickers sont utilisés à des fins d'identification uniquement ; aucune affiliation ni aucun partenariat n'est sous-entendu.",
     privacy: "Confidentialité",
     partners: "Partenaires",
     contact: "Contact",

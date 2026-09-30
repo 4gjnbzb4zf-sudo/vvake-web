@@ -7,7 +7,7 @@ export const en = {
   meta: {
     title: "VVake Fit: the market wakes, we move",
     description:
-      "VVake Fit (say “wake fit”) is the free training game where your city, your crew and your squad move together, and your workouts pair with the stocks you follow. Heart over hype. Open books. Unlock your city.",
+      "VVake Fit (say “wake fit”) is a new way to train: work out with your crew, plan your week with an AI assistant, and challenge yourself and your city. Heart over hype. Open books. Unlock your city.",
     ogAlt: "VVake Fit: two Vs make a W. The market wakes, we move.",
   },
   nav: {
@@ -67,7 +67,7 @@ export const en = {
         target: "earn",
         icon: "🏆",
         title: "Rewards for showing up",
-        body: "In-game perks, season rewards and, where the law allows, prizes. The first 100 confirmed in your city become Founders. Scored on your heart, not your speed.",
+        body: "Perks in the app, season rewards and, where the law allows, prizes. The first 100 confirmed in your city become Founders. Scored on your heart, not your speed.",
         cta: "See the rewards",
       },
     ],
@@ -539,7 +539,7 @@ export const en = {
         icon: "🤝",
         when: 0,
         title: "Invite perks",
-        body: "Bring your friends, unlock your city sooner and get in-game perks once they really move.",
+        body: "Bring your friends, unlock your city sooner and get perks in the app once they really move.",
       },
       {
         icon: "🎟️",
@@ -658,7 +658,7 @@ export const en = {
   plus: {
     kicker: "VVake Fit Plus · optional",
     title: "More tools. Never an edge.",
-    body: "The free game is complete. Plus is for people who want deeper coaching, bigger crews and a few treats.",
+    body: "The free plan is complete. Plus is for people who want deeper coaching, bigger crews and a few treats.",
     name: "VVake Fit Plus",
     price: "{money}",
     per: "/ month",
@@ -669,7 +669,7 @@ export const en = {
       title: "Plus for life",
       price: "{money}",
       per: "once",
-      body: "All Plus tools, forever, for about 30 months of the monthly price. Same rule: never an edge. Counted into the public split over 36 months, so it funds the game for years.",
+      body: "All Plus tools, forever, for about 30 months of the monthly price. Same rule: never an edge. Counted into the public split over 36 months, so it funds VVake for years.",
     },
     cta: "Get notified at launch",
     perks: [
@@ -1074,7 +1074,7 @@ export const en = {
         thisMonth: "This month",
         pace: "At your pace: about {money} a month",
         left: "Left this month: {money}",
-        rule: "Your budget is a hard cap: once it's used, workouts still count for the game, not for investing. Change or pause it anytime.",
+        rule: "Your budget is a hard cap: once it's used, workouts still count for your challenges and your city, not for investing. Change or pause it anytime.",
       },
       brands: "Brand names and tickers identify listed companies. No affiliation or endorsement unless marked Partner.",
       week: "This week: {count} sessions → {money} invested, across {pairs} pairs",
@@ -1145,14 +1145,14 @@ export const en = {
     token: {
       kicker: "$VVAKE · planned · Robinhood Chain",
       title: "What $VVAKE is for.",
-      body: "$VVAKE is a community key, not a scoreboard. Holding it gives you a voice in the game, looks to show off and doors to open with other movers. It works on its own, and does a bit more with Plus. Everything that counts in the game stays earned by moving.",
+      body: "$VVAKE is a community key, not a scoreboard. Holding it gives you a voice in the community, looks to show off and doors to open with other movers. It works on its own, and does a bit more with Plus. Everything that counts in your challenges stays earned by moving.",
       tiers: [
         {
           icon: "🏃",
           name: "Free player",
           who: "No token, no subscription",
           perks: [
-            "The full game: plan, crews, challenges, city unlocks",
+            "Everything free: plan, crews, challenges, city unlocks",
             "Stats, levels and rankings earned by moving",
             "Season rewards for effort, where the law allows",
           ],
@@ -1351,7 +1351,7 @@ export const en = {
       { name: "Pioneer", who: "#101 to #1,000 in your city", perks: "Pioneer skin · 2 streak freezes · 24h early access" },
       { name: "Early Mover", who: "Everyone else who joins before launch", perks: "Early Mover badge · 1 streak freeze" },
     ],
-    tiersNote: "Perks are in-game only and activate after your first 3 real sessions. Fake signups get nothing.",
+    tiersNote: "Perks live in the app only and activate after your first 3 real sessions. Fake signups get nothing.",
     form: {
       step1: "1 · Pick your city",
       step2: "2 · Sign up to unlock {city}",
@@ -1400,7 +1400,7 @@ export const en = {
       copied: "Copied",
       shareX: "Share on X",
       shareText:
-        "Throw the sign. Wake your city. I'm #{rank} in {city} on VVake Fit, the fitness game where your city competes. Join me 👇 @VVakeFit",
+        "Throw the sign. Wake your city. I'm #{rank} in {city} on VVake Fit, the new way to train where your city competes. Join me 👇 @VVakeFit",
       campaign: ["Throw the sign.", "Wake your city."],
       shareLabel: "Spread it: every friend who joins moves {city} closer to unlock",
       nativeShare: "Share",
@@ -1411,7 +1411,7 @@ export const en = {
       storyFooter: "vvake.com · code {code}",
       ladder: {
         title: "Invite ladder",
-        note: "A friend counts once they confirm and finish their first 3 sessions. In-game perks only, up to 25 a season.",
+        note: "A friend counts once they confirm and finish their first 3 sessions. Perks in the app only, up to 25 a season.",
         steps: [
           { n: 1, icon: "⏰", title: "Wake-up call", body: "Badge on your profile" },
           { n: 3, icon: "🎨", title: "Exclusive skin", body: "A VVaker finish nobody can buy" },
@@ -1665,7 +1665,7 @@ export const en = {
     collect: {
       kicker: "Collector NFTs · optional",
       title: "Your VVaker is free. The drip is collectible.",
-      body: "Add-ons are limited seasonal collectibles in the VVake web portal: finishes, auras, trails, emotes and city kits. They look great on your VVaker and unlock things to do, but never an edge in the game.",
+      body: "Add-ons are limited seasonal collectibles in the VVake web portal: finishes, auras, trails, emotes and city kits. They look great on your VVaker and unlock things to do, but never an edge in any challenge.",
       cards: [
         { name: "Holo finish", slot: "Finish", supply: "Season 1 · capped" },
         { name: "Flame aura", slot: "Aura", supply: "Season 1 · capped" },
@@ -1794,7 +1794,7 @@ export const en = {
     items: [
       {
         q: "Is VVake an investment?",
-        a: "The game isn't. VVake is a fitness game: season rewards are small and funded by real revenue, and nothing we sell (collectibles, any future token) is an investment or a promise of profit. If you want to invest, that happens separately through licensed partners: a broker for your own money, or a regulated equity round in the company.",
+        a: "No. VVake is a training app with challenges: season rewards are small and funded by real revenue, and nothing we sell (collectibles, any future token) is an investment or a promise of profit. If you want to invest, that happens separately through licensed partners: a broker for your own money, or a regulated equity round in the company.",
       },
       {
         q: "Is it free?",
@@ -1821,7 +1821,7 @@ export const en = {
   footer: {
     tagline: "VVake Fit · Move for your health, your first wealth.",
     legal:
-      "VVake Fit is a fitness game, not a financial product. Nothing on this site is investment advice or an offer of any token, security or financial instrument. Market data is shown for entertainment only. Team names and tickers are used for identification only; no affiliation or endorsement is implied.",
+      "VVake Fit is a fitness and training service, not a financial product. Nothing on this site is investment advice or an offer of any token, security or financial instrument. Market data is shown for entertainment only. Team names and tickers are used for identification only; no affiliation or endorsement is implied.",
     privacy: "Privacy",
     partners: "Partners",
     contact: "Contact",
