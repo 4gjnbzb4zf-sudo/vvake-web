@@ -133,12 +133,12 @@ function HeroDevices({ hero, app }: { hero: Dictionary["hero"]; app: Dictionary[
         />
       ))}
 
-      {/* the VVaker in front of the phone, a different one at each load */}
+      {/* a woman and a man of the cast in front of the phone, a different pair at each load */}
       <div
         className="absolute bottom-0 left-0 z-10 h-[86%] animate-rise drop-shadow-[0_30px_40px_rgb(0_0_0/0.6)] sm:h-[96%]"
         aria-hidden="true"
       >
-        <HeroPersona className="h-full w-auto" />
+        <HeroPersona />
       </div>
       <div className="relative mr-4 ml-auto w-fit sm:mr-24" aria-hidden="true">
         <div className="pointer-events-none absolute inset-x-0 top-10 bottom-0 rounded-full bg-pulse/20 blur-[80px]" />
