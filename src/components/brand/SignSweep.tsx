@@ -17,14 +17,14 @@ const SVG_NS = "http://www.w3.org/2000/svg";
 function hand(): HTMLSpanElement {
   const wrap = document.createElement("span");
   wrap.dataset.sign = "";
-  wrap.className = "inline-flex items-baseline";
+  // Plain inline (not flex) so copy-paste reads "VVake" on one line; "VV" is zero-size text, still read aloud.
   const sr = document.createElement("span");
-  sr.className = "sr-only";
+  sr.className = "text-[0px]";
   sr.textContent = "VV";
   const svg = document.createElementNS(SVG_NS, "svg");
   svg.setAttribute("viewBox", HAND_VIEWBOX);
   svg.setAttribute("aria-hidden", "true");
-  svg.setAttribute("class", "mr-[0.02em] inline-block h-[1.02em] w-auto translate-y-[0.1em] self-baseline");
+  svg.setAttribute("class", "mr-[0.02em] inline-block h-[1.02em] w-auto translate-y-[0.1em] align-baseline");
   const g = document.createElementNS(SVG_NS, "g");
   g.setAttribute("transform", HAND_TRANSFORM);
   g.setAttribute("fill", "currentColor");
@@ -41,8 +41,19 @@ function hand(): HTMLSpanElement {
   return wrap;
 }
 
-/** Splits one text node at each "VVak…": text before, then [hand] + the rest of the word. */
+/**
+ * Splits one text node at each "VVak…": text before, then [hand] + the rest of the word. In a flex or grid parent
+ * the pieces would become separate items (spread apart, breaking the line), so the sentence is first wrapped in a
+ * single inline span there.
+ */
 function convert(node: Text) {
+  const parent = node.parentElement;
+  if (parent && /flex|grid/.test(getComputedStyle(parent).display)) {
+    const line = document.createElement("span");
+    line.dataset.signLine = "";
+    parent.insertBefore(line, node);
+    line.appendChild(node);
+  }
   let current: Text = node;
   for (let m = WORD.exec(current.data); m; m = WORD.exec(current.data)) {
     const rest = current.splitText(m.index); // rest starts with "VVak…"
