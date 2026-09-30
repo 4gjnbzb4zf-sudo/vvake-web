@@ -9,7 +9,8 @@ import { HAND_DOT, HAND_PATH, HAND_TRANSFORM, HAND_VIEWBOX } from "./handMark";
  * anything under [data-no-sign]. Screen readers and search still read "VV" (kept as visually hidden text).
  * Runs after hydration and on content that appears later (e.g. the signup success panel).
  */
-const WORD = /VVak/;
+// Not in handles, links or emails (@VVakeFit, vvake.com/…): those stay as typed.
+const WORD = /(?<![@\w/.])VVak/;
 const SKIP = "script,style,textarea,input,select,option,code,pre,svg,[contenteditable],[data-no-sign],[data-sign]";
 const SVG_NS = "http://www.w3.org/2000/svg";
 
@@ -69,15 +70,27 @@ function sweep(root: Node) {
 
 export function SignSweep() {
   useEffect(() => {
-    sweep(document.body);
-    const observer = new MutationObserver((records) => {
-      for (const r of records) {
-        if (r.type === "characterData") sweep(r.target);
-        r.addedNodes.forEach((n) => sweep(n));
-      }
-    });
-    observer.observe(document.body, { subtree: true, childList: true, characterData: true });
-    return () => observer.disconnect();
+    // Wait until React has hydrated everything, Suspense boundaries included (they hydrate after the page):
+    // editing server HTML React hasn't claimed yet would make it re-render that part.
+    let observer: MutationObserver | undefined;
+    const start = () => {
+      sweep(document.body);
+      observer = new MutationObserver((records) => {
+        for (const r of records) {
+          if (r.type === "characterData") sweep(r.target);
+          r.addedNodes.forEach((n) => sweep(n));
+        }
+      });
+      observer.observe(document.body, { subtree: true, childList: true, characterData: true });
+    };
+    const idle = window.requestIdleCallback ?? ((cb: () => void) => window.setTimeout(cb, 300));
+    const whenLoaded = () => idle(start, { timeout: 1500 });
+    if (document.readyState === "complete") whenLoaded();
+    else window.addEventListener("load", whenLoaded, { once: true });
+    return () => {
+      window.removeEventListener("load", whenLoaded);
+      observer?.disconnect();
+    };
   }, []);
   return null;
 }
