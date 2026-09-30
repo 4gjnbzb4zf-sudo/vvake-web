@@ -12,10 +12,11 @@ export function SignText({ text, className }: { text: string; className?: string
     <>
       {parts.map((part, i) =>
         part.startsWith("VVak") ? (
-          <span key={i} className={`inline-flex items-baseline whitespace-nowrap ${className ?? ""}`}>
-            <span className="sr-only">VV</span>
-            <LogoMark className="mr-[0.02em] h-[1.02em] translate-y-[0.1em] self-baseline text-current" />
-            <span>{part.slice(2)}</span>
+          // Plain inline so copy-paste reads "VVake" on one line; "VV" is zero-size text, still read aloud.
+          <span key={i} className={`whitespace-nowrap ${className ?? ""}`}>
+            <span className="text-[0px]">VV</span>
+            <LogoMark className="mr-[0.02em] inline-block h-[1.02em] translate-y-[0.1em] align-baseline text-current" />
+            {part.slice(2)}
           </span>
         ) : (
           <Fragment key={i}>{part}</Fragment>
