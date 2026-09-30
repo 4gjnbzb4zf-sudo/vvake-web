@@ -1,3 +1,4 @@
+import { HAND_DOT, HAND_PATH, HAND_TRANSFORM, HAND_VIEWBOX } from "../components/brand/handMark";
 import type { Dictionary } from "@/i18n/dictionaries";
 
 export const OG_SIZE = { width: 1200, height: 630 } as const;
@@ -17,14 +18,11 @@ export function OgCard({ dict }: { dict: Dictionary }) {
         color: "#e6e9eb",
       }}
     >
-      <svg width="104" height="120" viewBox="0 0 40 46" fill="none">
-        <g stroke="#ff3d6e" strokeWidth="6" strokeLinecap="round">
-          <path d="M14 34 L5.5 13" />
-          <path d="M20 33 L20 9" />
-          <path d="M26 34 L34.5 13" />
+      <svg width="69" height="120" viewBox={HAND_VIEWBOX}>
+        <g transform={HAND_TRANSFORM} fill="#e6e9eb">
+          <path d={HAND_PATH} />
         </g>
-        <path d="M11.5 30 Q11 43 20 43 Q29 43 28.5 30 Z" fill="#ff3d6e" />
-        <circle cx="20" cy="3" r="2.8" fill="#ccff00" />
+        <circle {...HAND_DOT} fill="#ccff00" />
       </svg>
       <div style={{ display: "flex", flexDirection: "column" }}>
         <div style={{ fontSize: 132, fontWeight: 800, letterSpacing: 8 }}>VVAKE</div>
