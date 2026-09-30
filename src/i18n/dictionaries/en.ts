@@ -44,6 +44,9 @@ export const en = {
     wealthNote: "Sweat & Invest · with Robinhood (planned) · your money · where available",
     ctaPrimary: "Unlock your city",
     ctaSecondary: "Meet your coach",
+    film: "The VVake film: wake up, run, swim, carve, work out with your crew.",
+    soundOn: "Sound on",
+    soundOff: "Sound off",
   },
   benefits: {
     kicker: "What's in it for you",

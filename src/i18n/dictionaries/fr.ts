@@ -42,6 +42,9 @@ export const fr: Dictionary = {
     wealthNote: "Sweat & Invest · avec Robinhood (prévu) · ton argent · selon le pays",
     ctaPrimary: "Débloque ta ville",
     ctaSecondary: "Rencontre ton coach",
+    film: "Le film VVake : réveille-toi, cours, nage, glisse, bouge avec ta crew.",
+    soundOn: "Activer le son",
+    soundOff: "Couper le son",
   },
   benefits: {
     kicker: "Ce que tu y gagnes",

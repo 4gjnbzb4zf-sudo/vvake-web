@@ -1,3 +1,4 @@
+import { HeroFilm } from "@/components/sections/HeroFilm";
 import { notFound } from "next/navigation";
 import { Benefits } from "@/components/sections/Benefits";
 import { Coach } from "@/components/sections/Coach";
@@ -24,6 +25,7 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
       <Header locale={lang} dict={dict.nav} />
       <main id="main">
         <Hero locale={lang} dict={dict.hero} highlights={dict.highlights} app={dict.app} />
+        <HeroFilm dict={dict.hero} />
         <Benefits locale={lang} dict={dict.benefits} />
         <Coach dict={dict.coach} index="01" />
         <Unlock locale={lang} dict={dict.unlock} countryLabels={dict.rivalries.tabs} index="02" />
