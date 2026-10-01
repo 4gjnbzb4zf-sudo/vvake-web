@@ -999,6 +999,51 @@ export const fr: Dictionary = {
       "Conseils bien-être, pas médicaux",
     ],
   },
+  screens: {
+    kicker: "La vraie app",
+    title: "Pas une maquette. L'app, en marche.",
+    lead: "Filmée sur iPhone et Apple Watch Ultra : ton plan, ton objectif, la course contre ton record, le rythme du jour et le verrou focus.",
+    phoneLabel: "iPhone",
+    watchLabel: "Apple Watch",
+    note: "Filmé dans le simulateur : cardio et GPS de démo. Les apps arrivent ville par ville.",
+    phone: [
+      { src: "phone-02-home", title: "Aujourd'hui", body: "Ton VVaker, la séance du jour, ton objectif et l'appel du coach." },
+      {
+        src: "phone-03-goals",
+        title: "Ton objectif",
+        body: "Être régulier, X séances en X semaines, une distance, ou perdre du poids sainement.",
+      },
+      {
+        src: "phone-04-plan",
+        title: "Ton plan",
+        body: "Calé sur ta semaine et ton corps : zones cardio à partir des données santé que tu partages.",
+      },
+      {
+        src: "phone-05-race",
+        title: "Bats ton record",
+        body: "Ton toi d'avant en fantôme sur la carte, en avance ou en retard à la seconde.",
+      },
+      {
+        src: "phone-06-rhythm",
+        title: "Rythme du jour",
+        body: "Eau, repas et sommeil autour de l'entraînement. Sans compter les calories.",
+      },
+      {
+        src: "phone-07-focus",
+        title: "Verrou focus",
+        body: "Pour les builders : après une longue session au bureau, ton Mac se verrouille jusqu'à ce que tu bouges.",
+      },
+      { src: "phone-08-health", title: "Tes données santé", body: "Partage seulement ce que tu veux, champ par champ. Jamais vendues." },
+      { src: "phone-09-rally", title: "Rejoins le Rally", body: "Ta Brand Team a bougé : choisis un sport et transpire avec les autres." },
+      { src: "phone-10-you", title: "Toi", body: "Ton VVaker, ta semaine et ton journal." },
+    ],
+    watch: [
+      { src: "watch-1-today", title: "Un tap pour démarrer", body: "La séance du jour, ou ta course contre ton record." },
+      { src: "watch-3-race", title: "En direct au poignet", body: "Cardio, zone, énergie et ton écart avec ton record." },
+      { src: "watch-4-map", title: "Ton parcours", body: "La force du GPS et la carte, enregistrées dans Santé." },
+      { src: "watch-6-coach", title: "L'appel du coach", body: "Ton VVaker t'appelle, dans l'app, si tu le veux." },
+    ],
+  },
   app: {
     kicker: "L'app",
     title: "Pensée pour ton poignet. Faite pour ta crew.",
