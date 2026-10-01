@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { AppPreview } from "@/components/sections/AppPreview";
+import { AppScreens } from "@/components/sections/AppScreens";
 import { Challenges } from "@/components/sections/Challenges";
 import { Crew } from "@/components/sections/Crew";
 import { Dare } from "@/components/sections/Dare";
@@ -50,6 +51,7 @@ export default async function AppPage({ params }: { params: Params }) {
         <Planner dict={dict.plan} sportNames={dict.multisport.sports} />
       </Section>
       <AppPreview dict={dict.app} index="02" />
+      <AppScreens dict={dict.screens} />
       <How dict={dict.how} index="03" />
       <DayLoop dict={dict.day} index="04" />
       <Multisport dict={dict.multisport} index="05" />
