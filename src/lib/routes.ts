@@ -6,7 +6,7 @@ export type Page = (typeof PAGES)[number];
 
 /** Which page each linkable section lives on. `unlock` (the waitlist) closes every page, so it stays in place. */
 const SECTION_PAGE: Record<string, Page> = {
-  coach: "",
+  coach: "app/",
   faq: "",
   why: "app/",
   plan: "app/",

@@ -9,7 +9,7 @@
   --color-line: #262a2f;
   --color-text: #e6e9eb;
   --color-muted: #9aa1a6;
-  --color-faint: #6b7278;
+  --color-faint: #80878d; /* ≥ 4.5:1 on night, surface and night-2 (WCAG AA small text) */
 
   --color-pulse: #ff3d6e;
   --color-pulse-soft: #ff7a9a;
@@ -128,7 +128,7 @@
   --color-line: #262a2f;
   --color-text: #e6e9eb;
   --color-muted: #9aa1a6;
-  --color-faint: #6b7278;
+  --color-faint: #80878d; /* ≥ 4.5:1 on night, surface and night-2 (WCAG AA small text) */
   --color-pulse-fg: #ff3d6e;
   --color-pulse-soft-fg: #ff7a9a;
   --color-volt-fg: #ccff00;

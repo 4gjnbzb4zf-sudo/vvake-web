@@ -67,3 +67,20 @@ describe("fetchCityCounts", () => {
     expect(await fetchCityCounts("", mockFetch(200, {}))).toBeNull();
   });
 });
+
+describe("signup wearable (optional)", () => {
+  it("accepts a known wearable and rejects anything else", async () => {
+    const f = mockFetch(200, okBody);
+    expect((await submitSignup("https://api.test", { ...draft, wearable: "ring" }, f)).ok).toBe(true);
+    expect(JSON.parse((f.mock.calls[0] as unknown as [string, RequestInit])[1].body as string)).toMatchObject({ wearable: "ring" });
+    expect(await submitSignup("https://api.test", { ...draft, wearable: "toaster" }, f)).toEqual({ ok: false, error: "invalid" });
+  });
+
+  it("trims the requested city like before", async () => {
+    const f = mockFetch(200, okBody);
+    await submitSignup("https://api.test", { email: "a@b.co", requestedCity: "  Grenoble  ", locale: "fr", consent: true }, f);
+    expect(JSON.parse((f.mock.calls[0] as unknown as [string, RequestInit])[1].body as string)).toMatchObject({
+      requestedCity: "Grenoble",
+    });
+  });
+});

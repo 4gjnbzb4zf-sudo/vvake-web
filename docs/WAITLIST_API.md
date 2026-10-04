@@ -9,8 +9,13 @@ and never shows fake numbers. Client: `src/lib/waitlist.ts` (schemas are the sou
 Request (`application/json`):
 
 ```json
-{ "email": "you@example.com", "city": "lyon", "fanbase": "OL", "ref": "ab12cd34", "locale": "fr", "consent": true }
+{ "email": "you@example.com", "city": "lyon", "fanbase": "OL", "wearable": "garmin", "ref": "ab12cd34", "locale": "fr", "consent": true }
 ```
+
+`wearable` is optional: one of `apple-watch`, `wear-os`, `garmin`, `ring`, `other`, `none` (the home page's
+"Your wearable (optional)" field; used to decide which integrations come first, never a promise of support).
+Store it with the signup and aggregate it per city; it is listed in the privacy notice. A server that doesn't know the
+field yet drops it silently (zod strips unknown keys), so the signup itself never fails because of it.
 
 Exactly one of `city` (a launch-city slug) or `requestedCity` (free text, 2–80 chars, e.g. `"Grenoble, France"`) is required.
 Requested cities are normalized server-side (trim, case, accents) and aggregated into a demand ranking; they get no tier and no counter until the city is added to the launch list.

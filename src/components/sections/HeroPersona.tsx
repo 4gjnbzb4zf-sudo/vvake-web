@@ -46,7 +46,14 @@ const noop = () => () => {};
 function Cast({ id, tall, className }: { id: CastId; tall: boolean; className: string }) {
   const img = castImage(id);
   return (
-    <Image src={img.src} width={img.w} height={img.h} alt="" priority className={`${className} w-auto ${tall ? "h-full" : "h-[88%]"}`} />
+    <Image
+      src={img.src}
+      width={img.w}
+      height={img.h}
+      alt=""
+      loading="lazy"
+      className={`${className} w-auto ${tall ? "h-full" : "h-[88%]"}`}
+    />
   );
 }
 

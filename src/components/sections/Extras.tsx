@@ -42,7 +42,8 @@ export function Dev({ dict, index }: { dict: Dictionary["dev"]; index: string })
   );
 }
 
-export function Faq({ dict }: { dict: Dictionary["faq"] }) {
+/** Short answers on demand; the details live on the deeper pages (linked from the answer where there is one). */
+export function Faq({ locale, dict }: { locale: Locale; dict: Dictionary["faq"] }) {
   return (
     <Section id="faq" title={dict.title} nav={dict.title}>
       <div className="mt-10 divide-y divide-line rounded-3xl border border-line bg-surface/50">
@@ -54,7 +55,20 @@ export function Faq({ dict }: { dict: Dictionary["faq"] }) {
                 +
               </span>
             </summary>
-            <p className="mt-3 max-w-3xl leading-relaxed text-muted">{item.a}</p>
+            <p className="mt-3 max-w-3xl leading-relaxed text-muted">
+              {item.a}
+              {"link" in item && (
+                <>
+                  {" "}
+                  <a
+                    href={`/${locale}/${item.link}`}
+                    className="font-semibold whitespace-nowrap text-pulse-fg underline-offset-4 hover:underline"
+                  >
+                    {dict.more} →
+                  </a>
+                </>
+              )}
+            </p>
           </details>
         ))}
       </div>

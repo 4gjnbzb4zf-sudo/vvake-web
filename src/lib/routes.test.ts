@@ -3,7 +3,7 @@ import { sectionHref } from "./routes";
 
 describe("sectionHref", () => {
   it("points each section at its page", () => {
-    expect(sectionHref("en", "coach")).toBe("/en/#coach");
+    expect(sectionHref("en", "coach")).toBe("/en/app/#coach");
     expect(sectionHref("fr", "crew")).toBe("/fr/app/#crew");
     expect(sectionHref("en", "rwa")).toBe("/en/backers/#rwa");
   });

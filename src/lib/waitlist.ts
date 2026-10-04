@@ -1,28 +1,40 @@
-import { z } from "zod";
+import * as z from "zod/mini";
 import { locales } from "@/i18n/config";
 import { CITY_SLUGS } from "./cities";
 
-/** Request body for POST {endpoint}/signup. Contract: docs/WAITLIST_API.md. */
+/**
+ * Optional "which wearable do you use?" answer (helps decide which integrations come first).
+ * Not a promise of support: see the device status on the home page.
+ */
+export const WEARABLES = ["apple-watch", "wear-os", "garmin", "ring", "other", "none"] as const;
+export type Wearable = (typeof WEARABLES)[number];
+
+/**
+ * Request body for POST {endpoint}/signup. Contract: docs/WAITLIST_API.md.
+ * Written with `zod/mini` (tree-shakable): the same rules as before at a fraction of the bundle size,
+ * since this ships to every page with the signup form.
+ */
 export const signupInputSchema = z
   .object({
-    email: z.email().max(254),
+    email: z.email().check(z.maxLength(254)),
     /** A launch city slug… */
-    city: z.enum(CITY_SLUGS).optional(),
+    city: z.optional(z.enum(CITY_SLUGS)),
     /** …or a free-text request for a city that isn't on the list yet ("Grenoble, France"). */
-    requestedCity: z.string().trim().min(2).max(80).optional(),
-    fanbase: z.string().trim().max(60).optional(),
-    ref: z
-      .string()
-      .regex(/^[a-z0-9]{6,12}$/)
-      .optional(),
+    requestedCity: z.optional(z.string().check(z.trim(), z.minLength(2), z.maxLength(80))),
+    fanbase: z.optional(z.string().check(z.trim(), z.maxLength(60))),
+    /** Optional: the wearable the person uses (or "none"). */
+    wearable: z.optional(z.enum(WEARABLES)),
+    ref: z.optional(z.string().check(z.regex(/^[a-z0-9]{6,12}$/))),
     locale: z.enum(locales),
     consent: z.literal(true),
     /** Cloudflare Turnstile token (bot check), when the check is on. */
-    turnstileToken: z.string().max(2048).optional(),
+    turnstileToken: z.optional(z.string().check(z.maxLength(2048))),
   })
-  .refine((v) => (v.city === undefined) !== (v.requestedCity === undefined), {
-    message: "Provide exactly one of city or requestedCity",
-  });
+  .check(
+    z.refine((v) => (v.city === undefined) !== (v.requestedCity === undefined), {
+      message: "Provide exactly one of city or requestedCity",
+    }),
+  );
 export type SignupInput = z.infer<typeof signupInputSchema>;
 
 /** Unvalidated form values; `submitSignup` validates them against `signupInputSchema`. */
@@ -31,6 +43,7 @@ export interface SignupDraft {
   city?: string;
   requestedCity?: string;
   fanbase?: string;
+  wearable?: string;
   ref?: string;
   locale: string;
   consent: boolean;
@@ -38,20 +51,20 @@ export interface SignupDraft {
 }
 
 export const signupResponseSchema = z.object({
-  referralCode: z.string().regex(/^[a-z0-9]{6,12}$/),
-  cityRank: z.number().int().positive(),
-  citySignups: z.number().int().nonnegative(),
+  referralCode: z.string().check(z.regex(/^[a-z0-9]{6,12}$/)),
+  cityRank: z.int().check(z.positive()),
+  citySignups: z.int().check(z.nonnegative()),
   /** Reserved tier; activates after 3 real sessions (ADR-0007). */
-  tier: z.enum(["founder", "pioneer", "early"]).nullable(),
+  tier: z.nullable(z.enum(["founder", "pioneer", "early"])),
   /** True when the email still needs to be verified. */
   pendingVerification: z.boolean(),
   /** "code": a 6-digit code was emailed, type it in the form · "later": the email follows · "done": verified. */
-  verification: z.enum(["code", "later", "done"]).optional(),
+  verification: z.optional(z.enum(["code", "later", "done"])),
 });
 export type SignupResponse = z.infer<typeof signupResponseSchema>;
 
 /** GET {endpoint}/cities → confirmed signups per city slug. */
-export const cityCountsSchema = z.record(z.string(), z.number().int().nonnegative());
+export const cityCountsSchema = z.record(z.string(), z.int().check(z.nonnegative()));
 export type CityCounts = z.infer<typeof cityCountsSchema>;
 
 export type SignupResult =

@@ -28,3 +28,7 @@ export function ButtonLink({ variant = "primary", className, children, ...props 
     </a>
   );
 }
+
+/** Text inputs and selects in forms (the waitlist). */
+export const inputClass =
+  "h-12 w-full rounded-xl border border-line bg-night px-4 text-text placeholder:text-faint outline-none transition-colors focus:border-pulse-fg";

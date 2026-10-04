@@ -1,20 +1,21 @@
-import Image from "next/image";
-import { castImage, type CastId } from "@/lib/personas";
+import { Shot } from "@/components/ui/Shot";
 
-/** The app's welcome crew (same three as the phone's first screen): the first thing a phone visitor sees. */
-const TRIO: { id: CastId; className: string }[] = [
-  { id: "walker-f", className: "h-[170px] -mr-7" },
-  { id: "runner-m", className: "relative z-10 h-[210px]" },
-  { id: "baller-f", className: "h-[170px] -ml-7" },
-];
+/**
+ * The app's welcome crew (same three as the phone's first screen): the first thing a phone visitor sees.
+ * Pre-sized (420 px tall, 2× the largest size shown) instead of the 900 px cast files.
+ */
+const TRIO = [
+  { id: "walker-f", w: 176, className: "h-[170px] w-auto -mr-7" },
+  { id: "runner-m", w: 224, className: "relative z-10 h-[210px] w-auto" },
+  { id: "baller-f", w: 203, className: "h-[170px] w-auto -ml-7" },
+] as const;
 
 export function HeroTrio() {
   return (
-    <div className="mb-5 flex animate-rise items-end justify-center drop-shadow-[0_24px_30px_rgb(0_0_0/0.55)] lg:hidden" aria-hidden="true">
-      {TRIO.map(({ id, className }) => {
-        const img = castImage(id);
-        return <Image key={id} src={img.src} width={img.w} height={img.h} alt="" priority className={`w-auto ${className}`} />;
-      })}
+    <div className="mb-5 flex items-end justify-center drop-shadow-[0_24px_30px_rgb(0_0_0/0.55)] lg:hidden" aria-hidden="true">
+      {TRIO.map(({ id, w, className }) => (
+        <Shot key={id} name={`cast-${id}`} width={w} height={420} alt="" eager className={className} />
+      ))}
     </div>
   );
 }

@@ -21,7 +21,7 @@ export function VVMark({ className }: { className?: string }) {
 /** The wordmark: the hand is the W of WAKE, so the sign and the name read as one word ([hand]AKE). */
 export function Logo({ className }: { className?: string; animated?: boolean }) {
   return (
-    <span className={cn("inline-flex items-end", className)} aria-label="VVake">
+    <span className={cn("inline-flex items-end", className)} role="img" aria-label="VVake">
       <LogoMark className="-mr-0.5 h-[1.9rem]" />
       <span aria-hidden="true" className="font-display text-[1.15rem] leading-[1.02] font-semibold tracking-[0.12em] text-text">
         AKE

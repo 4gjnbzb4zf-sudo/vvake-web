@@ -3,9 +3,9 @@ import type { Dictionary } from "./en";
 /** French copy. Must match the English structure exactly (checked by the type system). */
 export const fr: Dictionary = {
   meta: {
-    title: "VVake Fit : la Bourse se réveille, nous on bouge",
+    title: "VVake Fit : ton coach, ta crew, ta ville",
     description:
-      "VVake Fit (ça se dit « wake fit ») est une nouvelle façon de s'entraîner : bouge avec ta crew, planifie ta semaine avec un assistant IA, et défie-toi, toi et ta ville. Le cœur avant la hype. Des comptes ouverts. Débloque ta ville.",
+      "VVake Fit (ça se dit « wake fit ») est un coach sportif IA : un plan qui colle à ta semaine, des séances à ton rythme, ta crew et ta ville. Apps iPhone et Apple Watch en développement ; accès anticipé ville par ville.",
     ogAlt: "VVake Fit : deux V font un W. La Bourse se réveille, nous on bouge.",
   },
   nav: {
@@ -31,20 +31,16 @@ export const fr: Dictionary = {
   },
   hero: {
     pronounce: "VVake Fit · ça se dit « wake fit »",
-    chain: "RWA × Robinhood Chain · prévu",
+    status: "iPhone + Apple Watch · en développement",
     prefix: "VVake up",
     anthem: ["pour ta santé.", "pour ta richesse.", "pour toi.", "pour ton squad.", "pour ta ville.", "pour ton équipe."],
-    love: "Course, yoga, padel, danse, muscu, une grande balade : tu sais déjà ce que tu aimes faire.",
-    loveKicker: "Il est temps de VVake up et de le faire plus souvent.",
-    lead: "Un coach IA qui prend de tes nouvelles à la voix dans l'app, et un plan qui colle à ta semaine. Chaque séance compte pour des avantages et le classement de ta ville.",
-    trainingChip: "Plan synchronisé avec ton agenda",
-    wealthChip: "{money} investi par séance",
-    wealthNote: "Sweat & Invest · avec Robinhood (prévu) · ton argent · selon le pays",
-    ctaPrimary: "Débloque ta ville",
-    ctaSecondary: "Rencontre ton coach",
-    film: "Le film VVake : réveille-toi, cours, nage, glisse, bouge avec ta crew.",
-    soundOn: "Activer le son",
-    soundOff: "Couper le son",
+    title: ["Ton coach.", "Ta crew.", "Ta ville."],
+    lead: "VVake est un coach sportif IA. Il t'aide à faire un plan qui colle à ta semaine, à bouger à ton rythme, à venir avec ta crew et à compter pour ta ville.",
+    ctaPrimary: "Rejoindre l'accès anticipé",
+    ctaSecondary: "Voir le film",
+    phoneAlt: "L'app VVake sur iPhone, Aujourd'hui : ton VVaker, le plan du jour, ton objectif et l'appel du coach.",
+    watchAlt: "L'app VVake sur Apple Watch pendant une séance : fréquence cardiaque, zone et ton écart avec ton record.",
+    shots: "Vrais écrans de l'app · enregistrés dans le simulateur",
   },
   benefits: {
     kicker: "Ce que tu y gagnes",
@@ -105,6 +101,101 @@ export const fr: Dictionary = {
       },
     ],
   },
+  home: {
+    film: {
+      kicker: "Le film",
+      title: "37 secondes de VVake",
+      lead: "Ton coach appelle, ta semaine a un plan, ta crew est là, ta ville joue la rivalité. Le son et les sous-titres sont dans le lecteur.",
+      label: "Le film VVake : réveille-toi, cours, nage, glisse, bouge avec ta crew.",
+      transcriptLabel: "Lire la transcription (traduite de l'anglais)",
+      transcript: [
+        "Ton coach t'appelle : un coach IA qui prend de tes nouvelles à la voix.",
+        "Un plan qui colle à ta semaine.",
+        "Cours, roule, nage, flow, glisse, grimpe.",
+        "Chaque sport compte.",
+        "Entraîne-toi avec ta crew.",
+        "Ta ville contre la leur.",
+        "Fais le signe. Réveille ta ville.",
+        "Lancement ville par ville. Réserve ta place.",
+      ],
+    },
+    loop: {
+      kicker: "Comment ça marche",
+      title: "Planifie. Bouge. Vois tes progrès.",
+      steps: [
+        {
+          title: "Fais ton plan",
+          body: "Dis à ton coach ton objectif, tes jours libres et le temps que tu as. Il construit ta semaine autour de ton agenda et allège après une semaine difficile.",
+          alt: "L'écran Plan de l'app VVake : les séances de la semaine avec des cibles de fréquence cardiaque.",
+        },
+        {
+          title: "Bouge à ton rythme",
+          body: "Lance la séance sur ton iPhone ou ton Apple Watch. Fréquence cardiaque, zone et parcours en direct ; ton coach prend de tes nouvelles à la voix si tu le souhaites. Chaque sport compte.",
+          alt: "L'app VVake sur Apple Watch pendant une séance : fréquence cardiaque, zone et ton écart avec ton record.",
+        },
+        {
+          title: "Vois tes progrès",
+          body: "Ta semaine et ton journal au même endroit, et ton VVaker grandit quand tu bouges. Compté sur l'effort de ton cœur, pas sur la vitesse.",
+          alt: "L'écran Toi de l'app VVake : ton VVaker, ta semaine et ton journal.",
+        },
+      ],
+    },
+    sample: {
+      kicker: "Essaie",
+      title: "Esquisse une semaine type",
+      lead: "Choisis tes jours et le temps que tu as. C'est un simple exemple, pas ton plan : dans l'app, ton coach le construit à partir de ton objectif, de ton niveau et de ton agenda.",
+      days: "Quels jours ?",
+      dayShort: ["Lun", "Mar", "Mer", "Jeu", "Ven", "Sam", "Dim"],
+      dayLong: ["Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi", "Dimanche"],
+      minutes: "Minutes par séance",
+      lighter: "Semaine plus légère",
+      lighterHint: "Dans l'app, les semaines légères arrivent toutes seules : une semaine sur 4, ou après une semaine difficile.",
+      summary: "{sessions} séances · {minutes} min cette semaine",
+      summaryOne: "1 séance · {minutes} min cette semaine",
+      none: "Choisis au moins un jour. Même une courte séance compte.",
+      rest: "Repos",
+      min: "{n} min",
+      note: "Exemple uniquement : jours × minutes ; une semaine légère fait environ 75 % (arrondi à 5, 10 min minimum). Ni une prescription d'entraînement, ni l'algorithme du coach.",
+    },
+    crew: {
+      kicker: "Ta crew",
+      title: "Mardi, 19 h, la boucle du canal.",
+      lead: "Un exemple : cinq amis, une sortie par semaine. Chacun répond dans l'app, ton coach organise le reste de ta semaine autour, et venir ensemble rapporte des points de crew.",
+      when: "Chaque mardi · 19 h 00",
+      what: "Sortie de crew · 5 km tranquille, chacun à son rythme",
+      going: "4 viennent · 1 peut-être",
+      rsvp: "J'y vais",
+      note: "Crew d'exemple, pour illustrer.",
+    },
+    clash: {
+      kicker: "Ta ville",
+      title: "City Clash : ta ville contre la leur.",
+      lead: "Des villes rivales s'affrontent. Chaque séance que tu enregistres compte pour ta ville, rapportée au nombre de personnes : une petite ville peut battre une grande.",
+      steps: [
+        { title: "12 h de préparation", body: "Les crews planifient leurs séances et motivent leurs amis." },
+        { title: "12 h de clash", body: "Chaque séance enregistrée ajoute au score de ta ville." },
+        { title: "Juste par principe", body: "Par personne, sur l'effort de ton cœur, pas sur la vitesse ni la distance." },
+      ],
+      you: "Ta ville",
+      rival: "Ville rivale",
+      note: "Illustration, pas des scores en direct. Les clashs commencent quand les villes ouvrent.",
+    },
+    devices: {
+      kicker: "Appareils",
+      title: "Ce qui marche aujourd'hui, ce qui vient",
+      lead: "VVake n'est pas encore sur l'App Store : les apps sont en développement et testées sur nos propres appareils. Voici où on en est, honnêtement.",
+      groups: [
+        {
+          status: "En développement",
+          tone: "now",
+          items: ["App iPhone", "App Apple Watch", "Apple Santé", "Agendas Apple et Google"],
+        },
+        { status: "Prévu", tone: "next", items: ["Téléphone Android et Health Connect", "Montres Wear OS", "Garmin"] },
+        { status: "À l'étude", tone: "maybe", items: ["Bagues connectées", "Autres objets connectés et apps"] },
+      ],
+      note: "Dis-nous ce que tu portes en t'inscrivant : ça aide à choisir ce qui vient en premier. Rien ici n'est une promesse de compatibilité ni une date.",
+    },
+  },
   pages: {
     app: {
       kicker: "L'app",
@@ -129,9 +220,6 @@ export const fr: Dictionary = {
       { kicker: "👻 Course fantôme", title: "+42 m devant le fantôme de Léo", cta: "Défie tes amis, quand tu veux" },
       { kicker: "🔥 Défi de crew", title: "Le plus de minutes actives ce week-end", cta: "Relève le défi" },
     ],
-  },
-  highlights: {
-    strip: ["Le cœur, pas la vitesse", "Rivalités de villes", "Équipe à livre ouvert"],
   },
   showcase: {
     label: "À la une",
@@ -1492,6 +1580,16 @@ export const fr: Dictionary = {
         "Inscris-toi quand même : les villes les plus demandées sont débloquées ensuite, et tu seras parmi les premiers quand la tienne le sera.",
       fanbase: "Ton équipe (optionnel)",
       fanbasePlaceholder: "ex. OM, Stade Toulousain, Packers",
+      wearable: "Ton objet connecté (facultatif)",
+      wearableSkip: "Je préfère ne pas répondre",
+      wearables: {
+        "apple-watch": "Apple Watch",
+        "wear-os": "Montre Wear OS",
+        garmin: "Garmin",
+        ring: "Bague connectée",
+        other: "Un autre objet connecté",
+        none: "Aucun, juste mon téléphone",
+      },
       consent: "J'accepte de recevoir les nouvelles du lancement de VVake. Je peux me désinscrire à tout moment.",
       privacy: "Politique de confidentialité",
       submit: "Rejoindre la liste",
@@ -1980,30 +2078,34 @@ export const fr: Dictionary = {
   },
   faq: {
     title: "Questions",
+    more: "En savoir plus",
     items: [
       {
-        q: "VVake, c'est un investissement ?",
-        a: "Non. VVake est une app d'entraînement avec des défis : les récompenses de saison sont modestes et financées par de vrais revenus, et rien de ce qu'on vend (objets de collection, futur token éventuel) n'est un investissement ni une promesse de gain. Si tu veux investir, ça se passe à part, via des partenaires agréés : un courtier pour ton propre argent, ou une levée en capital réglementée dans l'entreprise.",
+        q: "Je peux utiliser VVake maintenant ?",
+        a: "Pas encore. Les apps iPhone et Apple Watch sont en développement et pas sur l'App Store. Android et d'autres appareils sont prévus (voir l'état des appareils plus haut). Rejoins l'accès anticipé et on t'écrit quand tu peux commencer.",
       },
       {
-        q: "C'est gratuit ?",
-        a: "Oui. Bouger, les squads, les rivalités et ton VVaker sont gratuits. Les options, comme les objets de collection ou VVake Fit Plus, ne sont jamais nécessaires pour participer, et ne donnent jamais d'avantage.",
+        q: "Quand est-ce que ça arrive dans ma ville ?",
+        a: "Ville par ville : une ville ouvre quand assez de personnes la rejoignent, et les villes rivales ouvrent ensemble. Pas encore de date. Si ta ville n'est pas dans la liste, demande-la en t'inscrivant : les villes les plus demandées passent ensuite.",
       },
       {
-        q: "Que deviennent mes données de santé ?",
-        a: "Elles sont chiffrées avec une clé que toi seul détiens. On ne les vend jamais et on ne les utilise jamais pour de la pub. L'usage pour la recherche est sur consentement et anonymisé.",
+        q: "Faut-il être en forme ?",
+        a: "Non. Ton plan part de là où tu en es : tes jours, tes minutes, ton niveau. Les séances comptent sur l'effort de ton cœur, pas sur la vitesse, et si quelque chose fait mal, le plan s'allège et passe en faible impact. VVake n'est pas un avis médical : en cas de doute, parles-en à un médecin.",
       },
       {
-        q: "Quels appareils ?",
-        a: "Apple Watch et Wear OS dès le premier jour, plus un mode téléphone seul. Les sessions fonctionnent hors ligne et se synchronisent plus tard.",
+        q: "C'est gratuit ? Faut-il un wallet ou des cryptos ?",
+        a: "Gratuit pour commencer, et tu n'as jamais besoin d'un wallet ni de cryptos pour t'entraîner. Les options comme VVake Fit Plus ne sont jamais nécessaires pour participer et ne donnent jamais d'avantage.",
+        link: "app/#plus",
       },
       {
-        q: "Il y a un token ou des NFT ?",
-        a: "Ton VVaker est gratuit et unique. Les options de collection (portail web, adultes, pas dans tous les pays) ont une vraie utilité : organiser de plus grands événements de crew, créer des défis, des créneaux prioritaires pour acheter dossards et billets, de l'équipement à récupérer. Les stats, elles, se gagnent uniquement en bougeant et ne s'achètent jamais. Une couche web3 plus large, dont le token $VVAKE sur Robinhood Chain, est prévue plus tard, sous réserve d'une revue juridique, et ne sera jamais nécessaire pour jouer. Rien de ce que nous vendons n'est un investissement : l'investissement réglementé passe par des partenaires agréés.",
+        q: "Que deviennent mes données ?",
+        a: "Pour l'accès anticipé, on garde ton e-mail, ta ville, ta langue et les réponses facultatives que tu donnes (équipe, objet connecté). Dans l'app, tu partages tes données de santé champ par champ ; elles ne sont jamais vendues ni utilisées pour la pub.",
+        link: "privacy/",
       },
       {
-        q: "Quand est-ce que vous lancez ?",
-        a: "Ville par ville, dès que ta ville atteint son nombre d'inscrits. Les villes rivales se lancent ensemble.",
+        q: "C'est quoi vibe/vibe ? Il y a un token ?",
+        a: "VVake est un service de sport et d'entraînement, pas un produit financier. Une couche web3 est prévue plus tard sur vibe/vibe, une plateforme de lancement indépendante sur Robinhood Chain (testnet aujourd'hui), sous réserve d'un examen juridique et jamais nécessaire pour s'entraîner. Rien à acheter ici ; aucune récompense, aucun rendement ni aucune allocation n'est promis. VVake n'est ni affilié à vibe/vibe ni soutenu par vibe/vibe.",
+        link: "backers/",
       },
     ],
   },
@@ -2022,7 +2124,7 @@ export const fr: Dictionary = {
     sections: [
       {
         h: "Ce que nous collectons",
-        p: "Ton e-mail, ta ville, éventuellement ton équipe, la langue utilisée, et le code de parrainage utilisé ou reçu.",
+        p: "Ton e-mail, ta ville, éventuellement ton équipe et l'objet connecté que tu utilises, la langue utilisée, et le code de parrainage utilisé ou reçu.",
       },
       {
         h: "Pourquoi",

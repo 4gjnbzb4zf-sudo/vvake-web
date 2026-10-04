@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { AppPreview } from "@/components/sections/AppPreview";
 import { AppScreens } from "@/components/sections/AppScreens";
 import { Challenges } from "@/components/sections/Challenges";
+import { Coach } from "@/components/sections/Coach";
 import { Crew } from "@/components/sections/Crew";
 import { Dare } from "@/components/sections/Dare";
 import { DayLoop } from "@/components/sections/DayLoop";
@@ -40,7 +41,7 @@ function rivalryViews(): RivalryView[] {
   });
 }
 
-/** The app in depth: the plan, the app itself, a day, every sport, rewards, competing, crews, your city, wellbeing, Plus. */
+/** The app in depth: the plan, the coach call, the app itself, a day, every sport, rewards, competing, crews, your city, wellbeing, Plus. */
 export default async function AppPage({ params }: { params: Params }) {
   const { lang } = await params;
   if (!isLocale(lang)) notFound();
@@ -50,35 +51,36 @@ export default async function AppPage({ params }: { params: Params }) {
       <Section id="plan" index="01" kicker={dict.plan.kicker} title={dict.plan.title} lead={dict.plan.body}>
         <Planner dict={dict.plan} sportNames={dict.multisport.sports} />
       </Section>
-      <AppPreview dict={dict.app} index="02" />
+      <Coach dict={dict.coach} index="02" />
+      <AppPreview dict={dict.app} index="03" />
       <AppScreens dict={dict.screens} />
-      <How dict={dict.how} index="03" />
-      <DayLoop dict={dict.day} index="04" />
-      <Multisport dict={dict.multisport} index="05" />
-      <Why dict={dict.why} index="06" />
-      <Earn locale={lang} dict={dict.earn} index="07" />
+      <How dict={dict.how} index="04" />
+      <DayLoop dict={dict.day} index="05" />
+      <Multisport dict={dict.multisport} index="06" />
+      <Why dict={dict.why} index="07" />
+      <Earn locale={lang} dict={dict.earn} index="08" />
       <Showcase locale={lang} dict={dict.showcase} />
-      <Challenges dict={dict.challenges} index="08" />
-      <Dare dict={dict.dare} index="09" />
-      <Pace dict={dict.pace} index="10" />
-      <Crew dict={dict.crew} index="11" />
-      <People dict={dict.people} index="12" />
+      <Challenges dict={dict.challenges} index="09" />
+      <Dare dict={dict.dare} index="10" />
+      <Pace dict={dict.pace} index="11" />
+      <Crew dict={dict.crew} index="12" />
+      <People dict={dict.people} index="13" />
       <Section
         id="rivalries"
-        index="13"
+        index="14"
         kicker={dict.rivalries.kicker}
         title={<span className="inline-block -skew-x-6 italic">{dict.rivalries.title}</span>}
         lead={dict.rivalries.body}
       >
         <RivalryBoard dict={dict.rivalries} rivalries={rivalryViews()} numberLocale={lang} />
       </Section>
-      <Live dict={dict.live} index="14" numberLocale={lang} />
-      <Wellbeing dict={dict.wellbeing} index="15" />
-      <Section id="journal" index="16" kicker={dict.journal.kicker} title={dict.journal.title} lead={dict.journal.body}>
+      <Live dict={dict.live} index="15" numberLocale={lang} />
+      <Wellbeing dict={dict.wellbeing} index="16" />
+      <Section id="journal" index="17" kicker={dict.journal.kicker} title={dict.journal.title} lead={dict.journal.body}>
         <Journal dict={dict.journal} />
       </Section>
-      <Plus dict={dict.plus} index="17" />
-      <Unlock locale={lang} dict={dict.unlock} countryLabels={dict.rivalries.tabs} index="18" />
+      <Plus dict={dict.plus} index="18" />
+      <Unlock locale={lang} dict={dict.unlock} countryLabels={dict.rivalries.tabs} index="19" />
     </Subpage>
   );
 }

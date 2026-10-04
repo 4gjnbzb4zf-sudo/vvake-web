@@ -1,9 +1,9 @@
-import { z } from "zod";
+import * as z from "zod/mini";
 
 /** GET {liveEndpoint}/live: city-level totals only, already rounded and k-anonymized server-side. */
 export const liveSnapshotSchema = z.object({
   updatedAt: z.string(),
-  cities: z.array(z.object({ slug: z.string(), active: z.number().int().nonnegative() })),
+  cities: z.array(z.object({ slug: z.string(), active: z.int().check(z.nonnegative()) })),
 });
 export type LiveSnapshot = z.infer<typeof liveSnapshotSchema>;
 

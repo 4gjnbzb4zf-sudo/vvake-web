@@ -1,124 +1,78 @@
-import type { Locale } from "@/i18n/config";
-import { sectionHref } from "@/lib/routes";
 import { LogoMark } from "@/components/brand/Logo";
-import { SignText } from "@/components/brand/SignText";
-import { MoneyText } from "@/components/ui/Money";
 import { ButtonLink } from "@/components/ui/Button";
-import { Marquee } from "@/components/ui/Marquee";
 import { Container } from "@/components/ui/Section";
+import { Shot } from "@/components/ui/Shot";
 import type { Dictionary } from "@/i18n/dictionaries";
-import { getCity, RIVALRIES } from "@/lib/cities";
-import { AnthemRotator } from "./AnthemRotator";
 import { HeroPersona } from "./HeroPersona";
 import { HeroTrio } from "./HeroTrio";
-import { PhoneMock, WatchMock } from "./AppPreview";
 
-interface HeroProps {
-  locale: Locale;
-  dict: Dictionary["hero"];
-  highlights: Dictionary["highlights"];
-  app: Dictionary["app"];
-}
-
-export function Hero({ locale, dict, highlights, app }: HeroProps) {
-  return (
-    <section className="relative overflow-hidden" aria-labelledby="hero-title">
-      <div className="bg-voxel-grid pointer-events-none absolute inset-0 [mask-image:radial-gradient(ellipse_at_top,black_30%,transparent_75%)]" />
-      <div className="pointer-events-none absolute -top-40 left-1/2 h-[520px] w-[820px] -translate-x-1/2 rounded-full bg-pulse/15 blur-[120px]" />
-      <div className="pointer-events-none absolute right-0 -bottom-40 h-[380px] w-[520px] rounded-full bg-volt/10 blur-[120px]" />
-
-      <Container className="relative grid items-center gap-14 pt-6 pb-16 sm:pt-24 lg:grid-cols-[1fr_1.15fr] lg:pb-24">
-        <div className="animate-rise">
-          <HeroTrio />
-          <div className="inline-flex max-w-full flex-wrap items-center gap-y-1 rounded-full border border-line bg-surface/70 py-1.5 pr-1.5 pl-2 text-[13px] whitespace-nowrap text-muted sm:flex-nowrap">
-            {/* "VVake Fit · say it…" with the sign as the W: [hand]ake Fit, no repeated VV. */}
-            <span className="ml-1.5 inline-flex items-end" aria-label={dict.pronounce}>
-              <LogoMark className="mr-px h-[1.45em] shrink-0 text-text" />
-              <span aria-hidden="true">{dict.pronounce.replace(/^VV/, "")}</span>
-            </span>
-            <span aria-hidden="true" className="mx-2.5 hidden h-4 w-px bg-line sm:block" />
-            <a
-              href={sectionHref(locale, "rwa")}
-              className="ml-2 rounded-full bg-volt/10 px-3 py-0.5 text-volt-fg transition-colors hover:bg-volt/20 sm:ml-0"
-            >
-              ⛓️ {dict.chain}
-            </a>
-          </div>
-
-          <h1 id="hero-title" className="mt-6 font-display text-5xl leading-[1.02] font-bold tracking-tight sm:mt-8 sm:text-7xl">
-            <span className="sr-only">{dict.anthem.map((line) => `${dict.prefix} ${line}`).join(" ")}</span>
-            <span aria-hidden="true" className="block text-text">
-              <SignText text={dict.prefix} />
-            </span>
-            <span aria-hidden="true" className="text-gradient-pulse block pb-2">
-              <AnthemRotator lines={dict.anthem} />
-            </span>
-          </h1>
-
-          <p className="mt-6 max-w-xl font-display text-xl leading-snug font-semibold text-balance text-text sm:text-2xl">
-            {dict.love}{" "}
-            <span className="text-pulse-fg">
-              <SignText text={dict.loveKicker} />
-            </span>
-          </p>
-
-          <p className="mt-4 max-w-xl text-lg leading-relaxed text-muted">{dict.lead}</p>
-
-          <div className="mt-9 flex flex-col gap-3 sm:flex-row">
-            <ButtonLink href="#unlock">{dict.ctaPrimary}</ButtonLink>
-            <ButtonLink href="#coach" variant="ghost">
-              {dict.ctaSecondary}
-            </ButtonLink>
-          </div>
-        </div>
-
-        <HeroDevices hero={dict} app={app} />
-      </Container>
-
-      <div className="relative z-10 -mx-4 -rotate-1 border-y-2 border-volt-fg/40 bg-night-2 py-4 font-mono text-xs tracking-[0.2em] text-volt-fg uppercase italic">
-        <Marquee items={[...highlights.strip, ...RIVALRY_TICKER]} />
-      </div>
-    </section>
-  );
-}
-
-/** City names are proper nouns, so the rivalry ticker is shared by every locale. */
-const RIVALRY_TICKER = RIVALRIES.map((r) => r.cities.map((slug) => getCity(slug)?.name ?? slug).join(" vs "));
-
-const DOWN = "#e07856";
-const UP = "#5bd08a";
-const CANDLES = [
-  { x: 40, open: 250, close: 290, color: DOWN },
-  { x: 70, open: 230, close: 280, color: UP },
-  { x: 100, open: 260, close: 300, color: DOWN },
-  { x: 130, open: 240, close: 270, color: DOWN },
-] as const;
-
-/** Floating voxel "pixels" around the crew: deterministic positions so SSR and client match. */
+/** Floating voxel "pixels" around the devices: deterministic positions so SSR and client match. CSS only. */
 const PIXELS = [
   { left: "8%", top: "14%", size: 10, color: "bg-pulse", delay: "0s" },
   { left: "22%", top: "4%", size: 7, color: "bg-volt", delay: "-1.5s" },
   { left: "86%", top: "10%", size: 9, color: "bg-lilac", delay: "-3s" },
   { left: "94%", top: "30%", size: 6, color: "bg-volt", delay: "-2s" },
   { left: "4%", top: "70%", size: 8, color: "bg-mint", delay: "-4s" },
-  { left: "60%", top: "92%", size: 7, color: "bg-pulse", delay: "-1s" },
   { left: "78%", top: "84%", size: 10, color: "bg-butter", delay: "-5s" },
-  { left: "40%", top: "0%", size: 6, color: "bg-sky", delay: "-2.5s" },
 ] as const;
 
-/** Training first, wealth a close second: the phone + watch in action, a heartbeat line out of market candles. */
-function HeroDevices({ hero, app }: { hero: Dictionary["hero"]; app: Dictionary["app"] }) {
+/**
+ * The first screen has one job: say what VVake is (an AI fitness coach: your coach, your crew, your city) and offer
+ * early access or the film. The devices show real app screens, not mockups. Server-rendered; the only client code is
+ * the random cast duo on large screens.
+ */
+export function Hero({ dict }: { dict: Dictionary["hero"] }) {
   return (
-    <div className="relative mx-auto w-full max-w-[640px] pb-6">
+    <section className="relative overflow-hidden" aria-labelledby="hero-title">
+      <div className="bg-voxel-grid pointer-events-none absolute inset-0 [mask-image:radial-gradient(ellipse_at_top,black_30%,transparent_75%)]" />
+      <div className="pointer-events-none absolute -top-40 left-1/2 h-[520px] w-[820px] -translate-x-1/2 rounded-full bg-pulse/15 blur-[120px]" />
+
+      <Container className="relative grid items-center gap-12 pt-6 pb-16 sm:pt-20 lg:grid-cols-[1fr_1.05fr] lg:pb-24">
+        {/* No entrance animation on the text: it's the largest paint on phones and should show at once. */}
+        <div>
+          <HeroTrio />
+          <p className="inline-flex max-w-full flex-wrap items-center gap-x-3 gap-y-1 rounded-full border border-line bg-surface/70 py-1.5 pr-3 pl-2 text-[13px] text-muted">
+            {/* "VVake Fit · say it…" with the sign as the W: [hand]ake Fit, no repeated VV. */}
+            <span className="ml-1.5 inline-flex items-end whitespace-nowrap">
+              <span className="sr-only">{dict.pronounce}</span>
+              <LogoMark className="mr-px h-[1.45em] shrink-0 text-text" />
+              <span aria-hidden="true">{dict.pronounce.replace(/^VV/, "")}</span>
+            </span>
+            <span className="inline-flex items-center gap-1.5 whitespace-nowrap text-volt-fg">
+              <span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-volt" />
+              {dict.status}
+            </span>
+          </p>
+
+          <h1 id="hero-title" className="mt-6 font-display text-5xl leading-[1.02] font-bold tracking-tight sm:mt-8 sm:text-7xl">
+            {dict.title.map((line, i) => (
+              <span key={line} className={i === dict.title.length - 1 ? "text-gradient-pulse block pb-2" : "block text-text"}>
+                {line}
+              </span>
+            ))}
+          </h1>
+
+          <p className="mt-6 max-w-xl text-lg leading-relaxed text-muted sm:text-xl">{dict.lead}</p>
+
+          <div className="mt-9 flex flex-col gap-3 sm:flex-row">
+            <ButtonLink href="#unlock">{dict.ctaPrimary}</ButtonLink>
+            <ButtonLink href="#film" variant="ghost">
+              ▶ {dict.ctaSecondary}
+            </ButtonLink>
+          </div>
+        </div>
+
+        <HeroDevices dict={dict} />
+      </Container>
+    </section>
+  );
+}
+
+/** A real iPhone screen and a real Apple Watch screen, with two of the cast in front on large screens. */
+function HeroDevices({ dict }: { dict: Dictionary["hero"] }) {
+  return (
+    <figure className="relative mx-auto w-full max-w-[600px] pb-6">
       <svg viewBox="0 0 520 520" className="absolute inset-0 h-full w-full" aria-hidden="true">
-        <g opacity="0.4">
-          {CANDLES.map((c) => (
-            <g key={c.x}>
-              <path d={`M${c.x + 7} ${c.open - 14} V${c.close + 14}`} stroke={c.color} strokeWidth="2" />
-              <rect x={c.x} y={c.open} width="14" height={c.close - c.open} rx="2" fill={c.color} />
-            </g>
-          ))}
-        </g>
         <path
           d="M0 262 H200 L215 262 L228 200 L244 330 L258 262 H300 L312 236 L324 286 L334 262 H520"
           stroke="#ccff00"
@@ -142,30 +96,24 @@ function HeroDevices({ hero, app }: { hero: Dictionary["hero"]; app: Dictionary[
         />
       ))}
 
-      {/* a woman and a man of the cast in front of the phone, a different pair at each load (on phones the trio
-          at the top of the hero plays that part) */}
-      <div
-        className="absolute bottom-0 left-0 z-10 hidden h-[96%] animate-rise drop-shadow-[0_30px_40px_rgb(0_0_0/0.6)] lg:block"
-        aria-hidden="true"
-      >
+      {/* A woman and a man of the cast in front of the phone (large screens; phones get the trio above the title).
+          Lazy, so phones never download them. */}
+      <div className="absolute bottom-10 -left-6 z-10 hidden h-[68%] drop-shadow-[0_30px_40px_rgb(0_0_0/0.6)] lg:block" aria-hidden="true">
         <HeroPersona />
       </div>
-      <div className="relative mr-4 ml-auto w-fit sm:mr-24" aria-hidden="true">
-        <div className="pointer-events-none absolute inset-x-0 top-10 bottom-0 rounded-full bg-pulse/20 blur-[80px]" />
-        <div className="relative -rotate-2">
-          <PhoneMock dict={app.phone} />
-        </div>
-        <div className="absolute -right-8 -bottom-4 origin-bottom-right scale-[0.62] rotate-3 sm:-right-28 sm:scale-100">
-          <WatchMock dict={app.watch} />
-        </div>
-      </div>
 
-      <div className="absolute top-2 -right-2 z-20 w-44 rotate-3 animate-float rounded-xl bg-mint p-3 text-ink shadow-[0_18px_40px_-12px_rgb(91_208_138/0.55)] [animation-delay:-2s] sm:-right-10">
-        <p className="font-display text-lg leading-tight font-bold">
-          📈 <MoneyText template={hero.wealthChip} usd={1} />
-        </p>
-        <p className="mt-1 font-mono text-[0.58rem] leading-tight tracking-[0.06em] uppercase">{hero.wealthNote}</p>
+      <div className="relative mx-auto w-fit lg:mr-20">
+        <div className="pointer-events-none absolute inset-x-0 top-10 bottom-0 rounded-full bg-pulse/20 blur-[80px]" />
+        <div className="relative w-[230px] -rotate-2 rounded-[40px] border-[7px] border-[#1c1f24] bg-black p-1 shadow-[0_40px_80px_-30px_rgb(0_0_0/0.8)] sm:w-[260px]">
+          <Shot name="phone-02-home" width={560} height={1214} alt={dict.phoneAlt} className="block h-auto w-full rounded-[32px]" />
+        </div>
+        <div className="absolute -right-10 -bottom-6 w-[118px] rotate-3 rounded-[34px] border-[6px] border-[#8a8f96] bg-black p-1 shadow-[0_30px_60px_-20px_rgb(0_0_0/0.8)] sm:-right-24 sm:w-[150px]">
+          <Shot name="watch-3-race" width={360} height={438} alt={dict.watchAlt} className="block h-auto w-full rounded-[26px]" />
+        </div>
       </div>
-    </div>
+      <figcaption className="relative z-20 mt-10 text-center font-mono text-[0.68rem] tracking-[0.14em] text-faint uppercase lg:pl-40 lg:text-right">
+        {dict.shots}
+      </figcaption>
+    </figure>
   );
 }
