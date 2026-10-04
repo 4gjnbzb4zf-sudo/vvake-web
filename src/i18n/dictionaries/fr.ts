@@ -2144,6 +2144,20 @@ export const fr: Dictionary = {
       },
     ],
   },
+  challenge: {
+    title: "On t'a lancé un défi sur VVake",
+    from: "{name} te lance un défi",
+    metric: "Sur {metric} · {hours} h",
+    metrics: { effort: "l'effort de ton cœur", minutes: "les minutes actives", "active-days": "les jours actifs", distance: "la distance" },
+    lead: "Ouvre l'invitation dans l'app VVake pour l'accepter. Juste par principe : compté sur l'effort de ton cœur, pas sur la vitesse.",
+    open: "Ouvrir dans l'app",
+    noApp:
+      "Pas encore l'app ? Les apps iPhone et Apple Watch sont en développement et ouvrent ville par ville. Rejoins l'accès anticipé pour passer en premier.",
+    join: "Rejoindre l'accès anticipé",
+    code: "Code d'invitation",
+    loading: "Recherche de l'invitation…",
+    invalid: "Ce lien de défi semble incomplet. Demande à ton ami de te le renvoyer.",
+  },
   notFound: { title: "Perdu en route ?", body: "Cette page fait un jour de repos.", cta: "Retour à l'accueil" },
   root: { choose: "Choisis ta langue" },
 };
