@@ -2315,7 +2315,7 @@ export const en = {
           },
           {
             t: "Sign out, discard a session.",
-            d: "Sign out from the app at any time. To discard a past session: in You, long-press it in your journal or tap ⋯ and choose Discard this session, or tap Select to discard several. It is removed from your journal, streak, points and stats, on our servers and your phone. Unlink Claude Code in You > Connections; unlink your wallet or sign out on vvake.com/rewards. To sign out another phone or watch, write to {email}.",
+            d: "Sign out from the app at any time. To discard a past session: in You, long-press it in your journal or tap ⋯ and choose Discard this session, or tap Select to discard several. It is removed from your journal, streak, points and stats, on our servers and your phone. Unlink Claude Code in You > Connections; unlink your wallet or sign out on vvake.com/rewards. To sign out another phone, watch or browser, remove it in the app under You > Your account > Devices.",
           },
           {
             t: "Access and portability.",
