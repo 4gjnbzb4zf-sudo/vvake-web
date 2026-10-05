@@ -2094,7 +2094,7 @@ export const fr: Dictionary = {
       },
       {
         q: "C'est gratuit ? Faut-il un wallet ou des cryptos ?",
-        a: "Gratuit pour commencer, et tu n'as jamais besoin d'un wallet ni de cryptos pour t'entraîner. Les options comme VVake Fit Plus ne sont jamais nécessaires pour participer et ne donnent jamais d'avantage.",
+        a: "Gratuit pour commencer, et tu n'as jamais besoin d'un wallet ni de cryptos pour t'entraîner. Un wallet sert seulement à réclamer les prix $VVAKE hebdomadaires facultatifs, sur vvake.com/rewards, jamais dans l'app. Les options comme VVake Fit Plus ne sont jamais nécessaires pour participer et ne donnent jamais d'avantage.",
         link: "app/#plus",
       },
       {
@@ -2103,9 +2103,9 @@ export const fr: Dictionary = {
         link: "privacy/",
       },
       {
-        q: "C'est quoi vibe/vibe ? Il y a un token ?",
-        a: "VVake est un service de sport et d'entraînement, pas un produit financier. Une couche web3 est prévue plus tard sur vibe/vibe, une plateforme de lancement indépendante sur Robinhood Chain (testnet aujourd'hui), sous réserve d'un examen juridique et jamais nécessaire pour s'entraîner. Rien à acheter ici ; aucune récompense, aucun rendement ni aucune allocation n'est promis. VVake n'est ni affilié à vibe/vibe ni soutenu par vibe/vibe.",
-        link: "backers/",
+        q: "Il y a un token ? C'est quoi les prix $VVAKE ?",
+        a: "VVake est un service de sport et d'entraînement, pas un produit financier. Chaque semaine, tes séances comptées te donnent des prix $VVAKE pour avoir bougé : les comptes gratuits y ont droit, et les prix ne dépendent jamais du nombre de tokens que tu détiens. Une part des revenus de VVake Fit Plus alimente la cagnotte, convertie sur la chaîne selon des règles publiques. Tu réclames tes prix depuis ton propre portefeuille sur vvake.com/rewards ; VVake ne détient jamais tes tokens et ne te demande jamais ta phrase de récupération. Testnet pour l'instant : les tokens n'ont aucune valeur, rien à acheter, et rien ici n'est une offre ni un conseil en placement. Pas offert aux États-Unis ni au Royaume-Uni au lancement, sous réserve d'un examen juridique.",
+        link: "rewards/",
       },
     ],
   },

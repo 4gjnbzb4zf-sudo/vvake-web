@@ -1941,7 +1941,7 @@ export const en = {
       },
       {
         q: "Is it free? Do I need a wallet or crypto?",
-        a: "Free to start, and you never need a wallet or crypto to train. Optional extras like VVake Fit Plus are never required to take part and never give an edge.",
+        a: "Free to start, and you never need a wallet or crypto to train. A wallet is only for claiming the optional weekly $VVAKE prizes, on vvake.com/rewards, never in the app. Optional extras like VVake Fit Plus are never required to take part and never give an edge.",
         link: "app/#plus",
       },
       {
@@ -1950,9 +1950,9 @@ export const en = {
         link: "privacy/",
       },
       {
-        q: "What's vibe/vibe? Is there a token?",
-        a: "VVake is a fitness and training service, not a financial product. A web3 layer is planned for later on vibe/vibe, an independent launchpad on Robinhood Chain (testnet today), subject to legal review and never needed to train. Nothing to buy here; no rewards, returns or allocations are promised. VVake isn't affiliated with or endorsed by vibe/vibe.",
-        link: "backers/",
+        q: "Is there a token? What are the $VVAKE prizes?",
+        a: "VVake is a fitness and training service, not a financial product. Each week, your counted sessions in the app turn into $VVAKE prizes for moving: free accounts are eligible, and prizes never depend on how many tokens you hold. A share of VVake Fit Plus revenue funds the prize pool, converted on chain by public rules. You claim from your own wallet on vvake.com/rewards; VVake never holds your tokens and never asks for your recovery phrase. Testnet today: the tokens have no value, nothing to buy, and nothing here is an offer or investment advice. Not offered in the US or UK at launch, subject to legal review.",
+        link: "rewards/",
       },
     ],
   },
