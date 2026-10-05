@@ -2004,6 +2004,15 @@ export const en = {
     loading: "Looking up the invite…",
     invalid: "This challenge link looks incomplete. Ask your friend to send it again.",
   },
+  claude: {
+    title: "Link Claude Code to VVake",
+    code: "Link code",
+    lead: "Scan this from your iPhone with VVake installed. Nothing from your code or prompts ever leaves your computer: only desk minutes.",
+    open: "Open in VVake",
+    noApp: "No app yet? The iPhone and Apple Watch apps are in development and open city by city. Join early access to get in first.",
+    join: "Get VVake early access",
+    invalid: "This link looks incomplete. Run /vvake:link in Claude Code for a fresh one.",
+  },
   notFound: { title: "Lost your way?", body: "This page took a rest day.", cta: "Back home" },
   root: { choose: "Choose your language" },
 };

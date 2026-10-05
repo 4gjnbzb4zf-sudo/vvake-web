@@ -3,7 +3,10 @@
     "details": [
       {
         "appIDs": ["4RMR8QACMY.com.vvake.app"],
-        "components": [{ "/": "/c/*", "comment": "Challenge invites: open in the VVake app" }]
+        "components": [
+          { "/": "/c/*", "comment": "Challenge invites: open in the VVake app" },
+          { "/": "/claude/*", "comment": "Claude Code link codes: open in the VVake app" }
+        ]
       }
     ]
   },

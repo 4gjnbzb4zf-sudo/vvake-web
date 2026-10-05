@@ -2158,6 +2158,16 @@ export const fr: Dictionary = {
     loading: "Recherche de l'invitation…",
     invalid: "Ce lien de défi semble incomplet. Demande à ton ami de te le renvoyer.",
   },
+  claude: {
+    title: "Relie Claude Code à VVake",
+    code: "Code de liaison",
+    lead: "Scanne ça avec ton iPhone où VVake est installée. Rien de ton code ni de tes requêtes ne quitte ton ordi : seulement des minutes au bureau.",
+    open: "Ouvrir dans VVake",
+    noApp:
+      "Pas encore l'app ? Les apps iPhone et Apple Watch sont en développement et ouvrent ville par ville. Rejoins l'accès anticipé pour passer en premier.",
+    join: "Rejoindre l'accès anticipé",
+    invalid: "Ce lien semble incomplet. Lance /vvake:link dans Claude Code pour en avoir un nouveau.",
+  },
   notFound: { title: "Perdu en route ?", body: "Cette page fait un jour de repos.", cta: "Retour à l'accueil" },
   root: { choose: "Choisis ta langue" },
 };

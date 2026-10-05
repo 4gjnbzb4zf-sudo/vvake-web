@@ -6,6 +6,7 @@ import { fr } from "@/i18n/dictionaries/fr";
 import { defaultLocale, locales } from "@/i18n/config";
 import { LOCALE_STORAGE_KEY, negotiateLocale } from "@/i18n/negotiate";
 import { challengeRedirect } from "@/lib/challengeLink";
+import { claudeRedirect } from "@/lib/claudeLink";
 import { fontVariables } from "./fonts";
 import "./globals.css";
 
@@ -13,16 +14,18 @@ export const metadata: Metadata = { title: "404 · VVake", robots: { index: fals
 
 /**
  * GitHub Pages serves this page for every unknown path, including challenge links (/c/<code>) opened by someone
- * without the app: send those to the localized fallback page (/<lang>/c/#<code>), same language rules as "/".
+ * without the app, and Claude Code link codes (/claude/<code>): send those to the localized fallback page
+ * (/<lang>/c/#<code>, /<lang>/claude/#<code>), same language rules as "/".
  */
 const CHALLENGE_REDIRECT = `(function(){
 var negotiate=${negotiateLocale.toString()};
 var challengeRedirect=${challengeRedirect.toString()};
+var claudeRedirect=${claudeRedirect.toString()};
 var supported=${JSON.stringify(locales)};
 var saved=null;try{saved=localStorage.getItem(${JSON.stringify(LOCALE_STORAGE_KEY)})}catch(e){}
 var prefs=navigator.languages&&navigator.languages.length?navigator.languages:[navigator.language||""];
 var lang=saved&&supported.indexOf(saved)>=0?saved:negotiate(prefs,supported,${JSON.stringify(defaultLocale)});
-var to=challengeRedirect(location.pathname,lang);if(to)location.replace(to);
+var to=challengeRedirect(location.pathname,lang)||claudeRedirect(location.pathname,lang);if(to)location.replace(to);
 })();`;
 
 export default function GlobalNotFound() {
