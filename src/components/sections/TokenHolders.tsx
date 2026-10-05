@@ -5,13 +5,14 @@ import { sectionHref } from "@/lib/routes";
 
 const TIER_STYLES = ["border-line", "border-mint-fg/40", "border-volt-fg/40", "border-pulse-fg/50"] as const;
 
-/** What the planned $VVAKE token is for: holder perks with or without Plus, what stays equal, what it never does (ADR-0020). */
+/** What $VVAKE is for: holder perks with or without Plus, the Plus-funded prize pool (ADR-0022, ADR-0023), what stays equal, what it never does (ADR-0020). */
 export function TokenHolders({ locale, dict }: { locale: Locale; dict: Dictionary["rwa"]["token"] }) {
   const LINKS = {
     vibe: siteConfig.vibeVibeUrl,
     x: siteConfig.social.x,
     charter: sectionHref(locale, "open-book"),
     faq: sectionHref(locale, "faq"),
+    rewards: `/${locale}/rewards/`,
   };
   return (
     <div className="mt-8 rounded-[2rem] border border-pulse-fg/40 bg-gradient-to-br from-pulse/10 via-transparent to-volt/10 p-6 sm:p-8">
@@ -87,17 +88,23 @@ export function TokenHolders({ locale, dict }: { locale: Locale; dict: Dictionar
           </dl>
         </div>
         <div className="rounded-2xl border border-pulse-fg/50 bg-gradient-to-br from-pulse/15 to-night/60 p-5">
-          <p className="font-display text-xl font-semibold">{dict.burn.title}</p>
-          <p className="mt-2 text-sm leading-relaxed text-muted">{dict.burn.body}</p>
+          <p className="font-display text-xl font-semibold">{dict.prizePool.title}</p>
+          <p className="mt-2 text-sm leading-relaxed text-muted">{dict.prizePool.body}</p>
           <ol className="mt-3 space-y-1.5 text-sm">
-            {dict.burn.steps.map((s, i) => (
+            {dict.prizePool.steps.map((s, i) => (
               <li key={s}>
                 <span className="mr-2 font-mono text-pulse-fg">{i + 1}.</span>
                 {s}
               </li>
             ))}
           </ol>
-          <p className="mt-3 text-xs leading-relaxed text-faint">{dict.burn.note}</p>
+          <p className="mt-3 text-xs leading-relaxed text-faint">{dict.prizePool.note}</p>
+          <a
+            href={LINKS.rewards}
+            className="mt-4 inline-block rounded-full border border-pulse-fg/50 px-3 py-1.5 text-sm text-text transition hover:border-volt-fg"
+          >
+            {dict.prizePool.cta} →
+          </a>
         </div>
       </div>
 

@@ -641,8 +641,8 @@ export const en = {
       {
         icon: "💵",
         when: 1,
-        title: "Season rewards for effort",
-        body: "A share of fee revenue goes back to movers, in a regulated stablecoin or perks, once anti-cheat and appeals are live. Based on effort, capped, never pay-to-earn.",
+        title: "Weekly prizes for moving",
+        body: "Plus funds a monthly prize pool, turned into $VVAKE by public rules and handed out each week for effort. Free accounts are eligible, 18+, and you claim from your own wallet on vvake.com/rewards. Testnet today: no value.",
       },
       {
         icon: "📈",
@@ -1247,8 +1247,8 @@ export const en = {
         {
           icon: "🪙",
           title: "$VVAKE token",
-          body: "$VVAKE is the planned ticker of the VVake Fit token, to launch on Robinhood Chain through vibe/vibe. Optional, never needed to play, never a way to buy stats. Not issued yet, nothing to buy today.",
-          status: "Planned · ticker $VVAKE",
+          body: "$VVAKE is the VVake Fit token. Today it lives on Robinhood Chain Testnet, where it pays the weekly prizes for moving: testnet tokens have no value. Optional, never needed to play, never a way to buy stats. Nothing to buy here.",
+          status: "Testnet · ticker $VVAKE",
         },
         {
           icon: "📈",
@@ -1267,7 +1267,7 @@ export const en = {
         "Robinhood and Robinhood Chain are trademarks of Robinhood Markets, Inc. VVake Fit is independent and is not affiliated with or endorsed by Robinhood. Integrations are planned and depend on agreements, regulation and availability in your country.",
     },
     token: {
-      kicker: "$VVAKE · planned · Robinhood Chain",
+      kicker: "$VVAKE · testnet · Robinhood Chain",
       title: "What $VVAKE is for.",
       body: "$VVAKE is a community key, not a scoreboard. Holding it gives you a voice in the community, looks to show off and doors to open with other movers. It works on its own, and does a bit more with Plus. Everything that counts in your challenges stays earned by moving.",
       tiers: [
@@ -1278,7 +1278,7 @@ export const en = {
           perks: [
             "Everything free: plan, crews, challenges, city unlocks",
             "Stats, levels and rankings earned by moving",
-            "Season rewards for effort, where the law allows",
+            "Weekly $VVAKE prizes for moving (18+, testnet today)",
           ],
         },
         {
@@ -1289,7 +1289,7 @@ export const en = {
             "Deeper coaching and your voice coach",
             "Bigger crews and more challenges",
             "VVaker renders and treats",
-            "Pay by card, or by burning $VVAKE",
+            "Funds the monthly prize pool for everyone, never a bigger prize for you",
           ],
         },
         {
@@ -1344,27 +1344,29 @@ export const en = {
           { label: "Launch", value: "Public launch with anti-snipe settings" },
           { label: "Supply and tier amounts", value: "Fixed at launch, in the white paper" },
           { label: "Launchpad trading fees", value: "70% season rewards · 30% reserve" },
-          { label: "Rewards pool", value: "Never buys $VVAKE" },
-          { label: "Plus paid in $VVAKE", value: "Burned on-chain, never kept or resold" },
+          { label: "Prize pool", value: "A fixed, published share of net Plus revenue" },
+          { label: "Conversions", value: "By rule on chain: capped daily, anyone can trigger" },
+          { label: "Where converted $VVAKE goes", value: "Only to the rewards contract" },
         ],
       },
-      burn: {
-        title: "🔥 Burn $VVAKE to pay for Plus",
-        body: "Pay your Plus month or year with $VVAKE instead of a card. You burn the amount worth the Plus price in your currency at that moment; the tokens go to the burn address, and VVake never receives, keeps or resells them.",
+      prizePool: {
+        title: "🏆 Plus funds a monthly prize pool",
+        body: "Each month a fixed, published share of net VVake Fit Plus revenue goes to the prize pool, a public contract (VVakePrizePool), with a hash of that month's report on chain. The pool turns it into $VVAKE by rule, never by anyone's choice.",
         steps: [
-          "Pick Plus monthly or yearly",
-          "See the live quote (price checked within the last minute)",
-          "Confirm in your wallet: the tokens are burned and Plus starts",
+          "Conversions run in small capped chunks, at most once a day, and anyone can trigger the next one",
+          "The $VVAKE goes only to the rewards contract (VVakeRewards), never to a person or a team wallet",
+          "Each week, prizes for effort: counted sessions, capped per day. Free accounts are eligible, never by holdings. You claim from your own wallet on vvake.com/rewards (18+)",
         ],
-        note: "Same price as paying by card: no discount, no bonus. Up to a quarter of Plus seats each season can be paid this way, so Plus keeps funding the public fee split. Every burn is listed in the Open book.",
+        note: "Testnet today: the tokens have no value. Nothing is burned and nothing goes to holders. Legal review and an external audit of the contracts come before any mainnet value. Paying Plus with testnet $VVAKE exists only in development builds of the app, to test the flow (the tokens go to the VVake treasury); it isn't offered in TestFlight or the App Store.",
+        cta: "See the prizes and the pool",
       },
       equal: {
         title: "Same for everyone, token or not",
-        body: "Stats, levels, rankings, matchmaking and season rewards. Rewards pay for effort in a stablecoin or perks, never for holding, and the rewards pool never buys $VVAKE.",
+        body: "Stats, levels, rankings, matchmaking and weekly prizes. Prizes pay for effort, never for holding $VVAKE, and Plus never buys anyone a bigger prize.",
       },
       never: {
         title: "What $VVAKE never does",
-        items: ["Yield or staking returns", "Revenue share or buybacks", "Buy stats or an edge", "Team allocation", "Needed to play"],
+        items: ["Yield or staking returns", "Revenue share to holders", "Buy stats or an edge", "Team allocation", "Needed to play"],
       },
       links: [
         { to: "vibe", label: "vibe/vibe launchpad (testnet)" },
@@ -1373,7 +1375,7 @@ export const en = {
         { to: "faq", label: "Token FAQ" },
       ],
       notice:
-        "Not issued yet: nothing to buy today, and holder features may change after legal review. The only official contract address will be posted on vvake.com and @VVakeFit; anything else is fake. Not offered in the US or UK at launch. Nothing here is an offer of tokens or financial advice. Robinhood Chain is a trademark of Robinhood Markets, Inc.; VVake Fit is not affiliated with Robinhood.",
+        "Testnet only: the tokens have no value, there's no mainnet token yet, nothing to buy here, and holder features may change after legal review. The only official contract addresses are posted on vvake.com and @VVakeFit; anything else is fake. Not offered in the US or UK at launch. Nothing here is an offer of tokens or financial advice. Robinhood Chain is a trademark of Robinhood Markets, Inc.; VVake Fit is not affiliated with Robinhood.",
     },
     lanes: [
       {
@@ -1391,8 +1393,8 @@ export const en = {
       {
         tag: "On-chain (planned)",
         title: "Robinhood Chain keeps it open",
-        body: "The chain where tokenized stocks (RWA) already live. Planned: a public fee-split contract, season rewards for effort paid in a stablecoin or perks, collectibles with real utility (never an edge), and later an optional VVake token, ticker $VVAKE, on vibe/vibe.",
-        points: ["Public fee split, on-chain", "Season rewards for effort", "Web portal only · 18+ · not in every country"],
+        body: "The chain where tokenized stocks (RWA) already live. On testnet today: weekly $VVAKE prizes for effort, funded by Plus and claimed from your own wallet. Planned: a public fee-split contract, collectibles with real utility (never an edge), and the $VVAKE mainnet launch on vibe/vibe after legal review.",
+        points: ["Public fee split, on-chain", "Weekly prizes for effort", "Web portal only · 18+ · not in every country"],
       },
     ],
     stockRewards: {
@@ -1951,7 +1953,7 @@ export const en = {
       },
       {
         q: "Is there a token? What are the $VVAKE prizes?",
-        a: "VVake is a fitness and training service, not a financial product. Each week, your counted sessions in the app turn into $VVAKE prizes for moving: free accounts are eligible, and prizes never depend on how many tokens you hold. A share of VVake Fit Plus revenue funds the prize pool, converted on chain by public rules. You claim from your own wallet on vvake.com/rewards; VVake never holds your tokens and never asks for your recovery phrase. Testnet today: the tokens have no value, nothing to buy, and nothing here is an offer or investment advice. Not offered in the US or UK at launch, subject to legal review.",
+        a: "VVake is a fitness and training service, not a financial product. Each week, your counted sessions in the app turn into $VVAKE prizes for moving: prizes are for people 18 or older, free accounts are eligible, and prizes never depend on how many tokens you hold. A fixed, published share of net VVake Fit Plus revenue funds the prize pool, converted on chain by public rules. You claim from your own wallet on vvake.com/rewards; VVake never holds your tokens and never asks for your recovery phrase. Testnet today: the tokens have no value, nothing to buy, and nothing here is an offer or investment advice. Not offered in the US or UK at launch, subject to legal review.",
         link: "rewards/",
       },
     ],
@@ -2443,11 +2445,11 @@ export const en = {
       appCode: "Code from the app",
       appCodePlaceholder: "ABCD2345",
       appHint:
-        'In the app, signed in: You → Connections → Apple Watch → Show a link code. Type the 8-character code here within 2 minutes. This browser then shows up in your devices as "Web (vvake.com)", and you can remove it there.',
+        'In the app, signed in: You → Connections → Apple Watch → Show a link code. Type the 8-character code here within 2 minutes. This browser then shows up in the app as "Web (vvake.com)" under You → Your account → Devices, where you can remove it. Signing out on this page also ends its session on the VVake servers.',
       redeem: "Sign in",
       signedInAs: "Signed in as {name}",
       signOut: "Sign out",
-      tabNote: "You stay signed in until you close this tab.",
+      tabNote: "You stay signed in until you close this tab. Sign out to end this browser's session on VVake's servers too.",
       first: "Sign in above to link a wallet and claim.",
     },
     mine: {
@@ -2488,6 +2490,8 @@ export const en = {
       signing: "Check your wallet: sign the message to link it.",
       done: "Wallet linked.",
       sameAsLinked: "This is your linked wallet.",
+      adult: "I'm 18 or older and allowed to receive prizes where I live.",
+      adultFirst: "Confirm you're 18 or older to link a wallet.",
     },
     claim: {
       index: "03",
@@ -2513,7 +2517,7 @@ export const en = {
       items: [
         {
           h: "Plus funds the pool",
-          p: "Each month a published share of Plus subscription revenue goes to an open prize pool contract, with a hash of that month's report on chain.",
+          p: "Each month a fixed, published share of net Plus subscription revenue goes to an open prize pool contract, with a hash of that month's report on chain.",
         },
         {
           h: "The pool turns ETH into VVAKE by rule",
@@ -2522,6 +2526,10 @@ export const en = {
         {
           h: "Prizes are for moving",
           p: "Your counted sessions give you VV points, capped per day. Free accounts are eligible. Prizes never depend on how many tokens you hold.",
+        },
+        {
+          h: "18 or older",
+          p: "Prizes are only for people 18 or older who are allowed to receive them where they live. You confirm it before linking a wallet.",
         },
         {
           h: "You claim, VVake never holds them",

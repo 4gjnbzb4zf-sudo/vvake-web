@@ -655,8 +655,8 @@ export const fr: Dictionary = {
       {
         icon: "💵",
         when: 1,
-        title: "Récompenses de saison pour l'effort",
-        body: "Une part des revenus de frais revient à ceux qui bougent, en stablecoin réglementé ou en avantages, une fois l'anti-triche et les recours en place. Selon l'effort, plafonné, jamais pay-to-earn.",
+        title: "Des prix chaque semaine pour avoir bougé",
+        body: "Plus alimente une cagnotte mensuelle, convertie en $VVAKE selon des règles publiques et distribuée chaque semaine pour l'effort. Les comptes gratuits y ont droit, 18 ans et plus, et tu réclames depuis ton propre portefeuille sur vvake.com/rewards. Testnet pour l'instant : aucune valeur.",
       },
       {
         icon: "📈",
@@ -1306,8 +1306,8 @@ export const fr: Dictionary = {
         {
           icon: "🪙",
           title: "Token $VVAKE",
-          body: "$VVAKE est le ticker prévu du token VVake Fit, lancé sur Robinhood Chain via vibe/vibe. Optionnel, jamais nécessaire pour jouer, jamais un moyen d'acheter des stats. Pas encore émis, rien à acheter aujourd'hui.",
-          status: "Prévu · ticker $VVAKE",
+          body: "$VVAKE est le token VVake Fit. Aujourd'hui il vit sur Robinhood Chain Testnet, où il sert aux prix hebdomadaires pour avoir bougé : les tokens de testnet n'ont aucune valeur. Optionnel, jamais nécessaire pour jouer, jamais un moyen d'acheter des stats. Rien à acheter ici.",
+          status: "Testnet · ticker $VVAKE",
         },
         {
           icon: "📈",
@@ -1326,7 +1326,7 @@ export const fr: Dictionary = {
         "Robinhood et Robinhood Chain sont des marques de Robinhood Markets, Inc. VVake Fit est indépendant, sans affiliation ni recommandation de Robinhood. Les intégrations sont prévues et dépendent d'accords, de la réglementation et de la disponibilité dans ton pays.",
     },
     token: {
-      kicker: "$VVAKE · prévu · Robinhood Chain",
+      kicker: "$VVAKE · testnet · Robinhood Chain",
       title: "À quoi sert $VVAKE.",
       body: "$VVAKE est une clé de communauté, pas un tableau des scores. Le détenir te donne une voix dans la communauté, des looks à montrer et des portes qui s'ouvrent avec les autres sportifs. Il fonctionne seul, et en fait un peu plus avec Plus. Tout ce qui compte dans tes défis se gagne toujours en bougeant.",
       tiers: [
@@ -1337,7 +1337,7 @@ export const fr: Dictionary = {
           perks: [
             "Tout le gratuit : plan, crews, défis, déblocage des villes",
             "Stats, niveaux et classements gagnés en bougeant",
-            "Récompenses de saison pour l'effort, là où la loi le permet",
+            "Prix $VVAKE chaque semaine pour avoir bougé (18 ans et plus, testnet pour l'instant)",
           ],
         },
         {
@@ -1348,7 +1348,7 @@ export const fr: Dictionary = {
             "Coaching plus poussé et ton coach vocal",
             "Crews plus grands et plus de défis",
             "Rendus de VVaker et petits plus",
-            "Paiement par carte, ou en brûlant des $VVAKE",
+            "Alimente la cagnotte mensuelle pour tout le monde, jamais un plus gros prix pour toi",
           ],
         },
         {
@@ -1413,29 +1413,31 @@ export const fr: Dictionary = {
           { label: "Lancement", value: "Lancement public avec réglages anti-snipe" },
           { label: "Offre et montants des paliers", value: "Fixés au lancement, dans le livre blanc" },
           { label: "Frais de trading du launchpad", value: "70 % récompenses de saison · 30 % réserve" },
-          { label: "Cagnotte de récompenses", value: "N'achète jamais de $VVAKE" },
-          { label: "Plus payé en $VVAKE", value: "Brûlé on-chain, jamais gardé ni revendu" },
+          { label: "Cagnotte de prix", value: "Une part fixe et publiée des revenus nets de Plus" },
+          { label: "Conversions", value: "Selon des règles on-chain : plafonnées par jour, déclenchables par tous" },
+          { label: "Où vont les $VVAKE convertis", value: "Seulement au contrat de récompenses" },
         ],
       },
-      burn: {
-        title: "🔥 Brûle des $VVAKE pour payer Plus",
-        body: "Paie ton mois ou ton année Plus en $VVAKE plutôt que par carte. Tu brûles le montant qui vaut le prix de Plus dans ta devise à ce moment-là ; les tokens partent à l'adresse de burn, et VVake ne les reçoit, ne les garde ni ne les revend jamais.",
+      prizePool: {
+        title: "🏆 Plus alimente une cagnotte de prix mensuelle",
+        body: "Chaque mois, une part fixe et publiée des revenus nets de VVake Fit Plus va à la cagnotte, un contrat public (VVakePrizePool), avec l'empreinte du rapport du mois sur la chaîne. La cagnotte la convertit en $VVAKE selon des règles, jamais au choix de quelqu'un.",
         steps: [
-          "Choisis Plus mensuel ou annuel",
-          "Vois le devis en direct (prix vérifié dans la dernière minute)",
-          "Confirme dans ton wallet : les tokens sont brûlés et Plus démarre",
+          "Les conversions se font par petites tranches plafonnées, au plus une fois par jour, et n'importe qui peut déclencher la suivante",
+          "Les $VVAKE vont seulement au contrat de récompenses (VVakeRewards), jamais à une personne ni à un wallet de l'équipe",
+          "Chaque semaine, des prix pour l'effort : séances comptées, plafonnées par jour. Les comptes gratuits y ont droit, jamais selon ce que tu détiens. Tu réclames depuis ton propre portefeuille sur vvake.com/rewards (18 ans et plus)",
         ],
-        note: "Même prix que par carte : ni remise, ni bonus. Jusqu'à un quart des abonnements Plus de chaque saison peuvent être payés ainsi, pour que Plus continue de financer la répartition publique des frais. Chaque burn est listé dans le Livre ouvert.",
+        note: "Testnet pour l'instant : les tokens n'ont aucune valeur. Rien n'est brûlé et rien ne va aux détenteurs. Un examen juridique et un audit externe des contrats passent avant toute valeur sur le mainnet. Payer Plus en $VVAKE de testnet existe seulement dans les versions de développement de l'app, pour tester le parcours (les tokens vont à la trésorerie de VVake) ; ce n'est proposé ni dans TestFlight ni sur l'App Store.",
+        cta: "Voir les prix et la cagnotte",
       },
       equal: {
         title: "Pareil pour tous, avec ou sans token",
-        body: "Stats, niveaux, classements, matchmaking et récompenses de saison. Les récompenses paient l'effort en stablecoin ou en avantages, jamais la détention, et la cagnotte n'achète jamais de $VVAKE.",
+        body: "Stats, niveaux, classements, matchmaking et prix hebdomadaires. Les prix récompensent l'effort, jamais la détention de $VVAKE, et Plus n'achète jamais un plus gros prix à personne.",
       },
       never: {
         title: "Ce que $VVAKE ne fait jamais",
         items: [
           "Rendement ou staking",
-          "Partage de revenus ou rachats",
+          "Partage de revenus avec les détenteurs",
           "Acheter des stats ou un avantage",
           "Allocation à l'équipe",
           "Obligatoire pour jouer",
@@ -1448,7 +1450,7 @@ export const fr: Dictionary = {
         { to: "faq", label: "FAQ token" },
       ],
       notice:
-        "Pas encore émis : rien à acheter aujourd'hui, et les fonctions détenteur peuvent changer après revue juridique. La seule adresse de contrat officielle sera publiée sur vvake.com et @VVakeFit ; tout le reste est faux. Non proposé aux États-Unis ni au Royaume-Uni au lancement. Rien ici n'est une offre de tokens ni un conseil financier. Robinhood Chain est une marque de Robinhood Markets, Inc. ; VVake Fit n'est pas affilié à Robinhood.",
+        "Testnet seulement : les tokens n'ont aucune valeur, il n'y a pas encore de token sur le mainnet, rien à acheter ici, et les fonctions détenteur peuvent changer après revue juridique. Les seules adresses de contrat officielles sont publiées sur vvake.com et @VVakeFit ; tout le reste est faux. Non proposé aux États-Unis ni au Royaume-Uni au lancement. Rien ici n'est une offre de tokens ni un conseil financier. Robinhood Chain est une marque de Robinhood Markets, Inc. ; VVake Fit n'est pas affilié à Robinhood.",
     },
     lanes: [
       {
@@ -1466,7 +1468,7 @@ export const fr: Dictionary = {
       {
         tag: "On-chain (prévu)",
         title: "Robinhood Chain garde tout ouvert",
-        body: "La chaîne où vivent déjà les actions tokenisées (RWA). Prévu : un contrat public de répartition des frais, des récompenses de saison pour l'effort versées en stablecoin ou en avantages, des objets de collection avec une vraie utilité (jamais un avantage), et plus tard un token VVake optionnel, ticker $VVAKE, sur vibe/vibe.",
+        body: "La chaîne où vivent déjà les actions tokenisées (RWA). Sur le testnet aujourd'hui : des prix $VVAKE chaque semaine pour l'effort, alimentés par Plus et réclamés depuis ton propre portefeuille. Prévu : un contrat public de répartition des frais, des objets de collection avec une vraie utilité (jamais un avantage), et le lancement de $VVAKE sur le mainnet via vibe/vibe après revue juridique.",
         points: [
           "Répartition des frais publique, on-chain",
           "Récompenses de saison pour l'effort",
@@ -2104,7 +2106,7 @@ export const fr: Dictionary = {
       },
       {
         q: "Il y a un token ? C'est quoi les prix $VVAKE ?",
-        a: "VVake est un service de sport et d'entraînement, pas un produit financier. Chaque semaine, tes séances comptées te donnent des prix $VVAKE pour avoir bougé : les comptes gratuits y ont droit, et les prix ne dépendent jamais du nombre de tokens que tu détiens. Une part des revenus de VVake Fit Plus alimente la cagnotte, convertie sur la chaîne selon des règles publiques. Tu réclames tes prix depuis ton propre portefeuille sur vvake.com/rewards ; VVake ne détient jamais tes tokens et ne te demande jamais ta phrase de récupération. Testnet pour l'instant : les tokens n'ont aucune valeur, rien à acheter, et rien ici n'est une offre ni un conseil en placement. Pas offert aux États-Unis ni au Royaume-Uni au lancement, sous réserve d'un examen juridique.",
+        a: "VVake est un service de sport et d'entraînement, pas un produit financier. Chaque semaine, tes séances comptées te donnent des prix $VVAKE pour avoir bougé : les prix sont réservés aux 18 ans et plus, les comptes gratuits y ont droit, et les prix ne dépendent jamais du nombre de tokens que tu détiens. Une part fixe et publiée des revenus nets de VVake Fit Plus alimente la cagnotte, convertie sur la chaîne selon des règles publiques. Tu réclames tes prix depuis ton propre portefeuille sur vvake.com/rewards ; VVake ne détient jamais tes tokens et ne te demande jamais ta phrase de récupération. Testnet pour l'instant : les tokens n'ont aucune valeur, rien à acheter, et rien ici n'est une offre ni un conseil en placement. Pas offert aux États-Unis ni au Royaume-Uni au lancement, sous réserve d'un examen juridique.",
         link: "rewards/",
       },
     ],
@@ -2621,11 +2623,12 @@ export const fr: Dictionary = {
       appCode: "Code de l'app",
       appCodePlaceholder: "ABCD2345",
       appHint:
-        "Dans l'app, connecté : Toi → Connexions → Apple Watch → Afficher un code de liaison. Tape ici le code à 8 caractères dans les 2 minutes. Ce navigateur apparaît ensuite dans tes appareils sous « Web (vvake.com) », et tu peux l'y retirer.",
+        "Dans l'app, connecté : Toi → Connexions → Apple Watch → Afficher un code de liaison. Tape ici le code à 8 caractères dans les 2 minutes. Ce navigateur apparaît ensuite dans l'app sous « Web (vvake.com) », dans Toi → Ton compte → Appareils, où tu peux le retirer. Te déconnecter sur cette page met aussi fin à sa session sur les serveurs de VVake.",
       redeem: "Me connecter",
       signedInAs: "Connecté en tant que {name}",
       signOut: "Me déconnecter",
-      tabNote: "Tu restes connecté jusqu'à la fermeture de cet onglet.",
+      tabNote:
+        "Tu restes connecté jusqu'à la fermeture de cet onglet. Déconnecte-toi pour mettre aussi fin à la session de ce navigateur sur les serveurs de VVake.",
       first: "Connecte-toi plus haut pour lier un portefeuille et réclamer.",
     },
     mine: {
@@ -2667,6 +2670,8 @@ export const fr: Dictionary = {
       signing: "Regarde ton portefeuille : signe le message pour le lier.",
       done: "Portefeuille lié.",
       sameAsLinked: "C'est ton portefeuille lié.",
+      adult: "J'ai 18 ans ou plus et j'ai le droit de recevoir des prix là où je vis.",
+      adultFirst: "Confirme que tu as 18 ans ou plus pour lier un portefeuille.",
     },
     claim: {
       index: "03",
@@ -2693,7 +2698,7 @@ export const fr: Dictionary = {
       items: [
         {
           h: "Plus alimente la cagnotte",
-          p: "Chaque mois, une part publiée des revenus des abonnements Plus va vers un contrat de cagnotte ouvert, avec l'empreinte du rapport du mois sur la chaîne.",
+          p: "Chaque mois, une part fixe et publiée des revenus nets des abonnements Plus va vers un contrat de cagnotte ouvert, avec l'empreinte du rapport du mois sur la chaîne.",
         },
         {
           h: "La cagnotte convertit l'ETH en VVAKE selon des règles",
@@ -2702,6 +2707,10 @@ export const fr: Dictionary = {
         {
           h: "Les prix récompensent le mouvement",
           p: "Tes séances comptées te donnent des points VV, plafonnés par jour. Les comptes gratuits y ont droit. Les prix ne dépendent jamais du nombre de tokens que tu détiens.",
+        },
+        {
+          h: "18 ans et plus",
+          p: "Les prix sont réservés aux personnes de 18 ans et plus qui ont le droit de les recevoir là où elles vivent. Tu le confirmes avant de lier un portefeuille.",
         },
         {
           h: "Tu réclames, VVake ne les détient jamais",

@@ -49,6 +49,8 @@ export function RewardsAccount({ dict, lang, apiUrl }: { dict: Dict; lang: Local
   const [chainId, setChainId] = useState<number | null>(null);
   const [walletMsg, setWalletMsg] = useState<string | null>(null);
   const [busy, setBusy] = useState<string | null>(null);
+  // Prizes are 18+: the visitor confirms it before linking. Kept on this page only, never sent or stored.
+  const [adult, setAdult] = useState(false);
 
   // Claims sent from this page, per epoch (a claimMany marks every epoch it carries).
   const [txs, setTxs] = useState<Record<number, Tx>>({});
@@ -145,6 +147,10 @@ export function RewardsAccount({ dict, lang, apiUrl }: { dict: Dict; lang: Local
 
   async function linkWallet() {
     if (!wallet || !account) return;
+    if (!adult) {
+      setWalletMsg(dict.wallet.adultFirst);
+      return;
+    }
     setBusy("link");
     setWalletMsg(dict.wallet.signing);
     try {
@@ -413,14 +419,26 @@ export function RewardsAccount({ dict, lang, apiUrl }: { dict: Dict; lang: Local
                 {sameAddress(account, linked?.address) ? (
                   <p className="mt-4 text-sm text-up-fg">{dict.wallet.sameAsLinked}</p>
                 ) : (
-                  <button
-                    type="button"
-                    className={cn(buttonClass("primary"), "mt-5")}
-                    disabled={busy !== null}
-                    onClick={() => void linkWallet()}
-                  >
-                    {linked ? dict.wallet.relink : dict.wallet.link}
-                  </button>
+                  <>
+                    <label className="mt-5 flex items-start gap-3 text-sm text-muted">
+                      <input
+                        type="checkbox"
+                        required
+                        className="mt-0.5 size-4 shrink-0 accent-pulse"
+                        checked={adult}
+                        onChange={(e) => setAdult(e.target.checked)}
+                      />
+                      <span>{dict.wallet.adult}</span>
+                    </label>
+                    <button
+                      type="button"
+                      className={cn(buttonClass("primary"), "mt-4")}
+                      disabled={busy !== null || !adult}
+                      onClick={() => void linkWallet()}
+                    >
+                      {linked ? dict.wallet.relink : dict.wallet.link}
+                    </button>
+                  </>
                 )}
               </>
             )}
