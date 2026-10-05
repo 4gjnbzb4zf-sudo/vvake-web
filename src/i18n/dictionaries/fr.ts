@@ -2488,7 +2488,7 @@ export const fr: Dictionary = {
           },
           {
             t: "Se déconnecter, supprimer une séance.",
-            d: "Déconnectez-vous depuis l'application en tout temps. Pour supprimer une séance passée : dans Toi, touchez longuement la séance dans votre journal ou touchez ⋯ puis Supprimer cette séance, ou touchez Sélectionner pour en supprimer plusieurs. Elle est retirée de votre journal, de votre série, de vos points et de vos statistiques, sur nos serveurs et sur votre téléphone. Déliez Claude Code dans Toi > Connexions ; déliez votre portefeuille ou déconnectez-vous sur vvake.com/rewards. Pour déconnecter un autre téléphone ou une montre, écrivez à {email}.",
+            d: "Déconnectez-vous depuis l'application en tout temps. Pour supprimer une séance passée : dans Toi, touchez longuement la séance dans votre journal ou touchez ⋯ puis Supprimer cette séance, ou touchez Sélectionner pour en supprimer plusieurs. Elle est retirée de votre journal, de votre série, de vos points et de vos statistiques, sur nos serveurs et sur votre téléphone. Déliez Claude Code dans Toi > Connexions ; déliez votre portefeuille ou déconnectez-vous sur vvake.com/rewards. Pour déconnecter un autre téléphone, une montre ou un navigateur, retirez-le dans l'application sous Toi > Ton compte > Appareils.",
           },
           {
             t: "Accès et portabilité.",
