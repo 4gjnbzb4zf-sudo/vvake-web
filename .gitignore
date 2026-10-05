@@ -46,3 +46,6 @@ next-env.d.ts
 
 # Local VVaker renders (render-server, dev only)
 /public/renders/
+
+# Apple keys (APNs .p8): never in git
+*.p8
