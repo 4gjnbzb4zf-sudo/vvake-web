@@ -6,6 +6,7 @@ import { fr } from "@/i18n/dictionaries/fr";
 import { defaultLocale, locales } from "@/i18n/config";
 import { LOCALE_STORAGE_KEY, negotiateLocale } from "@/i18n/negotiate";
 import { challengeRedirect } from "@/lib/challengeLink";
+import { rewardsRedirect } from "@/lib/rewards-config";
 import { fontVariables } from "./fonts";
 import "./globals.css";
 
@@ -14,15 +15,17 @@ export const metadata: Metadata = { title: "404 · VVake", robots: { index: fals
 /**
  * GitHub Pages serves this page for every unknown path, including challenge links (/c/<code>) opened by someone
  * without the app: send those to the localized fallback page (/<lang>/c/#<code>), same language rules as "/".
+ * The rewards page (/rewards, linked from the app) goes to /<lang>/rewards/ the same way.
  */
 const CHALLENGE_REDIRECT = `(function(){
 var negotiate=${negotiateLocale.toString()};
 var challengeRedirect=${challengeRedirect.toString()};
+var rewardsRedirect=${rewardsRedirect.toString()};
 var supported=${JSON.stringify(locales)};
 var saved=null;try{saved=localStorage.getItem(${JSON.stringify(LOCALE_STORAGE_KEY)})}catch(e){}
 var prefs=navigator.languages&&navigator.languages.length?navigator.languages:[navigator.language||""];
 var lang=saved&&supported.indexOf(saved)>=0?saved:negotiate(prefs,supported,${JSON.stringify(defaultLocale)});
-var to=challengeRedirect(location.pathname,lang);if(to)location.replace(to);
+var to=challengeRedirect(location.pathname,lang)||rewardsRedirect(location.pathname,lang);if(to)location.replace(to);
 })();`;
 
 export default function GlobalNotFound() {

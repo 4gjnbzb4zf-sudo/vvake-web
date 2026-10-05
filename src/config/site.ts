@@ -16,8 +16,8 @@ export const siteConfig = {
   turnstileSiteKey: process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY ?? "",
   liveEndpoint: (process.env.NEXT_PUBLIC_LIVE_ENDPOINT ?? "").replace(/\/$/, ""),
   /**
-   * VVake API (services/api in the monorepo). Used only by the challenge page (/[lang]/c/) to preview who sent the
-   * invite; the page works without it.
+   * VVake API (services/api in the monorepo). Used by the challenge page (/[lang]/c/) to preview who sent the
+   * invite (the page works without it) and by the rewards page (/[lang]/rewards/: sign-in, weeks, wallet, proofs).
    */
   apiUrl: (process.env.NEXT_PUBLIC_API_URL ?? "https://vvake-api.simon-54e.workers.dev").replace(/\/$/, ""),
   /** Custom URL scheme of the iOS app (fallback when universal links don't open it). */
