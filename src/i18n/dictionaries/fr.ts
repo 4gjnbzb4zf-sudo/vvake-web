@@ -2119,28 +2119,367 @@ export const fr: Dictionary = {
     rights: "Tous droits réservés.",
   },
   privacy: {
-    title: "Politique de confidentialité (liste d'attente)",
-    updated: "Brouillon, mis à jour le 28 septembre 2026. À faire relire par un conseil juridique avant l'ouverture de la liste.",
+    title: "Politique de confidentialité",
+    description:
+      "Ce que les applications VVake pour iPhone et Apple Watch et le site vvake.com recueillent, pourquoi, qui y a accès, combien de temps nous le gardons et vos droits.",
+    updated: "Dernière mise à jour : 2026-10-05",
+    draft:
+      "Version provisoire pour l'aperçu TestFlight. Les points marqués [CONFIRM] sont en cours de vérification, et cette politique sera revue par un avocat avant le lancement public.",
+    intro: [
+      "VVake (aussi appelée VVake Fit) est une application d'entraînement pour iPhone et Apple Watch, accompagnée du site vvake.com. Cette politique explique simplement quels renseignements nous recueillons, pourquoi, qui d'autre y a accès, combien de temps nous les gardons et ce que vous pouvez faire. Elle couvre les applications (y compris les versions d'essai TestFlight), l'API VVake avec laquelle elles communiquent, le compagnon de bureau pour Mac et ce site.",
+      "VVake est une application d'entraînement et de mieux-être. Ce n'est pas un dispositif médical : elle ne pose aucun diagnostic et ne traite ni ne surveille aucun problème de santé.",
+    ],
+    summaryTitle: "En bref",
+    summary: [
+      "Aucune publicité, aucune vente de vos données, aucun pistage d'une application ou d'un site à l'autre.",
+      "Vos données de santé servent uniquement à vous entraîner. Elles ne sont jamais vendues, jamais utilisées pour la publicité et jamais montrées aux autres.",
+      "Votre tracé GPS reste sur votre iPhone ou votre Apple Watch et dans l'app Santé. Nos serveurs ne reçoivent jamais de coordonnées de localisation.",
+      "Vous pouvez utiliser VVake sans vous connecter, et supprimer votre compte avec tout ce qu'il contient.",
+      "Notre base de données et nos fichiers sont conservés dans l'Union européenne.",
+    ],
+    tocTitle: "Sommaire",
     sections: [
       {
-        h: "Ce que nous collectons",
-        p: "Ton e-mail, ta ville, éventuellement ton équipe et l'objet connecté que tu utilises, la langue utilisée, et le code de parrainage utilisé ou reçu.",
+        id: "who",
+        h: "Qui nous sommes",
+        p: [
+          "VVake est exploitée par the VVake team, Montréal (Québec), Canada [CONFIRM : dénomination exacte, adresse et numéro d'entreprise du Québec (NEQ)]. the VVake team est responsable des renseignements personnels décrits ici.",
+          "Personne responsable de la protection des renseignements personnels (Loi 25) : [CONFIRM : nom et titre]. Vous pouvez la joindre à {email} [CONFIRM : cette adresse existe et est consultée].",
+        ],
+        list: [],
       },
       {
-        h: "Pourquoi",
-        p: "Pour faire fonctionner la liste d'attente par ville (compteurs, statuts early, parrainage) et t'envoyer les nouvelles du lancement que tu as acceptées. Base légale : ton consentement.",
+        id: "collect",
+        h: "Ce que nous recueillons, et pourquoi",
+        p: ["Nous recueillons le moins possible. Voici tout, regroupé selon l'usage."],
+        list: [
+          {
+            t: "Votre compte.",
+            d: "Un identifiant de compte aléatoire, créé à la première ouverture de l'application (un compte invité, sans nom ni courriel). Si vous vous connectez : l'identifiant de votre compte Apple ou Google, votre adresse courriel (Se connecter avec Apple vous permet de la masquer derrière une adresse relais d'Apple) et votre nom si vous le donnez. Aussi votre nom d'affichage, votre VVaker (avatar), la ville que vous choisissez, votre fuseau horaire, votre langue et vos réglages du coach. Pourquoi : retrouver votre entraînement sur tous vos appareils et afficher votre nom aux personnes que vous défiez.",
+          },
+          {
+            t: "Vos appareils.",
+            d: "Pour chaque iPhone ou Apple Watch utilisé : un identifiant d'appareil créé par l'application, son type (téléphone ou montre), son modèle et sa dernière connexion ; des jetons de connexion (nous n'en gardons qu'une empreinte) ; et un jeton de notification si vous acceptez les notifications. Pourquoi : garder votre session ouverte, vous permettre de déconnecter un appareil et envoyer les alertes demandées (défis, My Pulse).",
+          },
+          {
+            t: "Vos séances.",
+            d: "Pour chaque entraînement : le sport, l'heure de début et de fin, le temps actif, la distance, la fréquence cardiaque moyenne et maximale, le temps passé dans chaque zone cardiaque, les pas, la cadence, les calories, le score d'effort, les points et la série, et un relevé aux 10 secondes de la distance, de la fréquence cardiaque et des pas. Jamais de coordonnées GPS. Pourquoi : votre journal, vos statistiques, votre série, votre plan, vos courses contre vos séances passées, les défis et City Clash.",
+          },
+          {
+            t: "Votre profil d'athlète.",
+            d: "Vos réponses au questionnaire de départ (vos sports et votre expérience, séances par semaine, durée habituelle, une performance récente, l'effort ressenti, votre objectif et un événement s'il y a lieu, les jours et minutes dont vous disposez, et si vous avez une douleur ou une blessure), ainsi que les données de santé que vous choisissez de partager (voir Données de santé). Nous en tirons votre évaluation : niveau, zones cardiaques, cibles d'allure et de cadence, objectifs hebdomadaires et notes du coach. Pourquoi : doser votre plan de façon sécuritaire.",
+          },
+          {
+            t: "Votre coach.",
+            d: "Ce que vous dites ou écrivez au coach, ses réponses, les changements de plan qu'il propose et votre décision, ainsi que le « comment c'était ? » en un geste après une séance, avec la courte note que vous ajoutez. La conversation elle-même n'est pas conservée sur nos serveurs : seuls les derniers échanges accompagnent chaque question pour que le coach suive le fil. Nous gardons le texte des répliques parlées pour produire et mettre en cache la voix du coach, ainsi que le résumé de chaque changement de plan proposé.",
+          },
+          {
+            t: "Défis et City Clash.",
+            d: "Les défis que vous lancez ou acceptez (ce qui est mesuré, la durée, le statut et le résultat), les autocollants envoyés, les personnes que vous bloquez, les affrontements de votre ville et votre « J'embarque », ainsi qu'un signal « en mouvement » envoyé une fois au début et une fois à la fin d'une séance pendant un affrontement en direct. Vos amis sont seulement les personnes que vous avez déjà affrontées dans un défi accepté : nous ne téléversons jamais vos contacts.",
+          },
+          {
+            t: "My Pulse (facultatif).",
+            d: "Les symboles boursiers que vous choisissez de suivre (8 au maximum), vos seuils d'alerte, votre Brand Team, vos heures de silence et le nombre d'alertes par jour souhaité. My Pulse présente des faits, pour le plaisir ; ce n'est pas un conseil en placement.",
+          },
+          {
+            t: "Votre image VVaker (facultatif).",
+            d: "Si vous faites générer un VVaker personnalisé : le code des traits que vous avez conçus et les images obtenues.",
+          },
+          {
+            t: "Sécurité et prévention des abus.",
+            d: "Des compteurs qui limitent la fréquence de certaines actions, associés à une empreinte salée de votre adresse IP ou à votre identifiant de compte, et des codes à usage unique de courte durée (codes de connexion, codes de jumelage de la montre) conservés seulement sous forme d'empreinte. Nos journaux serveur consignent les erreurs, jamais de données de santé ni ce que vous dites au coach.",
+          },
+        ],
       },
       {
-        h: "Ce que nous ne faisons jamais",
-        p: "Nous ne vendons jamais tes données, ne les partageons jamais à des fins publicitaires, et ce site n'utilise ni cookie de suivi ni outil d'analyse tiers.",
+        id: "health",
+        h: "Données de santé",
+        p: [
+          "VVake lit l'app Santé d'Apple (HealthKit) seulement avec votre permission, type par type, dans la fenêtre d'autorisation d'iOS. Vous pouvez modifier vos choix en tout temps dans l'app Santé ou dans Réglages > Confidentialité et sécurité > Santé.",
+        ],
+        list: [
+          {
+            t: "Pendant une séance.",
+            d: "La fréquence cardiaque, les pas et la cadence, pour mesurer votre effort selon votre cœur (pas selon la vitesse), vous coacher en direct et enregistrer la séance.",
+          },
+          {
+            t: "Seulement si vous le permettez.",
+            d: "L'âge, le sexe, la fréquence cardiaque au repos, la variabilité de la fréquence cardiaque, le VO2 max, la taille, le poids et le sommeil, pour que vos zones et vos objectifs vous ressemblent.",
+          },
+          {
+            t: "Ce qui se rend à nos serveurs.",
+            d: "Les données de séance décrites plus haut, et les données de santé que vous cochez pour doser votre plan : âge, sexe, poids, taille, fréquence cardiaque au repos et maximale, sommeil moyen, et deux choix que vous faites vous-même (faible impact seulement ; effort léger seulement, par exemple pendant une grossesse ou sur l'avis d'un professionnel). La variabilité cardiaque et le VO2 max sont utilisés sur votre appareil seulement.",
+          },
+          {
+            t: "Ce que nous écrivons dans l'app Santé.",
+            d: "Votre Apple Watch enregistre vos séances comme entraînements dans l'app Santé, avec le tracé pour les séances extérieures.",
+          },
+        ],
+        after: [
+          "Votre profil de santé sert uniquement à planifier votre entraînement et à renseigner votre coach. Il n'est jamais vendu, jamais utilisé pour la publicité ou le marketing, jamais montré aux autres utilisateurs et n'est jamais une condition pour participer à quoi que ce soit. Les compétitions utilisent un seul chiffre : le score d'effort des séances que vous choisissez de compter. Les autres peuvent voir le résultat d'un défi ou le total de votre ville, jamais votre fréquence cardiaque, vos zones ni aucune donnée de santé.",
+          "Les données de santé que vous partagez sont transmises à notre fournisseur d'IA pour que le coach puisse vous répondre (voir Fonctions d'IA). Elles ne sont communiquées à personne d'autre, sauf à notre hébergeur, qui les conserve pour nous.",
+        ],
       },
       {
-        h: "Combien de temps",
-        p: "Jusqu'au lancement plus 12 mois, ou jusqu'à ta désinscription ou ta demande de suppression, selon ce qui arrive en premier.",
+        id: "location",
+        h: "Localisation",
+        p: [],
+        list: [
+          {
+            t: "Pendant les séances extérieures seulement.",
+            d: "VVake utilise votre position pendant que vous utilisez l'application lors d'une séance extérieure, pour tracer votre parcours et mesurer la distance. Le tracé reste sur votre iPhone ou votre Apple Watch et dans l'app Santé. Il n'est jamais envoyé à nos serveurs ; nous recevons seulement des totaux comme la distance et l'allure. Les cartes sont affichées par Plans d'Apple.",
+          },
+          {
+            t: "Votre ville.",
+            d: "Votre ville pour City Clash est celle que vous tapez ou choisissez, pas votre position GPS. Vous pouvez la changer une fois par saison (28 jours) ou l'effacer en tout temps.",
+          },
+          {
+            t: "Des totaux publics seulement.",
+            d: "City Clash et la carte en direct affichent des totaux par ville (seulement à partir de 10 personnes en mouvement, et arrondis), jamais la position, le parcours ou le nom d'une personne.",
+          },
+        ],
       },
       {
-        h: "Tes droits",
-        p: "Tu peux accéder à tes données, les corriger, les exporter ou les supprimer, et retirer ton consentement à tout moment. Écris à {email}.",
+        id: "voice",
+        h: "Microphone et reconnaissance vocale",
+        p: [
+          "Le microphone n'est utilisé que lorsque vous maintenez « Parler au coach ». La reconnaissance vocale d'Apple transforme vos paroles en texte, sur votre appareil quand il le permet (sinon sur les serveurs d'Apple, selon la politique de confidentialité d'Apple). Nous ne recevons ni ne gardons jamais l'audio : seul le texte est transmis au coach.",
+          "Les réponses du coach sont lues par une voix de synthèse créée par ElevenLabs, ou par la voix de votre appareil si vous la choisissez. Le coach est une IA, pas une personne, et pas un médecin.",
+        ],
+        list: [],
+      },
+      {
+        id: "calendar",
+        h: "Calendrier",
+        p: [],
+        list: [
+          {
+            t: "Le calendrier de votre iPhone (facultatif).",
+            d: "Si vous en donnez l'accès, VVake lit seulement vos plages occupées (heures de début et de fin), jamais les titres, lieux, notes ou participants, pour trouver un moment libre pour votre séance. Ces plages sont envoyées à notre serveur pour calculer la suggestion du jour et ne sont pas conservées. VVake écrit vos séances uniquement dans son propre calendrier « VVake ».",
+          },
+          {
+            t: "Google Agenda (facultatif).",
+            d: "Si vous connectez Google Agenda, nous demandons à Google seulement vos disponibilités et la permission de gérer un agenda créé par VVake (« VVake »). Nous conservons votre courriel Google et les jetons d'accès, chiffrés. Nous lisons les plages occupées de votre agenda principal, jamais le détail des événements, et ajoutons à l'agenda VVake, à votre demande, des événements privés comme « VVake · Course 30 min ». Si vous vous déconnectez, nous révoquons l'accès chez Google et supprimons les jetons.",
+          },
+        ],
+        after: [
+          "L'utilisation et le transfert par VVake des renseignements reçus des API de Google respectent la Google API Services User Data Policy, y compris les exigences d'utilisation limitée (Limited Use).",
+        ],
+      },
+      {
+        id: "music",
+        h: "Musique",
+        p: [
+          "Apple Music et Spotify se contrôlent uniquement depuis votre iPhone. VVake demande à Apple Music (MusicKit) la permission de faire jouer vos listes de lecture et d'afficher ce qui joue. La connexion à Spotify se fait sur votre iPhone et ses jetons restent dans le trousseau de votre iPhone. Vos données musicales ne se rendent pas à nos serveurs, et rien de vos entraînements n'est communiqué à Apple Music ni à Spotify.",
+        ],
+        list: [],
+      },
+      {
+        id: "ai",
+        h: "Fonctions d'IA",
+        p: [],
+        list: [
+          {
+            t: "Le coach (Claude d'Anthropic).",
+            d: "Pour rédiger chaque réponse, nous transmettons à Anthropic : votre message et les derniers échanges (6 au maximum), les données en direct de votre séance (sport, temps, fréquence cardiaque et zone, distance, allure, cadence, écarts dans une course ou un défi, pointage de l'affrontement de votre ville), le plan du jour et votre rétroaction après la séance, et un résumé de votre profil (nom d'affichage, niveau, zones, objectifs et notes du coach, votre objectif, vos choix douleur, faible impact et effort léger, série, points et décisions récentes sur le plan). Nous ne transmettons pas votre courriel, votre identifiant de compte, votre position ni vos contacts. Anthropic traite ces données comme notre fournisseur de services et, selon ses conditions commerciales, ne s'en sert pas pour entraîner ses modèles [CONFIRM : conditions actuelles d'Anthropic et durée de conservation].",
+          },
+          {
+            t: "Changements de plan.",
+            d: "Le coach peut seulement proposer un changement à votre plan. Rien ne change tant que vous ne l'avez pas approuvé.",
+          },
+          {
+            t: "La voix du coach (ElevenLabs).",
+            d: "ElevenLabs reçoit le texte de la réplique à dire et renvoie l'audio. Nous mettons l'audio en cache dans notre stockage ; une réplique identique est partagée entre utilisateurs.",
+          },
+          {
+            t: "Votre image VVaker (Grok Imagine de xAI).",
+            d: "xAI reçoit une description textuelle construite à partir des traits de VVaker que vous avez conçus (style, couleurs, tenue). Aucun nom, aucune photo, aucune donnée de santé. Le détourage se fait sur votre iPhone avec le cadre Vision d'Apple.",
+          },
+        ],
+        after: ["Quand un fournisseur d'IA n'est pas disponible, le coach utilise des répliques préécrites sur notre serveur."],
+      },
+      {
+        id: "desk",
+        h: "Compagnon de bureau pour Mac",
+        p: [
+          "Le compagnon de bureau VVake, facultatif, calcule votre temps de bureau continu à partir du temps d'inactivité du clavier et de la souris fourni par macOS, pour vous rappeler de bouger. Il ne lit jamais vos frappes, votre code, le contenu de votre écran ni vos requêtes à une IA. Aujourd'hui, il garde ses données sur votre Mac et ne nous envoie rien.",
+          "Un module pour Claude Code qui synchronise le temps de bureau avec votre compte VVake est en développement. Il n'enverra que des minutes et des horodatages, jamais de code, de requêtes ou de frappes [CONFIRM : fonctionnement final à sa sortie].",
+        ],
+        list: [],
+      },
+      {
+        id: "share",
+        h: "Qui d'autre a accès à vos données",
+        p: [
+          "Nous ne vendons ni ne louons de renseignements personnels, nous ne les communiquons pas à des fins publicitaires, et les applications ne contiennent aucune trousse de publicité, de statistiques ou de pistage. Nous communiquons des données seulement à des fournisseurs de services qui les traitent pour notre compte, et seulement ce dont chacun a besoin :",
+        ],
+        list: [
+          {
+            t: "Cloudflare (États-Unis; nos données sont stockées dans l'UE).",
+            d: "Héberge l'API VVake, la base de données et le stockage de fichiers, la liste d'attente, et la vérification anti-robots du formulaire d'inscription du site (Turnstile).",
+          },
+          { t: "Anthropic (États-Unis).", d: "Rédige les réponses du coach (voir Fonctions d'IA)." },
+          { t: "ElevenLabs (États-Unis) [CONFIRM : entité contractante et région].", d: "Transforme les répliques du coach en voix." },
+          { t: "xAI (États-Unis).", d: "Génère les images de VVaker personnalisés à partir de leurs traits." },
+          {
+            t: "Resend (États-Unis).",
+            d: "Envoie les codes de connexion et les courriels de la liste d'attente. Reçoit votre adresse courriel et le message.",
+          },
+          { t: "Google (États-Unis).", d: "Seulement si vous vous connectez avec Google ou connectez Google Agenda." },
+          {
+            t: "Apple (États-Unis).",
+            d: "Se connecter avec Apple, notifications, app Santé, reconnaissance vocale, Apple Music, Plans, TestFlight et l'App Store, selon la politique de confidentialité d'Apple.",
+          },
+          {
+            t: "Finnhub (États-Unis) [CONFIRM : ou Twelve Data, selon le fournisseur actif].",
+            d: "Cours boursiers pour My Pulse. Nous envoyons seulement les symboles suivis par quelqu'un, jamais qui les suit.",
+          },
+          { t: "Spotify.", d: "Seulement depuis votre iPhone, si vous le connectez." },
+          { t: "GitHub (États-Unis).", d: "Héberge ce site. Comme tout hébergeur Web, il voit l'adresse IP des visiteurs." },
+        ],
+        after: [
+          "Les autres utilisateurs de VVake voient seulement votre nom d'affichage et votre VVaker (dans les invitations à un défi et la liste des personnes affrontées), les résultats des défis et votre fiche contre eux, et les totaux de votre ville. Jamais vos données de santé, vos séances ni votre position.",
+          "Nous pouvons communiquer des renseignements si la loi l'exige, pour protéger la sécurité d'une personne, ou dans le cadre d'une fusion ou d'une acquisition ; dans ce cas, cette politique continue de s'appliquer à vos données et nous vous en informerons d'abord.",
+        ],
+      },
+      {
+        id: "where",
+        h: "Où vos données sont conservées",
+        p: [
+          "Notre base de données (Cloudflare D1) et notre stockage de fichiers (Cloudflare R2 : audio de la voix du coach et images VVaker) se trouvent dans la juridiction européenne de Cloudflare. Les requêtes transitent par le réseau mondial de Cloudflare, et plusieurs fournisseurs ci-dessus sont aux États-Unis : vos données peuvent donc être traitées hors du Québec, du Canada et de l'UE. Nous nous appuyons sur les garanties contractuelles de nos fournisseurs, comme les clauses contractuelles types de l'UE [CONFIRM : ententes de traitement des données signées avec chaque fournisseur], et avons évalué ces communications comme l'exige la loi québécoise [CONFIRM : évaluation des facteurs relatifs à la vie privée pour les transferts réalisée].",
+        ],
+        list: [],
+      },
+      {
+        id: "security",
+        h: "Sécurité",
+        p: [
+          "Tout circule en HTTPS. Les jetons de connexion ont une courte durée, changent à chaque utilisation et ne sont conservés que sous forme d'empreinte ; les jetons Google sont chiffrés ; sur l'appareil, vos jetons sont dans le trousseau d'iOS. Chaque requête est validée et limitée en fréquence, et nos journaux ne contiennent aucune donnée de santé. Aucun système n'est parfait : si un incident de confidentialité présente un risque de préjudice sérieux, nous vous en aviserons, ainsi que les autorités, comme la loi l'exige.",
+        ],
+        list: [],
+      },
+      {
+        id: "retention",
+        h: "Combien de temps nous les gardons",
+        p: [],
+        list: [
+          {
+            t: "Votre compte et tout ce qu'il contient :",
+            d: "jusqu'à ce que vous le supprimiez. Une séance supprimée l'est immédiatement.",
+          },
+          { t: "Comptes invités :", d: "supprimés automatiquement après 90 jours sans utilisation." },
+          {
+            t: "Codes de connexion et de jumelage :",
+            d: "10 minutes pour les codes par courriel, 2 minutes pour le jumelage de la montre, 60 secondes pour les codes d'échange de la connexion Google.",
+          },
+          { t: "Jetons de connexion :", d: "jusqu'à 60 jours, ou jusqu'à la déconnexion de l'appareil." },
+          { t: "Compteurs de limitation :", d: "environ 2 jours." },
+          {
+            t: "Propositions de plan du coach :",
+            d: "une proposition pour aujourd'hui expire le lendemain ; vos décisions restent avec votre compte.",
+          },
+          {
+            t: "Audio de la voix du coach :",
+            d: "une réplique qui n'appartient qu'à vous est supprimée avec votre compte ; une réplique identique mot pour mot chez d'autres utilisateurs reste pour eux.",
+          },
+          {
+            t: "Journaux serveur :",
+            d: "quelques jours, sans donnée de santé [CONFIRM : réglage de conservation des journaux Cloudflare].",
+          },
+          {
+            t: "Sauvegardes :",
+            d: "la base de données peut être restaurée à un moment précis pendant 30 jours au plus ; après, les données supprimées disparaissent [CONFIRM].",
+          },
+          {
+            t: "Liste d'attente du site :",
+            d: "jusqu'au lancement plus 12 mois, ou jusqu'à votre désinscription ou votre demande de suppression.",
+          },
+        ],
+      },
+      {
+        id: "rights",
+        h: "Vos choix et vos droits",
+        p: [],
+        list: [
+          {
+            t: "Tout supprimer.",
+            d: "Supprimez votre compte depuis l'application [CONFIRM : chemin dans l'app, p. ex. Vous > Compte > Supprimer le compte] ou en écrivant à {email}. Cela supprime votre compte, vos séances, votre questionnaire et vos données de santé, vos appareils, les changements de plan, les défis, vos réglages My Pulse, vos images VVaker et l'audio du coach qui n'appartenait qu'à vous, après avoir révoqué l'accès Google. Les données de l'app Santé et de vos appareils restent sous votre contrôle.",
+          },
+          {
+            t: "Se déconnecter, supprimer une séance.",
+            d: "Déconnectez-vous depuis l'application en tout temps. Pour supprimer une seule séance ou déconnecter un autre appareil, écrivez à {email} [CONFIRM : ajouter ces actions à l'app].",
+          },
+          {
+            t: "Accès et portabilité.",
+            d: "Vos séances, votre profil, votre évaluation et les notes du coach sont visibles dans l'application. Pour une copie complète dans un format structuré et couramment utilisé (JSON), écrivez à {email}. Nous répondons dans un délai de 30 jours.",
+          },
+          {
+            t: "Rectification.",
+            d: "Modifiez votre nom, votre ville, votre questionnaire et vos données de santé dans l'application, ou écrivez-nous.",
+          },
+          {
+            t: "Retrait du consentement.",
+            d: "Désactivez Santé, la localisation, le microphone, le calendrier ou les notifications dans les Réglages d'iOS ; déconnectez Google ou Spotify ; coupez la voix du coach.",
+          },
+          {
+            t: "Plainte.",
+            d: "Écrivez-nous d'abord ; vous pouvez aussi vous adresser à la Commission d'accès à l'information du Québec, au Commissariat à la protection de la vie privée du Canada ou à l'autorité de protection des données de votre lieu de résidence.",
+          },
+        ],
+        after: [
+          "Québec et Canada (Loi 25, LPRPDE) : vous pouvez accéder à vos renseignements et les faire rectifier, retirer votre consentement, les obtenir dans un format technologique structuré et couramment utilisé, et demander que nous cessions de les diffuser lorsque la loi le permet.",
+          "Union européenne, EEE et Royaume-Uni (RGPD) : vous disposez des droits d'accès, de rectification, d'effacement, de limitation, d'opposition et de portabilité. Nos bases légales : l'exécution de notre contrat avec vous (faire fonctionner l'application), votre consentement explicite pour les données de santé et les fonctions facultatives, et notre intérêt légitime à assurer la sécurité du service. Représentant dans l'UE : [CONFIRM : à désigner si VVake est offerte dans l'UE].",
+          "Californie et autres États américains : nous ne vendons pas de renseignements personnels et ne les communiquons pas pour de la publicité comportementale. Vous pouvez demander à connaître, corriger ou supprimer vos renseignements, sans être traité différemment pour autant.",
+        ],
+      },
+      {
+        id: "children",
+        h: "Enfants",
+        p: [
+          "VVake ne s'adresse pas aux enfants de moins de 13 ans, et nous ne recueillons pas sciemment leurs renseignements. Si vous n'avez pas l'âge du consentement numérique là où vous vivez (14 ans au Québec, jusqu'à 16 ans dans certains pays de l'UE), un parent ou tuteur doit donner son accord avant que vous utilisiez VVake [CONFIRM : âge minimum]. Les objectifs de poids et les rappels de repas sont réservés aux adultes. Si vous croyez qu'un enfant nous a transmis des renseignements, écrivez à {email} et nous les supprimerons.",
+        ],
+        list: [],
+      },
+      {
+        id: "tracking",
+        h: "Témoins et pistage",
+        p: [
+          "Les applications n'utilisent pas l'identifiant publicitaire et ne vous pistent pas dans les applications ou sites d'autres entreprises ; elles n'affichent donc jamais la demande de transparence du suivi publicitaire (App Tracking Transparency). Elles ne contiennent aucune trousse tierce de statistiques ou de rapports de plantage.",
+          "Ce site n'utilise aucun témoin (cookie) de pistage ni aucun outil de statistiques tiers. Il mémorise votre choix de langue, de thème et de devise dans le stockage local de votre navigateur, qui ne quitte jamais votre navigateur. Le formulaire d'inscription utilise Cloudflare Turnstile pour bloquer les robots.",
+        ],
+        list: [],
+      },
+      {
+        id: "website",
+        h: "Le site et la liste d'accès anticipé",
+        p: [
+          "Si vous vous inscrivez à la liste d'attente, nous conservons votre courriel, votre ville (ou la ville demandée), et au besoin votre équipe et l'objet connecté que vous utilisez, votre langue, le code de parrainage utilisé ou reçu, et la date de votre consentement. Ils servent à faire fonctionner la liste par ville (compteurs, statuts early, parrainage) et à vous envoyer les nouvelles du lancement que vous avez acceptées. Base légale : votre consentement. Chaque courriel contient un lien pour vous désinscrire et supprimer vos données. Elles sont stockées dans la juridiction européenne de Cloudflare et les courriels sont envoyés par Resend.",
+          "Quand vous ouvrez un lien de défi sans l'application, la page demande à l'API VVake le nom d'affichage et le VVaker de l'expéditeur pour afficher l'invitation.",
+        ],
+        list: [],
+      },
+      {
+        id: "plus",
+        h: "Abonnements et TestFlight",
+        p: [
+          "VVake Fit Plus n'est pas encore en vente : rien n'est facturé pendant l'aperçu. À l'ouverture des abonnements, Apple gérera le paiement et nous recevrons seulement l'état de votre abonnement, jamais vos informations de paiement.",
+          "Si vous testez une version d'essai avec TestFlight, Apple nous transmet les commentaires, captures d'écran et rapports de plantage que vous choisissez d'envoyer, avec des renseignements de base sur l'appareil, selon les conditions de TestFlight.",
+        ],
+        list: [],
+      },
+      {
+        id: "changes",
+        h: "Modifications de cette politique",
+        p: [
+          "Nous mettons cette page à jour quand les applications changent. Avant tout changement important pour vous, comme un nouveau type de données ou un nouveau fournisseur, nous vous en informerons dans l'application. La date en haut indique la version en vigueur. Cette politique existe en français et en anglais ; les deux versions ont la même valeur.",
+        ],
+        list: [],
+      },
+      {
+        id: "contact",
+        h: "Nous joindre",
+        p: ["Questions ou demandes : {email}, ou par la poste à the VVake team, [CONFIRM : adresse], Montréal (Québec), Canada."],
+        list: [],
       },
     ],
   },
