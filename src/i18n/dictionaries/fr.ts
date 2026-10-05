@@ -2126,7 +2126,7 @@ export const fr: Dictionary = {
     draft:
       "Version provisoire pour l'aperçu TestFlight. Les points marqués [CONFIRM] sont en cours de vérification, et cette politique sera revue par un avocat avant le lancement public.",
     intro: [
-      "VVake (aussi appelée VVake Fit) est une application d'entraînement pour iPhone et Apple Watch, accompagnée du site vvake.com. Cette politique explique simplement quels renseignements nous recueillons, pourquoi, qui d'autre y a accès, combien de temps nous les gardons et ce que vous pouvez faire. Elle couvre les applications (y compris les versions d'essai TestFlight), l'API VVake avec laquelle elles communiquent, le compagnon de bureau pour Mac et ce site.",
+      "VVake (aussi appelée VVake Fit) est une application d'entraînement pour iPhone et Apple Watch, accompagnée du site vvake.com. Cette politique explique simplement quels renseignements nous recueillons, pourquoi, qui d'autre y a accès, combien de temps nous les gardons et ce que vous pouvez faire. Elle couvre les applications (y compris les versions d'essai TestFlight), l'API VVake avec laquelle elles communiquent, le compagnon de bureau pour Mac, le module VVake pour Claude Code et ce site, y compris vvake.com/rewards.",
       "VVake est une application d'entraînement et de mieux-être. Ce n'est pas un dispositif médical : elle ne pose aucun diagnostic et ne traite ni ne surveille aucun problème de santé.",
     ],
     summaryTitle: "En bref",
@@ -2136,6 +2136,7 @@ export const fr: Dictionary = {
       "Votre tracé GPS reste sur votre iPhone ou votre Apple Watch et dans l'app Santé. Nos serveurs ne reçoivent jamais de coordonnées de localisation.",
       "Vous pouvez utiliser VVake sans vous connecter, et supprimer votre compte avec tout ce qu'il contient.",
       "Notre base de données et nos fichiers sont conservés dans l'Union européenne.",
+      "Les prix $VVAKE sont facultatifs. Si vous liez un portefeuille, son adresse et vos montants hebdomadaires deviennent publics sur une blockchain, qui ne peut pas être effacée.",
     ],
     tocTitle: "Sommaire",
     sections: [
@@ -2159,11 +2160,19 @@ export const fr: Dictionary = {
           },
           {
             t: "Vos appareils.",
-            d: "Pour chaque iPhone ou Apple Watch utilisé : un identifiant d'appareil créé par l'application, son type (téléphone ou montre), son modèle et sa dernière connexion ; des jetons de connexion (nous n'en gardons qu'une empreinte) ; et un jeton de notification si vous acceptez les notifications. Pourquoi : garder votre session ouverte, vous permettre de déconnecter un appareil et envoyer les alertes demandées (défis, My Pulse).",
+            d: "Pour chaque iPhone ou Apple Watch utilisé : un identifiant d'appareil créé par l'application, son type (téléphone ou montre), son modèle et sa dernière connexion ; des jetons de connexion (nous n'en gardons qu'une empreinte) ; et un jeton de notification si vous acceptez les notifications. Si vous vous connectez sur vvake.com/rewards, ce navigateur est ajouté comme appareil nommé « Web (vvake.com) » ; chaque ordinateur lié à Claude Code est ajouté avec son nom (voir Compagnon de bureau et Claude Code). Pourquoi : garder votre session ouverte, vous permettre de déconnecter un appareil et envoyer les alertes demandées (défis, quêtes d'équipe, My Pulse).",
           },
           {
             t: "Vos séances.",
             d: "Pour chaque entraînement : le sport, l'heure de début et de fin, le temps actif, la distance, la fréquence cardiaque moyenne et maximale, le temps passé dans chaque zone cardiaque, les pas, la cadence, les calories, le score d'effort, les points et la série, et un relevé aux 10 secondes de la distance, de la fréquence cardiaque et des pas. Jamais de coordonnées GPS. Pourquoi : votre journal, vos statistiques, votre série, votre plan, vos courses contre vos séances passées, les défis et City Clash.",
+          },
+          {
+            t: "Move Quests et quêtes d'équipe.",
+            d: "Les Move Quests sont de courts défis de mouvement (10 à 60 secondes : mains en l'air, sauts, statue) sur votre Apple Watch. Le capteur de mouvement est lu sur la montre seulement ; nous recevons uniquement le résultat : le type de quête, l'heure du début, la durée, les répétitions, la réussite, le moment de chaque répétition, le plus long maintien, l'accélération maximale et si la montre était à votre poignet (oui, non ou inconnu, déduit sur la montre de l'âge de votre dernière mesure de fréquence cardiaque dans l'app Santé). Jamais le flux brut du capteur. Pourquoi : vérifier que la quête est réelle, donner des points VV et un petit coup de pouce à la série, et compter votre mouvement pour le déblocage de Claude Code. Une quête d'équipe, c'est la même quête au même moment avec votre équipe, les personnes affrontées dans un défi accepté : quand vous en lancez une, votre équipe reçoit une notification avec votre nom d'affichage et la quête, et tous ceux qui la rejoignent voient le nom d'affichage, le VVaker et le résultat des autres (réussite, répétitions, durée, points et rang).",
+          },
+          {
+            t: "Prix $VVAKE (facultatif).",
+            d: "Si vous liez un portefeuille sur vvake.com/rewards : son adresse publique, la date du lien et le message à usage unique que vous signez pour prouver qu'il est à vous (conservé 10 minutes). Chaque semaine : les points VV de vos séances comptées (plafonnés par jour), le montant de VVAKE qu'ils donnent, sa preuve, et s'il a été réclamé (lu sur la blockchain). Voir Prix $VVAKE et votre portefeuille.",
           },
           {
             t: "Votre profil d'athlète.",
@@ -2270,7 +2279,7 @@ export const fr: Dictionary = {
         id: "music",
         h: "Musique",
         p: [
-          "Apple Music et Spotify se contrôlent uniquement depuis votre iPhone. VVake demande à Apple Music (MusicKit) la permission de faire jouer vos listes de lecture et d'afficher ce qui joue. La connexion à Spotify se fait sur votre iPhone et ses jetons restent dans le trousseau de votre iPhone. Vos données musicales ne se rendent pas à nos serveurs, et rien de vos entraînements n'est communiqué à Apple Music ni à Spotify.",
+          "Apple Music et Spotify se contrôlent depuis votre iPhone, et depuis votre Apple Watch par l'intermédiaire de votre iPhone. VVake demande à Apple Music (MusicKit) la permission de faire jouer votre musique et d'afficher ce qui joue. Si vous connectez Spotify, la connexion se fait sur votre iPhone, ses jetons restent dans le trousseau de votre iPhone, et votre iPhone communique directement avec Spotify : il lit ce qui joue, vos appareils Spotify, vos listes de lecture et vos titres likés, et envoie les commandes lecture, pause, piste suivante et volume ainsi que les mots de recherche que vous tapez ou dites sur votre montre. Rien de votre musique ne se rend à nos serveurs, et rien de vos entraînements ni de votre santé n'est communiqué à Apple Music ou à Spotify.",
         ],
         list: [],
       },
@@ -2300,12 +2309,61 @@ export const fr: Dictionary = {
       },
       {
         id: "desk",
-        h: "Compagnon de bureau pour Mac",
+        h: "Compagnon de bureau et Claude Code",
         p: [
           "Le compagnon de bureau VVake, facultatif, calcule votre temps de bureau continu à partir du temps d'inactivité du clavier et de la souris fourni par macOS, pour vous rappeler de bouger. Il ne lit jamais vos frappes, votre code, le contenu de votre écran ni vos requêtes à une IA. Aujourd'hui, il garde ses données sur votre Mac et ne nous envoie rien.",
-          "Un module pour Claude Code qui synchronise le temps de bureau avec votre compte VVake est en développement. Il n'enverra que des minutes et des horodatages, jamais de code, de requêtes ou de frappes [CONFIRM : fonctionnement final à sa sortie].",
+          "Le module VVake pour Claude Code (facultatif, code source ouvert sur github.com/4gjnbzb4zf-sudo/vvake-claude-plugin) met en attente les nouvelles requêtes à Claude après une longue période au bureau, jusqu'à ce que vous bougiez. Il mesure le temps de bureau à partir de l'heure de vos requêtes, sur votre ordinateur.",
         ],
-        list: [],
+        list: [
+          {
+            t: "Jamais transmis.",
+            d: "Vos requêtes, votre code, les noms et le contenu de vos fichiers, vos transcriptions. Le texte des requêtes est lu seulement sur votre ordinateur, pour repérer les commandes du module et le préfixe « urgent: », et n'est pas conservé.",
+          },
+          {
+            t: "Transmis à l'API VVake.",
+            d: "Au jumelage : le nom de votre ordinateur (affiché sur votre téléphone pour que vous l'approuviez) et un code de jumelage. Ensuite, au plus toutes les 5 minutes et pendant un blocage : vos minutes de bureau continues, le début du blocage et le moment à partir duquel compter votre mouvement. Notre serveur répond avec votre règle, votre mode urgent / occupé et les minutes bougées depuis (d'après vos séances et vos Move Quests). Nous conservons le nom de l'ordinateur, son dernier relevé et votre règle.",
+          },
+          {
+            t: "Sur votre ordinateur.",
+            d: "Son état, votre règle et son jeton d'accès restent dans un dossier de votre répertoire personnel. Sur macOS, pendant un blocage, il lit le temps d'inactivité du clavier et de la souris (jamais les frappes) pour savoir quand vous êtes absent.",
+          },
+          {
+            t: "Délier.",
+            d: "Tapez /vvake:unlink, ou déliez l'ordinateur dans l'application (Toi > Connexions > Claude Code). La page de lien vvake.com/claude/<code> affiche seulement le code et ouvre l'application ; elle ne nous envoie rien.",
+          },
+        ],
+      },
+      {
+        id: "rewards",
+        h: "Prix $VVAKE et votre portefeuille",
+        p: [
+          "Les prix $VVAKE sont facultatifs et fonctionnent aujourd'hui sur Robinhood Chain Testnet, où les tokens n'ont aucune valeur. Vous n'avez jamais besoin d'un portefeuille pour utiliser VVake. Dans les applications, vous voyez seulement vos points et des renseignements sur les prix en lecture seule ; lier un portefeuille et réclamer se font sur vvake.com/rewards, depuis votre propre portefeuille. Base légale : votre consentement, donné en liant un portefeuille.",
+        ],
+        list: [
+          {
+            t: "Connexion sur vvake.com/rewards.",
+            d: "Avec un code envoyé au courriel de votre compte VVake, ou un code de jumelage affiché dans l'application. Ce navigateur est alors ajouté à vos appareils sous le nom « Web (vvake.com) ». La connexion reste dans le stockage de session de cet onglet jusqu'à ce que vous le fermiez ou vous déconnectiez.",
+          },
+          {
+            t: "Lier un portefeuille.",
+            d: "Vous connectez dans votre navigateur un portefeuille qui vous appartient et signez un message gratuit à usage unique ; nous lisons l'adresse à partir de la signature. Nous ne demandons, ne voyons ni n'acceptons jamais votre phrase de récupération ni vos clés privées, et nous ne détenons jamais vos tokens ni vos fonds. Un portefeuille par compte. Vous pouvez le délier en tout temps sur vvake.com/rewards : les semaines suivantes ne comptent plus.",
+          },
+          {
+            t: "Listes hebdomadaires.",
+            d: "Chaque lundi, nous arrêtons la semaine écoulée : le montant de VVAKE de chaque portefeuille lié ayant des séances comptées. La liste de la semaine (adresses et montants, avec leurs preuves) est publiée pour que chacun puisse la vérifier, et son empreinte (une racine de Merkle) est inscrite sur la blockchain. Les noms, courriels et points ne figurent pas dans la liste, mais un montant indique à peu près l'activité de cette adresse cette semaine-là.",
+          },
+          {
+            t: "Réclamations.",
+            d: "Vous réclamez en envoyant une transaction depuis votre portefeuille. Comme toute transaction sur une blockchain, elle est publique et permanente : l'adresse, le montant et l'heure.",
+          },
+          {
+            t: "Votre navigateur et la blockchain.",
+            d: "Les chiffres de la cagnotte et des contrats sur vvake.com/rewards sont lus par votre navigateur directement auprès du serveur public (RPC) de Robinhood Chain Testnet, qui voit votre adresse IP comme tout serveur ; les liens vers l'explorateur ouvrent l'explorateur de blocs public. Votre extension ou application de portefeuille a sa propre politique de confidentialité.",
+          },
+        ],
+        after: [
+          "Ce qui ne peut pas être effacé : personne, nous compris, ne peut modifier une blockchain. Une fois la liste d'une semaine publiée et sa racine inscrite, ou une fois votre réclamation faite, votre adresse et vos montants restent publics sur la blockchain et dans toute copie faite par d'autres. Si vous supprimez votre compte ou déliez votre portefeuille, nous supprimons le lien entre votre compte et le portefeuille et cessons de compter les semaines suivantes ; notre copie des listes passées garde l'adresse, les points et le montant sans votre compte, pour que ces semaines restent réclamables par cette adresse. Si vous ne voulez pas qu'une adresse soit associée à votre activité, ne la liez pas.",
+        ],
       },
       {
         id: "share",
@@ -2328,17 +2386,25 @@ export const fr: Dictionary = {
           { t: "Google (États-Unis).", d: "Seulement si vous vous connectez avec Google ou connectez Google Agenda." },
           {
             t: "Apple (États-Unis).",
-            d: "Se connecter avec Apple, notifications, app Santé, reconnaissance vocale, Apple Music, Plans, TestFlight et l'App Store, selon la politique de confidentialité d'Apple.",
+            d: "Se connecter avec Apple, notifications (dont les invitations aux quêtes d'équipe), app Santé, reconnaissance vocale, Apple Music, Plans, TestFlight et l'App Store, selon la politique de confidentialité d'Apple.",
           },
           {
-            t: "Finnhub (États-Unis) [CONFIRM : ou Twelve Data, selon le fournisseur actif].",
+            t: "Finnhub (États-Unis).",
             d: "Cours boursiers pour My Pulse. Nous envoyons seulement les symboles suivis par quelqu'un, jamais qui les suit.",
           },
-          { t: "Spotify.", d: "Seulement depuis votre iPhone, si vous le connectez." },
+          { t: "Spotify.", d: "Seulement depuis votre iPhone, si vous le connectez (voir Musique)." },
+          {
+            t: "Robinhood Chain Testnet (blockchain publique).",
+            d: "Seulement si vous liez un portefeuille : les racines hebdomadaires et vos réclamations sont publiques pour tous (voir Prix $VVAKE et votre portefeuille).",
+          },
+          {
+            t: "Coinbase (États-Unis).",
+            d: "Notre API lit le prix public ETH/USD chez Coinbase. Aucune donnée vous concernant n'est transmise.",
+          },
           { t: "GitHub (États-Unis).", d: "Héberge ce site. Comme tout hébergeur Web, il voit l'adresse IP des visiteurs." },
         ],
         after: [
-          "Les autres utilisateurs de VVake voient seulement votre nom d'affichage et votre VVaker (dans les invitations à un défi et la liste des personnes affrontées), les résultats des défis et votre fiche contre eux, et les totaux de votre ville. Jamais vos données de santé, vos séances ni votre position.",
+          "Les autres utilisateurs de VVake voient seulement votre nom d'affichage et votre VVaker (dans les invitations à un défi ou à une quête d'équipe et la liste des personnes affrontées), les résultats des défis et votre fiche contre eux, vos résultats de quête d'équipe pour les membres qui la rejoignent, et les totaux de votre ville. Jamais vos données de santé, vos séances ni votre position.",
           "Nous pouvons communiquer des renseignements si la loi l'exige, pour protéger la sécurité d'une personne, ou dans le cadre d'une fusion ou d'une acquisition ; dans ce cas, cette politique continue de s'appliquer à vos données et nous vous en informerons d'abord.",
         ],
       },
@@ -2365,8 +2431,21 @@ export const fr: Dictionary = {
         list: [
           {
             t: "Votre compte et tout ce qu'il contient :",
-            d: "jusqu'à ce que vous le supprimiez. Une séance supprimée l'est immédiatement.",
+            d: "jusqu'à ce que vous le supprimiez. Une séance supprimée l'est immédiatement ; nous gardons seulement son identifiant aléatoire, pour qu'une copie encore en attente sur votre montre ou un autre téléphone ne puisse pas la faire revenir (supprimé avec votre compte).",
           },
+          {
+            t: "Quêtes d'équipe :",
+            d: "une quête d'équipe que vous avez lancée reste pour les autres participants, sans votre nom, après la suppression de votre compte.",
+          },
+          {
+            t: "Lien du portefeuille :",
+            d: "jusqu'à ce que vous le déliiez ou supprimiez votre compte. Le message signé pour le lier : 10 minutes.",
+          },
+          {
+            t: "Listes hebdomadaires des prix :",
+            d: "publiques et permanentes une fois publiées et inscrites sur la blockchain (voir Prix $VVAKE et votre portefeuille). Notre copie garde l'adresse, les points et le montant, sans votre compte une fois celui-ci supprimé.",
+          },
+          { t: "Codes de jumelage de Claude Code :", d: "10 minutes." },
           { t: "Comptes invités :", d: "supprimés automatiquement après 90 jours sans utilisation." },
           {
             t: "Codes de connexion et de jumelage :",
@@ -2403,11 +2482,11 @@ export const fr: Dictionary = {
         list: [
           {
             t: "Tout supprimer.",
-            d: "Supprimez votre compte depuis l'application [CONFIRM : chemin dans l'app, p. ex. Vous > Compte > Supprimer le compte] ou en écrivant à {email}. Cela supprime votre compte, vos séances, votre questionnaire et vos données de santé, vos appareils, les changements de plan, les défis, vos réglages My Pulse, vos images VVaker et l'audio du coach qui n'appartenait qu'à vous, après avoir révoqué l'accès Google. Les données de l'app Santé et de vos appareils restent sous votre contrôle.",
+            d: "Supprimez votre compte dans l'application (Toi > Ton compte > Supprimer mon compte, comptes invités compris) ou en écrivant à {email}. Cela supprime votre compte, vos séances, vos Move Quests, votre questionnaire et vos données de santé, vos appareils, les changements de plan, les défis, votre participation aux quêtes d'équipe, vos réglages My Pulse, vos images VVaker, l'audio du coach qui n'appartenait qu'à vous, vos liens Claude Code et le lien de votre portefeuille, après avoir révoqué l'accès Google. Les données de l'app Santé et de vos appareils restent sous votre contrôle. Les listes hebdomadaires de prix déjà publiées et les inscriptions sur la blockchain ne peuvent pas être effacées (voir Prix $VVAKE et votre portefeuille).",
           },
           {
             t: "Se déconnecter, supprimer une séance.",
-            d: "Déconnectez-vous depuis l'application en tout temps. Pour supprimer une seule séance ou déconnecter un autre appareil, écrivez à {email} [CONFIRM : ajouter ces actions à l'app].",
+            d: "Déconnectez-vous depuis l'application en tout temps. Pour supprimer une séance passée : dans Toi, touchez longuement la séance dans votre journal ou touchez ⋯ puis Supprimer cette séance, ou touchez Sélectionner pour en supprimer plusieurs. Elle est retirée de votre journal, de votre série, de vos points et de vos statistiques, sur nos serveurs et sur votre téléphone. Déliez Claude Code dans Toi > Connexions ; déliez votre portefeuille ou déconnectez-vous sur vvake.com/rewards. Pour déconnecter un autre téléphone ou une montre, écrivez à {email}.",
           },
           {
             t: "Accès et portabilité.",
@@ -2419,7 +2498,7 @@ export const fr: Dictionary = {
           },
           {
             t: "Retrait du consentement.",
-            d: "Désactivez Santé, la localisation, le microphone, le calendrier ou les notifications dans les Réglages d'iOS ; déconnectez Google ou Spotify ; coupez la voix du coach.",
+            d: "Désactivez Santé, la localisation, le microphone, le calendrier ou les notifications dans les Réglages d'iOS ; déconnectez Google ou Spotify ; coupez la voix du coach ; déliez votre portefeuille ou Claude Code.",
           },
           {
             t: "Plainte.",
@@ -2445,7 +2524,7 @@ export const fr: Dictionary = {
         h: "Témoins et pistage",
         p: [
           "Les applications n'utilisent pas l'identifiant publicitaire et ne vous pistent pas dans les applications ou sites d'autres entreprises ; elles n'affichent donc jamais la demande de transparence du suivi publicitaire (App Tracking Transparency). Elles ne contiennent aucune trousse tierce de statistiques ou de rapports de plantage.",
-          "Ce site n'utilise aucun témoin (cookie) de pistage ni aucun outil de statistiques tiers. Il mémorise votre choix de langue, de thème et de devise dans le stockage local de votre navigateur, qui ne quitte jamais votre navigateur. Le formulaire d'inscription utilise Cloudflare Turnstile pour bloquer les robots.",
+          "Ce site n'utilise aucun témoin (cookie) de pistage ni aucun outil de statistiques tiers. Il mémorise votre choix de langue, de thème et de devise dans le stockage local de votre navigateur, qui ne quitte jamais votre navigateur. Sur vvake.com/rewards, votre connexion est gardée dans le stockage de session de l'onglet jusqu'à ce que vous le fermiez. Le formulaire d'inscription utilise Cloudflare Turnstile pour bloquer les robots.",
         ],
         list: [],
       },
@@ -2462,7 +2541,7 @@ export const fr: Dictionary = {
         id: "plus",
         h: "Abonnements et TestFlight",
         p: [
-          "VVake Fit Plus n'est pas encore en vente : rien n'est facturé pendant l'aperçu. À l'ouverture des abonnements, Apple gérera le paiement et nous recevrons seulement l'état de votre abonnement, jamais vos informations de paiement.",
+          "VVake Fit Plus n'est pas encore en vente : rien n'est facturé pendant l'aperçu. À l'ouverture des abonnements, Apple gérera le paiement et nous recevrons seulement l'état de votre abonnement, jamais vos informations de paiement. Dans les versions de développement seulement (ni TestFlight ni l'App Store), Plus peut se payer en $VVAKE de testnet : nous gardons la facture (le montant exact de tokens et le prix de référence utilisé) et, une fois payée, la transaction publique trouvée sur la blockchain ; le reçu est conservé sans votre compte après sa suppression, pour qu'un paiement ne soit jamais compté deux fois.",
           "Si vous testez une version d'essai avec TestFlight, Apple nous transmet les commentaires, captures d'écran et rapports de plantage que vous choisissez d'envoyer, avec des renseignements de base sur l'appareil, selon les conditions de TestFlight.",
         ],
         list: [],

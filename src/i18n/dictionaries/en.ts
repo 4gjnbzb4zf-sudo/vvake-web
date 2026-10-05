@@ -1973,7 +1973,7 @@ export const en = {
     draft:
       "Draft for the TestFlight preview. Items marked [CONFIRM] are still being checked, and this policy will be reviewed by a lawyer before the public launch.",
     intro: [
-      "VVake (also called VVake Fit) is a fitness coaching app for iPhone and Apple Watch, with this website, vvake.com. This policy explains in plain words what we collect, why, who else sees it, how long we keep it and what you can do about it. It covers the apps (TestFlight previews included), the VVake API they talk to, the desk companion for Mac and this website.",
+      "VVake (also called VVake Fit) is a fitness coaching app for iPhone and Apple Watch, with this website, vvake.com. This policy explains in plain words what we collect, why, who else sees it, how long we keep it and what you can do about it. It covers the apps (TestFlight previews included), the VVake API they talk to, the desk companion for Mac, the VVake plugin for Claude Code and this website, including vvake.com/rewards.",
       "VVake is a training and wellness app. It is not a medical device and does not diagnose, treat or monitor any health condition.",
     ],
     summaryTitle: "The short version",
@@ -1983,6 +1983,7 @@ export const en = {
       "Your GPS route stays on your iPhone or Apple Watch and in Apple Health. Our servers never receive location coordinates.",
       "You can use VVake without signing in, and you can delete your account and everything with it.",
       "Our database and stored files are kept in the European Union.",
+      "$VVAKE prizes are optional. If you link a wallet, its address and weekly prize amounts become public on a blockchain, which can't be erased.",
     ],
     tocTitle: "Contents",
     sections: [
@@ -2006,11 +2007,19 @@ export const en = {
           },
           {
             t: "Your devices.",
-            d: "For each iPhone or Apple Watch you use: a device ID made by the app, whether it is a phone or a watch, its model and when it was last seen; sign-in tokens (we keep only a hash of them); and a push notification token if you allow notifications. Why: to keep you signed in, let you sign a device out and send the alerts you asked for (challenges, My Pulse).",
+            d: 'For each iPhone or Apple Watch you use: a device ID made by the app, whether it is a phone or a watch, its model and when it was last seen; sign-in tokens (we keep only a hash of them); and a push notification token if you allow notifications. If you sign in on vvake.com/rewards, that browser is added as a device named "Web (vvake.com)"; each computer you link to Claude Code is added with its name (see Desk companion and Claude Code). Why: to keep you signed in, let you sign a device out and send the alerts you asked for (challenges, crew quests, My Pulse).',
           },
           {
             t: "Your sessions.",
             d: "For each workout: the sport, start and end time, active time, distance, average and maximum heart rate, time in each heart-rate zone, steps, cadence, calories, effort score, points and streak, and a sample every 10 seconds of distance, heart rate and steps. Never GPS coordinates. Why: your journal, stats, streak, plan, races against your own past sessions, challenges and City Clash.",
+          },
+          {
+            t: "Move Quests and Crew Quests.",
+            d: "Move Quests are short motion challenges (10 to 60 seconds: hands up, jumps, freeze) on your Apple Watch. The watch's motion sensor is read on the watch only; we receive just the result: the kind of quest, when it started, how long it lasted, the reps, whether it succeeded, the time of each rep, the longest hold, the peak acceleration, and whether the watch was on your wrist (yes, no or unknown, worked out on the watch from how recent your latest Apple Health heart-rate reading is). Never the raw motion stream. Why: to check the quest was real, give VV points and a little streak help, and count your movement for the Claude Code unlock. A Crew Quest is the same quest at the same time with your crew, the people you have faced in an accepted challenge: when you start one, your crew gets a push notification with your display name and the quest, and everyone who joins sees each other's display name, VVaker and result (success, reps, time, points and rank).",
+          },
+          {
+            t: "$VVAKE prizes (optional).",
+            d: "If you link a wallet on vvake.com/rewards: its public address, when you linked it, and the one-time message you sign to prove it is yours (kept 10 minutes). Each week: the VV points of your counted sessions (capped per day), the VVAKE amount they give, its proof, and whether it has been claimed (read from the blockchain). See $VVAKE prizes and your wallet.",
           },
           {
             t: "Your athlete profile.",
@@ -2117,7 +2126,7 @@ export const en = {
         id: "music",
         h: "Music",
         p: [
-          "Apple Music and Spotify are controlled from your iPhone only. VVake asks Apple Music (MusicKit) for permission to play your playlists and show what is playing. Spotify sign-in happens on your iPhone and its tokens stay in your iPhone's Keychain. Your music data does not reach our servers, and nothing about your workouts is shared with Apple Music or Spotify.",
+          "Apple Music and Spotify are controlled from your iPhone, and from your Apple Watch through your iPhone. VVake asks Apple Music (MusicKit) for permission to play your music and show what is playing. If you connect Spotify, sign-in happens on your iPhone, its tokens stay in your iPhone's Keychain, and your iPhone talks to Spotify directly: it reads what is playing, your Spotify devices, your playlists and Liked Songs, and sends play, pause, skip and volume commands and the search words you type or say on your watch. Nothing about your music reaches our servers, and nothing about your workouts or health is sent to Apple Music or Spotify.",
         ],
         list: [],
       },
@@ -2147,12 +2156,61 @@ export const en = {
       },
       {
         id: "desk",
-        h: "Desk companion for Mac",
+        h: "Desk companion and Claude Code",
         p: [
           "The optional VVake desk companion counts continuous desk time from macOS's keyboard and mouse idle time, to remind you to move. It never reads keystrokes, code, screen contents or AI prompts. Today it keeps its state on your Mac and sends nothing to us.",
-          "A plugin for Claude Code that syncs desk time to your VVake account is in development. It will send only desk-time minutes and timestamps, never code, prompts or keystrokes [CONFIRM: final behaviour when it ships].",
+          "The VVake plugin for Claude Code (optional, open source at github.com/4gjnbzb4zf-sudo/vvake-claude-plugin) holds new Claude prompts after a long stretch at the desk until you move. It measures desk time from the times of your prompts, on your computer.",
         ],
-        list: [],
+        list: [
+          {
+            t: "Never sent.",
+            d: 'Your prompts, code, file names, file contents and transcripts. The prompt text is read only on your computer, to spot the plugin\'s commands and the "urgent:" prefix, and is not stored.',
+          },
+          {
+            t: "Sent to the VVake API.",
+            d: "When you link it: your computer's name (shown on your phone so you can approve it) and a pairing code. Then, at most every 5 minutes and while a lock is on: your continuous desk minutes, when the lock started and from when to count your movement. Our server answers with your rule, your urgent / busy mode and the minutes you have moved since (from your sessions and Move Quests). We keep the computer's name, its last desk report and your rule.",
+          },
+          {
+            t: "On your computer.",
+            d: "Its state, your rule and its access token stay in a folder in your home directory. On macOS, while a lock is on, it reads keyboard and mouse idle time (never keystrokes) to tell when you are away.",
+          },
+          {
+            t: "Unlink.",
+            d: "Type /vvake:unlink, or unlink the computer in the app (You > Connections > Claude Code). The link page vvake.com/claude/<code> only shows the code and opens the app; it sends nothing to us.",
+          },
+        ],
+      },
+      {
+        id: "rewards",
+        h: "$VVAKE prizes and your wallet",
+        p: [
+          "$VVAKE prizes are optional, and today they run on Robinhood Chain Testnet, where the tokens have no value. You never need a wallet to use VVake. In the apps you only see your points and read-only prize information; linking a wallet and claiming happen on vvake.com/rewards, from your own wallet. Legal basis: your consent, given by linking a wallet.",
+        ],
+        list: [
+          {
+            t: "Signing in on vvake.com/rewards.",
+            d: 'With a code sent to the e-mail of your VVake account, or a link code shown in the app. This browser is then added to your devices as "Web (vvake.com)". The sign-in stays in that tab\'s session storage until you close the tab or sign out.',
+          },
+          {
+            t: "Linking a wallet.",
+            d: "You connect a wallet you own in your browser and sign a free one-time message; we read the address from the signature. We never ask for, see or accept your recovery phrase or private keys, and we never hold your tokens or funds. One wallet per account. You can unlink it on vvake.com/rewards at any time: future weeks then stop counting.",
+          },
+          {
+            t: "Weekly lists.",
+            d: "Every Monday we settle the past week: the VVAKE amount for each linked wallet with counted sessions. The week's list (addresses and amounts, with their proofs) is published so anyone can check it, and its fingerprint (a Merkle root) is written to the blockchain. Names, e-mails and points are not in the list, but an amount says roughly how active that address was that week.",
+          },
+          {
+            t: "Claims.",
+            d: "You claim by sending a transaction from your wallet. Like every blockchain transaction, it is public and permanent: the address, the amount and the time.",
+          },
+          {
+            t: "Your browser and the chain.",
+            d: "The prize pool and contract figures on vvake.com/rewards are read by your browser directly from Robinhood Chain Testnet's public server (RPC), which sees your IP address like any server; explorer links open the public block explorer. Your wallet extension or app has its own privacy policy.",
+          },
+        ],
+        after: [
+          "What can't be erased: nobody, us included, can edit a blockchain. Once a week's list is published and its root is on chain, or once you have claimed, your address and amounts stay public on the chain and in any copy someone made. If you delete your account or unlink your wallet, we delete the link between your account and the wallet and stop counting future weeks; our copy of past weekly lists keeps the address, points and amount without your account, so those weeks stay claimable by that address. If you don't want an address tied to your activity, don't link it.",
+        ],
       },
       {
         id: "share",
@@ -2172,17 +2230,22 @@ export const en = {
           { t: "Google (United States).", d: "Only if you sign in with Google or connect Google Calendar." },
           {
             t: "Apple (United States).",
-            d: "Sign in with Apple, push notifications, Apple Health, speech recognition, Apple Music, Maps, TestFlight and the App Store, under Apple's own privacy policy.",
+            d: "Sign in with Apple, push notifications (including crew quest invites), Apple Health, speech recognition, Apple Music, Maps, TestFlight and the App Store, under Apple's own privacy policy.",
           },
           {
-            t: "Finnhub (United States) [CONFIRM: or Twelve Data, whichever is live].",
+            t: "Finnhub (United States).",
             d: "Market quotes for My Pulse. We send only the symbols that someone follows, never who follows them.",
           },
-          { t: "Spotify.", d: "Only from your iPhone, if you connect it." },
+          { t: "Spotify.", d: "Only from your iPhone, if you connect it (see Music)." },
+          {
+            t: "Robinhood Chain Testnet (public blockchain).",
+            d: "Only if you link a wallet: the weekly roots and your claims are public to everyone (see $VVAKE prizes and your wallet).",
+          },
+          { t: "Coinbase (United States).", d: "Our API reads the public ETH/USD price from Coinbase. No data about you is sent." },
           { t: "GitHub (United States).", d: "Hosts this website. Like any web host, it sees visitors' IP addresses." },
         ],
         after: [
-          "Other VVake users see only your display name and VVaker (on challenge invites and in the lists of people you have faced), challenge results and your record against them, and your city's totals. Never your health data, sessions or location.",
+          "Other VVake users see only your display name and VVaker (on challenge and crew quest invites and in the lists of people you have faced), challenge results and your record against them, your crew quest results to the crew members who join, and your city's totals. Never your health data, sessions or location.",
           "We may disclose information if the law requires it, to protect someone's safety, or as part of a merger or acquisition, in which case this policy keeps applying to your data and we will tell you first.",
         ],
       },
@@ -2207,7 +2270,20 @@ export const en = {
         h: "How long we keep it",
         p: [],
         list: [
-          { t: "Your account and everything in it:", d: "until you delete it. A session you delete is removed right away." },
+          {
+            t: "Your account and everything in it:",
+            d: "until you delete it. A session you discard is removed right away; we keep only its random ID, so a copy still waiting on your watch or another phone can't bring it back (deleted with your account).",
+          },
+          {
+            t: "Crew quests:",
+            d: "a crew quest you started stays for the others who joined, without your name, after you delete your account.",
+          },
+          { t: "Wallet link:", d: "until you unlink it or delete your account. The message you sign to link it: 10 minutes." },
+          {
+            t: "Weekly prize lists:",
+            d: "public and permanent once published and on chain (see $VVAKE prizes and your wallet). Our copy keeps the address, points and amount, without your account once you delete it.",
+          },
+          { t: "Claude Code pairing codes:", d: "10 minutes." },
           { t: "Guest accounts:", d: "deleted automatically after 90 days without use." },
           {
             t: "Sign-in and link codes:",
@@ -2235,11 +2311,11 @@ export const en = {
         list: [
           {
             t: "Delete everything.",
-            d: "Delete your account from the app [CONFIRM: in-app path, e.g. You > Account > Delete account] or by writing to {email}. This deletes your account, sessions, survey and health fields, devices, plan changes, challenges, My Pulse settings, VVaker images and the coach audio only you had, and revokes Google access first. Data in Apple Health and on your devices stays under your control.",
+            d: "Delete your account in the app (You > Your account > Delete my account, guest accounts included) or by writing to {email}. This deletes your account, sessions, Move Quests, survey and health fields, devices, plan changes, challenges, crew quest memberships, My Pulse settings, VVaker images, the coach audio only you had, your Claude Code links and your wallet link, and revokes Google access first. Data in Apple Health and on your devices stays under your control. Weekly prize lists already published and blockchain records can't be erased (see $VVAKE prizes and your wallet).",
           },
           {
-            t: "Sign out, delete a session.",
-            d: "Sign out from the app at any time. To delete a single session or sign out another device, write to {email} [CONFIRM: add these to the app].",
+            t: "Sign out, discard a session.",
+            d: "Sign out from the app at any time. To discard a past session: in You, long-press it in your journal or tap ⋯ and choose Discard this session, or tap Select to discard several. It is removed from your journal, streak, points and stats, on our servers and your phone. Unlink Claude Code in You > Connections; unlink your wallet or sign out on vvake.com/rewards. To sign out another phone or watch, write to {email}.",
           },
           {
             t: "Access and portability.",
@@ -2248,7 +2324,7 @@ export const en = {
           { t: "Correct.", d: "Edit your name, city, survey and health fields in the app, or write to us." },
           {
             t: "Withdraw consent.",
-            d: "Turn off Health, location, microphone, calendar or notifications in iOS Settings; disconnect Google or Spotify; switch the coach voice off.",
+            d: "Turn off Health, location, microphone, calendar or notifications in iOS Settings; disconnect Google or Spotify; switch the coach voice off; unlink your wallet or Claude Code.",
           },
           {
             t: "Complain.",
@@ -2274,7 +2350,7 @@ export const en = {
         h: "Cookies and tracking",
         p: [
           "The apps do not use the advertising identifier and do not track you across other companies' apps or websites, so they never show the App Tracking Transparency prompt. They contain no third-party analytics or crash-reporting SDKs.",
-          "This website uses no tracking cookies and no third-party analytics. It remembers your language, theme and currency choice in your browser's local storage, which never leaves your browser. The signup form uses Cloudflare Turnstile to keep bots out.",
+          "This website uses no tracking cookies and no third-party analytics. It remembers your language, theme and currency choice in your browser's local storage, which never leaves your browser. On vvake.com/rewards, your sign-in is kept in the tab's session storage until you close it. The signup form uses Cloudflare Turnstile to keep bots out.",
         ],
         list: [],
       },
@@ -2291,7 +2367,7 @@ export const en = {
         id: "plus",
         h: "Subscriptions and TestFlight",
         p: [
-          "VVake Fit Plus is not on sale yet: nothing is charged during the preview. When subscriptions open, Apple will handle payment and we will receive only the status of your subscription, never your payment details.",
+          "VVake Fit Plus is not on sale yet: nothing is charged during the preview. When subscriptions open, Apple will handle payment and we will receive only the status of your subscription, never your payment details. In development builds only (not TestFlight or the App Store), Plus can be paid with testnet $VVAKE: we keep the invoice (the exact token amount and the reference price used) and, once paid, the public transaction found on chain; the receipt stays without your account after deletion so a payment can never be counted twice.",
           "If you test a preview through TestFlight, Apple shares with us the feedback, screenshots and crash reports you choose to send, with basic device information, under Apple's TestFlight terms.",
         ],
         list: [],
