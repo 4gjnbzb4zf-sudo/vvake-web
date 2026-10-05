@@ -42,6 +42,11 @@ keys or funds because of a VVake page.
 - Prizes are for effort: counted sessions, VV points capped per day. Free accounts are eligible on equal terms.
 - Never pro-rata to token holdings; no bonus for Plus, gear, collectibles or holding $VVAKE.
 - Testnet tokens have no value. Say so wherever the tokens appear.
+- Prizes are 18+ (conservative default): only people 18 or older who are allowed to receive prizes where they live.
+  vvake.com/rewards asks the visitor to tick "I'm 18 or older and allowed to receive prizes where I live" before the
+  link-wallet button works (kept on the page only, never stored). Say 18+ wherever the prize rules are explained.
+- Paying Plus with testnet $VVAKE exists only in development builds of the app (App Store 3.1.1), never in TestFlight
+  or the App Store; the site may mention it only as that, with no burn-for-price framing.
 - VVake Fit Plus funds a monthly prize pool: a fixed, published share of net Plus revenue (ADR-0023), converted to
   VVAKE by rule on chain (capped chunks, permissionless trigger), sent straight to the rewards contract, and published
   (monthly report, `Funded` / `Bought` events, weekly lists). Plus never buys anyone a bigger prize.
