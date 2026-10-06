@@ -57,10 +57,12 @@ export function Header({ locale, dict }: { locale: Locale; dict: Dictionary["nav
         </nav>
         <div className="flex items-center gap-3">
           <LocaleSwitch locale={locale} label={dict.language} />
-          {/* On phones these two live in the menu, so the bar fits 375 px. */}
+          {/* On phones these live in the menu, so the bar fits 375 px (the theme switch up to md: it is wider). */}
           <div className="hidden items-center gap-3 sm:flex">
             <CurrencySelect label={dict.currency} />
-            <ThemeToggle labels={{ light: dict.themeLight, dark: dict.themeDark }} />
+            <div className="hidden md:block">
+              <ThemeToggle labels={{ group: dict.theme, system: dict.themeSystem, light: dict.themeLight, dark: dict.themeDark }} />
+            </div>
           </div>
           <details className="group relative lg:hidden">
             <summary className="flex h-10 cursor-pointer list-none items-center rounded-lg border border-line px-3 font-mono text-xs tracking-[0.12em] text-muted uppercase hover:text-text [&::-webkit-details-marker]:hidden">
@@ -74,9 +76,11 @@ export function Header({ locale, dict }: { locale: Locale; dict: Dictionary["nav
                   </a>
                 </li>
               ))}
-              <li className="flex items-center justify-between gap-2 border-t border-line px-1 pt-2 sm:hidden">
-                <CurrencySelect label={dict.currency} />
-                <ThemeToggle labels={{ light: dict.themeLight, dark: dict.themeDark }} />
+              <li className="flex items-center justify-between gap-2 border-t border-line px-1 pt-2 md:hidden">
+                <div className="sm:hidden">
+                  <CurrencySelect label={dict.currency} />
+                </div>
+                <ThemeToggle labels={{ group: dict.theme, system: dict.themeSystem, light: dict.themeLight, dark: dict.themeDark }} />
               </li>
               <li className="sm:hidden">
                 <a href={`/${locale}/#unlock`} className="block rounded-lg bg-pulse px-3 py-2.5 text-ink">

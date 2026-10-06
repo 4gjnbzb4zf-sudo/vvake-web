@@ -1,4 +1,5 @@
 import * as z from "zod/mini";
+import { accountPrefsSchema, type AccountPrefs } from "./accountPrefs";
 import { ClaimRefusedError } from "./claimTx";
 import { VAULT_FIELDS, type VaultBlob } from "./walletVault";
 
@@ -378,6 +379,11 @@ export class RewardsSession {
 
   rewards() {
     return this.authed("/v1/rewards", { method: "GET" }, rewardsSchema);
+  }
+
+  /** The account's app preferences (language, theme) from the app's You → Settings; null when none were chosen. */
+  async accountPrefs(): Promise<AccountPrefs | null> {
+    return (await this.authed("/v1/me", { method: "GET" }, accountPrefsSchema)).prefs ?? null;
   }
 
   proof(epoch: number) {
