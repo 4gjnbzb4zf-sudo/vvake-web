@@ -534,6 +534,61 @@ export const fr: Dictionary = {
       "10 défis max par jour ; sans réponse, ils expirent en 24 h",
     ],
   },
+  ghostModes: {
+    kicker: "Modes fantôme",
+    title: "Affronte un fantôme à ta façon, dans chaque sport.",
+    body: "Choisis le mode qui va avec ton sport : une distance à courir, une allure à tenir, toi-même sur ton propre parcours, ou ta dernière séance battue au cardio. En solo, ou en défi de 24 h à un ami, par lien ou ouvert à tout le monde.",
+    modes: [
+      {
+        label: "Course sur distance",
+        title: "5 km contre ton record",
+        body: "Choisis une distance (1, 3, 5, 10 km en course, 10 à 100 km à vélo, 500 m à 1,5 km à la nage…) et un fantôme : ton record sur cette distance, une séance passée, la marque d'un ami ou une allure cible. En direct : devant ou derrière, en mètres et en secondes.",
+        meta: "Tes temps intermédiaires face au fantôme à l'arrivée",
+      },
+      {
+        label: "Allure cible",
+        title: "Tenir 5:00/km pendant 30 minutes",
+        body: "Fixe une allure (min/km, min/100 m à la piscine) ou une vitesse (km/h à vélo ou en patins) pour une distance ou une durée. Le fantôme la tient parfaitement ; le coach te dit quand tu es dedans, trop vite ou trop lent.",
+        meta: "Une allure régulière, enfin visible",
+      },
+      {
+        label: "Fantôme de parcours",
+        title: "Ta boucle du dimanche, encore",
+        body: "Affronte ta propre sortie sur le même parcours. Ton fantôme y avance à son allure enregistrée ; si tu quittes le tracé, la course t'attend jusqu'à ce que tu le retrouves. L'arrivée, c'est la fin du parcours.",
+        meta: "GPS · tes tracés restent sur ton appareil",
+      },
+      {
+        label: "Fantôme d'entraînement",
+        title: "Bats mon HIIT de 30 min",
+        body: "Pour la muscu, le yoga, le HIIT, la boxe, le rameur, l'escalade et tous les sports sans distance : la même durée, la même intensité. Les sports cardio se gagnent à l'effort ; la muscu, le yoga et l'escalade au temps passé dans les zones de ton fantôme.",
+        meta: "Fréquence cardiaque de ta montre",
+      },
+    ],
+    map: {
+      alt: "Un parcours avec deux points : toi devant, le fantôme derrière, le tronçon entre vous en vert.",
+      you: "Toi",
+      ghost: "Ton fantôme",
+      green: "Tu mènes",
+      pink: "Le fantôme mène",
+      ahead: "+18 m · 4 s",
+      caption:
+        "Sur la carte du téléphone et la page parcours de la montre, toi et ton fantôme avancez sur le même tracé. Le tronçon entre vous passe au vert quand tu mènes, au rose quand c'est le fantôme, avec l'écart affiché dessus.",
+    },
+    cuesTitle: "Le coach, quand ça compte",
+    cues: [
+      "« Plus que 6 secondes. Accroche-toi, tu peux le doubler ! »",
+      "« Tu viens de dépasser ton fantôme ! » … « Maintenant tiens bon. Ne te retourne pas ! »",
+      "« Ton fantôme s'échappe. Trouve un petit peu plus. »",
+      "« Plus rapide que ton fantôme sur ce tronçon. »",
+      "« Tu as quitté le parcours. Rejoins-le. »",
+    ],
+    rules: [
+      "Des encouragements quand la course change, pas à chaque seconde, et jamais pour pousser en zone 5",
+      "La marque d'un ami, un lien ou un défi ouvert : 24 heures à partir du moment où on accepte",
+      "Tu partages un parcours seulement si tu le choisis, défi par défi, avec les bouts près de chez toi masqués",
+      "Tu bats la marque d'un ami ? Tu peux lui renvoyer une revanche, une seule, seulement si tu touches ou dis oui",
+    ],
+  },
   crew: {
     kicker: "S'entraîner ensemble",
     title: "Quelqu'un t'attend. Alors tu viens.",
@@ -2166,7 +2221,7 @@ export const fr: Dictionary = {
     title: "Politique de confidentialité",
     description:
       "Ce que les applications VVake pour iPhone et Apple Watch et le site vvake.com recueillent, pourquoi, qui y a accès, combien de temps nous le gardons et vos droits.",
-    updated: "Dernière mise à jour : 2026-10-05",
+    updated: "Dernière mise à jour : 2026-10-06",
     draft:
       "Version provisoire pour l'aperçu TestFlight. Les points marqués [CONFIRM] sont en cours de vérification, et cette politique sera revue par un avocat avant le lancement public.",
     intro: [
@@ -2177,7 +2232,7 @@ export const fr: Dictionary = {
     summary: [
       "Aucune publicité, aucune vente de vos données, aucun pistage d'une application ou d'un site à l'autre.",
       "Vos données de santé servent uniquement à vous entraîner. Elles ne sont jamais vendues, jamais utilisées pour la publicité et jamais montrées aux autres.",
-      "Votre tracé GPS reste sur votre iPhone ou votre Apple Watch et dans l'app Santé. Nos serveurs ne reçoivent jamais de coordonnées de localisation.",
+      "Votre tracé GPS reste sur votre iPhone ou votre Apple Watch et dans l'app Santé. Nos serveurs ne reçoivent jamais votre position, sauf un parcours que vous choisissez de partager pour un défi : rogné aux deux bouts, gardé seulement le temps de ce défi, puis supprimé.",
       "Vous pouvez utiliser VVake sans vous connecter, et supprimer votre compte avec tout ce qu'il contient.",
       "Notre base de données et nos fichiers sont conservés dans l'Union européenne.",
       "Les prix $VVAKE sont facultatifs. Si vous liez un portefeuille, son adresse et vos montants hebdomadaires deviennent publics sur une blockchain, qui ne peut pas être effacée.",
@@ -2208,7 +2263,7 @@ export const fr: Dictionary = {
           },
           {
             t: "Vos séances.",
-            d: "Pour chaque entraînement : le sport, l'heure de début et de fin, le temps actif, la distance, la fréquence cardiaque moyenne et maximale, le temps passé dans chaque zone cardiaque, les pas, la cadence, les calories, le score d'effort, les points et la série, et un relevé aux 10 secondes de la distance, de la fréquence cardiaque et des pas. Jamais de coordonnées GPS. Pourquoi : votre journal, vos statistiques, votre série, votre plan, vos courses contre vos séances passées, les défis et City Clash.",
+            d: "Pour chaque entraînement : le sport, l'heure de début et de fin, le temps actif, la distance, la fréquence cardiaque moyenne et maximale, le temps passé dans chaque zone cardiaque, les pas, la cadence, les calories, le score d'effort, les points et la série, et un relevé aux 10 secondes de la distance, de la fréquence cardiaque et des pas. Jamais de coordonnées GPS (une course sur parcours ajoute seulement quand vous avez commencé et fini le parcours et les mètres couverts dessus). Pourquoi : votre journal, vos statistiques, votre série, votre plan, vos courses contre vos séances passées, les défis et City Clash.",
           },
           {
             t: "Move Quests et quêtes d'équipe.",
@@ -2280,11 +2335,19 @@ export const fr: Dictionary = {
         list: [
           {
             t: "Pendant les séances extérieures seulement.",
-            d: "VVake utilise votre position pendant que vous utilisez l'application lors d'une séance extérieure, pour tracer votre parcours et mesurer la distance. Le tracé reste sur votre iPhone ou votre Apple Watch et dans l'app Santé. Il n'est jamais envoyé à nos serveurs ; nous recevons seulement des totaux comme la distance et l'allure. Les cartes sont affichées par Plans d'Apple.",
+            d: "VVake utilise votre position pendant que vous utilisez l'application lors d'une séance extérieure, pour tracer votre parcours et mesurer la distance. Le tracé reste sur votre iPhone ou votre Apple Watch et dans l'app Santé. Il n'est jamais envoyé à nos serveurs (sauf si vous partagez un parcours pour un défi, voir plus bas) ; nous recevons seulement des totaux comme la distance et l'allure. Les cartes sont affichées par Plans d'Apple.",
           },
           {
             t: "Votre ville.",
             d: "Votre ville pour City Clash est celle que vous tapez ou choisissez, pas votre position GPS. Vous pouvez la changer une fois par saison (28 jours) ou l'effacer en tout temps.",
+          },
+          {
+            t: "Fantômes de parcours.",
+            d: "Affronter votre propre parcours passé (un fantôme de parcours) utilise le tracé gardé sur l'appareil qui l'a enregistré, votre iPhone ou votre Apple Watch ; il ne quitte jamais cet appareil. Pendant la course, l'application compare votre position au parcours sur l'appareil et n'envoie avec la séance qu'un résumé : quand vous avez commencé et fini le parcours, les mètres couverts dessus et si vous l'avez terminé. Jamais une position.",
+          },
+          {
+            t: "Partager un parcours pour un défi (sur option).",
+            d: "Seulement si vous le choisissez, un défi à la fois, vous pouvez envoyer un parcours à affronter. Avant qu'il quitte votre appareil, les 300 premiers et derniers mètres sont masqués (réglable de 100 à 2 000 m) pour que les bouts près de chez vous ne se voient pas, et il est simplifié à environ 10 m. Seuls vous et les personnes qui acceptent ce défi peuvent le récupérer. Nous le gardons seulement le temps du défi (au plus 7 jours pour accepter, plus 24 heures pour courir et 2 heures pour les synchronisations tardives) et le supprimons ensuite, ou dès que le défi est fermé, refusé ou expire sans personne en course. Il n'apparaît jamais sur une page publique : un lien de défi montre seulement sa distance et son dénivelé.",
           },
           {
             t: "Des totaux publics seulement.",
@@ -2448,7 +2511,7 @@ export const fr: Dictionary = {
           { t: "GitHub (États-Unis).", d: "Héberge ce site. Comme tout hébergeur Web, il voit l'adresse IP des visiteurs." },
         ],
         after: [
-          "Les autres utilisateurs de VVake voient seulement votre nom d'affichage et votre VVaker (dans les invitations à un défi ou à une quête d'équipe, sur les liens de défi que vous envoyez à qui que ce soit et dans la liste des personnes affrontées), les résultats des défis et votre fiche contre eux, vos résultats de quête d'équipe pour les membres qui la rejoignent, et les totaux de votre ville. Jamais vos données de santé, vos séances ni votre position.",
+          "Les autres utilisateurs de VVake voient seulement votre nom d'affichage et votre VVaker (dans les invitations à un défi ou à une quête d'équipe, sur les liens de défi que vous envoyez à qui que ce soit et dans la liste des personnes affrontées), les résultats des défis et votre fiche contre eux, vos résultats de quête d'équipe pour les membres qui la rejoignent, et les totaux de votre ville. Jamais vos données de santé, vos séances ni votre position, sauf un parcours que vous choisissez de partager pour un défi, visible seulement par les personnes qui l'affrontent (voir Localisation).",
           "Nous pouvons communiquer des renseignements si la loi l'exige, pour protéger la sécurité d'une personne, ou dans le cadre d'une fusion ou d'une acquisition ; dans ce cas, cette politique continue de s'appliquer à vos données et nous vous en informerons d'abord.",
         ],
       },
@@ -2491,6 +2554,10 @@ export const fr: Dictionary = {
           },
           { t: "Codes de jumelage de Claude Code :", d: "10 minutes." },
           { t: "Comptes invités :", d: "supprimés automatiquement après 90 jours sans utilisation." },
+          {
+            t: "Un parcours partagé pour un défi :",
+            d: "seulement le temps de ce défi (au plus 7 jours + 24 heures + 2 heures), puis supprimé ; tout de suite s'il est fermé, refusé ou expire sans personne en course.",
+          },
           {
             t: "Codes de connexion et de jumelage :",
             d: "10 minutes pour les codes par courriel, 2 minutes pour le jumelage de la montre, 60 secondes pour les codes d'échange de la connexion Google.",
@@ -2626,6 +2693,15 @@ export const fr: Dictionary = {
     acceptByDate: "À accepter avant le {date}",
     wins: "Une séance avec la fréquence cardiaque de ta montre qui bat la marque gagne. Gratuit, sans mise : qui gagne reçoit des points VV.",
     ghost: "Tu affrontes sa propre séance en fantôme.",
+    rematchOf: "Revanche de « {mark} »",
+    route:
+      "Un fantôme de parcours : affronte son propre parcours, sur place, avec le GPS. L'app te montre le tracé quand tu acceptes ; cette page jamais (seulement sa distance et son dénivelé), et les bouts près de chez lui sont masqués.",
+    winsRoute:
+      "Fais tout le parcours, du départ à l'arrivée, plus vite que la marque, avec la fréquence cardiaque de ta montre. Gratuit, sans mise : qui gagne reçoit des points VV.",
+    trainingEffort:
+      "Un fantôme d'entraînement : {min} min de {sport}. Tiens les {min} minutes avec au moins son effort ({effort} points d'effort, comptés pour ton propre cœur).",
+    trainingZones:
+      "Un fantôme d'entraînement : {min} min de {sport}. Tiens les {min} minutes avec au moins {zoneMin} min dans les zones {lo} à {hi} de ton propre cœur, comme lui.",
     openLabel: "Ouvert à tout le monde",
     openCounts: "{accepted} ont accepté · {won} l'ont battu",
     openHidden: "+ {n} autres qui gardent leur nom privé",

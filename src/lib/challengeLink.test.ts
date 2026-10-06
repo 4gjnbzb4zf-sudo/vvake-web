@@ -9,6 +9,7 @@ import {
   prettyChallengeCode,
   readPreview,
   readTarget,
+  routeLine,
   takeable,
   targetResult,
   targetTitle,
@@ -99,5 +100,51 @@ describe("24-hour challenge links", () => {
     expect(takeable({ status: "open", expiresAt: api.expiresAt }, exp)).toBe(false);
     expect(takeable({ status: "accepted", expiresAt: api.expiresAt }, 0)).toBe(false);
     expect(prettyChallengeCode("ABCD2345")).toBe("ABCD-2345");
+  });
+});
+
+describe("ghost-mode challenge links (route, training, rematch)", () => {
+  const route = { kind: "route", sport: "run", distanceM: 2000, timeS: 600, climbM: 15 };
+  const training = { kind: "training", sport: "hiit", durationS: 1800, effort: 90, band: [2, 4], bandS: 1500, rule: "effort" };
+
+  it("reads a route target and its summary, never a point", () => {
+    const p = readPreview({ from: { name: "Alex" }, target: route, route: { lengthM: 2000, climbM: 15, pts: [[45.7, 4.8, 0, 0]] } })!;
+    expect(p.target).toEqual(route);
+    expect(p.route).toEqual({ lengthM: 2000, climbM: 15 });
+    expect(JSON.stringify(p)).not.toContain("45.7");
+    expect(readTarget({ kind: "route", distanceM: 2000, timeS: 600 })).toBeNull(); // no sport
+  });
+
+  it("reads a training target and refuses a bad band", () => {
+    expect(readTarget(training)).toEqual(training);
+    expect(readTarget({ ...training, band: [4, 2] })).toBeNull();
+    expect(readTarget({ ...training, rule: "speed" })).toBeNull();
+  });
+
+  it("writes route and training marks like the app, EN/FR", () => {
+    const r = readTarget(route)!;
+    const t = readTarget(training)!;
+    expect(targetTitle(r, "en")).toBe("Beat my 2 km route in 10:00");
+    expect(targetTitle(r, "fr")).toBe("Bats mon parcours de 2 km en 10:00");
+    expect(targetTitle(t, "en")).toBe("Beat my 30-min HIIT");
+    expect(targetTitle(t, "fr")).toBe("Bats ma séance de HIIT de 30 min");
+    expect(targetResult(r, 580, "en")).toBe("9:40");
+    expect(targetResult(t, 92.5, "en")).toBe("92.5 effort pts");
+    expect(targetResult(t, 92.5, "fr")).toBe("92,5 pts d'effort");
+    expect(targetResult({ ...t, rule: "zones" }, 1560, "en")).toBe("26 min in zone");
+    expect(targetResult({ ...t, rule: "zones" }, 1560, "fr")).toBe("26 min en zone");
+    expect(routeLine({ lengthM: 2000, climbM: 15 }, "en")).toBe("2 km route · 15 m climb");
+    expect(routeLine({ lengthM: 4200 }, "fr")).toBe("Parcours de 4,2 km");
+  });
+
+  it("reads the mark a rematch answers", () => {
+    const p = readPreview({
+      from: { name: "Alex" },
+      target: { kind: "ghost", sport: "run", distanceM: 5000, timeS: 1422 },
+      rematchOf: { target: { kind: "time", sport: "run", distanceM: 5000, timeS: 1450 } },
+    })!;
+    expect(p.rematchOf).toEqual({ kind: "time", sport: "run", distanceM: 5000, timeS: 1450 });
+    expect(targetTitle(p.rematchOf!, "fr")).toBe("Bats 5 km en 24:10");
+    expect(readPreview({ from: { name: "Alex" } })!.rematchOf).toBeNull();
   });
 });

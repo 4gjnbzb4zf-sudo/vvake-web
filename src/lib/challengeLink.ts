@@ -7,6 +7,8 @@
  * /<lang>/c/#<code>, the fallback page for people without the app. Dependency-free: `challengeRedirect` is
  * serialised into an inline script.
  */
+import sportsData from "@/data/sports.json";
+
 export const CHALLENGE_CODE = /^[A-HJ-NP-Z2-9]{8}$/;
 
 /** A valid code from "#abcd2345", "abcd2345" or "/c/ABCD2345/", uppercased; null otherwise. */
@@ -29,13 +31,25 @@ export const challengeAppUrl = (scheme: string, code: string) => `${scheme}://c/
 
 // ── 24-hour challenges ("beat my mark", the app's game-core challengeTarget.ts) ─────────────────────────────────
 
-export type TargetKind = "time" | "distance" | "minutes" | "ghost";
+export type TargetKind = "time" | "distance" | "minutes" | "ghost" | "route" | "training";
+/**
+ * Ghost modes (the app's game-core ghostModes.ts): `route` races the challenger's own route (shared trimmed and
+ * opt-in, fetched only by the people racing it: this page never gets a point, only its length and climb); `training`
+ * races their heart-rate session over `durationS`, judged by effort (cardio) or time in their zones `band` (strength,
+ * yoga, climbing).
+ */
 export interface ChallengeTarget {
   kind: TargetKind;
   sport?: string;
   distanceM?: number;
   timeS?: number;
   minutes?: number;
+  climbM?: number;
+  durationS?: number;
+  effort?: number;
+  band?: [number, number];
+  bandS?: number;
+  rule?: "effort" | "zones";
 }
 export type AttemptStatus = "accepted" | "won" | "lost";
 export interface BoardEntry {
@@ -58,6 +72,10 @@ export interface ChallengePreview {
   participants: { accepted: number; won: number; racing: number } | null;
   board: BoardEntry[];
   hidden: number;
+  /** A route challenge's summary (never a point of it). */
+  route: { lengthM: number; climbM?: number } | null;
+  /** The challenge this one is a rematch of (its mark). */
+  rematchOf: ChallengeTarget | null;
 }
 
 const num = (x: unknown, max = 1e7): number | undefined =>
@@ -84,7 +102,35 @@ export function readTarget(x: unknown): ChallengeTarget | null {
     const minutes = num(j.minutes, 1440);
     return minutes ? { kind, minutes, ...(sport ? { sport } : {}) } : null;
   }
+  if (kind === "route") {
+    const distanceM = num(j.distanceM);
+    const timeS = num(j.timeS, 86_400);
+    const climbM = num(j.climbM, 20_000);
+    return distanceM && timeS && sport ? { kind, sport, distanceM, timeS, ...(climbM !== undefined ? { climbM } : {}) } : null;
+  }
+  if (kind === "training") {
+    const durationS = num(j.durationS, 86_400);
+    const effort = num(j.effort, 10_000);
+    const bandS = num(j.bandS, 86_400);
+    const rule = j.rule === "effort" || j.rule === "zones" ? j.rule : null;
+    const b = Array.isArray(j.band) ? j.band : [];
+    const band: [number, number] | null =
+      b.length === 2 &&
+      b.every((z) => Number.isInteger(z) && (z as number) >= 1 && (z as number) <= 5) &&
+      (b[0] as number) <= (b[1] as number)
+        ? [b[0] as number, b[1] as number]
+        : null;
+    return durationS && effort !== undefined && bandS !== undefined && rule && band && sport
+      ? { kind, sport, durationS, effort, band, bandS, rule }
+      : null;
+  }
   return null;
+}
+
+/** A sport's name in the visitor's language, from the app's catalog export ("HIIT", "Course"). */
+export function sportLabel(key: string | undefined, lang: "en" | "fr"): string {
+  const s = (sportsData as { sports: { key: string; name: { en: string; fr: string } }[] }).sports.find((x) => x.key === key);
+  return s ? s.name[lang] : lang === "fr" ? "Séance" : "Workout";
 }
 
 /** Reads only the fields the page shows (older APIs sent `displayName` instead of `from`); null when unusable. */
@@ -122,7 +168,18 @@ export function readPreview(json: unknown): ChallengePreview | null {
     participants: p ? { accepted: num(p.accepted) ?? 0, won: num(p.won) ?? 0, racing: num(p.racing) ?? 0 } : null,
     board,
     hidden: num(j.hidden) ?? 0,
+    route: readRouteSummary(j.route),
+    rematchOf: j.rematchOf && typeof j.rematchOf === "object" ? readTarget((j.rematchOf as Record<string, unknown>).target) : null,
   };
+}
+
+/** Only a length and a climb: anything else the API might send about a route is ignored. */
+function readRouteSummary(x: unknown): { lengthM: number; climbM?: number } | null {
+  if (!x || typeof x !== "object") return null;
+  const r = x as Record<string, unknown>;
+  const lengthM = num(r.lengthM, 1_000_000);
+  const climbM = num(r.climbM, 20_000);
+  return lengthM ? { lengthM, ...(climbM !== undefined ? { climbM } : {}) } : null;
 }
 
 /** m:ss or h:mm:ss. */
@@ -163,14 +220,36 @@ export function targetTitle(t: ChallengeTarget, lang: "en" | "fr"): string {
     }
     case "minutes":
       return fr ? `${t.minutes} minutes actives` : `${t.minutes} active minutes`;
+    case "route":
+      return fr
+        ? `Bats mon parcours de ${km(t.distanceM!, lang)} en ${clock(t.timeS!)}`
+        : `Beat my ${km(t.distanceM!, lang)} route in ${clock(t.timeS!)}`;
+    case "training": {
+      const name = sportLabel(t.sport, lang);
+      const min = Math.round(t.durationS! / 60);
+      return fr ? `Bats ma séance de ${name} de ${min} min` : `Beat my ${min}-min ${name}`;
+    }
   }
+}
+
+/** A route's summary line: "2 km route · 15 m climb" / "Parcours de 2 km · 15 m de dénivelé". */
+export function routeLine(r: { lengthM: number; climbM?: number }, lang: "en" | "fr"): string {
+  const d = km(r.lengthM, lang);
+  const climb = r.climbM !== undefined ? Math.round(r.climbM) : undefined;
+  if (lang === "fr") return `Parcours de ${d}${climb !== undefined ? ` · ${climb} m de dénivelé` : ""}`;
+  return `${d} route${climb !== undefined ? ` · ${climb} m climb` : ""}`;
 }
 
 /** A board result in the mark's unit. */
 export function targetResult(t: ChallengeTarget, best: number | undefined, lang: "en" | "fr"): string | null {
   if (best === undefined) return null;
-  if (t.kind === "time" || t.kind === "ghost") return clock(best);
+  if (t.kind === "time" || t.kind === "ghost" || t.kind === "route") return clock(best);
   if (t.kind === "distance") return km(best, lang);
+  if (t.kind === "training") {
+    if (t.rule === "zones") return lang === "fr" ? `${Math.round(best / 60)} min en zone` : `${Math.round(best / 60)} min in zone`;
+    const e = Math.round(best * 10) / 10;
+    return lang === "fr" ? `${String(e).replace(".", ",")} pts d'effort` : `${e} effort pts`;
+  }
   return `${Math.round(best)} min`;
 }
 

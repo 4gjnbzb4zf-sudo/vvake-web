@@ -11,6 +11,8 @@ import {
   parseChallengeCode,
   prettyChallengeCode,
   readPreview,
+  routeLine,
+  sportLabel,
   takeable,
   targetResult,
   targetTitle,
@@ -100,7 +102,30 @@ export function ChallengeInvite({
                 <p className="mt-1 text-muted">{format(dict.metric, { metric: dict.metrics[p.metric as Metric], hours: p.hours })}</p>
               )
             )}
+            {p.rematchOf && (
+              <p className="mt-2 text-sm text-pulse-fg">{format(dict.rematchOf, { mark: targetTitle(p.rematchOf, lang) })}</p>
+            )}
             {t?.kind === "ghost" && <p className="mt-1 text-sm text-muted">{dict.ghost}</p>}
+            {t?.kind === "route" && (
+              <>
+                <p className="mt-2 font-mono text-sm text-text">
+                  {routeLine(p.route ?? { lengthM: t.distanceM!, ...(t.climbM !== undefined ? { climbM: t.climbM } : {}) }, lang)}
+                </p>
+                <p className="mt-1 text-sm text-muted">{dict.route}</p>
+              </>
+            )}
+            {t?.kind === "training" && (
+              <p className="mt-2 text-sm text-muted">
+                {format(t.rule === "zones" ? dict.trainingZones : dict.trainingEffort, {
+                  sport: sportLabel(t.sport, lang),
+                  min: Math.round(t.durationS! / 60),
+                  lo: t.band![0],
+                  hi: t.band![1],
+                  zoneMin: Math.round(t.bandS! / 60),
+                  effort: lang === "fr" ? String(t.effort).replace(".", ",") : String(t.effort),
+                })}
+              </p>
+            )}
           </>
         )}
       </div>
@@ -150,7 +175,9 @@ export function ChallengeInvite({
         </div>
       )}
 
-      <p className="mx-auto mt-6 max-w-md leading-relaxed text-muted">{t ? dict.wins : dict.lead}</p>
+      <p className="mx-auto mt-6 max-w-md leading-relaxed text-muted">
+        {t ? (t.kind === "route" ? dict.winsRoute : dict.wins) : dict.lead}
+      </p>
 
       <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
         {code && open && (

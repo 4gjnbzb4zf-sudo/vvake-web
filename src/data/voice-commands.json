@@ -1,5 +1,5 @@
 {
-  "version": 6,
+  "version": 7,
   "categories": [
     {
       "key": "workout",
@@ -183,19 +183,25 @@
         "fr": "Battre ton record"
       },
       "detail": {
-        "en": "Your best session runs beside you as a ghost.",
-        "fr": "Ta meilleure séance court à côté de toi, en fantôme."
+        "en": "Your best session runs beside you as a ghost: over a distance, on one of your routes, or a training session by heart rate.",
+        "fr": "Ta meilleure séance court à côté de toi, en fantôme : sur une distance, sur un de tes parcours, ou un entraînement au cardio."
       },
       "examples": {
         "en": [
           "Race my best",
           "Beat my best run",
-          "Ghost race"
+          "Ghost race",
+          "Race my 5 km best",
+          "Race my Sunday route",
+          "Beat my HIIT workout"
         ],
         "fr": [
           "Bats mon record",
           "Course contre mon fantôme",
-          "Bats ma meilleure course"
+          "Bats ma meilleure course",
+          "Bats mon record sur 5 km",
+          "Bats mon parcours du dimanche",
+          "Bats mon entraînement de HIIT"
         ]
       },
       "confirm": false,
@@ -709,11 +715,13 @@
       "examples": {
         "en": [
           "Challenge Marie to beat my ghost",
-          "Send my ghost to Alex"
+          "Send my ghost to Alex",
+          "Challenge Alex on my river route"
         ],
         "fr": [
           "Défie Marie de battre mon fantôme",
-          "Envoie mon fantôme à Alex"
+          "Envoie mon fantôme à Alex",
+          "Défie Alex sur mon parcours de la rivière"
         ]
       },
       "confirm": true,

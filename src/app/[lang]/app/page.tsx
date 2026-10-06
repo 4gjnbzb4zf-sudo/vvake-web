@@ -8,6 +8,7 @@ import { Crew } from "@/components/sections/Crew";
 import { Dare } from "@/components/sections/Dare";
 import { DayLoop } from "@/components/sections/DayLoop";
 import { Earn } from "@/components/sections/Earn";
+import { GhostModes } from "@/components/sections/GhostModes";
 import { How } from "@/components/sections/How";
 import { Journal } from "@/components/sections/Journal";
 import { Live } from "@/components/sections/Live";
@@ -62,25 +63,26 @@ export default async function AppPage({ params }: { params: Params }) {
       <Showcase locale={lang} dict={dict.showcase} />
       <Challenges dict={dict.challenges} index="09" />
       <Dare dict={dict.dare} index="10" />
-      <Pace dict={dict.pace} index="11" />
-      <Crew dict={dict.crew} index="12" />
-      <People dict={dict.people} index="13" />
+      <GhostModes dict={dict.ghostModes} index="11" />
+      <Pace dict={dict.pace} index="12" />
+      <Crew dict={dict.crew} index="13" />
+      <People dict={dict.people} index="14" />
       <Section
         id="rivalries"
-        index="14"
+        index="15"
         kicker={dict.rivalries.kicker}
         title={<span className="inline-block -skew-x-6 italic">{dict.rivalries.title}</span>}
         lead={dict.rivalries.body}
       >
         <RivalryBoard dict={dict.rivalries} rivalries={rivalryViews()} numberLocale={lang} />
       </Section>
-      <Live dict={dict.live} index="15" numberLocale={lang} />
-      <Wellbeing dict={dict.wellbeing} index="16" />
-      <Section id="journal" index="17" kicker={dict.journal.kicker} title={dict.journal.title} lead={dict.journal.body}>
+      <Live dict={dict.live} index="16" numberLocale={lang} />
+      <Wellbeing dict={dict.wellbeing} index="17" />
+      <Section id="journal" index="18" kicker={dict.journal.kicker} title={dict.journal.title} lead={dict.journal.body}>
         <Journal dict={dict.journal} />
       </Section>
-      <Plus dict={dict.plus} index="18" />
-      <Unlock locale={lang} dict={dict.unlock} countryLabels={dict.rivalries.tabs} index="19" />
+      <Plus dict={dict.plus} index="19" />
+      <Unlock locale={lang} dict={dict.unlock} countryLabels={dict.rivalries.tabs} index="20" />
     </Subpage>
   );
 }

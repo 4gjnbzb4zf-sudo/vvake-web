@@ -530,6 +530,61 @@ export const en = {
       "Max 10 invites a day; unanswered ones expire in 24h",
     ],
   },
+  ghostModes: {
+    kicker: "Ghost modes",
+    title: "Race a ghost your way, in every sport.",
+    body: "Pick a mode that fits the sport: race a distance, hold a pace, chase yourself on your own route, or beat your last training session on heart rate alone. Solo, or as a 24-hour challenge to a friend, a link or everyone.",
+    modes: [
+      {
+        label: "Distance race",
+        title: "5 km against your best",
+        body: "Pick a distance (1, 3, 5, 10 km runs, 10 to 100 km rides, 500 m to 1.5 km swims…) and a ghost: your best at that distance, one past session, a friend's mark or a target pace. Live: ahead or behind by metres and seconds.",
+        meta: "Splits against the ghost at the finish",
+      },
+      {
+        label: "Pace target",
+        title: "Hold 5:00/km for 30 minutes",
+        body: "Set a pace (min/km, min/100 m in the pool) or a speed (km/h on the bike or skates) for a distance or a time. The ghost runs it perfectly even; the coach tells you when you're on it, too quick or too slow.",
+        meta: "Even pacing, made visible",
+      },
+      {
+        label: "Route ghost",
+        title: "Your Sunday loop, again",
+        body: "Race your own past outdoor session on the same route. Your ghost moves along it at its recorded pace; leave the route and the race waits until you're back. The finish is the end of the route.",
+        meta: "GPS · your traces stay on your device",
+      },
+      {
+        label: "Training ghost",
+        title: "Beat my 30-min HIIT",
+        body: "For strength, yoga, HIIT, boxing, indoor rowing, climbing and every sport without a distance: the same length, the same intensity. Cardio sports are won on effort; strength, yoga and climbing on time in your ghost's zones.",
+        meta: "Heart rate from your watch",
+      },
+    ],
+    map: {
+      alt: "A route with two dots: you in front, the ghost behind, the stretch between you in green.",
+      you: "You",
+      ghost: "Your ghost",
+      green: "You lead",
+      pink: "The ghost leads",
+      ahead: "+18 m · 4 s",
+      caption:
+        "On the phone's map and the watch's route page, you and your ghost move on the same route. The stretch between you turns green when you lead, pink when the ghost does, with the gap on it.",
+    },
+    cuesTitle: "The coach, when it matters",
+    cues: [
+      "“Only 6 seconds in it. Dig in, you can take it!”",
+      "“You just passed your ghost!” … “Now hold it. Don't look back!”",
+      "“Your ghost is pulling away. Find a little more.”",
+      "“Faster than your ghost on that split.”",
+      "“You're off the route. Head back to it.”",
+    ],
+    rules: [
+      "Cues when the race changes, not every second, and never pushing you in zone 5",
+      "A friend's mark, a link or an open challenge: 24 hours from the moment they accept",
+      "Share a route only if you choose to, per challenge, with the ends near home hidden",
+      "Beat a friend's mark and you can send one rematch, only if you tap or say yes",
+    ],
+  },
   crew: {
     kicker: "Train together",
     title: "Someone's expecting you. So you show up.",
@@ -2009,7 +2064,7 @@ export const en = {
     title: "Privacy policy",
     description:
       "What the VVake iPhone and Apple Watch apps and vvake.com collect, why, who else sees it, how long we keep it and your rights.",
-    updated: "Last updated: 2026-10-05",
+    updated: "Last updated: 2026-10-06",
     draft:
       "Draft for the TestFlight preview. Items marked [CONFIRM] are still being checked, and this policy will be reviewed by a lawyer before the public launch.",
     intro: [
@@ -2020,7 +2075,7 @@ export const en = {
     summary: [
       "No ads, no sale of your data, no tracking across apps or websites.",
       "Health data is used only to coach you. It is never sold, never used for advertising and never shown to other people.",
-      "Your GPS route stays on your iPhone or Apple Watch and in Apple Health. Our servers never receive location coordinates.",
+      "Your GPS route stays on your iPhone or Apple Watch and in Apple Health. Our servers never receive your location, except a route you choose to share for one challenge: trimmed at both ends, kept only while that challenge lasts, then deleted.",
       "You can use VVake without signing in, and you can delete your account and everything with it.",
       "Our database and stored files are kept in the European Union.",
       "$VVAKE prizes are optional. If you link a wallet, its address and weekly prize amounts become public on a blockchain, which can't be erased.",
@@ -2051,7 +2106,7 @@ export const en = {
           },
           {
             t: "Your sessions.",
-            d: "For each workout: the sport, start and end time, active time, distance, average and maximum heart rate, time in each heart-rate zone, steps, cadence, calories, effort score, points and streak, and a sample every 10 seconds of distance, heart rate and steps. Never GPS coordinates. Why: your journal, stats, streak, plan, races against your own past sessions, challenges and City Clash.",
+            d: "For each workout: the sport, start and end time, active time, distance, average and maximum heart rate, time in each heart-rate zone, steps, cadence, calories, effort score, points and streak, and a sample every 10 seconds of distance, heart rate and steps. Never GPS coordinates (a route race adds only when you started and finished the route and the metres covered on it). Why: your journal, stats, streak, plan, races against your own past sessions, challenges and City Clash.",
           },
           {
             t: "Move Quests and Crew Quests.",
@@ -2123,11 +2178,19 @@ export const en = {
         list: [
           {
             t: "During outdoor sessions only.",
-            d: "VVake uses your location while you use the app during an outdoor session, to draw your route and measure distance. The route stays on your iPhone or Apple Watch and in Apple Health. It is never sent to our servers; we receive only totals such as distance and pace. Maps are drawn by Apple Maps.",
+            d: "VVake uses your location while you use the app during an outdoor session, to draw your route and measure distance. The route stays on your iPhone or Apple Watch and in Apple Health. It is never sent to our servers (unless you share a route for a challenge, below); we receive only totals such as distance and pace. Maps are drawn by Apple Maps.",
           },
           {
             t: "Your city.",
             d: "Your home city for City Clash is the city you type or pick, not your GPS position. You can change it once per season (28 days) or clear it at any time.",
+          },
+          {
+            t: "Route ghosts.",
+            d: "Racing your own past route (a route ghost) uses the trace stored on the device that recorded it, your iPhone or Apple Watch; it never leaves that device. When you race, the app matches your position to the route on the device and uploads with the session only a summary: when you started and finished the route, the metres you covered on it and whether you finished. Never a position.",
+          },
+          {
+            t: "Sharing a route for a challenge (opt-in).",
+            d: "Only if you choose it, for one challenge at a time, can you send a route to race. Before it leaves your device, the first and last 300 m are hidden (you can set 100 to 2,000 m) so the ends near your home don't show, and it is simplified to about 10 m. Only you and the people who accept that challenge can fetch it. We keep it only while the challenge lasts (at most 7 days to accept, plus 24 hours to race and 2 hours for late syncs) and delete it after, or as soon as the challenge is closed, declined or expires with nobody racing. It never appears on a public page: a challenge link shows only its length and climb.",
           },
           {
             t: "Public totals only.",
@@ -2285,7 +2348,7 @@ export const en = {
           { t: "GitHub (United States).", d: "Hosts this website. Like any web host, it sees visitors' IP addresses." },
         ],
         after: [
-          "Other VVake users see only your display name and VVaker (on challenge and crew quest invites, on challenge links you send to anyone and in the lists of people you have faced), challenge results and your record against them, your crew quest results to the crew members who join, and your city's totals. Never your health data, sessions or location.",
+          "Other VVake users see only your display name and VVaker (on challenge and crew quest invites, on challenge links you send to anyone and in the lists of people you have faced), challenge results and your record against them, your crew quest results to the crew members who join, and your city's totals. Never your health data, sessions or location, except a route you choose to share for a challenge, which only the people racing it can see (see Location).",
           "We may disclose information if the law requires it, to protect someone's safety, or as part of a merger or acquisition, in which case this policy keeps applying to your data and we will tell you first.",
         ],
       },
@@ -2325,6 +2388,10 @@ export const en = {
           },
           { t: "Claude Code pairing codes:", d: "10 minutes." },
           { t: "Guest accounts:", d: "deleted automatically after 90 days without use." },
+          {
+            t: "A route shared for a challenge:",
+            d: "only while that challenge lasts (at most 7 days + 24 hours + 2 hours), then deleted; at once when it is closed, declined or expires with nobody racing.",
+          },
           {
             t: "Sign-in and link codes:",
             d: "10 minutes for e-mail codes, 2 minutes for watch link codes, 60 seconds for Google sign-in exchange codes.",
@@ -2447,6 +2514,15 @@ export const en = {
     acceptByDate: "Accept by {date}",
     wins: "A workout with heart rate from your watch that beats the mark wins. Free, no stakes: the winner gets VV points.",
     ghost: "You race their own session as a ghost.",
+    rematchOf: "Rematch of “{mark}”",
+    route:
+      "A route ghost: race their own route, on the spot, with GPS. The app shows you the route once you accept; this page never does (only its length and climb), and the ends near where they live are hidden.",
+    winsRoute:
+      "Run the whole route on it, start to finish, faster than the mark, with heart rate from your watch. Free, no stakes: the winner gets VV points.",
+    trainingEffort:
+      "A training ghost: {min} min of {sport}. Last the full {min} minutes with at least their effort ({effort} effort points, scored for your own heart).",
+    trainingZones:
+      "A training ghost: {min} min of {sport}. Last the full {min} minutes with at least {zoneMin} min in zones {lo}–{hi} of your own heart, like they did.",
     openLabel: "Open to everyone",
     openCounts: "{accepted} accepted · {won} beat it",
     openHidden: "+ {n} more who keep their name private",
