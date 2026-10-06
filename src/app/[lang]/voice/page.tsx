@@ -3,11 +3,11 @@ import { notFound } from "next/navigation";
 import { Footer } from "@/components/sections/Extras";
 import { Header } from "@/components/sections/Header";
 import { PageIntro } from "@/components/sections/PageIntro";
-import { VoiceGroupSection, VoiceHow, VoiceTips } from "@/components/sections/VoiceCommands";
+import { VoiceGroupSection, VoiceHow, VoiceSiriSection, VoiceTips } from "@/components/sections/VoiceCommands";
 import { SectionNav } from "@/components/ui/SectionNav";
 import { isLocale, locales } from "@/i18n/config";
 import { getDictionary } from "@/i18n/dictionaries";
-import { groupVoiceCommands, voiceTips } from "@/lib/voiceCommands";
+import { groupVoiceCommands, voiceSiri, voiceTips } from "@/lib/voiceCommands";
 
 type Params = Promise<{ lang: string }>;
 
@@ -23,7 +23,8 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
 }
 
 /**
- * The app's voice commands (/<lang>/voice/), grouped by category, with example phrases in both languages.
+ * The app's voice commands (/<lang>/voice/), grouped by category, with example phrases in both languages, and what
+ * to say to Siri (no setup: the apps' App Shortcuts).
  * The list comes from the VVFit export in src/data/voice-commands.json (see src/lib/voiceCommands.ts).
  */
 export default async function VoicePage({ params }: { params: Params }) {
@@ -38,8 +39,9 @@ export default async function VoicePage({ params }: { params: Params }) {
         <PageIntro kicker={t.kicker} title={t.title} lead={t.lead} />
         <VoiceHow dict={t} index="01" />
         <VoiceTips tips={voiceTips()} index="02" lang={lang} dict={t} />
+        <VoiceSiriSection siri={voiceSiri()} index="03" lang={lang} dict={t} />
         {groupVoiceCommands().map((group, i) => (
-          <VoiceGroupSection key={group.category.key} group={group} index={String(i + 3).padStart(2, "0")} lang={lang} dict={t} />
+          <VoiceGroupSection key={group.category.key} group={group} index={String(i + 4).padStart(2, "0")} lang={lang} dict={t} />
         ))}
       </main>
       <Footer locale={lang} dict={dict.footer} />

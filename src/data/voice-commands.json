@@ -1,5 +1,5 @@
 {
-  "version": 2,
+  "version": 3,
   "categories": [
     {
       "key": "workout",
@@ -588,5 +588,363 @@
         ]
       }
     }
-  ]
+  ],
+  "siri": {
+    "note": {
+      "title": {
+        "en": "With Siri",
+        "fr": "Avec Siri"
+      },
+      "detail": {
+        "en": "No setup: these work as soon as VVake is installed, on your iPhone, your Apple Watch and your AirPods. More actions (open a page, your daily move, a ghost challenge, postpone the Claude lock) are in the Shortcuts app.",
+        "fr": "Rien à configurer : ça marche dès que VVake est installée, sur ton iPhone, ton Apple Watch et tes AirPods. D’autres actions (ouvrir une page, ton mouvement du jour, un défi fantôme, reporter le verrou Claude) sont dans l’app Raccourcis."
+      },
+      "name": {
+        "en": "Say the app’s name like “Wake” (or “Wake Fit”): “Hey Siri, Wake skip song”.",
+        "fr": "Dis le nom de l’app « Ouèk » (ou « Wake Fit ») : « Dis Siri, Ouèk coupe la musique »."
+      }
+    },
+    "names": [
+      {
+        "name": "Wake",
+        "hint": {
+          "en": "wake",
+          "fr": "ouèk"
+        }
+      },
+      {
+        "name": "Wake Fit",
+        "hint": {
+          "en": "wake fit",
+          "fr": "ouèk fit"
+        }
+      },
+      {
+        "name": "Double V Ake",
+        "hint": {
+          "en": "double vee ake",
+          "fr": "double vé ake"
+        }
+      }
+    ],
+    "shortcuts": [
+      {
+        "key": "start-workout",
+        "intent": "workout.start",
+        "title": {
+          "en": "Start a workout",
+          "fr": "Lancer une séance"
+        },
+        "icon": "figure.run",
+        "phone": true,
+        "watch": true,
+        "examples": {
+          "en": [
+            "Start a run with VVake",
+            "Start run with VVake",
+            "VVake up and start run",
+            "VVake start a run",
+            "Start a run workout with VVake",
+            "Start a workout with VVake",
+            "VVake start my workout"
+          ],
+          "fr": [
+            "Lance une course avec VVake",
+            "Lance course avec VVake",
+            "VVake et lance course",
+            "VVake lance une séance de course",
+            "Démarre une séance de course avec VVake",
+            "Lance une séance avec VVake",
+            "VVake commence la séance"
+          ]
+        }
+      },
+      {
+        "key": "pause-workout",
+        "intent": "workout.pause",
+        "title": {
+          "en": "Pause the workout",
+          "fr": "Mettre la séance en pause"
+        },
+        "icon": "pause.fill",
+        "phone": true,
+        "watch": true,
+        "examples": {
+          "en": [
+            "VVake pause",
+            "VVake take a break",
+            "Pause the workout with VVake"
+          ],
+          "fr": [
+            "VVake pause",
+            "VVake fais une pause",
+            "Mets la séance en pause avec VVake"
+          ]
+        }
+      },
+      {
+        "key": "resume-workout",
+        "intent": "workout.resume",
+        "title": {
+          "en": "Resume the workout",
+          "fr": "Reprendre la séance"
+        },
+        "icon": "play.fill",
+        "phone": true,
+        "watch": true,
+        "examples": {
+          "en": [
+            "VVake resume",
+            "VVake keep going",
+            "Resume the workout with VVake"
+          ],
+          "fr": [
+            "VVake reprends",
+            "VVake on repart",
+            "Reprends la séance avec VVake"
+          ]
+        }
+      },
+      {
+        "key": "end-workout",
+        "intent": "workout.end",
+        "title": {
+          "en": "End the workout",
+          "fr": "Terminer la séance"
+        },
+        "icon": "stop.fill",
+        "phone": true,
+        "watch": true,
+        "examples": {
+          "en": [
+            "VVake end the workout",
+            "End my workout with VVake"
+          ],
+          "fr": [
+            "VVake termine la séance",
+            "Termine ma séance avec VVake"
+          ]
+        }
+      },
+      {
+        "key": "race-my-best",
+        "intent": "workout.race-my-best",
+        "title": {
+          "en": "Race my best",
+          "fr": "Battre mon record"
+        },
+        "icon": "figure.run.circle",
+        "phone": true,
+        "watch": true,
+        "examples": {
+          "en": [
+            "Race my best with VVake",
+            "VVake race my ghost",
+            "VVake race my best run"
+          ],
+          "fr": [
+            "Bats mon record avec VVake",
+            "VVake course contre mon fantôme",
+            "VVake bats mon record en course"
+          ]
+        }
+      },
+      {
+        "key": "play-music",
+        "intent": "music.play",
+        "title": {
+          "en": "Play music",
+          "fr": "Mettre de la musique"
+        },
+        "icon": "play.circle.fill",
+        "phone": true,
+        "watch": true,
+        "examples": {
+          "en": [
+            "VVake play music",
+            "Play music with VVake"
+          ],
+          "fr": [
+            "VVake mets de la musique",
+            "Mets de la musique avec VVake"
+          ]
+        }
+      },
+      {
+        "key": "stop-music",
+        "intent": "music.pause",
+        "title": {
+          "en": "Stop the music",
+          "fr": "Couper la musique"
+        },
+        "icon": "pause.circle.fill",
+        "phone": true,
+        "watch": true,
+        "examples": {
+          "en": [
+            "VVake stop music",
+            "VVake stop the music"
+          ],
+          "fr": [
+            "VVake coupe la musique",
+            "VVake arrête la musique"
+          ]
+        }
+      },
+      {
+        "key": "skip-song",
+        "intent": "music.next",
+        "title": {
+          "en": "Next song",
+          "fr": "Chanson suivante"
+        },
+        "icon": "forward.fill",
+        "phone": true,
+        "watch": true,
+        "examples": {
+          "en": [
+            "VVake skip song",
+            "VVake next song"
+          ],
+          "fr": [
+            "VVake chanson suivante",
+            "VVake passe à la chanson suivante"
+          ]
+        }
+      },
+      {
+        "key": "previous-song",
+        "intent": "music.previous",
+        "title": {
+          "en": "Previous song",
+          "fr": "Chanson précédente"
+        },
+        "icon": "backward.fill",
+        "phone": false,
+        "watch": true,
+        "examples": {
+          "en": [
+            "VVake previous song"
+          ],
+          "fr": [
+            "VVake chanson précédente"
+          ]
+        }
+      },
+      {
+        "key": "whats-playing",
+        "intent": "music.now-playing",
+        "title": {
+          "en": "What’s playing?",
+          "fr": "C’est quoi ce morceau ?"
+        },
+        "icon": "music.note",
+        "phone": false,
+        "watch": true,
+        "examples": {
+          "en": [
+            "VVake what's playing"
+          ],
+          "fr": [
+            "VVake c'est quoi ce morceau"
+          ]
+        }
+      },
+      {
+        "key": "talk-to-coach",
+        "intent": "coach.talk",
+        "title": {
+          "en": "Talk to my coach",
+          "fr": "Parler à mon coach"
+        },
+        "icon": "waveform",
+        "phone": true,
+        "watch": false,
+        "examples": {
+          "en": [
+            "Talk to my VVake coach",
+            "VVake talk to my coach",
+            "Ask my VVake coach"
+          ],
+          "fr": [
+            "Parle à mon coach VVake",
+            "VVake parle au coach",
+            "Demande à mon coach VVake"
+          ]
+        }
+      },
+      {
+        "key": "claude-lock-status",
+        "intent": "claude.status",
+        "title": {
+          "en": "Claude lock status",
+          "fr": "État du verrou Claude"
+        },
+        "icon": "lock.fill",
+        "phone": true,
+        "watch": false,
+        "examples": {
+          "en": [
+            "VVake Claude lock status",
+            "Is Claude locked in VVake"
+          ],
+          "fr": [
+            "VVake état du verrou",
+            "Claude est verrouillé dans VVake"
+          ]
+        }
+      }
+    ],
+    "more": [
+      {
+        "intent": "music.previous",
+        "title": {
+          "en": "Previous song",
+          "fr": "Chanson précédente"
+        }
+      },
+      {
+        "intent": "music.now-playing",
+        "title": {
+          "en": "What’s playing?",
+          "fr": "C’est quoi ce morceau ?"
+        }
+      },
+      {
+        "intent": "daily-move.start",
+        "title": {
+          "en": "Start my daily move",
+          "fr": "Lancer mon mouvement du jour"
+        }
+      },
+      {
+        "intent": "quest.start",
+        "title": {
+          "en": "Start a Move Quest",
+          "fr": "Lancer une quête de mouvement"
+        }
+      },
+      {
+        "intent": "challenge.ghost",
+        "title": {
+          "en": "Challenge a friend to beat my ghost",
+          "fr": "Défier un ami de battre mon fantôme"
+        }
+      },
+      {
+        "intent": "claude.postpone",
+        "title": {
+          "en": "Postpone the Claude lock",
+          "fr": "Reporter le verrou Claude"
+        }
+      },
+      {
+        "intent": "app.open",
+        "title": {
+          "en": "Open a page",
+          "fr": "Ouvrir une page"
+        }
+      }
+    ]
+  }
 }

@@ -2838,8 +2838,8 @@ export const en = {
     kicker: "Voice commands",
     title: "Say it. VVake does it.",
     description:
-      "Every VVake voice command, in English and French: workouts, music, your coach, friends, the Claude Code lock and getting around the app.",
-    lead: "Press the mic, speak, and VVake shows what it understood, then runs it. On the phone or on your Apple Watch.",
+      "Every VVake voice command, in English and French: workouts, music, your coach, friends, the Claude Code lock and getting around the app. And what to say to Siri.",
+    lead: "Press the mic, speak, and VVake shows what it understood, then runs it. On the phone or on your Apple Watch. Or just ask Siri: “Hey Siri, Wake skip song”.",
     how: {
       title: "How it works",
       items: [
@@ -2866,6 +2866,12 @@ export const en = {
     worksOn: "Works on",
     say: "Say",
     otherLanguage: "In French",
+    siri: {
+      namesTitle: "Say it “Wake”",
+      sounds: "sounds like",
+      hey: { en: "Hey Siri, ", fr: "Dis Siri, " },
+      moreTitle: "In the Shortcuts app:",
+    },
   },
   notFound: { title: "Lost your way?", body: "This page took a rest day.", cta: "Back home" },
   root: { choose: "Choose your language" },

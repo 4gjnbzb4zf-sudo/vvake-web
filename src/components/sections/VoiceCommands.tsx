@@ -1,7 +1,7 @@
 import { Section } from "@/components/ui/Section";
 import type { Locale } from "@/i18n/config";
 import type { Dictionary } from "@/i18n/dictionaries";
-import { otherLocale, quote, type VoiceCommand, type VoiceGroup, type VoiceTip } from "@/lib/voiceCommands";
+import { otherLocale, quote, type VoiceCommand, type VoiceGroup, type VoiceSiri, type VoiceTip } from "@/lib/voiceCommands";
 
 /** How talking to VVake works: press the mic, speak, it shows what it understood and runs it. */
 export function VoiceHow({ dict, index }: { dict: Dictionary["voice"]; index: string }) {
@@ -112,6 +112,64 @@ export function VoiceGroupSection({
           <CommandCard key={c.intent} command={c} lang={lang} dict={dict} />
         ))}
       </ul>
+    </Section>
+  );
+}
+
+/** "Hey Siri, " + the phrase, its first word in lower case unless it's VVake's name. */
+export const heySiri = (hey: string, phrase: string) =>
+  `${hey}${phrase.startsWith("VVake") ? phrase : phrase.charAt(0).toLowerCase() + phrase.slice(1)}`;
+
+/**
+ * "Hey Siri, Wake skip song": the phrases Siri understands with no setup (the apps' App Shortcuts), how to say
+ * VVake's name for Siri, and the actions that live in the Shortcuts app.
+ */
+export function VoiceSiriSection({ siri, index, lang, dict }: { siri: VoiceSiri; index: string; lang: Locale; dict: Dictionary["voice"] }) {
+  return (
+    <Section id="siri" index={index} kicker={dict.kicker} title={siri.note.title[lang]} lead={siri.note.detail[lang]}>
+      <div className="mt-10 rounded-2xl border border-lilac-fg/40 bg-surface/60 p-6" data-siri="names">
+        <h3 className="font-display text-lg font-semibold">{dict.siri.namesTitle}</h3>
+        <p className="mt-1.5 text-sm leading-relaxed text-muted">{siri.note.name[lang]}</p>
+        <ul className="mt-4 flex flex-wrap gap-2">
+          {siri.names.map((n) => (
+            <li key={n.name} className="rounded-full border border-line px-3 py-1 text-sm">
+              <span className="font-display font-semibold">{n.name}</span>{" "}
+              <span className="text-muted">
+                {dict.siri.sounds} {quote(n.hint[lang], lang)}
+              </span>
+            </li>
+          ))}
+        </ul>
+      </div>
+      <ul className="mt-4 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+        {siri.shortcuts.map((s) => {
+          const where = [s.phone && dict.phone, s.watch && dict.watch].filter((w): w is string => Boolean(w));
+          return (
+            <li key={s.key} className="flex flex-col rounded-2xl border border-line bg-surface/60 p-6" data-siri={s.key}>
+              <h3 className="font-display text-lg font-semibold">{s.title[lang]}</h3>
+              <div className="mt-3 flex flex-wrap items-center gap-2">
+                <span className="sr-only">{dict.worksOn}</span>
+                {where.map((w) => (
+                  <Chip key={w}>{w}</Chip>
+                ))}
+              </div>
+              <Examples
+                examples={{
+                  en: s.examples.en.map((e) => heySiri(dict.siri.hey.en, e)),
+                  fr: s.examples.fr.map((e) => heySiri(dict.siri.hey.fr, e)),
+                }}
+                lang={lang}
+                dict={dict}
+              />
+            </li>
+          );
+        })}
+      </ul>
+      {siri.more.length > 0 && (
+        <p className="mt-6 text-sm leading-relaxed text-muted" data-siri="more">
+          <span className="font-semibold text-text">{dict.siri.moreTitle}</span> {siri.more.map((m) => m.title[lang]).join(" · ")}
+        </p>
+      )}
     </Section>
   );
 }

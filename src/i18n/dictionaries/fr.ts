@@ -3032,8 +3032,8 @@ export const fr: Dictionary = {
     kicker: "Commandes vocales",
     title: "Tu le dis. VVake le fait.",
     description:
-      "Toutes les commandes vocales de VVake, en français et en anglais : séances, musique, ton coach, tes amis, le verrou Claude Code et la navigation dans l'app.",
-    lead: "Appuie sur le micro, parle, et VVake te montre ce qu'il a compris, puis le fait. Sur ton téléphone ou ton Apple Watch.",
+      "Toutes les commandes vocales de VVake, en français et en anglais : séances, musique, ton coach, tes amis, le verrou Claude Code et la navigation dans l'app. Et quoi dire à Siri.",
+    lead: "Appuie sur le micro, parle, et VVake te montre ce qu'il a compris, puis le fait. Sur ton téléphone ou ton Apple Watch. Ou demande simplement à Siri : « Dis Siri, Ouèk chanson suivante ».",
     how: {
       title: "Comment ça marche",
       items: [
@@ -3066,6 +3066,12 @@ export const fr: Dictionary = {
     worksOn: "Marche sur",
     say: "Dis",
     otherLanguage: "En anglais",
+    siri: {
+      namesTitle: "Dis « Ouèk »",
+      sounds: "se dit",
+      hey: { en: "Hey Siri, ", fr: "Dis Siri, " },
+      moreTitle: "Dans l’app Raccourcis :",
+    },
   },
   notFound: { title: "Perdu en route ?", body: "Cette page fait un jour de repos.", cta: "Retour à l'accueil" },
   root: { choose: "Choisis ta langue" },

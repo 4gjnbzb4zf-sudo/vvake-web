@@ -37,12 +37,39 @@ export const voiceCommandsSchema = z.object({
       }),
     )
     .min(1),
+  /**
+   * Siri (the iPhone and Apple Watch apps' App Shortcuts): the phrases that work with no setup, with VVake's name in
+   * them, and the other names Siri accepts (iOS allows 3). Required: the site follows the apps.
+   */
+  siri: z.object({
+    note: z.object({ title: text, detail: text, name: text }),
+    names: z
+      .array(z.object({ name: z.string().min(1), hint: text }))
+      .min(1)
+      .max(3),
+    shortcuts: z
+      .array(
+        z.object({
+          key: z.string().min(1),
+          intent: z.string().min(1),
+          title: text,
+          icon: z.string().min(1),
+          phone: z.boolean(),
+          watch: z.boolean(),
+          examples: z.object({ en: z.array(z.string().min(1)).min(1), fr: z.array(z.string().min(1)).min(1) }),
+        }),
+      )
+      .min(1)
+      .max(12),
+    more: z.array(z.object({ intent: z.string().min(1), title: text })),
+  }),
 });
 
 export type VoiceCommands = z.infer<typeof voiceCommandsSchema>;
 export type VoiceCommand = VoiceCommands["commands"][number];
 export type VoiceCategory = VoiceCommands["categories"][number];
 export type VoiceTip = VoiceCommands["tips"][number];
+export type VoiceSiri = VoiceCommands["siri"];
 export interface VoiceGroup {
   category: VoiceCategory;
   commands: VoiceCommand[];
@@ -71,4 +98,9 @@ export const quote = (phrase: string, locale: Locale) => (locale === "fr" ? `«\
 /** The first example phrase of a few commands, for the short voice block on the app page. */
 export function voiceTeaser(locale: Locale, intents: readonly string[] = ["workout.start", "music.next"]): string[] {
   return intents.flatMap((i) => voiceCommands.commands.find((c) => c.intent === i)?.examples[locale].slice(0, 1) ?? []);
+}
+
+/** Siri: what to say with no setup, VVake's other names, the actions in the Shortcuts app. */
+export function voiceSiri(list: VoiceCommands = voiceCommands): VoiceSiri {
+  return list.siri;
 }

@@ -3,7 +3,8 @@ import { resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { describe, expect, it } from "vitest";
 import data from "@/data/voice-commands.json";
-import { groupVoiceCommands, voiceCommands, voiceCommandsSchema, voiceTeaser, voiceTips } from "./voiceCommands";
+import { heySiri } from "@/components/sections/VoiceCommands";
+import { groupVoiceCommands, voiceCommands, voiceCommandsSchema, voiceSiri, voiceTeaser, voiceTips } from "./voiceCommands";
 
 const ROOT = fileURLToPath(new URL("../..", import.meta.url));
 const SOURCE = process.env.VVFIT_DIR
@@ -60,6 +61,30 @@ describe("voice commands export", () => {
       expect(teaser).toHaveLength(2);
       for (const e of teaser) expect(voiceCommands.commands.some((c) => c.examples[lang].includes(e))).toBe(true);
     }
+  });
+});
+
+describe("Siri", () => {
+  it("is required, with at most 3 other names (iOS refuses more)", () => {
+    const { siri, ...noSiri } = data;
+    expect(voiceCommandsSchema.safeParse(noSiri).success).toBe(false);
+    expect(voiceCommandsSchema.safeParse({ ...data, siri: { ...siri, names: [...siri.names, ...siri.names] } }).success).toBe(false);
+  });
+
+  it("renders the export's phrases, every one naming VVake, and the name said like Wake / Ouèk", () => {
+    const s = voiceSiri();
+    expect(s.shortcuts.map((x) => x.key)).toEqual(data.siri.shortcuts.map((x) => x.key));
+    for (const x of s.shortcuts) for (const e of [...x.examples.en, ...x.examples.fr]) expect(e).toContain("VVake");
+    expect(s.names.map((n) => n.name)).toContain("Wake");
+    expect(s.names.find((n) => n.name === "Wake")?.hint.fr).toBe("ouèk");
+    const skip = s.shortcuts.find((x) => x.key === "skip-song");
+    expect(skip?.phone && skip.watch).toBe(true);
+    expect(skip?.examples.fr).toContain("VVake chanson suivante");
+  });
+
+  it("prefixes the phrase the way you'd say it", () => {
+    expect(heySiri("Hey Siri, ", "Start a run with VVake")).toBe("Hey Siri, start a run with VVake");
+    expect(heySiri("Dis Siri, ", "VVake coupe la musique")).toBe("Dis Siri, VVake coupe la musique");
   });
 });
 
