@@ -643,7 +643,7 @@ export const en = {
         icon: "💵",
         when: 1,
         title: "Weekly prizes for moving",
-        body: "Plus funds a monthly prize pool, turned into $VVAKE by public rules and handed out each week for effort to Plus subscribers with a linked wallet (18+). You claim from your own wallet on vvake.com/rewards. Testnet today: no value.",
+        body: "Plus funds a monthly prize pool, turned into $VVAKE by public rules and handed out each week for effort. Two ways in, same prize: Plus or the free entry (no purchase necessary), with a linked wallet (18+). You claim from your own wallet on vvake.com/rewards. Testnet today: no value.",
       },
       {
         icon: "📈",
@@ -1280,6 +1280,7 @@ export const en = {
             "Everything free: plan, crews, challenges, city unlocks",
             "Stats, levels and rankings earned by moving",
             "VV points, streaks, quests and the coach",
+            "The free entry to the weekly $VVAKE prizes: same prizes as Plus (linked wallet, 18+, testnet today)",
           ],
         },
         {
@@ -1290,7 +1291,7 @@ export const en = {
             "Deeper coaching and your voice coach",
             "Bigger crews and more challenges",
             "VVaker renders and treats",
-            "Weekly $VVAKE prizes for moving (with a linked wallet, 18+, testnet today)",
+            "Enters you in the weekly $VVAKE prizes for moving, same prizes as the free entry (linked wallet, 18+, testnet today)",
             "Funds the prize pool: everyone pays the same price, and prizes follow effort, never what you pay",
           ],
         },
@@ -1349,7 +1350,11 @@ export const en = {
           { label: "Prize pool", value: "A fixed, published share of net Plus revenue" },
           { label: "Conversions", value: "By rule on chain: capped daily, anyone can trigger" },
           { label: "Where converted $VVAKE goes", value: "Only to the rewards contract" },
-          { label: "Who gets prizes", value: "Plus subscribers with a linked wallet (18+) who moved that week" },
+          {
+            label: "Who gets prizes",
+            value:
+              "Plus members or free entrants (same prize) with a linked wallet (18+), all from before the week, who moved with heart rate and answered the skill question",
+          },
           { label: "Weekly pot", value: "1/8 of the unpromised $VVAKE in the rewards contract, at most 1,000,000 a week" },
           { label: "Per person", value: "Shared by effort points, at most 10% of a week's pot" },
         ],
@@ -1360,15 +1365,15 @@ export const en = {
         steps: [
           "Conversions run in small capped chunks, at most once a day, and anyone can trigger the next one",
           "The $VVAKE goes only to the rewards contract (VVakeRewards), never to a person or a team wallet",
-          "Each week, prizes for effort, for Plus subscribers with a linked wallet (18+) who moved that week: at least 3 counted sessions or 90 active minutes. Never by holdings, never by draw",
-          "The week's pot is 1/8 of the $VVAKE the rewards contract holds and hasn't promised yet, at most 1,000,000. It's shared by effort points (capped per day), nobody gets more than 10%, and what isn't handed out stays in the pool for later weeks. You claim from your own wallet on vvake.com/rewards",
+          "Each week, prizes for effort. Two ways in, same prize: Plus or the free entry (no purchase necessary), with an account, an entry and a linked wallet (18+) from before the week, at least 3 heart-rate sessions or 90 active minutes, and the week's skill question. Never by holdings, never by draw",
+          "The week's pot is 1/8 of the $VVAKE the rewards contract holds and hasn't promised yet, at most 1,000,000. It's shared by effort points (at most 150 a day), nobody gets more than 10%, and what isn't handed out stays in the pool for later weeks. You claim from your own wallet on vvake.com/rewards",
         ],
         note: "Testnet today: the tokens have no value. Nothing is burned and nothing goes to holders. Legal review and an external audit of the contracts come before any mainnet value. Paying Plus with testnet $VVAKE exists only in development builds of the app, to test the flow (the tokens go to the VVake treasury); it isn't offered in TestFlight or the App Store.",
         cta: "See the prizes and the pool",
       },
       equal: {
         title: "Same for everyone, token or not",
-        body: "Stats, levels, rankings and matchmaking are the same for everyone. Weekly prizes are for Plus subscribers with a linked wallet, and follow effort only: never holding $VVAKE, never chance, never how much you pay.",
+        body: "Stats, levels, rankings and matchmaking are the same for everyone. Weekly prizes are open with Plus or the free entry, same prize, and follow effort only: never holding $VVAKE, never chance, never how much you pay.",
       },
       never: {
         title: "What $VVAKE never does",
@@ -1949,7 +1954,7 @@ export const en = {
       },
       {
         q: "Is it free? Do I need a wallet or crypto?",
-        a: "Free to start, and you never need a wallet or crypto to train. A wallet is only for claiming the optional weekly $VVAKE prizes, on vvake.com/rewards, never in the app. Optional extras like VVake Fit Plus are never required to train or take part in challenges and never give an edge in them; the weekly $VVAKE prizes are for Plus subscribers with a linked wallet (18+).",
+        a: "Free to start, and you never need a wallet or crypto to train. A wallet is only for claiming the optional weekly $VVAKE prizes, on vvake.com/rewards, never in the app. Optional extras like VVake Fit Plus are never required to train or take part in challenges and never give an edge in them; the weekly $VVAKE prizes are open with Plus or the free entry (same prize, no purchase necessary), with a linked wallet (18+).",
         link: "app/#plus",
       },
       {
@@ -1959,7 +1964,7 @@ export const en = {
       },
       {
         q: "Is there a token? What are the $VVAKE prizes?",
-        a: "VVake is a fitness and training service, not a financial product. Each week, VVake Fit Plus subscribers with a linked wallet who moved enough (at least 3 counted sessions or 90 active minutes) share $VVAKE prizes by effort: prizes are for people 18 or older, nobody gets more than 10% of a week's pot, and prizes never depend on chance, on how much you pay or on how many tokens you hold. Free accounts keep the coach, streaks, points and quests. A fixed, published share of net VVake Fit Plus revenue funds the prize pool, converted on chain by public rules. You claim from your own wallet on vvake.com/rewards; VVake never holds your tokens and never asks for your recovery phrase. Testnet today: the tokens have no value, nothing to buy, and nothing here is an offer or investment advice. Not offered in the US or UK at launch, subject to legal review.",
+        a: "VVake is a fitness and training service, not a financial product. Each week, people who moved enough with heart-rate data (at least 3 sessions or 90 active minutes) share $VVAKE prizes by effort. Two ways in, same prize: VVake Fit Plus or the free entry (no purchase necessary), with an account, an entry and a linked wallet from before the week, and a short weekly skill question. Prizes are for people 18 or older, points count up to 150 a day, nobody gets more than 10% of a week's pot, and prizes never depend on chance, on how much you pay or on how many tokens you hold. A fixed, published share of net VVake Fit Plus revenue funds the prize pool, converted on chain by public rules. You claim from your own wallet on vvake.com/rewards; VVake never holds your tokens and never asks for your recovery phrase. Testnet today: the tokens have no value, nothing to buy, and nothing here is an offer or investment advice. Not offered in the US or UK at launch, subject to legal review.",
         link: "rewards/",
       },
     ],
@@ -2028,7 +2033,7 @@ export const en = {
           },
           {
             t: "$VVAKE prizes (optional).",
-            d: "If you link a wallet on vvake.com/rewards: its public address, when you linked it, that you confirmed being 18 or older, and the one-time message you sign to prove it is yours (kept 10 minutes). Each week: whether the week counts for prizes (Plus active, wallet linked, enough effort), the VV points of your counted sessions (capped per day), the VVAKE amount they give, its proof, and whether it has been claimed (read from the blockchain). See $VVAKE prizes and your wallet.",
+            d: "If you link a wallet on vvake.com/rewards: its public address, when you linked it, that you confirmed being 18 or older, and the one-time message you sign to prove it is yours (kept 10 minutes). If you take the free entry: when you entered or withdrew. Your answers to the weekly skill question: when you answered and how many tries. Each week: whether the week counts for prizes (an entry, account and wallet from before the week, enough heart-rate effort, the skill question), the VV points of your counted sessions (capped per day), the VVAKE amount they give, its proof, and whether it has been claimed (read from the blockchain). See $VVAKE prizes and your wallet.",
           },
           {
             t: "Your athlete profile.",
@@ -2193,7 +2198,7 @@ export const en = {
         id: "rewards",
         h: "$VVAKE prizes and your wallet",
         p: [
-          "$VVAKE prizes are optional, and today they run on Robinhood Chain Testnet, where the tokens have no value. You never need a wallet to use VVake. In the apps you only see your points and read-only prize information; linking a wallet and claiming happen on vvake.com/rewards, from your own wallet. Prizes are only for VVake Fit Plus subscribers who are 18 or older, have linked a wallet and moved enough that week (at least 3 counted sessions or 90 active minutes); to check this we use your subscription status, your counted sessions and active minutes, and the 18+ confirmation you give when linking. Legal basis: your consent, given by linking a wallet.",
+          "$VVAKE prizes are optional, and today they run on Robinhood Chain Testnet, where the tokens have no value. You never need a wallet to use VVake. In the apps you only see your points and read-only prize information; linking a wallet and claiming happen on vvake.com/rewards, from your own wallet. Prizes are for people 18 or older who entered with VVake Fit Plus or the free entry (same prize), linked a wallet before the week, moved enough with heart-rate data that week (at least 3 sessions or 90 active minutes) and answered the week's skill question; to check this we use your subscription status or free entry, when your account and wallet link were made, your counted sessions and active minutes, your skill answers, and the 18+ confirmation you give when linking. Legal basis: your consent, given by linking a wallet.",
         ],
         list: [
           {
@@ -2206,7 +2211,7 @@ export const en = {
           },
           {
             t: "Weekly lists.",
-            d: "Every Monday we settle the past week: the VVAKE amount for each eligible account (Plus, linked wallet, enough effort). The week's list (addresses and amounts, with their proofs) is published so anyone can check it, and its fingerprint (a Merkle root) is written to the blockchain. Names, e-mails and points are not in the list, but an amount says roughly how active that address was that week.",
+            d: "Every Monday we settle the past week: the VVAKE amount for each eligible account (Plus or free entry, linked wallet, enough effort, skill question). The week's list (addresses and amounts, with their proofs) is published so anyone can check it, and its fingerprint (a Merkle root) is written to the blockchain. Names, e-mails and points are not in the list, but an amount says roughly how active that address was that week.",
           },
           {
             t: "Claims.",
@@ -2442,7 +2447,52 @@ export const en = {
     off: "Rewards are switched off for now.",
     loading: "Loading…",
     retry: "Try again",
-    status: { pending: "Being prepared", claimable: "Open", claimed: "Claimed", expired: "Expired", closed: "Closed" },
+    status: {
+      pending: "Being prepared",
+      opening: "Opens soon",
+      claimable: "Open",
+      claimed: "Claimed",
+      expired: "Expired",
+      closed: "Closed",
+    },
+    entry: {
+      title: "Two ways in, same prize",
+      lead: "Weekly prizes are open with VVake Fit Plus or with the free entry. Same rules, same prizes, same share by effort: no purchase necessary.",
+      plus: {
+        kicker: "Way 1 · Plus",
+        title: "VVake Fit Plus",
+        body: "An active Plus subscription enters you for every week it covers from the start (Monday 00:00 UTC). Plus never makes a prize bigger.",
+        on: "You're in with Plus.",
+        off: "No active Plus on this account. Plus is managed in the app.",
+        beta: "Beta Plus doesn't count as an entry: use the free entry, it's the same prize.",
+      },
+      free: {
+        kicker: "Way 2 · Free entry",
+        title: "Free entry",
+        body: "No purchase necessary. One tap and you stay entered, week after week, until you withdraw. Like Plus, it has to exist before the week starts.",
+        enter: "Enter for free",
+        on: "You're entered for free.",
+        countsFrom: "Counts from the week of {date}.",
+        withdraw: "Withdraw my free entry",
+        withdrawConfirm:
+          "Withdraw your free entry? It stops counting now, this week included. You can enter again anytime; it then counts from the next week.",
+        done: "You're entered. It counts from the next week that starts.",
+        withdrawn: "Free entry withdrawn.",
+        signIn: "Sign in above to enter for free.",
+      },
+    },
+    skill: {
+      title: "This week's skill question",
+      loading: "Loading…",
+      label: "Your answer",
+      submit: "Answer",
+      tries: "{n} tries left this week",
+      wrong: "Not quite. Here's a new question.",
+      done: "Answered {date}. You're set for this week.",
+      none: "No tries left this week. Next week brings a new question.",
+      unavailable: "The skill question can't be loaded right now.",
+      why: "Required by Canadian law for prizes: a short math question, answered once a week before a week's prizes are settled. Prizes follow effort, never chance.",
+    },
     signIn: {
       index: "01",
       kicker: "Your rewards",
@@ -2474,7 +2524,7 @@ export const en = {
       points: "{points} VV points",
       estimate: "about {vvake} VVAKE",
       estimateNote:
-        "Counted sessions, at most {cap} points a day. The week is settled on Monday: the pot is shared by effort points and nobody gets more than 10% of it, so this estimate can change. Only weeks that count for prizes get an amount.",
+        "Counted heart-rate sessions, at most {cap} points a day. The week is settled on Monday: the pot is shared by effort points and nobody gets more than 10% of it. Only weeks that count for prizes get an amount.",
       toClaim: "VVAKE to claim",
       weeks: "Your weeks",
       week: "Week",
@@ -2482,19 +2532,23 @@ export const en = {
       vvakeCol: "VVAKE",
       statusCol: "Status",
       until: "until {date}",
-      empty: "No settled weeks yet. A week counts when you have Plus, a linked wallet and enough effort that week.",
+      empty:
+        "No settled weeks yet. A week counts when you're entered (Plus or the free entry), your wallet was linked before it started, you moved enough with heart-rate data and you answered its skill question.",
       emptyHint: "Expected some weeks here? Check that you signed in with the same account as in the app.",
       wallet: "To {address}",
       ruleTitle: "Who gets prizes",
-      rule: "A week counts for prizes when all of these are true: VVake Fit Plus is active that week, a wallet is linked here, you confirmed you're 18 or older when linking, and you moved: at least 3 counted sessions or 90 active minutes. Move Quests don't count toward prizes for now. Free accounts keep the coach, streaks, points and quests.",
+      rule: "Two ways in, same prize: VVake Fit Plus or the free entry. A week counts for prizes when all of these are true: your account, your entry and your linked wallet all existed before the week started (Monday 00:00 UTC; a new wallet counts from the next week), you confirmed you're 18 or older when linking, you moved with heart-rate data from a watch (at least {sessions} sessions or {minutes} active minutes, uploaded within {grace} hours of the week's end), and you answered the week's skill question. Points count up to {cap} a day and nobody gets more than 10% of a week's pot. Move Quests don't count toward prizes for now.",
       eligibleNow: "This week counts for prizes so far.",
       notEligibleNow: "This week doesn't count for prizes yet:",
       notEligibleWeek: "Didn't count: {reasons}",
       missing: {
-        plus: "VVake Fit Plus isn't active",
-        wallet: "no wallet linked",
+        entry: "no entry before the week started: Plus or the free entry needed",
+        account: "the account must exist before the week starts",
+        wallet: "a wallet must be linked before the week starts (a new wallet counts from the next week)",
+        walletFrom: "your wallet counts from the week of {date} (a new wallet counts from the next week)",
         adult: "18+ not confirmed: link your wallet again and tick the box",
-        effort: "not enough effort yet: 3 counted sessions or 90 active minutes",
+        effort: "not enough heart-rate effort yet: 3 sessions or 90 active minutes, with heart-rate data from a watch",
+        skill: "this week's skill question isn't answered yet",
         other: "a prize condition isn't met",
       },
     },
@@ -2505,7 +2559,8 @@ export const en = {
       lead: "Your rewards go to one wallet of yours. Linking it is a free signature: no transaction, no access to your tokens. Never type a recovery phrase or a private key on any website, this one included.",
       linked: "Linked wallet",
       linkedAt: "linked {date}",
-      none: "No wallet linked yet: prizes are only for Plus subscribers with a linked wallet.",
+      none: "No wallet linked yet. Weekly prizes need a linked wallet, with Plus or the free entry.",
+      countsFrom: "Counts for prizes from the week of {date}.",
       unlink: "Unlink",
       unlinkConfirm: "Unlink this wallet? Future weeks won't count until you link one again; settled weeks stay claimable by this address.",
       noWallet:
@@ -2636,6 +2691,8 @@ export const en = {
       viewTx: "View the transaction",
       otherAddress: "This week goes to {address}, not your connected wallet. You can still send the claim; the VVAKE goes to {address}.",
       contract: "Rewards contract",
+      opensAt: "Claimable from {date}",
+      opening: "Claims open 48 hours after a week's list is on chain, so a mistake can be caught before anything moves.",
     },
     how: {
       index: "04",
@@ -2651,16 +2708,16 @@ export const en = {
           p: "Anyone can trigger the next step, in small capped chunks, at most once per interval. The VVAKE goes straight to the rewards contract, never to a person.",
         },
         {
-          h: "Plus, a wallet and real effort",
-          p: "A week counts for prizes if VVake Fit Plus is active, a wallet is linked here, you're 18 or older and allowed to receive prizes where you live (you confirm it when linking), and you moved: at least 3 counted sessions or 90 active minutes. Move Quests don't count toward prizes for now. Free accounts keep the coach, streaks, points and quests.",
+          h: "Plus or the free entry, same prize",
+          p: "Two ways in: VVake Fit Plus or the free entry (no purchase necessary), same rules and same prizes. A week counts if your account, your entry and your linked wallet existed before the week started, you're 18 or older and allowed to receive prizes where you live (you confirm it when linking), you moved with heart-rate data from a watch (at least 3 sessions or 90 active minutes; a phone without a heart-rate sensor scores 0), and you answered the week's skill question, as Canadian law requires for prizes. Move Quests don't count toward prizes for now.",
         },
         {
           h: "The weekly pot, shared by effort",
-          p: "Each week's pot is 1/8 of the VVAKE the rewards contract holds and hasn't promised yet, at most 1,000,000 VVAKE. It's shared by effort points, capped per day; nobody gets more than 10% of a week's pot, and what isn't handed out stays in the pool for later weeks. No draw, no chance, never by what you pay or what you hold.",
+          p: "Each week's pot is 1/8 of the VVAKE the rewards contract holds and hasn't promised yet, at most 1,000,000 VVAKE. It's shared by effort points, at most 150 points a day; nobody gets more than 10% of a week's pot, and what isn't handed out stays in the pool for later weeks. No draw, no chance, never by what you pay, how you entered or what you hold.",
         },
         {
           h: "You claim, VVake never holds them",
-          p: "Every Monday the past week is settled and its list is published. You claim from your own wallet; unclaimed weeks expire after the claim window.",
+          p: "Every Monday the past week is settled, reviewed by a person, then its list is published on chain. Claims open 48 hours later, so a mistake can be caught before anything moves. You claim from your own wallet; unclaimed weeks expire after the claim window.",
         },
         {
           h: "Testnet only",
@@ -2702,6 +2759,7 @@ export const en = {
       walletRefused: "Nothing was signed or sent: the wallet said no.",
       signatureMismatch: "The signature doesn't match this wallet. Start again.",
       notFound: "Nothing to claim for that week.",
+      notOpenYet: "This week's claims aren't open yet. Nothing was sent.",
       network: "Can't reach VVake right now. Check your connection.",
       claimRefused:
         "Nothing was sent: VVake's servers pointed to another contract, another network or a malformed claim. Claims only go to the rewards contract shown on this page. Try again later.",

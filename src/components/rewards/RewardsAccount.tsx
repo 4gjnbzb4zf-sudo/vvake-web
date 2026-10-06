@@ -22,6 +22,8 @@ import { linkMessageProblems, readLinkMessage, type LinkMessageView, type LinkPr
 import { explorerAddress, explorerTx, pickAddress, rewardsConfig, shortHex } from "@/lib/rewards-config";
 import { sendClaimWithVault, signLinkWithVault } from "@/lib/passkeyWallet";
 import {
+  ClaimNotOpenError,
+  claimOpensAt,
   errorKey,
   isAppCode,
   isEmailCode,
@@ -29,10 +31,12 @@ import {
   RewardsSession,
   type RewardEpoch,
   type Rewards,
+  type SkillQuestion,
   type StoredVault,
 } from "@/lib/rewardsApi";
 import { isVaultBlob, passkeyRpId, type VaultBlob } from "@/lib/walletVault";
 import { chainRpc, OwnWalletGuide, PasskeyWallet, passkeyApi } from "./PasskeyWallet";
+import { ClaimItem, EntryChoice, SkillCard } from "./PrizeEntry";
 import { cn } from "@/lib/cn";
 
 type Dict = Dictionary["rewards"];
@@ -76,13 +80,21 @@ export function RewardsAccount({ dict, lang, apiUrl }: { dict: Dict; lang: Local
   const [txs, setTxs] = useState<Record<number, Tx>>({});
   const [claimedNow, setClaimedNow] = useState<Set<number>>(new Set());
   const [claimMsg, setClaimMsg] = useState<string | null>(null);
+  // The free entry and the week's skill question (undefined while loading, null when it can't be loaded).
+  const [entryMsg, setEntryMsg] = useState<string | null>(null);
+  const [skill, setSkill] = useState<SkillQuestion | null | undefined>(undefined);
+  const [skillMsg, setSkillMsg] = useState<string | null>(null);
+  // Claims open at claimableAt (48 h after a week's root is posted): the clock the claim buttons follow.
+  const [now, setNow] = useState(0);
 
   const err = (e: unknown) => dict.errors[errorKey(e)];
 
   const load = useCallback(async () => {
     setLoadError(null);
     try {
-      setData(await session.rewards());
+      const next = await session.rewards();
+      setNow(Date.now());
+      setData(next);
       setWho(session.user?.email || session.user?.name || "VVake");
       setAuth("in");
     } catch (e) {
@@ -137,6 +149,72 @@ export function RewardsAccount({ dict, lang, apiUrl }: { dict: Dict; lang: Local
     const api = passkeyApi();
     return api && rpId && vaultBlob ? { api, rpId, blob: vaultBlob } : null;
   };
+
+  // The week's skill question, once signed in with rewards on (an API without the route just hides the card).
+  const rewardsOn = auth === "in" && data?.enabled === true;
+  useEffect(() => {
+    if (!rewardsOn || skill !== undefined) return;
+    let live = true;
+    session
+      .skill()
+      .then((q) => live && setSkill(q))
+      .catch(() => live && setSkill(null));
+    return () => {
+      live = false;
+    };
+  }, [rewardsOn, skill, session]);
+
+  // A claim waiting for claimableAt turns on by itself.
+  useEffect(() => {
+    if (!data?.epochs?.some((e) => claimOpensAt(e, Date.now()))) return;
+    const id = window.setInterval(() => setNow(Date.now()), 30_000);
+    return () => window.clearInterval(id);
+  }, [data]);
+
+  async function enterFree() {
+    setBusy("entry");
+    setEntryMsg(null);
+    try {
+      await session.enterFree();
+      setEntryMsg(dict.entry.free.done);
+      await load();
+    } catch (e) {
+      setEntryMsg(err(e));
+    } finally {
+      setBusy(null);
+    }
+  }
+
+  async function withdrawFree() {
+    if (!window.confirm(dict.entry.free.withdrawConfirm)) return;
+    setBusy("entry");
+    setEntryMsg(null);
+    try {
+      await session.withdrawFree();
+      setEntryMsg(dict.entry.free.withdrawn);
+      await load();
+    } catch (e) {
+      setEntryMsg(err(e));
+    } finally {
+      setBusy(null);
+    }
+  }
+
+  async function answerSkill(answer: number) {
+    if (!skill) return;
+    setBusy("skill");
+    setSkillMsg(null);
+    try {
+      const r = await session.answerSkill(answer, skill.epoch);
+      setSkill({ epoch: r.epoch, answered: r.correct, answeredAt: r.answeredAt, attemptsLeft: r.attemptsLeft, question: r.question });
+      if (!r.correct) setSkillMsg(r.attemptsLeft > 0 ? dict.skill.wrong : null);
+      else void load();
+    } catch (e) {
+      setSkillMsg(err(e));
+    } finally {
+      setBusy(null);
+    }
+  }
 
   // Follow account / network changes in the wallet.
   useEffect(() => {
@@ -298,6 +376,9 @@ export function RewardsAccount({ dict, lang, apiUrl }: { dict: Dict; lang: Local
     try {
       if (!signer) await ensureChain(wallet!);
       const proofs = await Promise.all(epochs.map((e) => session.proof(e.epoch)));
+      // Contracts v2 refuse a claim before claimableAt: don't make the visitor pay gas for a revert.
+      const waiting = proofs.map((p) => claimOpensAt(p, Date.now())).find((d) => d !== null);
+      if (waiting) throw new ClaimNotOpenError(waiting);
       // Target, calldata and value are decided locally (src/lib/claimTx.ts), never taken from the API (VV-06).
       const plan = planClaims(proofs);
       if (!plan.ok) throw new ClaimRefusedError(plan.reason);
@@ -342,6 +423,16 @@ export function RewardsAccount({ dict, lang, apiUrl }: { dict: Dict; lang: Local
           </div>
         </Section>
         <Section id="claim" index={dict.claim.index} kicker={dict.claim.kicker} title={dict.claim.title} lead={dict.claim.lead}>
+          <EntryChoice
+            dict={dict.entry}
+            signedIn={false}
+            plusActive={false}
+            busy={false}
+            msg={null}
+            date={(iso) => iso.slice(0, 10)}
+            onEnter={() => {}}
+            onWithdraw={() => {}}
+          />
           <Eligibility dict={dict.mine} />
           <p className="mt-8 text-sm text-faint">{dict.signIn.first}</p>
         </Section>
@@ -350,6 +441,9 @@ export function RewardsAccount({ dict, lang, apiUrl }: { dict: Dict; lang: Local
 
   const dateFmt = new Intl.DateTimeFormat(lang, { day: "numeric", month: "short", year: "numeric", timeZone: "UTC" });
   const date = (iso: string) => dateFmt.format(new Date(iso));
+  // Claim opening times in the visitor's own time zone, with the zone shown.
+  const dateTimeFmt = new Intl.DateTimeFormat(lang, { dateStyle: "medium", timeStyle: "short" });
+  const opensText = (d: Date) => (Number.isFinite(d.getTime()) ? dateTimeFmt.format(d) : dict.status.opening);
 
   const signedInBar = (
     <div className="mt-8 flex flex-wrap items-center gap-3 text-sm text-muted">
@@ -405,13 +499,18 @@ export function RewardsAccount({ dict, lang, apiUrl }: { dict: Dict; lang: Local
   const epochs = (data.epochs ?? []).map((e) =>
     claimedNow.has(e.epoch) && e.status === "claimable" ? { ...e, status: "claimed" as const } : e,
   );
-  const open = epochs.filter((e) => e.status === "claimable");
+  // Claimable now, and on chain but not open yet (claimableAt in the future).
+  const open = epochs.filter((e) => e.status === "claimable" && !claimOpensAt(e, now));
+  const opening = epochs.filter((e) => (e.status === "opening" || e.status === "claimable") && claimOpensAt(e, now));
   const toClaim = open.reduce((sum, e) => sum + BigInt(e.amountBase), 0n);
   const decimals = rewardsConfig.decimals;
   const onChain = chainId === rewardsConfig.chain.id;
   const linked = data.wallet ?? null;
   // Linked before 18+ was recorded: the same wallet can be linked again with the box ticked.
   const relinkForAdult = missingConditions(data.week?.missing).includes("adult");
+  const pointCap = data.rules?.dailyPointCap ?? data.rate?.dailyPointCap ?? null;
+  // A new or changed wallet counts from the next week.
+  const walletFrom = linked?.countsFrom && Date.parse(linked.countsFrom) > now ? linked.countsFrom : null;
 
   return (
     <>
@@ -422,14 +521,34 @@ export function RewardsAccount({ dict, lang, apiUrl }: { dict: Dict; lang: Local
             {signedInBar}
             <div className="mt-8 grid gap-4 sm:grid-cols-2">
               <Stat label={dict.mine.thisWeek} value={format(dict.mine.points, { points: data.week?.points ?? 0 })}>
-                {data.week && format(dict.mine.estimate, { vvake: data.week.estimatedVvake })}
+                {data.week?.estimatedVvake && format(dict.mine.estimate, { vvake: data.week.estimatedVvake })}
               </Stat>
               <Stat label={dict.mine.toClaim} value={amountText(toClaim, decimals, lang)}>
                 {!contract && dict.notDeployed}
               </Stat>
             </div>
-            {data.rate && (
-              <p className="mt-4 max-w-3xl text-sm text-faint">{format(dict.mine.estimateNote, { cap: data.rate.dailyPointCap })}</p>
+            {pointCap !== null && <p className="mt-4 max-w-3xl text-sm text-faint">{format(dict.mine.estimateNote, { cap: pointCap })}</p>}
+
+            <EntryChoice
+              dict={dict.entry}
+              signedIn
+              entry={data.entry}
+              plusActive={data.plus?.active ?? false}
+              busy={busy !== null}
+              msg={entryMsg}
+              date={date}
+              onEnter={() => void enterFree()}
+              onWithdraw={() => void withdrawFree()}
+            />
+            {skill !== null && (
+              <SkillCard
+                dict={dict.skill}
+                skill={skill}
+                busy={busy !== null}
+                msg={skillMsg}
+                date={date}
+                onAnswer={(n) => void answerSkill(n)}
+              />
             )}
 
             <h3 className="mt-12 font-display text-xl font-semibold">{dict.mine.weeks}</h3>
@@ -463,6 +582,11 @@ export function RewardsAccount({ dict, lang, apiUrl }: { dict: Dict; lang: Local
                           {e.status === "claimable" && e.deadline && (
                             <span className="block text-xs text-faint">{format(dict.mine.until, { date: date(e.deadline) })}</span>
                           )}
+                          {e.status === "opening" && claimOpensAt(e, now) && (
+                            <span className="block text-xs text-faint">
+                              {format(dict.claim.opensAt, { date: opensText(claimOpensAt(e, now)!) })}
+                            </span>
+                          )}
                           {txs[e.epoch] && <TxLink tx={txs[e.epoch]!} dict={dict.claim} />}
                           {e.eligible === false && (
                             <span className="block text-xs text-faint">
@@ -495,6 +619,7 @@ export function RewardsAccount({ dict, lang, apiUrl }: { dict: Dict; lang: Local
                   {linked.address}
                 </a>
                 <p className="mt-1 text-sm text-faint">{format(dict.wallet.linkedAt, { date: date(linked.linkedAt) })}</p>
+                {walletFrom && <p className="mt-1 text-sm text-butter-fg">{format(dict.wallet.countsFrom, { date: date(walletFrom) })}</p>}
                 <button
                   type="button"
                   className={cn(buttonClass("ghost"), "mt-5")}
@@ -618,42 +743,38 @@ export function RewardsAccount({ dict, lang, apiUrl }: { dict: Dict; lang: Local
       </Section>
 
       <Section id="claim" index={dict.claim.index} kicker={dict.claim.kicker} title={dict.claim.title} lead={dict.claim.lead}>
-        <Eligibility dict={dict.mine} week={data.week} />
+        <Eligibility dict={dict.mine} week={data.week} rules={data.rules} walletFrom={walletFrom ? date(walletFrom) : null} />
         <div className="mt-10">
           {!contract ? (
             <NotDeployed title={dict.notDeployed} body={dict.notDeployedBody} />
-          ) : open.length === 0 ? (
+          ) : open.length === 0 && opening.length === 0 ? (
             <p className="text-muted">{dict.claim.nothing}</p>
           ) : (
             <>
-              {!account && !vaultBlob && <p className="mb-4 text-sm text-butter-fg">{dict.claim.connectFirst}</p>}
-              {!account && vaultBlob && <p className="mb-4 text-sm text-muted">{dict.wallet.passkey.claimNote}</p>}
+              {open.length > 0 && !account && !vaultBlob && <p className="mb-4 text-sm text-butter-fg">{dict.claim.connectFirst}</p>}
+              {open.length > 0 && !account && vaultBlob && <p className="mb-4 text-sm text-muted">{dict.wallet.passkey.claimNote}</p>}
               <ul className="space-y-3">
-                {open.map((e) => (
-                  <li
-                    key={e.epoch}
-                    className="flex flex-col gap-3 rounded-2xl border border-line bg-surface/60 p-5 sm:flex-row sm:items-center sm:justify-between"
-                  >
-                    <div>
-                      <p className="font-display font-semibold">
-                        {date(e.startsAt)} · {e.amount} VVAKE
-                      </p>
+                {[...open, ...opening].map((e) => {
+                  const opensAt = claimOpensAt(e, now);
+                  return (
+                    <ClaimItem
+                      key={e.epoch}
+                      dict={dict.claim}
+                      e={e}
+                      title={`${date(e.startsAt)} · ${e.amount} VVAKE`}
+                      opensAt={opensAt ? opensText(opensAt) : null}
+                      disabled={(!account && !vaultBlob) || busy !== null || txs[e.epoch]?.state === "sent"}
+                      onClaim={() => void claim([e])}
+                    >
                       {(account ?? vaultBlob?.address) && !sameAddress(account ?? vaultBlob?.address, e.address) && (
                         <p className="mt-1 text-sm text-faint">{format(dict.claim.otherAddress, { address: shortHex(e.address) })}</p>
                       )}
                       {txs[e.epoch] && <TxLink tx={txs[e.epoch]!} dict={dict.claim} />}
-                    </div>
-                    <button
-                      type="button"
-                      className={buttonClass("primary")}
-                      disabled={(!account && !vaultBlob) || busy !== null || txs[e.epoch]?.state === "sent"}
-                      onClick={() => void claim([e])}
-                    >
-                      {dict.claim.one}
-                    </button>
-                  </li>
-                ))}
+                    </ClaimItem>
+                  );
+                })}
               </ul>
+              {opening.length > 0 && <p className="mt-4 text-sm text-faint">{dict.claim.opening}</p>}
               {open.length > 1 && (
                 <button
                   type="button"
@@ -770,18 +891,43 @@ function reasonsText(missing: readonly string[] | null | undefined, dict: Dict["
   return (keys.length ? keys : (["other"] as const)).map((k) => dict.missing[k]).join(" · ");
 }
 
+/** The rule with the API's numbers when it sends them (`rules`), else the published defaults (ADR-0024). */
+export function ruleText(dict: Dict["mine"], rules?: Rewards["rules"]) {
+  return format(dict.rule, {
+    sessions: rules?.minSessions ?? 3,
+    minutes: rules?.minActiveMinutes ?? 90,
+    grace: rules?.uploadGraceHours ?? 4,
+    cap: rules?.dailyPointCap ?? 150,
+  });
+}
+
+/** One missing condition's words; a wallet linked this week says from when it counts. */
+export function missingText(dict: Dict["mine"], k: ReturnType<typeof missingConditions>[number], walletFrom?: string | null) {
+  return k === "wallet" && walletFrom ? format(dict.missing.walletFrom, { date: walletFrom }) : dict.missing[k];
+}
+
 /**
- * Who gets prizes (Plus active, a linked wallet, 18+, enough effort), next to the claim area. When GET /v1/rewards
- * says whether this week counts so far (`week.eligible`, `week.missing`), it shows that too; older API versions don't,
- * and then only the rule shows.
+ * Who gets prizes (Plus or the free entry, an account and a wallet from before the week, 18+, heart-rate effort, the
+ * skill question), next to the claim area. When GET /v1/rewards says whether this week counts so far (`week.eligible`,
+ * `week.missing`), it shows that too; older API versions don't, and then only the rule shows.
  */
-function Eligibility({ dict, week }: { dict: Dict["mine"]; week?: Rewards["week"] }) {
+export function Eligibility({
+  dict,
+  week,
+  rules,
+  walletFrom,
+}: {
+  dict: Dict["mine"];
+  week?: Rewards["week"];
+  rules?: Rewards["rules"];
+  walletFrom?: string | null;
+}) {
   const missing = missingConditions(week?.missing);
   const state = week?.eligible === true ? "yes" : week?.eligible === false || missing.length ? "no" : null;
   return (
     <div className="mt-10 rounded-2xl border border-line bg-surface/60 p-6">
       <p className="font-mono text-xs tracking-[0.16em] text-faint uppercase">{dict.ruleTitle}</p>
-      <p className="mt-3 max-w-3xl text-sm leading-relaxed text-muted">{dict.rule}</p>
+      <p className="mt-3 max-w-3xl text-sm leading-relaxed text-muted">{ruleText(dict, rules)}</p>
       {state === "yes" && (
         <p className="mt-4 text-sm text-up-fg" role="status">
           {dict.eligibleNow}
@@ -792,7 +938,7 @@ function Eligibility({ dict, week }: { dict: Dict["mine"]; week?: Rewards["week"
           <p>{dict.notEligibleNow}</p>
           <ul className="mt-1 list-disc pl-5">
             {(missing.length ? missing : (["other"] as const)).map((k) => (
-              <li key={k}>{dict.missing[k]}</li>
+              <li key={k}>{missingText(dict, k, walletFrom)}</li>
             ))}
           </ul>
         </div>
@@ -823,6 +969,7 @@ function Stat({ label, value, children }: { label: string; value: string; childr
 
 const PILL: Record<RewardEpoch["status"], string> = {
   pending: "border-line text-muted",
+  opening: "border-butter-fg/40 text-butter-fg",
   claimable: "border-volt-fg/40 text-volt-fg",
   claimed: "border-up-fg/40 text-up-fg",
   expired: "border-line text-faint",

@@ -49,17 +49,21 @@ keys or funds because of a VVake page.
 
 **What prizes are**
 
-- Weekly $VVAKE prizes are only for **paying VVake Fit Plus subscribers with a linked wallet** (founder decision,
-  2026-10-06). A week counts if all are true: Plus active that week; a wallet linked on vvake.com/rewards; 18+
-  confirmed when linking; real effort that week (at least 3 counted sessions or 90 active minutes). Move Quests don't
-  count toward prizes for now. Free accounts keep everything else (coach, streaks, points, quests), just not the
-  token prizes. Never write "free accounts are eligible" again.
-- Prizes are for effort only: VV points capped per day. No draw, no chance, no lottery wording.
+- Weekly $VVAKE prizes have **two ways in, same prize** (ADR-0024, revised 2026-10-06): VVake Fit Plus **or the free
+  entry** (no purchase necessary, one tap on vvake.com/rewards, standing until withdrawn). Same rules, same prizes:
+  give both equal weight wherever entry is explained. A week counts if all are true: an entry (paid Plus or the free
+  entry; beta Plus never counts) made before the week started; an account created before the week; a wallet linked
+  (18+ confirmed) before the week (a new or changed wallet counts from the next week); heart-rate effort that week (at
+  least 3 sessions or 90 active minutes with heart-rate data from a watch, uploaded within 4 h of the week's end; a
+  phone without a heart-rate sensor scores 0); the week's skill-testing question answered (required by Canadian law
+  for prizes). Move Quests don't count toward prizes for now. Never write that prizes are Plus-only or only for
+  subscribers again.
+- Prizes are for effort only: VV points capped at 150 a day. Claims open 48 hours after a week's list is on chain. No draw, no chance, no lottery wording.
 - Weekly pot: 1/8 of the VVAKE the rewards contract holds and hasn't promised yet, capped at 1,000,000 VVAKE a week;
   unawarded VVAKE stays in the pool for later weeks. Split by effort points; nobody gets more than 10% of a week's pot,
   the rest goes to the others or stays in the pool.
 - Never proportional to what someone pays (everyone pays the same Plus price) and never to token holdings; no bonus
-  for gear, collectibles or holding $VVAKE. Plus is the condition to take part, never a multiplier.
+  for gear, collectibles or holding $VVAKE. Plus is one way to take part (the free entry is the other), never a multiplier.
 - Testnet tokens have no value. Say so wherever the tokens appear.
 - Prizes are 18+ (conservative default): only people 18 or older who are allowed to receive prizes where they live.
   vvake.com/rewards asks the visitor to tick "I'm 18 or older and allowed to receive prizes where I live" before the
@@ -74,13 +78,13 @@ keys or funds because of a VVake page.
 
 **Language**
 
-| ❌ Never                                                                  | ✅ Instead                                                    |
-| ------------------------------------------------------------------------- | ------------------------------------------------------------- |
-| earn, earnings, yield, investment, returns, income, APY                   | prizes, weekly prizes, prizes for moving                      |
-| price going up, moon, "the more you hold…", buyback, burn for price       | prize pool funded by Plus, conversions by rule                |
-| a USD (or any fiat) value of the pool, a prize or the token; price charts | amounts in ETH and VVAKE as read from the chain, testnet      |
-| "hold VVAKE to win more", "Plus = more prizes", "free accounts eligible"  | "for Plus subscribers, shared by effort", "never by holdings" |
-| draw, lottery, chance, "win", "lucky"                                     | "prizes for effort", "shared by effort points"                |
+| ❌ Never                                                                  | ✅ Instead                                                |
+| ------------------------------------------------------------------------- | --------------------------------------------------------- |
+| earn, earnings, yield, investment, returns, income, APY                   | prizes, weekly prizes, prizes for moving                  |
+| price going up, moon, "the more you hold…", buyback, burn for price       | prize pool funded by Plus, conversions by rule            |
+| a USD (or any fiat) value of the pool, a prize or the token; price charts | amounts in ETH and VVAKE as read from the chain, testnet  |
+| "hold VVAKE to win more", "Plus = more prizes", "Plus-only prizes"        | "Plus or the free entry, same prize", "never by holdings" |
+| draw, lottery, chance, "win", "lucky"                                     | "prizes for effort", "shared by effort points"            |
 
 - Talk about "prizes", "prize pool", "conversions" (ETH → VVAKE for prizes). Never call a conversion a buyback and
   never connect it to the token's price. Nothing is burned for price or sent to holders.

@@ -18,6 +18,13 @@ import { VAULT_FIELDS, type VaultBlob } from "./walletVault";
 const REFRESH_KEY = "vvake-rewards-refresh";
 const DEVICE_KEY = "vvake-web-device";
 
+/** A claim asked for before its week's claims open (claimableAt in the future): nothing is sent. */
+export class ClaimNotOpenError extends Error {
+  constructor(readonly opensAt: Date) {
+    super("claim not open yet");
+  }
+}
+
 export class ApiError extends Error {
   constructor(
     readonly status: number,
@@ -32,31 +39,67 @@ const userSchema = z.object({ id: z.string(), name: z.optional(z.nullable(z.stri
 const tokenPairSchema = z.object({ accessToken: z.string(), refreshToken: z.string(), user: userSchema });
 export type SessionUser = z.infer<typeof userSchema>;
 
-const STATUSES = ["pending", "claimable", "claimed", "expired", "closed"] as const;
+/** `opening`: the root is on chain and claims open at `claimableAt` (contracts v2: 48 h after the root is posted). */
+const STATUSES = ["pending", "opening", "claimable", "claimed", "expired", "closed"] as const;
 export type EpochStatus = (typeof STATUSES)[number];
 
 /**
- * Prize eligibility of one week (Plus active, a wallet linked, 18+ confirmed, enough effort). Optional: older API
- * versions don't send it, and a malformed value is dropped rather than failing the whole page.
+ * Prize eligibility of one week (ADR-0024: an entry, Plus or the free entry, an account and a wallet from before the
+ * week, 18+ confirmed, heart-rate effort, the skill question). Optional: older API versions don't send it, and a
+ * malformed value is dropped rather than failing the whole page.
  */
 const eligibleField = z.optional(z.catch(z.nullable(z.boolean()), null));
 const missingField = z.optional(z.catch(z.nullable(z.array(z.string())), null));
 
-/** What keeps a week from counting, as the page explains it. Unknown codes from a newer API fall back to "other". */
-export type MissingCondition = "plus" | "wallet" | "adult" | "effort" | "other";
+/**
+ * What keeps a week from counting, as the page explains it: the API sends a subset of entry, account, wallet, adult,
+ * effort, skill (in that order). Weeks built before migration 0019 say "plus", which is the entry condition now.
+ * Unknown codes from a newer API fall back to "other".
+ */
+export type MissingCondition = "entry" | "account" | "wallet" | "adult" | "effort" | "skill" | "other";
 
 export function missingConditions(codes: readonly string[] | null | undefined): MissingCondition[] {
   const out = new Set<MissingCondition>();
   for (const raw of codes ?? []) {
     const c = raw.toLowerCase();
-    if (c.includes("plus") || c.includes("subscri")) out.add("plus");
+    if (c.includes("entry") || c.includes("plus") || c.includes("subscri")) out.add("entry");
+    else if (c.includes("account")) out.add("account");
     else if (c.includes("wallet")) out.add("wallet");
     else if (/adult|\bage\b|18/.test(c)) out.add("adult");
-    else if (c.includes("effort") || c.includes("session") || c.includes("minute") || c.includes("activ")) out.add("effort");
+    else if (c.includes("skill") || c.includes("question")) out.add("skill");
+    else if (/effort|session|minute|activ|heart|\bhr\b/.test(c)) out.add("effort");
     else out.add("other");
   }
   return [...out];
 }
+
+/**
+ * When a prize's claim opens, or null when it's open now. Contracts v2 open claims 48 h after a week's root is
+ * posted: the API says `opening` with `claimableAt` until then. A future `claimableAt` keeps the claim closed even if
+ * a cached status already says `claimable`; `opening` without a date is closed at an unknown time (Invalid Date).
+ */
+export function claimOpensAt(e: { status: string; claimableAt?: string | null }, nowMs: number): Date | null {
+  const at = e.claimableAt ? Date.parse(e.claimableAt) : Number.NaN;
+  if (Number.isFinite(at) && at > nowMs) return new Date(at);
+  if (e.status === "opening" && !Number.isFinite(at)) return new Date(Number.NaN);
+  return null;
+}
+
+const rulesSchema = z.object({
+  plusRequired: z.optional(z.boolean()),
+  freeEntry: z.optional(z.boolean()),
+  beforeWeekStart: z.optional(z.boolean()),
+  heartRateRequired: z.optional(z.boolean()),
+  skillQuestion: z.optional(z.boolean()),
+  uploadGraceHours: z.optional(z.number()),
+  minSessions: z.optional(z.number()),
+  minActiveMinutes: z.optional(z.number()),
+  dailyPointCap: z.optional(z.number()),
+  maxShareBps: z.optional(z.number()),
+});
+const freeEntrySchema = z.object({ enteredAt: z.string(), countsFrom: z.string() });
+export type FreeEntry = z.infer<typeof freeEntrySchema>;
+const nullableDate = z.optional(z.catch(z.nullable(z.string()), null));
 
 const rewardsSchema = z.object({
   enabled: z.boolean(),
@@ -64,17 +107,36 @@ const rewardsSchema = z.object({
   chainId: z.optional(z.number()),
   contract: z.optional(z.nullable(z.string())),
   explorerUrl: z.optional(z.string()),
-  rate: z.optional(z.object({ vvakePerPoint: z.string(), dailyPointCap: z.number(), maxPerEpoch: z.string() })),
-  wallet: z.optional(z.nullable(z.object({ address: z.string(), linkedAt: z.string() }))),
+  // Older API versions only (the fixed rate is gone): kept so an old response still shows the daily cap.
+  rate: z.optional(z.catch(z.nullable(z.object({ dailyPointCap: z.number() })), null)),
+  rules: z.optional(z.catch(z.nullable(rulesSchema), null)),
+  plus: z.optional(z.catch(z.nullable(z.object({ active: z.boolean(), until: z.optional(z.nullable(z.string())) })), null)),
+  // How this account enters the weekly prizes: paid Plus (beta Plus doesn't count) or the free entry. Same prizes.
+  entry: z.optional(z.catch(z.nullable(z.object({ plus: z.boolean(), free: z.nullable(freeEntrySchema) })), null)),
+  wallet: z.optional(
+    z.nullable(
+      z.object({
+        address: z.string(),
+        linkedAt: z.string(),
+        adult: z.optional(z.boolean()),
+        // A new or changed wallet counts for prizes from the next week (the Monday after it was linked).
+        countsFrom: nullableDate,
+      }),
+    ),
+  ),
   week: z.optional(
     z.object({
       epoch: z.number(),
       startsAt: z.string(),
       endsAt: z.string(),
       points: z.number(),
-      estimatedVvake: z.string(),
+      // Older API versions sent an estimate; today's split is only known when the week is built.
+      estimatedVvake: z.optional(z.string()),
+      sessions: z.optional(z.number()),
+      activeMinutes: z.optional(z.number()),
       eligible: eligibleField,
       missing: missingField,
+      skill: z.optional(z.catch(z.nullable(z.object({ answered: z.boolean() })), null)),
     }),
   ),
   epochs: z.optional(
@@ -88,6 +150,7 @@ const rewardsSchema = z.object({
         amountBase: z.string(),
         address: z.string(),
         status: z.catch(z.enum(STATUSES), "pending"),
+        claimableAt: nullableDate,
         deadline: z.nullable(z.string()),
         eligible: eligibleField,
         missing: missingField,
@@ -107,6 +170,7 @@ const proofSchema = z.object({
   amountBase: z.string(),
   proof: z.array(z.string()),
   status: z.catch(z.enum(STATUSES), "pending"),
+  claimableAt: nullableDate,
   calldata: z.string(),
 });
 export type Proof = z.infer<typeof proofSchema>;
@@ -125,6 +189,22 @@ const vaultBlobSchema = z.object({
 const vaultSchema = z.object({ vault: z.nullable(vaultBlobSchema) });
 export type StoredVault = z.infer<typeof vaultBlobSchema>;
 const walletSchema = z.object({ wallet: z.object({ address: z.string(), linkedAt: z.string() }) });
+const entrySchema = z.object({ entry: freeEntrySchema });
+const skillSchema = z.object({
+  epoch: z.number(),
+  answered: z.boolean(),
+  answeredAt: z.nullable(z.string()),
+  attemptsLeft: z.number(),
+  question: z.optional(z.string()),
+});
+export type SkillQuestion = z.infer<typeof skillSchema>;
+const skillAnswerSchema = z.object({
+  epoch: z.number(),
+  correct: z.boolean(),
+  answeredAt: z.nullable(z.string()),
+  attemptsLeft: z.number(),
+  question: z.optional(z.string()),
+});
 
 const publicEpochSchema = z.object({
   epoch: z.number(),
@@ -333,6 +413,26 @@ export class RewardsSession {
   deleteVault() {
     return this.authed("/v1/rewards/vault", { method: "DELETE" }, null);
   }
+
+  /** The free entry (no purchase necessary): same prizes as Plus, counts from the next week that starts. */
+  async enterFree(): Promise<FreeEntry> {
+    return (await this.authed("/v1/rewards/entry", { method: "POST" }, entrySchema)).entry;
+  }
+
+  /** Withdraws the free entry now (this week no longer counts through it). */
+  withdrawFree() {
+    return this.authed("/v1/rewards/entry", { method: "DELETE" }, null);
+  }
+
+  /** The week's skill-testing question (Canada): this week, or last week until it's built. */
+  skill(epoch?: number) {
+    return this.authed(`/v1/rewards/skill${epoch === undefined ? "" : `?epoch=${epoch}`}`, { method: "GET" }, skillSchema);
+  }
+
+  /** Answers it: right → stored with the time; wrong → a new question, until the week's tries run out. */
+  answerSkill(answer: number, epoch?: number) {
+    return this.authed("/v1/rewards/skill", post(epoch === undefined ? { answer } : { epoch, answer }), skillAnswerSchema);
+  }
 }
 
 /** GET /v1/rewards/epochs/:n (public): one week's whole tree, or null when that week wasn't built. */
@@ -367,11 +467,13 @@ export type ErrorKey =
   | "needsGas"
   | "linkRefused"
   | "vaultTaken"
+  | "notOpenYet"
   | "generic";
 
 /** Which message to show for an API or wallet error (the API's own messages are English only). */
 export function errorKey(e: unknown): ErrorKey {
   if (e instanceof ClaimRefusedError) return "claimRefused";
+  if (e instanceof ClaimNotOpenError) return "notOpenYet";
   // The passkey wallet (src/lib/walletVault.ts, passkeyWallet.ts) and WebAuthn itself (a closed prompt).
   const name = e && typeof e === "object" && "name" in e ? String((e as { name: unknown }).name) : "";
   if (name === "NotAllowedError" || name === "AbortError") return "passkeyCancelled";
