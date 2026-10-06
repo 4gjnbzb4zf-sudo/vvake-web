@@ -1,11 +1,18 @@
 {
-  "version": 3,
+  "version": 4,
   "categories": [
     {
       "key": "workout",
       "title": {
         "en": "Workouts",
         "fr": "Séances"
+      }
+    },
+    {
+      "key": "plan",
+      "title": {
+        "en": "Your plan and progress",
+        "fr": "Ton programme et tes progrès"
       }
     },
     {
@@ -203,6 +210,135 @@
         "fr": [
           "Lance le mouvement du jour",
           "Mouvement du jour"
+        ]
+      },
+      "confirm": false,
+      "phone": true,
+      "watch": true
+    },
+    {
+      "intent": "plan.next",
+      "category": "plan",
+      "title": {
+        "en": "Your next session",
+        "fr": "Ta prochaine séance"
+      },
+      "detail": {
+        "en": "Says the day, the time, the sport and how long.",
+        "fr": "Te dit le jour, l’heure, le sport et la durée."
+      },
+      "examples": {
+        "en": [
+          "When is my next training",
+          "What’s my next session",
+          "Wake, what’s on today"
+        ],
+        "fr": [
+          "C’est quand ma prochaine séance",
+          "Mon prochain entraînement",
+          "Ouèk, qu’est-ce que j’ai aujourd’hui"
+        ]
+      },
+      "confirm": false,
+      "phone": true,
+      "watch": true
+    },
+    {
+      "intent": "plan.week",
+      "category": "plan",
+      "title": {
+        "en": "Your week",
+        "fr": "Ta semaine"
+      },
+      "detail": {
+        "en": "Your coach reads your week’s plan, short.",
+        "fr": "Ton coach te lit ton programme de la semaine, en bref."
+      },
+      "examples": {
+        "en": [
+          "What’s my plan this week",
+          "Read me my schedule for the week"
+        ],
+        "fr": [
+          "C’est quoi mon programme cette semaine",
+          "Qu’est-ce que j’ai cette semaine"
+        ]
+      },
+      "confirm": false,
+      "phone": true,
+      "watch": true
+    },
+    {
+      "intent": "plan.change",
+      "category": "plan",
+      "title": {
+        "en": "Plan, move or cancel a session",
+        "fr": "Prévoir, décaler ou annuler une séance"
+      },
+      "detail": {
+        "en": "Your coach proposes the change and reads it out: say yes to apply it, no to keep your plan.",
+        "fr": "Ton coach propose le changement et te le lit : dis oui pour l’appliquer, non pour garder ton programme."
+      },
+      "examples": {
+        "en": [
+          "Plan my next session for Thursday evening, a 40 minute run",
+          "Move my next training to tomorrow",
+          "Cancel my next training"
+        ],
+        "fr": [
+          "Planifie une sortie vélo samedi matin",
+          "Décale ma séance à demain 18 h",
+          "Annule ma prochaine séance"
+        ]
+      },
+      "confirm": false,
+      "phone": true,
+      "watch": true
+    },
+    {
+      "intent": "stats.streak",
+      "category": "plan",
+      "title": {
+        "en": "Your streak",
+        "fr": "Ta série"
+      },
+      "detail": {
+        "en": "Days in a row and your points multiplier.",
+        "fr": "Les jours d’affilée et ton multiplicateur de points."
+      },
+      "examples": {
+        "en": [
+          "What’s my streak",
+          "How many days in a row"
+        ],
+        "fr": [
+          "C’est quoi ma série",
+          "Combien de jours d’affilée"
+        ]
+      },
+      "confirm": false,
+      "phone": true,
+      "watch": true
+    },
+    {
+      "intent": "stats.progress",
+      "category": "plan",
+      "title": {
+        "en": "How am I doing?",
+        "fr": "Où j’en suis ?"
+      },
+      "detail": {
+        "en": "Your coach sums up your week and your goals.",
+        "fr": "Ton coach fait le point sur ta semaine et tes objectifs."
+      },
+      "examples": {
+        "en": [
+          "How am I doing",
+          "My points this week"
+        ],
+        "fr": [
+          "Où j’en suis",
+          "Mes points cette semaine"
         ]
       },
       "confirm": false,
@@ -468,6 +604,81 @@
       "watch": true
     },
     {
+      "intent": "challenge.duel",
+      "category": "social",
+      "title": {
+        "en": "Challenge a friend",
+        "fr": "Défier un ami"
+      },
+      "detail": {
+        "en": "Distance, minutes, effort or active days, for a day, a weekend or a week. Confirms before sending.",
+        "fr": "Distance, minutes, effort ou jours actifs, sur une journée, un week-end ou une semaine. Confirme avant l’envoi."
+      },
+      "examples": {
+        "en": [
+          "Challenge Marie to a 5 km this week",
+          "Challenge Paul to more minutes than me this weekend"
+        ],
+        "fr": [
+          "Défie Marie sur 5 km cette semaine",
+          "Défie Paul sur le temps ce week-end"
+        ]
+      },
+      "confirm": true,
+      "phone": true,
+      "watch": true
+    },
+    {
+      "intent": "clash.callout",
+      "category": "social",
+      "title": {
+        "en": "Challenge a city",
+        "fr": "Défier une ville"
+      },
+      "detail": {
+        "en": "Your city against that one in City Clash: joins the clash if it’s already on. Confirms first.",
+        "fr": "Ta ville contre celle-là au City Clash : tu rejoins le clash s’il existe déjà. Confirme d’abord."
+      },
+      "examples": {
+        "en": [
+          "Challenge Lyon",
+          "My city against Montreal"
+        ],
+        "fr": [
+          "Défie Montréal",
+          "Ma ville contre Toronto"
+        ]
+      },
+      "confirm": true,
+      "phone": true,
+      "watch": true
+    },
+    {
+      "intent": "clash.status",
+      "category": "social",
+      "title": {
+        "en": "How’s the clash?",
+        "fr": "Où en est le clash ?"
+      },
+      "detail": {
+        "en": "The score of your city’s clash.",
+        "fr": "Le score du clash de ta ville."
+      },
+      "examples": {
+        "en": [
+          "How’s the clash going",
+          "Are we winning"
+        ],
+        "fr": [
+          "Où en est le clash",
+          "Est-ce qu’on gagne"
+        ]
+      },
+      "confirm": false,
+      "phone": true,
+      "watch": true
+    },
+    {
       "intent": "claude.postpone",
       "category": "claude",
       "title": {
@@ -543,27 +754,131 @@
       "confirm": false,
       "phone": true,
       "watch": true
+    },
+    {
+      "intent": "voice.repeat",
+      "category": "app",
+      "title": {
+        "en": "Say it again",
+        "fr": "Répète"
+      },
+      "detail": {
+        "en": "Repeats the last thing VVake said.",
+        "fr": "Redit la dernière chose que VVake a dite."
+      },
+      "examples": {
+        "en": [
+          "Repeat that",
+          "Say that again"
+        ],
+        "fr": [
+          "Répète",
+          "Tu peux répéter"
+        ]
+      },
+      "confirm": false,
+      "phone": true,
+      "watch": true
+    },
+    {
+      "intent": "voice.cancel",
+      "category": "app",
+      "title": {
+        "en": "Cancel",
+        "fr": "Annuler"
+      },
+      "detail": {
+        "en": "Never mind: closes without doing anything.",
+        "fr": "Laisse tomber : ferme sans rien faire."
+      },
+      "examples": {
+        "en": [
+          "Cancel",
+          "Never mind"
+        ],
+        "fr": [
+          "Annule",
+          "Laisse tomber"
+        ]
+      },
+      "confirm": false,
+      "phone": true,
+      "watch": true
+    },
+    {
+      "intent": "voice.help",
+      "category": "app",
+      "title": {
+        "en": "What can I say?",
+        "fr": "Qu’est-ce que je peux dire ?"
+      },
+      "detail": {
+        "en": "A few things to try, read out.",
+        "fr": "Quelques idées à essayer, lues à voix haute."
+      },
+      "examples": {
+        "en": [
+          "Help",
+          "What can I say"
+        ],
+        "fr": [
+          "Aide",
+          "Qu’est-ce que je peux dire"
+        ]
+      },
+      "confirm": false,
+      "phone": true,
+      "watch": true
     }
   ],
   "tips": [
     {
       "key": "name",
       "title": {
-        "en": "Call it by its name, or not",
-        "fr": "Appelle-le par son nom, ou pas"
+        "en": "Its name anywhere, or not at all",
+        "fr": "Son nom n’importe où, ou pas du tout"
       },
       "detail": {
-        "en": "“Wake”, “Hey Wake”, “Wake up and…”: the name is optional and VVake hears it however it’s pronounced.",
-        "fr": "« Wake », « Ouèk », « Wake et… » : le nom est facultatif et VVake le comprend quelle que soit ta prononciation."
+        "en": "“Wake” before, after or in the middle: “Wake, play my music”, “play my music, Wake”, “play, Wake, my music”. It hears “Wake”, “VVake”, “Ouèk” however it’s pronounced, in English or French.",
+        "fr": "« Ouèk » avant, après ou au milieu : « Ouèk, mets ma musique », « mets ma musique, Ouèk », « mets, Wake, de la musique ». Il entend « Wake », « VVake », « Ouèk » quelle que soit ta prononciation, en français comme en anglais."
       },
       "examples": {
         "en": [
-          "Wake, start a run",
+          "Wake, play my music",
+          "Play my music, Wake",
+          "Play, Wake, my music",
           "Hey Wake, skip this song"
         ],
         "fr": [
-          "Ouèk, arrête la musique",
-          "Wake, lance le yoga"
+          "Ouèk, mets ma musique",
+          "Mets ma musique avec Ouèk",
+          "Wake, lance le yoga",
+          "Mets, Wake, de la musique"
+        ]
+      }
+    },
+    {
+      "key": "natural",
+      "title": {
+        "en": "Say it your way",
+        "fr": "Dis-le à ta façon"
+      },
+      "detail": {
+        "en": "No exact words to learn: VVake listens for what you mean. If two things fit, it asks which one.",
+        "fr": "Pas de phrase à apprendre par cœur : VVake comprend ce que tu veux dire. Si deux choses collent, il te demande laquelle."
+      },
+      "examples": {
+        "en": [
+          "Can you put some music on",
+          "I really want to go for a run",
+          "Turn the music off",
+          "Could you skip to the next track"
+        ],
+        "fr": [
+          "Tu peux mettre un peu de musique",
+          "J’veux de la musique",
+          "Coupe le son",
+          "Envoie du son"
         ]
       }
     },
@@ -609,7 +924,7 @@
         "name": "Wake",
         "hint": {
           "en": "wake",
-          "fr": "ouèk"
+          "fr": "ouéïk"
         }
       },
       {
@@ -627,6 +942,10 @@
         }
       }
     ],
+    "spokenName": {
+      "en": "VVake",
+      "fr": "Ouèk"
+    },
     "shortcuts": [
       {
         "key": "start-workout",
@@ -644,18 +963,26 @@
             "Start run with VVake",
             "VVake up and start run",
             "VVake start a run",
+            "VVake start run",
             "Start a run workout with VVake",
+            "Go for a run with VVake",
             "Start a workout with VVake",
-            "VVake start my workout"
+            "VVake start my workout",
+            "VVake start my plan",
+            "Start today’s session with VVake"
           ],
           "fr": [
             "Lance une course avec VVake",
             "Lance course avec VVake",
             "VVake et lance course",
             "VVake lance une séance de course",
+            "VVake lance course",
             "Démarre une séance de course avec VVake",
+            "Je pars faire du course avec VVake",
             "Lance une séance avec VVake",
-            "VVake commence la séance"
+            "VVake commence la séance",
+            "VVake lance la séance du jour",
+            "Lance la séance du jour avec VVake"
           ]
         }
       },
@@ -673,12 +1000,18 @@
           "en": [
             "VVake pause",
             "VVake take a break",
-            "Pause the workout with VVake"
+            "VVake pause the workout",
+            "Pause the workout with VVake",
+            "Pause my workout on VVake",
+            "Take a break with VVake"
           ],
           "fr": [
             "VVake pause",
             "VVake fais une pause",
-            "Mets la séance en pause avec VVake"
+            "VVake mets la séance en pause",
+            "Mets la séance en pause avec VVake",
+            "Pause la séance avec VVake",
+            "Fais une pause avec VVake"
           ]
         }
       },
@@ -696,12 +1029,16 @@
           "en": [
             "VVake resume",
             "VVake keep going",
-            "Resume the workout with VVake"
+            "VVake resume the workout",
+            "Resume the workout with VVake",
+            "Resume my workout on VVake"
           ],
           "fr": [
             "VVake reprends",
             "VVake on repart",
-            "Reprends la séance avec VVake"
+            "VVake reprends la séance",
+            "Reprends la séance avec VVake",
+            "On repart avec VVake"
           ]
         }
       },
@@ -718,11 +1055,17 @@
         "examples": {
           "en": [
             "VVake end the workout",
-            "End my workout with VVake"
+            "VVake stop the workout",
+            "VVake finish my workout",
+            "End my workout with VVake",
+            "Stop my workout on VVake"
           ],
           "fr": [
             "VVake termine la séance",
-            "Termine ma séance avec VVake"
+            "VVake arrête la séance",
+            "VVake j’ai fini",
+            "Termine ma séance avec VVake",
+            "Arrête la séance avec VVake"
           ]
         }
       },
@@ -740,12 +1083,16 @@
           "en": [
             "Race my best with VVake",
             "VVake race my ghost",
-            "VVake race my best run"
+            "VVake race my best",
+            "VVake race my best run",
+            "Race my best run with VVake"
           ],
           "fr": [
             "Bats mon record avec VVake",
             "VVake course contre mon fantôme",
-            "VVake bats mon record en course"
+            "VVake bats mon record",
+            "VVake bats mon record en course",
+            "Bats mon record en course avec VVake"
           ]
         }
       },
@@ -762,11 +1109,19 @@
         "examples": {
           "en": [
             "VVake play music",
-            "Play music with VVake"
+            "VVake play my music",
+            "VVake put some music on",
+            "Play music with VVake",
+            "Play my music on VVake",
+            "Put some music on with VVake"
           ],
           "fr": [
             "VVake mets de la musique",
-            "Mets de la musique avec VVake"
+            "VVake mets ma musique",
+            "VVake lance la musique",
+            "Mets de la musique avec VVake",
+            "Mets ma musique avec VVake",
+            "Lance la musique avec VVake"
           ]
         }
       },
@@ -783,11 +1138,17 @@
         "examples": {
           "en": [
             "VVake stop music",
-            "VVake stop the music"
+            "VVake stop the music",
+            "VVake pause the music",
+            "Stop the music with VVake",
+            "Pause my music on VVake"
           ],
           "fr": [
             "VVake coupe la musique",
-            "VVake arrête la musique"
+            "VVake arrête la musique",
+            "VVake mets la musique en pause",
+            "Coupe la musique avec VVake",
+            "Arrête la musique avec VVake"
           ]
         }
       },
@@ -804,11 +1165,19 @@
         "examples": {
           "en": [
             "VVake skip song",
-            "VVake next song"
+            "VVake next song",
+            "VVake skip this song",
+            "Skip song VVake",
+            "Next song on VVake",
+            "Skip this song with VVake"
           ],
           "fr": [
             "VVake chanson suivante",
-            "VVake passe à la chanson suivante"
+            "VVake passe à la chanson suivante",
+            "VVake passe",
+            "Chanson suivante VVake",
+            "Passe la chanson avec VVake",
+            "Chanson suivante avec VVake"
           ]
         }
       },
@@ -824,52 +1193,51 @@
         "watch": true,
         "examples": {
           "en": [
-            "VVake previous song"
+            "VVake previous song",
+            "VVake go back a song",
+            "Previous song with VVake"
           ],
           "fr": [
-            "VVake chanson précédente"
+            "VVake chanson précédente",
+            "VVake reviens en arrière",
+            "Chanson précédente avec VVake"
           ]
         }
       },
       {
-        "key": "whats-playing",
-        "intent": "music.now-playing",
-        "title": {
-          "en": "What’s playing?",
-          "fr": "C’est quoi ce morceau ?"
-        },
-        "icon": "music.note",
-        "phone": false,
-        "watch": true,
-        "examples": {
-          "en": [
-            "VVake what's playing"
-          ],
-          "fr": [
-            "VVake c'est quoi ce morceau"
-          ]
-        }
-      },
-      {
-        "key": "talk-to-coach",
+        "key": "ask",
         "intent": "coach.talk",
         "title": {
-          "en": "Talk to my coach",
-          "fr": "Parler à mon coach"
+          "en": "Ask VVake",
+          "fr": "Demander à VVake"
         },
         "icon": "waveform",
         "phone": true,
-        "watch": false,
+        "watch": true,
         "examples": {
           "en": [
-            "Talk to my VVake coach",
+            "Ask VVake when is my next training",
+            "VVake when is my next training",
+            "Tell VVake when is my next training",
+            "Ask VVake",
+            "Talk to VVake",
+            "VVake I have a question",
             "VVake talk to my coach",
-            "Ask my VVake coach"
+            "Talk to my VVake coach",
+            "Ask my VVake coach",
+            "Tell VVake something"
           ],
           "fr": [
-            "Parle à mon coach VVake",
+            "Demande à VVake c’est quand ma prochaine séance",
+            "VVake c’est quand ma prochaine séance",
+            "Dis à VVake c’est quand ma prochaine séance",
+            "Demande à VVake",
+            "Parle à VVake",
+            "VVake j’ai une question",
             "VVake parle au coach",
-            "Demande à mon coach VVake"
+            "Parle à mon coach VVake",
+            "Demande à mon coach VVake",
+            "Dis quelque chose à VVake"
           ]
         }
       },
@@ -886,10 +1254,12 @@
         "examples": {
           "en": [
             "VVake Claude lock status",
+            "VVake is Claude locked",
             "Is Claude locked in VVake"
           ],
           "fr": [
             "VVake état du verrou",
+            "VVake est-ce que Claude est verrouillé",
             "Claude est verrouillé dans VVake"
           ]
         }
@@ -908,6 +1278,13 @@
         "title": {
           "en": "What’s playing?",
           "fr": "C’est quoi ce morceau ?"
+        }
+      },
+      {
+        "intent": "coach.talk",
+        "title": {
+          "en": "Talk to my coach",
+          "fr": "Parler à mon coach"
         }
       },
       {
@@ -945,6 +1322,123 @@
           "fr": "Ouvrir une page"
         }
       }
-    ]
+    ],
+    "ask": [
+      {
+        "key": "nextSession",
+        "intent": "plan.next",
+        "en": [
+          "when is my next training",
+          "what’s my next session",
+          "my next workout"
+        ],
+        "fr": [
+          "c’est quand ma prochaine séance",
+          "mon prochain entraînement",
+          "ma prochaine séance"
+        ]
+      },
+      {
+        "key": "weekPlan",
+        "intent": "plan.week",
+        "en": [
+          "what’s my plan this week",
+          "my plan for the week"
+        ],
+        "fr": [
+          "c’est quoi mon programme cette semaine",
+          "mon programme de la semaine"
+        ]
+      },
+      {
+        "key": "planNext",
+        "intent": "plan.change",
+        "en": [
+          "plan my next session",
+          "to plan my next training"
+        ],
+        "fr": [
+          "planifie ma prochaine séance",
+          "prévois ma prochaine séance"
+        ]
+      },
+      {
+        "key": "cancelNext",
+        "intent": "plan.change",
+        "en": [
+          "cancel my next training",
+          "to cancel my next session"
+        ],
+        "fr": [
+          "annule ma prochaine séance",
+          "annule mon prochain entraînement"
+        ]
+      },
+      {
+        "key": "streak",
+        "intent": "stats.streak",
+        "en": [
+          "what’s my streak",
+          "my streak"
+        ],
+        "fr": [
+          "c’est quoi ma série",
+          "ma série"
+        ]
+      },
+      {
+        "key": "progress",
+        "intent": "stats.progress",
+        "en": [
+          "how am I doing",
+          "my progress"
+        ],
+        "fr": [
+          "où j’en suis",
+          "ma progression"
+        ]
+      },
+      {
+        "key": "clash",
+        "intent": "clash.status",
+        "en": [
+          "how’s the clash going",
+          "are we winning"
+        ],
+        "fr": [
+          "où en est le clash",
+          "est-ce qu’on gagne"
+        ]
+      },
+      {
+        "key": "dailyMove",
+        "intent": "daily-move.start",
+        "en": [
+          "start my daily move",
+          "my daily move"
+        ],
+        "fr": [
+          "lance le mouvement du jour",
+          "mon mouvement du jour"
+        ]
+      },
+      {
+        "key": "help",
+        "intent": "voice.help",
+        "en": [
+          "what can I say",
+          "help"
+        ],
+        "fr": [
+          "qu’est-ce que je peux dire",
+          "aide"
+        ]
+      }
+    ],
+    "phrases": {
+      "phone": 449,
+      "watch": 449,
+      "max": 1000
+    }
   }
 }

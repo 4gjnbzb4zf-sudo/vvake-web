@@ -4,7 +4,15 @@ import { fileURLToPath } from "node:url";
 import { describe, expect, it } from "vitest";
 import data from "@/data/voice-commands.json";
 import { heySiri } from "@/components/sections/VoiceCommands";
-import { groupVoiceCommands, voiceCommands, voiceCommandsSchema, voiceSiri, voiceTeaser, voiceTips } from "./voiceCommands";
+import {
+  groupVoiceCommands,
+  voiceAskExamples,
+  voiceCommands,
+  voiceCommandsSchema,
+  voiceSiri,
+  voiceTeaser,
+  voiceTips,
+} from "./voiceCommands";
 
 const ROOT = fileURLToPath(new URL("../..", import.meta.url));
 const SOURCE = process.env.VVFIT_DIR
@@ -28,7 +36,7 @@ describe("voice commands export", () => {
     const rendered = voiceTips();
     expect(rendered.map((t) => t.key)).toEqual(data.tips.map((t) => t.key));
     expect(new Set(rendered.map((t) => t.key)).size).toBe(rendered.length);
-    expect(rendered.map((t) => t.key)).toEqual(expect.arrayContaining(["name", "chain"]));
+    expect(rendered.map((t) => t.key)).toEqual(expect.arrayContaining(["name", "natural", "chain"]));
     for (const [i, t] of rendered.entries()) {
       expect(t.examples.en).toEqual(data.tips[i].examples.en);
       expect(t.examples.fr).toEqual(data.tips[i].examples.fr);
@@ -76,10 +84,27 @@ describe("Siri", () => {
     expect(s.shortcuts.map((x) => x.key)).toEqual(data.siri.shortcuts.map((x) => x.key));
     for (const x of s.shortcuts) for (const e of [...x.examples.en, ...x.examples.fr]) expect(e).toContain("VVake");
     expect(s.names.map((n) => n.name)).toContain("Wake");
-    expect(s.names.find((n) => n.name === "Wake")?.hint.fr).toBe("ouèk");
+    // French: Siri knows VVake as "Ouèk" (its spoken name), and "Wake" with the other French pronunciation.
+    expect(s.spokenName.fr).toBe("Ouèk");
+    expect(s.names.find((n) => n.name === "Wake")?.hint.fr).toBe("ouéïk");
     const skip = s.shortcuts.find((x) => x.key === "skip-song");
     expect(skip?.phone && skip.watch).toBe(true);
     expect(skip?.examples.fr).toContain("VVake chanson suivante");
+  });
+
+  it("Ask Wake: one phrase per topic in each language, within Apple's phrase limit", () => {
+    const s = voiceSiri();
+    expect(s.ask.length).toBeGreaterThan(3);
+    for (const lang of ["en", "fr"] as const) expect(voiceAskExamples(lang)).toHaveLength(s.ask.length);
+    expect(voiceAskExamples("en")).toContain("when is my next training");
+    expect(s.phrases.phone).toBeLessThanOrEqual(s.phrases.max);
+    expect(s.phrases.watch).toBeLessThanOrEqual(s.phrases.max);
+  });
+
+  it("“say it your way”: the name before, after and in the middle, in both languages", () => {
+    const name = voiceTips().find((t) => t.key === "name")!;
+    expect(name.examples.en).toEqual(expect.arrayContaining(["Wake, play my music", "Play my music, Wake", "Play, Wake, my music"]));
+    expect(name.examples.fr.some((e) => e.startsWith("Ouèk"))).toBe(true);
   });
 
   it("prefixes the phrase the way you'd say it", () => {

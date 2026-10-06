@@ -3032,8 +3032,8 @@ export const fr: Dictionary = {
     kicker: "Commandes vocales",
     title: "Tu le dis. VVake le fait.",
     description:
-      "Toutes les commandes vocales de VVake, en français et en anglais : séances, musique, ton coach, tes amis, le verrou Claude Code et la navigation dans l'app. Et quoi dire à Siri.",
-    lead: "Appuie sur le micro, parle, et VVake te montre ce qu'il a compris, puis le fait. Sur ton téléphone ou ton Apple Watch. Ou demande simplement à Siri : « Dis Siri, Ouèk chanson suivante ».",
+      "Toutes les commandes vocales de VVake, en français et en anglais : séances, ton programme, musique, ton coach, tes amis et les villes, le verrou Claude Code et la navigation dans l'app. Dis-le à ta façon. Et quoi dire à Siri.",
+    lead: "Appuie sur le micro et dis-le à ta façon : VVake comprend ce que tu veux, le fait et te répond à voix haute. Sur ton téléphone ou ton Apple Watch. Ou demande à Siri : « Dis Siri, demande à Ouèk c'est quand ma prochaine séance ».",
     how: {
       title: "Comment ça marche",
       items: [
@@ -3042,12 +3042,12 @@ export const fr: Dictionary = {
           p: "Sur Aujourd'hui dans ton téléphone, sur la page Aujourd'hui de ta montre ou dans les commandes de séance. Rien n'écoute en permanence.",
         },
         {
-          h: "Parle",
-          p: "En français ou en anglais, comme tu le dirais. Les commandes sont comprises sur l'appareil, donc ça marche hors ligne.",
+          h: "Dis-le à ta façon",
+          p: "En français ou en anglais, avec « Ouèk » avant, après, au milieu ou pas du tout. Pas de phrase à apprendre : les commandes sont comprises sur l'appareil, donc ça marche hors ligne.",
         },
         {
-          h: "VVake le fait",
-          p: "Il te montre ce qu'il a compris, puis il le fait. Tout ce qui n'est pas une commande part vers ton coach.",
+          h: "VVake le fait et te répond",
+          p: "Il te montre ce qu'il a compris, le fait et te le dit. Si deux choses collent, il te demande laquelle. Une question part vers ton coach, dont tu entends la réponse ; tu n'as plus qu'à répondre.",
         },
         {
           h: "Recherche de musique",
@@ -3056,8 +3056,8 @@ export const fr: Dictionary = {
       ],
     },
     tips: {
-      title: "Parle comme tu parles",
-      lead: "Deux choses qui marchent avec toutes les commandes.",
+      title: "Dis-le à ta façon",
+      lead: "Ça marche avec toutes les commandes : le nom n'importe où, tes propres mots, plusieurs d'un coup.",
     },
     confirm: "Demande confirmation",
     phone: "iPhone",
@@ -3071,6 +3071,10 @@ export const fr: Dictionary = {
       sounds: "se dit",
       hey: { en: "Hey Siri, ", fr: "Dis Siri, " },
       moreTitle: "Dans l’app Raccourcis :",
+      spokenName: "En français, Siri connaît aussi VVake sous le nom",
+      askTitle: "Demande n'importe quoi à Ouèk",
+      askLead:
+        "D'une traite : ta prochaine séance, ta semaine, ta série, le clash. Ou dis « Dis Siri, demande à Ouèk », puis ce que tu veux : une commande, ou une question pour ton coach. Siri te dit la réponse.",
     },
   },
   notFound: { title: "Perdu en route ?", body: "Cette page fait un jour de repos.", cta: "Retour à l'accueil" },

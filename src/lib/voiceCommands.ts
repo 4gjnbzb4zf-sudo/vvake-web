@@ -62,6 +62,21 @@ export const voiceCommandsSchema = z.object({
       .min(1)
       .max(12),
     more: z.array(z.object({ intent: z.string().min(1), title: text })),
+    /** How Siri says VVake (the visible name stays VVake): French "Ouèk". */
+    spokenName: text,
+    /** "Hey Siri, ask Wake …": what can follow the name in one breath (the apps' Ask VVake shortcut). */
+    ask: z
+      .array(
+        z.object({
+          key: z.string().min(1),
+          intent: z.string().min(1),
+          en: z.array(z.string().min(1)).min(1),
+          fr: z.array(z.string().min(1)).min(1),
+        }),
+      )
+      .min(1),
+    /** The phrases (with every parameter value) against Apple's limit. */
+    phrases: z.object({ phone: z.number().int().positive(), watch: z.number().int().positive(), max: z.number().int().positive() }),
   }),
 });
 
@@ -98,6 +113,11 @@ export const quote = (phrase: string, locale: Locale) => (locale === "fr" ? `«\
 /** The first example phrase of a few commands, for the short voice block on the app page. */
 export function voiceTeaser(locale: Locale, intents: readonly string[] = ["workout.start", "music.next"]): string[] {
   return intents.flatMap((i) => voiceCommands.commands.find((c) => c.intent === i)?.examples[locale].slice(0, 1) ?? []);
+}
+
+/** "Hey Siri, ask Wake when is my next training": one phrase per topic, the page's language. */
+export function voiceAskExamples(locale: Locale, list: VoiceCommands = voiceCommands): string[] {
+  return list.siri.ask.map((t) => t[locale][0]!);
 }
 
 /** Siri: what to say with no setup, VVake's other names, the actions in the Shortcuts app. */

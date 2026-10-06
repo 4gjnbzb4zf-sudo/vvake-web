@@ -2838,8 +2838,8 @@ export const en = {
     kicker: "Voice commands",
     title: "Say it. VVake does it.",
     description:
-      "Every VVake voice command, in English and French: workouts, music, your coach, friends, the Claude Code lock and getting around the app. And what to say to Siri.",
-    lead: "Press the mic, speak, and VVake shows what it understood, then runs it. On the phone or on your Apple Watch. Or just ask Siri: “Hey Siri, Wake skip song”.",
+      "Every VVake voice command, in English and French: workouts, your plan, music, your coach, friends and cities, the Claude Code lock and getting around the app. Say it your way. And what to say to Siri.",
+    lead: "Press the mic and say it your way: VVake understands what you mean, runs it and answers out loud. On the phone or on your Apple Watch. Or just ask Siri: “Hey Siri, ask Wake when is my next training”.",
     how: {
       title: "How it works",
       items: [
@@ -2847,8 +2847,14 @@ export const en = {
           h: "Press the mic",
           p: "On Today on your phone, on the watch's Today page, or in the workout controls. Nothing is always listening.",
         },
-        { h: "Speak", p: "In English or French, the way you'd say it. Commands are understood on the device, so they work offline." },
-        { h: "VVake runs it", p: "It shows what it understood, then does it. Anything that isn't a command goes to your coach." },
+        {
+          h: "Say it your way",
+          p: "In English or French, with “Wake” before, after or in the middle, or not at all. No exact phrase to learn: commands are understood on the device, so they work offline.",
+        },
+        {
+          h: "VVake runs it and answers",
+          p: "It shows what it understood, does it and says it back. If two things fit, it asks which one. A question goes to your coach, whose answer you hear; then just answer back.",
+        },
         {
           h: "Music search",
           p: "Say what you want to hear: VVake stops listening after about 2 seconds of silence and searches by itself.",
@@ -2856,8 +2862,8 @@ export const en = {
       ],
     },
     tips: {
-      title: "Talk the way you talk",
-      lead: "Two things that work with every command.",
+      title: "Say it your way",
+      lead: "Works with every command: the name anywhere, your own words, several at once.",
     },
     confirm: "Asks to confirm",
     phone: "iPhone",
@@ -2871,6 +2877,10 @@ export const en = {
       sounds: "sounds like",
       hey: { en: "Hey Siri, ", fr: "Dis Siri, " },
       moreTitle: "In the Shortcuts app:",
+      spokenName: "In French, Siri also knows VVake as",
+      askTitle: "Ask Wake anything",
+      askLead:
+        "One breath: your next session, your week, your streak, the clash. Or say “Hey Siri, ask Wake”, then anything: a command, or a question for your coach. Siri says the answer.",
     },
   },
   notFound: { title: "Lost your way?", body: "This page took a rest day.", cta: "Back home" },

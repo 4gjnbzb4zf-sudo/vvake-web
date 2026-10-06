@@ -130,6 +130,9 @@ export function VoiceSiriSection({ siri, index, lang, dict }: { siri: VoiceSiri;
       <div className="mt-10 rounded-2xl border border-lilac-fg/40 bg-surface/60 p-6" data-siri="names">
         <h3 className="font-display text-lg font-semibold">{dict.siri.namesTitle}</h3>
         <p className="mt-1.5 text-sm leading-relaxed text-muted">{siri.note.name[lang]}</p>
+        <p className="mt-2 text-sm leading-relaxed text-muted" data-siri="spoken-name">
+          {dict.siri.spokenName} <span className="font-display font-semibold text-text">{quote(siri.spokenName.fr, "fr")}</span>
+        </p>
         <ul className="mt-4 flex flex-wrap gap-2">
           {siri.names.map((n) => (
             <li key={n.name} className="rounded-full border border-line px-3 py-1 text-sm">
@@ -140,6 +143,18 @@ export function VoiceSiriSection({ siri, index, lang, dict }: { siri: VoiceSiri;
             </li>
           ))}
         </ul>
+      </div>
+      <div className="mt-4 rounded-2xl border border-volt-fg/30 bg-surface/60 p-6" data-siri="ask">
+        <h3 className="font-display text-lg font-semibold">{dict.siri.askTitle}</h3>
+        <p className="mt-1.5 text-sm leading-relaxed text-muted">{dict.siri.askLead}</p>
+        <Examples
+          examples={{
+            en: siri.ask.map((t) => `${dict.siri.hey.en}ask Wake ${t.en[0]}`),
+            fr: siri.ask.map((t) => `${dict.siri.hey.fr}demande à Ouèk ${t.fr[0]}`),
+          }}
+          lang={lang}
+          dict={dict}
+        />
       </div>
       <ul className="mt-4 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
         {siri.shortcuts.map((s) => {
