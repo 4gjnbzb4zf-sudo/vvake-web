@@ -22,6 +22,11 @@ export const siteConfig = {
   apiUrl: (process.env.NEXT_PUBLIC_API_URL ?? "https://vvake-api.simon-54e.workers.dev").replace(/\/$/, ""),
   /** Custom URL scheme of the iOS app (fallback when universal links don't open it). */
   appScheme: "vvake",
+  /**
+   * Where "Get VVake" goes on challenge and invite pages: the public TestFlight or App Store link once there is one.
+   * Empty = early access (the waitlist on the home page). The one place to change it.
+   */
+  appDownloadUrl: (process.env.NEXT_PUBLIC_APP_DOWNLOAD_URL ?? "").trim(),
   social: {
     x: "https://x.com/VVakeFit",
     xHandle: "@VVakeFit",

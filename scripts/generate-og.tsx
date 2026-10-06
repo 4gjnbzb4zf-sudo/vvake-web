@@ -38,8 +38,8 @@ async function main() {
   for (const id of new Set(duos.flat())) png.set(id, await castPng(id));
   for (const locale of locales) {
     const dict = getDictionary(locale);
-    const render = async (file: string, cast: string[], challenge?: number, invite?: boolean) => {
-      const image = new ImageResponse(<OgCard dict={dict} cast={cast} challenge={challenge} invite={invite} />, OG_SIZE);
+    const render = async (file: string, cast: string[], challenge?: number, invite?: boolean, dare?: boolean) => {
+      const image = new ImageResponse(<OgCard dict={dict} cast={cast} challenge={challenge} invite={invite} dare={dare} />, OG_SIZE);
       await writeFile(join(outDir, file), Buffer.from(await image.arrayBuffer()));
     };
     await render(
@@ -53,6 +53,14 @@ async function main() {
       undefined,
       true,
     );
+    // Challenge links (/[lang]/c/): "Beat me in 24 h", a boxer and a runner.
+    await render(
+      `${locale}-challenge.png`,
+      ["boxer-f", "runner"].map((id) => png.get(id)!),
+      undefined,
+      false,
+      true,
+    );
     for (let n = 1; n <= SHARE_VARIANTS; n++) {
       // Alternate who stands first (and taller) so neither the woman nor the man always leads.
       const duo = n % 2 === 0 ? [...duos[n - 1]!].reverse() : duos[n - 1]!;
@@ -62,7 +70,7 @@ async function main() {
         n - 1,
       );
     }
-    console.log(`og: public/og/${locale}.png + ${SHARE_VARIANTS} share variants + join card`);
+    console.log(`og: public/og/${locale}.png + ${SHARE_VARIANTS} share variants + join and challenge cards`);
   }
 }
 

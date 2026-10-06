@@ -9,18 +9,23 @@ export function OgCard({
   cast = [],
   challenge,
   invite,
+  dare,
 }: {
   dict: Dictionary;
   cast?: string[];
   challenge?: number;
   invite?: boolean;
+  /** The "Beat me in 24 h" card of challenge links (/[lang]/c/). */
+  dare?: boolean;
 }) {
   // `invite`: the "Join me on VVake" card of invite links (/[lang]/r/), the same for every code.
-  const c = invite
-    ? { kicker: dict.referral.ogKicker, title: dict.referral.ogTitle, cta: dict.referral.ogLine }
-    : challenge === undefined
-      ? undefined
-      : dict.og.challenges[challenge % dict.og.challenges.length]!;
+  const c = dare
+    ? { kicker: dict.challenge.ogKicker, title: dict.challenge.ogTitle, cta: dict.challenge.ogLine }
+    : invite
+      ? { kicker: dict.referral.ogKicker, title: dict.referral.ogTitle, cta: dict.referral.ogLine }
+      : challenge === undefined
+        ? undefined
+        : dict.og.challenges[challenge % dict.og.challenges.length]!;
   return (
     <div
       style={{
