@@ -1,5 +1,5 @@
 {
-  "version": 5,
+  "version": 6,
   "categories": [
     {
       "key": "workout",
@@ -76,6 +76,8 @@
           "Go skating",
           "Start walking",
           "Go for a bike ride",
+          "Play tennis",
+          "Lift weights",
           "Start a workout"
         ],
         "fr": [
@@ -83,6 +85,8 @@
           "Je vais faire du patin",
           "Démarre une marche",
           "Fais du vélo pendant 45 minutes",
+          "Joue au foot",
+          "On va ramer",
           "Commence la séance"
         ]
       },
@@ -992,6 +996,33 @@
           "J’veux de la musique",
           "Coupe le son",
           "Envoie du son"
+        ]
+      }
+    },
+    {
+      "key": "verbs",
+      "title": {
+        "en": "Every sport by its verb",
+        "fr": "Chaque sport par son verbe"
+      },
+      "detail": {
+        "en": "Say what you do, the way you say it: “row”, “I’m going to lift weights”, “play tennis”. After “play”, a sport starts the workout; anything else is music.",
+        "fr": "Dis ce que tu fais, comme tu le dis : « cours », « on boxe », « on va ramer », « joue au foot ». Après « joue », un sport lance la séance ; le reste, c’est de la musique."
+      },
+      "examples": {
+        "en": [
+          "Wake, row",
+          "Lift weights",
+          "Let’s play some football",
+          "I’m going to climb",
+          "Stop rowing"
+        ],
+        "fr": [
+          "Ouèk, cours",
+          "On boxe",
+          "On va ramer",
+          "Joue au foot",
+          "Arrête de nager"
         ]
       }
     },
