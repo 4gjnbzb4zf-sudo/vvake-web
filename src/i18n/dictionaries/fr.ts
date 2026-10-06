@@ -657,7 +657,7 @@ export const fr: Dictionary = {
         icon: "💵",
         when: 1,
         title: "Des prix chaque semaine pour avoir bougé",
-        body: "Plus alimente une cagnotte mensuelle, convertie en $VVAKE selon des règles publiques et distribuée chaque semaine pour l'effort. Les comptes gratuits y ont droit, 18 ans et plus, et tu réclames depuis ton propre portefeuille sur vvake.com/rewards. Testnet pour l'instant : aucune valeur.",
+        body: "Plus alimente une cagnotte mensuelle, convertie en $VVAKE selon des règles publiques et distribuée chaque semaine pour l'effort aux abonnés Plus avec un portefeuille lié (18 ans et plus). Tu réclames depuis ton propre portefeuille sur vvake.com/rewards. Testnet pour l'instant : aucune valeur.",
       },
       {
         icon: "📈",
@@ -830,9 +830,9 @@ export const fr: Dictionary = {
     },
     neverTitle: "Jamais dans Plus",
     never: [
-      "Plus de récompenses, d'énergie ou de points",
+      "Plus d'énergie ou de points",
       "Un meilleur classement ou de meilleures stats",
-      "Des participations en plus aux tirages",
+      "Une plus grosse part des prix : les prix suivent l'effort seulement, jamais ce que tu paies",
       "Tes données : ton journal complet et tes exports restent gratuits",
     ],
     split: "Comme tous les frais, Plus passe par notre répartition publique : 30 % reviennent aux récompenses de saison des joueurs.",
@@ -1338,7 +1338,7 @@ export const fr: Dictionary = {
           perks: [
             "Tout le gratuit : plan, crews, défis, déblocage des villes",
             "Stats, niveaux et classements gagnés en bougeant",
-            "Prix $VVAKE chaque semaine pour avoir bougé (18 ans et plus, testnet pour l'instant)",
+            "Points VV, séries, quêtes et le coach",
           ],
         },
         {
@@ -1349,7 +1349,8 @@ export const fr: Dictionary = {
             "Coaching plus poussé et ton coach vocal",
             "Crews plus grands et plus de défis",
             "Rendus de VVaker et petits plus",
-            "Alimente la cagnotte mensuelle pour tout le monde, jamais un plus gros prix pour toi",
+            "Prix $VVAKE chaque semaine pour avoir bougé (avec un portefeuille lié, 18 ans et plus, testnet pour l'instant)",
+            "Alimente la cagnotte : tout le monde paie le même prix, et les prix suivent l'effort, jamais ce que tu paies",
           ],
         },
         {
@@ -1417,6 +1418,15 @@ export const fr: Dictionary = {
           { label: "Cagnotte de prix", value: "Une part fixe et publiée des revenus nets de Plus" },
           { label: "Conversions", value: "Selon des règles on-chain : plafonnées par jour, déclenchables par tous" },
           { label: "Où vont les $VVAKE convertis", value: "Seulement au contrat de récompenses" },
+          {
+            label: "Qui reçoit des prix",
+            value: "Les abonnés Plus avec un portefeuille lié (18 ans et plus) qui ont bougé cette semaine-là",
+          },
+          {
+            label: "Cagnotte de la semaine",
+            value: "1/8 des $VVAKE du contrat de récompenses pas encore promis, au plus 1 000 000 par semaine",
+          },
+          { label: "Par personne", value: "Partagée selon les points d'effort, au plus 10 % de la cagnotte de la semaine" },
         ],
       },
       prizePool: {
@@ -1425,14 +1435,15 @@ export const fr: Dictionary = {
         steps: [
           "Les conversions se font par petites tranches plafonnées, au plus une fois par jour, et n'importe qui peut déclencher la suivante",
           "Les $VVAKE vont seulement au contrat de récompenses (VVakeRewards), jamais à une personne ni à un wallet de l'équipe",
-          "Chaque semaine, des prix pour l'effort : séances comptées, plafonnées par jour. Les comptes gratuits y ont droit, jamais selon ce que tu détiens. Tu réclames depuis ton propre portefeuille sur vvake.com/rewards (18 ans et plus)",
+          "Chaque semaine, des prix pour l'effort, pour les abonnés Plus avec un portefeuille lié (18 ans et plus) qui ont bougé cette semaine-là : au moins 3 séances comptées ou 90 minutes actives. Jamais selon ce que tu détiens, jamais par tirage",
+          "La cagnotte de la semaine, c'est 1/8 des $VVAKE que le contrat de récompenses détient et n'a pas encore promis, au plus 1 000 000. Elle est partagée selon les points d'effort (plafonnés par jour), personne ne reçoit plus de 10 %, et ce qui n'est pas distribué reste dans la cagnotte pour les semaines suivantes. Tu réclames depuis ton propre portefeuille sur vvake.com/rewards",
         ],
         note: "Testnet pour l'instant : les tokens n'ont aucune valeur. Rien n'est brûlé et rien ne va aux détenteurs. Un examen juridique et un audit externe des contrats passent avant toute valeur sur le mainnet. Payer Plus en $VVAKE de testnet existe seulement dans les versions de développement de l'app, pour tester le parcours (les tokens vont à la trésorerie de VVake) ; ce n'est proposé ni dans TestFlight ni sur l'App Store.",
         cta: "Voir les prix et la cagnotte",
       },
       equal: {
         title: "Pareil pour tous, avec ou sans token",
-        body: "Stats, niveaux, classements, matchmaking et prix hebdomadaires. Les prix récompensent l'effort, jamais la détention de $VVAKE, et Plus n'achète jamais un plus gros prix à personne.",
+        body: "Stats, niveaux, classements et matchmaking sont les mêmes pour tous. Les prix hebdomadaires sont pour les abonnés Plus avec un portefeuille lié, et suivent l'effort seulement : jamais la détention de $VVAKE, jamais le hasard, jamais ce que tu paies.",
       },
       never: {
         title: "Ce que $VVAKE ne fait jamais",
@@ -2097,7 +2108,7 @@ export const fr: Dictionary = {
       },
       {
         q: "C'est gratuit ? Faut-il un wallet ou des cryptos ?",
-        a: "Gratuit pour commencer, et tu n'as jamais besoin d'un wallet ni de cryptos pour t'entraîner. Un wallet sert seulement à réclamer les prix $VVAKE hebdomadaires facultatifs, sur vvake.com/rewards, jamais dans l'app. Les options comme VVake Fit Plus ne sont jamais nécessaires pour participer et ne donnent jamais d'avantage.",
+        a: "Gratuit pour commencer, et tu n'as jamais besoin d'un wallet ni de cryptos pour t'entraîner. Un wallet sert seulement à réclamer les prix $VVAKE hebdomadaires facultatifs, sur vvake.com/rewards, jamais dans l'app. Les options comme VVake Fit Plus ne sont jamais nécessaires pour t'entraîner ou participer aux défis et n'y donnent jamais d'avantage ; les prix $VVAKE hebdomadaires sont pour les abonnés Plus avec un portefeuille lié (18 ans et plus).",
         link: "app/#plus",
       },
       {
@@ -2107,7 +2118,7 @@ export const fr: Dictionary = {
       },
       {
         q: "Il y a un token ? C'est quoi les prix $VVAKE ?",
-        a: "VVake est un service de sport et d'entraînement, pas un produit financier. Chaque semaine, tes séances comptées te donnent des prix $VVAKE pour avoir bougé : les prix sont réservés aux 18 ans et plus, les comptes gratuits y ont droit, et les prix ne dépendent jamais du nombre de tokens que tu détiens. Une part fixe et publiée des revenus nets de VVake Fit Plus alimente la cagnotte, convertie sur la chaîne selon des règles publiques. Tu réclames tes prix depuis ton propre portefeuille sur vvake.com/rewards ; VVake ne détient jamais tes tokens et ne te demande jamais ta phrase de récupération. Testnet pour l'instant : les tokens n'ont aucune valeur, rien à acheter, et rien ici n'est une offre ni un conseil en placement. Pas offert aux États-Unis ni au Royaume-Uni au lancement, sous réserve d'un examen juridique.",
+        a: "VVake est un service de sport et d'entraînement, pas un produit financier. Chaque semaine, les abonnés VVake Fit Plus avec un portefeuille lié qui ont assez bougé (au moins 3 séances comptées ou 90 minutes actives) se partagent des prix $VVAKE selon leur effort : les prix sont réservés aux 18 ans et plus, personne ne reçoit plus de 10 % de la cagnotte d'une semaine, et les prix ne dépendent jamais du hasard, de ce que tu paies ni du nombre de tokens que tu détiens. Sans Plus, tu gardes le coach, les séries, les points et les quêtes. Une part fixe et publiée des revenus nets de VVake Fit Plus alimente la cagnotte, convertie sur la chaîne selon des règles publiques. Tu réclames tes prix depuis ton propre portefeuille sur vvake.com/rewards ; VVake ne détient jamais tes tokens et ne te demande jamais ta phrase de récupération. Testnet pour l'instant : les tokens n'ont aucune valeur, rien à acheter, et rien ici n'est une offre ni un conseil en placement. Pas offert aux États-Unis ni au Royaume-Uni au lancement, sous réserve d'un examen juridique.",
         link: "rewards/",
       },
     ],
@@ -2176,7 +2187,7 @@ export const fr: Dictionary = {
           },
           {
             t: "Prix $VVAKE (facultatif).",
-            d: "Si vous liez un portefeuille sur vvake.com/rewards : son adresse publique, la date du lien et le message à usage unique que vous signez pour prouver qu'il est à vous (conservé 10 minutes). Chaque semaine : les points VV de vos séances comptées (plafonnés par jour), le montant de VVAKE qu'ils donnent, sa preuve, et s'il a été réclamé (lu sur la blockchain). Voir Prix $VVAKE et votre portefeuille.",
+            d: "Si vous liez un portefeuille sur vvake.com/rewards : son adresse publique, la date du lien, votre confirmation d'avoir 18 ans ou plus et le message à usage unique que vous signez pour prouver qu'il est à vous (conservé 10 minutes). Chaque semaine : si la semaine compte pour les prix (Plus actif, portefeuille lié, effort suffisant), les points VV de vos séances comptées (plafonnés par jour), le montant de VVAKE qu'ils donnent, sa preuve, et s'il a été réclamé (lu sur la blockchain). Voir Prix $VVAKE et votre portefeuille.",
           },
           {
             t: "Votre profil d'athlète.",
@@ -2341,7 +2352,7 @@ export const fr: Dictionary = {
         id: "rewards",
         h: "Prix $VVAKE et votre portefeuille",
         p: [
-          "Les prix $VVAKE sont facultatifs et fonctionnent aujourd'hui sur Robinhood Chain Testnet, où les tokens n'ont aucune valeur. Vous n'avez jamais besoin d'un portefeuille pour utiliser VVake. Dans les applications, vous voyez seulement vos points et des renseignements sur les prix en lecture seule ; lier un portefeuille et réclamer se font sur vvake.com/rewards, depuis votre propre portefeuille. Base légale : votre consentement, donné en liant un portefeuille.",
+          "Les prix $VVAKE sont facultatifs et fonctionnent aujourd'hui sur Robinhood Chain Testnet, où les tokens n'ont aucune valeur. Vous n'avez jamais besoin d'un portefeuille pour utiliser VVake. Dans les applications, vous voyez seulement vos points et des renseignements sur les prix en lecture seule ; lier un portefeuille et réclamer se font sur vvake.com/rewards, depuis votre propre portefeuille. Les prix sont réservés aux abonnés VVake Fit Plus de 18 ans et plus qui ont lié un portefeuille et assez bougé dans la semaine (au moins 3 séances comptées ou 90 minutes actives) ; pour le vérifier, nous utilisons le statut de votre abonnement, vos séances comptées et vos minutes actives, et la confirmation 18+ que vous donnez en liant un portefeuille. Base légale : votre consentement, donné en liant un portefeuille.",
         ],
         list: [
           {
@@ -2354,7 +2365,7 @@ export const fr: Dictionary = {
           },
           {
             t: "Listes hebdomadaires.",
-            d: "Chaque lundi, nous arrêtons la semaine écoulée : le montant de VVAKE de chaque portefeuille lié ayant des séances comptées. La liste de la semaine (adresses et montants, avec leurs preuves) est publiée pour que chacun puisse la vérifier, et son empreinte (une racine de Merkle) est inscrite sur la blockchain. Les noms, courriels et points ne figurent pas dans la liste, mais un montant indique à peu près l'activité de cette adresse cette semaine-là.",
+            d: "Chaque lundi, nous arrêtons la semaine écoulée : le montant de VVAKE de chaque compte admissible (Plus, portefeuille lié, effort suffisant). La liste de la semaine (adresses et montants, avec leurs preuves) est publiée pour que chacun puisse la vérifier, et son empreinte (une racine de Merkle) est inscrite sur la blockchain. Les noms, courriels et points ne figurent pas dans la liste, mais un montant indique à peu près l'activité de cette adresse cette semaine-là.",
           },
           {
             t: "Réclamations.",
@@ -2638,7 +2649,7 @@ export const fr: Dictionary = {
       points: "{points} points VV",
       estimate: "environ {vvake} VVAKE",
       estimateNote:
-        "Séances comptées, au plus {cap} points par jour. La semaine est arrêtée le lundi ; si une semaine dépasse le plafond des prix, la part de chacun est réduite de la même façon.",
+        "Séances comptées, au plus {cap} points par jour. La semaine est arrêtée le lundi : la cagnotte est partagée selon les points d'effort et personne n'en reçoit plus de 10 %, donc cette estimation peut changer. Seules les semaines qui comptent pour les prix reçoivent un montant.",
       toClaim: "VVAKE à réclamer",
       weeks: "Tes semaines",
       week: "Semaine",
@@ -2646,9 +2657,21 @@ export const fr: Dictionary = {
       vvakeCol: "VVAKE",
       statusCol: "Statut",
       until: "jusqu'au {date}",
-      empty: "Pas encore de semaine arrêtée. Les semaines comptent une fois un portefeuille lié, à partir du lundi suivant.",
+      empty: "Pas encore de semaine arrêtée. Une semaine compte quand tu as Plus, un portefeuille lié et assez d'effort cette semaine-là.",
       emptyHint: "Tu attendais des semaines ici ? Vérifie que tu t'es connecté avec le même compte que dans l'app.",
       wallet: "Vers {address}",
+      ruleTitle: "Qui reçoit des prix",
+      rule: "Une semaine compte pour les prix quand tout ceci est vrai : VVake Fit Plus est actif cette semaine-là, un portefeuille est lié ici, tu as confirmé avoir 18 ans ou plus en le liant, et tu as bougé : au moins 3 séances comptées ou 90 minutes actives. Les Move Quests ne comptent pas pour les prix pour l'instant. Sans Plus, tu gardes le coach, les séries, les points et les quêtes.",
+      eligibleNow: "Cette semaine compte pour les prix jusqu'ici.",
+      notEligibleNow: "Cette semaine ne compte pas encore pour les prix :",
+      notEligibleWeek: "N'a pas compté : {reasons}",
+      missing: {
+        plus: "VVake Fit Plus n'est pas actif",
+        wallet: "aucun portefeuille lié",
+        adult: "18 ans et plus pas confirmé : lie ton portefeuille de nouveau et coche la case",
+        effort: "pas encore assez d'effort : 3 séances comptées ou 90 minutes actives",
+        other: "une condition des prix n'est pas remplie",
+      },
     },
     wallet: {
       index: "02",
@@ -2657,7 +2680,7 @@ export const fr: Dictionary = {
       lead: "Tes récompenses vont vers un de tes portefeuilles. Le lier, c'est une signature gratuite : aucune transaction, aucun accès à tes tokens. Ne tape jamais ta phrase de récupération ni ta clé privée sur un site, celui-ci compris.",
       linked: "Portefeuille lié",
       linkedAt: "lié le {date}",
-      none: "Aucun portefeuille lié : les semaines ne comptent que pour les comptes avec un portefeuille.",
+      none: "Aucun portefeuille lié : les prix sont réservés aux abonnés Plus avec un portefeuille lié.",
       unlink: "Délier",
       unlinkConfirm:
         "Délier ce portefeuille ? Les prochaines semaines ne compteront plus tant que tu n'en lies pas un autre ; les semaines arrêtées restent réclamables par cette adresse.",
@@ -2707,12 +2730,12 @@ export const fr: Dictionary = {
           p: "N'importe qui peut déclencher l'étape suivante, par petites tranches plafonnées, au plus une fois par intervalle. Les VVAKE vont directement au contrat de récompenses, jamais à une personne.",
         },
         {
-          h: "Les prix récompensent le mouvement",
-          p: "Tes séances comptées te donnent des points VV, plafonnés par jour. Les comptes gratuits y ont droit. Les prix ne dépendent jamais du nombre de tokens que tu détiens.",
+          h: "Plus, un portefeuille et un vrai effort",
+          p: "Une semaine compte pour les prix si VVake Fit Plus est actif, qu'un portefeuille est lié ici, que tu as 18 ans ou plus et le droit de recevoir des prix là où tu vis (tu le confirmes en le liant), et que tu as bougé : au moins 3 séances comptées ou 90 minutes actives. Les Move Quests ne comptent pas pour les prix pour l'instant. Sans Plus, tu gardes le coach, les séries, les points et les quêtes.",
         },
         {
-          h: "18 ans et plus",
-          p: "Les prix sont réservés aux personnes de 18 ans et plus qui ont le droit de les recevoir là où elles vivent. Tu le confirmes avant de lier un portefeuille.",
+          h: "La cagnotte de la semaine, partagée selon l'effort",
+          p: "La cagnotte de chaque semaine, c'est 1/8 des VVAKE que le contrat de récompenses détient et n'a pas encore promis, au plus 1 000 000 VVAKE. Elle est partagée selon les points d'effort, plafonnés par jour ; personne ne reçoit plus de 10 % de la cagnotte d'une semaine, et ce qui n'est pas distribué reste dans la cagnotte pour les semaines suivantes. Aucun tirage, aucun hasard, jamais selon ce que tu paies ni ce que tu détiens.",
         },
         {
           h: "Tu réclames, VVake ne les détient jamais",
@@ -2720,7 +2743,7 @@ export const fr: Dictionary = {
         },
         {
           h: "Testnet uniquement",
-          p: "Aujourd'hui tout tourne sur Robinhood Chain Testnet : les tokens n'ont aucune valeur. Rien ici n'est une offre, un investissement ni une promesse.",
+          p: "Aujourd'hui tout tourne sur Robinhood Chain Testnet : les tokens n'ont aucune valeur. Un examen juridique et un audit externe passent avant toute valeur sur le mainnet. Rien ici n'est une offre, un investissement ni une promesse.",
         },
       ],
     },

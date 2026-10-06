@@ -33,6 +33,29 @@ export type SessionUser = z.infer<typeof userSchema>;
 const STATUSES = ["pending", "claimable", "claimed", "expired", "closed"] as const;
 export type EpochStatus = (typeof STATUSES)[number];
 
+/**
+ * Prize eligibility of one week (Plus active, a wallet linked, 18+ confirmed, enough effort). Optional: older API
+ * versions don't send it, and a malformed value is dropped rather than failing the whole page.
+ */
+const eligibleField = z.optional(z.catch(z.nullable(z.boolean()), null));
+const missingField = z.optional(z.catch(z.nullable(z.array(z.string())), null));
+
+/** What keeps a week from counting, as the page explains it. Unknown codes from a newer API fall back to "other". */
+export type MissingCondition = "plus" | "wallet" | "adult" | "effort" | "other";
+
+export function missingConditions(codes: readonly string[] | null | undefined): MissingCondition[] {
+  const out = new Set<MissingCondition>();
+  for (const raw of codes ?? []) {
+    const c = raw.toLowerCase();
+    if (c.includes("plus") || c.includes("subscri")) out.add("plus");
+    else if (c.includes("wallet")) out.add("wallet");
+    else if (/adult|\bage\b|18/.test(c)) out.add("adult");
+    else if (c.includes("effort") || c.includes("session") || c.includes("minute") || c.includes("activ")) out.add("effort");
+    else out.add("other");
+  }
+  return [...out];
+}
+
 const rewardsSchema = z.object({
   enabled: z.boolean(),
   network: z.optional(z.string()),
@@ -42,7 +65,15 @@ const rewardsSchema = z.object({
   rate: z.optional(z.object({ vvakePerPoint: z.string(), dailyPointCap: z.number(), maxPerEpoch: z.string() })),
   wallet: z.optional(z.nullable(z.object({ address: z.string(), linkedAt: z.string() }))),
   week: z.optional(
-    z.object({ epoch: z.number(), startsAt: z.string(), endsAt: z.string(), points: z.number(), estimatedVvake: z.string() }),
+    z.object({
+      epoch: z.number(),
+      startsAt: z.string(),
+      endsAt: z.string(),
+      points: z.number(),
+      estimatedVvake: z.string(),
+      eligible: eligibleField,
+      missing: missingField,
+    }),
   ),
   epochs: z.optional(
     z.array(
@@ -56,6 +87,8 @@ const rewardsSchema = z.object({
         address: z.string(),
         status: z.catch(z.enum(STATUSES), "pending"),
         deadline: z.nullable(z.string()),
+        eligible: eligibleField,
+        missing: missingField,
       }),
     ),
   ),
@@ -261,8 +294,9 @@ export class RewardsSession {
     return this.authed("/v1/rewards/wallet/challenge", post({ address }), challengeSchema);
   }
 
-  linkWallet(nonce: string, signature: string) {
-    return this.authed("/v1/rewards/wallet", post({ nonce, signature }), walletSchema);
+  /** `adult`: the visitor ticked "I'm 18 or older" on the page; the API requires it to link a wallet. */
+  linkWallet(nonce: string, signature: string, adult: boolean) {
+    return this.authed("/v1/rewards/wallet", post(adult ? { nonce, signature, adult: true } : { nonce, signature }), walletSchema);
   }
 
   unlinkWallet() {

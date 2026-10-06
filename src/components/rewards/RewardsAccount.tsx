@@ -18,7 +18,7 @@ import {
 } from "@/lib/chain";
 import { claimManyCalldata, formatUnits, utf8ToHex } from "@/lib/eth";
 import { explorerAddress, explorerTx, pickAddress, rewardsConfig, shortHex } from "@/lib/rewards-config";
-import { errorKey, isAppCode, isEmailCode, RewardsSession, type RewardEpoch, type Rewards } from "@/lib/rewardsApi";
+import { errorKey, isAppCode, isEmailCode, missingConditions, RewardsSession, type RewardEpoch, type Rewards } from "@/lib/rewardsApi";
 import { cn } from "@/lib/cn";
 
 type Dict = Dictionary["rewards"];
@@ -49,7 +49,7 @@ export function RewardsAccount({ dict, lang, apiUrl }: { dict: Dict; lang: Local
   const [chainId, setChainId] = useState<number | null>(null);
   const [walletMsg, setWalletMsg] = useState<string | null>(null);
   const [busy, setBusy] = useState<string | null>(null);
-  // Prizes are 18+: the visitor confirms it before linking. Kept on this page only, never sent or stored.
+  // Prizes are 18+: the visitor confirms it before linking; the link request carries `adult: true` (the API requires it).
   const [adult, setAdult] = useState(false);
 
   // Claims sent from this page, per epoch (a claimMany marks every epoch it carries).
@@ -156,7 +156,7 @@ export function RewardsAccount({ dict, lang, apiUrl }: { dict: Dict; lang: Local
     try {
       const challenge = await session.walletChallenge(account.toLowerCase());
       const signature = await signMessage(wallet, account, utf8ToHex(challenge.message));
-      await session.linkWallet(challenge.nonce, signature);
+      await session.linkWallet(challenge.nonce, signature, adult);
       setWalletMsg(dict.wallet.done);
       await load();
     } catch (e) {
@@ -231,6 +231,7 @@ export function RewardsAccount({ dict, lang, apiUrl }: { dict: Dict; lang: Local
           <p className="mt-8 text-sm text-faint">{dict.signIn.first}</p>
         </Section>
         <Section id="claim" index={dict.claim.index} kicker={dict.claim.kicker} title={dict.claim.title} lead={dict.claim.lead}>
+          <Eligibility dict={dict.mine} />
           <p className="mt-8 text-sm text-faint">{dict.signIn.first}</p>
         </Section>
       </>
@@ -298,6 +299,8 @@ export function RewardsAccount({ dict, lang, apiUrl }: { dict: Dict; lang: Local
   const decimals = rewardsConfig.decimals;
   const onChain = chainId === rewardsConfig.chain.id;
   const linked = data.wallet ?? null;
+  // Linked before 18+ was recorded: the same wallet can be linked again with the box ticked.
+  const relinkForAdult = missingConditions(data.week?.missing).includes("adult");
 
   return (
     <>
@@ -350,6 +353,11 @@ export function RewardsAccount({ dict, lang, apiUrl }: { dict: Dict; lang: Local
                             <span className="block text-xs text-faint">{format(dict.mine.until, { date: date(e.deadline) })}</span>
                           )}
                           {txs[e.epoch] && <TxLink tx={txs[e.epoch]!} dict={dict.claim} />}
+                          {e.eligible === false && (
+                            <span className="block text-xs text-faint">
+                              {format(dict.mine.notEligibleWeek, { reasons: reasonsText(e.missing, dict.mine) })}
+                            </span>
+                          )}
                         </td>
                       </tr>
                     ))}
@@ -416,7 +424,7 @@ export function RewardsAccount({ dict, lang, apiUrl }: { dict: Dict; lang: Local
                     </button>
                   </div>
                 )}
-                {sameAddress(account, linked?.address) ? (
+                {sameAddress(account, linked?.address) && !relinkForAdult ? (
                   <p className="mt-4 text-sm text-up-fg">{dict.wallet.sameAsLinked}</p>
                 ) : (
                   <>
@@ -452,6 +460,7 @@ export function RewardsAccount({ dict, lang, apiUrl }: { dict: Dict; lang: Local
       </Section>
 
       <Section id="claim" index={dict.claim.index} kicker={dict.claim.kicker} title={dict.claim.title} lead={dict.claim.lead}>
+        <Eligibility dict={dict.mine} week={data.week} />
         <div className="mt-10">
           {!contract ? (
             <NotDeployed title={dict.notDeployed} body={dict.notDeployedBody} />
@@ -519,6 +528,43 @@ export function RewardsAccount({ dict, lang, apiUrl }: { dict: Dict; lang: Local
         </div>
       </Section>
     </>
+  );
+}
+
+/** The API's missing conditions as one readable list; an empty or absent list still says something is missing. */
+function reasonsText(missing: readonly string[] | null | undefined, dict: Dict["mine"]) {
+  const keys = missingConditions(missing);
+  return (keys.length ? keys : (["other"] as const)).map((k) => dict.missing[k]).join(" · ");
+}
+
+/**
+ * Who gets prizes (Plus active, a linked wallet, 18+, enough effort), next to the claim area. When GET /v1/rewards
+ * says whether this week counts so far (`week.eligible`, `week.missing`), it shows that too; older API versions don't,
+ * and then only the rule shows.
+ */
+function Eligibility({ dict, week }: { dict: Dict["mine"]; week?: Rewards["week"] }) {
+  const missing = missingConditions(week?.missing);
+  const state = week?.eligible === true ? "yes" : week?.eligible === false || missing.length ? "no" : null;
+  return (
+    <div className="mt-10 rounded-2xl border border-line bg-surface/60 p-6">
+      <p className="font-mono text-xs tracking-[0.16em] text-faint uppercase">{dict.ruleTitle}</p>
+      <p className="mt-3 max-w-3xl text-sm leading-relaxed text-muted">{dict.rule}</p>
+      {state === "yes" && (
+        <p className="mt-4 text-sm text-up-fg" role="status">
+          {dict.eligibleNow}
+        </p>
+      )}
+      {state === "no" && (
+        <div className="mt-4 text-sm text-butter-fg" role="status">
+          <p>{dict.notEligibleNow}</p>
+          <ul className="mt-1 list-disc pl-5">
+            {(missing.length ? missing : (["other"] as const)).map((k) => (
+              <li key={k}>{dict.missing[k]}</li>
+            ))}
+          </ul>
+        </div>
+      )}
+    </div>
   );
 }
 
