@@ -4,8 +4,23 @@ import type { Dictionary } from "@/i18n/dictionaries";
 export const OG_SIZE = { width: 1200, height: 630 } as const;
 
 /** Social preview card, rendered to PNG by scripts/generate-og.tsx (satori subset of CSS). */
-export function OgCard({ dict, cast = [], challenge }: { dict: Dictionary; cast?: string[]; challenge?: number }) {
-  const c = challenge === undefined ? undefined : dict.og.challenges[challenge % dict.og.challenges.length]!;
+export function OgCard({
+  dict,
+  cast = [],
+  challenge,
+  invite,
+}: {
+  dict: Dictionary;
+  cast?: string[];
+  challenge?: number;
+  invite?: boolean;
+}) {
+  // `invite`: the "Join me on VVake" card of invite links (/[lang]/r/), the same for every code.
+  const c = invite
+    ? { kicker: dict.referral.ogKicker, title: dict.referral.ogTitle, cta: dict.referral.ogLine }
+    : challenge === undefined
+      ? undefined
+      : dict.og.challenges[challenge % dict.og.challenges.length]!;
   return (
     <div
       style={{

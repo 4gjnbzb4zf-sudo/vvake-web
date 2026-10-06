@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Logo } from "@/components/brand/Logo";
+import { siteConfig } from "@/config/site";
 import { en } from "@/i18n/dictionaries/en";
 import { fr } from "@/i18n/dictionaries/fr";
 import { defaultLocale, locales } from "@/i18n/config";
@@ -12,7 +13,29 @@ import { rewardsRedirect } from "@/lib/rewards-config";
 import { fontVariables } from "./fonts";
 import "./globals.css";
 
-export const metadata: Metadata = { title: "404 · VVake", robots: { index: false } };
+/**
+ * Invite links (vvake.com/r/<code>) land here before being forwarded: the "Join me on VVake" card for the previews
+ * that read a 404 page (X and most networks only preview a 200 page, which /<lang>/r/ is).
+ */
+export const metadata: Metadata = {
+  metadataBase: new URL(siteConfig.url),
+  title: "404 · VVake",
+  robots: { index: false },
+  openGraph: {
+    type: "website",
+    siteName: "VVake",
+    title: en.referral.ogTitle,
+    description: en.referral.ogDescription,
+    images: ["/og/en-join.png"],
+  },
+  twitter: {
+    card: "summary_large_image",
+    site: "@VVakeFit",
+    title: en.referral.ogTitle,
+    description: en.referral.ogDescription,
+    images: ["/og/en-join.png"],
+  },
+};
 
 /**
  * GitHub Pages serves this page for every unknown path, including challenge links (/c/<code>) opened by someone

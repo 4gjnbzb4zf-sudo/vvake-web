@@ -7,13 +7,36 @@ import { Container } from "@/components/ui/Section";
 import { siteConfig } from "@/config/site";
 import { isLocale } from "@/i18n/config";
 import { getDictionary } from "@/i18n/dictionaries";
+import { OG_SIZE } from "@/og/OgCard";
 
 type Params = Promise<{ lang: string }>;
 
 export async function generateMetadata({ params }: { params: Params }): Promise<Metadata> {
   const { lang } = await params;
   if (!isLocale(lang)) return {};
-  return { title: getDictionary(lang).referral.title, robots: { index: false, follow: false } };
+  const r = getDictionary(lang).referral;
+  // A generic "Join me on VVake" card (public/og/<lang>-join.png): the site is static, so not one per code.
+  const image = { url: `/og/${lang}-join.png`, width: OG_SIZE.width, height: OG_SIZE.height, alt: r.ogAlt, type: "image/png" };
+  return {
+    title: r.title,
+    description: r.ogDescription,
+    robots: { index: false, follow: false },
+    openGraph: {
+      type: "website",
+      siteName: siteConfig.name,
+      title: r.ogTitle,
+      description: r.ogDescription,
+      url: `/${lang}/r/`,
+      images: [image],
+    },
+    twitter: {
+      card: "summary_large_image",
+      site: siteConfig.social.xHandle,
+      title: r.ogTitle,
+      description: r.ogDescription,
+      images: [image.url],
+    },
+  };
 }
 
 /**
@@ -30,7 +53,7 @@ export default async function ReferralPage({ params }: { params: Params }) {
       <Header locale={lang} dict={dict.nav} />
       <main id="main" className="py-16 sm:py-24">
         <Container className="max-w-2xl">
-          <ReferralInvite dict={dict.referral} appScheme={siteConfig.appScheme} joinHref={`/${lang}/#unlock`} />
+          <ReferralInvite dict={dict.referral} appScheme={siteConfig.appScheme} joinHref={`/${lang}/#unlock`} origin={siteConfig.url} />
         </Container>
       </main>
       <Footer locale={lang} dict={dict.footer} />

@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
-import { parseReferralCode, referralAppUrl, referralRedirect } from "./referralLink";
+import { xShareUrl } from "./referral";
+import { parseReferralCode, referralAppUrl, referralLinkUrl, referralRedirect } from "./referralLink";
 
 describe("referral links", () => {
   it("reads a code from a hash or a path, case-insensitively", () => {
@@ -25,5 +26,15 @@ describe("referral links", () => {
 
   it("builds the app's custom-scheme link", () => {
     expect(referralAppUrl("vvake", "ABCD2345")).toBe("vvake://r/ABCD2345");
+  });
+
+  it("shares the invite on X: the post's text and the /r/<code> link, both encoded", () => {
+    const link = referralLinkUrl("https://vvake.com/", "ABCD2345");
+    expect(link).toBe("https://vvake.com/r/ABCD2345");
+    const url = new URL(xShareUrl("Bouge avec moi sur VVake 👟 Tu crois pouvoir suivre ? #VVake", link));
+    expect(url.origin + url.pathname).toBe("https://x.com/intent/post");
+    expect(url.searchParams.get("text")).toBe("Bouge avec moi sur VVake 👟 Tu crois pouvoir suivre ? #VVake");
+    expect(url.searchParams.get("url")).toBe("https://vvake.com/r/ABCD2345");
+    expect(url.toString()).not.toContain("#VVake");
   });
 });

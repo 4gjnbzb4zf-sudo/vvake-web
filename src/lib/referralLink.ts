@@ -27,3 +27,6 @@ export function referralRedirect(pathname: string, lang: string): string | null 
 }
 
 export const referralAppUrl = (scheme: string, code: string) => `${scheme}://r/${code}`;
+
+/** The invite link itself (what the app shares): https://vvake.com/r/<code>, opening the app when it's installed. */
+export const referralLinkUrl = (origin: string, code: string) => `${origin.replace(/\/$/, "")}/r/${encodeURIComponent(code)}`;

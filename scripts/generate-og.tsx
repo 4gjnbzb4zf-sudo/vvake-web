@@ -38,13 +38,20 @@ async function main() {
   for (const id of new Set(duos.flat())) png.set(id, await castPng(id));
   for (const locale of locales) {
     const dict = getDictionary(locale);
-    const render = async (file: string, cast: string[], challenge?: number) => {
-      const image = new ImageResponse(<OgCard dict={dict} cast={cast} challenge={challenge} />, OG_SIZE);
+    const render = async (file: string, cast: string[], challenge?: number, invite?: boolean) => {
+      const image = new ImageResponse(<OgCard dict={dict} cast={cast} challenge={challenge} invite={invite} />, OG_SIZE);
       await writeFile(join(outDir, file), Buffer.from(await image.arrayBuffer()));
     };
     await render(
       `${locale}.png`,
       duos[0]!.map((id) => png.get(id)!),
+    );
+    // Invite links (/[lang]/r/): "Join me on VVake", a runner duo racing.
+    await render(
+      `${locale}-join.png`,
+      ["runner-f", "runner"].map((id) => png.get(id)!),
+      undefined,
+      true,
     );
     for (let n = 1; n <= SHARE_VARIANTS; n++) {
       // Alternate who stands first (and taller) so neither the woman nor the man always leads.
@@ -55,7 +62,7 @@ async function main() {
         n - 1,
       );
     }
-    console.log(`og: public/og/${locale}.png + ${SHARE_VARIANTS} share variants`);
+    console.log(`og: public/og/${locale}.png + ${SHARE_VARIANTS} share variants + join card`);
   }
 }
 
