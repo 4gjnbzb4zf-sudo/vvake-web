@@ -56,7 +56,7 @@ export default async function AppPage({ params }: { params: Params }) {
       <AppScreens dict={dict.screens} />
       <How dict={dict.how} index="04" />
       <DayLoop dict={dict.day} index="05" />
-      <Multisport dict={dict.multisport} index="06" />
+      <Multisport dict={dict.multisport} index="06" locale={lang} />
       <Why dict={dict.why} index="07" />
       <Earn locale={lang} dict={dict.earn} index="08" />
       <Showcase locale={lang} dict={dict.showcase} />

@@ -1,0 +1,986 @@
+{
+  "count": 81,
+  "categories": [
+    {
+      "key": "endurance",
+      "name": {
+        "en": "Run, walk, ride",
+        "fr": "Course, marche, vélo"
+      }
+    },
+    {
+      "key": "gym",
+      "name": {
+        "en": "Gym & cardio",
+        "fr": "Salle & cardio"
+      }
+    },
+    {
+      "key": "strength",
+      "name": {
+        "en": "Strength",
+        "fr": "Renforcement"
+      }
+    },
+    {
+      "key": "mind",
+      "name": {
+        "en": "Mind & body",
+        "fr": "Corps & esprit"
+      }
+    },
+    {
+      "key": "dance",
+      "name": {
+        "en": "Dance",
+        "fr": "Danse"
+      }
+    },
+    {
+      "key": "combat",
+      "name": {
+        "en": "Combat",
+        "fr": "Combat"
+      }
+    },
+    {
+      "key": "racket",
+      "name": {
+        "en": "Racket sports",
+        "fr": "Sports de raquette"
+      }
+    },
+    {
+      "key": "team",
+      "name": {
+        "en": "Team sports",
+        "fr": "Sports collectifs"
+      }
+    },
+    {
+      "key": "water",
+      "name": {
+        "en": "Water",
+        "fr": "Eau"
+      }
+    },
+    {
+      "key": "snow",
+      "name": {
+        "en": "Snow & ice",
+        "fr": "Neige & glace"
+      }
+    },
+    {
+      "key": "outdoor",
+      "name": {
+        "en": "Outdoors",
+        "fr": "Plein air"
+      }
+    },
+    {
+      "key": "other",
+      "name": {
+        "en": "Other",
+        "fr": "Autre"
+      }
+    }
+  ],
+  "sports": [
+    {
+      "key": "run",
+      "name": {
+        "en": "Run",
+        "fr": "Course"
+      },
+      "icon": "figure.run",
+      "category": "endurance",
+      "gps": true,
+      "distance": true
+    },
+    {
+      "key": "walk",
+      "name": {
+        "en": "Walk",
+        "fr": "Marche"
+      },
+      "icon": "figure.walk",
+      "category": "endurance",
+      "gps": true,
+      "distance": true
+    },
+    {
+      "key": "ride",
+      "name": {
+        "en": "Ride",
+        "fr": "Vélo"
+      },
+      "icon": "figure.outdoor.cycle",
+      "category": "endurance",
+      "gps": true,
+      "distance": true
+    },
+    {
+      "key": "hike",
+      "name": {
+        "en": "Hike",
+        "fr": "Randonnée"
+      },
+      "icon": "figure.hiking",
+      "category": "endurance",
+      "gps": true,
+      "distance": true
+    },
+    {
+      "key": "strength",
+      "name": {
+        "en": "Strength",
+        "fr": "Renfo"
+      },
+      "icon": "figure.strengthtraining.traditional",
+      "category": "strength",
+      "gps": false,
+      "distance": false
+    },
+    {
+      "key": "dance",
+      "name": {
+        "en": "Dance",
+        "fr": "Danse"
+      },
+      "icon": "figure.socialdance",
+      "category": "dance",
+      "gps": false,
+      "distance": false
+    },
+    {
+      "key": "boxing",
+      "name": {
+        "en": "Boxing",
+        "fr": "Boxe"
+      },
+      "icon": "figure.boxing",
+      "category": "combat",
+      "gps": false,
+      "distance": false
+    },
+    {
+      "key": "yoga",
+      "name": {
+        "en": "Yoga",
+        "fr": "Yoga"
+      },
+      "icon": "figure.yoga",
+      "category": "mind",
+      "gps": false,
+      "distance": false
+    },
+    {
+      "key": "swim",
+      "name": {
+        "en": "Pool swim",
+        "fr": "Natation"
+      },
+      "icon": "figure.pool.swim",
+      "category": "water",
+      "gps": false,
+      "distance": true
+    },
+    {
+      "key": "skate",
+      "name": {
+        "en": "Skate",
+        "fr": "Patin"
+      },
+      "icon": "figure.skating",
+      "category": "outdoor",
+      "gps": true,
+      "distance": true
+    },
+    {
+      "key": "track-field",
+      "name": {
+        "en": "Track & field",
+        "fr": "Athlétisme"
+      },
+      "icon": "figure.track.and.field",
+      "category": "endurance",
+      "gps": false,
+      "distance": false
+    },
+    {
+      "key": "swim-bike-run",
+      "name": {
+        "en": "Multisport",
+        "fr": "Multisport"
+      },
+      "icon": "flag.checkered",
+      "category": "endurance",
+      "gps": true,
+      "distance": true
+    },
+    {
+      "key": "transition",
+      "name": {
+        "en": "Transition",
+        "fr": "Transition"
+      },
+      "icon": "arrow.triangle.2.circlepath",
+      "category": "endurance",
+      "gps": false,
+      "distance": false
+    },
+    {
+      "key": "wheelchair-walk",
+      "name": {
+        "en": "Wheelchair walk pace",
+        "fr": "Fauteuil, allure marche"
+      },
+      "icon": "figure.roll",
+      "category": "endurance",
+      "gps": true,
+      "distance": true
+    },
+    {
+      "key": "wheelchair-run",
+      "name": {
+        "en": "Wheelchair run pace",
+        "fr": "Fauteuil, allure course"
+      },
+      "icon": "figure.roll.runningpace",
+      "category": "endurance",
+      "gps": true,
+      "distance": true
+    },
+    {
+      "key": "hand-cycling",
+      "name": {
+        "en": "Hand cycling",
+        "fr": "Handbike"
+      },
+      "icon": "figure.hand.cycling",
+      "category": "endurance",
+      "gps": true,
+      "distance": true
+    },
+    {
+      "key": "elliptical",
+      "name": {
+        "en": "Elliptical",
+        "fr": "Elliptique"
+      },
+      "icon": "figure.elliptical",
+      "category": "gym",
+      "gps": false,
+      "distance": false
+    },
+    {
+      "key": "rowing",
+      "name": {
+        "en": "Rower",
+        "fr": "Rameur"
+      },
+      "icon": "figure.rower",
+      "category": "gym",
+      "gps": false,
+      "distance": false
+    },
+    {
+      "key": "stair-stepper",
+      "name": {
+        "en": "Stair stepper",
+        "fr": "Stepper"
+      },
+      "icon": "figure.stair.stepper",
+      "category": "gym",
+      "gps": false,
+      "distance": false
+    },
+    {
+      "key": "stairs",
+      "name": {
+        "en": "Stairs",
+        "fr": "Escaliers"
+      },
+      "icon": "figure.stairs",
+      "category": "gym",
+      "gps": false,
+      "distance": false
+    },
+    {
+      "key": "hiit",
+      "name": {
+        "en": "HIIT",
+        "fr": "HIIT"
+      },
+      "icon": "figure.highintensity.intervaltraining",
+      "category": "gym",
+      "gps": false,
+      "distance": false
+    },
+    {
+      "key": "mixed-cardio",
+      "name": {
+        "en": "Mixed cardio",
+        "fr": "Cardio mixte"
+      },
+      "icon": "figure.mixed.cardio",
+      "category": "gym",
+      "gps": false,
+      "distance": false
+    },
+    {
+      "key": "cross-training",
+      "name": {
+        "en": "Cross training",
+        "fr": "Cross-training"
+      },
+      "icon": "figure.cross.training",
+      "category": "gym",
+      "gps": false,
+      "distance": false
+    },
+    {
+      "key": "step-training",
+      "name": {
+        "en": "Step training",
+        "fr": "Step"
+      },
+      "icon": "figure.step.training",
+      "category": "gym",
+      "gps": false,
+      "distance": false
+    },
+    {
+      "key": "jump-rope",
+      "name": {
+        "en": "Jump rope",
+        "fr": "Corde à sauter"
+      },
+      "icon": "figure.jumprope",
+      "category": "gym",
+      "gps": false,
+      "distance": false
+    },
+    {
+      "key": "fitness-gaming",
+      "name": {
+        "en": "Fitness gaming",
+        "fr": "Jeu de fitness"
+      },
+      "icon": "gamecontroller.fill",
+      "category": "gym",
+      "gps": false,
+      "distance": false
+    },
+    {
+      "key": "functional-strength",
+      "name": {
+        "en": "Functional strength",
+        "fr": "Renfo fonctionnel"
+      },
+      "icon": "figure.strengthtraining.functional",
+      "category": "strength",
+      "gps": false,
+      "distance": false
+    },
+    {
+      "key": "core",
+      "name": {
+        "en": "Core training",
+        "fr": "Gainage"
+      },
+      "icon": "figure.core.training",
+      "category": "strength",
+      "gps": false,
+      "distance": false
+    },
+    {
+      "key": "gymnastics",
+      "name": {
+        "en": "Gymnastics",
+        "fr": "Gymnastique"
+      },
+      "icon": "figure.gymnastics",
+      "category": "strength",
+      "gps": false,
+      "distance": false
+    },
+    {
+      "key": "pilates",
+      "name": {
+        "en": "Pilates",
+        "fr": "Pilates"
+      },
+      "icon": "figure.pilates",
+      "category": "mind",
+      "gps": false,
+      "distance": false
+    },
+    {
+      "key": "barre",
+      "name": {
+        "en": "Barre",
+        "fr": "Barre au sol"
+      },
+      "icon": "figure.barre",
+      "category": "mind",
+      "gps": false,
+      "distance": false
+    },
+    {
+      "key": "tai-chi",
+      "name": {
+        "en": "Tai chi",
+        "fr": "Tai-chi"
+      },
+      "icon": "figure.taichi",
+      "category": "mind",
+      "gps": false,
+      "distance": false
+    },
+    {
+      "key": "mind-body",
+      "name": {
+        "en": "Mind & body",
+        "fr": "Corps & esprit"
+      },
+      "icon": "figure.mind.and.body",
+      "category": "mind",
+      "gps": false,
+      "distance": false
+    },
+    {
+      "key": "flexibility",
+      "name": {
+        "en": "Flexibility",
+        "fr": "Souplesse"
+      },
+      "icon": "figure.flexibility",
+      "category": "mind",
+      "gps": false,
+      "distance": false
+    },
+    {
+      "key": "cooldown",
+      "name": {
+        "en": "Cooldown",
+        "fr": "Retour au calme"
+      },
+      "icon": "figure.cooldown",
+      "category": "mind",
+      "gps": false,
+      "distance": false
+    },
+    {
+      "key": "recovery",
+      "name": {
+        "en": "Prep & recovery",
+        "fr": "Préparation & récupération"
+      },
+      "icon": "figure.rolling",
+      "category": "mind",
+      "gps": false,
+      "distance": false
+    },
+    {
+      "key": "cardio-dance",
+      "name": {
+        "en": "Cardio dance",
+        "fr": "Danse cardio"
+      },
+      "icon": "figure.dance",
+      "category": "dance",
+      "gps": false,
+      "distance": false
+    },
+    {
+      "key": "kickboxing",
+      "name": {
+        "en": "Kickboxing",
+        "fr": "Kickboxing"
+      },
+      "icon": "figure.kickboxing",
+      "category": "combat",
+      "gps": false,
+      "distance": false
+    },
+    {
+      "key": "martial-arts",
+      "name": {
+        "en": "Martial arts",
+        "fr": "Arts martiaux"
+      },
+      "icon": "figure.martial.arts",
+      "category": "combat",
+      "gps": false,
+      "distance": false
+    },
+    {
+      "key": "wrestling",
+      "name": {
+        "en": "Wrestling",
+        "fr": "Lutte"
+      },
+      "icon": "figure.wrestling",
+      "category": "combat",
+      "gps": false,
+      "distance": false
+    },
+    {
+      "key": "fencing",
+      "name": {
+        "en": "Fencing",
+        "fr": "Escrime"
+      },
+      "icon": "figure.fencing",
+      "category": "combat",
+      "gps": false,
+      "distance": false
+    },
+    {
+      "key": "tennis",
+      "name": {
+        "en": "Tennis",
+        "fr": "Tennis"
+      },
+      "icon": "figure.tennis",
+      "category": "racket",
+      "gps": false,
+      "distance": false
+    },
+    {
+      "key": "badminton",
+      "name": {
+        "en": "Badminton",
+        "fr": "Badminton"
+      },
+      "icon": "figure.badminton",
+      "category": "racket",
+      "gps": false,
+      "distance": false
+    },
+    {
+      "key": "table-tennis",
+      "name": {
+        "en": "Table tennis",
+        "fr": "Tennis de table"
+      },
+      "icon": "figure.table.tennis",
+      "category": "racket",
+      "gps": false,
+      "distance": false
+    },
+    {
+      "key": "pickleball",
+      "name": {
+        "en": "Pickleball",
+        "fr": "Pickleball"
+      },
+      "icon": "figure.pickleball",
+      "category": "racket",
+      "gps": false,
+      "distance": false
+    },
+    {
+      "key": "squash",
+      "name": {
+        "en": "Squash",
+        "fr": "Squash"
+      },
+      "icon": "figure.squash",
+      "category": "racket",
+      "gps": false,
+      "distance": false
+    },
+    {
+      "key": "racquetball",
+      "name": {
+        "en": "Racquetball",
+        "fr": "Racquetball"
+      },
+      "icon": "figure.racquetball",
+      "category": "racket",
+      "gps": false,
+      "distance": false
+    },
+    {
+      "key": "soccer",
+      "name": {
+        "en": "Soccer",
+        "fr": "Football"
+      },
+      "icon": "figure.soccer",
+      "category": "team",
+      "gps": false,
+      "distance": false
+    },
+    {
+      "key": "basketball",
+      "name": {
+        "en": "Basketball",
+        "fr": "Basket"
+      },
+      "icon": "figure.basketball",
+      "category": "team",
+      "gps": false,
+      "distance": false
+    },
+    {
+      "key": "volleyball",
+      "name": {
+        "en": "Volleyball",
+        "fr": "Volley"
+      },
+      "icon": "figure.volleyball",
+      "category": "team",
+      "gps": false,
+      "distance": false
+    },
+    {
+      "key": "hockey",
+      "name": {
+        "en": "Hockey",
+        "fr": "Hockey"
+      },
+      "icon": "figure.hockey",
+      "category": "team",
+      "gps": false,
+      "distance": false
+    },
+    {
+      "key": "rugby",
+      "name": {
+        "en": "Rugby",
+        "fr": "Rugby"
+      },
+      "icon": "figure.rugby",
+      "category": "team",
+      "gps": false,
+      "distance": false
+    },
+    {
+      "key": "american-football",
+      "name": {
+        "en": "American football",
+        "fr": "Football américain"
+      },
+      "icon": "figure.american.football",
+      "category": "team",
+      "gps": false,
+      "distance": false
+    },
+    {
+      "key": "australian-football",
+      "name": {
+        "en": "Australian football",
+        "fr": "Football australien"
+      },
+      "icon": "figure.australian.football",
+      "category": "team",
+      "gps": false,
+      "distance": false
+    },
+    {
+      "key": "baseball",
+      "name": {
+        "en": "Baseball",
+        "fr": "Baseball"
+      },
+      "icon": "figure.baseball",
+      "category": "team",
+      "gps": false,
+      "distance": false
+    },
+    {
+      "key": "softball",
+      "name": {
+        "en": "Softball",
+        "fr": "Softball"
+      },
+      "icon": "figure.softball",
+      "category": "team",
+      "gps": false,
+      "distance": false
+    },
+    {
+      "key": "cricket",
+      "name": {
+        "en": "Cricket",
+        "fr": "Cricket"
+      },
+      "icon": "figure.cricket",
+      "category": "team",
+      "gps": false,
+      "distance": false
+    },
+    {
+      "key": "lacrosse",
+      "name": {
+        "en": "Lacrosse",
+        "fr": "Crosse"
+      },
+      "icon": "figure.lacrosse",
+      "category": "team",
+      "gps": false,
+      "distance": false
+    },
+    {
+      "key": "handball",
+      "name": {
+        "en": "Handball",
+        "fr": "Handball"
+      },
+      "icon": "figure.handball",
+      "category": "team",
+      "gps": false,
+      "distance": false
+    },
+    {
+      "key": "disc-sports",
+      "name": {
+        "en": "Disc sports",
+        "fr": "Sports de disque"
+      },
+      "icon": "figure.disc.sports",
+      "category": "team",
+      "gps": false,
+      "distance": false
+    },
+    {
+      "key": "water-polo",
+      "name": {
+        "en": "Water polo",
+        "fr": "Water-polo"
+      },
+      "icon": "figure.waterpolo",
+      "category": "team",
+      "gps": false,
+      "distance": false
+    },
+    {
+      "key": "open-water",
+      "name": {
+        "en": "Open water swim",
+        "fr": "Nage en eau libre"
+      },
+      "icon": "figure.open.water.swim",
+      "category": "water",
+      "gps": true,
+      "distance": true
+    },
+    {
+      "key": "surf",
+      "name": {
+        "en": "Surfing",
+        "fr": "Surf"
+      },
+      "icon": "figure.surfing",
+      "category": "water",
+      "gps": true,
+      "distance": false
+    },
+    {
+      "key": "paddle",
+      "name": {
+        "en": "Paddling",
+        "fr": "Pagaie"
+      },
+      "icon": "oar.2.crossed",
+      "category": "water",
+      "gps": true,
+      "distance": true
+    },
+    {
+      "key": "sailing",
+      "name": {
+        "en": "Sailing",
+        "fr": "Voile"
+      },
+      "icon": "figure.sailing",
+      "category": "water",
+      "gps": true,
+      "distance": false
+    },
+    {
+      "key": "water-sports",
+      "name": {
+        "en": "Water sports",
+        "fr": "Sports nautiques"
+      },
+      "icon": "water.waves",
+      "category": "water",
+      "gps": true,
+      "distance": false
+    },
+    {
+      "key": "water-fitness",
+      "name": {
+        "en": "Water fitness",
+        "fr": "Aquagym"
+      },
+      "icon": "figure.water.fitness",
+      "category": "water",
+      "gps": false,
+      "distance": false
+    },
+    {
+      "key": "downhill-ski",
+      "name": {
+        "en": "Downhill skiing",
+        "fr": "Ski alpin"
+      },
+      "icon": "figure.skiing.downhill",
+      "category": "snow",
+      "gps": true,
+      "distance": false
+    },
+    {
+      "key": "cross-country-ski",
+      "name": {
+        "en": "Cross-country skiing",
+        "fr": "Ski de fond"
+      },
+      "icon": "figure.skiing.crosscountry",
+      "category": "snow",
+      "gps": true,
+      "distance": true
+    },
+    {
+      "key": "snowboard",
+      "name": {
+        "en": "Snowboarding",
+        "fr": "Snowboard"
+      },
+      "icon": "figure.snowboarding",
+      "category": "snow",
+      "gps": true,
+      "distance": false
+    },
+    {
+      "key": "snow-sports",
+      "name": {
+        "en": "Snow sports",
+        "fr": "Sports de neige"
+      },
+      "icon": "snowflake",
+      "category": "snow",
+      "gps": true,
+      "distance": false
+    },
+    {
+      "key": "curling",
+      "name": {
+        "en": "Curling",
+        "fr": "Curling"
+      },
+      "icon": "figure.curling",
+      "category": "snow",
+      "gps": false,
+      "distance": false
+    },
+    {
+      "key": "climbing",
+      "name": {
+        "en": "Climbing",
+        "fr": "Escalade"
+      },
+      "icon": "figure.climbing",
+      "category": "outdoor",
+      "gps": false,
+      "distance": false
+    },
+    {
+      "key": "equestrian",
+      "name": {
+        "en": "Equestrian",
+        "fr": "Équitation"
+      },
+      "icon": "figure.equestrian.sports",
+      "category": "outdoor",
+      "gps": true,
+      "distance": false
+    },
+    {
+      "key": "golf",
+      "name": {
+        "en": "Golf",
+        "fr": "Golf"
+      },
+      "icon": "figure.golf",
+      "category": "outdoor",
+      "gps": false,
+      "distance": false
+    },
+    {
+      "key": "archery",
+      "name": {
+        "en": "Archery",
+        "fr": "Tir à l’arc"
+      },
+      "icon": "figure.archery",
+      "category": "outdoor",
+      "gps": false,
+      "distance": false
+    },
+    {
+      "key": "fishing",
+      "name": {
+        "en": "Fishing",
+        "fr": "Pêche"
+      },
+      "icon": "figure.fishing",
+      "category": "outdoor",
+      "gps": false,
+      "distance": false
+    },
+    {
+      "key": "hunting",
+      "name": {
+        "en": "Hunting",
+        "fr": "Chasse"
+      },
+      "icon": "figure.hunting",
+      "category": "outdoor",
+      "gps": false,
+      "distance": false
+    },
+    {
+      "key": "bowling",
+      "name": {
+        "en": "Bowling",
+        "fr": "Bowling"
+      },
+      "icon": "figure.bowling",
+      "category": "other",
+      "gps": false,
+      "distance": false
+    },
+    {
+      "key": "play",
+      "name": {
+        "en": "Play",
+        "fr": "Jeu libre"
+      },
+      "icon": "figure.play",
+      "category": "other",
+      "gps": false,
+      "distance": false
+    },
+    {
+      "key": "other",
+      "name": {
+        "en": "Other",
+        "fr": "Autre"
+      },
+      "icon": "figure.mixed.cardio",
+      "category": "other",
+      "gps": false,
+      "distance": false
+    }
+  ],
+  "custom": {
+    "max": 20,
+    "tracking": ["hr", "gps"]
+  }
+}

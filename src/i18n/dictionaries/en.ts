@@ -349,6 +349,11 @@ export const en = {
     mindful: "Calm points · counts your day",
     effortUnit: "effort",
     note: "Zone 5 never earns more than zone 4: VVake rewards showing up, not burning out.",
+    catalogTitle: "{count} sports, every workout in Apple Fitness",
+    catalogBody: "Pick yours on the phone or the watch, search it by name, or just say it: “go kayaking for 45 minutes”.",
+    customTitle: "Not in the list? Add your own sport",
+    customBody:
+      "Name it, pick an icon, and choose how it's tracked: heart rate only, or GPS tracking for distance too. Points always come from your heart rate, prizes keep the same rules, and your sport works by voice.",
   },
   challenges: {
     kicker: "Challenges",

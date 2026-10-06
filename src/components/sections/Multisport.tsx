@@ -4,6 +4,8 @@ import type { VVakerTraits } from "@/components/vvaker/traits";
 import { VVaker } from "@/components/vvaker/VVaker";
 import { format, type Dictionary } from "@/i18n/dictionaries";
 import { sessionEffort, type Zone } from "@/lib/effort";
+import { sportGroups, sports } from "@/lib/sports";
+import type { Locale } from "@/i18n/config";
 
 interface Tile {
   sport: keyof Dictionary["multisport"]["sports"];
@@ -123,7 +125,7 @@ const TILES: readonly Tile[] = [
   },
 ];
 
-export function Multisport({ dict, index }: { dict: Dictionary["multisport"]; index: string }) {
+export function Multisport({ dict, index, locale }: { dict: Dictionary["multisport"]; index: string; locale: Locale }) {
   return (
     <Section id="multisport" index={index} kicker={dict.kicker} title={dict.title} lead={dict.body}>
       <p className="mt-6 inline-flex rounded-xl border border-volt-fg/30 bg-volt/10 px-4 py-2 font-mono text-xs text-volt-fg">
@@ -164,6 +166,20 @@ export function Multisport({ dict, index }: { dict: Dictionary["multisport"]; in
         ))}
       </ul>
       <p className="mt-6 text-sm text-faint">{dict.note}</p>
+      <div className="mt-12 rounded-3xl border border-line bg-surface/60 p-6 sm:p-8">
+        <h3 className="font-display text-xl font-semibold">{format(dict.catalogTitle, { count: sports.count })}</h3>
+        <p className="mt-2 text-sm text-muted">{dict.catalogBody}</p>
+        <dl className="mt-6 grid gap-x-8 gap-y-4 sm:grid-cols-2 lg:grid-cols-3">
+          {sportGroups(locale).map((g) => (
+            <div key={g.key}>
+              <dt className="font-mono text-[0.7rem] tracking-wider text-faint uppercase">{g.title}</dt>
+              <dd className="mt-1 text-sm text-muted">{g.names.join(" · ")}</dd>
+            </div>
+          ))}
+        </dl>
+        <h3 className="mt-8 font-display text-xl font-semibold">{dict.customTitle}</h3>
+        <p className="mt-2 text-sm text-muted">{dict.customBody}</p>
+      </div>
     </Section>
   );
 }

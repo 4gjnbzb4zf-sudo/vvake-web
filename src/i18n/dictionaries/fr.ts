@@ -347,6 +347,12 @@ export const fr: Dictionary = {
     mindful: "Points calme · compte pour ta journée",
     effortUnit: "effort",
     note: "La zone 5 ne rapporte jamais plus que la zone 4 : VVake récompense la régularité, pas l'épuisement.",
+    catalogTitle: "{count} sports, tous les entraînements d'Apple Fitness",
+    catalogBody:
+      "Choisis le tien sur le téléphone ou la montre, cherche-le par son nom, ou dis-le simplement : « lance 45 minutes de kayak ».",
+    customTitle: "Pas dans la liste ? Ajoute ton sport",
+    customBody:
+      "Donne-lui un nom, choisis une icône et la façon de le suivre : fréquence cardiaque seule, ou suivi GPS pour la distance aussi. Les points viennent toujours de ton cœur, les prix gardent les mêmes règles, et ton sport marche à la voix.",
   },
   challenges: {
     kicker: "Défis",
