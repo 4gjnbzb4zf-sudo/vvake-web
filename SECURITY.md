@@ -1,11 +1,29 @@
 # Security
 
-Please report vulnerabilities privately to **security@vvake.com**. Do not open public issues for security reports.
+Please report vulnerabilities privately through GitHub:
+**https://github.com/4gjnbzb4zf-sudo/vvake-web/security/advisories/new** (private vulnerability reporting). Do not
+open public issues for security reports.
 
-VVake will **never** ask for a seed phrase or private key, and never DMs first. Official domains: `vvake.com`, `vvake.fr`, `vvake.app`.
+VVake will **never** message you first, and never asks for a seed phrase, a private key, a code from the app or a
+token approval. A prize claim only calls `claim()` (or `claimMany()`) on the rewards contract below and sends 0 ETH.
 
-Engineering practices in this repo:
+## Official addresses
+
+Anything not on this list is not VVake.
+
+- Website: `vvake.com` (the only official domain). Prizes are claimed only on `https://vvake.com/rewards`.
+- API: `https://vvake-api.simon-54e.workers.dev` (the only API host).
+- Contracts on Robinhood Chain Testnet (chain ID 46630, explorer `https://explorer.testnet.chain.robinhood.com`):
+  - VVakeRewards (weekly prize claims): `0x1B600A1b835E95b1c9D91B8f29aC82ac37D5718b`
+  - VVakePrizePool: `0x38F40804369df4EF90e9ac3d82BfB392F57dA4Fe`
+  - $VVAKE token: `0x2b85b57383bA4C7eDABf6289E6bfe3a9C4833Cde`
+
+## Engineering practices in this repo
 
 - Static site, no server runtime, no cookies, no third-party analytics or scripts.
+- Content-Security-Policy on every page (hashes of the inline scripts, fetches limited to the API and the chain RPC),
+  written at build time by `scripts/csp.ts`; the rewards page hides itself inside a frame.
+- The claim transaction is built in the browser from the pinned contract address; nothing from the API can change
+  its target, its function or its value.
 - GitHub Actions pinned to commit SHAs; `npm ci --ignore-scripts` in CI; Dependabot for npm and Actions.
 - Least-privilege workflow permissions; Pages deploy via OIDC (`id-token: write`) only in the deploy job.
