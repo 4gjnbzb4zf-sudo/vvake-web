@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Logo } from "@/components/brand/Logo";
+import { siteConfig } from "@/config/site";
 import { en } from "@/i18n/dictionaries/en";
 import { fr } from "@/i18n/dictionaries/fr";
 import { defaultLocale, locales } from "@/i18n/config";
@@ -17,6 +18,7 @@ import "./globals.css";
  * that read a 404 page (X and most networks only preview a 200 page, which /<lang>/r/ is).
  */
 export const metadata: Metadata = {
+  metadataBase: new URL(siteConfig.url),
   title: "404 · VVake",
   robots: { index: false },
   openGraph: {
