@@ -3068,7 +3068,7 @@ export const fr: Dictionary = {
     kicker: "Commandes vocales",
     title: "Tu le dis. VVake le fait.",
     description:
-      "Toutes les commandes vocales de VVake, en français et en anglais : séances, ton programme, musique, ton coach, tes amis et les villes, le verrou Claude Code et la navigation dans l'app. Dis-le à ta façon. Et quoi dire à Siri.",
+      "Toutes les commandes vocales de VVake, en français et en anglais : séances, ton programme, rappels pour bouger, musique et son volume, ton coach, tes amis et les villes, le verrou Claude Code et la navigation dans l'app. Dis-le à ta façon. Et quoi dire à Siri.",
     lead: "Appuie sur le micro et dis-le à ta façon : VVake comprend ce que tu veux, le fait et te répond à voix haute. Sur ton téléphone ou ton Apple Watch. Ou demande à Siri : « Dis Siri, demande à Ouèk c'est quand ma prochaine séance ».",
     how: {
       title: "Comment ça marche",
