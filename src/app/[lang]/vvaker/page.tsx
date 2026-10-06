@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { siteConfig } from "@/config/site";
 import { DoubleV } from "@/components/sections/DoubleV";
 import { Unlock } from "@/components/sections/Unlock";
 import { Section } from "@/components/ui/Section";
@@ -28,7 +29,13 @@ export default async function VVakerPage({ params }: { params: Params }) {
     <Subpage lang={lang} page="vvaker/">
       <Section id="vvaker" index="01" kicker={dict.vvaker.kicker} title={dict.vvaker.title} lead={dict.vvaker.body}>
         <VVakerDeck />
-        <PersonaBuilder dict={dict.vvaker.persona} tagline={dict.vvaker.bannerTagline} sportNames={dict.multisport.sports} />
+        <PersonaBuilder
+          dict={dict.vvaker.persona}
+          tagline={dict.vvaker.bannerTagline}
+          sportNames={dict.multisport.sports}
+          lang={lang}
+          apiUrl={siteConfig.apiUrl}
+        />
       </Section>
       <Section id="grow" index="02" kicker={dict.vvaker.grow.kicker} title={dict.vvaker.grow.title}>
         <EarnedStats dict={dict.vvaker.stats} />

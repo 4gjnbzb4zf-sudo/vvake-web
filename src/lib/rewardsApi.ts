@@ -274,6 +274,37 @@ async function request<T>(apiUrl: string, path: string, init: RequestInit, schem
 const post = (body: unknown): RequestInit => ({ method: "POST", body: JSON.stringify(body) });
 
 /**
+ * VVaker ownership (monorepo ADR-0026): a custom look belongs to one account. `GET /v1/vvaker?code=` says whose it is
+ * ("you", "someone", or null: free or the cast's) and, for someone else's, the nearest free look. Only the owner's
+ * own renders are ever returned (My VVakers); another account's are never sent to this browser.
+ */
+const vvakerOwnerSchema = z.object({
+  owner: z.optional(z.catch(z.nullable(z.enum(["you", "someone"])), null)),
+  suggestion: z.optional(z.nullable(z.string())),
+});
+export type VVakerOwner = z.infer<typeof vvakerOwnerSchema>;
+const myVVakersSchema = z.object({
+  vvakers: z.array(
+    z.object({
+      code: z.string(),
+      current: z.boolean(),
+      renders: z.array(
+        z.object({
+          id: z.string(),
+          status: z.string(),
+          createdAt: z.string(),
+          imageUrl: z.optional(z.string()),
+          current: z.optional(z.boolean()),
+        }),
+      ),
+    }),
+  ),
+});
+export type MyVVaker = z.infer<typeof myVVakersSchema>["vvakers"][number];
+/** Only the API's own image paths are fetched with the token (never a URL from elsewhere). */
+const RENDER_PATH = /^\/v1\/vvaker\/renders\/[0-9a-f]{32}\.png$/;
+
+/**
  * Refresh tokens rotate on every use and reusing an old one revokes the whole device (theft detection), so two
  * refreshes with the same token (two calls hitting a 401 at once, React's dev double effects) must share one request.
  */
@@ -378,6 +409,37 @@ export class RewardsSession {
 
   rewards() {
     return this.authed("/v1/rewards", { method: "GET" }, rewardsSchema);
+  }
+
+  /** Whose look a code is (VVaker ownership), and the nearest free one when it's someone else's. */
+  vvakerOwner(code: string) {
+    return this.authed(`/v1/vvaker?code=${encodeURIComponent(code)}`, { method: "GET" }, vvakerOwnerSchema);
+  }
+
+  /** My VVakers: the looks this account owns, every version newest first (read-only on the site). */
+  async myVVakers(): Promise<MyVVaker[]> {
+    return (await this.authed("/v1/vvaker/mine", { method: "GET" }, myVVakersSchema)).vvakers;
+  }
+
+  /**
+   * One of my renders as a data: URL (the page's img-src allows only 'self' and data:). Null when it can't be read.
+   * The API serves a render only to its owner.
+   */
+  async vvakerImage(path: string): Promise<string | null> {
+    if (!RENDER_PATH.test(path)) return null;
+    if (!this.access && !(await this.resume())) return null;
+    const get = () => fetch(`${this.apiUrl}${path}`, { headers: { authorization: `Bearer ${this.access}` } });
+    try {
+      let res = await get();
+      if (res.status === 401 && (await this.resume())) res = await get();
+      if (!res.ok || !(res.headers.get("content-type") ?? "").startsWith("image/png")) return null;
+      const bytes = new Uint8Array(await res.arrayBuffer());
+      let bin = "";
+      for (let i = 0; i < bytes.length; i += 0x8000) bin += String.fromCharCode(...bytes.subarray(i, i + 0x8000));
+      return `data:image/png;base64,${btoa(bin)}`;
+    } catch {
+      return null;
+    }
   }
 
   proof(epoch: number) {

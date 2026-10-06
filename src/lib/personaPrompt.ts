@@ -380,3 +380,29 @@ export function personaCode(p: Persona, sports: readonly string[]): string {
     idx(SHOES, p.shoes);
   return `VVP-${a}-${idx(BUILDS, p.build)}${idx(ATTITUDES, p.attitude)}-${B36[gear]}`;
 }
+
+/**
+ * Reads a persona code back (the inverse of personaCode; the app's game-core decodePersona does the same), keeping
+ * `name`. Null when it isn't a valid code. Used to try the nearest free look the API suggests.
+ */
+export function personaFromCode(code: string, sports: readonly string[], name = ""): Persona | null {
+  const m = /^VVP-([0-9a-z]{6})-([0-9a-z]{2})-([0-9a-z])$/i.exec(code.trim().replace(/\s+/g, ""));
+  if (!m) return null;
+  const [a, b, g] = [m[1]!.toLowerCase(), m[2]!.toLowerCase(), m[3]!.toLowerCase()];
+  const at = <T extends string>(keys: readonly T[], ch: string): T | undefined => keys[B36.indexOf(ch)];
+  const keys = <O extends object>(o: O) => Object.keys(o) as (keyof O & string)[];
+  const p = {
+    animal: at(keys(ANIMALS), a[0]!),
+    sport: at(sports as readonly VVakerSport[], a[1]!),
+    top: at(keys(TOPS), a[2]!),
+    bottoms: at(keys(BOTTOMS), a[3]!),
+    headwear: at(keys(HEADWEAR), a[4]!),
+    shoes: at(keys(SHOES), a[5]!),
+    build: at(keys(BUILDS), b[0]!),
+    attitude: at(keys(ATTITUDES), b[1]!),
+  };
+  const bits = B36.indexOf(g);
+  const gearKeys = keys(GEAR);
+  if (Object.values(p).some((v) => v === undefined) || bits < 0 || bits >= 1 << gearKeys.length) return null;
+  return { name, ...(p as Omit<Persona, "name" | "gear">), gear: gearKeys.filter((_, i) => bits & (1 << i)) };
+}

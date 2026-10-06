@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import { buttonClass } from "@/components/ui/Button";
 import type { Dictionary } from "@/i18n/dictionaries";
+import type { Locale } from "@/i18n/config";
 import { cn } from "@/lib/cn";
 import {
   ANIMALS,
@@ -18,6 +19,7 @@ import {
   castPersona,
   isCastPersona,
   personaCode,
+  personaFromCode,
   type Persona,
 } from "@/lib/personaPrompt";
 import { personaSrc } from "@/lib/personas";
@@ -25,6 +27,7 @@ import { savePersona, saveRenders, usePersona, useRenders } from "@/lib/prefs";
 import { useSportLabel } from "@/lib/sportNames";
 import { VVAKER_SPORTS } from "./traits";
 import { VVaker } from "./VVaker";
+import { VVakerOwnership } from "./VVakerOwnership";
 
 type Tab = "animal" | "sport" | "fit" | "gear";
 const TABS: readonly Tab[] = ["animal", "sport", "fit", "gear"];
@@ -128,7 +131,11 @@ export function PersonaBuilder({
   dict,
   tagline,
   sportNames,
+  lang,
+  apiUrl,
 }: {
+  lang: Locale;
+  apiUrl: string;
   dict: Dictionary["vvaker"]["persona"];
   tagline: string;
   sportNames: Dictionary["multisport"]["sports"];
@@ -286,6 +293,17 @@ export function PersonaBuilder({
           </p>
           <p className="mt-2 text-xs leading-relaxed text-muted">{dict.codeNote}</p>
         </div>
+        <VVakerOwnership
+          dict={dict.ownership}
+          lang={lang}
+          apiUrl={apiUrl}
+          code={code}
+          cast={inBank}
+          onTry={(c) => {
+            const next = personaFromCode(c, VVAKER_SPORTS, persona.name);
+            if (next) savePersona(next);
+          }}
+        />
       </div>
 
       <div className="rounded-3xl border border-line bg-surface/60 p-5 sm:p-6">
