@@ -585,7 +585,7 @@ export const fr: Dictionary = {
     rules: [
       "Des encouragements quand la course change, pas à chaque seconde, et jamais pour pousser en zone 5",
       "La marque d'un ami, un lien ou un défi ouvert : 24 heures à partir du moment où on accepte",
-      "Tu partages un parcours seulement si tu le choisis, défi par défi, avec les bouts près de chez toi masqués",
+      "Tu partages un parcours seulement si tu le choisis, défi par défi, avec les bouts près de chez toi masqués, même sur une boucle",
       "Tu bats la marque d'un ami ? Tu peux lui renvoyer une revanche, une seule, seulement si tu touches ou dis oui",
     ],
   },
@@ -2347,7 +2347,7 @@ export const fr: Dictionary = {
           },
           {
             t: "Partager un parcours pour un défi (sur option).",
-            d: "Seulement si vous le choisissez, un défi à la fois, vous pouvez envoyer un parcours à affronter. Avant qu'il quitte votre appareil, les 300 premiers et derniers mètres sont masqués (réglable de 100 à 2 000 m) pour que les bouts près de chez vous ne se voient pas, et il est simplifié à environ 10 m. Seuls vous et les personnes qui acceptent ce défi peuvent le récupérer. Nous le gardons seulement le temps du défi (au plus 7 jours pour accepter, plus 24 heures pour courir et 2 heures pour les synchronisations tardives) et le supprimons ensuite, ou dès que le défi est fermé, refusé ou expire sans personne en course. Il n'apparaît jamais sur une page publique : un lien de défi montre seulement sa distance et son dénivelé.",
+            d: "Seulement si vous le choisissez, un défi à la fois, vous pouvez envoyer un parcours à affronter. Avant qu'il quitte votre appareil, les 300 premiers et derniers mètres sont masqués (réglable de 100 à 2 000 m ; davantage sur une boucle, pour que la partie partagée ne s'approche jamais autant de votre départ ou de votre arrivée) pour que les bouts près de chez vous ne se voient pas, et il est simplifié à environ 10 m. Seuls vous et les personnes qui acceptent ce défi peuvent le récupérer. Nous le gardons seulement le temps du défi (au plus 7 jours pour accepter, plus 24 heures pour courir et 2 heures pour les synchronisations tardives) et le supprimons ensuite, ou dès que le défi est fermé, refusé ou expire sans personne en course. Il n'apparaît jamais sur une page publique : un lien de défi montre seulement sa distance et son dénivelé.",
           },
           {
             t: "Des totaux publics seulement.",

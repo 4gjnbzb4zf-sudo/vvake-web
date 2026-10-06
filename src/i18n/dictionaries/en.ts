@@ -581,7 +581,7 @@ export const en = {
     rules: [
       "Cues when the race changes, not every second, and never pushing you in zone 5",
       "A friend's mark, a link or an open challenge: 24 hours from the moment they accept",
-      "Share a route only if you choose to, per challenge, with the ends near home hidden",
+      "Share a route only if you choose to, per challenge, with the ends near home hidden, even on a loop",
       "Beat a friend's mark and you can send one rematch, only if you tap or say yes",
     ],
   },
@@ -2190,7 +2190,7 @@ export const en = {
           },
           {
             t: "Sharing a route for a challenge (opt-in).",
-            d: "Only if you choose it, for one challenge at a time, can you send a route to race. Before it leaves your device, the first and last 300 m are hidden (you can set 100 to 2,000 m) so the ends near your home don't show, and it is simplified to about 10 m. Only you and the people who accept that challenge can fetch it. We keep it only while the challenge lasts (at most 7 days to accept, plus 24 hours to race and 2 hours for late syncs) and delete it after, or as soon as the challenge is closed, declined or expires with nobody racing. It never appears on a public page: a challenge link shows only its length and climb.",
+            d: "Only if you choose it, for one challenge at a time, can you send a route to race. Before it leaves your device, the first and last 300 m are hidden (you can set 100 to 2,000 m; more on a loop, so the shared part never comes that close to where you started or finished) so the ends near your home don't show, and it is simplified to about 10 m. Only you and the people who accept that challenge can fetch it. We keep it only while the challenge lasts (at most 7 days to accept, plus 24 hours to race and 2 hours for late syncs) and delete it after, or as soon as the challenge is closed, declined or expires with nobody racing. It never appears on a public page: a challenge link shows only its length and climb.",
           },
           {
             t: "Public totals only.",
