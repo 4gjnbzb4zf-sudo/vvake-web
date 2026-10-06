@@ -1184,6 +1184,11 @@ export const fr: Dictionary = {
     },
     platforms: "Apple Watch · Wear OS · iPhone · Android",
     soon: "Disponible au déblocage de ta ville",
+    voice: {
+      title: "Tu le dis, VVake le fait",
+      body: "Appuie sur le micro et parle : lance une séance, change de morceau, parle à ton coach. Ça marche hors ligne, en français et en anglais.",
+      cta: "Toutes les commandes vocales",
+    },
   },
   story: {
     kicker: "06:00",
@@ -2992,6 +2997,41 @@ export const fr: Dictionary = {
       json: "Liste complète (JSON)",
       none: "Pas encore de semaine arrêtée.",
     },
+  },
+  voice: {
+    kicker: "Commandes vocales",
+    title: "Tu le dis. VVake le fait.",
+    description:
+      "Toutes les commandes vocales de VVake, en français et en anglais : séances, musique, ton coach, tes amis, le verrou Claude Code et la navigation dans l'app.",
+    lead: "Appuie sur le micro, parle, et VVake te montre ce qu'il a compris, puis le fait. Sur ton téléphone ou ton Apple Watch.",
+    how: {
+      title: "Comment ça marche",
+      items: [
+        {
+          h: "Appuie sur le micro",
+          p: "Sur Aujourd'hui dans ton téléphone, sur la page Aujourd'hui de ta montre ou dans les commandes de séance. Rien n'écoute en permanence.",
+        },
+        {
+          h: "Parle",
+          p: "En français ou en anglais, comme tu le dirais. Les commandes sont comprises sur l'appareil, donc ça marche hors ligne.",
+        },
+        {
+          h: "VVake le fait",
+          p: "Il te montre ce qu'il a compris, puis il le fait. Tout ce qui n'est pas une commande part vers ton coach.",
+        },
+        {
+          h: "Recherche de musique",
+          p: "Dis ce que tu veux écouter : VVake arrête d'écouter après environ 2 secondes de silence et lance la recherche tout seul.",
+        },
+      ],
+    },
+    confirm: "Demande confirmation",
+    phone: "iPhone",
+    watch: "Apple Watch",
+    inWorkout: "Pendant une séance",
+    worksOn: "Marche sur",
+    say: "Dis",
+    otherLanguage: "En anglais",
   },
   notFound: { title: "Perdu en route ?", body: "Cette page fait un jour de repos.", cta: "Retour à l'accueil" },
   root: { choose: "Choisis ta langue" },

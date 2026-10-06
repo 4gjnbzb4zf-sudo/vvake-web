@@ -37,6 +37,18 @@ order (`fr-CA`, `fr-BE`… count as French); otherwise English. Localized URLs (
 force-redirected, so shared links stay as sent; a small dismissible bar offers the preferred language instead.
 Logic: `src/i18n/negotiate.ts` (tested).
 
+## Voice commands
+
+`/en/voice/` and `/fr/voice/` list the app's voice commands from `src/data/voice-commands.json`, generated in the
+VVFit monorepo (never edit it by hand; Prettier skips it). To refresh it, from the VVFit repo:
+
+```sh
+npx tsx packages/game-core/scripts/export-voice-commands.ts --site ../vvake-web
+```
+
+then `npm test` here: `src/lib/voiceCommands.test.ts` validates the file, checks the page shows every command and
+example, and compares it with `../VVFit/docs/05-tech/voice-commands.json` (or `$VVFIT_DIR`) when that repo is present.
+
 ## Configuration (build-time)
 
 | Variable                        | Default             | Purpose                                                                                |

@@ -1129,6 +1129,11 @@ export const en = {
     },
     platforms: "Apple Watch · Wear OS · iPhone · Android",
     soon: "Coming with your city's unlock",
+    voice: {
+      title: "Say it, VVake does it",
+      body: "Press the mic and talk: start a workout, change the song, ask your coach. Works offline, in English and French.",
+      cta: "All voice commands",
+    },
   },
   story: {
     kicker: "06:00 AM",
@@ -2799,6 +2804,35 @@ export const en = {
       json: "Full list (JSON)",
       none: "No week settled yet.",
     },
+  },
+  voice: {
+    kicker: "Voice commands",
+    title: "Say it. VVake does it.",
+    description:
+      "Every VVake voice command, in English and French: workouts, music, your coach, friends, the Claude Code lock and getting around the app.",
+    lead: "Press the mic, speak, and VVake shows what it understood, then runs it. On the phone or on your Apple Watch.",
+    how: {
+      title: "How it works",
+      items: [
+        {
+          h: "Press the mic",
+          p: "On Today on your phone, on the watch's Today page, or in the workout controls. Nothing is always listening.",
+        },
+        { h: "Speak", p: "In English or French, the way you'd say it. Commands are understood on the device, so they work offline." },
+        { h: "VVake runs it", p: "It shows what it understood, then does it. Anything that isn't a command goes to your coach." },
+        {
+          h: "Music search",
+          p: "Say what you want to hear: VVake stops listening after about 2 seconds of silence and searches by itself.",
+        },
+      ],
+    },
+    confirm: "Asks to confirm",
+    phone: "iPhone",
+    watch: "Apple Watch",
+    inWorkout: "During a workout",
+    worksOn: "Works on",
+    say: "Say",
+    otherLanguage: "In French",
   },
   notFound: { title: "Lost your way?", body: "This page took a rest day.", cta: "Back home" },
   root: { choose: "Choose your language" },

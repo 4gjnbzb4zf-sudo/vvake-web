@@ -52,7 +52,7 @@ export default async function AppPage({ params }: { params: Params }) {
         <Planner dict={dict.plan} sportNames={dict.multisport.sports} />
       </Section>
       <Coach dict={dict.coach} index="02" />
-      <AppPreview dict={dict.app} index="03" />
+      <AppPreview locale={lang} dict={dict.app} index="03" />
       <AppScreens dict={dict.screens} />
       <How dict={dict.how} index="04" />
       <DayLoop dict={dict.day} index="05" />

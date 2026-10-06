@@ -1,10 +1,13 @@
+import { buttonClass } from "@/components/ui/Button";
 import { Section } from "@/components/ui/Section";
 import { MoneyText } from "@/components/ui/Money";
 import { VVaker } from "@/components/vvaker/VVaker";
+import type { Locale } from "@/i18n/config";
 import type { Dictionary } from "@/i18n/dictionaries";
+import { quote, voiceTeaser } from "@/lib/voiceCommands";
 
 /** The app's promises; the phone + watch mocks are exported for the hero (visual only; the apps ship city by city). */
-export function AppPreview({ dict, index }: { dict: Dictionary["app"]; index: string }) {
+export function AppPreview({ locale, dict, index }: { locale: Locale; dict: Dictionary["app"]; index: string }) {
   return (
     <Section id="app" index={index} kicker={dict.kicker} title={dict.title} lead={dict.body} className="isolate overflow-hidden">
       <div
@@ -39,6 +42,22 @@ export function AppPreview({ dict, index }: { dict: Dictionary["app"]; index: st
           ))}
         </ul>
         <p className="mt-2 text-xs text-faint">{dict.devices.note}</p>
+      </div>
+      <div className="mt-10 flex flex-col gap-4 rounded-3xl border border-line bg-surface/70 p-6 backdrop-blur sm:flex-row sm:items-center sm:justify-between">
+        <div>
+          <h3 className="font-display text-xl font-semibold">{dict.voice.title}</h3>
+          <p className="mt-1.5 leading-relaxed text-muted">{dict.voice.body}</p>
+          <ul className="mt-3 flex flex-wrap gap-2">
+            {voiceTeaser(locale).map((e) => (
+              <li key={e} className="rounded-full border border-line px-3 py-1 font-display text-sm">
+                {quote(e, locale)}
+              </li>
+            ))}
+          </ul>
+        </div>
+        <a href={`/${locale}/voice/`} className={buttonClass("ghost", "shrink-0")}>
+          {dict.voice.cta} →
+        </a>
       </div>
       <div className="mt-8 flex flex-wrap items-center gap-3">
         <p className="font-mono text-xs tracking-[0.16em] text-faint uppercase">{dict.platforms}</p>

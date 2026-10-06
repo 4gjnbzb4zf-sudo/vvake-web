@@ -1,0 +1,515 @@
+{
+  "version": 1,
+  "categories": [
+    {
+      "key": "workout",
+      "title": {
+        "en": "Workouts",
+        "fr": "Séances"
+      }
+    },
+    {
+      "key": "music",
+      "title": {
+        "en": "Music",
+        "fr": "Musique"
+      }
+    },
+    {
+      "key": "coach",
+      "title": {
+        "en": "Coach",
+        "fr": "Coach"
+      }
+    },
+    {
+      "key": "social",
+      "title": {
+        "en": "Friends and ghosts",
+        "fr": "Amis et fantômes"
+      }
+    },
+    {
+      "key": "claude",
+      "title": {
+        "en": "Claude Code lock",
+        "fr": "Verrou Claude Code"
+      }
+    },
+    {
+      "key": "app",
+      "title": {
+        "en": "Around the app",
+        "fr": "Dans l’app"
+      }
+    }
+  ],
+  "commands": [
+    {
+      "intent": "workout.start",
+      "category": "workout",
+      "title": {
+        "en": "Start a workout",
+        "fr": "Lancer une séance"
+      },
+      "detail": {
+        "en": "Any sport, with a length if you like. No sport: today’s session.",
+        "fr": "N’importe quel sport, avec une durée si tu veux. Sans sport : la séance du jour."
+      },
+      "examples": {
+        "en": [
+          "Start a 30 minute run",
+          "Go skating",
+          "Start walking",
+          "Go for a bike ride",
+          "Start a workout"
+        ],
+        "fr": [
+          "Lance une course de 30 minutes",
+          "Je vais faire du patin",
+          "Démarre une marche",
+          "Fais du vélo pendant 45 minutes",
+          "Commence la séance"
+        ]
+      },
+      "confirm": false,
+      "phone": true,
+      "watch": true
+    },
+    {
+      "intent": "workout.pause",
+      "category": "workout",
+      "title": {
+        "en": "Pause the workout",
+        "fr": "Mettre la séance en pause"
+      },
+      "detail": {
+        "en": "During a workout, “pause” is enough.",
+        "fr": "Pendant une séance, « pause » suffit."
+      },
+      "examples": {
+        "en": [
+          "Pause the workout",
+          "Take a break"
+        ],
+        "fr": [
+          "Mets la séance en pause",
+          "Fais une pause"
+        ]
+      },
+      "confirm": false,
+      "phone": true,
+      "watch": true
+    },
+    {
+      "intent": "workout.resume",
+      "category": "workout",
+      "title": {
+        "en": "Resume",
+        "fr": "Reprendre"
+      },
+      "detail": {
+        "en": "Back to it after a pause.",
+        "fr": "On repart après une pause."
+      },
+      "examples": {
+        "en": [
+          "Resume the workout",
+          "Keep going"
+        ],
+        "fr": [
+          "Reprends la séance",
+          "On repart"
+        ]
+      },
+      "confirm": false,
+      "phone": true,
+      "watch": true
+    },
+    {
+      "intent": "workout.end",
+      "category": "workout",
+      "title": {
+        "en": "End the workout",
+        "fr": "Terminer la séance"
+      },
+      "detail": {
+        "en": "Asks to confirm first, paused while you decide.",
+        "fr": "Te demande de confirmer, en pause le temps de décider."
+      },
+      "examples": {
+        "en": [
+          "End the workout",
+          "Stop running",
+          "I’m done"
+        ],
+        "fr": [
+          "Termine la séance",
+          "Arrête la course",
+          "J’ai fini"
+        ]
+      },
+      "confirm": true,
+      "phone": true,
+      "watch": true
+    },
+    {
+      "intent": "workout.race-my-best",
+      "category": "workout",
+      "title": {
+        "en": "Race your best",
+        "fr": "Battre ton record"
+      },
+      "detail": {
+        "en": "Your best session runs beside you as a ghost.",
+        "fr": "Ta meilleure séance court à côté de toi, en fantôme."
+      },
+      "examples": {
+        "en": [
+          "Race my best",
+          "Beat my best run",
+          "Ghost race"
+        ],
+        "fr": [
+          "Bats mon record",
+          "Course contre mon fantôme",
+          "Bats ma meilleure course"
+        ]
+      },
+      "confirm": false,
+      "phone": true,
+      "watch": true
+    },
+    {
+      "intent": "daily-move.start",
+      "category": "workout",
+      "title": {
+        "en": "Daily move",
+        "fr": "Mouvement du jour"
+      },
+      "detail": {
+        "en": "The short move that keeps your streak.",
+        "fr": "Le petit mouvement qui garde ta série."
+      },
+      "examples": {
+        "en": [
+          "Start my daily move",
+          "Daily move"
+        ],
+        "fr": [
+          "Lance le mouvement du jour",
+          "Mouvement du jour"
+        ]
+      },
+      "confirm": false,
+      "phone": true,
+      "watch": true
+    },
+    {
+      "intent": "quest.start",
+      "category": "workout",
+      "title": {
+        "en": "Move Quest",
+        "fr": "Quête de mouvement"
+      },
+      "detail": {
+        "en": "Hands up, 10 jumps or freeze, on the watch.",
+        "fr": "Mains en l’air, 10 sauts ou statue, sur la montre."
+      },
+      "examples": {
+        "en": [
+          "Start a quest",
+          "Do 10 jumps",
+          "Start a freeze quest"
+        ],
+        "fr": [
+          "Lance une quête",
+          "Fais 10 sauts",
+          "Lance une quête statue"
+        ]
+      },
+      "confirm": false,
+      "phone": false,
+      "watch": true
+    },
+    {
+      "intent": "music.play",
+      "category": "music",
+      "title": {
+        "en": "Play music",
+        "fr": "Mettre de la musique"
+      },
+      "detail": {
+        "en": "Resume, or name a song, an artist or one of your playlists.",
+        "fr": "Reprend la musique, ou dis une chanson, un artiste ou une de tes playlists."
+      },
+      "examples": {
+        "en": [
+          "Play music",
+          "Play Daft Punk",
+          "Play my running playlist"
+        ],
+        "fr": [
+          "Mets de la musique",
+          "Joue Daft Punk",
+          "Mets ma playlist course"
+        ]
+      },
+      "confirm": false,
+      "phone": true,
+      "watch": true
+    },
+    {
+      "intent": "music.pause",
+      "category": "music",
+      "title": {
+        "en": "Stop the music",
+        "fr": "Arrêter la musique"
+      },
+      "detail": {
+        "en": "Pauses what’s playing.",
+        "fr": "Met en pause ce qui joue."
+      },
+      "examples": {
+        "en": [
+          "Stop the music",
+          "Pause the music"
+        ],
+        "fr": [
+          "Arrête la musique",
+          "Coupe le son"
+        ]
+      },
+      "confirm": false,
+      "phone": true,
+      "watch": true
+    },
+    {
+      "intent": "music.next",
+      "category": "music",
+      "title": {
+        "en": "Next song",
+        "fr": "Chanson suivante"
+      },
+      "detail": {
+        "en": "Skips to the next one.",
+        "fr": "Passe à la suivante."
+      },
+      "examples": {
+        "en": [
+          "Next song",
+          "Skip"
+        ],
+        "fr": [
+          "Chanson suivante",
+          "Passe"
+        ]
+      },
+      "confirm": false,
+      "phone": true,
+      "watch": true
+    },
+    {
+      "intent": "music.previous",
+      "category": "music",
+      "title": {
+        "en": "Previous song",
+        "fr": "Chanson précédente"
+      },
+      "detail": {
+        "en": "Back one song.",
+        "fr": "Revient d’une chanson."
+      },
+      "examples": {
+        "en": [
+          "Previous song",
+          "Go back"
+        ],
+        "fr": [
+          "Chanson précédente",
+          "Reviens en arrière"
+        ]
+      },
+      "confirm": false,
+      "phone": true,
+      "watch": true
+    },
+    {
+      "intent": "music.volume-up",
+      "category": "music",
+      "title": {
+        "en": "Louder",
+        "fr": "Plus fort"
+      },
+      "detail": {
+        "en": "Where the service allows it.",
+        "fr": "Quand le service le permet."
+      },
+      "examples": {
+        "en": [
+          "Turn it up",
+          "Louder"
+        ],
+        "fr": [
+          "Monte le son",
+          "Plus fort"
+        ]
+      },
+      "confirm": false,
+      "phone": true,
+      "watch": true
+    },
+    {
+      "intent": "music.volume-down",
+      "category": "music",
+      "title": {
+        "en": "Quieter",
+        "fr": "Moins fort"
+      },
+      "detail": {
+        "en": "Where the service allows it.",
+        "fr": "Quand le service le permet."
+      },
+      "examples": {
+        "en": [
+          "Turn it down",
+          "Quieter"
+        ],
+        "fr": [
+          "Baisse le son",
+          "Moins fort"
+        ]
+      },
+      "confirm": false,
+      "phone": true,
+      "watch": true
+    },
+    {
+      "intent": "coach.talk",
+      "category": "coach",
+      "title": {
+        "en": "Talk to your coach",
+        "fr": "Parler au coach"
+      },
+      "detail": {
+        "en": "Opens the coach, or asks your question right away. Anything VVake doesn’t know as a command goes to the coach too.",
+        "fr": "Ouvre le coach, ou pose ta question directement. Ce que VVake ne connaît pas comme commande part aussi au coach."
+      },
+      "examples": {
+        "en": [
+          "Talk to my coach",
+          "Ask my coach how far I should run today"
+        ],
+        "fr": [
+          "Parle au coach",
+          "Demande au coach si je peux courir demain"
+        ]
+      },
+      "confirm": false,
+      "phone": true,
+      "watch": true
+    },
+    {
+      "intent": "challenge.ghost",
+      "category": "social",
+      "title": {
+        "en": "Challenge a friend to beat your ghost",
+        "fr": "Défier un ami de battre ton fantôme"
+      },
+      "detail": {
+        "en": "Matched against your friends (people you’ve faced). Confirms before sending.",
+        "fr": "Cherché parmi tes amis (les gens que tu as déjà affrontés). Confirme avant l’envoi."
+      },
+      "examples": {
+        "en": [
+          "Challenge Marie to beat my ghost",
+          "Send my ghost to Alex"
+        ],
+        "fr": [
+          "Défie Marie de battre mon fantôme",
+          "Envoie mon fantôme à Alex"
+        ]
+      },
+      "confirm": true,
+      "phone": true,
+      "watch": true
+    },
+    {
+      "intent": "claude.postpone",
+      "category": "claude",
+      "title": {
+        "en": "Postpone the lock",
+        "fr": "Reporter le verrou"
+      },
+      "detail": {
+        "en": "30 min, 1 h or 4 h, like the button: each one adds 10% more moving. Confirms first.",
+        "fr": "30 min, 1 h ou 4 h, comme le bouton : chacun ajoute 10 % de mouvement. Confirme d’abord."
+      },
+      "examples": {
+        "en": [
+          "Postpone Claude by an hour",
+          "Snooze the lock for 30 minutes"
+        ],
+        "fr": [
+          "Reporte le verrou d’une heure",
+          "Repousse Claude de 30 minutes"
+        ]
+      },
+      "confirm": true,
+      "phone": true,
+      "watch": true
+    },
+    {
+      "intent": "claude.status",
+      "category": "claude",
+      "title": {
+        "en": "Lock status",
+        "fr": "État du verrou"
+      },
+      "detail": {
+        "en": "How much moving is left to unlock.",
+        "fr": "Combien de mouvement il reste pour débloquer."
+      },
+      "examples": {
+        "en": [
+          "Is Claude locked",
+          "Claude lock status"
+        ],
+        "fr": [
+          "Est-ce que Claude est verrouillé",
+          "État du verrou"
+        ]
+      },
+      "confirm": false,
+      "phone": true,
+      "watch": true
+    },
+    {
+      "intent": "app.open",
+      "category": "app",
+      "title": {
+        "en": "Open a page",
+        "fr": "Ouvrir une page"
+      },
+      "detail": {
+        "en": "Today, journal, coach, music, My Pulse, goals, settings.",
+        "fr": "Aujourd’hui, journal, coach, musique, My Pulse, objectifs, réglages."
+      },
+      "examples": {
+        "en": [
+          "Open my journal",
+          "Show my goals",
+          "Go to settings"
+        ],
+        "fr": [
+          "Ouvre le journal",
+          "Affiche mes objectifs",
+          "Va dans les réglages"
+        ]
+      },
+      "confirm": false,
+      "phone": true,
+      "watch": true
+    }
+  ]
+}
