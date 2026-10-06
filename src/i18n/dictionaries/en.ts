@@ -906,7 +906,7 @@ export const en = {
   journal: {
     kicker: "Your journal",
     title: "Every run, meetup and win. One swipe away.",
-    body: "Your history is the best motivation there is. VVake keeps every workout, crew meetup, challenge and clash in a journal that's fun to scroll, with your records and memories surfaced for you.",
+    body: "Your history is the best motivation there is. VVake keeps every workout, crew meetup, challenge and clash in a journal that's fun to scroll, with your records and memories surfaced for you. Tap a session for its full review: the route, your heart rate and zones, splits in km or miles, the points and why. Then race it again, dare a friend to beat it, or share it on X.",
     example: "Example journal",
     filters: { all: "All", workout: "Workouts", crew: "Crew meetups", challenge: "Challenges", clash: "Clashes" },
     heatmap: "Last 12 weeks",
@@ -2458,6 +2458,14 @@ export const en = {
     noApp: "No app yet? The iPhone and Apple Watch apps are in development and open city by city. Join early access to get in first.",
     join: "Join early access",
     invalid: "This invite link looks incomplete. Ask your friend to send it again.",
+    shareX: "Share on X",
+    shareText:
+      "Move with me on VVake 👟 My VVaker trains with me, the coach keeps me going and my ghost is waiting for you. Think you can keep up? #VVake",
+    ogTitle: "Join me on VVake",
+    ogDescription: "Your watch measures real effort, the coach keeps you going and my ghost is waiting. Think you can keep up?",
+    ogAlt: "Join me on VVake: think you can beat my ghost?",
+    ogKicker: "👟 A friend invited you",
+    ogLine: "Think you can beat my ghost?",
   },
   rewards: {
     title: "Rewards",

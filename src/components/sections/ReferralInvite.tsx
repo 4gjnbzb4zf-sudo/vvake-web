@@ -4,12 +4,24 @@ import { useEffect, useState } from "react";
 import { LogoMark } from "@/components/brand/Logo";
 import { buttonClass } from "@/components/ui/Button";
 import type { Dictionary } from "@/i18n/dictionaries";
-import { parseReferralCode, referralAppUrl } from "@/lib/referralLink";
+import { xShareUrl } from "@/lib/referral";
+import { parseReferralCode, referralAppUrl, referralLinkUrl } from "@/lib/referralLink";
 
 type State = { kind: "loading" } | { kind: "invalid" } | { kind: "ready"; code: string };
 
 /** A friend's invite for people without the app: the code to enter at sign-up, open-in-app and early access. */
-export function ReferralInvite({ dict, appScheme, joinHref }: { dict: Dictionary["referral"]; appScheme: string; joinHref: string }) {
+export function ReferralInvite({
+  dict,
+  appScheme,
+  joinHref,
+  origin,
+}: {
+  dict: Dictionary["referral"];
+  appScheme: string;
+  joinHref: string;
+  /** The site's origin, for the invite link shared on X (vvake.com/r/<code>). */
+  origin: string;
+}) {
   const [state, setState] = useState<State>({ kind: "loading" });
   const [copied, setCopied] = useState(false);
 
@@ -60,6 +72,17 @@ export function ReferralInvite({ dict, appScheme, joinHref }: { dict: Dictionary
         <a href={joinHref} className={buttonClass(state.kind === "ready" ? "ghost" : "primary")}>
           {dict.join}
         </a>
+        {state.kind === "ready" && (
+          // Pass the invite on: the same post the app writes, with this code's link.
+          <a
+            href={xShareUrl(dict.shareText, referralLinkUrl(origin, state.code))}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={buttonClass("ghost")}
+          >
+            {dict.shareX}
+          </a>
+        )}
       </div>
       <p className="mx-auto mt-6 max-w-md text-sm text-faint">{dict.noApp}</p>
     </div>

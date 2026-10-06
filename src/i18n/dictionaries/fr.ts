@@ -941,7 +941,7 @@ export const fr: Dictionary = {
   journal: {
     kicker: "Ton journal",
     title: "Chaque run, rencontre et victoire. À portée de doigt.",
-    body: "Ton historique, c'est la meilleure motivation. VVake garde chaque séance, rencontre de crew, défi et clash dans un journal agréable à parcourir, avec tes records et tes souvenirs mis en avant.",
+    body: "Ton historique, c'est la meilleure motivation. VVake garde chaque séance, rencontre de crew, défi et clash dans un journal agréable à parcourir, avec tes records et tes souvenirs mis en avant. Touche une séance pour son bilan complet : le parcours, ta fréquence cardiaque et tes zones, tes temps par km ou par mile, les points et pourquoi. Puis refais-la contre ton fantôme, défie un ami de la battre ou partage-la sur X.",
     example: "Exemple de journal",
     filters: { all: "Tout", workout: "Séances", crew: "Rencontres", challenge: "Défis", clash: "Clashs" },
     heatmap: "12 dernières semaines",
@@ -2638,6 +2638,14 @@ export const fr: Dictionary = {
       "Pas encore l'app ? Les apps iPhone et Apple Watch sont en développement et ouvrent ville par ville. Rejoins l'accès anticipé pour passer en premier.",
     join: "Rejoindre l'accès anticipé",
     invalid: "Ce lien d'invitation semble incomplet. Demande à ton ami de te le renvoyer.",
+    shareX: "Partager sur X",
+    shareText:
+      "Bouge avec moi sur VVake 👟 Mon VVaker s'entraîne avec moi, le coach me motive et mon fantôme t'attend. Tu crois pouvoir suivre ? #VVake",
+    ogTitle: "Rejoins-moi sur VVake",
+    ogDescription: "Ta montre mesure ton vrai effort, le coach te pousse et mon fantôme t'attend. Tu crois pouvoir suivre ?",
+    ogAlt: "Rejoins-moi sur VVake : tu crois pouvoir battre mon fantôme ?",
+    ogKicker: "👟 Un ami t'invite",
+    ogLine: "Tu crois pouvoir battre mon fantôme ?",
   },
   rewards: {
     title: "Récompenses",
