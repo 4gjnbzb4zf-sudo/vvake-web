@@ -80,7 +80,7 @@ describe("Anti-scam banner on /rewards", () => {
   it("ANTI-SCAM English text, with the pinned contract shortened", () => {
     const html = decode(renderToStaticMarkup(createElement(ScamWarning, { dict: en.rewards.scam })));
     expect(html).toContain(
-      "VVake never messages you first, never asks for a seed phrase, a private key, an app code or a token approval. A claim only calls claim() on 0x1B60…718b and sends 0 ETH.",
+      "VVake never messages you first, never asks for a seed phrase, a private key, an app code or a token approval. A claim only calls claim() on 0xEF0D…aE0F and sends 0 ETH.",
     );
   });
 
@@ -88,7 +88,7 @@ describe("Anti-scam banner on /rewards", () => {
     const html = decode(renderToStaticMarkup(createElement(ScamWarning, { dict: fr.rewards.scam })));
     expect(html).toContain("VVake ne t'écrit jamais en premier");
     expect(html).toContain("ta phrase de récupération, ta clé privée, un code de l'app ni une autorisation de dépense de tes tokens");
-    expect(html).toContain("claim() sur 0x1B60…718b et envoie 0 ETH");
+    expect(html).toContain("claim() sur 0xEF0D…aE0F et envoie 0 ETH");
     expect(html).not.toMatch(/\bvous\b|\bvotre\b/i);
   });
 

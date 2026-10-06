@@ -20,12 +20,12 @@ export const rewardsConfig = {
   /** $VVAKE (ERC-20, 18 decimals). */
   token: "0x2b85b57383bA4C7eDABf6289E6bfe3a9C4833Cde",
   decimals: 18,
-  /** VVakeRewards (deployed at block 129456532). Empty: taken from the API when it has one. */
-  rewardsContract: "0x1B600A1b835E95b1c9D91B8f29aC82ac37D5718b",
+  /** VVakeRewards v2 (deployed at block 129911872; claims open 48 h after a weekly root). Empty: taken from the API when it has one. */
+  rewardsContract: "0xEF0D0c1c32D56A50dc1addc6471772F9E4a2aE0F",
   /** VVakePrizePool. Empty: "not deployed yet". */
-  prizePool: "0x38F40804369df4EF90e9ac3d82BfB392F57dA4Fe",
+  prizePool: "0xDb99d6C7a5866a20705116d6a1a299A951d9C39C",
   /** The block the prize pool was deployed at (where the event scan stops). */
-  prizePoolFromBlock: 129457171,
+  prizePoolFromBlock: 129913044,
   /** Blocks per eth_getLogs call (the API's VVAKE_LOG_SPAN) and how many calls one page view makes at most. */
   logSpan: 2_000_000,
   maxLogWindows: 8,
