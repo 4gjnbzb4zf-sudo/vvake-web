@@ -9,6 +9,8 @@ import { formatUnits } from "@/lib/eth";
 import { epochOf, epochStart, explorerAddress, explorerTx, pickAddress, rewardsConfig, shortHex } from "@/lib/rewards-config";
 import { publicEpoch, type PublicEpoch } from "@/lib/rewardsApi";
 import { NotDeployed } from "./RewardsAccount";
+import { visitorDatePrefs } from "@/lib/dates";
+import { formatDate, formatDateTime } from "@/lib/datetime";
 
 type Dict = Dictionary["rewards"];
 
@@ -68,8 +70,10 @@ export function PublicRewards({ dict, lang, apiUrl }: { dict: Dict; lang: Locale
   }, [apiUrl]);
 
   const rewardsContract = pickAddress(rewardsConfig.rewardsContract, ...(weeks.kind === "ready" ? weeks.value.map((w) => w.contract) : []));
-  const dateFmt = new Intl.DateTimeFormat(lang, { day: "numeric", month: "short", year: "numeric", timeZone: "UTC" });
-  const timeFmt = new Intl.DateTimeFormat(lang, { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" });
+  // The visitor's date and time formats (browser region and clock; lib/dates.ts), the page's language.
+  const dp = visitorDatePrefs(lang);
+  const dateFmt = { format: (d: Date) => formatDate(d, { ...dp, timeZone: "UTC" }, "medium") };
+  const timeFmt = { format: (d: Date) => formatDateTime(d, dp, "short") };
   const eth = (v: bigint) => formatUnits(v, 18, 4, lang);
   const vvake = (v: bigint) => formatUnits(v, rewardsConfig.decimals, 2, lang);
   const t = dict.pool;

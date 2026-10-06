@@ -38,7 +38,9 @@ import { isVaultBlob, passkeyRpId, type VaultBlob } from "@/lib/walletVault";
 import { chainRpc, OwnWalletGuide, PasskeyWallet, passkeyApi } from "./PasskeyWallet";
 import { ClaimItem, EntryChoice, SkillCard } from "./PrizeEntry";
 import { cn } from "@/lib/cn";
-import { ACCOUNT_LANG_TEXT, accountLangOffer } from "@/lib/accountPrefs";
+import { ACCOUNT_LANG_TEXT, accountLangOffer, type AccountPrefs } from "@/lib/accountPrefs";
+import { visitorDatePrefs } from "@/lib/dates";
+import { formatDate, formatDateTime } from "@/lib/datetime";
 import { LOCALE_STORAGE_KEY } from "@/i18n/negotiate";
 
 type Dict = Dictionary["rewards"];
@@ -92,12 +94,18 @@ export function RewardsAccount({ dict, lang, apiUrl }: { dict: Dict; lang: Local
   const err = (e: unknown) => dict.errors[errorKey(e)];
   // The account's language (set in the app, You → Settings): offered when this page is in the other one.
   const [langOffer, setLangOffer] = useState<Locale | null>(null);
+  // Its time and date formats (You → Settings) for the dates below.
+  const [acctPrefs, setAcctPrefs] = useState<AccountPrefs | null>(null);
   useEffect(() => {
     if (auth !== "in") return;
     let live = true;
     session
       .accountPrefs()
-      .then((p) => live && setLangOffer(accountLangOffer(lang, p)))
+      .then((p) => {
+        if (!live) return;
+        setLangOffer(accountLangOffer(lang, p));
+        setAcctPrefs(p);
+      })
       .catch(() => undefined); // an older API or offline: no offer
     return () => {
       live = false;
@@ -444,7 +452,9 @@ export function RewardsAccount({ dict, lang, apiUrl }: { dict: Dict; lang: Local
             plusActive={false}
             busy={false}
             msg={null}
-            date={(iso) => iso.slice(0, 10)}
+            date={(iso) =>
+              Number.isFinite(Date.parse(iso)) ? formatDate(iso, { ...visitorDatePrefs(lang), timeZone: "UTC" }, "medium") : iso
+            }
             onEnter={() => {}}
             onWithdraw={() => {}}
           />
@@ -454,11 +464,11 @@ export function RewardsAccount({ dict, lang, apiUrl }: { dict: Dict; lang: Local
       </>
     );
 
-  const dateFmt = new Intl.DateTimeFormat(lang, { day: "numeric", month: "short", year: "numeric", timeZone: "UTC" });
-  const date = (iso: string) => dateFmt.format(new Date(iso));
-  // Claim opening times in the visitor's own time zone, with the zone shown.
-  const dateTimeFmt = new Intl.DateTimeFormat(lang, { dateStyle: "medium", timeStyle: "short" });
-  const opensText = (d: Date) => (Number.isFinite(d.getTime()) ? dateTimeFmt.format(d) : dict.status.opening);
+  // The visitor's date and time formats: the account's choices when signed in, else the browser's (lib/dates.ts).
+  const dp = visitorDatePrefs(lang, acctPrefs);
+  const date = (iso: string) => (Number.isFinite(Date.parse(iso)) ? formatDate(iso, { ...dp, timeZone: "UTC" }, "medium") : iso);
+  // Claim opening times in the visitor's own time zone.
+  const opensText = (d: Date) => (Number.isFinite(d.getTime()) ? formatDateTime(d, dp, "medium") : dict.status.opening);
 
   const signedInBar = (
     <div className="mt-8 flex flex-wrap items-center gap-3 text-sm text-muted">

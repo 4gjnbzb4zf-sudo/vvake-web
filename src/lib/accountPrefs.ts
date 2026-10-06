@@ -12,6 +12,8 @@ export const accountPrefsSchema = z.object({
         z.object({
           lang: z.optional(z.catch(z.nullable(z.string()), null)),
           theme: z.optional(z.catch(z.nullable(z.string()), null)),
+          timeFormat: z.optional(z.catch(z.nullable(z.string()), null)),
+          dateFormat: z.optional(z.catch(z.nullable(z.string()), null)),
         }),
       ),
       null,
@@ -31,3 +33,12 @@ export const ACCOUNT_LANG_TEXT: Record<Locale, { text: string; cta: string }> = 
   en: { text: "Your VVake account is set to English.", cta: "Show this page in English" },
   fr: { text: "Ton compte VVake est en français.", cta: "Afficher cette page en français" },
 };
+
+/** The region of a BCP 47 locale ("fr-CA" → "CA", "en" → undefined): what "system" means for dates. */
+export function regionOf(locale: string | undefined | null): string | undefined {
+  const parts = (locale ?? "").replace(/_/g, "-").split("-");
+  return parts
+    .slice(1)
+    .find((p) => /^[A-Za-z]{2}$/.test(p) || /^\d{3}$/.test(p))
+    ?.toUpperCase();
+}
