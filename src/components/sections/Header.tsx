@@ -28,6 +28,7 @@ export function Header({ locale, dict }: { locale: Locale; dict: Dictionary["nav
     { href: pageHref(locale, "app/"), label: dict.app },
     { href: pageHref(locale, "vvaker/"), label: dict.vvaker },
     { href: pageHref(locale, "backers/"), label: dict.backers },
+    { href: `/${locale}/rewards/`, label: dict.rewards },
     { href: sectionHref(locale, "faq"), label: dict.faq },
   ];
   return (

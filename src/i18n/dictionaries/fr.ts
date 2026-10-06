@@ -11,6 +11,7 @@ export const fr: Dictionary = {
   nav: {
     app: "L'app",
     backers: "Soutenir",
+    rewards: "Prix",
     why: "Pourquoi",
     earn: "Avantages",
     play: "Jouer",
@@ -2116,6 +2117,7 @@ export const fr: Dictionary = {
     legal:
       "VVake Fit est un service de fitness et d'entraînement, pas un produit financier. Rien sur ce site ne constitue un conseil en investissement ni une offre de token, de titre ou d'instrument financier. Les données de marché sont affichées à titre de divertissement. Les noms d'équipes et les tickers sont utilisés à des fins d'identification uniquement ; aucune affiliation ni aucun partenariat n'est sous-entendu.",
     privacy: "Confidentialité",
+    rewards: "Prix $VVAKE",
     partners: "Partenaires",
     contact: "Contact",
     rights: "Tous droits réservés.",

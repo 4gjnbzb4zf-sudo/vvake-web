@@ -13,6 +13,7 @@ export const en = {
   nav: {
     app: "The app",
     backers: "Backers",
+    rewards: "Prizes",
     why: "Why join",
     earn: "What you get",
     play: "Play",
@@ -1963,6 +1964,7 @@ export const en = {
     legal:
       "VVake Fit is a fitness and training service, not a financial product. Nothing on this site is investment advice or an offer of any token, security or financial instrument. Market data is shown for entertainment only. Team names and tickers are used for identification only; no affiliation or endorsement is implied.",
     privacy: "Privacy",
+    rewards: "$VVAKE prizes",
     partners: "Partners",
     contact: "Contact",
     rights: "All rights reserved.",

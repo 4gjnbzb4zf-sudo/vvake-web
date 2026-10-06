@@ -20,8 +20,7 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
   return {
     title: dict.title,
     description: dict.description,
-    // Reached from the app ("claim on vvake.com"), like the challenge page: not in the nav or the sitemap, not indexed.
-    robots: { index: false, follow: false },
+    // In the nav, the footer and the sitemap: the prize rules and the public prize pool are for everyone to read.
     alternates: { canonical: `/${lang}/rewards/`, languages: Object.fromEntries(locales.map((l) => [l, `/${l}/rewards/`])) },
   };
 }
