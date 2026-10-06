@@ -2603,6 +2603,21 @@ export const fr: Dictionary = {
     join: "Rejoindre l'accès anticipé",
     invalid: "Ce lien semble incomplet. Lance /vvake:link dans Claude Code pour en avoir un nouveau.",
   },
+  referral: {
+    title: "Un ami t'invite sur VVake",
+    about:
+      "VVake est un coach sportif pour iPhone et Apple Watch. Ta montre mesure l'effort réel de ton cœur, pas la vitesse. Un coach t'aide à prévoir une semaine qui te ressemble, tes séries te gardent motivé et les défis entre amis rendent tout plus fun.",
+    code: "Ton code d'invitation",
+    copy: "Copier le code",
+    copied: "Copié",
+    steps: "Installe VVake, puis entre ce code à ton inscription (ou rouvre ce lien sur ton iPhone une fois l'app installée).",
+    bonus: "Termine ta première vraie séance avec fréquence cardiaque dans les 30 jours : 7 jours de VVake Plus offerts à vous deux.",
+    open: "Ouvrir dans l'app",
+    noApp:
+      "Pas encore l'app ? Les apps iPhone et Apple Watch sont en développement et ouvrent ville par ville. Rejoins l'accès anticipé pour passer en premier.",
+    join: "Rejoindre l'accès anticipé",
+    invalid: "Ce lien d'invitation semble incomplet. Demande à ton ami de te le renvoyer.",
+  },
   rewards: {
     title: "Récompenses",
     description:

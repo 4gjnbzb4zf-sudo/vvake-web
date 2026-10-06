@@ -2424,6 +2424,20 @@ export const en = {
     join: "Get VVake early access",
     invalid: "This link looks incomplete. Run /vvake:link in Claude Code for a fresh one.",
   },
+  referral: {
+    title: "A friend invited you to VVake",
+    about:
+      "VVake is a fitness coach for iPhone and Apple Watch. Your watch measures real effort for your heart, not speed. A coach helps you plan a week that fits, streaks keep you going and challenges with friends make it fun.",
+    code: "Your invite code",
+    copy: "Copy the code",
+    copied: "Copied",
+    steps: "Install VVake, then enter this code when you sign up (or open this link again on your iPhone once installed).",
+    bonus: "When you finish your first real workout with heart rate within 30 days, you and your friend both get 7 days of VVake Plus.",
+    open: "Open in the app",
+    noApp: "No app yet? The iPhone and Apple Watch apps are in development and open city by city. Join early access to get in first.",
+    join: "Join early access",
+    invalid: "This invite link looks incomplete. Ask your friend to send it again.",
+  },
   rewards: {
     title: "Rewards",
     description: "Weekly $VVAKE prizes for moving, claimed with your own wallet. Testnet: the tokens have no value.",
