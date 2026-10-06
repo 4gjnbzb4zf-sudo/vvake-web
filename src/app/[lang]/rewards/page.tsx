@@ -45,6 +45,13 @@ export default async function RewardsPage({ params }: { params: Params }) {
           <PageIntro kicker={t.kicker} title={t.heading} lead={t.lead} />
           <Container>
             <p className="my-8 rounded-xl border border-butter-fg/30 bg-butter/10 px-4 py-3 text-sm text-butter-fg">{t.testnet}</p>
+            {/* Prizes are for effort: health first (the apps' health & safety disclaimer). */}
+            <p className="-mt-4 mb-8 text-sm text-muted">
+              {t.health}{" "}
+              <a href={`/${lang}/terms/`} className="text-text underline underline-offset-4 hover:text-pulse-fg">
+                {t.healthLink}
+              </a>
+            </p>
           </Container>
           <ScamWarning dict={t.scam} />
           <RewardsAccount dict={t} lang={lang} apiUrl={siteConfig.apiUrl} />

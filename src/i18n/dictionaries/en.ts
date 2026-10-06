@@ -2000,10 +2000,82 @@ export const en = {
     legal:
       "VVake Fit is a fitness and training service, not a financial product. Nothing on this site is investment advice or an offer of any token, security or financial instrument. Market data is shown for entertainment only. Team names and tickers are used for identification only; no affiliation or endorsement is implied.",
     privacy: "Privacy",
+    safety: "Health & safety",
     rewards: "$VVAKE prizes",
     partners: "Partners",
     contact: "Contact",
     rights: "All rights reserved.",
+  },
+  terms: {
+    title: "Health & safety and your responsibility",
+    description:
+      "VVake is a fitness and wellbeing app, not a medical device or medical advice. Plans, coach replies and health data are suggestions that can be wrong: you decide, and you are responsible for your own choices.",
+    updated: "Last updated: 2026-10-06 · version 1",
+    shortTitle: "The short version",
+    short: [
+      "VVake is a fitness and wellbeing app. It is not a medical device and it does not give medical advice.",
+      "Plans, coach replies (written by AI, they can be wrong), heart rate, zones, points, Move Quests, challenges and reminders are suggestions only.",
+      "Sensor and health data can be inaccurate, late or change, so a recommendation can be wrong or not right for you.",
+      "You decide, and you are responsible for your own choices. If anything feels wrong, painful or dangerous, stop. Chest pain, dizziness or shortness of breath: stop and call emergency services.",
+      "See a doctor before you start or change your training, especially with a health condition, an injury, a pregnancy or medication.",
+      "Outside, watch traffic, terrain and weather, and keep your headphones low enough to hear what's around you. VVake is not for children under 13.",
+    ],
+    accept:
+      "The apps ask you to accept this text before you start (“I understand and accept that I'm responsible for my own decisions”), and again whenever it changes. You can read it any time in the app: You › Settings › Health & safety disclaimer.",
+    sections: [
+      {
+        id: "what",
+        h: "What VVake is",
+        p: "VVake is a fitness and wellbeing app made by the VVake team. It is not a medical device. It does not diagnose, treat or prevent any disease, and nothing in it is medical advice.",
+      },
+      {
+        id: "suggestions",
+        h: "Everything is a suggestion",
+        p: "Your plan, today's session, the daily move, Move Quests, challenges, City Clash, reminders, heart-rate zones, effort points and the coach's replies are suggestions to help you move. The coach's replies are written by AI: they can be wrong, incomplete or not suited to you, even when they sound sure.",
+      },
+      {
+        id: "data",
+        h: "Data can be wrong",
+        p: "Heart rate, distance, pace, steps, sleep and other health data come from sensors, your phone, your watch and Apple Health. They can be inaccurate, late or missing, and they change over time, so plans and advice built on them can be off. Some recommendations can be wrong in ways the VVake team cannot foresee or control.",
+      },
+      {
+        id: "decide",
+        h: "You decide",
+        p: "You know your body best. You decide whether, how and how hard you train, and you are responsible for your own decisions. Never follow a suggestion that feels wrong for you: easier, shorter or a rest day is always fine.",
+      },
+      {
+        id: "stop",
+        h: "Stop when something is wrong",
+        p: "Stop at once if you feel pain, chest pain or pressure, dizziness or faintness, unusual shortness of breath, a racing or irregular heartbeat, or anything else that worries you. If it seems serious, call your local emergency number (911 in North America, 112 in Europe). See a health professional before you train again.",
+      },
+      {
+        id: "doctor",
+        h: "See a doctor first",
+        p: "Talk to a doctor before you start a new training plan or change yours a lot, especially if you have a heart, lung, joint or other health condition, an injury, are pregnant or recently gave birth, take medication, or haven't been active for a long time. A health professional's advice always comes before VVake's.",
+      },
+      {
+        id: "outside",
+        h: "Stay safe outside",
+        p: "Follow the rules of the road, watch for traffic, uneven ground and the weather, stay visible in the dark, and keep your headphones low enough to hear what's around you. Don't look at your phone or watch when it isn't safe. No streak, reward or challenge is worth a risk.",
+      },
+      {
+        id: "age",
+        h: "Age",
+        p: "VVake is not for children under 13. If you are under the age of digital consent where you live, a parent or guardian must agree before you use it. Weight goals and meal reminders are for adults only.",
+      },
+      {
+        id: "rewards",
+        h: "Rewards",
+        p: "Points and $VVAKE prizes reward effort and consistency, never pushing past your limits. Your health comes first.",
+      },
+      {
+        id: "changes",
+        h: "Changes to this text",
+        p: "When this text changes, the apps ask you to read and accept the new version. Nothing in it takes away rights you have under the law where you live.",
+      },
+    ],
+    privacy: "How we handle your health data:",
+    privacyLink: "Privacy policy",
   },
   privacy: {
     title: "Privacy policy",
@@ -2016,6 +2088,8 @@ export const en = {
       "VVake (also called VVake Fit) is a fitness coaching app for iPhone and Apple Watch, with this website, vvake.com. This policy explains in plain words what we collect, why, who else sees it, how long we keep it and what you can do about it. It covers the apps (TestFlight previews included), the VVake API they talk to, the desk companion for Mac, the VVake plugin for Claude Code and this website, including vvake.com/rewards.",
       "VVake is a training and wellness app. It is not a medical device and does not diagnose, treat or monitor any health condition.",
     ],
+    safety: "Plans, coach replies and health data in VVake are suggestions, not medical advice. Read",
+    safetyLink: "Health & safety and your responsibility",
     summaryTitle: "The short version",
     summary: [
       "No ads, no sale of your data, no tracking across apps or websites.",
@@ -2514,6 +2588,8 @@ export const en = {
     kicker: "$VVAKE rewards · testnet",
     heading: "Prizes for moving, in your own wallet",
     lead: "Each week, the VV points from your counted sessions become $VVAKE you claim yourself from an open-source contract. VVake never holds your tokens or your keys.",
+    health: "Prizes reward effort and consistency, never pushing past your limits: your health comes first.",
+    healthLink: "Health & safety",
     testnet:
       "Robinhood Chain Testnet: these tokens have no value. Nothing to buy here, and nothing on this page is an offer or investment advice.",
     scam: {

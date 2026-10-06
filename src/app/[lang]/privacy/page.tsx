@@ -46,6 +46,13 @@ export default async function PrivacyPage({ params }: { params: Params }) {
             ))}
           </div>
 
+          <p className="mt-4 leading-relaxed text-muted">
+            {privacy.safety}{" "}
+            <a href={`/${lang}/terms/`} className="text-text underline underline-offset-4 hover:text-pulse-fg">
+              {privacy.safetyLink}
+            </a>
+          </p>
+
           <section aria-labelledby="privacy-summary" className="mt-10 rounded-2xl border border-line bg-surface p-6">
             <h2 id="privacy-summary" className="font-display text-xl font-semibold">
               {privacy.summaryTitle}

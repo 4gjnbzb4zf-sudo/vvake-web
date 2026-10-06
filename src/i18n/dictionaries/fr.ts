@@ -2157,10 +2157,82 @@ export const fr: Dictionary = {
     legal:
       "VVake Fit est un service de fitness et d'entraînement, pas un produit financier. Rien sur ce site ne constitue un conseil en investissement ni une offre de token, de titre ou d'instrument financier. Les données de marché sont affichées à titre de divertissement. Les noms d'équipes et les tickers sont utilisés à des fins d'identification uniquement ; aucune affiliation ni aucun partenariat n'est sous-entendu.",
     privacy: "Confidentialité",
+    safety: "Santé et sécurité",
     rewards: "Prix $VVAKE",
     partners: "Partenaires",
     contact: "Contact",
     rights: "Tous droits réservés.",
+  },
+  terms: {
+    title: "Santé, sécurité et votre responsabilité",
+    description:
+      "VVake est une application de forme et de bien-être, pas un dispositif médical ni un avis médical. Les plans, les réponses du coach et les données de santé sont des suggestions qui peuvent se tromper : c'est vous qui décidez, et vous êtes responsable de vos propres choix.",
+    updated: "Dernière mise à jour : 2026-10-06 · version 1",
+    shortTitle: "En bref",
+    short: [
+      "VVake est une application de forme et de bien-être. Ce n'est pas un dispositif médical et elle ne donne pas d'avis médical.",
+      "Les plans, les réponses du coach (écrites par une IA, elles peuvent se tromper), la fréquence cardiaque, les zones, les points, les quêtes de mouvement, les défis et les rappels ne sont que des suggestions.",
+      "Les données des capteurs et de santé peuvent être inexactes, en retard ou changer : une recommandation peut donc être fausse ou ne pas vous convenir.",
+      "C'est vous qui décidez, et vous êtes responsable de vos propres choix. Si quelque chose vous semble anormal, douloureux ou dangereux, arrêtez-vous. Douleur à la poitrine, vertiges ou essoufflement : arrêtez-vous et appelez les secours.",
+      "Consultez un médecin avant de commencer ou de modifier votre entraînement, surtout si vous avez un problème de santé, une blessure, si vous êtes enceinte ou si vous prenez un traitement.",
+      "Dehors, faites attention à la circulation, au terrain et à la météo, et gardez le volume de vos écouteurs assez bas pour entendre ce qui vous entoure. VVake n'est pas destinée aux enfants de moins de 13 ans.",
+    ],
+    accept:
+      "Les applications vous demandent d'accepter ce texte avant de commencer (« Je comprends et j'accepte d'être responsable de mes propres décisions »), puis à nouveau chaque fois qu'il change. Vous pouvez le relire à tout moment dans l'application : Toi › Réglages › Avertissement santé et sécurité.",
+    sections: [
+      {
+        id: "what",
+        h: "Ce qu'est VVake",
+        p: "VVake est une application de forme et de bien-être créée par l'équipe VVake. Ce n'est pas un dispositif médical. Elle ne diagnostique, ne traite et ne prévient aucune maladie, et rien de ce qu'elle contient ne constitue un avis médical.",
+      },
+      {
+        id: "suggestions",
+        h: "Tout est une suggestion",
+        p: "Votre plan, la séance du jour, le mouvement du jour, les quêtes de mouvement, les défis, City Clash, les rappels, les zones cardiaques, les points d'effort et les réponses du coach sont des suggestions pour vous aider à bouger. Les réponses du coach sont écrites par une IA : elles peuvent être fausses, incomplètes ou ne pas vous convenir, même lorsqu'elles semblent sûres.",
+      },
+      {
+        id: "data",
+        h: "Les données peuvent être fausses",
+        p: "La fréquence cardiaque, la distance, l'allure, les pas, le sommeil et les autres données de santé proviennent de capteurs, de votre téléphone, de votre montre et de l'app Santé d'Apple. Elles peuvent être inexactes, en retard ou manquantes, et elles changent avec le temps : les plans et les conseils qui en découlent peuvent donc être à côté. Certaines recommandations peuvent être fausses d'une manière que l'équipe VVake ne peut ni prévoir ni contrôler.",
+      },
+      {
+        id: "decide",
+        h: "C'est vous qui décidez",
+        p: "Vous connaissez votre corps mieux que personne. C'est vous qui décidez si, comment et à quelle intensité vous vous entraînez, et vous êtes responsable de vos propres décisions. Ne suivez jamais une suggestion qui ne vous semble pas bonne pour vous : plus facile, plus court ou un jour de repos, c'est toujours permis.",
+      },
+      {
+        id: "stop",
+        h: "Arrêtez-vous quand quelque chose ne va pas",
+        p: "Arrêtez-vous immédiatement si vous ressentez une douleur, une douleur ou une pression dans la poitrine, des vertiges ou un malaise, un essoufflement inhabituel, un cœur qui s'emballe ou bat de façon irrégulière, ou tout ce qui vous inquiète. Si cela semble grave, appelez les secours (911 en Amérique du Nord, 112 en Europe). Consultez un professionnel de santé avant de reprendre l'entraînement.",
+      },
+      {
+        id: "doctor",
+        h: "Consultez d'abord un médecin",
+        p: "Parlez-en à un médecin avant de commencer un nouveau plan d'entraînement ou de beaucoup modifier le vôtre, surtout si vous avez un problème cardiaque, pulmonaire, articulaire ou un autre problème de santé, une blessure, si vous êtes enceinte ou avez accouché récemment, si vous prenez un traitement ou si vous n'avez pas été actif depuis longtemps. L'avis d'un professionnel de santé passe toujours avant celui de VVake.",
+      },
+      {
+        id: "outside",
+        h: "Restez prudent dehors",
+        p: "Respectez le code de la route, faites attention à la circulation, aux terrains irréguliers et à la météo, restez visible dans le noir et gardez le volume de vos écouteurs assez bas pour entendre ce qui vous entoure. Ne regardez pas votre téléphone ou votre montre quand ce n'est pas sûr. Aucune série, aucune récompense, aucun défi ne vaut un risque.",
+      },
+      {
+        id: "age",
+        h: "Âge",
+        p: "VVake n'est pas destinée aux enfants de moins de 13 ans. Si vous n'avez pas atteint l'âge du consentement numérique là où vous vivez, un parent ou un tuteur doit donner son accord avant que vous l'utilisiez. Les objectifs de poids et les rappels de repas sont réservés aux adultes.",
+      },
+      {
+        id: "rewards",
+        h: "Récompenses",
+        p: "Les points et les prix $VVAKE récompensent l'effort et la régularité, jamais le fait de dépasser vos limites. Votre santé passe en premier.",
+      },
+      {
+        id: "changes",
+        h: "Modifications de ce texte",
+        p: "Quand ce texte change, les applications vous demandent de lire et d'accepter la nouvelle version. Rien dans ce texte ne vous retire les droits que vous accorde la loi là où vous vivez.",
+      },
+    ],
+    privacy: "Comment nous traitons vos données de santé :",
+    privacyLink: "Politique de confidentialité",
   },
   privacy: {
     title: "Politique de confidentialité",
@@ -2173,6 +2245,8 @@ export const fr: Dictionary = {
       "VVake (aussi appelée VVake Fit) est une application d'entraînement pour iPhone et Apple Watch, accompagnée du site vvake.com. Cette politique explique simplement quels renseignements nous recueillons, pourquoi, qui d'autre y a accès, combien de temps nous les gardons et ce que vous pouvez faire. Elle couvre les applications (y compris les versions d'essai TestFlight), l'API VVake avec laquelle elles communiquent, le compagnon de bureau pour Mac, le module VVake pour Claude Code et ce site, y compris vvake.com/rewards.",
       "VVake est une application d'entraînement et de mieux-être. Ce n'est pas un dispositif médical : elle ne pose aucun diagnostic et ne traite ni ne surveille aucun problème de santé.",
     ],
+    safety: "Dans VVake, les plans, les réponses du coach et les données de santé sont des suggestions, pas un avis médical. Lire",
+    safetyLink: "Santé, sécurité et votre responsabilité",
     summaryTitle: "En bref",
     summary: [
       "Aucune publicité, aucune vente de vos données, aucun pistage d'une application ou d'un site à l'autre.",
@@ -2696,6 +2770,8 @@ export const fr: Dictionary = {
     kicker: "Récompenses $VVAKE · testnet",
     heading: "Des prix pour avoir bougé, dans ton propre portefeuille",
     lead: "Chaque semaine, les points VV de tes séances comptées deviennent des $VVAKE que tu réclames toi-même auprès d'un contrat open source. VVake ne détient jamais tes tokens ni tes clés.",
+    health: "Les prix récompensent l'effort et la régularité, jamais le fait de dépasser tes limites : ta santé passe en premier.",
+    healthLink: "Santé et sécurité",
     testnet:
       "Robinhood Chain Testnet : ces tokens n'ont aucune valeur. Rien à acheter ici, et rien sur cette page n'est une offre ni un conseil en investissement.",
     scam: {
