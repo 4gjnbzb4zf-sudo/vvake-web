@@ -20,7 +20,11 @@ export function generateStaticParams() {
 }
 
 export const viewport: Viewport = {
-  themeColor: "#0e1012",
+  // The browser bar under System; an explicit Light/Dark pick on the site keeps the device's bar colour.
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#f5f6f4" },
+    { media: "(prefers-color-scheme: dark)", color: "#0e1012" },
+  ],
   colorScheme: "dark light",
 };
 

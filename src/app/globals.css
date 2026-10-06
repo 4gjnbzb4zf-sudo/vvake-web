@@ -115,7 +115,8 @@
 }
 
 /* ── Themes ───────────────────────────────────────────────────────────────────
- * Dark is the brand default (@theme above). <html data-theme="light"> swaps the neutrals and
+ * Dark is the brand default (@theme above); the visitor's System / Light / Dark choice (or the
+ * device's prefers-color-scheme under System) sets <html data-theme>. "light" swaps the neutrals and
  * the accent foregrounds; accent fills stay bright and keep dark ink on top. Any element can
  * pin a theme for its subtree (data-theme="dark" on phone and watch mockups, which are app
  * screens and stay dark like the watch app, docs/06-brand/identity.md).
@@ -146,25 +147,26 @@
   color: var(--color-text);
 }
 [data-theme="light"] {
-  --color-night: #f5f6f3;
-  --color-night-2: #eceee9;
+  /* The app's light palette (apps/mobile src/theme.ts lightColor): same neutrals and accent foregrounds. */
+  --color-night: #f5f6f4;
+  --color-night-2: #eceeeb;
   --color-surface: #ffffff;
-  --color-surface-2: #eef0ec;
-  --color-line: #d8dcd6;
-  --color-text: #14171a;
-  --color-muted: #4c545b;
-  --color-faint: #687077;
-  --color-pulse-fg: #d4144a;
+  --color-surface-2: #eef0ed;
+  --color-line: #d6dad6;
+  --color-text: #121518;
+  --color-muted: #454c52;
+  --color-faint: #5f666c;
+  --color-pulse-fg: #c8103f;
   --color-pulse-soft-fg: #c92c58;
-  --color-volt-fg: #4f6e00;
-  --color-calm-fg: #5550b8;
-  --color-up-fg: #1d8048;
-  --color-down-fg: #b64a26;
+  --color-volt-fg: #4a6a00;
+  --color-calm-fg: #5049a8;
+  --color-up-fg: #18703f;
+  --color-down-fg: #a63d17;
   --color-candy-fg: #b8336f;
-  --color-lilac-fg: #6a4fd6;
-  --color-butter-fg: #806500;
-  --color-mint-fg: #0d7d63;
-  --color-sky-fg: #1f67b8;
+  --color-lilac-fg: #5e44c4;
+  --color-butter-fg: #7d5800;
+  --color-mint-fg: #0b6e58;
+  --color-sky-fg: #1f5aa8;
   --color-olive-fg: #676227;
   --grid-line: rgb(14 16 18 / 0.05);
   color-scheme: light;

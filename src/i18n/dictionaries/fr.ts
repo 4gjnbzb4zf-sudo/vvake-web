@@ -25,8 +25,10 @@ export const fr: Dictionary = {
     currency: "Devise",
     sections: "Sections de la page",
     jump: "Aller à une section",
-    themeLight: "Passer au thème clair",
-    themeDark: "Passer au thème sombre",
+    theme: "Thème",
+    themeSystem: "Thème du système (suit ton appareil)",
+    themeLight: "Thème clair",
+    themeDark: "Thème sombre",
     style: "Style des VVakers",
     looks: { toy: "Toy", "athlete-a": "Athlète A", "athlete-b": "Athlète B" },
   },
@@ -2192,7 +2194,7 @@ export const fr: Dictionary = {
         list: [
           {
             t: "Votre compte.",
-            d: "Un identifiant de compte aléatoire, créé à la première ouverture de l'application (un compte invité, sans nom ni courriel). Si vous vous connectez : l'identifiant de votre compte Apple ou Google, votre adresse courriel (Se connecter avec Apple vous permet de la masquer derrière une adresse relais d'Apple) et votre nom si vous le donnez. Aussi votre nom d'affichage, votre VVaker (avatar), la ville que vous choisissez, votre fuseau horaire, votre langue et vos réglages du coach. Pourquoi : retrouver votre entraînement sur tous vos appareils et afficher votre nom aux personnes que vous défiez.",
+            d: "Un identifiant de compte aléatoire, créé à la première ouverture de l'application (un compte invité, sans nom ni courriel). Si vous vous connectez : l'identifiant de votre compte Apple ou Google, votre adresse courriel (Se connecter avec Apple vous permet de la masquer derrière une adresse relais d'Apple) et votre nom si vous le donnez. Aussi votre nom d'affichage, votre VVaker (avatar), la ville que vous choisissez, votre fuseau horaire, votre langue, votre thème (clair ou sombre) et vos réglages du coach. Pourquoi : retrouver votre entraînement sur tous vos appareils et afficher votre nom aux personnes que vous défiez.",
           },
           {
             t: "Vos appareils.",

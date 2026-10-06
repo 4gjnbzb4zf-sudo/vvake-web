@@ -38,6 +38,8 @@ import { isVaultBlob, passkeyRpId, type VaultBlob } from "@/lib/walletVault";
 import { chainRpc, OwnWalletGuide, PasskeyWallet, passkeyApi } from "./PasskeyWallet";
 import { ClaimItem, EntryChoice, SkillCard } from "./PrizeEntry";
 import { cn } from "@/lib/cn";
+import { ACCOUNT_LANG_TEXT, accountLangOffer } from "@/lib/accountPrefs";
+import { LOCALE_STORAGE_KEY } from "@/i18n/negotiate";
 
 type Dict = Dictionary["rewards"];
 
@@ -88,6 +90,19 @@ export function RewardsAccount({ dict, lang, apiUrl }: { dict: Dict; lang: Local
   const [now, setNow] = useState(0);
 
   const err = (e: unknown) => dict.errors[errorKey(e)];
+  // The account's language (set in the app, You → Settings): offered when this page is in the other one.
+  const [langOffer, setLangOffer] = useState<Locale | null>(null);
+  useEffect(() => {
+    if (auth !== "in") return;
+    let live = true;
+    session
+      .accountPrefs()
+      .then((p) => live && setLangOffer(accountLangOffer(lang, p)))
+      .catch(() => undefined); // an older API or offline: no offer
+    return () => {
+      live = false;
+    };
+  }, [auth, session, lang]);
 
   const load = useCallback(async () => {
     setLoadError(null);
@@ -460,6 +475,25 @@ export function RewardsAccount({ dict, lang, apiUrl }: { dict: Dict; lang: Local
       >
         {dict.signIn.signOut}
       </button>
+      {langOffer && (
+        <span lang={langOffer} className="flex flex-wrap items-center gap-2">
+          <span>{ACCOUNT_LANG_TEXT[langOffer].text}</span>
+          <a
+            href={`/${langOffer}/rewards/`}
+            hrefLang={langOffer}
+            onClick={() => {
+              try {
+                localStorage.setItem(LOCALE_STORAGE_KEY, langOffer);
+              } catch {
+                // storage unavailable: this visit only
+              }
+            }}
+            className="text-text underline underline-offset-4 hover:text-volt-fg"
+          >
+            {ACCOUNT_LANG_TEXT[langOffer].cta}
+          </a>
+        </span>
+      )}
     </div>
   );
 

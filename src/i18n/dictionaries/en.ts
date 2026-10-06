@@ -27,8 +27,10 @@ export const en = {
     currency: "Currency",
     sections: "Page sections",
     jump: "Jump to a section",
-    themeLight: "Switch to light theme",
-    themeDark: "Switch to dark theme",
+    theme: "Theme",
+    themeSystem: "System theme (follows your device)",
+    themeLight: "Light theme",
+    themeDark: "Dark theme",
     style: "VVaker style",
     looks: { toy: "Toy", "athlete-a": "Athlete A", "athlete-b": "Athlete B" },
   },
@@ -2036,7 +2038,7 @@ export const en = {
         list: [
           {
             t: "Your account.",
-            d: "A random account ID, created the first time you open the app (a guest account, with no name or e-mail). If you sign in: your Apple or Google account identifier, your e-mail address (Sign in with Apple lets you hide it behind an Apple relay address) and your name if you give it. Also your display name, your VVaker (avatar) choice, the home city you pick, your time zone, your language and your coach settings. Why: to keep your training across devices and show your name to the people you challenge.",
+            d: "A random account ID, created the first time you open the app (a guest account, with no name or e-mail). If you sign in: your Apple or Google account identifier, your e-mail address (Sign in with Apple lets you hide it behind an Apple relay address) and your name if you give it. Also your display name, your VVaker (avatar) choice, the home city you pick, your time zone, your language, your theme (light or dark) and your coach settings. Why: to keep your training across devices and show your name to the people you challenge.",
           },
           {
             t: "Your devices.",
