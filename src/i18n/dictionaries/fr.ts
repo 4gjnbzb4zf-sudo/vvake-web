@@ -2188,7 +2188,7 @@ export const fr: Dictionary = {
         id: "who",
         h: "Qui nous sommes",
         p: [
-          "VVake est exploitée par the VVake team, Montréal (Québec), Canada [CONFIRM : dénomination exacte, adresse et numéro d'entreprise du Québec (NEQ)]. the VVake team est responsable des renseignements personnels décrits ici.",
+          "VVake est exploitée par l'équipe VVake, responsable des renseignements personnels décrits ici.",
           "Personne responsable de la protection des renseignements personnels (Loi 25) : [CONFIRM : nom et titre]. Vous pouvez la joindre à {email} [CONFIRM : cette adresse existe et est consultée].",
         ],
         list: [],
@@ -2601,7 +2601,7 @@ export const fr: Dictionary = {
       {
         id: "contact",
         h: "Nous joindre",
-        p: ["Questions ou demandes : {email}, ou par la poste à the VVake team, [CONFIRM : adresse], Montréal (Québec), Canada."],
+        p: ["Questions ou demandes : {email}."],
         list: [],
       },
     ],

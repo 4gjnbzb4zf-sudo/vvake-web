@@ -2031,7 +2031,7 @@ export const en = {
         id: "who",
         h: "Who we are",
         p: [
-          "VVake is operated by the VVake team, Montréal, Québec, Canada [CONFIRM: exact legal name, street address and Québec enterprise number]. the VVake team is responsible for the personal information described here.",
+          "VVake is run by the VVake team, which is responsible for the personal information described here.",
           "Person in charge of the protection of personal information (Québec Law 25): [CONFIRM: name and title]. You can reach this person at {email} [CONFIRM: this mailbox exists and is monitored].",
         ],
         list: [],
@@ -2423,7 +2423,7 @@ export const en = {
       {
         id: "contact",
         h: "Contact",
-        p: ["Questions or requests: {email}, or by mail to the VVake team, [CONFIRM: street address], Montréal, Québec, Canada."],
+        p: ["Questions or requests: {email}."],
         list: [],
       },
     ],
