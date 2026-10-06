@@ -1,5 +1,5 @@
-import { describe, expect, it } from "vitest";
-import { ApiError, errorKey, isAppCode, isEmailCode, missingConditions } from "./rewardsApi";
+import { afterEach, describe, expect, it, vi } from "vitest";
+import { ApiError, errorKey, isAppCode, isEmailCode, missingConditions, RewardsSession } from "./rewardsApi";
 
 describe("rewards sign-in", () => {
   it("accepts the app's link codes and 6-digit e-mail codes", () => {
@@ -31,5 +31,49 @@ describe("prize eligibility", () => {
     expect(missingConditions(["something_new", "else"])).toEqual(["other"]);
     expect(missingConditions(undefined)).toEqual([]);
     expect(missingConditions(null)).toEqual([]);
+  });
+});
+
+describe("SEC-W13 the vault upload carries the six blob fields only", () => {
+  afterEach(() => vi.unstubAllGlobals());
+
+  it("SEC-W13 extra properties on the object (a key, a PRF output) are never sent", async () => {
+    const sent: { url: string; init: RequestInit }[] = [];
+    vi.stubGlobal("fetch", async (url: string, init: RequestInit) => {
+      sent.push({ url, init });
+      const body = JSON.parse(String(init.body)) as Record<string, unknown>;
+      return new Response(JSON.stringify({ vault: { ...body, createdAt: "2026-10-06T00:00:00Z" } }), { status: 201 });
+    });
+    const session = new RewardsSession("https://api.test");
+    (session as unknown as { access: string }).access = "token";
+    const blob = {
+      version: 1 as const,
+      credentialId: "a".repeat(22),
+      salt: "s",
+      iv: "i",
+      ciphertext: "c",
+      address: "0x" + "11".repeat(20),
+    };
+    await session.saveVault({ ...blob, privateKey: "0x" + "22".repeat(32), prf: "x" } as typeof blob);
+    expect(sent).toHaveLength(1);
+    expect(sent[0]!.url).toBe("https://api.test/v1/rewards/vault");
+    expect(sent[0]!.init.method).toBe("PUT");
+    expect(Object.keys(JSON.parse(String(sent[0]!.init.body))).sort()).toEqual([
+      "address",
+      "ciphertext",
+      "credentialId",
+      "iv",
+      "salt",
+      "version",
+    ]);
+  });
+
+  it("maps passkey errors to their messages", () => {
+    const named = (name: string) => Object.assign(new Error("x"), { name });
+    expect(errorKey(named("NotAllowedError"))).toBe("passkeyCancelled");
+    expect(errorKey(named("VaultLockedError"))).toBe("passkeyLocked");
+    expect(errorKey(named("PrfUnsupportedError"))).toBe("prfUnsupported");
+    expect(errorKey(named("NeedsGasError"))).toBe("needsGas");
+    expect(errorKey(named("LinkRefusedError"))).toBe("linkRefused");
   });
 });

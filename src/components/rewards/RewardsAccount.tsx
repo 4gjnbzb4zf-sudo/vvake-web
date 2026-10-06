@@ -20,7 +20,19 @@ import { ClaimRefusedError, planClaims } from "@/lib/claimTx";
 import { formatUnits, utf8ToHex } from "@/lib/eth";
 import { linkMessageProblems, readLinkMessage, type LinkMessageView, type LinkProblem } from "@/lib/linkMessage";
 import { explorerAddress, explorerTx, pickAddress, rewardsConfig, shortHex } from "@/lib/rewards-config";
-import { errorKey, isAppCode, isEmailCode, missingConditions, RewardsSession, type RewardEpoch, type Rewards } from "@/lib/rewardsApi";
+import { sendClaimWithVault, signLinkWithVault } from "@/lib/passkeyWallet";
+import {
+  errorKey,
+  isAppCode,
+  isEmailCode,
+  missingConditions,
+  RewardsSession,
+  type RewardEpoch,
+  type Rewards,
+  type StoredVault,
+} from "@/lib/rewardsApi";
+import { isVaultBlob, passkeyRpId, type VaultBlob } from "@/lib/walletVault";
+import { chainRpc, OwnWalletGuide, PasskeyWallet, passkeyApi } from "./PasskeyWallet";
 import { cn } from "@/lib/cn";
 
 type Dict = Dictionary["rewards"];
@@ -55,6 +67,10 @@ export function RewardsAccount({ dict, lang, apiUrl }: { dict: Dict; lang: Local
   const [adult, setAdult] = useState(false);
   // The link message, shown to the visitor before the wallet is asked to sign it (VV-07).
   const [review, setReview] = useState<LinkReviewState | null>(null);
+  // The passkey wallet: its encrypted blob from the API (undefined while loading), and this host's passkey rp.id.
+  const [vault, setVault] = useState<StoredVault | null | undefined>(undefined);
+  const [vaultError, setVaultError] = useState(false);
+  const [rpId, setRpId] = useState<string | null>(null);
 
   // Claims sent from this page, per epoch (a claimMany marks every epoch it carries).
   const [txs, setTxs] = useState<Record<number, Tx>>({});
@@ -93,6 +109,34 @@ export function RewardsAccount({ dict, lang, apiUrl }: { dict: Dict; lang: Local
       window.clearTimeout(id);
     };
   }, [load]);
+
+  useEffect(() => {
+    const id = window.setTimeout(() => setRpId(passkeyRpId(window.location.hostname)), 0);
+    return () => window.clearTimeout(id);
+  }, []);
+
+  // The passkey wallet's locked copy, once signed in (an API without the vault route just means "none yet").
+  useEffect(() => {
+    if (auth !== "in" || vault !== undefined) return;
+    let live = true;
+    session
+      .vault()
+      .then((v) => live && setVault(v))
+      .catch(() => {
+        if (!live) return;
+        setVault(null);
+        setVaultError(true);
+      });
+    return () => {
+      live = false;
+    };
+  }, [auth, vault, session]);
+
+  const vaultBlob: VaultBlob | null = vault && isVaultBlob(vault) ? ({ ...vault, version: 1 } as VaultBlob) : null;
+  const vaultSigner = () => {
+    const api = passkeyApi();
+    return api && rpId && vaultBlob ? { api, rpId, blob: vaultBlob } : null;
+  };
 
   // Follow account / network changes in the wallet.
   useEffect(() => {
@@ -163,7 +207,7 @@ export function RewardsAccount({ dict, lang, apiUrl }: { dict: Dict; lang: Local
       const challenge = await session.walletChallenge(account.toLowerCase());
       const view = readLinkMessage(challenge.message);
       const problems = linkMessageProblems(view, { account, chainId: rewardsConfig.chain.id, host: window.location.host });
-      setReview({ message: challenge.message, nonce: challenge.nonce, account, view, problems });
+      setReview({ message: challenge.message, nonce: challenge.nonce, account, view, problems, via: "injected" });
     } catch (e) {
       setWalletMsg(err(e));
     } finally {
@@ -171,17 +215,52 @@ export function RewardsAccount({ dict, lang, apiUrl }: { dict: Dict; lang: Local
     }
   }
 
-  /** Step 2, after the visitor read it: the wallet signs exactly the message shown. */
-  async function signLink() {
-    if (!wallet || !review || review.problems.length || !sameAddress(account, review.account)) return;
+  /** Step 1 for the passkey wallet: the same challenge and the same review, for the vault's address. */
+  async function preparePasskeyLink() {
+    if (!vaultBlob) return;
     if (!adult) {
       setWalletMsg(dict.wallet.adultFirst);
       return;
     }
     setBusy("link");
-    setWalletMsg(dict.wallet.signing);
+    setWalletMsg(null);
     try {
-      const signature = await signMessage(wallet, review.account, utf8ToHex(review.message));
+      const challenge = await session.walletChallenge(vaultBlob.address.toLowerCase());
+      const view = readLinkMessage(challenge.message);
+      const problems = linkMessageProblems(view, {
+        account: vaultBlob.address,
+        chainId: rewardsConfig.chain.id,
+        host: window.location.host,
+      });
+      setReview({ message: challenge.message, nonce: challenge.nonce, account: vaultBlob.address, view, problems, via: "passkey" });
+    } catch (e) {
+      setWalletMsg(err(e));
+    } finally {
+      setBusy(null);
+    }
+  }
+
+  /** Step 2, after the visitor read it: the wallet (or the passkey wallet) signs exactly the message shown. */
+  async function signLink() {
+    if (!review || review.problems.length) return;
+    const signer = review.via === "passkey" ? vaultSigner() : null;
+    if (
+      review.via === "passkey"
+        ? !signer || !sameAddress(signer.blob.address, review.account)
+        : !wallet || !sameAddress(account, review.account)
+    )
+      return;
+    if (!adult) {
+      setWalletMsg(dict.wallet.adultFirst);
+      return;
+    }
+    setBusy("link");
+    setWalletMsg(review.via === "passkey" ? dict.wallet.passkey.unlocking : dict.wallet.signing);
+    try {
+      // The passkey path re-checks the message with linkMessage.ts before the passkey is asked (passkeyWallet.ts).
+      const signature = signer
+        ? await signLinkWithVault(signer, review.message, window.location.host)
+        : await signMessage(wallet!, review.account, utf8ToHex(review.message));
       await session.linkWallet(review.nonce, signature, adult);
       setReview(null);
       setWalletMsg(dict.wallet.done);
@@ -207,19 +286,23 @@ export function RewardsAccount({ dict, lang, apiUrl }: { dict: Dict; lang: Local
     }
   }
 
-  /** Sends one claim (or one claimMany per address), then waits for the chain and reloads. */
+  /**
+   * Sends one claim (or one claimMany per address), then waits for the chain and reloads. From the connected browser
+   * wallet when there is one, else from the passkey wallet (signed with the passkey, sent to the public RPC).
+   */
   async function claim(epochs: RewardEpoch[]) {
-    if (!wallet || !account || !contract || !epochs.length) return;
+    const signer = wallet && account ? null : vaultSigner();
+    if ((!(wallet && account) && !signer) || !contract || !epochs.length) return;
     setBusy(epochs.length === 1 ? `claim-${epochs[0]!.epoch}` : "claim-all");
     setClaimMsg(null);
     try {
-      await ensureChain(wallet);
+      if (!signer) await ensureChain(wallet!);
       const proofs = await Promise.all(epochs.map((e) => session.proof(e.epoch)));
       // Target, calldata and value are decided locally (src/lib/claimTx.ts), never taken from the API (VV-06).
       const plan = planClaims(proofs);
       if (!plan.ok) throw new ClaimRefusedError(plan.reason);
       for (const tx of plan.txs) {
-        const hash = await sendClaimTransaction(wallet, account, tx);
+        const hash = signer ? await sendClaimWithVault(signer, chainRpc, tx) : await sendClaimTransaction(wallet!, account!, tx);
         const mark = (state: Tx["state"]) =>
           setTxs((prev) => ({ ...prev, ...Object.fromEntries(tx.epochs.map((n) => [n, { hash, state }])) }));
         mark("sent");
@@ -250,6 +333,13 @@ export function RewardsAccount({ dict, lang, apiUrl }: { dict: Dict; lang: Local
         {/* Same numbered sections as when signed in, so the page reads the same; they open after sign-in. */}
         <Section id="wallet" index={dict.wallet.index} kicker={dict.wallet.kicker} title={dict.wallet.title} lead={dict.wallet.lead}>
           <p className="mt-8 text-sm text-faint">{dict.signIn.first}</p>
+          <div className="mt-6 grid gap-4 lg:grid-cols-2">
+            <div className="rounded-2xl border border-line bg-surface/60 p-6 lg:col-span-2">
+              <p className="font-mono text-xs tracking-[0.16em] text-faint uppercase">{dict.wallet.passkey.title}</p>
+              <p className="mt-3 max-w-3xl text-sm leading-relaxed text-muted">{dict.wallet.passkey.intro}</p>
+            </div>
+            <OwnWalletGuide dict={dict.wallet.own} />
+          </div>
         </Section>
         <Section id="claim" index={dict.claim.index} kicker={dict.claim.kicker} title={dict.claim.title} lead={dict.claim.lead}>
           <Eligibility dict={dict.mine} />
@@ -459,7 +549,7 @@ export function RewardsAccount({ dict, lang, apiUrl }: { dict: Dict; lang: Local
                       />
                       <span>{dict.wallet.adult}</span>
                     </label>
-                    {review && sameAddress(review.account, account) ? (
+                    {review && review.via === "injected" && sameAddress(review.account, account) ? (
                       <LinkReview
                         dict={dict.wallet.review}
                         review={review}
@@ -489,6 +579,41 @@ export function RewardsAccount({ dict, lang, apiUrl }: { dict: Dict; lang: Local
               </p>
             )}
           </div>
+
+          <PasskeyWallet
+            dict={dict.wallet}
+            claimDict={dict.claim}
+            errors={dict.errors}
+            session={session}
+            vault={vault}
+            vaultError={vaultError}
+            onVault={(v) => {
+              setVault(v);
+              setVaultError(false);
+              if (review?.via === "passkey") setReview(null);
+            }}
+            rpId={rpId}
+            linked={linked?.address ?? null}
+            adult={adult}
+            onAdult={setAdult}
+            onLink={() => void preparePasskeyLink()}
+            busy={busy !== null}
+            lang={lang}
+            review={
+              review && review.via === "passkey" && vaultBlob && sameAddress(review.account, vaultBlob.address) ? (
+                <LinkReview
+                  dict={dict.wallet.review}
+                  review={review}
+                  who={who}
+                  host={typeof window === "undefined" ? "" : window.location.host}
+                  busy={busy !== null}
+                  onSign={() => void signLink()}
+                  onCancel={() => setReview(null)}
+                />
+              ) : null
+            }
+          />
+          <OwnWalletGuide dict={dict.wallet.own} />
         </div>
       </Section>
 
@@ -501,7 +626,8 @@ export function RewardsAccount({ dict, lang, apiUrl }: { dict: Dict; lang: Local
             <p className="text-muted">{dict.claim.nothing}</p>
           ) : (
             <>
-              {!account && <p className="mb-4 text-sm text-butter-fg">{dict.claim.connectFirst}</p>}
+              {!account && !vaultBlob && <p className="mb-4 text-sm text-butter-fg">{dict.claim.connectFirst}</p>}
+              {!account && vaultBlob && <p className="mb-4 text-sm text-muted">{dict.wallet.passkey.claimNote}</p>}
               <ul className="space-y-3">
                 {open.map((e) => (
                   <li
@@ -512,7 +638,7 @@ export function RewardsAccount({ dict, lang, apiUrl }: { dict: Dict; lang: Local
                       <p className="font-display font-semibold">
                         {date(e.startsAt)} · {e.amount} VVAKE
                       </p>
-                      {account && !sameAddress(account, e.address) && (
+                      {(account ?? vaultBlob?.address) && !sameAddress(account ?? vaultBlob?.address, e.address) && (
                         <p className="mt-1 text-sm text-faint">{format(dict.claim.otherAddress, { address: shortHex(e.address) })}</p>
                       )}
                       {txs[e.epoch] && <TxLink tx={txs[e.epoch]!} dict={dict.claim} />}
@@ -520,7 +646,7 @@ export function RewardsAccount({ dict, lang, apiUrl }: { dict: Dict; lang: Local
                     <button
                       type="button"
                       className={buttonClass("primary")}
-                      disabled={!account || busy !== null || txs[e.epoch]?.state === "sent"}
+                      disabled={(!account && !vaultBlob) || busy !== null || txs[e.epoch]?.state === "sent"}
                       onClick={() => void claim([e])}
                     >
                       {dict.claim.one}
@@ -532,7 +658,7 @@ export function RewardsAccount({ dict, lang, apiUrl }: { dict: Dict; lang: Local
                 <button
                   type="button"
                   className={cn(buttonClass("ghost"), "mt-5")}
-                  disabled={!account || busy !== null}
+                  disabled={(!account && !vaultBlob) || busy !== null}
                   onClick={() => void claim(open)}
                 >
                   {format(dict.claim.all, { count: open.length })}
@@ -570,6 +696,8 @@ interface LinkReviewState {
   account: string;
   view: LinkMessageView;
   problems: LinkProblem[];
+  /** Who signs: the connected browser wallet, or the passkey wallet. */
+  via: "injected" | "passkey";
 }
 
 /** The link message's key lines and full text, before the wallet signs it (VV-07). */

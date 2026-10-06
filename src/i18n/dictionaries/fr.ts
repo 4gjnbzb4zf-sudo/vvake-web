@@ -2722,6 +2722,91 @@ export const fr: Dictionary = {
         cancel: "Annuler",
         mismatch: "Ce message ne correspond pas à ton portefeuille, à ce réseau ou à ce site : il ne sera pas signé. Rien n'a été envoyé.",
       },
+      passkey: {
+        title: "Un portefeuille avec ta clé d'accès",
+        intro:
+          "Pas d'extension ni de phrase de récupération à noter : VVake crée un portefeuille dans ce navigateur et verrouille sa clé avec une clé d'accès (passkey : Face ID, Touch ID, le code de ton appareil ou une clé de sécurité). Les serveurs de VVake ne gardent que la copie verrouillée et ne peuvent pas l'ouvrir. Ta clé d'accès se synchronise avec ton compte Apple ou Google : le portefeuille te suit sur tes autres appareils.",
+        create: "Créer mon portefeuille avec Face ID / clé d'accès",
+        creating: "Suis les instructions de ton appareil pour créer la clé d'accès…",
+        created: "Portefeuille créé. Lie-le pour recevoir des prix.",
+        retrySave: "Réessayer d'enregistrer mon portefeuille verrouillé",
+        unavailable:
+          "Les portefeuilles à clé d'accès marchent sur vvake.com dans un navigateur récent (Safari, Chrome, Edge, Firefox). Tu peux utiliser ton propre portefeuille à la place.",
+        prfUnsupported:
+          "Ce navigateur ou cette clé d'accès ne peut pas verrouiller un portefeuille (il lui manque la fonction WebAuthn PRF) : rien n'a été créé. Essaie Safari sur iPhone ou Mac, ou Chrome avec le Gestionnaire de mots de passe de Google, ou utilise ton propre portefeuille plus bas.",
+        loadError: "Impossible de charger ton portefeuille à clé d'accès pour le moment.",
+        address: "Ton portefeuille à clé d'accès",
+        copy: "Copier",
+        copied: "Copié",
+        balances: "{eth} ETH de testnet · {vvake} VVAKE",
+        needsGas:
+          "Il faut du gaz : réclamer et transférer coûte un peu d'ETH de testnet, payé par ce portefeuille. Envoie d'abord un peu d'ETH de testnet à l'adresse ci-dessus (depuis un faucet de testnet ou un autre de tes portefeuilles).",
+        gasOk: "Assez d'ETH de testnet pour le gaz.",
+        link: "Lier mon portefeuille à clé d'accès",
+        linked: "Ton portefeuille à clé d'accès est ton portefeuille lié.",
+        unlocking: "Confirme avec ta clé d'accès…",
+        claimNote:
+          "Aucun portefeuille de navigateur connecté : les réclamations sont signées avec ta clé d'accès et envoyées depuis ton portefeuille à clé d'accès, qui paie le gaz.",
+        export: {
+          button: "Exporter ma clé",
+          title: "Avant de voir ta clé privée",
+          warning:
+            "Toute personne qui a cette clé contrôle tes prix. Ne la partage jamais, ne la colle jamais dans un site, une discussion ou un formulaire. VVake ne te la demandera jamais. Ne l'exporte que pour passer ce portefeuille dans une app de portefeuille de confiance (Rabby, MetaMask, un portefeuille matériel).",
+          wait: "Tu pourras continuer dans {s} s.",
+          reveal: "Afficher ma clé (clé d'accès)",
+          shown: "Ta clé privée, affichée une seule fois. Copie-la tout de suite dans ton app de portefeuille :",
+          copy: "Copier la clé",
+          hide: "La masquer",
+          cancel: "Annuler",
+        },
+        move: {
+          button: "Déplacer mes prix vers mon propre portefeuille",
+          title: "Passer à ton propre portefeuille",
+          intro:
+            "Deux étapes. 1 : lie plutôt ton propre portefeuille (connecte-le à droite et lie-le), pour que les prochaines semaines y aillent. 2 : envoie-lui les VVAKE que ce portefeuille à clé d'accès détient.",
+          to: "L'adresse de ton propre portefeuille",
+          amount: "VVAKE à envoyer",
+          max: "Tout",
+          review: "Vérifier",
+          confirmTitle: "Vérifie avant d'envoyer",
+          from: "De",
+          toLabel: "Vers",
+          amountLabel: "Montant",
+          gas: "Le gaz est payé en ETH de testnet par le portefeuille à clé d'accès. Un transfert ne peut pas être annulé.",
+          send: "Envoyer avec ma clé d'accès",
+          cancel: "Annuler",
+          sent: "Transfert confirmé.",
+          errors: {
+            address: "Ce n'est pas une adresse de portefeuille.",
+            checksum:
+              "Cette adresse contient une faute de frappe (sa somme de contrôle ne correspond pas). Recopie-la depuis ton portefeuille.",
+            zero: "C'est l'adresse zéro : les tokens envoyés là sont perdus pour toujours.",
+            self: "C'est ce même portefeuille.",
+            contract: "C'est un contrat VVake, pas un portefeuille. Colle l'adresse de ton propre portefeuille.",
+            amount: "Indique un montant que ce portefeuille détient.",
+          },
+        },
+        delete: {
+          button: "Supprimer ce portefeuille de VVake",
+          ack: "J'ai exporté ma clé ou déplacé mes prix. Je comprends que VVake ne pourra pas récupérer ce portefeuille ensuite.",
+          confirm:
+            "Supprimer la copie verrouillée des serveurs de VVake ? Sans elle, ce portefeuille ne pourra plus être ouvert sur vvake.com, et VVake ne pourra pas le récupérer.",
+          done: "Supprimé des serveurs de VVake. La clé d'accès est peut-être encore dans ton gestionnaire de mots de passe : tu peux l'y supprimer.",
+          stillLinked: "Cette adresse reste ton portefeuille lié tant que tu n'en lies pas un autre ou que tu ne la délies pas.",
+        },
+      },
+      own: {
+        title: "Utiliser mon propre portefeuille",
+        intro:
+          "Tu préfères garder les clés toi-même ? N'importe quel portefeuille que tu contrôles marche, et c'est l'option la plus sûre pour tout ce qui a de la valeur.",
+        steps: [
+          "Installe Rabby (rabby.io) ou MetaMask (metamask.io) depuis son site officiel. Pour plus de sécurité, utilise un portefeuille matériel comme Ledger à travers l'un d'eux.",
+          "Écris ta phrase de récupération sur papier et garde-la hors ligne, en lieu sûr. Ne la tape jamais dans un site, une discussion, un formulaire ou une photo ; ne la partage avec personne.",
+          "Ajoute Robinhood Chain Testnet : chain ID 46630, RPC https://rpc.testnet.chain.robinhood.com, explorateur https://explorer.testnet.chain.robinhood.com, monnaie ETH. « Connecter un portefeuille » plus haut peut l'ajouter pour toi.",
+          "Connecte-le plus haut, confirme que tu as 18 ans ou plus, et lie-le avec une signature gratuite.",
+        ],
+        never: "VVake ne te demandera jamais ta phrase de récupération ni ta clé privée : ni par e-mail, ni au support, ni sur cette page.",
+      },
     },
     claim: {
       index: "03",
@@ -2810,6 +2895,14 @@ export const fr: Dictionary = {
       claimRefused:
         "Rien n'a été envoyé : les serveurs de VVake indiquaient un autre contrat, un autre réseau ou une réclamation invalide. Les réclamations ne vont qu'au contrat de récompenses affiché sur cette page. Réessaie plus tard.",
       generic: "Un problème est survenu. Réessaie.",
+      passkeyCancelled: "Rien n'a été signé ni envoyé : la fenêtre de la clé d'accès a été fermée.",
+      passkeyLocked:
+        "Cette clé d'accès n'ouvre pas ce portefeuille. Utilise celle avec laquelle tu l'as créé (même compte Apple ou Google).",
+      prfUnsupported:
+        "Ce navigateur ou cette clé d'accès ne peut pas ouvrir un portefeuille à clé d'accès. Essaie Safari, ou Chrome avec le Gestionnaire de mots de passe de Google.",
+      needsGas: "Ce portefeuille a d'abord besoin d'un peu d'ETH de testnet pour le gaz. Rien n'a été signé ni envoyé.",
+      linkRefused: "Le message de liaison ne correspondait pas à ce portefeuille, à ce réseau ou à ce site : rien n'a été signé.",
+      vaultTaken: "Ce compte a déjà un portefeuille à clé d'accès.",
     },
     trees: {
       index: "06",

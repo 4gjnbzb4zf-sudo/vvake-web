@@ -19,6 +19,8 @@
     "format:check": "prettier --check ."
   },
   "dependencies": {
+    "@noble/curves": "2.4.0",
+    "@noble/hashes": "2.4.0",
     "d3-geo": "^3.1.1",
     "next": "16.3.6",
     "react": "19.2.8",

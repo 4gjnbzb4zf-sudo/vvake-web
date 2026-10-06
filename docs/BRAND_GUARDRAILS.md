@@ -30,10 +30,20 @@ keys or funds because of a VVake page.
 **Wallets**
 
 - Wallet connection is allowed **only on vvake.com/rewards** (`/[lang]/rewards/`), nowhere else on the site.
-- Only an injected wallet the visitor owns (browser extension or a wallet app's browser). We ask it for two things
-  only: a free `personal_sign` of our link message, and the visitor's own `claim` / `claimMany` transaction.
-- We never ask for, accept or display a seed phrase, recovery phrase or private key, in any form, field or support
-  reply. The rewards page says so next to the connect button.
+- Either an injected wallet the visitor owns (browser extension or a wallet app's browser), or the **passkey
+  wallet** (founder decision 2026-10-06, open source, no wallet service): a key created in the visitor's browser and
+  locked with their passkey (WebAuthn PRF → HKDF → AES-256-GCM). VVake's servers keep only the locked copy and can't
+  open it, so VVake still never holds keys or funds. Either wallet is asked for three things only: a free
+  `personal_sign` of our link message, the visitor's own `claim` / `claimMany` transaction, and (passkey wallet only,
+  on request) a VVAKE `transfer` to the visitor's own wallet.
+- No passkey PRF support means no passkey wallet: never offer a weaker fallback (password, key in browser storage).
+  Point to "Use my own wallet" instead.
+- We never ask for or accept a seed phrase, recovery phrase or private key, in any form, field or support reply. The
+  rewards page says so next to the connect button. The only place a key is ever displayed is the passkey wallet's
+  "Export my key": the visitor's own key, behind a fresh passkey prompt and a 10-second warning ("anyone with this
+  key controls your prizes; never share it; VVake will never ask for it"), never sent anywhere.
+- Say "passkey" / "clé d'accès", "locked copy" / "copie verrouillée". Never call the passkey wallet custodial, an
+  account balance or a VVake wallet that holds funds for people.
 - VVake never custodies tokens and never holds funds for anyone: no in-app balance, no deposit address, no
   withdrawals, no "send us tokens". Prizes go from the contract straight to the address in the weekly list.
 

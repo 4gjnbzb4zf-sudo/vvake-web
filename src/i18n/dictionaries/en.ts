@@ -2536,6 +2536,89 @@ export const en = {
         cancel: "Cancel",
         mismatch: "This message doesn't match your wallet, this network or this site, so it won't be signed. Nothing was sent.",
       },
+      passkey: {
+        title: "A wallet with your passkey",
+        intro:
+          "No extension and no recovery phrase to write down: VVake creates a wallet in this browser and locks its key with a passkey (Face ID, Touch ID, your device PIN or a security key). VVake's servers keep only the locked copy and can't open it. Your passkey syncs with your Apple or Google account, so the wallet follows you to your other devices.",
+        create: "Create my wallet with Face ID / passkey",
+        creating: "Follow your device's prompt to create the passkey…",
+        created: "Wallet created. Link it to receive prizes.",
+        retrySave: "Save my locked wallet again",
+        unavailable:
+          "Passkey wallets work on vvake.com in a recent browser (Safari, Chrome, Edge, Firefox). You can use your own wallet instead.",
+        prfUnsupported:
+          "This browser or this passkey can't lock a wallet (it lacks the WebAuthn PRF feature), so nothing was created. Try Safari on iPhone or Mac, or Chrome with Google Password Manager, or use your own wallet below.",
+        loadError: "Your passkey wallet can't be loaded right now.",
+        address: "Your passkey wallet",
+        copy: "Copy",
+        copied: "Copied",
+        balances: "{eth} testnet ETH · {vvake} VVAKE",
+        needsGas:
+          "Needs gas: claims and transfers cost a little testnet ETH, paid by this wallet. Send some testnet ETH to the address above first (from a testnet faucet or another wallet of yours).",
+        gasOk: "Enough testnet ETH for gas.",
+        link: "Link my passkey wallet",
+        linked: "Your passkey wallet is your linked wallet.",
+        unlocking: "Confirm with your passkey…",
+        claimNote:
+          "No browser wallet connected: claims are signed with your passkey and sent from your passkey wallet, which pays the gas.",
+        export: {
+          button: "Export my key",
+          title: "Before you see your private key",
+          warning:
+            "Anyone with this key controls your prizes. Never share it, never paste it into a website, a chat or a form. VVake will never ask for it. Only export it to move this wallet into a wallet app you trust (Rabby, MetaMask, a hardware wallet).",
+          wait: "You can continue in {s} s.",
+          reveal: "Show my key (passkey)",
+          shown: "Your private key, shown once. Copy it into your wallet app now:",
+          copy: "Copy the key",
+          hide: "Hide it",
+          cancel: "Cancel",
+        },
+        move: {
+          button: "Move my prizes to my own wallet",
+          title: "Move to your own wallet",
+          intro:
+            "Two steps. 1: link your own wallet instead (connect it on the right and link it), so future weeks go there. 2: send the VVAKE this passkey wallet holds to that wallet.",
+          to: "Your own wallet's address",
+          amount: "VVAKE to send",
+          max: "All",
+          review: "Review",
+          confirmTitle: "Check before sending",
+          from: "From",
+          toLabel: "To",
+          amountLabel: "Amount",
+          gas: "Gas is paid in testnet ETH by the passkey wallet. A transfer can't be undone.",
+          send: "Send with my passkey",
+          cancel: "Cancel",
+          sent: "Transfer confirmed.",
+          errors: {
+            address: "That isn't a wallet address.",
+            checksum: "This address has a typo (its checksum doesn't match). Copy it again from your wallet.",
+            zero: "That's the zero address: tokens sent there are lost forever.",
+            self: "That's this same wallet.",
+            contract: "That's a VVake contract, not a wallet. Paste your own wallet's address.",
+            amount: "Enter an amount this wallet holds.",
+          },
+        },
+        delete: {
+          button: "Delete this wallet from VVake",
+          ack: "I exported my key or moved my prizes. I understand VVake can't recover this wallet after this.",
+          confirm:
+            "Delete the locked copy from VVake's servers? Without it this wallet can't be opened on vvake.com again, and VVake can't recover it.",
+          done: "Deleted from VVake's servers. The passkey may still be listed in your password manager; you can remove it there.",
+          stillLinked: "This address stays your linked wallet until you link another one or unlink it.",
+        },
+      },
+      own: {
+        title: "Use my own wallet",
+        intro: "Prefer to hold the keys yourself? Any wallet you control works, and it's the safest option for anything of value.",
+        steps: [
+          "Install Rabby (rabby.io) or MetaMask (metamask.io) from its official site. For more safety, use a hardware wallet such as Ledger through one of them.",
+          "Write your recovery phrase on paper and keep it offline, somewhere safe. Never type it into a website, a chat, a form or a photo; never share it with anyone.",
+          'Add Robinhood Chain Testnet: chain ID 46630, RPC https://rpc.testnet.chain.robinhood.com, explorer https://explorer.testnet.chain.robinhood.com, currency ETH. "Connect a wallet" above can add it for you.',
+          "Connect it above, confirm you're 18 or older, and link it with a free signature.",
+        ],
+        never: "VVake will never ask for your recovery phrase or your private key: not by e-mail, not in support, not on this page.",
+      },
     },
     claim: {
       index: "03",
@@ -2623,6 +2706,12 @@ export const en = {
       claimRefused:
         "Nothing was sent: VVake's servers pointed to another contract, another network or a malformed claim. Claims only go to the rewards contract shown on this page. Try again later.",
       generic: "Something went wrong. Try again.",
+      passkeyCancelled: "Nothing was signed or sent: the passkey prompt was closed.",
+      passkeyLocked: "This passkey can't open this wallet. Use the passkey you created it with (same Apple or Google account).",
+      prfUnsupported: "This browser or passkey can't open a passkey wallet. Try Safari, or Chrome with Google Password Manager.",
+      needsGas: "This wallet needs a little testnet ETH for gas first. Nothing was signed or sent.",
+      linkRefused: "The link message didn't match this wallet, this network or this site, so nothing was signed.",
+      vaultTaken: "This account already has a passkey wallet.",
     },
     trees: {
       index: "06",

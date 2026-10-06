@@ -1,5 +1,6 @@
 import * as z from "zod/mini";
 import { ClaimRefusedError } from "./claimTx";
+import { VAULT_FIELDS, type VaultBlob } from "./walletVault";
 
 /**
  * The VVake API calls of vvake.com/rewards (contract: monorepo docs/05-tech/api-v1.md, "Auth" and "Rewards").
@@ -111,6 +112,18 @@ const proofSchema = z.object({
 export type Proof = z.infer<typeof proofSchema>;
 
 const challengeSchema = z.object({ message: z.string(), nonce: z.string(), expiresAt: z.string() });
+/** The passkey wallet's encrypted blob (GET/PUT /v1/rewards/vault); checked field by field before use (isVaultBlob). */
+const vaultBlobSchema = z.object({
+  version: z.literal(1),
+  credentialId: z.string(),
+  salt: z.string(),
+  iv: z.string(),
+  ciphertext: z.string(),
+  address: z.string(),
+  createdAt: z.optional(z.string()),
+});
+const vaultSchema = z.object({ vault: z.nullable(vaultBlobSchema) });
+export type StoredVault = z.infer<typeof vaultBlobSchema>;
 const walletSchema = z.object({ wallet: z.object({ address: z.string(), linkedAt: z.string() }) });
 
 const publicEpochSchema = z.object({
@@ -303,6 +316,23 @@ export class RewardsSession {
   unlinkWallet() {
     return this.authed("/v1/rewards/wallet", { method: "DELETE" }, null);
   }
+
+  /** The passkey wallet's encrypted blob, or null. */
+  async vault(): Promise<StoredVault | null> {
+    return (await this.authed("/v1/rewards/vault", { method: "GET" }, vaultSchema)).vault;
+  }
+
+  /** Stores the encrypted blob: exactly the six vault fields (VAULT_FIELDS), nothing else is ever sent. */
+  async saveVault(blob: VaultBlob): Promise<StoredVault> {
+    const only = Object.fromEntries(VAULT_FIELDS.map((k) => [k, blob[k]]));
+    const res = await this.authed("/v1/rewards/vault", { method: "PUT", body: JSON.stringify(only) }, vaultSchema);
+    if (!res.vault) throw new ApiError(500, "bad_response", "bad_response");
+    return res.vault;
+  }
+
+  deleteVault() {
+    return this.authed("/v1/rewards/vault", { method: "DELETE" }, null);
+  }
 }
 
 /** GET /v1/rewards/epochs/:n (public): one week's whole tree, or null when that week wasn't built. */
@@ -331,11 +361,24 @@ export type ErrorKey =
   | "notFound"
   | "network"
   | "claimRefused"
+  | "passkeyCancelled"
+  | "passkeyLocked"
+  | "prfUnsupported"
+  | "needsGas"
+  | "linkRefused"
+  | "vaultTaken"
   | "generic";
 
 /** Which message to show for an API or wallet error (the API's own messages are English only). */
 export function errorKey(e: unknown): ErrorKey {
   if (e instanceof ClaimRefusedError) return "claimRefused";
+  // The passkey wallet (src/lib/walletVault.ts, passkeyWallet.ts) and WebAuthn itself (a closed prompt).
+  const name = e && typeof e === "object" && "name" in e ? String((e as { name: unknown }).name) : "";
+  if (name === "NotAllowedError" || name === "AbortError") return "passkeyCancelled";
+  if (name === "VaultLockedError") return "passkeyLocked";
+  if (name === "PrfUnsupportedError") return "prfUnsupported";
+  if (name === "NeedsGasError") return "needsGas";
+  if (name === "LinkRefusedError") return "linkRefused";
   if (e && typeof e === "object" && "code" in e && Number((e as { code: unknown }).code) === 4001) return "walletRefused";
   if (!(e instanceof ApiError)) return "generic";
   if (e.code === "network") return "network";
