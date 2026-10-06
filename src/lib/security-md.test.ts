@@ -12,7 +12,7 @@ const md = readFileSync(join(__dirname, "..", "..", "SECURITY.md"), "utf8");
  */
 const ALLOWED_HOSTS = new Set([
   "vvake.com",
-  new URL(siteConfig.apiUrl).host, // vvake-api.simon-54e.workers.dev
+  new URL(siteConfig.apiUrl).host, // vvake-api.val-54e.workers.dev
   new URL(rewardsConfig.chain.explorerUrl).host,
   "github.com",
 ]);

@@ -19,7 +19,7 @@ export const siteConfig = {
    * VVake API (services/api in the monorepo). Used by the challenge page (/[lang]/c/) to preview who sent the
    * invite (the page works without it) and by the rewards page (/[lang]/rewards/: sign-in, weeks, wallet, proofs).
    */
-  apiUrl: (process.env.NEXT_PUBLIC_API_URL ?? "https://vvake-api.simon-54e.workers.dev").replace(/\/$/, ""),
+  apiUrl: (process.env.NEXT_PUBLIC_API_URL ?? "https://vvake-api.val-54e.workers.dev").replace(/\/$/, ""),
   /** Custom URL scheme of the iOS app (fallback when universal links don't open it). */
   appScheme: "vvake",
   /**

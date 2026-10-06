@@ -7,7 +7,7 @@ const ROOT = join(__dirname, "..", "..");
 const OUT = join(ROOT, "out");
 
 const cfg: CspConfig = {
-  apiUrl: "https://vvake-api.simon-54e.workers.dev",
+  apiUrl: "https://vvake-api.val-54e.workers.dev",
   rpcUrl: "https://rpc.testnet.chain.robinhood.com",
   waitlistEndpoint: "",
   liveEndpoint: "",
@@ -88,13 +88,13 @@ describe("VV-12 Content-Security-Policy", () => {
       .filter((f) => /\bfetch(Impl)?\(/.test(readFileSync(f, "utf8")))
       .map((f) => relative(ROOT, f));
     expect(fetching.sort()).toEqual(Object.keys(sources).sort());
-    const live = { ...cfg, waitlistEndpoint: "https://vvake-waitlist.simon-54e.workers.dev", liveEndpoint: "https://l.example.dev" };
+    const live = { ...cfg, waitlistEndpoint: "https://vvake-waitlist.val-54e.workers.dev", liveEndpoint: "https://l.example.dev" };
     const allowed = parseCsp(buildCsp([], live))["connect-src"]!;
     for (const [file, url] of Object.entries(sources)) {
       const u = url(live);
       if (u) expect(allowed, file).toContain(new URL(u).origin);
     }
-    expect(connectOrigins()).toContain("https://vvake-api.simon-54e.workers.dev");
+    expect(connectOrigins()).toContain("https://vvake-api.val-54e.workers.dev");
     expect(connectOrigins()).toContain("https://rpc.testnet.chain.robinhood.com");
   });
 });

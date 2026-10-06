@@ -12,7 +12,7 @@ token approval. A prize claim only calls `claim()` (or `claimMany()`) on the rew
 Anything not on this list is not VVake.
 
 - Website: `vvake.com` (the only official domain). Prizes are claimed only on `https://vvake.com/rewards`.
-- API: `https://vvake-api.simon-54e.workers.dev` (the only API host).
+- API: `https://vvake-api.val-54e.workers.dev` (the only API host).
 - Contracts on Robinhood Chain Testnet (chain ID 46630, explorer `https://explorer.testnet.chain.robinhood.com`):
   - VVakeRewards (weekly prize claims): `0xEF0D0c1c32D56A50dc1addc6471772F9E4a2aE0F`
   - VVakePrizePool: `0xDb99d6C7a5866a20705116d6a1a299A951d9C39C`

@@ -74,7 +74,7 @@ paths `/c/*`, plus `webcredentials` for the same app).
   HTTP 404, so link previews (iMessage, WhatsApp) show the generic 404 title; a Cloudflare Redirect Rule
   (`/c/*` → `/en/c/#…`) or a real host route would fix that later.
 - **Preview of the invite:** the page calls `GET {NEXT_PUBLIC_API_URL}/v1/challenges/code/<code>` in the browser
-  (default `https://vvake-api.simon-54e.workers.dev`). Today that route needs a signed-in user and the API only allows
+  (default `https://vvake-api.val-54e.workers.dev`). Today that route needs a signed-in user and the API only allows
   the origins in `ALLOWED_ORIGINS`, so the page shows the code without the sender. To show "Leo challenged you", make
   the route public (it only returns a display name and the challenge terms) and add `https://vvake.com` to
   `ALLOWED_ORIGINS`.
