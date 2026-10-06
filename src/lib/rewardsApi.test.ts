@@ -202,3 +202,60 @@ describe("SEC-W13 the vault upload carries the six blob fields only", () => {
     expect(errorKey(named("LinkRefusedError"))).toBe("linkRefused");
   });
 });
+
+describe("VVaker ownership calls (monorepo ADR-0026)", () => {
+  afterEach(() => vi.unstubAllGlobals());
+
+  function stub(reply: (url: string) => Response) {
+    const sent: string[] = [];
+    vi.stubGlobal("fetch", async (url: string) => {
+      sent.push(url);
+      return reply(url);
+    });
+    const session = new RewardsSession("https://api.test");
+    (session as unknown as { access: string }).access = "token";
+    return { sent, session };
+  }
+  const json = (body: unknown, status = 200) => new Response(JSON.stringify(body), { status });
+
+  it("asks whose a look is, with the nearest free one when it's someone else's", async () => {
+    const { sent, session } = stub(() =>
+      json({ feature: true, current: null, pending: null, rendersLeft: 1, owner: "someone", suggestion: "VVP-e30000-12-8" }),
+    );
+    expect(await session.vvakerOwner("VVP-e30000-10-8")).toEqual({ owner: "someone", suggestion: "VVP-e30000-12-8" });
+    expect(sent[0]).toBe("https://api.test/v1/vvaker?code=VVP-e30000-10-8");
+  });
+
+  it("lists my VVakers, and fetches only the API's own render paths (never another URL)", async () => {
+    const { sent, session } = stub((url) =>
+      url.endsWith("/mine")
+        ? json({
+            vvakers: [
+              {
+                code: "VVP-e30000-10-8",
+                claimedAt: "x",
+                current: true,
+                renders: [
+                  {
+                    id: "a".repeat(32),
+                    status: "ready",
+                    createdAt: "2026-10-06",
+                    imageUrl: `/v1/vvaker/renders/${"a".repeat(32)}.png`,
+                    current: true,
+                  },
+                ],
+              },
+            ],
+          })
+        : new Response(new Uint8Array([0x89, 0x50, 0x4e, 0x47]), { headers: { "content-type": "image/png" } }),
+    );
+    const mine = await session.myVVakers();
+    expect(mine[0]!.renders[0]!.current).toBe(true);
+    expect(await session.vvakerImage("https://evil.example/x.png")).toBeNull();
+    expect(await session.vvakerImage("/v1/vvaker/renders/../../x.png")).toBeNull();
+    expect(sent).toEqual(["https://api.test/v1/vvaker/mine"]);
+    const src = await session.vvakerImage(mine[0]!.renders[0]!.imageUrl!);
+    expect(src?.startsWith("data:image/png")).toBe(true);
+    expect(sent[1]).toBe(`https://api.test/v1/vvaker/renders/${"a".repeat(32)}.png`);
+  });
+});
