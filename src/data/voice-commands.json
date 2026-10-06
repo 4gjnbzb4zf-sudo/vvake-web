@@ -1,5 +1,5 @@
 {
-  "version": 4,
+  "version": 5,
   "categories": [
     {
       "key": "workout",
@@ -13,6 +13,13 @@
       "title": {
         "en": "Your plan and progress",
         "fr": "Ton programme et tes progrès"
+      }
+    },
+    {
+      "key": "reminders",
+      "title": {
+        "en": "Move reminders",
+        "fr": "Rappels pour bouger"
       }
     },
     {
@@ -346,6 +353,85 @@
       "watch": true
     },
     {
+      "intent": "reminder.set",
+      "category": "reminders",
+      "title": {
+        "en": "Remind me to move",
+        "fr": "Rappelle-moi de bouger"
+      },
+      "detail": {
+        "en": "In a while, at a time, or every so often until a time (at most 12, never at night). Also to stretch, drink water, walk or stand up. Tap it: today’s daily move.",
+        "fr": "Dans un moment, à une heure, ou régulièrement jusqu’à une heure (12 au plus, jamais la nuit). Aussi pour t’étirer, boire de l’eau, marcher ou te lever. Touche-le : le mouvement du jour."
+      },
+      "examples": {
+        "en": [
+          "Remind me to move in 30 minutes",
+          "Remind me to stretch at 3 pm",
+          "Remind me to move every hour until 6 pm",
+          "Remind me to drink water at noon"
+        ],
+        "fr": [
+          "Rappelle-moi de bouger dans 30 minutes",
+          "Rappelle-moi de m’étirer à 15 h",
+          "Rappelle-moi de bouger toutes les heures jusqu’à 18 h",
+          "Rappelle-moi de boire de l’eau à midi"
+        ]
+      },
+      "confirm": false,
+      "phone": true,
+      "watch": true
+    },
+    {
+      "intent": "reminder.list",
+      "category": "reminders",
+      "title": {
+        "en": "My reminders",
+        "fr": "Mes rappels"
+      },
+      "detail": {
+        "en": "The next one and how many are left.",
+        "fr": "Le prochain et combien il en reste."
+      },
+      "examples": {
+        "en": [
+          "What reminders do I have",
+          "When is my next reminder"
+        ],
+        "fr": [
+          "Quels sont mes rappels",
+          "C’est quand mon prochain rappel"
+        ]
+      },
+      "confirm": false,
+      "phone": true,
+      "watch": true
+    },
+    {
+      "intent": "reminder.cancel",
+      "category": "reminders",
+      "title": {
+        "en": "Cancel my reminders",
+        "fr": "Annuler mes rappels"
+      },
+      "detail": {
+        "en": "The ones you asked for by voice; your daily rhythm stays.",
+        "fr": "Ceux demandés à la voix ; ton rythme du jour reste."
+      },
+      "examples": {
+        "en": [
+          "Cancel my reminders",
+          "Stop reminding me"
+        ],
+        "fr": [
+          "Annule mes rappels",
+          "Arrête de me rappeler de bouger"
+        ]
+      },
+      "confirm": false,
+      "phone": true,
+      "watch": true
+    },
+    {
       "intent": "quest.start",
       "category": "workout",
       "title": {
@@ -522,6 +608,33 @@
         "fr": [
           "Baisse le son",
           "Moins fort"
+        ]
+      },
+      "confirm": false,
+      "phone": true,
+      "watch": true
+    },
+    {
+      "intent": "music.volume-set",
+      "category": "music",
+      "title": {
+        "en": "Set the volume",
+        "fr": "Régler le volume"
+      },
+      "detail": {
+        "en": "A number from 0 to 100, or max, half, minimum. Exact on the watch’s VVake mix and on Spotify speakers that allow it; the iPhone’s own volume stays on its buttons (Apple doesn’t let apps set it).",
+        "fr": "Un nombre de 0 à 100, ou max, moitié, minimum. Exact sur le mix VVake de la montre et sur les enceintes Spotify qui le permettent ; le volume de l’iPhone reste sur ses boutons (Apple ne laisse pas les apps le régler)."
+      },
+      "examples": {
+        "en": [
+          "Volume 50",
+          "Set the volume to 30 percent",
+          "Max volume"
+        ],
+        "fr": [
+          "Mets le volume à 50",
+          "Volume au max",
+          "Mets le son à moitié"
         ]
       },
       "confirm": false,
@@ -1433,11 +1546,95 @@
           "qu’est-ce que je peux dire",
           "aide"
         ]
+      },
+      {
+        "key": "remindHour",
+        "intent": "reminder.set",
+        "en": [
+          "remind me to move in an hour",
+          "to remind me to move in an hour"
+        ],
+        "fr": [
+          "rappelle-moi de bouger dans une heure",
+          "de me rappeler de bouger dans une heure"
+        ]
+      },
+      {
+        "key": "remindHalfHour",
+        "intent": "reminder.set",
+        "en": [
+          "remind me to move in 30 minutes",
+          "to remind me to move in 30 minutes"
+        ],
+        "fr": [
+          "rappelle-moi de bouger dans 30 minutes",
+          "de me rappeler de bouger dans 30 minutes"
+        ]
+      },
+      {
+        "key": "remindHourly",
+        "intent": "reminder.set",
+        "en": [
+          "remind me to move every hour",
+          "to remind me to move every hour"
+        ],
+        "fr": [
+          "rappelle-moi de bouger toutes les heures",
+          "de me rappeler de bouger toutes les heures"
+        ]
+      },
+      {
+        "key": "reminders",
+        "intent": "reminder.list",
+        "en": [
+          "what reminders do I have",
+          "my reminders"
+        ],
+        "fr": [
+          "quels sont mes rappels",
+          "mes rappels"
+        ]
+      },
+      {
+        "key": "cancelReminders",
+        "intent": "reminder.cancel",
+        "en": [
+          "cancel my reminders",
+          "to cancel my reminders"
+        ],
+        "fr": [
+          "annule mes rappels",
+          "d’annuler mes rappels"
+        ]
+      },
+      {
+        "key": "volumeHalf",
+        "intent": "music.volume-set",
+        "en": [
+          "set the volume to 50",
+          "volume 50"
+        ],
+        "fr": [
+          "mets le volume à 50",
+          "volume à 50"
+        ]
+      },
+      {
+        "key": "volumeMax",
+        "intent": "music.volume-set",
+        "en": [
+          "volume to the max",
+          "max volume"
+        ],
+        "fr": [
+          "volume au max",
+          "mets le son à fond"
+        ]
       }
     ],
     "phrases": {
-      "phone": 449,
-      "watch": 449,
+      "phone": 491,
+      "watch": 491,
       "max": 1000
     }
   }

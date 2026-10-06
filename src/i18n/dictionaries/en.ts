@@ -2874,7 +2874,7 @@ export const en = {
     kicker: "Voice commands",
     title: "Say it. VVake does it.",
     description:
-      "Every VVake voice command, in English and French: workouts, your plan, music, your coach, friends and cities, the Claude Code lock and getting around the app. Say it your way. And what to say to Siri.",
+      "Every VVake voice command, in English and French: workouts, your plan, reminders to move, music and its volume, your coach, friends and cities, the Claude Code lock and getting around the app. Say it your way. And what to say to Siri.",
     lead: "Press the mic and say it your way: VVake understands what you mean, runs it and answers out loud. On the phone or on your Apple Watch. Or just ask Siri: “Hey Siri, ask Wake when is my next training”.",
     how: {
       title: "How it works",
