@@ -90,10 +90,12 @@
       "examples": {
         "en": [
           "Pause the workout",
+          "Pause running",
           "Take a break"
         ],
         "fr": [
           "Mets la séance en pause",
+          "Mets en pause le vélo",
           "Fais une pause"
         ]
       },
@@ -139,13 +141,15 @@
       },
       "examples": {
         "en": [
-          "End the workout",
+          "Stop the workout",
           "Stop running",
+          "Stop cycling",
           "I’m done"
         ],
         "fr": [
           "Termine la séance",
           "Arrête la course",
+          "Termine le vélo",
           "J’ai fini"
         ]
       },
@@ -247,11 +251,13 @@
         "en": [
           "Play music",
           "Play Daft Punk",
+          "Search and play Radiohead",
           "Play my running playlist"
         ],
         "fr": [
           "Mets de la musique",
           "Joue Daft Punk",
+          "Cherche et joue Radiohead",
           "Mets ma playlist course"
         ]
       },
@@ -277,7 +283,7 @@
         ],
         "fr": [
           "Arrête la musique",
-          "Coupe le son"
+          "Coupe la musique"
         ]
       },
       "confirm": false,
@@ -298,10 +304,12 @@
       "examples": {
         "en": [
           "Next song",
+          "Skip this song",
           "Skip"
         ],
         "fr": [
           "Chanson suivante",
+          "Suivante",
           "Passe"
         ]
       },
@@ -378,6 +386,31 @@
         "fr": [
           "Baisse le son",
           "Moins fort"
+        ]
+      },
+      "confirm": false,
+      "phone": true,
+      "watch": true
+    },
+    {
+      "intent": "music.now-playing",
+      "category": "music",
+      "title": {
+        "en": "What’s playing?",
+        "fr": "C’est quoi ce morceau ?"
+      },
+      "detail": {
+        "en": "Says the song and the artist.",
+        "fr": "Te dit la chanson et l’artiste."
+      },
+      "examples": {
+        "en": [
+          "What’s playing",
+          "What song is this"
+        ],
+        "fr": [
+          "C’est quoi ce morceau",
+          "Qu’est-ce qui joue"
         ]
       },
       "confirm": false,
@@ -510,6 +543,50 @@
       "confirm": false,
       "phone": true,
       "watch": true
+    }
+  ],
+  "tips": [
+    {
+      "key": "name",
+      "title": {
+        "en": "Call it by its name, or not",
+        "fr": "Appelle-le par son nom, ou pas"
+      },
+      "detail": {
+        "en": "“Wake”, “Hey Wake”, “Wake up and…”: the name is optional and VVake hears it however it’s pronounced.",
+        "fr": "« Wake », « Ouèk », « Wake et… » : le nom est facultatif et VVake le comprend quelle que soit ta prononciation."
+      },
+      "examples": {
+        "en": [
+          "Wake, start a run",
+          "Hey Wake, skip this song"
+        ],
+        "fr": [
+          "Ouèk, arrête la musique",
+          "Wake, lance le yoga"
+        ]
+      }
+    },
+    {
+      "key": "chain",
+      "title": {
+        "en": "Several commands at once",
+        "fr": "Plusieurs commandes d’un coup"
+      },
+      "detail": {
+        "en": "Link them with “and”, “then”: they run in order. A song title with “and” stays one song.",
+        "fr": "Enchaîne-les avec « et », « puis », « et ensuite » : elles s’exécutent dans l’ordre. Un titre avec « et » reste un seul titre."
+      },
+      "examples": {
+        "en": [
+          "Wake up and start a run and play Radiohead",
+          "Start a 30 minute run then play music"
+        ],
+        "fr": [
+          "Wake et lance une course puis mets de la musique",
+          "Lance une course et ensuite parle au coach"
+        ]
+      }
     }
   ]
 }

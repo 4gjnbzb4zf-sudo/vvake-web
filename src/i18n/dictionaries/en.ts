@@ -2826,6 +2826,10 @@ export const en = {
         },
       ],
     },
+    tips: {
+      title: "Talk the way you talk",
+      lead: "Two things that work with every command.",
+    },
     confirm: "Asks to confirm",
     phone: "iPhone",
     watch: "Apple Watch",

@@ -3025,6 +3025,10 @@ export const fr: Dictionary = {
         },
       ],
     },
+    tips: {
+      title: "Parle comme tu parles",
+      lead: "Deux choses qui marchent avec toutes les commandes.",
+    },
     confirm: "Demande confirmation",
     phone: "iPhone",
     watch: "Apple Watch",

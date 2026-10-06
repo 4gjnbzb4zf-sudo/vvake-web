@@ -3,7 +3,7 @@ import { resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { describe, expect, it } from "vitest";
 import data from "@/data/voice-commands.json";
-import { groupVoiceCommands, voiceCommands, voiceCommandsSchema, voiceTeaser } from "./voiceCommands";
+import { groupVoiceCommands, voiceCommands, voiceCommandsSchema, voiceTeaser, voiceTips } from "./voiceCommands";
 
 const ROOT = fileURLToPath(new URL("../..", import.meta.url));
 const SOURCE = process.env.VVFIT_DIR
@@ -13,6 +13,26 @@ const SOURCE = process.env.VVFIT_DIR
 describe("voice commands export", () => {
   it("matches the schema", () => {
     expect(voiceCommandsSchema.safeParse(data).success).toBe(true);
+  });
+
+  it("refuses an export without tips, or with an empty or malformed tip", () => {
+    const { tips, ...noTips } = data;
+    expect(voiceCommandsSchema.safeParse(noTips).success).toBe(false);
+    expect(voiceCommandsSchema.safeParse({ ...data, tips: [] }).success).toBe(false);
+    const broken = { ...tips[0], examples: { en: tips[0].examples.en, fr: [] } };
+    expect(voiceCommandsSchema.safeParse({ ...data, tips: [broken] }).success).toBe(false);
+  });
+
+  it("renders exactly the export's tips and every tip example", () => {
+    const rendered = voiceTips();
+    expect(rendered.map((t) => t.key)).toEqual(data.tips.map((t) => t.key));
+    expect(new Set(rendered.map((t) => t.key)).size).toBe(rendered.length);
+    expect(rendered.map((t) => t.key)).toEqual(expect.arrayContaining(["name", "chain"]));
+    for (const [i, t] of rendered.entries()) {
+      expect(t.examples.en).toEqual(data.tips[i].examples.en);
+      expect(t.examples.fr).toEqual(data.tips[i].examples.fr);
+      expect(t.title.en && t.title.fr && t.detail.en && t.detail.fr).toBeTruthy();
+    }
   });
 
   it("puts every command in a known category and every category has commands", () => {

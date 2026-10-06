@@ -26,11 +26,23 @@ export const voiceCommandsSchema = z.object({
       }),
     )
     .min(1),
+  /** Ways of speaking that work with every command (say the name or not, chain several commands). Required. */
+  tips: z
+    .array(
+      z.object({
+        key: z.string().min(1),
+        title: text,
+        detail: text,
+        examples: z.object({ en: z.array(z.string().min(1)).min(1), fr: z.array(z.string().min(1)).min(1) }),
+      }),
+    )
+    .min(1),
 });
 
 export type VoiceCommands = z.infer<typeof voiceCommandsSchema>;
 export type VoiceCommand = VoiceCommands["commands"][number];
 export type VoiceCategory = VoiceCommands["categories"][number];
+export type VoiceTip = VoiceCommands["tips"][number];
 export interface VoiceGroup {
   category: VoiceCategory;
   commands: VoiceCommand[];
@@ -43,6 +55,11 @@ export function groupVoiceCommands(list: VoiceCommands = voiceCommands): VoiceGr
   return list.categories
     .map((category) => ({ category, commands: list.commands.filter((c) => c.category === category.key) }))
     .filter((g) => g.commands.length > 0);
+}
+
+/** The speaking tips, in the export's order. */
+export function voiceTips(list: VoiceCommands = voiceCommands): VoiceTip[] {
+  return list.tips;
 }
 
 /** The other language, for the secondary example phrases. */
