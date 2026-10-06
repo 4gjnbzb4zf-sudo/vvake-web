@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { Section } from "@/components/ui/Section";
 import { format, type Dictionary } from "@/i18n/dictionaries";
 import type { Locale } from "@/i18n/config";
-import { poolTotals, recentPoolEvents, type DatedPoolEvent, type PoolTotals } from "@/lib/chain";
+import { poolTotals, prizeHoldings, recentPoolEvents, type DatedPoolEvent, type PoolTotals } from "@/lib/chain";
 import { formatUnits } from "@/lib/eth";
 import { epochOf, epochStart, explorerAddress, explorerTx, pickAddress, rewardsConfig, shortHex } from "@/lib/rewards-config";
 import { publicEpoch, type PublicEpoch } from "@/lib/rewardsApi";
@@ -26,6 +26,17 @@ export function PublicRewards({ dict, lang, apiUrl }: { dict: Dict; lang: Locale
   const [totals, setTotals] = useState<Load<PoolTotals & { readAtMs: number }>>({ kind: "loading" });
   const [events, setEvents] = useState<Load<{ events: DatedPoolEvent[]; complete: boolean }>>({ kind: "loading" });
   const [weeks, setWeeks] = useState<Load<PublicEpoch[]>>({ kind: "loading" });
+  const rewards = pickAddress(rewardsConfig.rewardsContract);
+  const [holdings, setHoldings] = useState<{ held: bigint; available: bigint } | null>(null);
+
+  useEffect(() => {
+    if (!rewards) return;
+    let live = true;
+    prizeHoldings(rewards, rewardsConfig.token).then((h) => live && setHoldings(h));
+    return () => {
+      live = false;
+    };
+  }, [rewards]);
 
   useEffect(() => {
     if (!pool) return;
@@ -72,7 +83,12 @@ export function PublicRewards({ dict, lang, apiUrl }: { dict: Dict; lang: Locale
           ) : totals.kind === "error" ? (
             <p className="text-muted">{t.chainError}</p>
           ) : (
-            <dl className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            <dl className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              {holdings && (
+                <Figure label={t.held} value={`${vvake(holdings.held)} VVAKE`}>
+                  {format(t.available, { vvake: vvake(holdings.available) })}
+                </Figure>
+              )}
               <Figure label={t.funded} value={totals.kind === "ready" ? `${eth(totals.value.funded)} ETH` : "…"} />
               <Figure label={t.converted} value={totals.kind === "ready" ? `${vvake(totals.value.bought)} VVAKE` : "…"} />
               <Figure label={t.spent} value={totals.kind === "ready" ? `${eth(totals.value.spent)} ETH` : "…"} />

@@ -2744,6 +2744,8 @@ export const en = {
       kicker: "Prize pool",
       title: "Every deposit and every conversion, on chain",
       lead: "Read straight from the chain in your browser. Nothing here goes through VVake's servers.",
+      held: "In the prize contract",
+      available: "{vvake} VVAKE not yet owed to any week",
       funded: "Total funded",
       converted: "Turned into VVAKE",
       spent: "ETH used",

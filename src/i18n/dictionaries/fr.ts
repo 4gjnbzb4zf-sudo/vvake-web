@@ -2935,6 +2935,8 @@ export const fr: Dictionary = {
       kicker: "Cagnotte",
       title: "Chaque dépôt et chaque conversion, sur la chaîne",
       lead: "Lu directement sur la chaîne, dans ton navigateur. Rien ici ne passe par les serveurs de VVake.",
+      held: "Dans le contrat des prix",
+      available: "{vvake} VVAKE pas encore promis à une semaine",
       funded: "Total versé",
       converted: "Converti en VVAKE",
       spent: "ETH utilisé",

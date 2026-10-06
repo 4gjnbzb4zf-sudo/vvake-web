@@ -11,6 +11,9 @@ export const SELECTOR = {
   claim: "0x2e7ba6ef", // claim(uint256,address,uint256,bytes32[])
   claimMany: "0xfae68828", // claimMany(uint256[],address,uint256[],bytes32[][])
   isClaimed: "0xd2ef0795", // isClaimed(uint256,address)
+  unallocated: "0xdf1c455c", // unallocated(): VVAKE no open week is owed
+  // $VVAKE (ERC-20)
+  balanceOf: "0x70a08231", // balanceOf(address)
   epochs: "0xc6b61e4c", // epochs(uint256)
   // VVakePrizePool
   totalFunded: "0xad044f49", // totalFunded()

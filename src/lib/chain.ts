@@ -40,6 +40,22 @@ export async function isClaimedOnChain(contract: string, epoch: number, account:
   }
 }
 
+/**
+ * What the prize contract holds, read straight from the chain: every VVAKE in it (conversions, the v1 → v2 move, any
+ * direct deposit) and the part no week is owed yet. Null when the chain can't be read.
+ */
+export async function prizeHoldings(rewards: string, token: string): Promise<{ held: bigint; available: bigint } | null> {
+  try {
+    const [held, available] = await Promise.all([
+      ethCall(token, SELECTOR.balanceOf + rewards.slice(2).toLowerCase().padStart(64, "0")),
+      ethCall(rewards, SELECTOR.unallocated),
+    ]);
+    return { held: readWord(held), available: readWord(available) };
+  } catch {
+    return null;
+  }
+}
+
 // ── The prize pool ──────────────────────────────────────────────────────────────────────────────────────────
 
 export interface PoolTotals {
