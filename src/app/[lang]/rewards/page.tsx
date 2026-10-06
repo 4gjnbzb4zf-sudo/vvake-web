@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { PublicRewards } from "@/components/rewards/PublicRewards";
 import { RewardsAccount } from "@/components/rewards/RewardsAccount";
+import { FrameGuard, ScamWarning } from "@/components/rewards/Safety";
 import { Footer } from "@/components/sections/Extras";
 import { Header } from "@/components/sections/Header";
 import { PageIntro } from "@/components/sections/PageIntro";
@@ -39,23 +40,27 @@ export default async function RewardsPage({ params }: { params: Params }) {
     <>
       <Header locale={lang} dict={dict.nav} />
       <main id="main">
-        <PageIntro kicker={t.kicker} title={t.heading} lead={t.lead} />
-        <Container>
-          <p className="my-8 rounded-xl border border-butter-fg/30 bg-butter/10 px-4 py-3 text-sm text-butter-fg">{t.testnet}</p>
-        </Container>
-        <RewardsAccount dict={t} lang={lang} apiUrl={siteConfig.apiUrl} />
-        <Section id="how" index={t.how.index} kicker={t.how.kicker} title={t.how.title}>
-          <ol className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {t.how.items.map((item, i) => (
-              <li key={item.h} className="rounded-2xl border border-line bg-surface/60 p-6">
-                <p className="font-mono text-xs text-pulse-fg">{String(i + 1).padStart(2, "0")}</p>
-                <h3 className="mt-2 font-display text-lg font-semibold">{item.h}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-muted">{item.p}</p>
-              </li>
-            ))}
-          </ol>
-        </Section>
-        <PublicRewards dict={t} lang={lang} apiUrl={siteConfig.apiUrl} />
+        {/* Hidden inside a frame (clickjacking): see src/lib/frameGuard.ts. */}
+        <FrameGuard dict={t.framed} href={`${siteConfig.url}/${lang}/rewards/`}>
+          <PageIntro kicker={t.kicker} title={t.heading} lead={t.lead} />
+          <Container>
+            <p className="my-8 rounded-xl border border-butter-fg/30 bg-butter/10 px-4 py-3 text-sm text-butter-fg">{t.testnet}</p>
+          </Container>
+          <ScamWarning dict={t.scam} />
+          <RewardsAccount dict={t} lang={lang} apiUrl={siteConfig.apiUrl} />
+          <Section id="how" index={t.how.index} kicker={t.how.kicker} title={t.how.title}>
+            <ol className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              {t.how.items.map((item, i) => (
+                <li key={item.h} className="rounded-2xl border border-line bg-surface/60 p-6">
+                  <p className="font-mono text-xs text-pulse-fg">{String(i + 1).padStart(2, "0")}</p>
+                  <h3 className="mt-2 font-display text-lg font-semibold">{item.h}</h3>
+                  <p className="mt-2 text-sm leading-relaxed text-muted">{item.p}</p>
+                </li>
+              ))}
+            </ol>
+          </Section>
+          <PublicRewards dict={t} lang={lang} apiUrl={siteConfig.apiUrl} />
+        </FrameGuard>
       </main>
       <Footer locale={lang} dict={dict.footer} />
       <SectionNav label={dict.nav.sections} open={dict.nav.jump} />

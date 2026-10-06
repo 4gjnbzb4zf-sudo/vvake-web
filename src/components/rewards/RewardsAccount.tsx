@@ -9,14 +9,16 @@ import {
   connectWallet,
   injectedWallet,
   isClaimedOnChain,
-  sendTransaction,
+  sendClaimTransaction,
   signMessage,
   switchToRewardsChain,
   waitForReceipt,
   walletChainId,
   type Eip1193,
 } from "@/lib/chain";
-import { claimManyCalldata, formatUnits, utf8ToHex } from "@/lib/eth";
+import { ClaimRefusedError, planClaims } from "@/lib/claimTx";
+import { formatUnits, utf8ToHex } from "@/lib/eth";
+import { linkMessageProblems, readLinkMessage, type LinkMessageView, type LinkProblem } from "@/lib/linkMessage";
 import { explorerAddress, explorerTx, pickAddress, rewardsConfig, shortHex } from "@/lib/rewards-config";
 import { errorKey, isAppCode, isEmailCode, missingConditions, RewardsSession, type RewardEpoch, type Rewards } from "@/lib/rewardsApi";
 import { cn } from "@/lib/cn";
@@ -51,6 +53,8 @@ export function RewardsAccount({ dict, lang, apiUrl }: { dict: Dict; lang: Local
   const [busy, setBusy] = useState<string | null>(null);
   // Prizes are 18+: the visitor confirms it before linking; the link request carries `adult: true` (the API requires it).
   const [adult, setAdult] = useState(false);
+  // The link message, shown to the visitor before the wallet is asked to sign it (VV-07).
+  const [review, setReview] = useState<LinkReviewState | null>(null);
 
   // Claims sent from this page, per epoch (a claimMany marks every epoch it carries).
   const [txs, setTxs] = useState<Record<number, Tx>>({});
@@ -103,7 +107,8 @@ export function RewardsAccount({ dict, lang, apiUrl }: { dict: Dict; lang: Local
     };
   }, [wallet]);
 
-  const contract = pickAddress(rewardsConfig.rewardsContract, data?.contract);
+  // Only the contract pinned in this build: an address from the API is never used to read or to claim (VV-06).
+  const contract = pickAddress(rewardsConfig.rewardsContract);
 
   // The API reads claims from the chain a few at a time (cached): check the open weeks ourselves too.
   useEffect(() => {
@@ -145,8 +150,30 @@ export function RewardsAccount({ dict, lang, apiUrl }: { dict: Dict; lang: Local
     setChainId(await walletChainId(w));
   }
 
-  async function linkWallet() {
+  /** Step 1: get the message to sign and show its key lines; nothing is signed yet. */
+  async function prepareLink() {
     if (!wallet || !account) return;
+    if (!adult) {
+      setWalletMsg(dict.wallet.adultFirst);
+      return;
+    }
+    setBusy("link");
+    setWalletMsg(null);
+    try {
+      const challenge = await session.walletChallenge(account.toLowerCase());
+      const view = readLinkMessage(challenge.message);
+      const problems = linkMessageProblems(view, { account, chainId: rewardsConfig.chain.id, host: window.location.host });
+      setReview({ message: challenge.message, nonce: challenge.nonce, account, view, problems });
+    } catch (e) {
+      setWalletMsg(err(e));
+    } finally {
+      setBusy(null);
+    }
+  }
+
+  /** Step 2, after the visitor read it: the wallet signs exactly the message shown. */
+  async function signLink() {
+    if (!wallet || !review || review.problems.length || !sameAddress(account, review.account)) return;
     if (!adult) {
       setWalletMsg(dict.wallet.adultFirst);
       return;
@@ -154,9 +181,9 @@ export function RewardsAccount({ dict, lang, apiUrl }: { dict: Dict; lang: Local
     setBusy("link");
     setWalletMsg(dict.wallet.signing);
     try {
-      const challenge = await session.walletChallenge(account.toLowerCase());
-      const signature = await signMessage(wallet, account, utf8ToHex(challenge.message));
-      await session.linkWallet(challenge.nonce, signature, adult);
+      const signature = await signMessage(wallet, review.account, utf8ToHex(review.message));
+      await session.linkWallet(review.nonce, signature, adult);
+      setReview(null);
       setWalletMsg(dict.wallet.done);
       await load();
     } catch (e) {
@@ -188,23 +215,17 @@ export function RewardsAccount({ dict, lang, apiUrl }: { dict: Dict; lang: Local
     try {
       await ensureChain(wallet);
       const proofs = await Promise.all(epochs.map((e) => session.proof(e.epoch)));
-      const byAccount = new Map<string, typeof proofs>();
-      for (const p of proofs) byAccount.set(p.account.toLowerCase(), [...(byAccount.get(p.account.toLowerCase()) ?? []), p]);
-      for (const [to, group] of byAccount) {
-        const data =
-          group.length === 1
-            ? group[0]!.calldata
-            : claimManyCalldata(
-                to,
-                group.map((p) => ({ epoch: p.epoch, amount: BigInt(p.amountBase), proof: p.proof })),
-              );
-        const hash = await sendTransaction(wallet, account, pickAddress(group[0]!.contract) ?? contract, data);
+      // Target, calldata and value are decided locally (src/lib/claimTx.ts), never taken from the API (VV-06).
+      const plan = planClaims(proofs);
+      if (!plan.ok) throw new ClaimRefusedError(plan.reason);
+      for (const tx of plan.txs) {
+        const hash = await sendClaimTransaction(wallet, account, tx);
         const mark = (state: Tx["state"]) =>
-          setTxs((prev) => ({ ...prev, ...Object.fromEntries(group.map((p) => [p.epoch, { hash, state }])) }));
+          setTxs((prev) => ({ ...prev, ...Object.fromEntries(tx.epochs.map((n) => [n, { hash, state }])) }));
         mark("sent");
         const ok = await waitForReceipt(hash);
         mark(ok === null ? "slow" : ok ? "confirmed" : "failed");
-        if (ok) setClaimedNow((prev) => new Set([...prev, ...group.map((p) => p.epoch)]));
+        if (ok) setClaimedNow((prev) => new Set([...prev, ...tx.epochs]));
       }
       void load();
     } catch (e) {
@@ -438,14 +459,26 @@ export function RewardsAccount({ dict, lang, apiUrl }: { dict: Dict; lang: Local
                       />
                       <span>{dict.wallet.adult}</span>
                     </label>
-                    <button
-                      type="button"
-                      className={cn(buttonClass("primary"), "mt-4")}
-                      disabled={busy !== null || !adult}
-                      onClick={() => void linkWallet()}
-                    >
-                      {linked ? dict.wallet.relink : dict.wallet.link}
-                    </button>
+                    {review && sameAddress(review.account, account) ? (
+                      <LinkReview
+                        dict={dict.wallet.review}
+                        review={review}
+                        who={who}
+                        host={typeof window === "undefined" ? "" : window.location.host}
+                        busy={busy !== null}
+                        onSign={() => void signLink()}
+                        onCancel={() => setReview(null)}
+                      />
+                    ) : (
+                      <button
+                        type="button"
+                        className={cn(buttonClass("primary"), "mt-4")}
+                        disabled={busy !== null || !adult}
+                        onClick={() => void prepareLink()}
+                      >
+                        {linked ? dict.wallet.relink : dict.wallet.link}
+                      </button>
+                    )}
                   </>
                 )}
               </>
@@ -528,6 +561,78 @@ export function RewardsAccount({ dict, lang, apiUrl }: { dict: Dict; lang: Local
         </div>
       </Section>
     </>
+  );
+}
+
+interface LinkReviewState {
+  message: string;
+  nonce: string;
+  account: string;
+  view: LinkMessageView;
+  problems: LinkProblem[];
+}
+
+/** The link message's key lines and full text, before the wallet signs it (VV-07). */
+export function LinkReview({
+  dict,
+  review,
+  who,
+  host,
+  busy,
+  onSign,
+  onCancel,
+}: {
+  dict: Dict["wallet"]["review"];
+  review: Pick<LinkReviewState, "message" | "view" | "problems">;
+  who: string;
+  host: string;
+  busy: boolean;
+  onSign: () => void;
+  onCancel: () => void;
+}) {
+  const { view } = review;
+  const chain = view.chainId === rewardsConfig.chain.id ? `${rewardsConfig.chain.name} (${view.chainId})` : String(view.chainId ?? "?");
+  const rows: [string, string][] = [
+    [dict.site, host],
+    [dict.domain, view.domain ? (view.uri ? `${view.domain} · ${view.uri}` : view.domain) : dict.noDomain],
+    [dict.account, view.account ?? who],
+    [dict.wallet, view.wallet ?? "?"],
+    [dict.chain, chain],
+    ...(view.expires ? [[dict.expires, view.expires] as [string, string]] : []),
+  ];
+  return (
+    <div className="mt-5 rounded-xl border border-line p-4 text-sm" data-testid="link-review">
+      <p className="font-display font-semibold">{dict.title}</p>
+      <dl className="mt-3 grid grid-cols-[auto_1fr] gap-x-4 gap-y-1">
+        {rows.map(([k, v]) => (
+          <div key={k} className="contents">
+            <dt className="text-faint">{k}</dt>
+            <dd className="font-mono break-all">{v}</dd>
+          </div>
+        ))}
+      </dl>
+      <details className="mt-3">
+        <summary className="cursor-pointer text-faint">{dict.full}</summary>
+        <pre className="mt-2 font-mono text-xs break-words whitespace-pre-wrap text-muted">{review.message}</pre>
+      </details>
+      {review.problems.length ? (
+        <p className="mt-3 text-down-fg" role="alert">
+          {dict.mismatch}
+        </p>
+      ) : (
+        <p className="mt-3 text-muted">{dict.check}</p>
+      )}
+      <div className="mt-4 flex flex-wrap gap-3">
+        {!review.problems.length && (
+          <button type="button" className={buttonClass("primary")} disabled={busy} onClick={onSign}>
+            {dict.sign}
+          </button>
+        )}
+        <button type="button" className={buttonClass("ghost")} disabled={busy} onClick={onCancel}>
+          {dict.cancel}
+        </button>
+      </div>
+    </div>
   );
 }
 
@@ -622,9 +727,19 @@ export function NotDeployed({ title, body }: { title: string; body: string }) {
 }
 
 /** Sign in: an e-mail code, or the 8-character link code the app shows. */
-function SignIn({ dict, session, onSignedIn }: { dict: Dict; session: RewardsSession; onSignedIn: () => void }) {
+export function SignIn({
+  dict,
+  session,
+  onSignedIn,
+  initialTab = "email",
+}: {
+  dict: Dict;
+  session: RewardsSession;
+  onSignedIn: () => void;
+  initialTab?: "email" | "app";
+}) {
   const t = dict.signIn;
-  const [tab, setTab] = useState<"email" | "app">("email");
+  const [tab, setTab] = useState<"email" | "app">(initialTab);
   const [email, setEmail] = useState("");
   const [sentTo, setSentTo] = useState<string | null>(null);
   const [code, setCode] = useState("");
@@ -772,6 +887,9 @@ function SignIn({ dict, session, onSignedIn }: { dict: Dict; session: RewardsSes
                 value={appCode}
                 onChange={(e) => setAppCode(e.target.value)}
               />
+              <p className="mt-2 rounded-lg border border-down-fg/40 px-3 py-2 text-sm text-down-fg" role="note">
+                {t.appWarning}
+              </p>
               <p className="mt-2 text-sm text-faint">{t.appHint}</p>
               <button type="submit" className={cn(buttonClass("primary"), "mt-5")} disabled={busy || !isAppCode(appCode)}>
                 {t.redeem}

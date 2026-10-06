@@ -1,4 +1,5 @@
 import { decodePoolLog, isClaimedCalldata, readBool, readWord, SELECTOR, TOPIC, type PoolEvent, type RpcLog } from "./eth";
+import { ClaimRefusedError, isSafeClaimTx, type ClaimTx } from "./claimTx";
 import { rewardsConfig } from "./rewards-config";
 
 /**
@@ -171,9 +172,14 @@ export async function signMessage(w: Eip1193, address: string, messageHex: strin
   return (await w.request({ method: "personal_sign", params: [messageHex, address] })) as string;
 }
 
-/** Sends a transaction from the visitor's wallet (the wallet shows it and asks); the tx hash. */
-export async function sendTransaction(w: Eip1193, from: string, to: string, data: string): Promise<string> {
-  return (await w.request({ method: "eth_sendTransaction", params: [{ from, to, data }] })) as string;
+/**
+ * Sends a claim from the visitor's wallet (the wallet shows it and asks); the tx hash. Only a transaction that passes
+ * isSafeClaimTx (pinned rewards contract, claim/claimMany, 0 ETH) ever reaches the wallet; anything else throws
+ * before the wallet is asked.
+ */
+export async function sendClaimTransaction(w: Eip1193, from: string, tx: ClaimTx): Promise<string> {
+  if (!isSafeClaimTx(tx)) throw new ClaimRefusedError("badProof");
+  return (await w.request({ method: "eth_sendTransaction", params: [{ from, to: tx.to, data: tx.data, value: tx.value }] })) as string;
 }
 
 /** Waits for a transaction's receipt on the public RPC: true = success, false = reverted, null = not seen in time. */

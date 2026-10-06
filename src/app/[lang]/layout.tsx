@@ -6,6 +6,7 @@ import { isLocale, locales, ogLocales } from "@/i18n/config";
 import { getDictionary } from "@/i18n/dictionaries";
 import { OG_SIZE } from "@/og/OgCard";
 import { SignSweep } from "@/components/brand/SignSweep";
+import { FRAME_GUARD_SCRIPT } from "@/lib/frameGuard";
 import { THEME_SCRIPT } from "@/lib/theme";
 import { fontVariables } from "../fonts";
 import "../globals.css";
@@ -66,6 +67,8 @@ export default async function LocaleLayout({ children, params }: { children: Rea
       <head>
         {/* Sets data-theme before first paint (no flash of the other theme). */}
         <script dangerouslySetInnerHTML={{ __html: THEME_SCRIPT }} />
+        {/* Marks the top window (data-unframed): the rewards page hides itself inside a frame. */}
+        <script dangerouslySetInnerHTML={{ __html: FRAME_GUARD_SCRIPT }} />
       </head>
       <body className="min-h-dvh">
         {children}

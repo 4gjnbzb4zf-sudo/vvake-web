@@ -8,6 +8,8 @@
     "dev": "next dev",
     "prebuild": "npm run og",
     "build": "next build",
+    "postbuild": "tsx scripts/csp.ts",
+    "check:csp": "tsx scripts/csp.ts --check",
     "start": "npx serve out",
     "lint": "eslint",
     "typecheck": "tsc --noEmit",

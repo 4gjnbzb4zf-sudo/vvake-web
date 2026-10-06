@@ -2610,6 +2610,15 @@ export const fr: Dictionary = {
     lead: "Chaque semaine, les points VV de tes séances comptées deviennent des $VVAKE que tu réclames toi-même auprès d'un contrat open source. VVake ne détient jamais tes tokens ni tes clés.",
     testnet:
       "Robinhood Chain Testnet : ces tokens n'ont aucune valeur. Rien à acheter ici, et rien sur cette page n'est une offre ni un conseil en investissement.",
+    scam: {
+      title: "Repère les arnaques",
+      body: "VVake ne t'écrit jamais en premier et ne te demande jamais ta phrase de récupération, ta clé privée, un code de l'app ni une autorisation de dépense de tes tokens (approve). Une réclamation appelle seulement claim() sur {contract} et envoie 0 ETH.",
+    },
+    framed: {
+      title: "Ouvre cette page directement",
+      body: "Pour ta sécurité, la page des récompenses ne fonctionne pas à l'intérieur d'un autre site ou d'une autre app. Ouvre-la seule, sur vvake.com/rewards.",
+      link: "Ouvrir vvake.com/rewards",
+    },
     notDeployed: "Contrats pas encore déployés",
     notDeployedBody:
       "Les contrats de récompenses ne sont pas encore sur la chaîne. Tes points de la semaine sont quand même comptés ; les réclamations ouvrent ici dès qu'ils y sont.",
@@ -2637,6 +2646,7 @@ export const fr: Dictionary = {
       appCodePlaceholder: "ABCD2345",
       appHint:
         "Dans l'app, connecté : Toi → Connexions → Apple Watch → Afficher un code de liaison. Tape ici le code à 8 caractères dans les 2 minutes. Ce navigateur apparaît ensuite dans l'app sous « Web (vvake.com) », dans Toi → Ton compte → Appareils, où tu peux le retirer. Te déconnecter sur cette page met aussi fin à sa session sur les serveurs de VVake.",
+      appWarning: "Ne tape qu'un code que tu viens d'afficher toi-même dans l'app VVake. VVake ne te le demandera jamais.",
       redeem: "Me connecter",
       signedInAs: "Connecté en tant que {name}",
       signOut: "Me déconnecter",
@@ -2697,6 +2707,21 @@ export const fr: Dictionary = {
       sameAsLinked: "C'est ton portefeuille lié.",
       adult: "J'ai 18 ans ou plus et j'ai le droit de recevoir des prix là où je vis.",
       adultFirst: "Confirme que tu as 18 ans ou plus pour lier un portefeuille.",
+      review: {
+        title: "Ce que ton portefeuille va te demander de signer",
+        check: "Ne signe que si tout est juste, et seulement sur vvake.com. Signer est gratuit et n'envoie aucune transaction.",
+        site: "Ce site",
+        domain: "Site dans le message",
+        noDomain: "absent du message",
+        account: "Compte VVake",
+        wallet: "Portefeuille",
+        chain: "Réseau",
+        expires: "Expire",
+        full: "Message complet",
+        sign: "Signer dans mon portefeuille",
+        cancel: "Annuler",
+        mismatch: "Ce message ne correspond pas à ton portefeuille, à ce réseau ou à ce site : il ne sera pas signé. Rien n'a été envoyé.",
+      },
     },
     claim: {
       index: "03",
@@ -2782,6 +2807,8 @@ export const fr: Dictionary = {
       signatureMismatch: "La signature ne correspond pas à ce portefeuille. Recommence.",
       notFound: "Rien à réclamer pour cette semaine.",
       network: "Impossible de joindre VVake pour le moment. Vérifie ta connexion.",
+      claimRefused:
+        "Rien n'a été envoyé : les serveurs de VVake indiquaient un autre contrat, un autre réseau ou une réclamation invalide. Les réclamations ne vont qu'au contrat de récompenses affiché sur cette page. Réessaie plus tard.",
       generic: "Un problème est survenu. Réessaie.",
     },
     trees: {

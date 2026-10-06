@@ -507,3 +507,9 @@
     opacity: 1;
   }
 }
+
+/* Clickjacking guard (src/lib/frameGuard.ts): guarded content shows only in the top window. */
+html:not([data-unframed]) [data-frame-guard],
+html[data-unframed] [data-frame-notice] {
+  display: none !important;
+}

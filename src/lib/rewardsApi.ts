@@ -1,4 +1,5 @@
 import * as z from "zod/mini";
+import { ClaimRefusedError } from "./claimTx";
 
 /**
  * The VVake API calls of vvake.com/rewards (contract: monorepo docs/05-tech/api-v1.md, "Auth" and "Rewards").
@@ -329,10 +330,12 @@ export type ErrorKey =
   | "signatureMismatch"
   | "notFound"
   | "network"
+  | "claimRefused"
   | "generic";
 
 /** Which message to show for an API or wallet error (the API's own messages are English only). */
 export function errorKey(e: unknown): ErrorKey {
+  if (e instanceof ClaimRefusedError) return "claimRefused";
   if (e && typeof e === "object" && "code" in e && Number((e as { code: unknown }).code) === 4001) return "walletRefused";
   if (!(e instanceof ApiError)) return "generic";
   if (e.code === "network") return "network";

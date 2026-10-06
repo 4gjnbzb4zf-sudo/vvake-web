@@ -2427,6 +2427,15 @@ export const en = {
     lead: "Each week, the VV points from your counted sessions become $VVAKE you claim yourself from an open-source contract. VVake never holds your tokens or your keys.",
     testnet:
       "Robinhood Chain Testnet: these tokens have no value. Nothing to buy here, and nothing on this page is an offer or investment advice.",
+    scam: {
+      title: "Spot a scam",
+      body: "VVake never messages you first, never asks for a seed phrase, a private key, an app code or a token approval. A claim only calls claim() on {contract} and sends 0 ETH.",
+    },
+    framed: {
+      title: "Open this page directly",
+      body: "For your safety, the rewards page doesn't work inside another site or app. Open it on its own, at vvake.com/rewards.",
+      link: "Open vvake.com/rewards",
+    },
     notDeployed: "Contracts not deployed yet",
     notDeployedBody: "The rewards contracts aren't on chain yet. Your weekly points are still counted; claims open here once they are.",
     apiDown: "VVake's servers can't be reached right now. Try again in a moment.",
@@ -2453,6 +2462,7 @@ export const en = {
       appCodePlaceholder: "ABCD2345",
       appHint:
         'In the app, signed in: You → Connections → Apple Watch → Show a link code. Type the 8-character code here within 2 minutes. This browser then shows up in the app as "Web (vvake.com)" under You → Your account → Devices, where you can remove it. Signing out on this page also ends its session on the VVake servers.',
+      appWarning: "Only type a code you just opened yourself in the VVake app. VVake will never ask you for it.",
       redeem: "Sign in",
       signedInAs: "Signed in as {name}",
       signOut: "Sign out",
@@ -2511,6 +2521,21 @@ export const en = {
       sameAsLinked: "This is your linked wallet.",
       adult: "I'm 18 or older and allowed to receive prizes where I live.",
       adultFirst: "Confirm you're 18 or older to link a wallet.",
+      review: {
+        title: "What your wallet will ask you to sign",
+        check: "Sign only if all of this is right, and only on vvake.com. Signing is free and sends no transaction.",
+        site: "This site",
+        domain: "Site in the message",
+        noDomain: "not in the message",
+        account: "VVake account",
+        wallet: "Wallet",
+        chain: "Network",
+        expires: "Expires",
+        full: "Full message",
+        sign: "Sign in my wallet",
+        cancel: "Cancel",
+        mismatch: "This message doesn't match your wallet, this network or this site, so it won't be signed. Nothing was sent.",
+      },
     },
     claim: {
       index: "03",
@@ -2595,6 +2620,8 @@ export const en = {
       signatureMismatch: "The signature doesn't match this wallet. Start again.",
       notFound: "Nothing to claim for that week.",
       network: "Can't reach VVake right now. Check your connection.",
+      claimRefused:
+        "Nothing was sent: VVake's servers pointed to another contract, another network or a malformed claim. Claims only go to the rewards contract shown on this page. Try again later.",
       generic: "Something went wrong. Try again.",
     },
     trees: {
