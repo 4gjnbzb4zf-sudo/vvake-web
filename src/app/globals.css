@@ -180,6 +180,11 @@
     scroll-behavior: smooth;
     -webkit-text-size-adjust: 100%;
   }
+  /* Nothing scrolls sideways on a narrow phone (320–400 px): clip, not hidden, so sticky headers keep working. */
+  html,
+  body {
+    overflow-x: clip;
+  }
   body {
     background: var(--color-night);
     color: var(--color-text);
