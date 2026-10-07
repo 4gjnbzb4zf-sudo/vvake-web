@@ -183,8 +183,8 @@
         "fr": "Battre ton record"
       },
       "detail": {
-        "en": "Your best session runs beside you as a ghost: over a distance, on one of your routes, or a training session by heart rate.",
-        "fr": "Ta meilleure séance court à côté de toi, en fantôme : sur une distance, sur un de tes parcours, ou un entraînement au cardio."
+        "en": "Your best session runs beside you as a ghost: over a distance, on one of your routes, or a training session by heart rate. In a GPS sport, just “race my best” picks your fastest route that starts near you, on the map.",
+        "fr": "Ta meilleure séance court à côté de toi, en fantôme : sur une distance, sur un de tes parcours, ou un entraînement au cardio. Dans un sport avec GPS, « bats mon record » tout court prend ton parcours le plus rapide qui part près de toi, sur la carte."
       },
       "examples": {
         "en": [

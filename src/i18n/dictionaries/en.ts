@@ -550,7 +550,7 @@ export const en = {
       {
         label: "Route ghost",
         title: "Your Sunday loop, again",
-        body: "Race your own past outdoor session on the same route. Your ghost moves along it at its recorded pace; leave the route and the race waits until you're back. The finish is the end of the route.",
+        body: "Race your own past outdoor session on the same route. Your ghost moves along it at its recorded pace; leave the route and the race waits until you're back. The finish is the end of the route. Just say “race my best” and VVake picks your fastest route that starts near you.",
         meta: "GPS · your traces stay on your device",
       },
       {
@@ -2252,7 +2252,7 @@ export const en = {
         list: [
           {
             t: "During outdoor sessions only.",
-            d: "VVake uses your location while you use the app during an outdoor session, to draw your route and measure distance. The route stays on your iPhone or Apple Watch and in Apple Health. It is never sent to our servers (unless you share a route for a challenge, below); we receive only totals such as distance and pace. Maps are drawn by Apple Maps.",
+            d: "VVake uses your location while you use the app during an outdoor session, to draw your route and measure distance. When you ask to race your best, it also checks the position your device last recorded, on the device itself, to suggest a route that starts near you. The route stays on your iPhone or Apple Watch and in Apple Health. It is never sent to our servers (unless you share a route for a challenge, below); we receive only totals such as distance and pace. Maps are drawn by Apple Maps.",
           },
           {
             t: "Your city.",

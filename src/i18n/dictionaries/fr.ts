@@ -554,7 +554,7 @@ export const fr: Dictionary = {
       {
         label: "Fantôme de parcours",
         title: "Ta boucle du dimanche, encore",
-        body: "Affronte ta propre sortie sur le même parcours. Ton fantôme y avance à son allure enregistrée ; si tu quittes le tracé, la course t'attend jusqu'à ce que tu le retrouves. L'arrivée, c'est la fin du parcours.",
+        body: "Affronte ta propre sortie sur le même parcours. Ton fantôme y avance à son allure enregistrée ; si tu quittes le tracé, la course t'attend jusqu'à ce que tu le retrouves. L'arrivée, c'est la fin du parcours. Dis juste « bats mon record » : VVake prend ton parcours le plus rapide qui part près de toi.",
         meta: "GPS · tes tracés restent sur ton appareil",
       },
       {
@@ -2409,7 +2409,7 @@ export const fr: Dictionary = {
         list: [
           {
             t: "Pendant les séances extérieures seulement.",
-            d: "VVake utilise votre position pendant que vous utilisez l'application lors d'une séance extérieure, pour tracer votre parcours et mesurer la distance. Le tracé reste sur votre iPhone ou votre Apple Watch et dans l'app Santé. Il n'est jamais envoyé à nos serveurs (sauf si vous partagez un parcours pour un défi, voir plus bas) ; nous recevons seulement des totaux comme la distance et l'allure. Les cartes sont affichées par Plans d'Apple.",
+            d: "VVake utilise votre position pendant que vous utilisez l'application lors d'une séance extérieure, pour tracer votre parcours et mesurer la distance. Quand vous demandez à battre votre record, elle consulte aussi la dernière position connue de votre appareil, sur l'appareil lui-même, pour proposer un parcours qui part près de vous. Le tracé reste sur votre iPhone ou votre Apple Watch et dans l'app Santé. Il n'est jamais envoyé à nos serveurs (sauf si vous partagez un parcours pour un défi, voir plus bas) ; nous recevons seulement des totaux comme la distance et l'allure. Les cartes sont affichées par Plans d'Apple.",
           },
           {
             t: "Votre ville.",
