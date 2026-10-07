@@ -451,7 +451,7 @@ export const fr: Dictionary = {
       },
       {
         title: "La musique qui tient ton rythme",
-        body: "Connecte ton app de musique et lance une playlist calée sur ton rythme, avec les commandes au poignet.",
+        body: "Spotify, Apple Music ou un mix VVake, avec les commandes au poignet. « Écouter sur » choisit où ça joue : ton iPhone, ton Apple Watch ou une enceinte.",
       },
       {
         title: "Ton année, résumée",
@@ -472,8 +472,8 @@ export const fr: Dictionary = {
       tempo: "calé sur ton rythme",
     },
     musicLabel: "Fonctionne avec ta musique",
-    musicServices: ["Spotify", "Apple Music", "Amazon Music"],
-    musicNote: "Intégrations prévues ; ces noms sont des marques de leurs propriétaires.",
+    musicServices: ["Spotify", "Apple Music", "Mix VVake"],
+    musicNote: "Dans les apps iPhone et Apple Watch, en développement. Ces noms sont des marques de leurs propriétaires.",
     healthy: [
       "Les jours de repos font partie de la série",
       "La zone 5 ne rapporte jamais plus",
@@ -529,10 +529,20 @@ export const fr: Dictionary = {
     },
     rules: [
       "Mode équitable par défaut : chacun contre sa propre moyenne",
-      "De la gloire, des badges et des gels de série. Pas d'argent, pas de paris",
+      "De la gloire, des badges et des gels de série. Pas d'argent : une mise facultative se fait en points de rival, sans aucune valeur en argent",
       "Invite tes amis et ta crew ; des inconnus seulement via le matchmaking sur activation",
       "10 défis max par jour ; sans réponse, ils expirent en 24 h",
     ],
+    rivals: {
+      title: "Rivaux : tenez les comptes entre amis",
+      body: "Chaque ami que tu as affronté devient un rival, avec votre bilan (victoires, défaites, nuls) et qui tient la série de victoires. Redéfie-le en un geste avec tes réglages enregistrés et un objectif équitable tiré de vos 6 dernières semaines, ou dis simplement « défie Alex » au micro de l'app, sur ta montre ou à Siri (Demander à VVake). Ça demande toujours avant d'envoyer.",
+      points: [
+        "Points de rival : 100 pour commencer, +5 par défi entre amis terminé où tu as bougé (25 par jour au plus).",
+        "Une mise facultative sur un défi envoyé directement à un ami : 10, 25 ou 50 points de rival chacun. Le gagnant prend les deux ; un nul, un refus, une expiration ou une annulation rend sa mise à chacun. Accepter une mise demande toujours un geste explicite.",
+        "Dépense-les en effets VVaker : auras, traînées, éclairs, contour, confettis, couronne, de 50 à 400 points de rival. Purement visuels : ni score, ni chance, ni récompense changés. Prix fixes, pas de boîtes surprises.",
+      ],
+      note: "Les points de rival n'ont aucune valeur en argent. Ils ne s'achètent pas, ne se vendent pas, ne s'envoient à personne et ne se convertissent ni en points VV, ni en $VVAKE, ni en prix. Ils sont séparés des prix et n'y jouent aucun rôle.",
+    },
   },
   ghostModes: {
     kicker: "Modes fantôme",
@@ -1002,7 +1012,7 @@ export const fr: Dictionary = {
   journal: {
     kicker: "Ton journal",
     title: "Chaque run, rencontre et victoire. À portée de doigt.",
-    body: "Ton historique, c'est la meilleure motivation. VVake garde chaque séance, rencontre de crew, défi et clash dans un journal agréable à parcourir, avec tes records et tes souvenirs mis en avant. Touche une séance pour son bilan complet : le parcours, ta fréquence cardiaque et tes zones, tes temps par km ou par mile, les points et pourquoi. Puis refais-la contre ton fantôme, défie un ami de la battre ou partage-la sur X.",
+    body: "Ton historique, c'est la meilleure motivation. VVake garde chaque séance, rencontre de crew, défi et clash dans un journal agréable à parcourir, avec tes records et tes souvenirs mis en avant. Touche une séance pour son bilan complet : le parcours, ta fréquence cardiaque et tes zones, tes temps par km ou par mile, les points et pourquoi. Puis refais-la contre ton fantôme, défie un ami de la battre ou partage-la sur X, sans avoir à te connecter. Les parcours extérieurs sont sauvegardés dans ton compte, chiffrés de bout en bout (VVake ne peut pas les lire) : tes cartes reviennent sur un nouvel iPhone, et les séances faites avec l'iPhone peuvent aussi aller dans l'app Santé.",
     example: "Exemple de journal",
     filters: { all: "Tout", workout: "Séances", crew: "Rencontres", challenge: "Défis", clash: "Clashs" },
     heatmap: "12 dernières semaines",
@@ -1199,14 +1209,32 @@ export const fr: Dictionary = {
   app: {
     kicker: "L'app",
     title: "Pensée pour ton poignet. Faite pour ta crew.",
-    body: "Deux taps pour démarrer. Ta montre gère la séance, ton téléphone raconte l'histoire : ton plan du jour, ton squad et le clash de ta ville au même endroit.",
+    body: "La séance du jour d'abord, lancée en un geste. Ta montre gère la séance, ton téléphone raconte l'histoire : ton plan du jour, ton squad et le clash de ta ville au même endroit.",
     points: [
-      { title: "Deux taps pour démarrer", body: "Depuis une complication de montre ou le bouton Action. Pas besoin du téléphone." },
+      {
+        title: "L'entraînement d'abord, en un geste",
+        body: "Aujourd'hui s'ouvre sur ta séance prévue : Démarrer en un geste, ou bats ton record. L'écran Aujourd'hui de la montre démarre pareil, et Siri peut lancer n'importe quel sport.",
+      },
+      {
+        title: "Des zones à tes chiffres",
+        body: "« Zone 2 · 112–128 bpm » d'après ton profil Santé, avec l'allure ou la vitesse qui devrait t'y mettre, apprise de tes séances. Les jours tranquilles, des blocs de maintien de zone : le coach dit les battements et l'allure, et te prévient quand tu dérives.",
+      },
+      {
+        title: "Écouter sur : téléphone ou montre",
+        body: "Choisis où jouent Spotify, Apple Music ou un mix VVake : ton iPhone, ton Apple Watch ou une enceinte. Spotify endormi ? Un geste l'ouvre et revient aussitôt. Un mix VVake passe de la montre au téléphone au même morceau, à la même seconde.",
+      },
+      {
+        title: "Des cartes qui suivent",
+        body: "Cartes au niveau de la rue sur le téléphone et la montre, le fantôme et l'écart au-dessus des commandes, et la séance de ta montre en miroir sur la carte de ton téléphone. Les parcours passent entre ta montre et ton téléphone : les fantômes de parcours marchent sur les deux.",
+      },
+      {
+        title: "Tu ne perds jamais la séance",
+        body: "Une séance continue derrière les autres écrans : une pastille « Retour à ta séance » te ramène. Elle se termine sur le détail de la séance avec ton tracé GPS, les points et pourquoi ils comptent.",
+      },
       {
         title: "Le moteur d'Apple",
         body: "La montre enregistre avec la séance d'entraînement d'Apple (HealthKit). L'autonomie dépend du GPS, de la musique et de l'écran.",
       },
-      { title: "Expliqué, pas jugé", body: "Chaque séance montre pourquoi elle compte. Signalée à tort ? Contestation en un tap." },
     ],
     phone: {
       greeting: "Bonjour · Lyon",

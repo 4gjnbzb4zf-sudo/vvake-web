@@ -150,6 +150,20 @@ export function Dare({ dict, index }: { dict: Dictionary["dare"]; index: string 
           ))}
         </ul>
       </div>
+
+      {/* Rivals (game-core rivals.ts, vvakerEffects.ts): record, win streak, rival points and optional stakes. */}
+      <div className="mt-6 rounded-3xl border border-lilac-fg/40 bg-gradient-to-br from-lilac/10 to-transparent p-5 sm:p-6">
+        <h3 className="font-display text-xl font-semibold">{dict.rivals.title}</h3>
+        <p className="mt-2 max-w-3xl leading-relaxed text-muted">{dict.rivals.body}</p>
+        <ul className="mt-4 grid gap-3 md:grid-cols-3">
+          {dict.rivals.points.map((p) => (
+            <li key={p} className="rounded-2xl border border-line bg-night/40 p-4 text-sm leading-relaxed text-muted">
+              {p}
+            </li>
+          ))}
+        </ul>
+        <p className="mt-4 rounded-2xl border border-butter-fg/40 bg-butter/10 p-4 text-sm font-semibold text-text">{dict.rivals.note}</p>
+      </div>
     </Section>
   );
 }

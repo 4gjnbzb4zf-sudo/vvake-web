@@ -452,7 +452,7 @@ export const en = {
       },
       {
         title: "Music that keeps your pace",
-        body: "Connect your music app and start a playlist matched to your pace, with controls on your wrist.",
+        body: "Spotify, Apple Music or a VVake mix, with controls on your wrist. Play on picks where it plays: your iPhone, your Apple Watch or a speaker.",
       },
       {
         title: "Your year, wrapped",
@@ -473,8 +473,8 @@ export const en = {
       tempo: "matched to your pace",
     },
     musicLabel: "Works with your music",
-    musicServices: ["Spotify", "Apple Music", "Amazon Music"],
-    musicNote: "Planned integrations; names are trademarks of their owners.",
+    musicServices: ["Spotify", "Apple Music", "VVake mixes"],
+    musicNote: "In the iPhone and Apple Watch apps, in development. Names are trademarks of their owners.",
     healthy: ["Rest days are part of the streak", "Zone 5 never earns more", "No guilt trips", "Quiet hours at night"],
   },
   dare: {
@@ -525,10 +525,20 @@ export const en = {
     },
     rules: [
       "Fair mode by default: everyone vs their own usual",
-      "Glory, badges and streak freezes. No money, no bets",
+      "Glory, badges and streak freezes. No money: an optional stake is in rival points, which have no cash value",
       "Invite friends and crew; strangers only via opt-in matchmaking",
       "Max 10 invites a day; unanswered ones expire in 24h",
     ],
+    rivals: {
+      title: "Rivals: keep score with your friends",
+      body: "Every friend you've faced becomes a rival, with your record (wins, losses, draws) and who holds the win streak. Challenge again in one tap with your saved settings and a fair mark from both your last 6 weeks, or just say “challenge Alex” to the app's mic, on your watch or to Siri (Ask VVake). It always asks before sending.",
+      points: [
+        "Rival points: 100 to start, +5 for each finished friend challenge you moved in (25 a day at most).",
+        "An optional stake on a challenge sent straight to a friend: 10, 25 or 50 rival points each. The winner takes both; a draw, a decline, an expiry or a cancel gives each side theirs back. Accepting a stake is always its own explicit tap.",
+        "Spend them on VVaker effects: auras, trails, lightning, an outline, confetti, a crown, from 50 to 400 rival points. Looks only: no score, no chance, no reward changes. Fixed prices, no random boxes.",
+      ],
+      note: "Rival points have no money value. They can't be bought, sold, sent to anyone or turned into VV points, $VVAKE or prizes. They are separate from prizes and play no part in them.",
+    },
   },
   ghostModes: {
     kicker: "Ghost modes",
@@ -966,7 +976,7 @@ export const en = {
   journal: {
     kicker: "Your journal",
     title: "Every run, meetup and win. One swipe away.",
-    body: "Your history is the best motivation there is. VVake keeps every workout, crew meetup, challenge and clash in a journal that's fun to scroll, with your records and memories surfaced for you. Tap a session for its full review: the route, your heart rate and zones, splits in km or miles, the points and why. Then race it again, dare a friend to beat it, or share it on X.",
+    body: "Your history is the best motivation there is. VVake keeps every workout, crew meetup, challenge and clash in a journal that's fun to scroll, with your records and memories surfaced for you. Tap a session for its full review: the route, your heart rate and zones, splits in km or miles, the points and why. Then race it again, dare a friend to beat it, or share it on X, no sign-in needed. Outdoor routes are backed up to your account end-to-end encrypted (VVake can't read them), so your maps come back on a new iPhone, and iPhone sessions can be saved to Apple Health too.",
     example: "Example journal",
     filters: { all: "All", workout: "Workouts", crew: "Crew meetups", challenge: "Challenges", clash: "Clashes" },
     heatmap: "Last 12 weeks",
@@ -1143,14 +1153,32 @@ export const en = {
   app: {
     kicker: "The app",
     title: "Built for your wrist. Made for your crew.",
-    body: "Start in two taps. Your watch runs the session, your phone tells the story: today's plan, your squad and your city's clash in one place.",
+    body: "Today's session first, started in one tap. Your watch runs the session, your phone tells the story: today's plan, your squad and your city's clash in one place.",
     points: [
-      { title: "Two taps to start", body: "From a watch complication or the Action Button. No phone needed." },
+      {
+        title: "Training first, one tap",
+        body: "Today opens on today's planned session: Start in one tap, or race your best. The watch's Today starts the same way, and Siri can start any sport.",
+      },
+      {
+        title: "Zones in your own numbers",
+        body: "“Zone 2 · 112–128 bpm” from your Health profile, plus the pace or speed that should put you there, learned from your sessions. On steady days, zone-hold blocks: the coach says the beats and the pace, and tells you when you drift.",
+      },
+      {
+        title: "Play on: phone or watch",
+        body: "Choose where Spotify, Apple Music or a VVake mix plays: your iPhone, your Apple Watch or a speaker. Spotify asleep? One tap opens it and comes straight back. A VVake mix moves between watch and phone at the same track and second.",
+      },
+      {
+        title: "Maps that keep up",
+        body: "Street-level maps on phone and watch, the ghost and the gap above the controls, and your watch's workout mirrored on your phone's map. Routes pass between your own watch and phone, so route ghosts work on both.",
+      },
+      {
+        title: "Never lose the session",
+        body: "A workout keeps going behind other screens: a “Back to your workout” pill brings you back. It ends on the session's details with your GPS path, the points and why they count.",
+      },
       {
         title: "Apple's workout engine",
         body: "The watch records with Apple's own workout session (HealthKit). Battery use depends on GPS, music and the screen.",
       },
-      { title: "Explained, not judged", body: "Every session shows why it counts. Wrongly flagged? One-tap appeal." },
     ],
     phone: {
       greeting: "Good morning · Lyon",
