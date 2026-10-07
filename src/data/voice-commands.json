@@ -709,19 +709,21 @@
         "fr": "Défier un ami de battre ton fantôme"
       },
       "detail": {
-        "en": "Matched against your friends (people you’ve faced). Confirms before sending.",
-        "fr": "Cherché parmi tes amis (les gens que tu as déjà affrontés). Confirme avant l’envoi."
+        "en": "Matched against your friends (people you’ve faced). Just a name sends your saved challenge with that rival again (its target and stake), else your ghost. Confirms before sending.",
+        "fr": "Cherché parmi tes amis (les gens que tu as déjà affrontés). Juste un prénom renvoie ton défi enregistré avec ce rival (son objectif et sa mise), sinon ton fantôme. Confirme avant l’envoi."
       },
       "examples": {
         "en": [
           "Challenge Marie to beat my ghost",
           "Send my ghost to Alex",
-          "Challenge Alex on my river route"
+          "Challenge Alex on my river route",
+          "Challenge Alex again"
         ],
         "fr": [
           "Défie Marie de battre mon fantôme",
           "Envoie mon fantôme à Alex",
-          "Défie Alex sur mon parcours de la rivière"
+          "Défie Alex sur mon parcours de la rivière",
+          "Redéfie Alex"
         ]
       },
       "confirm": true,
