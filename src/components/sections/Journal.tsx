@@ -29,14 +29,19 @@ export function Journal({ dict }: { dict: Dictionary["journal"] }) {
   const [filter, setFilter] = useState<Filter>("all");
 
   return (
-    <div className="mt-12 grid items-start gap-8 lg:grid-cols-[1fr_1.35fr]">
-      <div className="space-y-4">
+    <div className="mt-12 grid grid-cols-1 items-start gap-8 lg:grid-cols-[1fr_1.35fr]">
+      <div className="min-w-0 space-y-4">
         <div className="rounded-3xl border border-line bg-surface/70 p-5">
           <div className="flex items-center justify-between">
             <p className="font-mono text-[0.7rem] tracking-[0.16em] text-faint uppercase">{dict.heatmap}</p>
             <p className="font-mono text-[0.65rem] text-faint">{dict.example}</p>
           </div>
-          <div className="mt-4 grid grid-flow-col grid-rows-7 gap-1" role="img" aria-label={dict.heatmap}>
+          <div
+            className="mt-4 grid grid-flow-col gap-1"
+            style={{ gridTemplateColumns: `repeat(${HEAT.length / 7}, minmax(0, 1fr))`, gridTemplateRows: "repeat(7, auto)" }}
+            role="img"
+            aria-label={dict.heatmap}
+          >
             {HEAT.map((level, i) => (
               <span key={i} className={`aspect-square rounded-[3px] ${HEAT_COLORS[level]}`} />
             ))}

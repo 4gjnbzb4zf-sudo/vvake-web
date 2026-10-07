@@ -438,7 +438,7 @@ export function RewardsAccount({ dict, lang, apiUrl }: { dict: Dict; lang: Local
         <Section id="wallet" index={dict.wallet.index} kicker={dict.wallet.kicker} title={dict.wallet.title} lead={dict.wallet.lead}>
           <p className="mt-8 text-sm text-faint">{dict.signIn.first}</p>
           <div className="mt-6 grid gap-4 lg:grid-cols-2">
-            <div className="rounded-2xl border border-line bg-surface/60 p-6 lg:col-span-2">
+            <div className="min-w-0 rounded-2xl border border-line bg-surface/60 p-6 lg:col-span-2">
               <p className="font-mono text-xs tracking-[0.16em] text-faint uppercase">{dict.wallet.passkey.title}</p>
               <p className="mt-3 max-w-3xl text-sm leading-relaxed text-muted">{dict.wallet.passkey.intro}</p>
             </div>

@@ -35,7 +35,7 @@ export function RivalryBoard({ dict, rivalries, numberLocale }: RivalriesProps) 
             aria-controls={`${baseId}-panel`}
             onClick={() => setCountry(c)}
             className={cn(
-              "rounded-lg px-5 py-2 font-display text-sm font-semibold transition-colors",
+              "rounded-lg px-3.5 py-2 font-display text-sm font-semibold transition-colors sm:px-5",
               country === c ? "bg-pulse text-ink" : "text-muted hover:text-text",
             )}
           >

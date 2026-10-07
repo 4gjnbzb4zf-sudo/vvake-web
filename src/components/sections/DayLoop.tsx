@@ -8,8 +8,8 @@ const RING = 2 * Math.PI * 70;
 export function DayLoop({ dict, index }: { dict: Dictionary["day"]; index: string }) {
   return (
     <Section id="day" index={index} kicker={dict.kicker} title={dict.title} lead={dict.body}>
-      <div className="mt-12 grid items-start gap-10 lg:grid-cols-[1.35fr_1fr]">
-        <ol className="relative space-y-3 before:absolute before:top-2 before:bottom-2 before:left-[3.9rem] before:w-px before:bg-line">
+      <div className="mt-12 grid grid-cols-1 items-start gap-10 lg:grid-cols-[1.35fr_1fr]">
+        <ol className="relative min-w-0 space-y-3 before:absolute before:top-2 before:bottom-2 before:left-[3.9rem] before:w-px before:bg-line">
           {dict.moments.map((m) => {
             const watch = m.device === "watch";
             return (
@@ -26,7 +26,7 @@ export function DayLoop({ dict, index }: { dict: Dictionary["day"]; index: strin
                     {m.icon}
                   </span>
                   <div className="min-w-0">
-                    <p className="flex items-center gap-2">
+                    <p className="flex flex-wrap items-center gap-x-2">
                       <span className="font-display text-sm font-semibold">{m.title}</span>
                       <span className="rounded-full border border-line px-1.5 py-px font-mono text-[0.6rem] text-faint">{m.on}</span>
                     </p>
@@ -38,7 +38,7 @@ export function DayLoop({ dict, index }: { dict: Dictionary["day"]; index: strin
           })}
         </ol>
 
-        <div className="lg:sticky lg:top-24">
+        <div className="min-w-0 lg:sticky lg:top-24">
           <div className="rounded-[2rem] border border-line bg-surface/70 p-6 text-center">
             <svg
               viewBox="0 0 180 180"

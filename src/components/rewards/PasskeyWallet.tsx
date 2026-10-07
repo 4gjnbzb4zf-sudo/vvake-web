@@ -222,7 +222,7 @@ export function PasskeyWallet({
   const isLinked = sameAddress(linked, blob?.address);
 
   return (
-    <div className="rounded-2xl border border-line bg-surface/60 p-6 lg:col-span-2" data-testid="passkey-wallet">
+    <div className="min-w-0 rounded-2xl border border-line bg-surface/60 p-6 lg:col-span-2" data-testid="passkey-wallet">
       <p className="font-mono text-xs tracking-[0.16em] text-faint uppercase">{t.title}</p>
 
       {vault === undefined && !vaultError ? (
@@ -500,7 +500,7 @@ export function PasskeyWallet({
 /** "Use my own wallet": Rabby / MetaMask / a hardware wallet, the testnet's settings, and the recovery phrase rules. */
 export function OwnWalletGuide({ dict }: { dict: Dict["wallet"]["own"] }) {
   return (
-    <div id="own-wallet" className="rounded-2xl border border-line bg-surface/60 p-6 lg:col-span-2" data-testid="own-wallet">
+    <div id="own-wallet" className="min-w-0 rounded-2xl border border-line bg-surface/60 p-6 lg:col-span-2" data-testid="own-wallet">
       <p className="font-mono text-xs tracking-[0.16em] text-faint uppercase">{dict.title}</p>
       <p className="mt-3 max-w-3xl text-sm leading-relaxed text-muted">{dict.intro}</p>
       <ol className="mt-4 max-w-3xl list-decimal space-y-2 pl-5 text-sm leading-relaxed text-muted">

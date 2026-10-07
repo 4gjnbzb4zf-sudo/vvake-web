@@ -9,9 +9,9 @@ export function Pace({ dict, index }: { dict: Dictionary["pace"]; index: string 
   const w = dict.widgets;
   return (
     <Section id="pace" index={index} kicker={dict.kicker} title={dict.title} lead={dict.body}>
-      <div className="mt-12 grid gap-8 lg:grid-cols-[1fr_1.15fr]">
+      <div className="mt-12 grid grid-cols-1 gap-8 lg:grid-cols-[1fr_1.15fr]">
         {/* Widget stack: what "keeping your pace" looks like in the app */}
-        <div className="space-y-3" aria-hidden="true">
+        <div className="min-w-0 space-y-3" aria-hidden="true">
           <div className="rounded-3xl border border-line bg-surface p-5">
             <div className="flex items-baseline justify-between">
               <p className="font-mono text-[0.7rem] tracking-[0.16em] text-pulse-fg uppercase">{w.streak}</p>
@@ -19,14 +19,14 @@ export function Pace({ dict, index }: { dict: Dictionary["pace"]; index: string 
                 23 <span className="text-base font-semibold text-muted">{w.days} 🔥</span>
               </p>
             </div>
-            <div className="mt-4 grid grid-cols-7 gap-2">
+            <div className="mt-4 grid grid-cols-7 gap-1.5 sm:gap-2">
               {WEEK.map((d, i) => (
                 <div key={i} className="text-center">
                   <div
                     className={
                       d === "on"
-                        ? "mx-auto h-9 w-9 rounded-xl bg-pulse shadow-[0_6px_18px_-6px_rgb(255_61_110/0.7)]"
-                        : "mx-auto flex h-9 w-9 items-center justify-center rounded-xl border border-dashed border-calm-fg/60 text-[0.6rem] text-calm-fg"
+                        ? "mx-auto aspect-square w-full max-w-9 rounded-xl bg-pulse shadow-[0_6px_18px_-6px_rgb(255_61_110/0.7)]"
+                        : "mx-auto flex aspect-square w-full max-w-9 items-center justify-center rounded-xl border border-dashed border-calm-fg/60 text-[0.6rem] text-calm-fg"
                     }
                   >
                     {d === "rest" ? "zz" : null}

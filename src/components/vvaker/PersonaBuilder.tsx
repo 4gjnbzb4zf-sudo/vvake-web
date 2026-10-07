@@ -194,7 +194,7 @@ export function PersonaBuilder({
 
   return (
     <div className="mt-14 grid items-start gap-8 lg:grid-cols-[1fr_1.15fr]">
-      <div className="lg:sticky lg:top-24">
+      <div className="min-w-0 lg:sticky lg:top-24">
         <div
           ref={stage}
           className="relative mx-auto aspect-[4/5] w-full max-w-[460px] overflow-hidden rounded-[2rem] border border-line bg-[radial-gradient(circle_at_50%_40%,#2b2f33,#0e1012_70%)]"

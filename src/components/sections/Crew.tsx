@@ -16,7 +16,7 @@ export function Crew({ dict, index }: { dict: Dictionary["crew"]; index: string 
   const inv = dict.invite;
   return (
     <Section id="crew" index={index} kicker={dict.kicker} title={dict.title} lead={dict.body}>
-      <div className="mt-12 grid items-start gap-8 lg:grid-cols-[1fr_1.1fr]">
+      <div className="mt-12 grid grid-cols-1 items-start gap-8 lg:grid-cols-[1fr_1.1fr]">
         <div className="space-y-4" aria-hidden="true">
           {/* Invitation card */}
           <div className="rounded-[2rem] border border-pulse-fg/40 bg-gradient-to-b from-pulse/15 to-surface p-6 shadow-[0_24px_60px_-30px_rgb(255_61_110/0.7)]">

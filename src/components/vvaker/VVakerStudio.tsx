@@ -77,7 +77,7 @@ export function VVakerStudio({ dict }: { dict: Dictionary["vvaker"] }) {
 
   return (
     <div className="mt-14 grid items-start gap-8 lg:grid-cols-[1fr_1.15fr]">
-      <div className="lg:sticky lg:top-24">
+      <div className="min-w-0 lg:sticky lg:top-24">
         <div
           ref={stageRef}
           className={cn(
