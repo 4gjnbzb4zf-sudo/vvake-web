@@ -809,14 +809,14 @@ export const fr: Dictionary = {
     ],
     calendar: {
       title: "Ton agenda, synchronisé",
-      body: "Connecte Google Agenda ou Outlook / Microsoft 365 : VVake ajoute tes séances et tes rendez-vous de crew dans un agenda VVake privé, et planifie autour de tes créneaux occupés. Apple Calendrier et les autres : abonne-toi avec un lien.",
+      body: "Connecte Google Agenda ou Outlook / Microsoft 365 : VVake planifie autour de tes créneaux occupés et bloque tes entraînements prévus dans ton agenda en créneaux privés, déplacés quand ton programme change. Apple Calendrier et les autres : abonne-toi avec un lien.",
       google: "Google Agenda",
       microsoft: "Outlook · Microsoft 365",
       soon: "Au lancement",
       download: "Ajouter cette semaine (.ics)",
       privacy: [
         "On voit seulement occupé ou libre, jamais le titre de tes réunions, les participants ou les lieux",
-        "On écrit uniquement dans un agenda VVake séparé, en privé",
+        "On ajoute, déplace ou retire seulement les événements de VVake, en privé : les autres ne voient que « occupé »",
         "Déconnecte quand tu veux : l'accès est retiré immédiatement",
       ],
       event: "VVake · {sport}",
@@ -2449,7 +2449,7 @@ export const fr: Dictionary = {
           },
           {
             t: "Google Agenda (facultatif).",
-            d: "Si vous connectez Google Agenda, nous demandons à Google seulement vos disponibilités et la permission de gérer un agenda créé par VVake (« VVake »). Nous conservons votre courriel Google et les jetons d'accès, chiffrés. Nous lisons les plages occupées de votre agenda principal, jamais le détail des événements, et ajoutons à l'agenda VVake, à votre demande, des événements privés comme « VVake · Course 30 min ». Si vous vous déconnectez, nous révoquons l'accès chez Google et supprimons les jetons.",
+            d: "Si vous connectez Google Agenda, nous demandons à Google vos disponibilités, la permission de gérer un agenda créé par VVake (« VVake ») et celle de gérer les événements des agendas qui vous appartiennent, pour bloquer vos entraînements prévus dans votre agenda principal. Nous conservons votre courriel Google et les jetons d'accès, chiffrés. De votre agenda principal, nous lisons seulement l'heure de début et de fin des événements, s'ils vous rendent occupé et si vous les avez refusés, jamais les titres, lieux, notes ou autres personnes. Nous ajoutons des événements privés occupés comme « VVake · Course 30 min » pour les séances de votre semaine à venir (les autres ne voient que « occupé »), et ne déplaçons ou supprimons que les événements créés par VVake ; vous pouvez désactiver cela dans l'app, ce qui retire ceux à venir. Les séances que vous ajoutez vous-même vont dans l'agenda VVake. Si vous vous déconnectez, nous révoquons l'accès chez Google et supprimons les jetons.",
           },
         ],
         after: [

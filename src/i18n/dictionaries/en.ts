@@ -794,14 +794,14 @@ export const en = {
     ],
     calendar: {
       title: "Your agenda, in sync",
-      body: "Connect Google Calendar or Outlook / Microsoft 365: VVake adds your sessions and crew meetups to a private VVake calendar, and plans around your busy times. Apple Calendar and others: subscribe with one link.",
+      body: "Connect Google Calendar or Outlook / Microsoft 365: VVake plans around your busy times and blocks your planned training in your calendar as private busy times, moved when your plan changes. Apple Calendar and others: subscribe with one link.",
       google: "Google Calendar",
       microsoft: "Outlook · Microsoft 365",
       soon: "At launch",
       download: "Add this week (.ics)",
       privacy: [
         "We only see busy or free, never your meeting titles, people or places",
-        "We write only to a separate VVake calendar, marked private",
+        "We only add, move or remove VVake's own events, marked private: others see just “busy”",
         "Disconnect anytime: access is removed instantly",
       ],
       event: "VVake · {sport}",
@@ -2292,7 +2292,7 @@ export const en = {
           },
           {
             t: "Google Calendar (optional).",
-            d: 'If you connect Google Calendar, we ask Google only for your free/busy times and for permission to manage a calendar that VVake creates ("VVake"). We store your Google e-mail and the access tokens, encrypted. We read busy times on your main calendar, never event details, and add private events such as "VVake · Run 30 min" to the VVake calendar when you ask. If you disconnect, we revoke the access at Google and delete the tokens.',
+            d: 'If you connect Google Calendar, we ask Google for your free/busy times, for permission to manage a calendar that VVake creates ("VVake"), and for permission to manage events on calendars you own, so your planned training can be blocked in your main calendar. We store your Google e-mail and the access tokens, encrypted. From your main calendar we read only when events start and end, whether they mark you busy and whether you declined them, never titles, places, notes or other people. We add private busy events such as "VVake · Run 30 min" for your coming week's sessions (others see only "busy"), and move or remove only the events VVake created; you can turn this off in the app, which removes the coming ones. Sessions you add yourself go to the VVake calendar. If you disconnect, we revoke the access at Google and delete the tokens.',
           },
         ],
         after: [
