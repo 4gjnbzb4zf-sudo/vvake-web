@@ -183,6 +183,7 @@ export function PublicRewards({ dict, lang, apiUrl }: { dict: Dict; lang: Locale
             <ContractRow label={t.rewardsContract} address={rewardsContract} missing={dict.notDeployed} />
             <ContractRow label={t.token} address={rewardsConfig.token} missing={dict.notDeployed} />
           </ul>
+          <p className="mt-3 max-w-3xl text-xs leading-relaxed text-faint">{t.contractsNote}</p>
         </div>
       </Section>
 

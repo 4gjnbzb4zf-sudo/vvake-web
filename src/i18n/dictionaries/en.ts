@@ -2664,7 +2664,7 @@ export const en = {
     description: "Weekly $VVAKE prizes for moving, claimed with your own wallet. Testnet: the tokens have no value.",
     kicker: "$VVAKE rewards · testnet",
     heading: "Prizes for moving, in your own wallet",
-    lead: "Each week, the VV points from your counted sessions become $VVAKE you claim yourself from an open-source contract. VVake never holds your tokens or your keys.",
+    lead: "Each week, the VV points from your counted sessions become $VVAKE you claim yourself from VVake's open-source prize contract. VVake never holds your tokens or your keys.",
     health: "Prizes reward effort and consistency, never pushing past your limits: your health comes first.",
     healthLink: "Health & safety",
     testnet:
@@ -2986,6 +2986,8 @@ export const en = {
       poolContract: "Prize pool",
       rewardsContract: "Rewards",
       token: "VVAKE token",
+      contractsNote:
+        "The prize pool and rewards contracts are VVake's own: open source (MIT) and reviewed; a full external audit comes before any mainnet value. The VVAKE token and the trading hook it uses come from the vibe/vibe launchpad: VVake didn't write them, and their sources aren't verified on the explorer.",
       chainError: "The chain can't be read right now.",
       readAt: "Read from the chain at {time}",
       unreadable: "Couldn't be read from the chain just now. Nothing older is shown in its place.",

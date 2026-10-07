@@ -2846,7 +2846,7 @@ export const fr: Dictionary = {
       "Des prix $VVAKE chaque semaine pour avoir bougé, réclamés avec ton propre portefeuille. Testnet : les tokens n'ont aucune valeur.",
     kicker: "Récompenses $VVAKE · testnet",
     heading: "Des prix pour avoir bougé, dans ton propre portefeuille",
-    lead: "Chaque semaine, les points VV de tes séances comptées deviennent des $VVAKE que tu réclames toi-même auprès d'un contrat open source. VVake ne détient jamais tes tokens ni tes clés.",
+    lead: "Chaque semaine, les points VV de tes séances comptées deviennent des $VVAKE que tu réclames toi-même auprès du contrat de prix open source de VVake. VVake ne détient jamais tes tokens ni tes clés.",
     health: "Les prix récompensent l'effort et la régularité, jamais le fait de dépasser tes limites : ta santé passe en premier.",
     healthLink: "Santé et sécurité",
     testnet:
@@ -3178,6 +3178,8 @@ export const fr: Dictionary = {
       poolContract: "Cagnotte",
       rewardsContract: "Récompenses",
       token: "Token VVAKE",
+      contractsNote:
+        "Les contrats de la cagnotte et des récompenses sont ceux de VVake : open source (MIT) et relus ; un audit externe complet passe avant toute valeur sur le mainnet. Le token VVAKE et le hook d'échange qu'il utilise viennent du launchpad vibe/vibe : VVake ne les a pas écrits, et leurs sources ne sont pas vérifiées sur l'explorateur.",
       chainError: "La chaîne ne peut pas être lue pour le moment.",
       readAt: "Lu sur la chaîne à {time}",
       unreadable: "Impossible à lire sur la chaîne pour l'instant. Aucune valeur plus ancienne n'est affichée à la place.",
