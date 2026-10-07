@@ -1364,8 +1364,8 @@ export const fr: Dictionary = {
     body: "Les actions donnent son pouls à VVake, ton effort gagne les récompenses, et la chaîne garde les comptes ouverts. Voici comment tout s'assemble, et où sont les limites.",
     robinhood: {
       kicker: "La connexion Robinhood",
-      title: "Pensé pour l'écosystème Robinhood.",
-      body: "Les rails web3 et investissement de VVake Fit sont conçus autour de Robinhood : la chaîne où vivent les actions tokenisées, les actions tokenisées qui font duo avec tes sports, et le courtage pour les achats récurrents.",
+      title: "Prévu en pensant à l'écosystème Robinhood.",
+      body: "Les rails web3 et investissement de VVake Fit sont prévus autour de Robinhood, sans accord signé pour l'instant : la chaîne où vivent les actions tokenisées, les actions tokenisées qui font duo avec tes sports, et le courtage pour les achats récurrents.",
       rails: [
         {
           icon: "⛓️",

@@ -1304,8 +1304,8 @@ export const en = {
     body: "Stocks give VVake its heartbeat, your effort earns the rewards, and the chain keeps the books open. Here's how the pieces connect, and where the lines are.",
     robinhood: {
       kicker: "The Robinhood connection",
-      title: "Built for the Robinhood ecosystem.",
-      body: "VVake Fit's web3 and investing rails are designed around Robinhood: the chain where tokenized stocks live, the stock tokens that pair with your sports, and the brokerage for recurring buys.",
+      title: "Planned with the Robinhood ecosystem in mind.",
+      body: "VVake Fit's web3 and investing rails are planned around Robinhood, with no agreement signed yet: the chain where tokenized stocks live, the stock tokens that pair with your sports, and the brokerage for recurring buys.",
       rails: [
         {
           icon: "⛓️",
