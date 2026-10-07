@@ -1072,7 +1072,7 @@ export const en = {
       label: "Steps today",
       value: "6,412",
       goal: "of 6,500 · your goal",
-      note: "Steps count too: 1,500 steps keep your streak alive, and on phone-only days they turn into effort.",
+      note: "Steps count too: 1,500 steps keep your streak alive, and on phone-only days they turn into effort for your streak and your points. Prizes are different: phone-only days and Move Quests don't count toward them (they need heart-rate data from a watch).",
     },
     cheers: ["Cheers, not guilt", "Right moment, not every moment", "Max 2 training nudges a day", "Silent at night"],
   },

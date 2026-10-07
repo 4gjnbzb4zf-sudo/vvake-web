@@ -1108,7 +1108,7 @@ export const fr: Dictionary = {
       label: "Pas aujourd'hui",
       value: "6 412",
       goal: "sur 6 500 · ton objectif",
-      note: "Les pas comptent aussi : 1 500 pas suffisent à garder ta série, et les jours sans montre, ils deviennent de l'effort.",
+      note: "Les pas comptent aussi : 1 500 pas suffisent à garder ta série, et les jours sans montre, ils deviennent de l'effort pour ta série et tes points. Les prix, c'est autre chose : les jours sans montre et les Move Quests n'y comptent pas (il faut la fréquence cardiaque d'une montre).",
     },
     cheers: [
       "Des encouragements, pas de culpabilité",
