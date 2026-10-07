@@ -191,7 +191,7 @@ export const fr: Dictionary = {
         {
           status: "En développement",
           tone: "now",
-          items: ["App iPhone", "App Apple Watch", "Apple Santé", "Agendas Apple et Google"],
+          items: ["App iPhone", "App Apple Watch", "Apple Santé", "L'agenda de ton iPhone et Google Agenda"],
         },
         { status: "Prévu", tone: "next", items: ["Téléphone Android et Health Connect", "Montres Wear OS", "Garmin"] },
         { status: "À l'étude", tone: "maybe", items: ["Bagues connectées", "Autres objets connectés et apps"] },
@@ -802,16 +802,16 @@ export const fr: Dictionary = {
       "time-cap": "Limité par le temps dont tu disposes : jamais un plan au-delà de ta réalité.",
     },
     features: [
-      "Séances récurrentes, seul ou avec ta crew, synchronisées avec Google ou Outlook",
+      "Séances récurrentes, seul ou avec ta crew, dans l'agenda de ton iPhone ou Google Agenda",
       "Des rappels qui respectent tes heures calmes",
       "Change de jour librement : une séance déplacée compte quand même",
       "Démarre sur ta montre en un geste",
     ],
     calendar: {
       title: "Ton agenda, synchronisé",
-      body: "Connecte Google Agenda ou Outlook / Microsoft 365 : VVake planifie autour de tes créneaux occupés et bloque tes entraînements prévus dans ton agenda en créneaux privés, déplacés quand ton programme change. Déplace ou supprime un créneau dans ton agenda et VVake te suit. Apple Calendrier et les autres : abonne-toi avec un lien.",
+      body: "Dans l'app iPhone : autorise l'agenda de ton iPhone et VVake planifie autour de tes créneaux occupés (tous les comptes du téléphone, Google compris), en écrivant seulement dans son propre agenda « VVake ». Connecte aussi Google Agenda directement et tes entraînements prévus y sont bloqués en créneaux privés, déplacés quand ton programme change ; déplace ou supprime un créneau et VVake te suit. Pas de lien direct avec Outlook / Microsoft 365. Ici sur le site : télécharge cette semaine d'exemple en fichier.",
       google: "Google Agenda",
-      microsoft: "Outlook · Microsoft 365",
+      microsoft: "L'agenda de ton iPhone",
       soon: "Au lancement",
       download: "Ajouter cette semaine (.ics)",
       privacy: [
@@ -899,7 +899,7 @@ export const fr: Dictionary = {
       "Tes données : ton journal complet et tes exports restent gratuits",
     ],
     split: "Comme tous les frais, Plus passe par notre répartition publique : 30 % reviennent aux récompenses de saison des joueurs.",
-    note: "Dans les apps iOS et Android, Plus est un abonnement intégré géré par le store ; gère-le ou résilie-le dans les réglages du store. Les prix varient selon le pays et incluent les taxes quand c'est requis.",
+    note: "Dans l'app iPhone (et l'app Android quand elle arrivera), Plus est un abonnement intégré géré par le store ; gère-le ou résilie-le dans les réglages du store. Les prix varient selon le pays et incluent les taxes quand c'est requis.",
   },
   coach: {
     kicker: "Ton VVaker, ton coach",
@@ -1234,18 +1234,16 @@ export const fr: Dictionary = {
       callLine: "20 min en zone 2 avec Sam ?",
     },
     devices: {
-      title: "Compatible avec les téléphones et montres récents",
+      title: "Pensée pour iPhone et Apple Watch",
       items: [
         { icon: "📱", name: "iPhone", spec: "iOS 17 ou plus · iPhone XR / XS et plus récents" },
         { icon: "⌚", name: "Apple Watch", spec: "watchOS 10 ou plus · Series 4, SE, Ultra et plus récentes" },
-        { icon: "🤖", name: "Téléphones Android", spec: "Android 10 ou plus · Pixel, Samsung Galaxy et autres" },
-        { icon: "⌚", name: "Montres Wear OS", spec: "Wear OS 3 ou plus · Pixel Watch, Galaxy Watch 4 et plus récentes" },
-        { icon: "❤️", name: "Synchro santé", spec: "Apple Santé · Health Connect (Android)" },
+        { icon: "❤️", name: "Synchro santé", spec: "Apple Santé" },
         { icon: "📶", name: "Ceintures cardio", spec: "Toute ceinture cardio Bluetooth" },
       ],
-      note: "Cibles de lancement ; la liste finale est publiée à chaque version de l'app.",
+      note: "Les deux apps sont en développement, pas encore sur l'App Store. Android, Wear OS et Garmin sont prévus, pas encore construits. La liste finale est publiée à chaque version de l'app.",
     },
-    platforms: "Apple Watch · Wear OS · iPhone · Android",
+    platforms: "Apple Watch · iPhone",
     soon: "Disponible au déblocage de ta ville",
     voice: {
       title: "Tu le dis, VVake le fait",
@@ -1297,7 +1295,7 @@ export const fr: Dictionary = {
       },
       {
         title: "Partout",
-        body: "Apple Watch, Wear OS ou téléphone. Pas de réseau sur le sentier ? Les sessions s'enregistrent hors ligne et se synchronisent plus tard : tu ne perds jamais un jour.",
+        body: "Apple Watch ou iPhone (Android et Wear OS sont prévus). Pas de réseau sur le sentier ? Les sessions s'enregistrent hors ligne et se synchronisent plus tard : tu ne perds jamais un jour.",
       },
     ],
   },
@@ -2051,7 +2049,7 @@ export const fr: Dictionary = {
         "Une part des revenus",
         "Quoi que ce soit d'obligatoire pour jouer",
       ],
-      note: "Portail web uniquement, adultes, pas dans tous les pays. Dans les apps iOS et Android, les objets de collection sont visibles uniquement, et les mêmes looks et pass existent en achats intégrés classiques. Les objets de collection ne sont pas des investissements.",
+      note: "Portail web uniquement, adultes, pas dans tous les pays. Dans les apps (iPhone aujourd'hui, Android quand elle arrivera), les objets de collection sont visibles uniquement, et les mêmes looks et pass existent en achats intégrés classiques. Les objets de collection ne sont pas des investissements.",
     },
     fanKits: {
       none: "Aucune équipe",

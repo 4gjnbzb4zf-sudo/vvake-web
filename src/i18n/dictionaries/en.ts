@@ -193,7 +193,7 @@ export const en = {
         {
           status: "In development",
           tone: "now",
-          items: ["iPhone app", "Apple Watch app", "Apple Health", "Apple and Google calendars"],
+          items: ["iPhone app", "Apple Watch app", "Apple Health", "Your iPhone's calendar and Google Calendar"],
         },
         { status: "Planned", tone: "next", items: ["Android phone and Health Connect", "Wear OS watches", "Garmin"] },
         { status: "Under consideration", tone: "maybe", items: ["Smart rings", "Other wearables and apps"] },
@@ -787,16 +787,16 @@ export const en = {
       "time-cap": "Capped by the time you have: never a plan beyond your reality.",
     },
     features: [
-      "Recurring sessions, alone or with your crew, synced to Google or Outlook",
+      "Recurring sessions, alone or with your crew, in your iPhone's calendar or Google Calendar",
       "Reminders that respect your quiet hours",
       "Swap days freely: a moved session still counts",
       "Starts on your watch in one tap",
     ],
     calendar: {
       title: "Your agenda, in sync",
-      body: "Connect Google Calendar or Outlook / Microsoft 365: VVake plans around your busy times and blocks your planned training in your calendar as private busy times, moved when your plan changes. Move or delete a block in your calendar and VVake follows you. Apple Calendar and others: subscribe with one link.",
+      body: "In the iPhone app: allow your iPhone's calendar and VVake plans around your busy times (every account on the phone, Google included), and writes only to its own “VVake” calendar. Connect Google Calendar directly and your planned training is also blocked in it as private busy times, moved when your plan changes; move or delete a block there and VVake follows you. No direct Outlook / Microsoft 365 link. Here on the site: download this sample week as a file.",
       google: "Google Calendar",
-      microsoft: "Outlook · Microsoft 365",
+      microsoft: "Your iPhone's calendar",
       soon: "At launch",
       download: "Add this week (.ics)",
       privacy: [
@@ -863,7 +863,7 @@ export const en = {
       "Your data: your full journal and exports stay free",
     ],
     split: "Like every fee, Plus goes through our public split: 30% goes back to players' season rewards.",
-    note: "In the iOS and Android apps, Plus is an in-app subscription through the store; manage or cancel it in your store settings. Prices vary by country and include taxes where required.",
+    note: "In the iPhone app (and the Android app when it comes), Plus is an in-app subscription through the store; manage or cancel it in your store settings. Prices vary by country and include taxes where required.",
   },
   coach: {
     kicker: "Your VVaker, your coach",
@@ -1178,18 +1178,16 @@ export const en = {
       callLine: "20 min, zone 2 with Sam?",
     },
     devices: {
-      title: "Works with recent phones and watches",
+      title: "Built for iPhone and Apple Watch",
       items: [
         { icon: "📱", name: "iPhone", spec: "iOS 17 or later · iPhone XR / XS and newer" },
         { icon: "⌚", name: "Apple Watch", spec: "watchOS 10 or later · Series 4, SE, Ultra and newer" },
-        { icon: "🤖", name: "Android phones", spec: "Android 10 or later · Pixel, Samsung Galaxy and more" },
-        { icon: "⌚", name: "Wear OS watches", spec: "Wear OS 3 or later · Pixel Watch, Galaxy Watch 4 and newer" },
-        { icon: "❤️", name: "Health sync", spec: "Apple Health · Health Connect (Android)" },
+        { icon: "❤️", name: "Health sync", spec: "Apple Health" },
         { icon: "📶", name: "Heart-rate straps", spec: "Any Bluetooth heart-rate strap" },
       ],
-      note: "Launch targets; the final list is published with each app release.",
+      note: "Both apps are in development, not in the App Store yet. Android, Wear OS and Garmin are planned, not built. The final list is published with each app release.",
     },
-    platforms: "Apple Watch · Wear OS · iPhone · Android",
+    platforms: "Apple Watch · iPhone",
     soon: "Coming with your city's unlock",
     voice: {
       title: "Say it, VVake does it",
@@ -1238,7 +1236,7 @@ export const en = {
       },
       {
         title: "Works anywhere",
-        body: "Apple Watch, Wear OS or phone. No signal on the trail? Sessions record offline and sync later, so you never lose a day.",
+        body: "Apple Watch or iPhone (Android and Wear OS are planned). No signal on the trail? Sessions record offline and sync later, so you never lose a day.",
       },
     ],
   },
@@ -1920,7 +1918,7 @@ export const en = {
       ],
       neverTitle: "Never included",
       never: ["More rewards, energy or ranking", "Extra prize entries", "Any share of revenue", "Anything required to play"],
-      note: "Web portal only, adults, not available in every country. In the iOS and Android apps, collectibles are view-only and the same looks and passes exist as regular in-app purchases. Collectibles are not investments.",
+      note: "Web portal only, adults, not available in every country. In the apps (iPhone today, Android when it comes), collectibles are view-only and the same looks and passes exist as regular in-app purchases. Collectibles are not investments.",
     },
     fanKits: {
       none: "No team",
