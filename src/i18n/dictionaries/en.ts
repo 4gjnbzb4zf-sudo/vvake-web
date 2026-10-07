@@ -2828,7 +2828,7 @@ export const en = {
       passkey: {
         title: "A wallet with your passkey",
         intro:
-          "No extension and no recovery phrase to write down: VVake creates a wallet in this browser and locks its key with a passkey (Face ID, Touch ID, your device PIN or a security key). VVake's servers keep only the locked copy and can't open it. Your passkey syncs with your Apple or Google account, so the wallet follows you to your other devices.",
+          "No extension and no recovery phrase to write down: VVake creates a wallet in this browser and locks its key with a passkey (Face ID, Touch ID, your device PIN or a security key). VVake's servers keep only the locked copy and can't open it. Your passkey syncs with your Apple or Google account, so the wallet follows you to your other devices. Only that passkey opens it: if the passkey is lost or deleted, VVake can't open or recover the wallet. The same goes if the locked copy is deleted (you delete it here, or you delete your VVake account) and you have no other copy. So export your key or move your prizes to a wallet of your own before you rely on it.",
         create: "Create my wallet with Face ID / passkey",
         creating: "Follow your device's prompt to create the passkey…",
         created: "Wallet created. Link it to receive prizes.",
@@ -2892,7 +2892,7 @@ export const en = {
           button: "Delete this wallet from VVake",
           ack: "I exported my key or moved my prizes. I understand VVake can't recover this wallet after this.",
           confirm:
-            "Delete the locked copy from VVake's servers? Without it this wallet can't be opened on vvake.com again, and VVake can't recover it.",
+            "Delete the locked copy from VVake's servers? Without it this wallet can't be opened on vvake.com again, and VVake can't recover it. If you haven't exported the key, the wallet and everything it holds are lost for good.",
           done: "Deleted from VVake's servers. The passkey may still be listed in your password manager; you can remove it there.",
           stillLinked: "This address stays your linked wallet until you link another one or unlink it.",
         },
@@ -2951,7 +2951,7 @@ export const en = {
         },
         {
           h: "You claim, VVake never holds them",
-          p: "Every Monday the past week is settled, reviewed by a person, then its list is published on chain. Claims open 48 hours later, so a mistake can be caught before anything moves. You claim from your own wallet; unclaimed weeks expire after the claim window.",
+          p: "Every Monday the past week is settled, reviewed by a person, then its list is published on chain. Claims open 48 hours later, so a mistake can be caught before anything moves. You claim from your own wallet. Each week can be claimed for 180 days after its claims open; after that, what wasn't claimed can be swept to VVake's treasury address (fixed in the contract) and can't be claimed any more.",
         },
         {
           h: "Testnet only",

@@ -3016,7 +3016,7 @@ export const fr: Dictionary = {
       passkey: {
         title: "Un portefeuille avec ta clé d'accès",
         intro:
-          "Pas d'extension ni de phrase de récupération à noter : VVake crée un portefeuille dans ce navigateur et verrouille sa clé avec une clé d'accès (passkey : Face ID, Touch ID, le code de ton appareil ou une clé de sécurité). Les serveurs de VVake ne gardent que la copie verrouillée et ne peuvent pas l'ouvrir. Ta clé d'accès se synchronise avec ton compte Apple ou Google : le portefeuille te suit sur tes autres appareils.",
+          "Pas d'extension ni de phrase de récupération à noter : VVake crée un portefeuille dans ce navigateur et verrouille sa clé avec une clé d'accès (passkey : Face ID, Touch ID, le code de ton appareil ou une clé de sécurité). Les serveurs de VVake ne gardent que la copie verrouillée et ne peuvent pas l'ouvrir. Ta clé d'accès se synchronise avec ton compte Apple ou Google : le portefeuille te suit sur tes autres appareils. Seule cette clé d'accès l'ouvre : si elle est perdue ou supprimée, VVake ne peut ni ouvrir ni récupérer le portefeuille. Pareil si la copie verrouillée est supprimée (tu la supprimes ici, ou tu supprimes ton compte VVake) et que tu n'en as aucune autre copie. Alors exporte ta clé ou déplace tes prix vers un portefeuille à toi avant de compter dessus.",
         create: "Créer mon portefeuille avec Face ID / clé d'accès",
         creating: "Suis les instructions de ton appareil pour créer la clé d'accès…",
         created: "Portefeuille créé. Lie-le pour recevoir des prix.",
@@ -3081,7 +3081,7 @@ export const fr: Dictionary = {
           button: "Supprimer ce portefeuille de VVake",
           ack: "J'ai exporté ma clé ou déplacé mes prix. Je comprends que VVake ne pourra pas récupérer ce portefeuille ensuite.",
           confirm:
-            "Supprimer la copie verrouillée des serveurs de VVake ? Sans elle, ce portefeuille ne pourra plus être ouvert sur vvake.com, et VVake ne pourra pas le récupérer.",
+            "Supprimer la copie verrouillée des serveurs de VVake ? Sans elle, ce portefeuille ne pourra plus être ouvert sur vvake.com, et VVake ne pourra pas le récupérer. Si tu n'as pas exporté la clé, le portefeuille et tout ce qu'il contient sont perdus pour de bon.",
           done: "Supprimé des serveurs de VVake. La clé d'accès est peut-être encore dans ton gestionnaire de mots de passe : tu peux l'y supprimer.",
           stillLinked: "Cette adresse reste ton portefeuille lié tant que tu n'en lies pas un autre ou que tu ne la délies pas.",
         },
@@ -3143,7 +3143,7 @@ export const fr: Dictionary = {
         },
         {
           h: "Tu réclames, VVake ne les détient jamais",
-          p: "Chaque lundi, la semaine écoulée est arrêtée, vérifiée par une personne, puis sa liste est publiée sur la chaîne. Les réclamations ouvrent 48 heures plus tard, pour qu'une erreur puisse être corrigée avant que quoi que ce soit bouge. Tu réclames depuis ton propre portefeuille ; les semaines non réclamées expirent après la période de réclamation.",
+          p: "Chaque lundi, la semaine écoulée est arrêtée, vérifiée par une personne, puis sa liste est publiée sur la chaîne. Les réclamations ouvrent 48 heures plus tard, pour qu'une erreur puisse être corrigée avant que quoi que ce soit bouge. Tu réclames depuis ton propre portefeuille. Chaque semaine peut être réclamée pendant 180 jours après l'ouverture des réclamations ; ensuite, ce qui n'a pas été réclamé peut être renvoyé à l'adresse de trésorerie de VVake (fixée dans le contrat) et ne peut plus être réclamé.",
         },
         {
           h: "Testnet uniquement",
