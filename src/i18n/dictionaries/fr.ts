@@ -809,7 +809,7 @@ export const fr: Dictionary = {
     ],
     calendar: {
       title: "Ton agenda, synchronisé",
-      body: "Connecte Google Agenda ou Outlook / Microsoft 365 : VVake planifie autour de tes créneaux occupés et bloque tes entraînements prévus dans ton agenda en créneaux privés, déplacés quand ton programme change. Apple Calendrier et les autres : abonne-toi avec un lien.",
+      body: "Connecte Google Agenda ou Outlook / Microsoft 365 : VVake planifie autour de tes créneaux occupés et bloque tes entraînements prévus dans ton agenda en créneaux privés, déplacés quand ton programme change. Déplace ou supprime un créneau dans ton agenda et VVake te suit. Apple Calendrier et les autres : abonne-toi avec un lien.",
       google: "Google Agenda",
       microsoft: "Outlook · Microsoft 365",
       soon: "Au lancement",

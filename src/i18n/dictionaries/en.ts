@@ -794,7 +794,7 @@ export const en = {
     ],
     calendar: {
       title: "Your agenda, in sync",
-      body: "Connect Google Calendar or Outlook / Microsoft 365: VVake plans around your busy times and blocks your planned training in your calendar as private busy times, moved when your plan changes. Apple Calendar and others: subscribe with one link.",
+      body: "Connect Google Calendar or Outlook / Microsoft 365: VVake plans around your busy times and blocks your planned training in your calendar as private busy times, moved when your plan changes. Move or delete a block in your calendar and VVake follows you. Apple Calendar and others: subscribe with one link.",
       google: "Google Calendar",
       microsoft: "Outlook · Microsoft 365",
       soon: "At launch",
