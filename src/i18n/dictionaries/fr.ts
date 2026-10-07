@@ -555,7 +555,7 @@ export const fr: Dictionary = {
         label: "Fantôme de parcours",
         title: "Ta boucle du dimanche, encore",
         body: "Affronte ta propre sortie sur le même parcours. Ton fantôme y avance à son allure enregistrée ; si tu quittes le tracé, la course t'attend jusqu'à ce que tu le retrouves. L'arrivée, c'est la fin du parcours. Dis juste « bats mon record » : VVake prend ton parcours le plus rapide qui part près de toi.",
-        meta: "GPS · tes tracés restent sur ton appareil",
+        meta: "GPS · tes tracés restent sur tes appareils, sauvegardés chiffrés de bout en bout",
       },
       {
         label: "Fantôme d'entraînement",
@@ -2294,7 +2294,7 @@ export const fr: Dictionary = {
     title: "Politique de confidentialité",
     description:
       "Ce que les applications VVake pour iPhone et Apple Watch et le site vvake.com recueillent, pourquoi, qui y a accès, combien de temps nous le gardons et vos droits.",
-    updated: "Dernière mise à jour : 2026-10-06",
+    updated: "Dernière mise à jour : 2026-10-07",
     draft:
       "Version provisoire pour l'aperçu TestFlight. Les points marqués [CONFIRM] sont en cours de vérification, et cette politique sera revue par un avocat avant le lancement public.",
     intro: [
@@ -2307,7 +2307,7 @@ export const fr: Dictionary = {
     summary: [
       "Aucune publicité, aucune vente de vos données, aucun pistage d'une application ou d'un site à l'autre.",
       "Vos données de santé servent uniquement à vous entraîner. Elles ne sont jamais vendues, jamais utilisées pour la publicité et jamais montrées aux autres.",
-      "Votre tracé GPS reste sur votre iPhone ou votre Apple Watch et dans l'app Santé. Nos serveurs ne reçoivent jamais votre position, sauf un parcours que vous choisissez de partager pour un défi : rogné aux deux bouts, gardé seulement le temps de ce défi, puis supprimé.",
+      "Votre tracé GPS reste sur votre iPhone ou votre Apple Watch et dans l'app Santé. Nos serveurs ne reçoivent jamais votre position sous une forme lisible par nous : vos parcours sont sauvegardés dans votre compte, chiffrés de bout en bout avec une clé gardée uniquement sur vos appareils, et VVake ne peut pas les lire. Le seul parcours lisible que nous recevons est celui que vous choisissez de partager pour un défi : rogné aux deux bouts, gardé seulement le temps de ce défi, puis supprimé.",
       "Vous pouvez utiliser VVake sans vous connecter, et supprimer votre compte avec tout ce qu'il contient.",
       "Notre base de données et nos fichiers sont conservés dans l'Union européenne.",
       "Les prix $VVAKE sont facultatifs. Si vous liez un portefeuille, son adresse et vos montants hebdomadaires deviennent publics sur une blockchain, qui ne peut pas être effacée.",
@@ -2338,7 +2338,7 @@ export const fr: Dictionary = {
           },
           {
             t: "Vos séances.",
-            d: "Pour chaque entraînement : le sport, l'heure de début et de fin, le temps actif, la distance, la fréquence cardiaque moyenne et maximale, le temps passé dans chaque zone cardiaque, les pas, la cadence, les calories, le score d'effort, les points et la série, et un relevé aux 10 secondes de la distance, de la fréquence cardiaque et des pas. Jamais de coordonnées GPS (une course sur parcours ajoute seulement quand vous avez commencé et fini le parcours et les mètres couverts dessus). Pourquoi : votre journal, vos statistiques, votre série, votre plan, vos courses contre vos séances passées, les défis et City Clash.",
+            d: "Pour chaque entraînement : le sport, l'heure de début et de fin, le temps actif, la distance, la fréquence cardiaque moyenne et maximale, le temps passé dans chaque zone cardiaque, les pas, la cadence, les calories, le score d'effort, les points et la série, et un relevé aux 10 secondes de la distance, de la fréquence cardiaque et des pas. Jamais de coordonnées GPS lisibles par nous (la sauvegarde de votre parcours est chiffrée de bout en bout, voir Localisation ; une course sur parcours ajoute seulement quand vous avez commencé et fini le parcours et les mètres couverts dessus). Pourquoi : votre journal, vos statistiques, votre série, votre plan, vos courses contre vos séances passées, les défis et City Clash.",
           },
           {
             t: "Move Quests et quêtes d'équipe.",
@@ -2395,7 +2395,7 @@ export const fr: Dictionary = {
           },
           {
             t: "Ce que nous écrivons dans l'app Santé.",
-            d: "Votre Apple Watch enregistre vos séances comme entraînements dans l'app Santé, avec le tracé pour les séances extérieures.",
+            d: "Votre Apple Watch enregistre vos séances comme entraînements dans l'app Santé, avec le tracé pour les séances extérieures. Si vous l'autorisez, les séances extérieures enregistrées avec votre iPhone y sont aussi enregistrées, avec leur tracé.",
           },
         ],
         after: [
@@ -2410,7 +2410,11 @@ export const fr: Dictionary = {
         list: [
           {
             t: "Pendant les séances extérieures seulement.",
-            d: "VVake utilise votre position pendant que vous utilisez l'application lors d'une séance extérieure, pour tracer votre parcours et mesurer la distance. Quand vous demandez à battre votre record, elle consulte aussi la dernière position connue de votre appareil, sur l'appareil lui-même, pour proposer un parcours qui part près de vous. Le tracé reste sur votre iPhone ou votre Apple Watch et dans l'app Santé. Il n'est jamais envoyé à nos serveurs (sauf si vous partagez un parcours pour un défi, voir plus bas) ; nous recevons seulement des totaux comme la distance et l'allure. Les cartes sont affichées par Plans d'Apple.",
+            d: "VVake utilise votre position pendant que vous utilisez l'application lors d'une séance extérieure, pour tracer votre parcours et mesurer la distance. Quand vous demandez à battre votre record, elle consulte aussi la dernière position connue de votre appareil, sur l'appareil lui-même, pour proposer un parcours qui part près de vous. Le tracé reste sur votre iPhone ou votre Apple Watch et dans l'app Santé ; votre Apple Watch transmet aussi les tracés qu'elle enregistre directement à votre propre iPhone, jamais par nos serveurs. Il n'est jamais envoyé à nos serveurs sous une forme lisible par nous (sauf si vous partagez un parcours pour un défi, voir plus bas) : nous recevons seulement des totaux comme la distance et l'allure, et la sauvegarde chiffrée de bout en bout décrite ci-dessous. Les cartes sont affichées par Plans d'Apple.",
+          },
+          {
+            t: "Sauvegarde des parcours (chiffrée de bout en bout).",
+            d: "Pour que vos parcours ne soient pas perdus quand vous changez de téléphone, l'application sauvegarde le parcours de chaque entraînement extérieur (enregistré sur votre iPhone ou votre Apple Watch) dans votre compte VVake, chiffré de bout en bout. Votre iPhone le chiffre (AES-256-GCM) avec une clé qui n'existe que sur vos appareils, synchronisée entre eux par le trousseau iCloud ; cette clé ne nous est jamais envoyée. Nous ne gardons que les octets chiffrés et quelques métadonnées (à quel entraînement il appartient, sa taille, quand il a été sauvegardé, et une empreinte qui indique à vos appareils quelle clé l'ouvre). VVake ne peut pas lire vos parcours, et personne d'autre ne peut les télécharger : il n'y a aucun lien public. La sauvegarde d'un parcours est supprimée quand vous supprimez la séance, et toutes le sont quand vous supprimez votre compte. Si vous perdez tous vos appareils et votre trousseau iCloud, personne ne peut plus ouvrir ces sauvegardes, nous non plus.",
           },
           {
             t: "Votre ville.",
@@ -2418,7 +2422,7 @@ export const fr: Dictionary = {
           },
           {
             t: "Fantômes de parcours.",
-            d: "Affronter votre propre parcours passé (un fantôme de parcours) utilise le tracé gardé sur l'appareil qui l'a enregistré, votre iPhone ou votre Apple Watch ; il ne quitte jamais cet appareil. Pendant la course, l'application compare votre position au parcours sur l'appareil et n'envoie avec la séance qu'un résumé : quand vous avez commencé et fini le parcours, les mètres couverts dessus et si vous l'avez terminé. Jamais une position.",
+            d: "Affronter votre propre parcours passé (un fantôme de parcours) utilise le tracé gardé sur votre iPhone ou votre Apple Watch (la montre transmet ses tracés directement à votre propre iPhone) ; il n'est jamais envoyé à nos serveurs sous une forme lisible par nous. Pendant la course, l'application compare votre position au parcours sur l'appareil et n'envoie avec la séance qu'un résumé : quand vous avez commencé et fini le parcours, les mètres couverts dessus et si vous l'avez terminé. Jamais une position.",
           },
           {
             t: "Partager un parcours pour un défi (sur option).",
@@ -2594,7 +2598,7 @@ export const fr: Dictionary = {
         id: "where",
         h: "Où vos données sont conservées",
         p: [
-          "Notre base de données (Cloudflare D1) et notre stockage de fichiers (Cloudflare R2 : audio de la voix du coach et images VVaker) se trouvent dans la juridiction européenne de Cloudflare. Les requêtes transitent par le réseau mondial de Cloudflare, et plusieurs fournisseurs ci-dessus sont aux États-Unis : vos données peuvent donc être traitées hors du Québec, du Canada et de l'UE. Nous nous appuyons sur les garanties contractuelles de nos fournisseurs, comme les clauses contractuelles types de l'UE [CONFIRM : ententes de traitement des données signées avec chaque fournisseur], et avons évalué ces communications comme l'exige la loi québécoise [CONFIRM : évaluation des facteurs relatifs à la vie privée pour les transferts réalisée].",
+          "Notre base de données (Cloudflare D1) et notre stockage de fichiers (Cloudflare R2 : audio de la voix du coach, images VVaker et sauvegardes chiffrées de vos parcours) se trouvent dans la juridiction européenne de Cloudflare. Les requêtes transitent par le réseau mondial de Cloudflare, et plusieurs fournisseurs ci-dessus sont aux États-Unis : vos données peuvent donc être traitées hors du Québec, du Canada et de l'UE. Nous nous appuyons sur les garanties contractuelles de nos fournisseurs, comme les clauses contractuelles types de l'UE [CONFIRM : ententes de traitement des données signées avec chaque fournisseur], et avons évalué ces communications comme l'exige la loi québécoise [CONFIRM : évaluation des facteurs relatifs à la vie privée pour les transferts réalisée].",
         ],
         list: [],
       },
@@ -2613,7 +2617,7 @@ export const fr: Dictionary = {
         list: [
           {
             t: "Votre compte et tout ce qu'il contient :",
-            d: "jusqu'à ce que vous le supprimiez. Une séance supprimée l'est immédiatement ; nous gardons seulement son identifiant aléatoire, pour qu'une copie encore en attente sur votre montre ou un autre téléphone ne puisse pas la faire revenir (supprimé avec votre compte).",
+            d: "jusqu'à ce que vous le supprimiez. Une séance supprimée l'est immédiatement, avec la sauvegarde chiffrée de son parcours ; nous gardons seulement son identifiant aléatoire, pour qu'une copie encore en attente sur votre montre ou un autre téléphone ne puisse pas la faire revenir (supprimé avec votre compte).",
           },
           {
             t: "Quêtes d'équipe :",
@@ -2668,7 +2672,7 @@ export const fr: Dictionary = {
         list: [
           {
             t: "Tout supprimer.",
-            d: "Supprimez votre compte dans l'application (Toi > Ton compte > Supprimer mon compte, comptes invités compris) ou en écrivant à {email}. Cela supprime votre compte, vos séances, vos Move Quests, votre questionnaire et vos données de santé, vos appareils, les changements de plan, les défis, votre participation aux quêtes d'équipe, vos réglages My Pulse, vos images VVaker, l'audio du coach qui n'appartenait qu'à vous, vos liens Claude Code et le lien de votre portefeuille, après avoir révoqué l'accès Google. Les données de l'app Santé et de vos appareils restent sous votre contrôle. Les listes hebdomadaires de prix déjà publiées et les inscriptions sur la blockchain ne peuvent pas être effacées (voir Prix $VVAKE et votre portefeuille).",
+            d: "Supprimez votre compte dans l'application (Toi > Ton compte > Supprimer mon compte, comptes invités compris) ou en écrivant à {email}. Cela supprime votre compte, vos séances, vos Move Quests, votre questionnaire et vos données de santé, vos appareils, les changements de plan, les défis, votre participation aux quêtes d'équipe, vos réglages My Pulse, vos images VVaker, les sauvegardes chiffrées de vos parcours, l'audio du coach qui n'appartenait qu'à vous, vos liens Claude Code et le lien de votre portefeuille, après avoir révoqué l'accès Google. Les données de l'app Santé et de vos appareils restent sous votre contrôle. Les listes hebdomadaires de prix déjà publiées et les inscriptions sur la blockchain ne peuvent pas être effacées (voir Prix $VVAKE et votre portefeuille).",
           },
           {
             t: "Se déconnecter, supprimer une séance.",

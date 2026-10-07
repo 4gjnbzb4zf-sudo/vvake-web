@@ -551,7 +551,7 @@ export const en = {
         label: "Route ghost",
         title: "Your Sunday loop, again",
         body: "Race your own past outdoor session on the same route. Your ghost moves along it at its recorded pace; leave the route and the race waits until you're back. The finish is the end of the route. Just say “race my best” and VVake picks your fastest route that starts near you.",
-        meta: "GPS · your traces stay on your device",
+        meta: "GPS · your traces stay on your devices, backed up end-to-end encrypted",
       },
       {
         label: "Training ghost",
@@ -2137,7 +2137,7 @@ export const en = {
     title: "Privacy policy",
     description:
       "What the VVake iPhone and Apple Watch apps and vvake.com collect, why, who else sees it, how long we keep it and your rights.",
-    updated: "Last updated: 2026-10-06",
+    updated: "Last updated: 2026-10-07",
     draft:
       "Draft for the TestFlight preview. Items marked [CONFIRM] are still being checked, and this policy will be reviewed by a lawyer before the public launch.",
     intro: [
@@ -2150,7 +2150,7 @@ export const en = {
     summary: [
       "No ads, no sale of your data, no tracking across apps or websites.",
       "Health data is used only to coach you. It is never sold, never used for advertising and never shown to other people.",
-      "Your GPS route stays on your iPhone or Apple Watch and in Apple Health. Our servers never receive your location, except a route you choose to share for one challenge: trimmed at both ends, kept only while that challenge lasts, then deleted.",
+      "Your GPS route stays on your iPhone or Apple Watch and in Apple Health. Our servers never receive your location in a form we can read: your routes are backed up to your account end-to-end encrypted, with a key held only on your devices, so VVake can't read them. The only readable route we ever receive is one you choose to share for one challenge: trimmed at both ends, kept only while that challenge lasts, then deleted.",
       "You can use VVake without signing in, and you can delete your account and everything with it.",
       "Our database and stored files are kept in the European Union.",
       "$VVAKE prizes are optional. If you link a wallet, its address and weekly prize amounts become public on a blockchain, which can't be erased.",
@@ -2181,7 +2181,7 @@ export const en = {
           },
           {
             t: "Your sessions.",
-            d: "For each workout: the sport, start and end time, active time, distance, average and maximum heart rate, time in each heart-rate zone, steps, cadence, calories, effort score, points and streak, and a sample every 10 seconds of distance, heart rate and steps. Never GPS coordinates (a route race adds only when you started and finished the route and the metres covered on it). Why: your journal, stats, streak, plan, races against your own past sessions, challenges and City Clash.",
+            d: "For each workout: the sport, start and end time, active time, distance, average and maximum heart rate, time in each heart-rate zone, steps, cadence, calories, effort score, points and streak, and a sample every 10 seconds of distance, heart rate and steps. Never GPS coordinates we can read (your route backup is end-to-end encrypted, see Location; a route race adds only when you started and finished the route and the metres covered on it). Why: your journal, stats, streak, plan, races against your own past sessions, challenges and City Clash.",
           },
           {
             t: "Move Quests and Crew Quests.",
@@ -2238,7 +2238,7 @@ export const en = {
           },
           {
             t: "What we write to Apple Health.",
-            d: "Your Apple Watch saves your sessions as workouts in Apple Health, with the route for outdoor sessions.",
+            d: "Your Apple Watch saves your sessions as workouts in Apple Health, with the route for outdoor sessions. If you allow it, the outdoor sessions you record with your iPhone are saved there too, with their route.",
           },
         ],
         after: [
@@ -2253,7 +2253,11 @@ export const en = {
         list: [
           {
             t: "During outdoor sessions only.",
-            d: "VVake uses your location while you use the app during an outdoor session, to draw your route and measure distance. When you ask to race your best, it also checks the position your device last recorded, on the device itself, to suggest a route that starts near you. The route stays on your iPhone or Apple Watch and in Apple Health. It is never sent to our servers (unless you share a route for a challenge, below); we receive only totals such as distance and pace. Maps are drawn by Apple Maps.",
+            d: "VVake uses your location while you use the app during an outdoor session, to draw your route and measure distance. When you ask to race your best, it also checks the position your device last recorded, on the device itself, to suggest a route that starts near you. The route stays on your iPhone or Apple Watch and in Apple Health; your Apple Watch also passes the routes it records straight to your own iPhone, never through our servers. It is never sent to our servers in a form we can read (unless you share a route for a challenge, below): we receive only totals such as distance and pace, and the end-to-end encrypted backup described next. Maps are drawn by Apple Maps.",
+          },
+          {
+            t: "Route backup (end-to-end encrypted).",
+            d: "So your routes aren't lost when you change phones, the app backs each outdoor workout's route (recorded on your iPhone or your Apple Watch) up to your VVake account, end-to-end encrypted. Your iPhone encrypts it (AES-256-GCM) with a key that exists only on your devices, synced between them by iCloud Keychain; that key is never sent to us. We store only the encrypted bytes and a little metadata (which workout it belongs to, its size, when it was saved, and a fingerprint that tells your devices which key opens it). VVake cannot read your routes, and nobody else can download them: there are no public links. A route's backup is deleted when you delete that session, and all of them when you delete your account. If you lose every device and your iCloud Keychain, the backups can't be opened by anyone, including us.",
           },
           {
             t: "Your city.",
@@ -2261,7 +2265,7 @@ export const en = {
           },
           {
             t: "Route ghosts.",
-            d: "Racing your own past route (a route ghost) uses the trace stored on the device that recorded it, your iPhone or Apple Watch; it never leaves that device. When you race, the app matches your position to the route on the device and uploads with the session only a summary: when you started and finished the route, the metres you covered on it and whether you finished. Never a position.",
+            d: "Racing your own past route (a route ghost) uses the trace kept on your iPhone or Apple Watch (the watch passes its routes to your own iPhone directly); it is never sent to our servers in a form we can read. When you race, the app matches your position to the route on the device and uploads with the session only a summary: when you started and finished the route, the metres you covered on it and whether you finished. Never a position.",
           },
           {
             t: "Sharing a route for a challenge (opt-in).",
@@ -2431,7 +2435,7 @@ export const en = {
         id: "where",
         h: "Where your data is stored",
         p: [
-          "Our database (Cloudflare D1) and file storage (Cloudflare R2: coach voice audio and VVaker images) are in Cloudflare's EU jurisdiction. Requests pass through Cloudflare's worldwide network, and several providers above are in the United States, so your data can be processed outside Québec, Canada and the EU. We rely on our providers' contractual safeguards, such as the EU Standard Contractual Clauses [CONFIRM: data processing agreements in place with each provider], and assessed these transfers as Québec law requires [CONFIRM: privacy impact assessment for transfers done].",
+          "Our database (Cloudflare D1) and file storage (Cloudflare R2: coach voice audio, VVaker images and your encrypted route backups) are in Cloudflare's EU jurisdiction. Requests pass through Cloudflare's worldwide network, and several providers above are in the United States, so your data can be processed outside Québec, Canada and the EU. We rely on our providers' contractual safeguards, such as the EU Standard Contractual Clauses [CONFIRM: data processing agreements in place with each provider], and assessed these transfers as Québec law requires [CONFIRM: privacy impact assessment for transfers done].",
         ],
         list: [],
       },
@@ -2450,7 +2454,7 @@ export const en = {
         list: [
           {
             t: "Your account and everything in it:",
-            d: "until you delete it. A session you discard is removed right away; we keep only its random ID, so a copy still waiting on your watch or another phone can't bring it back (deleted with your account).",
+            d: "until you delete it. A session you discard is removed right away, with its encrypted route backup; we keep only its random ID, so a copy still waiting on your watch or another phone can't bring it back (deleted with your account).",
           },
           {
             t: "Crew quests:",
@@ -2493,7 +2497,7 @@ export const en = {
         list: [
           {
             t: "Delete everything.",
-            d: "Delete your account in the app (You > Your account > Delete my account, guest accounts included) or by writing to {email}. This deletes your account, sessions, Move Quests, survey and health fields, devices, plan changes, challenges, crew quest memberships, My Pulse settings, VVaker images, the coach audio only you had, your Claude Code links and your wallet link, and revokes Google access first. Data in Apple Health and on your devices stays under your control. Weekly prize lists already published and blockchain records can't be erased (see $VVAKE prizes and your wallet).",
+            d: "Delete your account in the app (You > Your account > Delete my account, guest accounts included) or by writing to {email}. This deletes your account, sessions, Move Quests, survey and health fields, devices, plan changes, challenges, crew quest memberships, My Pulse settings, VVaker images, your encrypted route backups, the coach audio only you had, your Claude Code links and your wallet link, and revokes Google access first. Data in Apple Health and on your devices stays under your control. Weekly prize lists already published and blockchain records can't be erased (see $VVAKE prizes and your wallet).",
           },
           {
             t: "Sign out, discard a session.",
