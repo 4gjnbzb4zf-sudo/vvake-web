@@ -1111,30 +1111,58 @@
         "watch": true,
         "examples": {
           "en": [
-            "Start a run with VVake",
-            "Start run with VVake",
-            "VVake up and start run",
+            "Start yoga with VVake",
+            "Start yoga on VVake",
+            "Start yoga in VVake",
+            "VVake start yoga",
             "VVake start a run",
-            "VVake start run",
-            "Start a run workout with VVake",
+            "Start a run with VVake",
+            "Start a run on VVake",
+            "Begin a run on VVake",
+            "Begin yoga with VVake",
             "Go for a run with VVake",
+            "Go for a run on VVake",
+            "Do yoga with VVake",
+            "Track a run with VVake",
+            "Record a run on VVake",
+            "Launch yoga with VVake",
+            "Start a run workout with VVake",
+            "Track yoga in VVake",
             "Start a workout with VVake",
+            "Start a workout on VVake",
+            "Begin a workout with VVake",
+            "VVake start a workout",
             "VVake start my workout",
             "VVake start my plan",
-            "Start today’s session with VVake"
+            "Start today’s session with VVake",
+            "Start today’s session on VVake"
           ],
           "fr": [
             "Lance une course avec VVake",
-            "Lance course avec VVake",
-            "VVake et lance course",
-            "VVake lance une séance de course",
-            "VVake lance course",
-            "Démarre une séance de course avec VVake",
-            "Je pars faire du course avec VVake",
+            "Commence une course sur VVake",
+            "Lance une course sur VVake",
+            "VVake lance une course",
+            "VVake commence une course",
+            "Commencer une course avec VVake",
+            "Commencer une course sur VVake",
+            "Démarre une course sur VVake",
+            "Démarre une course avec VVake",
+            "Je pars faire une course avec VVake",
+            "Commence une course avec VVake",
+            "Je fais une course avec VVake",
+            "Enregistre une course avec VVake",
+            "Démarrer une course sur VVake",
+            "Lancer une course avec VVake",
+            "Lance une séance de course avec VVake",
+            "Commence une course dans VVake",
             "Lance une séance avec VVake",
+            "Commence une séance sur VVake",
+            "Démarre une séance avec VVake",
+            "VVake lance une séance",
             "VVake commence la séance",
             "VVake lance la séance du jour",
-            "Lance la séance du jour avec VVake"
+            "Lance la séance du jour avec VVake",
+            "Commence la séance du jour sur VVake"
           ]
         }
       },
@@ -1672,8 +1700,8 @@
       }
     ],
     "phrases": {
-      "phone": 491,
-      "watch": 491,
+      "phone": 913,
+      "watch": 913,
       "max": 1000
     }
   }
