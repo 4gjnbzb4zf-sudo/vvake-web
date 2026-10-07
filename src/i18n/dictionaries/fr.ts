@@ -300,7 +300,7 @@ export const fr: Dictionary = {
       {
         who: "Tout le monde",
         title: "20 minutes. Ton rythme. Tes progrès.",
-        body: "Noté sur ton cœur et par rapport à ta propre base : tous les âges et tous les corps partent sur la même ligne.",
+        body: "Noté sur tes propres zones cardiaques (calculées avec ton âge et ton cardio au repos) et par rapport à ta propre base, pas sur la vitesse.",
       },
       {
         who: "Supporters & fiers de leur ville",
@@ -385,7 +385,7 @@ export const fr: Dictionary = {
       },
       {
         tag: "Série",
-        title: "7 jours. Aucune excuse.",
+        title: "7 jours d'affilée.",
         goal: "1 vraie séance par jour",
         window: "7 jours d'affilée",
         reward: "Gel de série + flamme de série",
@@ -1133,7 +1133,7 @@ export const fr: Dictionary = {
         body: "3 à 10 minutes de respiration, de scan corporel ou de retour au calme, proposées quand ton cœur dit qu'il faut souffler. Ça compte pour ta série.",
       },
       { title: "Hydratation", body: "Rappels toutes les 90 minutes, toutes les 45 autour des séances et les jours de chaleur." },
-      { title: "Rythme des repas", body: "Seulement aux heures que tu choisis. Jamais de calories, jamais d'objectif de poids." },
+      { title: "Rythme des repas", body: "Seulement aux heures que tu choisis. Jamais de calories, jamais de régime." },
       {
         title: "Pauses respiration",
         body: "Quand ta variabilité cardiaque passe sous ta propre base, 60 secondes pour respirer. Jamais un diagnostic.",
@@ -1146,7 +1146,7 @@ export const fr: Dictionary = {
     promises: [
       "Tout est optionnel",
       "Aucun comptage de calories",
-      "Aucun objectif de poids ou de corps",
+      "Aucune question de poids, sauf si tu te fixes un objectif de poids",
       "Heures calmes la nuit",
       "Conseils bien-être, pas médicaux",
     ],
@@ -1154,7 +1154,7 @@ export const fr: Dictionary = {
   screens: {
     kicker: "La vraie app",
     title: "Pas une maquette. L'app, en marche.",
-    lead: "Filmée sur iPhone et Apple Watch Ultra : ton plan, ton objectif, la course contre ton record, le rythme du jour et le verrou focus.",
+    lead: "Les apps iPhone et Apple Watch : ton plan, ton objectif, la course contre ton record, le rythme du jour et le verrou focus.",
     phoneLabel: "iPhone",
     watchLabel: "Apple Watch",
     note: "Filmé dans le simulateur : cardio et GPS de démo. Les apps arrivent ville par ville.",
@@ -1163,7 +1163,7 @@ export const fr: Dictionary = {
       {
         src: "phone-03-goals",
         title: "Ton objectif",
-        body: "Être régulier, X séances en X semaines, une distance, ou perdre du poids sainement.",
+        body: "Être régulier, X séances en X semaines, une distance, ou (adultes seulement) un objectif de poids tenu à un rythme sûr : 0,5 kg par semaine au plus, jamais sous un poids santé.",
       },
       {
         src: "phone-04-plan",
@@ -1202,7 +1202,7 @@ export const fr: Dictionary = {
     body: "Deux taps pour démarrer. Ta montre gère la séance, ton téléphone raconte l'histoire : ton plan du jour, ton squad et le clash de ta ville au même endroit.",
     points: [
       { title: "Deux taps pour démarrer", body: "Depuis une complication de montre ou le bouton Action. Pas besoin du téléphone." },
-      { title: "La batterie d'abord", body: "Utilise le moteur d'entraînement de la montre : pas pire que l'app Exercice native." },
+      { title: "Le moteur d'Apple", body: "La montre enregistre avec la séance d'entraînement d'Apple (HealthKit). L'autonomie dépend du GPS, de la musique et de l'écran." },
       { title: "Expliqué, pas jugé", body: "Chaque séance montre pourquoi elle compte. Signalée à tort ? Contestation en un tap." },
     ],
     phone: {
@@ -1267,7 +1267,7 @@ export const fr: Dictionary = {
         was: "Des récompenses imprimées sans limite",
         now: "Des récompenses financées uniquement par de vrais revenus, jamais par les nouveaux.",
       },
-      { was: "La vitesse décidait de tout", now: "Ton cœur décide. Un score d'effort équitable selon l'âge." },
+      { was: "La vitesse décidait de tout", now: "Ton cœur décide. Un effort noté sur tes propres zones." },
       { was: "Un nouveau truc à acheter chaque mois", now: "Un seul écosystème. Pas de tapis roulant « paie plus pour moins »." },
     ],
   },
@@ -1287,7 +1287,7 @@ export const fr: Dictionary = {
       },
       {
         title: "Le cœur, pas la vitesse",
-        body: "L'effort est calculé à partir de tes zones cardiaques, ajusté à ton âge et à ta propre base. Un marcheur de 63 ans et une coureuse de 24 ans partent sur la même ligne.",
+        body: "L'effort est calculé à partir de tes propres zones cardiaques, fixées avec ton âge et ton cardio au repos, avec un bonus quand tu dépasses ta propre base. Une marche rapide peut compter autant qu'une course.",
       },
       {
         title: "Squads et rivalités",
@@ -1542,7 +1542,7 @@ export const fr: Dictionary = {
       {
         tag: "VVake",
         title: "Ton effort fait le travail",
-        body: "Effort cardiaque, séries, squads et clashs de villes. Tout ce que tu gagnes vient du mouvement, noté équitablement à tout âge.",
+        body: "Effort cardiaque, séries, squads et clashs de villes. Tout ce que tu gagnes vient du mouvement, noté sur tes propres zones cardiaques.",
         points: ["L'effort décide, pas l'argent", "Des points dans l'app", "Anti-triche avant toute récompense"],
       },
       {
@@ -2049,7 +2049,7 @@ export const fr: Dictionary = {
         "Une part des revenus",
         "Quoi que ce soit d'obligatoire pour jouer",
       ],
-      note: "Portail web uniquement, adultes, pas dans tous les pays. Dans les apps (iPhone aujourd'hui, Android quand elle arrivera), les objets de collection sont visibles uniquement, et les mêmes looks et pass existent en achats intégrés classiques. Les objets de collection ne sont pas des investissements.",
+      note: "Portail web uniquement, adultes, pas dans tous les pays. Dans les apps (iPhone d'abord, Android quand elle arrivera), les objets de collection sont visibles uniquement, et les mêmes looks et pass existent en achats intégrés classiques. Les objets de collection ne sont pas des investissements.",
     },
     fanKits: {
       none: "Aucune équipe",

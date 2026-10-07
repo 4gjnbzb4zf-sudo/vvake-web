@@ -302,7 +302,7 @@ export const en = {
       {
         who: "Everyday movers",
         title: "20 minutes. Your pace. Your progress.",
-        body: "Scored on your heart and against your own baseline, so every age and every body plays on the same line.",
+        body: "Scored on your own heart-rate zones (set from your age and resting heart rate) and against your own baseline, not on speed.",
       },
       {
         who: "Fans & city lovers",
@@ -386,7 +386,7 @@ export const en = {
       },
       {
         tag: "Streak",
-        title: "7 days. No excuses.",
+        title: "7 days in a row.",
         goal: "1 real session a day",
         window: "7 days in a row",
         reward: "Streak freeze + streak flame",
@@ -1092,7 +1092,7 @@ export const en = {
         body: "3 to 10 minutes of breathing, body scan or wind-down, suggested when your heart says you need a pause. It counts for your streak.",
       },
       { title: "Hydration", body: "Reminders every 90 minutes, every 45 around workouts and on hot days." },
-      { title: "Meal rhythm", body: "Only at the times you choose. No calories, no weight goals, ever." },
+      { title: "Meal rhythm", body: "Only at the times you choose. No calories, no diet." },
       {
         title: "Breathing breaks",
         body: "When your heart-rate variability dips below your own baseline, a 60-second breather. Never a diagnosis.",
@@ -1102,7 +1102,7 @@ export const en = {
     promises: [
       "All opt-in",
       "No calorie counting",
-      "No weight or body goals",
+      "No weight talk unless you set a weight goal yourself",
       "Quiet hours at night",
       "Wellness guidance, not medical advice",
     ],
@@ -1110,7 +1110,7 @@ export const en = {
   screens: {
     kicker: "The real app",
     title: "Not a mockup. The app, running.",
-    lead: "Recorded on iPhone and Apple Watch Ultra: your plan, your goal, racing your best, the daily rhythm and the focus lock.",
+    lead: "The iPhone and Apple Watch apps: your plan, your goal, racing your best, the daily rhythm and the focus lock.",
     phoneLabel: "iPhone",
     watchLabel: "Apple Watch",
     note: "Recorded in the simulator: demo heart rate and GPS. Apps launch city by city.",
@@ -1119,7 +1119,7 @@ export const en = {
       {
         src: "phone-03-goals",
         title: "Your goal",
-        body: "Be consistent, X sessions in X weeks, a distance, or lose weight the healthy way.",
+        body: "Be consistent, X sessions in X weeks, a distance, or (adults only) a weight goal held to a safe pace: 0.5 kg a week at most, never below a healthy weight.",
       },
       {
         src: "phone-04-plan",
@@ -1146,7 +1146,7 @@ export const en = {
     body: "Start in two taps. Your watch runs the session, your phone tells the story: today's plan, your squad and your city's clash in one place.",
     points: [
       { title: "Two taps to start", body: "From a watch complication or the Action Button. No phone needed." },
-      { title: "Battery first", body: "Runs on the watch's own workout engine: no worse than the native Workout app." },
+      { title: "Apple's workout engine", body: "The watch records with Apple's own workout session (HealthKit). Battery use depends on GPS, music and the screen." },
       { title: "Explained, not judged", body: "Every session shows why it counts. Wrongly flagged? One-tap appeal." },
     ],
     phone: {
@@ -1208,7 +1208,7 @@ export const en = {
     fixes: [
       { was: "{money} to start", now: "Free to start. No NFT paywall, ever." },
       { was: "Rewards printed without limit", now: "Rewards only from real revenue, never from new users." },
-      { was: "Speed decided everything", now: "Your heart decides. Age-fair effort scoring." },
+      { was: "Speed decided everything", now: "Your heart decides. Effort scored on your own zones." },
       { was: "A new thing to buy every month", now: "One ecosystem. No pay-more-for-less treadmill." },
     ],
   },
@@ -1228,7 +1228,7 @@ export const en = {
       },
       {
         title: "Heart, not speed",
-        body: "Effort is scored from heart-rate zones, adjusted for your age and your own baseline. A 63-year-old walker and a 24-year-old runner compete on the same line.",
+        body: "Effort is scored from your own heart-rate zones, set from your age and resting heart rate, with a bonus for beating your own baseline. A brisk walk can count as much as a run.",
       },
       {
         title: "Squads and rivalries",
@@ -1463,7 +1463,7 @@ export const en = {
       {
         tag: "VVake",
         title: "Your effort does the work",
-        body: "Heart-rate effort, streaks, squads and city clashes. Everything you earn comes from moving, scored fairly for every age.",
+        body: "Heart-rate effort, streaks, squads and city clashes. Everything you earn comes from moving, scored on your own heart-rate zones.",
         points: ["Effort, not money, decides", "Points in the app", "Anti-cheat before any reward"],
       },
       {
@@ -1918,7 +1918,7 @@ export const en = {
       ],
       neverTitle: "Never included",
       never: ["More rewards, energy or ranking", "Extra prize entries", "Any share of revenue", "Anything required to play"],
-      note: "Web portal only, adults, not available in every country. In the apps (iPhone today, Android when it comes), collectibles are view-only and the same looks and passes exist as regular in-app purchases. Collectibles are not investments.",
+      note: "Web portal only, adults, not available in every country. In the apps (iPhone first, Android when it comes), collectibles are view-only and the same looks and passes exist as regular in-app purchases. Collectibles are not investments.",
     },
     fanKits: {
       none: "No team",
