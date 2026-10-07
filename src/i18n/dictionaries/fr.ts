@@ -1202,7 +1202,10 @@ export const fr: Dictionary = {
     body: "Deux taps pour démarrer. Ta montre gère la séance, ton téléphone raconte l'histoire : ton plan du jour, ton squad et le clash de ta ville au même endroit.",
     points: [
       { title: "Deux taps pour démarrer", body: "Depuis une complication de montre ou le bouton Action. Pas besoin du téléphone." },
-      { title: "Le moteur d'Apple", body: "La montre enregistre avec la séance d'entraînement d'Apple (HealthKit). L'autonomie dépend du GPS, de la musique et de l'écran." },
+      {
+        title: "Le moteur d'Apple",
+        body: "La montre enregistre avec la séance d'entraînement d'Apple (HealthKit). L'autonomie dépend du GPS, de la musique et de l'écran.",
+      },
       { title: "Expliqué, pas jugé", body: "Chaque séance montre pourquoi elle compte. Signalée à tort ? Contestation en un tap." },
     ],
     phone: {
@@ -3176,6 +3179,9 @@ export const fr: Dictionary = {
       rewardsContract: "Récompenses",
       token: "Token VVAKE",
       chainError: "La chaîne ne peut pas être lue pour le moment.",
+      readAt: "Lu sur la chaîne à {time}",
+      unreadable: "Impossible à lire sur la chaîne pour l'instant. Aucune valeur plus ancienne n'est affichée à la place.",
+      readAgain: "Relire la chaîne",
       notDeployedBody: "Le contrat de cagnotte n'est pas encore déployé. Ses dépôts et ses conversions apparaîtront ici dès qu'il le sera.",
     },
     errors: {

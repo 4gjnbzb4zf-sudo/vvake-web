@@ -1146,7 +1146,10 @@ export const en = {
     body: "Start in two taps. Your watch runs the session, your phone tells the story: today's plan, your squad and your city's clash in one place.",
     points: [
       { title: "Two taps to start", body: "From a watch complication or the Action Button. No phone needed." },
-      { title: "Apple's workout engine", body: "The watch records with Apple's own workout session (HealthKit). Battery use depends on GPS, music and the screen." },
+      {
+        title: "Apple's workout engine",
+        body: "The watch records with Apple's own workout session (HealthKit). Battery use depends on GPS, music and the screen.",
+      },
       { title: "Explained, not judged", body: "Every session shows why it counts. Wrongly flagged? One-tap appeal." },
     ],
     phone: {
@@ -2984,6 +2987,9 @@ export const en = {
       rewardsContract: "Rewards",
       token: "VVAKE token",
       chainError: "The chain can't be read right now.",
+      readAt: "Read from the chain at {time}",
+      unreadable: "Couldn't be read from the chain just now. Nothing older is shown in its place.",
+      readAgain: "Read the chain again",
       notDeployedBody: "The prize pool contract isn't deployed yet. Its deposits and conversions will show here as soon as it is.",
     },
     errors: {

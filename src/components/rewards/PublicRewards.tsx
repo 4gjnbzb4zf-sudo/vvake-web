@@ -26,19 +26,23 @@ type Load<T> = { kind: "loading" } | { kind: "error" } | { kind: "ready"; value:
 export function PublicRewards({ dict, lang, apiUrl }: { dict: Dict; lang: Locale; apiUrl: string }) {
   const pool = pickAddress(rewardsConfig.prizePool);
   const [totals, setTotals] = useState<Load<PoolTotals & { readAtMs: number }>>({ kind: "loading" });
-  const [events, setEvents] = useState<Load<{ events: DatedPoolEvent[]; complete: boolean }>>({ kind: "loading" });
+  const [events, setEvents] = useState<Load<{ events: DatedPoolEvent[]; complete: boolean; readAtMs: number }>>({ kind: "loading" });
   const [weeks, setWeeks] = useState<Load<PublicEpoch[]>>({ kind: "loading" });
   const rewards = pickAddress(rewardsConfig.rewardsContract);
-  const [holdings, setHoldings] = useState<{ held: bigint; available: bigint } | null>(null);
+  const [holdings, setHoldings] = useState<Load<{ held: bigint; available: bigint; readAtMs: number }>>({ kind: "loading" });
+  // Bumped by "Read the chain again": every figure is read afresh, each with its own time or its own failure.
+  const [readCount, setReadCount] = useState(0);
 
   useEffect(() => {
     if (!rewards) return;
     let live = true;
-    prizeHoldings(rewards, rewardsConfig.token).then((h) => live && setHoldings(h));
+    prizeHoldings(rewards, rewardsConfig.token).then(
+      (h) => live && setHoldings(h ? { kind: "ready", value: { ...h, readAtMs: Date.now() } } : { kind: "error" }),
+    );
     return () => {
       live = false;
     };
-  }, [rewards]);
+  }, [rewards, readCount]);
 
   useEffect(() => {
     if (!pool) return;
@@ -47,12 +51,19 @@ export function PublicRewards({ dict, lang, apiUrl }: { dict: Dict; lang: Locale
       .then((value) => live && setTotals({ kind: "ready", value: { ...value, readAtMs: Date.now() } }))
       .catch(() => live && setTotals({ kind: "error" }));
     recentPoolEvents(pool, rewardsConfig.prizePoolFromBlock)
-      .then((value) => live && setEvents({ kind: "ready", value }))
+      .then((value) => live && setEvents({ kind: "ready", value: { ...value, readAtMs: Date.now() } }))
       .catch(() => live && setEvents({ kind: "error" }));
     return () => {
       live = false;
     };
-  }, [pool]);
+  }, [pool, readCount]);
+
+  const readAgain = () => {
+    setHoldings({ kind: "loading" });
+    setTotals({ kind: "loading" });
+    setEvents({ kind: "loading" });
+    setReadCount((n) => n + 1);
+  };
 
   useEffect(() => {
     let live = true;
@@ -77,6 +88,8 @@ export function PublicRewards({ dict, lang, apiUrl }: { dict: Dict; lang: Locale
   const eth = (v: bigint) => formatUnits(v, 18, 4, lang);
   const vvake = (v: bigint) => formatUnits(v, rewardsConfig.decimals, 2, lang);
   const t = dict.pool;
+  /** Each figure says when it was read, so a figure left on screen is never taken for a live one. */
+  const fresh = (readAtMs: number) => format(t.readAt, { time: timeFmt.format(new Date(readAtMs)) });
 
   return (
     <>
@@ -84,29 +97,49 @@ export function PublicRewards({ dict, lang, apiUrl }: { dict: Dict; lang: Locale
         <div className="mt-10">
           {!pool ? (
             <NotDeployed title={dict.notDeployed} body={t.notDeployedBody} />
-          ) : totals.kind === "error" ? (
-            <p className="text-muted">{t.chainError}</p>
           ) : (
-            <dl className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-              {holdings && (
-                <Figure label={t.held} value={`${vvake(holdings.held)} VVAKE`}>
-                  {format(t.available, { vvake: vvake(holdings.available) })}
-                </Figure>
-              )}
-              <Figure label={t.funded} value={totals.kind === "ready" ? `${eth(totals.value.funded)} ETH` : "…"} />
-              <Figure label={t.converted} value={totals.kind === "ready" ? `${vvake(totals.value.bought)} VVAKE` : "…"} />
-              <Figure label={t.spent} value={totals.kind === "ready" ? `${eth(totals.value.spent)} ETH` : "…"} />
-              <Figure label={t.waiting} value={totals.kind === "ready" ? `${eth(totals.value.balance)} ETH` : "…"}>
-                {totals.kind === "ready" &&
-                  format(t.next, {
-                    when: totals.value.paused
-                      ? t.paused
-                      : totals.value.nextBuyAt * 1000 <= totals.value.readAtMs
-                        ? t.nextNow
-                        : format(t.nextAt, { date: timeFmt.format(new Date(totals.value.nextBuyAt * 1000)) }),
-                  })}
-              </Figure>
-            </dl>
+            <>
+              <dl className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                {rewards && (
+                  <Figure
+                    label={t.held}
+                    state={holdings}
+                    value={(h) => `${vvake(h.held)} VVAKE`}
+                    note={(h) => format(t.available, { vvake: vvake(h.available) })}
+                    fresh={fresh}
+                    unreadable={t.unreadable}
+                  />
+                )}
+                <Figure label={t.funded} state={totals} value={(v) => `${eth(v.funded)} ETH`} fresh={fresh} unreadable={t.unreadable} />
+                <Figure
+                  label={t.converted}
+                  state={totals}
+                  value={(v) => `${vvake(v.bought)} VVAKE`}
+                  fresh={fresh}
+                  unreadable={t.unreadable}
+                />
+                <Figure label={t.spent} state={totals} value={(v) => `${eth(v.spent)} ETH`} fresh={fresh} unreadable={t.unreadable} />
+                <Figure
+                  label={t.waiting}
+                  state={totals}
+                  value={(v) => `${eth(v.balance)} ETH`}
+                  note={(v) =>
+                    format(t.next, {
+                      when: v.paused
+                        ? t.paused
+                        : v.nextBuyAt * 1000 <= v.readAtMs
+                          ? t.nextNow
+                          : format(t.nextAt, { date: timeFmt.format(new Date(v.nextBuyAt * 1000)) }),
+                    })
+                  }
+                  fresh={fresh}
+                  unreadable={t.unreadable}
+                />
+              </dl>
+              <button type="button" onClick={readAgain} className="mt-4 text-sm text-muted underline underline-offset-4 hover:text-text">
+                {t.readAgain}
+              </button>
+            </>
           )}
 
           {pool && (
@@ -140,6 +173,7 @@ export function PublicRewards({ dict, lang, apiUrl }: { dict: Dict; lang: Locale
                 </ul>
               )}
               {events.kind === "ready" && !events.value.complete && <p className="mt-3 text-sm text-faint">{t.older}</p>}
+              {events.kind === "ready" && <p className="mt-2 text-xs text-faint">{fresh(events.value.readAtMs)}</p>}
             </>
           )}
 
@@ -191,12 +225,34 @@ export function PublicRewards({ dict, lang, apiUrl }: { dict: Dict; lang: Locale
   );
 }
 
-function Figure({ label, value, children }: { label: string; value: string; children?: string | false }) {
+/**
+ * One chain figure in its own state: "…" while it loads, "—" with "couldn't be read" when its read failed (never an
+ * old value), else the value, its note and the time it was read.
+ */
+function Figure<T extends { readAtMs: number }>({
+  label,
+  state,
+  value,
+  note,
+  fresh,
+  unreadable,
+}: {
+  label: string;
+  state: Load<T>;
+  value: (v: T) => string;
+  note?: (v: T) => string;
+  fresh: (readAtMs: number) => string;
+  unreadable: string;
+}) {
   return (
     <div className="rounded-2xl border border-line bg-surface/60 p-5">
       <dt className="font-mono text-xs tracking-[0.16em] text-faint uppercase">{label}</dt>
-      <dd className="mt-2 font-display text-xl font-semibold tabular-nums">{value}</dd>
-      {children && <dd className="mt-1 text-xs text-muted">{children}</dd>}
+      <dd className="mt-2 font-display text-xl font-semibold tabular-nums">
+        {state.kind === "ready" ? value(state.value) : state.kind === "error" ? "—" : "…"}
+      </dd>
+      {state.kind === "ready" && note && <dd className="mt-1 text-xs text-muted">{note(state.value)}</dd>}
+      {state.kind === "ready" && <dd className="mt-1 text-xs text-faint">{fresh(state.value.readAtMs)}</dd>}
+      {state.kind === "error" && <dd className="mt-1 text-xs text-down-fg">{unreadable}</dd>}
     </div>
   );
 }
