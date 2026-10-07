@@ -702,7 +702,7 @@ export const fr: Dictionary = {
         icon: "🧬",
         when: 0,
         title: "Un VVaker à toi pour toujours",
-        body: "Unique, gratuit, jamais dupliqué. Les options de collection (facultatives) débloquent l'organisation d'événements, les défis et l'accès anticipé.",
+        body: "Gratuit, fait de tes propres choix, un par personne. Réserver un design pour que personne d'autre n'ait le même est prévu pour le lancement. Les options de collection (facultatives) débloquent l'organisation d'événements, les défis et l'accès anticipé.",
       },
       {
         icon: "🤝",
@@ -2079,7 +2079,7 @@ export const fr: Dictionary = {
         {
           name: "Gratuit pour toujours",
           items: [
-            "Ton VVaker unique, réservé une fois, jamais transférable",
+            "Ton VVaker, un par personne, jamais transférable (un design à toi à réserver au lancement)",
             "Tous les corps, sports, visages et l'équipement de base",
             "VVaker PNG & bannière X",
           ],

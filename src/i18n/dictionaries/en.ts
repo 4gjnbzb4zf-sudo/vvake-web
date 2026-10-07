@@ -687,7 +687,7 @@ export const en = {
         icon: "🧬",
         when: 0,
         title: "A VVaker that's yours forever",
-        body: "One of a kind, free, never duplicated. Collector add-ons (optional) unlock hosting, challenges and early access.",
+        body: "Free, built from your own choices, one per person. Claiming a design so nobody else gets the same one is planned for launch. Collector add-ons (optional) unlock hosting, challenges and early access.",
       },
       {
         icon: "🤝",
@@ -1948,7 +1948,7 @@ export const en = {
         {
           name: "Free forever",
           items: [
-            "Your unique VVaker, claimed once, never transferable",
+            "Your VVaker, one per person, never transferable (a design of your own to claim at launch)",
             "All bodies, sports, faces and base gear",
             "VVaker PNG & X banner",
           ],
