@@ -10,6 +10,8 @@
     "build": "next build",
     "postbuild": "tsx scripts/csp.ts",
     "check:csp": "tsx scripts/csp.ts --check",
+    "headers:cloudflare": "tsx scripts/cloudflare-headers.ts",
+    "deploy:cloudflare": "npm run build && npm run headers:cloudflare && WRANGLER_SEND_METRICS=false npx --yes wrangler@4.136.0 deploy",
     "start": "npx serve out",
     "lint": "eslint",
     "typecheck": "tsc --noEmit",

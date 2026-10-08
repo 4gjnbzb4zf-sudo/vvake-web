@@ -1,0 +1,44 @@
+# Cloudflare Workers static assets (docs/cloudflare-hosting.md, review WEB-SEC-01): the same build as deploy.yml, plus
+# out/_headers with real security headers. Manual only until the DNS switch; GitHub Pages (deploy.yml) keeps serving
+# vvake.com until then. Needs the CLOUDFLARE_API_TOKEN and CLOUDFLARE_ACCOUNT_ID repository secrets.
+name: Deploy to Cloudflare
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: cloudflare
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    environment:
+      name: cloudflare
+      url: https://vvake.com
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci --ignore-scripts
+      - run: npm run check
+      - run: npm run build
+        env:
+          NEXT_PUBLIC_SITE_URL: ${{ vars.SITE_URL || 'https://vvake.com' }}
+          NEXT_PUBLIC_WAITLIST_ENDPOINT: ${{ vars.WAITLIST_ENDPOINT }}
+          NEXT_PUBLIC_TURNSTILE_SITE_KEY: ${{ vars.TURNSTILE_SITE_KEY }}
+      - run: npm run headers:cloudflare
+      # Pinned wrangler; reads wrangler.jsonc (assets from out/, 404 page, trailing slashes).
+      - run: npx --yes wrangler@4.136.0 deploy
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          WRANGLER_SEND_METRICS: "false"

@@ -12,7 +12,7 @@ export const en = {
   },
   nav: {
     app: "The app",
-    backers: "Backers",
+    backers: "Roadmap & Funding",
     rewards: "Prizes",
     why: "Why join",
     earn: "What you get",
@@ -98,9 +98,9 @@ export const en = {
       {
         key: "back",
         icon: "📖",
-        kicker: "Backers",
+        kicker: "Roadmap & Funding",
         title: "Open books, open plan",
-        body: "Where every fee goes, $VVAKE and how to own a piece (planned).",
+        body: "How each fee is split, $VVAKE and how to own a piece (planned).",
         cta: "See the plan",
         page: "backers/",
       },
@@ -213,9 +213,9 @@ export const en = {
       lead: "Your animal athlete: free, earned by moving, never bought.",
     },
     backers: {
-      kicker: "Backers",
+      kicker: "Roadmap & Funding",
       title: "Open books. Real assets. Fees only.",
-      lead: "Why we build on Robinhood Chain, where every fee goes, and how to own a piece of VVake (planned).",
+      lead: "Why we build on Robinhood Chain, how each fee is split, and how to own a piece of VVake (planned).",
     },
   },
   og: {
@@ -246,7 +246,7 @@ export const en = {
       {
         tag: "RWA × Robinhood Chain",
         title: "Real-world assets, on Robinhood Chain.",
-        body: "Planned on Robinhood Chain, where tokenized stocks already live: a public fee split, season rewards on-chain and sport pairing with Robinhood stock tokens (where legal).",
+        body: "Planned on Robinhood Chain, where tokenized stocks already live: public fee splits, season rewards on-chain and sport pairing with Robinhood stock tokens (where legal).",
         cta: "How it works",
       },
       {
@@ -737,7 +737,7 @@ export const en = {
         {
           title: "Fee-only team",
           href: "#open-book",
-          body: "The team earns from fees only, with salaries and the fee split published before launch.",
+          body: "The team earns from fees only, with salaries and each fee split published before launch.",
         },
         {
           title: "RWA × Robinhood Chain",
@@ -833,7 +833,7 @@ export const en = {
       title: "Plus for life",
       price: "{money}",
       per: "once",
-      body: "All Plus tools, forever, for about 30 months of the monthly price. Same rule: never an edge. Counted into the public split over 36 months, so it funds VVake for years.",
+      body: "All Plus tools, forever, for about 30 months of the monthly price. Same rule: never an edge. Counted as Plus revenue spread over 36 months, so it funds VVake for years.",
     },
     cta: "Get notified at launch",
     perks: [
@@ -872,7 +872,8 @@ export const en = {
       "A bigger prize share: prizes follow effort only, never what you pay",
       "Your data: your full journal and exports stay free",
     ],
-    split: "Like every fee, Plus goes through our public split: 30% goes back to players' season rewards.",
+    split:
+      "30% of net Plus revenue (what the stores pay us after their commission and taxes, minus refunds) goes to the prize pool, handed out each week for effort.",
     note: "In the iPhone app (and the Android app when it comes), Plus is an in-app subscription through the store; manage or cancel it in your store settings. Prices vary by country and include taxes where required.",
   },
   coach: {
@@ -1443,26 +1444,32 @@ export const en = {
           { label: "Launch", value: "Public launch with anti-snipe settings" },
           { label: "Supply and tier amounts", value: "Fixed at launch, in the white paper" },
           { label: "Launchpad trading fees", value: "70% season rewards · 30% reserve" },
-          { label: "Prize pool", value: "A fixed, published share of net Plus revenue" },
+          { label: "Prize pool", value: "30% of net Plus revenue" },
           { label: "Conversions", value: "By rule on chain: capped daily, anyone can trigger" },
           { label: "Where converted $VVAKE goes", value: "Only to the rewards contract" },
           {
             label: "Who gets prizes",
             value:
-              "Plus members or free entrants (same prize) with a linked wallet (18+), all from before the week, who moved with heart rate and answered the skill question",
+              "Plus members or free entrants (same prize) with a linked wallet (18+), all from before the week, who moved with heart rate, recorded with the app on a real iPhone or Apple Watch, and answered the skill question",
           },
-          { label: "Weekly pot", value: "1/8 of the unpromised $VVAKE in the rewards contract, at most 1,000,000 a week" },
+          {
+            label: "Pilot",
+            value:
+              "At most 1,000 $VVAKE per person and 20,000 in all each week, for the first 200 eligible people; reviewed by a person every week",
+          },
+          { label: "Weekly pot", value: "1/8 (12.5%) of the unpromised $VVAKE in the rewards contract, at most 1,000,000 a week" },
           { label: "Per person", value: "Shared by effort points, at most 10% of a week's pot" },
         ],
       },
       prizePool: {
         title: "🏆 Plus funds a monthly prize pool",
-        body: "Each month a fixed, published share of net VVake Fit Plus revenue goes to the prize pool, a public contract (VVakePrizePool), with a hash of that month's report on chain. The pool turns it into $VVAKE by rule, never by anyone's choice.",
+        body: "Each month 30% of net VVake Fit Plus revenue (store proceeds after Apple's or Google's commission and withheld taxes, minus refunds) goes to the prize pool, a public contract (VVakePrizePool), with a hash of that month's report on chain. The pool turns it into $VVAKE by rule, never by anyone's choice.",
         steps: [
           "Conversions run in small capped chunks, at most once a day, and anyone can trigger the next one",
           "The $VVAKE goes only to the rewards contract (VVakeRewards), never to a person or a team wallet",
-          "Each week, prizes for effort. Two ways in, same prize: Plus or the free entry (no purchase necessary), with an account, an entry and a linked wallet (18+) from before the week, at least 3 heart-rate sessions or 90 active minutes, and the week's skill question. Never by holdings, never by draw",
-          "The week's pot is 1/8 of the $VVAKE the rewards contract holds and hasn't promised yet, at most 1,000,000. It's shared by effort points (at most 150 a day), nobody gets more than 10%, and what isn't handed out stays in the pool for later weeks. You claim from your own wallet on vvake.com/rewards",
+          "Each week, prizes for effort. Two ways in, same prize: Plus or the free entry (no purchase necessary), with an account, an entry and a linked wallet (18+) from before the week, at least 3 heart-rate sessions or 90 active minutes recorded with the app on a real iPhone or Apple Watch, and the week's skill question. Never by holdings, never by draw",
+          "The week's pot is 1/8 (12.5%) of the $VVAKE the rewards contract holds and hasn't promised yet, at most 1,000,000. It's shared by effort points (at most 150 a day), nobody gets more than 10%, and what isn't handed out stays in the pool for later weeks. You claim from your own wallet on vvake.com/rewards",
+          "During the pilot: at most 1,000 VVAKE per person and 20,000 VVAKE in all each week, for the first 200 eligible people; others join a waiting list. What a cap leaves stays in the pool for later weeks. A person reviews every week, and nothing is posted until that review is done.",
         ],
         note: "Testnet today: the tokens have no value. Nothing is burned and nothing goes to holders. Legal review and an external audit of the contracts come before any mainnet value. Paying Plus with testnet $VVAKE exists only in development builds of the app, to test the flow (the tokens go to the VVake treasury); it isn't offered in TestFlight or the App Store.",
         cta: "See the prizes and the pool",
@@ -1501,7 +1508,7 @@ export const en = {
         tag: "On-chain (planned)",
         title: "Robinhood Chain keeps it open",
         body: "The chain where tokenized stocks (RWA) already live. On testnet today: weekly $VVAKE prizes for effort, funded by Plus and claimed from your own wallet. Planned: a public fee-split contract, collectibles with real utility (never an edge), and the $VVAKE mainnet launch on vibe/vibe after legal review.",
-        points: ["Public fee split, on-chain", "Weekly prizes for effort", "Web portal only · 18+ · not in every country"],
+        points: ["Launchpad fee split, on-chain", "Weekly prizes for effort", "Web portal only · 18+ · not in every country"],
       },
     ],
     stockRewards: {
@@ -1681,13 +1688,26 @@ export const en = {
   },
   openBook: {
     kicker: "Open book",
-    title: "Where every fee goes. Public before you ask.",
-    body: "The team has no token allocation and is paid only from fees. Every fee goes through one public split.",
-    split: [
-      { label: "Players", note: "Season rewards, paid for effort, never for holding", value: 30 },
-      { label: "Operations", note: "Salaries & infrastructure. Any surplus is company profit, shown in the season report", value: 40 },
-      { label: "Growth", note: "Events, rivalries, community", value: 20 },
-      { label: "Reserve", note: "Keeps rewards steady in down seasons", value: 10 },
+    title: "Where the money goes. Public before you ask.",
+    body: "The team has no token allocation and is paid only from fees. Each source has its own public split.",
+    sources: [
+      {
+        name: "VVake Fit Plus",
+        basis: "Net Plus revenue",
+        split: [
+          { label: "Prize pool", note: "Turned into $VVAKE by rule and handed out each week for effort, never for holding", value: 30 },
+        ],
+        note: "Net revenue is what the App Store and Google Play pay us after their commission and the taxes they withhold, minus refunds and chargebacks, plus web sales after payment fees. Each month's report is published.",
+      },
+      {
+        name: "Launchpad trading fees",
+        basis: "$VVAKE trading fees from the vibe/vibe launchpad",
+        split: [
+          { label: "Season rewards", note: "Paid for effort, never for holding", value: 70 },
+          { label: "Reserve", note: "Keeps rewards steady in down seasons", value: 30 },
+        ],
+        note: "Testnet today: the tokens have no value. Planned: this split set in a public fee-split contract at the mainnet launch.",
+      },
     ],
     promise: "No hidden wallets. No team tokens. A public report every season.",
   },
@@ -2074,7 +2094,7 @@ export const en = {
       },
       {
         q: "Is there a token? What are the $VVAKE prizes?",
-        a: "VVake is a fitness and training service, not a financial product. Each week, people who moved enough with heart-rate data (at least 3 sessions or 90 active minutes) share $VVAKE prizes by effort. Two ways in, same prize: VVake Fit Plus or the free entry (no purchase necessary), with an account, an entry and a linked wallet from before the week, and a short weekly skill question. Prizes are for people 18 or older, points count up to 150 a day, nobody gets more than 10% of a week's pot, and prizes never depend on chance, on how much you pay or on how many tokens you hold. A fixed, published share of net VVake Fit Plus revenue funds the prize pool, converted on chain by public rules. You claim from your own wallet on vvake.com/rewards; VVake never holds your tokens and never asks for your recovery phrase. Testnet today: the tokens have no value, nothing to buy, and nothing here is an offer or investment advice. Not offered in the US or UK at launch, subject to legal review.",
+        a: "VVake is a fitness and training service, not a financial product. Each week, people who moved enough with heart-rate data (at least 3 sessions or 90 active minutes) share $VVAKE prizes by effort. Two ways in, same prize: VVake Fit Plus or the free entry (no purchase necessary), with an account, an entry and a linked wallet from before the week, and a short weekly skill question. Only sessions recorded with the VVake app on a real iPhone or Apple Watch count, and during the pilot prizes are capped and reviewed by a person every week. Prizes are for people 18 or older, points count up to 150 a day, nobody gets more than 10% of a week's pot, and prizes never depend on chance, on how much you pay or on how many tokens you hold. 30% of net VVake Fit Plus revenue funds the prize pool, converted on chain by public rules. You claim from your own wallet on vvake.com/rewards; VVake never holds your tokens and never asks for your recovery phrase. Testnet today: the tokens have no value, nothing to buy, and nothing here is an offer or investment advice. Not offered in the US or UK at launch, subject to legal review.",
         link: "rewards/",
       },
     ],
@@ -2166,8 +2186,7 @@ export const en = {
     description:
       "What the VVake iPhone and Apple Watch apps and vvake.com collect, why, who else sees it, how long we keep it and your rights.",
     updated: "Last updated: 2026-10-07",
-    draft:
-      "Draft for the TestFlight preview. Items marked [CONFIRM] are still being checked, and this policy will be reviewed by a lawyer before the public launch.",
+    draft: "Draft for the TestFlight preview. This policy will be reviewed by a lawyer before the public launch.",
     intro: [
       "VVake (also called VVake Fit) is a fitness coaching app for iPhone and Apple Watch, with this website, vvake.com. This policy explains in plain words what we collect, why, who else sees it, how long we keep it and what you can do about it. It covers the apps (TestFlight previews included), the VVake API they talk to, the desk companion for Mac, the VVake plugin for Claude Code and this website, including vvake.com/rewards.",
       "VVake is a training and wellness app. It is not a medical device and does not diagnose, treat or monitor any health condition.",
@@ -2190,7 +2209,7 @@ export const en = {
         h: "Who we are",
         p: [
           "VVake is run by the VVake team, which is responsible for the personal information described here.",
-          "Person in charge of the protection of personal information (Québec Law 25): [CONFIRM: name and title]. You can reach this person at {email} [CONFIRM: this mailbox exists and is monitored].",
+          "Person in charge of the protection of personal information (Québec Law 25): the founder of VVake. You can reach them at {email}.",
         ],
         list: [],
       },
@@ -2205,7 +2224,7 @@ export const en = {
           },
           {
             t: "Your devices.",
-            d: 'For each iPhone or Apple Watch you use: a device ID made by the app, whether it is a phone or a watch, its model and when it was last seen; sign-in tokens (we keep only a hash of them); and a push notification token if you allow notifications. If you sign in on vvake.com/rewards, that browser is added as a device named "Web (vvake.com)"; each computer you link to Claude Code is added with its name (see Desk companion and Claude Code). Why: to keep you signed in, let you sign a device out and send the alerts you asked for (challenges, crew quests, My Pulse).',
+            d: 'For each iPhone or Apple Watch you use: a device ID made by the app, whether it is a phone or a watch, its model and when it was last seen; sign-in tokens (we keep only a hash of them); and a push notification token if you allow notifications. If you sign in on vvake.com/rewards, that browser is added as a device named "Web (vvake.com)"; each computer you link to Claude Code is added with its name (see Desk companion and Claude Code). Why: to keep you signed in, let you sign a device out and send the alerts you asked for (challenges, crew quests, My Pulse). To check that sessions come from the genuine app, we keep an App Attest key identifier and Apple\'s attestation receipt for each app install; they identify the install, not you.',
           },
           {
             t: "Your sessions.",
@@ -2347,7 +2366,7 @@ export const en = {
         list: [
           {
             t: "The coach (Anthropic Claude).",
-            d: "To write each reply we send Anthropic: your message and the last few turns (up to 6), the live numbers of your session (sport, time, heart rate and zone, distance, pace, cadence, gaps in a race or challenge, your city's clash score), today's plan and your session feedback, and a summary of your profile (display name, level, zones, targets and coach notes, your aim, the pain, low-impact and easy-only choices, streak, points and recent plan decisions). We do not send your e-mail, account ID, location or contacts. Anthropic processes this as our service provider and, under its commercial terms, does not use it to train its models [CONFIRM: current Anthropic terms and retention period].",
+            d: "To write each reply we send Anthropic: your message and the last few turns (up to 6), the live numbers of your session (sport, time, heart rate and zone, distance, pace, cadence, gaps in a race or challenge, your city's clash score), today's plan and your session feedback, and a summary of your profile (display name, level, zones, targets and coach notes, your aim, the pain, low-impact and easy-only choices, streak, points and recent plan decisions). We do not send your e-mail, account ID, location or contacts. Anthropic processes this as our service provider and, under its commercial terms, does not use it to train its models. Anthropic deletes it within 30 days, unless it must keep it longer to enforce its usage policy (up to 2 years for flagged content) or to comply with the law.",
           },
           {
             t: "Plan changes.",
@@ -2407,7 +2426,7 @@ export const en = {
           },
           {
             t: "Weekly lists.",
-            d: "Every Monday we settle the past week: the VVAKE amount for each eligible account (Plus or free entry, linked wallet, enough effort, skill question). The week's list (addresses and amounts, with their proofs) is published so anyone can check it, and its fingerprint (a Merkle root) is written to the blockchain. Names, e-mails and points are not in the list, but an amount says roughly how active that address was that week.",
+            d: "Every Monday we settle the past week: the VVAKE amount for each eligible account (Plus or free entry, linked wallet, enough effort recorded with the app on a real iPhone or Apple Watch, skill question, a seat in the pilot), checked by a person before anything is posted. The week's list (addresses and amounts, with their proofs) is published so anyone can check it, and its fingerprint (a Merkle root) is written to the blockchain. Names, e-mails and points are not in the list, but an amount says roughly how active that address was that week.",
           },
           {
             t: "Claims.",
@@ -2434,7 +2453,7 @@ export const en = {
             d: "Hosts the VVake API, the database and file storage, the waitlist, and the bot check on the website's signup form (Turnstile).",
           },
           { t: "Anthropic (United States).", d: "Writes the coach's replies (see AI features)." },
-          { t: "ElevenLabs (United States) [CONFIRM: contracting entity and region].", d: "Turns coach lines into speech." },
+          { t: "ElevenLabs (Eleven Labs Inc., United States; data stored in the United States).", d: "Turns coach lines into speech." },
           { t: "xAI (United States).", d: "Renders custom VVaker images from their traits." },
           { t: "Resend (United States).", d: "Sends sign-in codes and waitlist e-mails. It receives your e-mail address and the message." },
           { t: "Google (United States).", d: "Only if you sign in with Google or connect Google Calendar." },
@@ -2463,7 +2482,7 @@ export const en = {
         id: "where",
         h: "Where your data is stored",
         p: [
-          "Our database (Cloudflare D1) and file storage (Cloudflare R2: coach voice audio, VVaker images and your encrypted route backups) are in Cloudflare's EU jurisdiction. Requests pass through Cloudflare's worldwide network, and several providers above are in the United States, so your data can be processed outside Québec, Canada and the EU. We rely on our providers' contractual safeguards, such as the EU Standard Contractual Clauses [CONFIRM: data processing agreements in place with each provider], and assessed these transfers as Québec law requires [CONFIRM: privacy impact assessment for transfers done].",
+          "Our database (Cloudflare D1) and file storage (Cloudflare R2: coach voice audio, VVaker images and your encrypted route backups) are in Cloudflare's EU jurisdiction. Requests pass through Cloudflare's worldwide network, and several providers above are in the United States, so your data can be processed outside Québec, Canada and the EU. We rely on our providers' contractual safeguards: Cloudflare's, Anthropic's and ElevenLabs' data processing terms, which include the EU Standard Contractual Clauses, are part of their standard terms.",
         ],
         list: [],
       },
@@ -2510,10 +2529,13 @@ export const en = {
             t: "Coach voice audio:",
             d: "a line only you had is deleted with your account; a word-for-word identical line other users also have stays for them.",
           },
-          { t: "Server logs:", d: "a few days, with no health data [CONFIRM: Cloudflare log retention setting]." },
+          {
+            t: "Server logs:",
+            d: "our servers don't keep request logs. If we turn them on to fix a problem, Cloudflare keeps them for 3 days, with no health data.",
+          },
           {
             t: "Backups:",
-            d: "the database can be restored to a point in time for up to 30 days, after which deleted data is gone [CONFIRM].",
+            d: "the database can be restored to a point in time for up to 7 days, after which deleted data is gone.",
           },
           { t: "Website waitlist:", d: "until launch plus 12 months, or until you unsubscribe or ask us to delete it." },
         ],
@@ -2547,7 +2569,8 @@ export const en = {
         ],
         after: [
           "Québec and Canada (Law 25, PIPEDA): you can access and correct your information, withdraw consent, ask for it in a structured, commonly used technological format, and ask us to stop disseminating it where the law allows.",
-          "European Union, EEA and UK (GDPR): you have the rights of access, rectification, erasure, restriction, objection and portability. Our legal bases: performing our contract with you (running the app), your explicit consent for health data and optional features, and our legitimate interest in keeping the service secure. EU representative: [CONFIRM: appoint one if VVake is offered in the EU].",
+          "European Union and EEA: VVake is not offered there for now.",
+          "United Kingdom (UK GDPR): you have the rights of access, rectification, erasure, restriction, objection and portability. Our legal bases: performing our contract with you (running the app), your explicit consent for health data and optional features, and our legitimate interest in keeping the service secure.",
           "California and other US states: we do not sell personal information or share it for cross-context behavioural advertising. You can ask to know, correct or delete your information, and we will not treat you differently for doing so.",
         ],
       },
@@ -2555,7 +2578,7 @@ export const en = {
         id: "children",
         h: "Children",
         p: [
-          "VVake is not for children under 13, and we do not knowingly collect their information. If you are under the age of digital consent where you live (14 in Québec, up to 16 in some EU countries), a parent or guardian must agree before you use VVake [CONFIRM: minimum age]. Weight goals and meal reminders are for adults only. If you think a child has given us information, write to {email} and we will delete it.",
+          "VVake is not for children under 13, and we do not knowingly collect their information. If you are under the age of digital consent where you live (14 in Québec), a parent or guardian must agree before you use VVake. Weight goals and meal reminders are for adults only. If you think a child has given us information, write to {email} and we will delete it.",
         ],
         list: [],
       },
@@ -2806,7 +2829,19 @@ export const en = {
       emptyHint: "Expected some weeks here? Check that you signed in with the same account as in the app.",
       wallet: "To {address}",
       ruleTitle: "Who gets prizes",
-      rule: "Two ways in, same prize: VVake Fit Plus or the free entry. A week counts for prizes when all of these are true: your account, your entry and your linked wallet all existed before the week started (Monday 00:00 UTC; a new wallet counts from the next week), you confirmed you're 18 or older when linking, you moved with heart-rate data from a watch (at least {sessions} sessions or {minutes} active minutes, uploaded within {grace} hours of the week's end), and you answered the week's skill question. Points count up to {cap} a day and nobody gets more than 10% of a week's pot. Move Quests don't count toward prizes for now.",
+      rule: "Two ways in, same prize: VVake Fit Plus or the free entry. A week counts for prizes when all of these are true:",
+      checklist: [
+        "An account, an entry and a linked wallet, all from before the week started (Monday 00:00 UTC; a new wallet counts from the next week)",
+        "18 or older, confirmed when you linked your wallet",
+        "Sessions recorded with the app on a real iPhone or Apple Watch",
+        "Heart-rate effort from a watch: at least {sessions} sessions or {minutes} active minutes, uploaded within {grace} hours of the week's end",
+        "This week's skill question, answered",
+        "A seat in the pilot",
+      ],
+      ruleNote:
+        "Points count up to {cap} a day and nobody gets more than 10% of a week's pot. Move Quests never count toward prizes. Only sessions recorded with the VVake app on a real iPhone or Apple Watch count toward prizes (the app proves it with Apple's App Attest). Sessions from the web, a simulator or other tools stay in your journal with their points, but don't count toward prizes. One phone or watch counts toward prizes for one account only. Sessions from a device that already counts for another account wait for a review.",
+      pilot:
+        "During the pilot: at most 1,000 VVAKE per person and 20,000 VVAKE in all each week, for the first 200 eligible people; others join a waiting list. What a cap leaves stays in the pool for later weeks. A person reviews every week, and nothing is posted until that review is done.",
       eligibleNow: "This week counts for prizes so far.",
       notEligibleNow: "This week doesn't count for prizes yet:",
       notEligibleWeek: "Didn't count: {reasons}",
@@ -2818,6 +2853,7 @@ export const en = {
         adult: "18+ not confirmed: link your wallet again and tick the box",
         effort: "not enough heart-rate effort yet: 3 sessions or 90 active minutes, with heart-rate data from a watch",
         skill: "this week's skill question isn't answered yet",
+        pilot: "no seat in the pilot yet: you're on the waiting list",
         other: "a prize condition isn't met",
       },
     },
@@ -2970,7 +3006,7 @@ export const en = {
       items: [
         {
           h: "Plus funds the pool",
-          p: "Each month a fixed, published share of net Plus subscription revenue goes to an open prize pool contract, with a hash of that month's report on chain.",
+          p: "Each month 30% of net Plus subscription revenue goes to an open prize pool contract, with a hash of that month's report on chain.",
         },
         {
           h: "The pool turns ETH into VVAKE by rule",
@@ -2978,11 +3014,19 @@ export const en = {
         },
         {
           h: "Plus or the free entry, same prize",
-          p: "Two ways in: VVake Fit Plus or the free entry (no purchase necessary), same rules and same prizes. A week counts if your account, your entry and your linked wallet existed before the week started, you're 18 or older and allowed to receive prizes where you live (you confirm it when linking), you moved with heart-rate data from a watch (at least 3 sessions or 90 active minutes; a phone without a heart-rate sensor scores 0), and you answered the week's skill question, as Canadian law requires for prizes. Move Quests don't count toward prizes for now.",
+          p: "Two ways in: VVake Fit Plus or the free entry (no purchase necessary), same rules and same prizes. A week counts if your account, your entry and your linked wallet existed before the week started, you're 18 or older and allowed to receive prizes where you live (you confirm it when linking), you recorded your sessions with the app on a real iPhone or Apple Watch, you moved with heart-rate data from a watch (at least 3 sessions or 90 active minutes; a phone without a heart-rate sensor scores 0), and you answered the week's skill question, as Canadian law requires for prizes. Move Quests never count toward prizes.",
+        },
+        {
+          h: "Only the real app counts",
+          p: "Only sessions recorded with the VVake app on a real iPhone or Apple Watch count toward prizes (the app proves it with Apple's App Attest). Sessions from the web, a simulator or other tools stay in your journal with their points, but don't count toward prizes. One phone or watch counts toward prizes for one account only. Sessions from a device that already counts for another account wait for a review.",
+        },
+        {
+          h: "The pilot",
+          p: "During the pilot: at most 1,000 VVAKE per person and 20,000 VVAKE in all each week, for the first 200 eligible people; others join a waiting list. What a cap leaves stays in the pool for later weeks. A person reviews every week, and nothing is posted until that review is done.",
         },
         {
           h: "The weekly pot, shared by effort",
-          p: "Each week's pot is 1/8 of the VVAKE the rewards contract holds and hasn't promised yet, at most 1,000,000 VVAKE. It's shared by effort points, at most 150 points a day; nobody gets more than 10% of a week's pot, and what isn't handed out stays in the pool for later weeks. No draw, no chance, never by what you pay, how you entered or what you hold.",
+          p: "Each week's pot is 1/8 (12.5%) of the VVAKE the rewards contract holds and hasn't promised yet, at most 1,000,000 VVAKE. It's shared by effort points, at most 150 points a day; nobody gets more than 10% of a week's pot, and what isn't handed out stays in the pool for later weeks. No draw, no chance, never by what you pay, how you entered or what you hold.",
         },
         {
           h: "You claim, VVake never holds them",

@@ -1,0 +1,23 @@
+// Cloudflare Workers static assets for vvake.com (docs/cloudflare-hosting.md, review WEB-SEC-01).
+// An assets-only Worker: no script runs, Cloudflare serves out/ with the headers in out/_headers
+// (written by scripts/cloudflare-headers.ts). Deploy: npm run deploy:cloudflare, or the "Deploy to Cloudflare"
+// workflow (manual). GitHub Pages keeps serving vvake.com until the DNS switch.
+{
+  "name": "vvake-web",
+  "compatibility_date": "2025-09-01",
+  "assets": {
+    "directory": "./out",
+    // /en/rewards → /en/rewards/ and /en/rewards/index.html → /en/rewards/, like GitHub Pages.
+    "html_handling": "auto-trailing-slash",
+    // Unknown paths get out/404.html with a 404 status: its script forwards /c/<code>, /r/<code>, /claude/<code>
+    // and /rewards to the right page, as on GitHub Pages.
+    "not_found_handling": "404-page",
+  },
+  "workers_dev": true,
+  "preview_urls": false,
+  // Step 4 of docs/cloudflare-hosting.md, once the vvake.com zone is active on Cloudflare: uncomment, then deploy.
+  // "routes": [
+  //   { "pattern": "vvake.com", "custom_domain": true },
+  //   { "pattern": "www.vvake.com", "custom_domain": true },
+  // ],
+}

@@ -38,6 +38,8 @@ describe("prize eligibility", () => {
     expect(missingConditions(["plus", "wallet", "adult", "effort"])).toEqual(["entry", "wallet", "adult", "effort"]);
     expect(missingConditions(["plus_inactive", "no_wallet", "age", "min_sessions"])).toEqual(["entry", "wallet", "adult", "effort"]);
     expect(missingConditions(["account_too_new", "no_heart_rate", "skill_question"])).toEqual(["account", "effort", "skill"]);
+    // The capped pilot (review 2026-10-07 DEEP-02): no seat yet, on the waiting list.
+    expect(missingConditions(["effort", "pilot"])).toEqual(["effort", "pilot"]);
     expect(missingConditions(["something_new", "else"])).toEqual(["other"]);
     expect(missingConditions(undefined)).toEqual([]);
     expect(missingConditions(null)).toEqual([]);
