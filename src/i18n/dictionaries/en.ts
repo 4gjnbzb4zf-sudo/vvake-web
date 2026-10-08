@@ -43,6 +43,12 @@ export const en = {
     lead: "VVake is an AI fitness coach. It helps you make a plan that fits your week, move at your pace, show up with your crew and count for your city.",
     ctaPrimary: "Join early access",
     ctaSecondary: "Watch the film",
+    eyebrow: "A little movement. A bigger reason.",
+    filmLength: "0:37",
+    note: "Launching city by city · free to start",
+    sportsLabel: "Move your way",
+    sports: ["Run", "Walk", "Ride", "Swim", "Lift", "Yoga"],
+    explore: "How it works",
     phoneAlt: "The VVake app on iPhone, Today: your VVaker, today's plan, your goal and the coach's check-in.",
     watchAlt: "The VVake app on Apple Watch during a session: heart rate, zone and your gap to your best.",
     shots: "Real app screens · recorded in the simulator",
@@ -126,19 +132,23 @@ export const en = {
     },
     loop: {
       kicker: "How it works",
-      title: "Plan. Move. See progress.",
+      title: "Less planning. More showing up.",
+      lead: "You choose the goal. VVake helps you find a rhythm you can keep: plan, move, see progress.",
       steps: [
         {
+          label: "Make it yours",
           title: "Make a plan",
           body: "Tell your coach your goal, your free days and how long you have. It builds your week around your calendar and goes lighter after a tough one.",
           alt: "The plan screen in the VVake app: this week's sessions with heart-rate targets.",
         },
         {
+          label: "Get out there",
           title: "Move at your pace",
           body: "Start on your iPhone or Apple Watch. Heart rate, zone and route live; your coach checks in by voice if you opt in. Any sport counts.",
           alt: "The VVake Apple Watch app during a session: heart rate, zone and your gap to your best.",
         },
         {
+          label: "Feel the momentum",
           title: "See your progress",
           body: "Your week and your journal in one place, and your VVaker grows as you move. Scored on effort for your heart, not on speed.",
           alt: "The You screen in the VVake app: your VVaker, your week and your journal.",
@@ -147,7 +157,8 @@ export const en = {
     },
     sample: {
       kicker: "Try it",
-      title: "Sketch a sample week",
+      title: "Life gets busy. Your plan gets it.",
+      badge: "Sample · nothing is saved",
       lead: "Pick your days and how long you have. This is a simple sample, not your plan: in the app, your coach builds it from your goal, your level and your calendar.",
       days: "Which days?",
       dayShort: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
@@ -164,17 +175,19 @@ export const en = {
     },
     crew: {
       kicker: "Your crew",
-      title: "Tuesday, 7 pm, the canal loop.",
+      title: "Someone's waiting. So you go.",
       lead: "An example: five friends, one weekly run. Everyone RSVPs in the app, your coach plans the rest of your week around it, and showing up together earns crew points.",
       when: "Every Tuesday · 7:00 pm",
       what: "Crew run · 5 km easy, everyone at their own pace",
       going: "4 going · 1 maybe",
       rsvp: "I'm in",
       note: "Example crew, for illustration.",
+      cta: "Bring your crew: join early access",
+      imageAlt: "A VVaker runner, one of the VVake animal athletes.",
     },
     clash: {
       kicker: "Your city",
-      title: "City Clash: your city versus theirs.",
+      title: "Local pride. Shared effort.",
       lead: "Rival cities go head to head. Every session you log counts for your city, scored per person, so a smaller city can beat a bigger one.",
       steps: [
         { title: "12 h build-up", body: "Crews plan their sessions and rally their friends." },
@@ -183,11 +196,12 @@ export const en = {
       ],
       you: "Your city",
       rival: "Rival city",
+      window: "12 h clash",
       note: "Illustration, not live scores. Clashes start when cities go live.",
     },
     devices: {
       kicker: "Devices",
-      title: "What works today, what's next",
+      title: "Your movement. Your device.",
       lead: "VVake isn't in the App Store yet: the apps are in development and tested on our own devices. Here's the honest status.",
       groups: [
         {
@@ -199,6 +213,13 @@ export const en = {
         { status: "Under consideration", tone: "maybe", items: ["Smart rings", "Other wearables and apps"] },
       ],
       note: "Tell us what you wear when you join: it helps decide what comes first. Nothing here is a promise of support or a date.",
+    },
+    screens: {
+      more: "See every screen",
+    },
+    join: {
+      title: "Wake your city.",
+      lead: "VVake isn't live in your city yet. You decide when: pick your city, sign up, and be part of the first crews.",
     },
   },
   pages: {
@@ -2059,8 +2080,8 @@ export const en = {
         a: "City by city: a city goes live once enough people join, and rival cities go live together. There's no date yet. If your city isn't on the list, request it when you sign up: the most requested cities come next.",
       },
       {
-        q: "Do I need to be fit?",
-        a: "No. Your plan starts from where you are: your days, your minutes, your level. Sessions are scored on effort for your heart, not speed, and if something hurts the plan goes lighter and low-impact. VVake isn't medical advice: check with a doctor if in doubt.",
+        q: "Do I need to be fit, or a runner?",
+        a: "No. Walking, cycling, swimming, strength and yoga all count, at your pace. Your plan starts from where you are: your days, your minutes, your level. Sessions are scored on effort for your heart, not speed, and if something hurts the plan goes lighter and low-impact. VVake isn't medical advice: check with a doctor if in doubt.",
       },
       {
         q: "Is it free? Do I need a wallet or crypto?",

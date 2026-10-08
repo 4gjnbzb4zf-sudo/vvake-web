@@ -27,7 +27,7 @@ export function Hero({ dict }: { dict: Dictionary["hero"] }) {
       <div className="bg-voxel-grid pointer-events-none absolute inset-0 [mask-image:radial-gradient(ellipse_at_top,black_30%,transparent_75%)]" />
       <div className="pointer-events-none absolute -top-40 left-1/2 h-[520px] w-[820px] -translate-x-1/2 rounded-full bg-pulse/15 blur-[120px]" />
 
-      <Container className="relative grid items-center gap-12 pt-6 pb-16 sm:pt-20 lg:grid-cols-[1fr_1.05fr] lg:pb-24">
+      <Container className="relative grid items-center gap-12 pt-6 pb-12 sm:pt-14 lg:grid-cols-[1fr_1.05fr] lg:pb-16">
         {/* No entrance animation on the text: it's the largest paint on phones and should show at once. */}
         <div>
           <HeroTrio />
@@ -44,7 +44,12 @@ export function Hero({ dict }: { dict: Dictionary["hero"] }) {
             </span>
           </p>
 
-          <h1 id="hero-title" className="mt-6 font-display text-5xl leading-[1.02] font-bold tracking-tight sm:mt-8 sm:text-7xl">
+          <p className="mt-6 flex items-center gap-3 font-mono text-xs tracking-[0.2em] text-faint uppercase sm:mt-8">
+            <span aria-hidden="true" className="h-px w-8 bg-pulse-fg" />
+            {dict.eyebrow}
+          </p>
+
+          <h1 id="hero-title" className="mt-4 font-display text-5xl leading-[1.02] font-bold tracking-tight sm:text-7xl">
             {dict.title.map((line, i) => (
               <span key={line} className={i === dict.title.length - 1 ? "text-gradient-pulse block pb-2" : "block text-text"}>
                 {line}
@@ -58,12 +63,27 @@ export function Hero({ dict }: { dict: Dictionary["hero"] }) {
             <ButtonLink href="#unlock">{dict.ctaPrimary}</ButtonLink>
             <ButtonLink href="#film" variant="ghost">
               ▶ {dict.ctaSecondary}
+              <span className="ml-2 font-mono text-xs text-faint">{dict.filmLength}</span>
             </ButtonLink>
           </div>
+          <p className="mt-4 text-sm text-faint">{dict.note}</p>
         </div>
 
         <HeroDevices dict={dict} />
       </Container>
+
+      {/* Move your way: the sports strip under the first screen, then a way down into the page. */}
+      <div className="relative border-t border-line/60">
+        <Container className="flex flex-wrap items-center justify-between gap-x-8 gap-y-3 py-5 font-mono text-xs tracking-[0.16em] uppercase">
+          <p className="flex flex-wrap items-center gap-x-4 gap-y-2">
+            <span className="text-pulse-fg">{dict.sportsLabel}</span>
+            <span className="text-muted">{dict.sports.join(" / ")}</span>
+          </p>
+          <a href="#how-it-works" className="text-muted transition-colors hover:text-text">
+            {dict.explore} <span aria-hidden="true">↓</span>
+          </a>
+        </Container>
+      </div>
     </section>
   );
 }
