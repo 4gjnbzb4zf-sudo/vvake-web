@@ -13,11 +13,14 @@ export function Unlock({
   dict,
   countryLabels,
   index,
+  heading,
 }: {
   locale: Locale;
   dict: Dictionary["unlock"];
   countryLabels: Dictionary["rivalries"]["tabs"];
   index: string;
+  /** The home page's own title and lead ("Wake your city."); other pages use the dictionary's. */
+  heading?: { title: string; lead: string };
 }) {
   const cities: CityOption[] = [...CITIES.values()].map((c) => ({
     slug: c.slug,
@@ -29,7 +32,14 @@ export function Unlock({
   }));
 
   return (
-    <Section id="unlock" index={index} kicker={dict.kicker} title={dict.title} lead={dict.body}>
+    <Section
+      id="unlock"
+      index={index}
+      kicker={dict.kicker}
+      title={heading?.title ?? dict.title}
+      lead={heading?.lead ?? dict.body}
+      layout={heading ? "split" : "stack"}
+    >
       <div className="mt-12">
         {/* useSearchParams needs a Suspense boundary in a static export; the fallback keeps the layout stable. */}
         <Suspense fallback={<div className="h-[420px] rounded-3xl border border-line bg-surface/40" />}>

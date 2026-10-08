@@ -51,7 +51,7 @@ const LOOP_SHOTS = [
 /** Plan → move → see progress, each with a real app screen. */
 export function Loop({ dict, index }: { dict: Home["loop"]; index: string }) {
   return (
-    <Section id="how-it-works" index={index} kicker={dict.kicker} title={dict.title}>
+    <Section id="how-it-works" index={index} kicker={dict.kicker} title={dict.title} lead={dict.lead} layout="split">
       <ol className="mt-12 grid gap-10 md:grid-cols-3 md:gap-6">
         {dict.steps.map((step, i) => {
           const shot = LOOP_SHOTS[i]!;
@@ -69,7 +69,10 @@ export function Loop({ dict, index }: { dict: Home["loop"]; index: string }) {
                   )}
                 />
               </div>
-              <p className="mt-6 font-mono text-xs tracking-[0.16em] text-pulse-fg uppercase">{String(i + 1).padStart(2, "0")}</p>
+              <p className="mt-6 font-mono text-xs tracking-[0.16em] uppercase">
+                <span className="text-pulse-fg">{String(i + 1).padStart(2, "0")}</span>
+                <span className="ml-2 text-faint">{step.label}</span>
+              </p>
               <h3 className="mt-2 font-display text-xl font-semibold">{step.title}</h3>
               <p className="mt-2 leading-relaxed text-muted">{step.body}</p>
             </li>
@@ -88,33 +91,50 @@ const CREW = [
   { id: "boxer-f", w: 115, going: false },
 ] as const;
 
-/** A concrete crew: one weekly meetup, RSVPs, everyone at their own pace. Labelled as an example. */
+/**
+ * A concrete crew: one weekly meetup, RSVPs, everyone at their own pace. Labelled as an example. One of the cast
+ * beside it on wider screens (the site's own VVaker art, not a photo).
+ */
 export function CrewExample({ dict, index }: { dict: Home["crew"]; index: string }) {
   return (
-    <Section id="your-crew" index={index} kicker={dict.kicker} title={dict.title} lead={dict.lead}>
-      <figure className="mt-10 max-w-xl rounded-3xl border border-line bg-surface/60 p-6 sm:p-8">
-        <p className="font-mono text-xs tracking-[0.16em] text-volt-fg uppercase">{dict.when}</p>
-        <p className="mt-2 font-display text-xl font-semibold">{dict.what}</p>
-        <div className="mt-6 flex items-end" aria-hidden="true">
-          {CREW.map((m) => (
-            <Shot
-              key={m.id}
-              name={`crew-${m.id}`}
-              width={m.w}
-              height={192}
-              alt=""
-              className={cn("-mr-3 h-[96px] w-auto", !m.going && "opacity-50")}
-            />
-          ))}
+    <Section id="your-crew" index={index} kicker={dict.kicker} title={dict.title} lead={dict.lead} layout="split">
+      <div className="mt-10 grid items-center gap-8 md:grid-cols-[minmax(0,1fr)_minmax(0,1.3fr)]">
+        <div className="relative hidden h-full min-h-[320px] items-end justify-center overflow-hidden rounded-3xl border border-line bg-surface/40 md:flex">
+          <div aria-hidden="true" className="absolute inset-x-8 bottom-6 h-1/2 rounded-full bg-pulse/15 blur-[60px]" />
+          <Shot name="cast-runner-m" width={224} height={420} alt={dict.imageAlt} className="relative h-[300px] w-auto" />
         </div>
-        <div className="mt-5 flex flex-wrap items-center justify-between gap-3">
-          <p className="text-sm text-muted">{dict.going}</p>
-          <span aria-hidden="true" className="rounded-full bg-pulse px-4 py-1.5 font-display text-sm font-semibold text-ink">
-            ✓ {dict.rsvp}
-          </span>
+        <div>
+          <figure className="max-w-xl rounded-3xl border border-line bg-surface/60 p-6 sm:p-8">
+            <p className="font-mono text-xs tracking-[0.16em] text-volt-fg uppercase">{dict.when}</p>
+            <p className="mt-2 font-display text-xl font-semibold">{dict.what}</p>
+            <div className="mt-6 flex items-end" aria-hidden="true">
+              {CREW.map((m) => (
+                <Shot
+                  key={m.id}
+                  name={`crew-${m.id}`}
+                  width={m.w}
+                  height={192}
+                  alt=""
+                  className={cn("-mr-3 h-[96px] w-auto", !m.going && "opacity-50")}
+                />
+              ))}
+            </div>
+            <div className="mt-5 flex flex-wrap items-center justify-between gap-3">
+              <p className="text-sm text-muted">{dict.going}</p>
+              <span aria-hidden="true" className="rounded-full bg-pulse px-4 py-1.5 font-display text-sm font-semibold text-ink">
+                ✓ {dict.rsvp}
+              </span>
+            </div>
+            <figcaption className="mt-5 text-xs text-faint">{dict.note}</figcaption>
+          </figure>
+          <a
+            href="#unlock"
+            className="mt-6 inline-block font-display font-semibold text-pulse-fg underline decoration-pulse-fg/40 underline-offset-4 hover:decoration-pulse-fg"
+          >
+            {dict.cta} <span aria-hidden="true">→</span>
+          </a>
         </div>
-        <figcaption className="mt-5 text-xs text-faint">{dict.note}</figcaption>
-      </figure>
+      </div>
     </Section>
   );
 }
@@ -122,12 +142,19 @@ export function CrewExample({ dict, index }: { dict: Home["crew"]; index: string
 /** City Clash as an illustration: how it works, two bars without numbers, never fake live scores. */
 export function CityClash({ dict, index }: { dict: Home["clash"]; index: string }) {
   return (
-    <Section id="city-clash" index={index} kicker={dict.kicker} title={dict.title} lead={dict.lead}>
+    <Section id="city-clash" index={index} kicker={dict.kicker} title={dict.title} lead={dict.lead} layout="split">
       <div className="mt-10 grid gap-6 lg:grid-cols-[1.1fr_1fr]">
         <figure className="rounded-3xl border border-line bg-surface/60 p-6 sm:p-8">
           <div aria-hidden="true" className="space-y-5">
             <ClashBar label={dict.you} width="w-[72%]" color="bg-pulse" />
-            <p className="text-center font-display text-lg font-bold text-faint italic">vs</p>
+            <div className="flex items-center gap-4">
+              <span className="h-px flex-1 bg-line" />
+              <span className="font-display text-2xl font-bold text-text italic">vs</span>
+              <span className="rounded-full border border-line px-3 py-1 font-mono text-[0.68rem] tracking-[0.15em] text-muted uppercase">
+                {dict.window}
+              </span>
+              <span className="h-px flex-1 bg-line" />
+            </div>
             <ClashBar label={dict.rival} width="w-[64%]" color="bg-calm" />
           </div>
           <figcaption className="mt-6 text-xs text-faint">{dict.note}</figcaption>
@@ -165,7 +192,7 @@ const TONES: Record<string, string> = {
 /** Honest device status: in development, planned, under consideration. */
 export function Devices({ dict, index }: { dict: Home["devices"]; index: string }) {
   return (
-    <Section id="devices" index={index} kicker={dict.kicker} title={dict.title} lead={dict.lead}>
+    <Section id="devices" index={index} kicker={dict.kicker} title={dict.title} lead={dict.lead} layout="split">
       <ul className="mt-10 grid gap-4 md:grid-cols-3">
         {dict.groups.map((g) => (
           <li key={g.status} className="rounded-3xl border border-line bg-surface/60 p-6">

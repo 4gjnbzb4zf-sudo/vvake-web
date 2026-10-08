@@ -80,7 +80,10 @@ export function SampleWeek({ dict }: { dict: Dictionary["home"]["sample"] }) {
       </form>
 
       <div className="rounded-3xl border border-line bg-surface p-6 sm:p-8">
-        <p aria-live="polite" className="font-display text-2xl font-semibold">
+        <p className="inline-flex rounded-full border border-volt-fg/50 px-3 py-1 font-mono text-[0.68rem] tracking-[0.15em] text-volt-fg uppercase">
+          {dict.badge}
+        </p>
+        <p aria-live="polite" className="mt-4 font-display text-2xl font-semibold">
           {summary}
         </p>
         <ol className="mt-6 grid grid-cols-7 gap-1.5">

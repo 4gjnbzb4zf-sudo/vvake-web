@@ -41,6 +41,12 @@ export const fr: Dictionary = {
     lead: "VVake est un coach sportif IA. Il t'aide à faire un plan qui colle à ta semaine, à bouger à ton rythme, à venir avec ta crew et à compter pour ta ville.",
     ctaPrimary: "Rejoindre l'accès anticipé",
     ctaSecondary: "Voir le film",
+    eyebrow: "Un peu de mouvement. Une plus grande raison.",
+    filmLength: "0:37",
+    note: "Lancement ville par ville · gratuit pour commencer",
+    sportsLabel: "Bouge à ta façon",
+    sports: ["Course", "Marche", "Vélo", "Natation", "Muscu", "Yoga"],
+    explore: "Comment ça marche",
     phoneAlt: "L'app VVake sur iPhone, Aujourd'hui : ton VVaker, le plan du jour, ton objectif et l'appel du coach.",
     watchAlt: "L'app VVake sur Apple Watch pendant une séance : fréquence cardiaque, zone et ton écart avec ton record.",
     shots: "Vrais écrans de l'app · enregistrés dans le simulateur",
@@ -124,19 +130,23 @@ export const fr: Dictionary = {
     },
     loop: {
       kicker: "Comment ça marche",
-      title: "Planifie. Bouge. Vois tes progrès.",
+      title: "Moins planifier. Plus y aller.",
+      lead: "Tu choisis l'objectif. VVake t'aide à trouver un rythme que tu peux tenir : planifie, bouge, vois tes progrès.",
       steps: [
         {
+          label: "À ta mesure",
           title: "Fais ton plan",
           body: "Dis à ton coach ton objectif, tes jours libres et le temps que tu as. Il construit ta semaine autour de ton agenda et allège après une semaine difficile.",
           alt: "L'écran Plan de l'app VVake : les séances de la semaine avec des cibles de fréquence cardiaque.",
         },
         {
+          label: "Vas-y",
           title: "Bouge à ton rythme",
           body: "Lance la séance sur ton iPhone ou ton Apple Watch. Fréquence cardiaque, zone et parcours en direct ; ton coach prend de tes nouvelles à la voix si tu le souhaites. Chaque sport compte.",
           alt: "L'app VVake sur Apple Watch pendant une séance : fréquence cardiaque, zone et ton écart avec ton record.",
         },
         {
+          label: "Sens l'élan",
           title: "Vois tes progrès",
           body: "Ta semaine et ton journal au même endroit, et ton VVaker grandit quand tu bouges. Compté sur l'effort de ton cœur, pas sur la vitesse.",
           alt: "L'écran Toi de l'app VVake : ton VVaker, ta semaine et ton journal.",
@@ -145,7 +155,8 @@ export const fr: Dictionary = {
     },
     sample: {
       kicker: "Essaie",
-      title: "Esquisse une semaine type",
+      title: "La vie déborde. Ton plan suit.",
+      badge: "Exemple · rien n'est enregistré",
       lead: "Choisis tes jours et le temps que tu as. C'est un simple exemple, pas ton plan : dans l'app, ton coach le construit à partir de ton objectif, de ton niveau et de ton agenda.",
       days: "Quels jours ?",
       dayShort: ["Lun", "Mar", "Mer", "Jeu", "Ven", "Sam", "Dim"],
@@ -162,17 +173,19 @@ export const fr: Dictionary = {
     },
     crew: {
       kicker: "Ta crew",
-      title: "Mardi, 19 h, la boucle du canal.",
+      title: "Quelqu'un t'attend. Alors tu y vas.",
       lead: "Un exemple : cinq amis, une sortie par semaine. Chacun répond dans l'app, ton coach organise le reste de ta semaine autour, et venir ensemble rapporte des points de crew.",
       when: "Chaque mardi · 19 h 00",
       what: "Sortie de crew · 5 km tranquille, chacun à son rythme",
       going: "4 viennent · 1 peut-être",
       rsvp: "J'y vais",
       note: "Crew d'exemple, pour illustrer.",
+      cta: "Embarque ta crew : rejoins l'accès anticipé",
+      imageAlt: "Un VVaker coureur, l'un des athlètes animaux de VVake.",
     },
     clash: {
       kicker: "Ta ville",
-      title: "City Clash : ta ville contre la leur.",
+      title: "Fierté locale. Effort partagé.",
       lead: "Des villes rivales s'affrontent. Chaque séance que tu enregistres compte pour ta ville, rapportée au nombre de personnes : une petite ville peut battre une grande.",
       steps: [
         { title: "12 h de préparation", body: "Les crews planifient leurs séances et motivent leurs amis." },
@@ -181,11 +194,12 @@ export const fr: Dictionary = {
       ],
       you: "Ta ville",
       rival: "Ville rivale",
+      window: "12 h de clash",
       note: "Illustration, pas des scores en direct. Les clashs commencent quand les villes ouvrent.",
     },
     devices: {
       kicker: "Appareils",
-      title: "Ce qui marche aujourd'hui, ce qui vient",
+      title: "Ton mouvement. Ton appareil.",
       lead: "VVake n'est pas encore sur l'App Store : les apps sont en développement et testées sur nos propres appareils. Voici où on en est, honnêtement.",
       groups: [
         {
@@ -197,6 +211,13 @@ export const fr: Dictionary = {
         { status: "À l'étude", tone: "maybe", items: ["Bagues connectées", "Autres objets connectés et apps"] },
       ],
       note: "Dis-nous ce que tu portes en t'inscrivant : ça aide à choisir ce qui vient en premier. Rien ici n'est une promesse de compatibilité ni une date.",
+    },
+    screens: {
+      more: "Voir tous les écrans",
+    },
+    join: {
+      title: "Réveille ta ville.",
+      lead: "VVake n'est pas encore lancé dans ta ville. C'est toi qui décides quand : choisis ta ville, inscris-toi et fais partie des premières crews.",
     },
   },
   pages: {
@@ -2236,8 +2257,8 @@ export const fr: Dictionary = {
         a: "Ville par ville : une ville ouvre quand assez de personnes la rejoignent, et les villes rivales ouvrent ensemble. Pas encore de date. Si ta ville n'est pas dans la liste, demande-la en t'inscrivant : les villes les plus demandées passent ensuite.",
       },
       {
-        q: "Faut-il être en forme ?",
-        a: "Non. Ton plan part de là où tu en es : tes jours, tes minutes, ton niveau. Les séances comptent sur l'effort de ton cœur, pas sur la vitesse, et si quelque chose fait mal, le plan s'allège et passe en faible impact. VVake n'est pas un avis médical : en cas de doute, parles-en à un médecin.",
+        q: "Faut-il être en forme, ou coureur ?",
+        a: "Non. La marche, le vélo, la natation, le renfort musculaire et le yoga comptent tous, à ton rythme. Ton plan part de là où tu en es : tes jours, tes minutes, ton niveau. Les séances comptent sur l'effort de ton cœur, pas sur la vitesse, et si quelque chose fait mal, le plan s'allège et passe en faible impact. VVake n'est pas un avis médical : en cas de doute, parles-en à un médecin.",
       },
       {
         q: "C'est gratuit ? Faut-il un wallet ou des cryptos ?",

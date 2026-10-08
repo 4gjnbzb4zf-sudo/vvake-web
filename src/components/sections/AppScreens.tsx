@@ -2,10 +2,21 @@ import Image from "next/image";
 import { Section } from "@/components/ui/Section";
 import type { Dictionary } from "@/i18n/dictionaries";
 
-/** The real app on iPhone and Apple Watch Ultra: two looping reels, then the screens one by one. */
-export function AppScreens({ dict, index }: { dict: Dictionary["screens"]; index?: string }) {
+/**
+ * The real app on iPhone and Apple Watch Ultra: two looping reels, then the screens one by one. `more` (the home
+ * page) shows the reels only, with a link to every screen on /app.
+ */
+export function AppScreens({ dict, index, more }: { dict: Dictionary["screens"]; index?: string; more?: { href: string; label: string } }) {
   return (
-    <Section id="screens" index={index} kicker={dict.kicker} title={dict.title} lead={dict.lead} className="overflow-hidden">
+    <Section
+      id="screens"
+      index={index}
+      kicker={dict.kicker}
+      title={dict.title}
+      lead={dict.lead}
+      layout={more ? "split" : "stack"}
+      className="overflow-hidden"
+    >
       <div className="mt-12 flex flex-wrap items-end justify-center gap-8 sm:gap-14">
         <figure className="flex flex-col items-center gap-3">
           {/* iPhone: a black bezel with rounded corners around the reel. */}
@@ -46,6 +57,26 @@ export function AppScreens({ dict, index }: { dict: Dictionary["screens"]; index
         </figure>
       </div>
 
+      {more ? (
+        <p className="mt-10 text-center">
+          <span className="block text-xs text-faint">{dict.note}</span>
+          <a
+            href={more.href}
+            className="mt-4 inline-block font-display font-semibold text-pulse-fg underline decoration-pulse-fg/40 underline-offset-4 hover:decoration-pulse-fg"
+          >
+            {more.label} <span aria-hidden="true">→</span>
+          </a>
+        </p>
+      ) : (
+        <AllScreens dict={dict} />
+      )}
+    </Section>
+  );
+}
+
+function AllScreens({ dict }: { dict: Dictionary["screens"] }) {
+  return (
+    <>
       {/* Every screen, swipe sideways on a phone. */}
       <ul className="-mx-4 mt-14 flex snap-x snap-mandatory [scrollbar-width:thin] gap-4 overflow-x-auto px-4 pb-4">
         {dict.phone.map((s) => (
@@ -80,6 +111,6 @@ export function AppScreens({ dict, index }: { dict: Dictionary["screens"]; index
         ))}
       </ul>
       <p className="mt-6 text-xs text-faint">{dict.note}</p>
-    </Section>
+    </>
   );
 }
