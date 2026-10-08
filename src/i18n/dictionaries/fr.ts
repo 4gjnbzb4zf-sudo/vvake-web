@@ -10,7 +10,7 @@ export const fr: Dictionary = {
   },
   nav: {
     app: "L'app",
-    backers: "Soutenir",
+    backers: "Feuille de route et financement",
     rewards: "Prix",
     why: "Pourquoi",
     earn: "Avantages",
@@ -96,9 +96,9 @@ export const fr: Dictionary = {
       {
         key: "back",
         icon: "📖",
-        kicker: "Soutenir",
+        kicker: "Feuille de route et financement",
         title: "Comptes ouverts, plan ouvert",
-        body: "Où partent les frais, $VVAKE et comment détenir une part (prévu).",
+        body: "Comment chaque frais est réparti, $VVAKE et comment détenir une part (prévu).",
         cta: "Voir le plan",
         page: "backers/",
       },
@@ -211,9 +211,9 @@ export const fr: Dictionary = {
       lead: "Ton athlète animal : gratuit, gagné en bougeant, jamais acheté.",
     },
     backers: {
-      kicker: "Soutenir",
+      kicker: "Feuille de route et financement",
       title: "Comptes ouverts. Actifs réels. Frais uniquement.",
-      lead: "Pourquoi on construit sur Robinhood Chain, où partent les frais, et comment détenir une part de VVake (prévu).",
+      lead: "Pourquoi on construit sur Robinhood Chain, comment chaque frais est réparti, et comment détenir une part de VVake (prévu).",
     },
   },
   og: {
@@ -244,7 +244,7 @@ export const fr: Dictionary = {
       {
         tag: "RWA × Robinhood Chain",
         title: "Les actifs réels, sur Robinhood Chain.",
-        body: "Prévu sur Robinhood Chain, là où vivent déjà les actions tokenisées : une répartition publique des frais, des récompenses de saison on-chain et le duo sport-action avec les actions tokenisées Robinhood (selon le pays).",
+        body: "Prévu sur Robinhood Chain, là où vivent déjà les actions tokenisées : des répartitions publiques des frais, des récompenses de saison on-chain et le duo sport-action avec les actions tokenisées Robinhood (selon le pays).",
         cta: "Comment ça marche",
       },
       {
@@ -752,7 +752,7 @@ export const fr: Dictionary = {
         {
           title: "Équipe payée par les frais",
           href: "#open-book",
-          body: "L'équipe vit uniquement des frais, avec salaires et répartition publiés avant le lancement.",
+          body: "L'équipe vit uniquement des frais, avec salaires et répartition de chaque frais publiés avant le lancement.",
         },
         {
           title: "RWA × Robinhood Chain",
@@ -849,7 +849,7 @@ export const fr: Dictionary = {
       title: "Plus à vie",
       price: "{money}",
       per: "une fois",
-      body: "Tous les outils Plus, pour toujours, pour environ 30 mois d'abonnement. Même règle : jamais d'avantage. Compté dans la répartition publique sur 36 mois, pour financer VVake pendant des années.",
+      body: "Tous les outils Plus, pour toujours, pour environ 30 mois d'abonnement. Même règle : jamais d'avantage. Compté comme revenu Plus étalé sur 36 mois, pour financer VVake pendant des années.",
     },
     cta: "Être prévenu au lancement",
     perks: [
@@ -908,7 +908,8 @@ export const fr: Dictionary = {
       "Une plus grosse part des prix : les prix suivent l'effort seulement, jamais ce que tu paies",
       "Tes données : ton journal complet et tes exports restent gratuits",
     ],
-    split: "Comme tous les frais, Plus passe par notre répartition publique : 30 % reviennent aux récompenses de saison des joueurs.",
+    split:
+      "30 % des revenus nets de Plus (ce que les stores nous versent après leur commission et les taxes, moins les remboursements) vont à la cagnotte de prix, distribuée chaque semaine pour l'effort.",
     note: "Dans l'app iPhone (et l'app Android quand elle arrivera), Plus est un abonnement intégré géré par le store ; gère-le ou résilie-le dans les réglages du store. Les prix varient selon le pays et incluent les taxes quand c'est requis.",
   },
   coach: {
@@ -1513,7 +1514,7 @@ export const fr: Dictionary = {
           { label: "Lancement", value: "Lancement public avec réglages anti-snipe" },
           { label: "Offre et montants des paliers", value: "Fixés au lancement, dans le livre blanc" },
           { label: "Frais de trading du launchpad", value: "70 % récompenses de saison · 30 % réserve" },
-          { label: "Cagnotte de prix", value: "Une part fixe et publiée des revenus nets de Plus" },
+          { label: "Cagnotte de prix", value: "30 % des revenus nets de Plus" },
           { label: "Conversions", value: "Selon des règles on-chain : plafonnées par jour, déclenchables par tous" },
           { label: "Où vont les $VVAKE convertis", value: "Seulement au contrat de récompenses" },
           {
@@ -1530,7 +1531,7 @@ export const fr: Dictionary = {
       },
       prizePool: {
         title: "🏆 Plus alimente une cagnotte de prix mensuelle",
-        body: "Chaque mois, une part fixe et publiée des revenus nets de VVake Fit Plus va à la cagnotte, un contrat public (VVakePrizePool), avec l'empreinte du rapport du mois sur la chaîne. La cagnotte la convertit en $VVAKE selon des règles, jamais au choix de quelqu'un.",
+        body: "Chaque mois, 30 % des revenus nets de VVake Fit Plus (ce que versent les stores après la commission d'Apple ou de Google et les taxes retenues, moins les remboursements) vont à la cagnotte, un contrat public (VVakePrizePool), avec l'empreinte du rapport du mois sur la chaîne. La cagnotte les convertit en $VVAKE selon des règles, jamais au choix de quelqu'un.",
         steps: [
           "Les conversions se font par petites tranches plafonnées, au plus une fois par jour, et n'importe qui peut déclencher la suivante",
           "Les $VVAKE vont seulement au contrat de récompenses (VVakeRewards), jamais à une personne ni à un wallet de l'équipe",
@@ -1581,7 +1582,7 @@ export const fr: Dictionary = {
         title: "Robinhood Chain garde tout ouvert",
         body: "La chaîne où vivent déjà les actions tokenisées (RWA). Sur le testnet aujourd'hui : des prix $VVAKE chaque semaine pour l'effort, alimentés par Plus et réclamés depuis ton propre portefeuille. Prévu : un contrat public de répartition des frais, des objets de collection avec une vraie utilité (jamais un avantage), et le lancement de $VVAKE sur le mainnet via vibe/vibe après revue juridique.",
         points: [
-          "Répartition des frais publique, on-chain",
+          "Répartition des frais du launchpad, on-chain",
           "Récompenses de saison pour l'effort",
           "Portail web uniquement · 18+ · pas dans tous les pays",
         ],
@@ -1770,17 +1771,30 @@ export const fr: Dictionary = {
   },
   openBook: {
     kicker: "Livre ouvert",
-    title: "Où va chaque frais. Public avant même que tu demandes.",
-    body: "L'équipe n'a aucune allocation de tokens et n'est payée que par les frais. Chaque frais passe par une seule répartition publique.",
-    split: [
-      { label: "Joueurs", note: "Récompenses de saison, pour l'effort, jamais pour la détention", value: 30 },
+    title: "Où va l'argent. Public avant même que tu demandes.",
+    body: "L'équipe n'a aucune allocation de tokens et n'est payée que par les frais. Chaque source a sa propre répartition publique.",
+    sources: [
       {
-        label: "Opérations",
-        note: "Salaires et infrastructure. Tout surplus est le bénéfice de l'entreprise, publié dans le rapport de saison",
-        value: 40,
+        name: "VVake Fit Plus",
+        basis: "Revenus nets de Plus",
+        split: [
+          {
+            label: "Cagnotte de prix",
+            note: "Convertie en $VVAKE selon des règles et distribuée chaque semaine pour l'effort, jamais pour la détention",
+            value: 30,
+          },
+        ],
+        note: "Les revenus nets, c'est ce que l'App Store et Google Play nous versent après leur commission et les taxes qu'ils retiennent, moins les remboursements et rétrofacturations, plus les ventes web après frais de paiement. Le rapport de chaque mois est publié.",
       },
-      { label: "Croissance", note: "Événements, rivalités, communauté", value: 20 },
-      { label: "Réserve", note: "Stabilise les récompenses en saison difficile", value: 10 },
+      {
+        name: "Frais de trading du launchpad",
+        basis: "Frais de trading de $VVAKE sur le launchpad vibe/vibe",
+        split: [
+          { label: "Récompenses de saison", note: "Pour l'effort, jamais pour la détention", value: 70 },
+          { label: "Réserve", note: "Stabilise les récompenses en saison difficile", value: 30 },
+        ],
+        note: "Testnet pour l'instant : les tokens n'ont aucune valeur. Prévu : cette répartition fixée dans un contrat public de répartition des frais au lancement sur le mainnet.",
+      },
     ],
     promise: "Pas de wallets cachés. Aucun token pour l'équipe. Un rapport public chaque saison.",
   },
@@ -3162,7 +3176,7 @@ export const fr: Dictionary = {
       items: [
         {
           h: "Plus alimente la cagnotte",
-          p: "Chaque mois, une part fixe et publiée des revenus nets des abonnements Plus va vers un contrat de cagnotte ouvert, avec l'empreinte du rapport du mois sur la chaîne.",
+          p: "Chaque mois, 30 % des revenus nets des abonnements Plus vont vers un contrat de cagnotte ouvert, avec l'empreinte du rapport du mois sur la chaîne.",
         },
         {
           h: "La cagnotte convertit l'ETH en VVAKE selon des règles",

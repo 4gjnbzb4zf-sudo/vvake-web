@@ -12,7 +12,7 @@ export const en = {
   },
   nav: {
     app: "The app",
-    backers: "Backers",
+    backers: "Roadmap & Funding",
     rewards: "Prizes",
     why: "Why join",
     earn: "What you get",
@@ -98,9 +98,9 @@ export const en = {
       {
         key: "back",
         icon: "📖",
-        kicker: "Backers",
+        kicker: "Roadmap & Funding",
         title: "Open books, open plan",
-        body: "Where every fee goes, $VVAKE and how to own a piece (planned).",
+        body: "How each fee is split, $VVAKE and how to own a piece (planned).",
         cta: "See the plan",
         page: "backers/",
       },
@@ -213,9 +213,9 @@ export const en = {
       lead: "Your animal athlete: free, earned by moving, never bought.",
     },
     backers: {
-      kicker: "Backers",
+      kicker: "Roadmap & Funding",
       title: "Open books. Real assets. Fees only.",
-      lead: "Why we build on Robinhood Chain, where every fee goes, and how to own a piece of VVake (planned).",
+      lead: "Why we build on Robinhood Chain, how each fee is split, and how to own a piece of VVake (planned).",
     },
   },
   og: {
@@ -246,7 +246,7 @@ export const en = {
       {
         tag: "RWA × Robinhood Chain",
         title: "Real-world assets, on Robinhood Chain.",
-        body: "Planned on Robinhood Chain, where tokenized stocks already live: a public fee split, season rewards on-chain and sport pairing with Robinhood stock tokens (where legal).",
+        body: "Planned on Robinhood Chain, where tokenized stocks already live: public fee splits, season rewards on-chain and sport pairing with Robinhood stock tokens (where legal).",
         cta: "How it works",
       },
       {
@@ -737,7 +737,7 @@ export const en = {
         {
           title: "Fee-only team",
           href: "#open-book",
-          body: "The team earns from fees only, with salaries and the fee split published before launch.",
+          body: "The team earns from fees only, with salaries and each fee split published before launch.",
         },
         {
           title: "RWA × Robinhood Chain",
@@ -833,7 +833,7 @@ export const en = {
       title: "Plus for life",
       price: "{money}",
       per: "once",
-      body: "All Plus tools, forever, for about 30 months of the monthly price. Same rule: never an edge. Counted into the public split over 36 months, so it funds VVake for years.",
+      body: "All Plus tools, forever, for about 30 months of the monthly price. Same rule: never an edge. Counted as Plus revenue spread over 36 months, so it funds VVake for years.",
     },
     cta: "Get notified at launch",
     perks: [
@@ -872,7 +872,8 @@ export const en = {
       "A bigger prize share: prizes follow effort only, never what you pay",
       "Your data: your full journal and exports stay free",
     ],
-    split: "Like every fee, Plus goes through our public split: 30% goes back to players' season rewards.",
+    split:
+      "30% of net Plus revenue (what the stores pay us after their commission and taxes, minus refunds) goes to the prize pool, handed out each week for effort.",
     note: "In the iPhone app (and the Android app when it comes), Plus is an in-app subscription through the store; manage or cancel it in your store settings. Prices vary by country and include taxes where required.",
   },
   coach: {
@@ -1443,7 +1444,7 @@ export const en = {
           { label: "Launch", value: "Public launch with anti-snipe settings" },
           { label: "Supply and tier amounts", value: "Fixed at launch, in the white paper" },
           { label: "Launchpad trading fees", value: "70% season rewards · 30% reserve" },
-          { label: "Prize pool", value: "A fixed, published share of net Plus revenue" },
+          { label: "Prize pool", value: "30% of net Plus revenue" },
           { label: "Conversions", value: "By rule on chain: capped daily, anyone can trigger" },
           { label: "Where converted $VVAKE goes", value: "Only to the rewards contract" },
           {
@@ -1457,7 +1458,7 @@ export const en = {
       },
       prizePool: {
         title: "🏆 Plus funds a monthly prize pool",
-        body: "Each month a fixed, published share of net VVake Fit Plus revenue goes to the prize pool, a public contract (VVakePrizePool), with a hash of that month's report on chain. The pool turns it into $VVAKE by rule, never by anyone's choice.",
+        body: "Each month 30% of net VVake Fit Plus revenue (store proceeds after Apple's or Google's commission and withheld taxes, minus refunds) goes to the prize pool, a public contract (VVakePrizePool), with a hash of that month's report on chain. The pool turns it into $VVAKE by rule, never by anyone's choice.",
         steps: [
           "Conversions run in small capped chunks, at most once a day, and anyone can trigger the next one",
           "The $VVAKE goes only to the rewards contract (VVakeRewards), never to a person or a team wallet",
@@ -1501,7 +1502,7 @@ export const en = {
         tag: "On-chain (planned)",
         title: "Robinhood Chain keeps it open",
         body: "The chain where tokenized stocks (RWA) already live. On testnet today: weekly $VVAKE prizes for effort, funded by Plus and claimed from your own wallet. Planned: a public fee-split contract, collectibles with real utility (never an edge), and the $VVAKE mainnet launch on vibe/vibe after legal review.",
-        points: ["Public fee split, on-chain", "Weekly prizes for effort", "Web portal only · 18+ · not in every country"],
+        points: ["Launchpad fee split, on-chain", "Weekly prizes for effort", "Web portal only · 18+ · not in every country"],
       },
     ],
     stockRewards: {
@@ -1681,13 +1682,26 @@ export const en = {
   },
   openBook: {
     kicker: "Open book",
-    title: "Where every fee goes. Public before you ask.",
-    body: "The team has no token allocation and is paid only from fees. Every fee goes through one public split.",
-    split: [
-      { label: "Players", note: "Season rewards, paid for effort, never for holding", value: 30 },
-      { label: "Operations", note: "Salaries & infrastructure. Any surplus is company profit, shown in the season report", value: 40 },
-      { label: "Growth", note: "Events, rivalries, community", value: 20 },
-      { label: "Reserve", note: "Keeps rewards steady in down seasons", value: 10 },
+    title: "Where the money goes. Public before you ask.",
+    body: "The team has no token allocation and is paid only from fees. Each source has its own public split.",
+    sources: [
+      {
+        name: "VVake Fit Plus",
+        basis: "Net Plus revenue",
+        split: [
+          { label: "Prize pool", note: "Turned into $VVAKE by rule and handed out each week for effort, never for holding", value: 30 },
+        ],
+        note: "Net revenue is what the App Store and Google Play pay us after their commission and the taxes they withhold, minus refunds and chargebacks, plus web sales after payment fees. Each month's report is published.",
+      },
+      {
+        name: "Launchpad trading fees",
+        basis: "$VVAKE trading fees from the vibe/vibe launchpad",
+        split: [
+          { label: "Season rewards", note: "Paid for effort, never for holding", value: 70 },
+          { label: "Reserve", note: "Keeps rewards steady in down seasons", value: 30 },
+        ],
+        note: "Testnet today: the tokens have no value. Planned: this split set in a public fee-split contract at the mainnet launch.",
+      },
     ],
     promise: "No hidden wallets. No team tokens. A public report every season.",
   },
@@ -2970,7 +2984,7 @@ export const en = {
       items: [
         {
           h: "Plus funds the pool",
-          p: "Each month a fixed, published share of net Plus subscription revenue goes to an open prize pool contract, with a hash of that month's report on chain.",
+          p: "Each month 30% of net Plus subscription revenue goes to an open prize pool contract, with a hash of that month's report on chain.",
         },
         {
           h: "The pool turns ETH into VVAKE by rule",
