@@ -3276,7 +3276,7 @@ export const fr: Dictionary = {
       rewardsContract: "Récompenses",
       token: "Token VVAKE",
       contractsNote:
-        "Les contrats de la cagnotte et des récompenses sont ceux de VVake : open source (MIT) et relus ; un audit externe complet passe avant toute valeur sur le mainnet. Le token VVAKE et le hook d'échange qu'il utilise viennent du launchpad vibe/vibe : VVake ne les a pas écrits, et leurs sources ne sont pas vérifiées sur l'explorateur.",
+        "Les contrats de la cagnotte et des récompenses sont ceux de VVake : open source (MIT) et relus ; un audit externe complet passe avant toute valeur sur le mainnet. Le token VVAKE et le hook d'échange qu'il utilise viennent du launchpad vibe/vibe : VVake ne les a pas écrits ni vérifiés, leurs sources ne sont pas vérifiées sur l'explorateur, et ils n'ont pas encore eu d'audit officiel.",
       chainError: "La chaîne ne peut pas être lue pour le moment.",
       readAt: "Lu sur la chaîne à {time}",
       unreadable: "Impossible à lire sur la chaîne pour l'instant. Aucune valeur plus ancienne n'est affichée à la place.",

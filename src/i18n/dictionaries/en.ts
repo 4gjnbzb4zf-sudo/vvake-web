@@ -3084,7 +3084,7 @@ export const en = {
       rewardsContract: "Rewards",
       token: "VVAKE token",
       contractsNote:
-        "The prize pool and rewards contracts are VVake's own: open source (MIT) and reviewed; a full external audit comes before any mainnet value. The VVAKE token and the trading hook it uses come from the vibe/vibe launchpad: VVake didn't write them, and their sources aren't verified on the explorer.",
+        "The prize pool and rewards contracts are VVake's own: open source (MIT) and reviewed; a full external audit comes before any mainnet value. The VVAKE token and the trading hook it uses come from the vibe/vibe launchpad: VVake didn't write them and hasn't verified them, their sources aren't verified on the explorer, and they haven't had an official audit yet.",
       chainError: "The chain can't be read right now.",
       readAt: "Read from the chain at {time}",
       unreadable: "Couldn't be read from the chain just now. Nothing older is shown in its place.",
