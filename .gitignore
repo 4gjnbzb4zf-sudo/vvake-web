@@ -49,3 +49,6 @@ next-env.d.ts
 
 # Apple keys (APNs .p8): never in git
 *.p8
+
+# cloudflare (wrangler)
+/.wrangler/

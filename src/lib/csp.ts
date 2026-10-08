@@ -12,7 +12,8 @@ import { rewardsConfig } from "./rewards-config";
  *   endpoints when this build has them). Fonts come from next/font, self-hosted under /_next/static/media.
  * - Cloudflare Turnstile (waitlist bot check) only when this build has a site key.
  * - style-src keeps 'unsafe-inline' (React style attributes); no script can run from a style.
- * - frame-ancestors can't be set from a meta tag: framing is handled by the frame guard (src/lib/frameGuard.ts).
+ * - frame-ancestors can't be set from a meta tag: framing is handled by the frame guard (src/lib/frameGuard.ts), and on
+ *   Cloudflare by real headers built from these same policies (src/lib/cloudflareHeaders.ts).
  *
  * Server-only (node:crypto): imported by the build script and tests, never by a page.
  */

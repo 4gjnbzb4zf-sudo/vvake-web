@@ -1,5 +1,8 @@
 # Point vvake.com to GitHub Pages
 
+> Moving to Cloudflare for real security headers (and Email Routing): see [cloudflare-hosting.md](cloudflare-hosting.md).
+> This page describes today's setup, which stays live until that switch.
+
 The site is deployed by `.github/workflows/deploy.yml` (GitHub Actions → Pages). With an Actions deployment,
 **the custom domain is set in repository settings; no `CNAME` file is needed** (GitHub ignores it for Actions deploys).
 
