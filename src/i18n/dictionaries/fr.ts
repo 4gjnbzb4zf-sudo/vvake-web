@@ -2337,8 +2337,7 @@ export const fr: Dictionary = {
     description:
       "Ce que les applications VVake pour iPhone et Apple Watch et le site vvake.com recueillent, pourquoi, qui y a accès, combien de temps nous le gardons et vos droits.",
     updated: "Dernière mise à jour : 2026-10-07",
-    draft:
-      "Version provisoire pour l'aperçu TestFlight. Les points marqués [CONFIRM] sont en cours de vérification, et cette politique sera revue par un avocat avant le lancement public.",
+    draft: "Version provisoire pour l'aperçu TestFlight. Cette politique sera revue par un avocat avant le lancement public.",
     intro: [
       "VVake (aussi appelée VVake Fit) est une application d'entraînement pour iPhone et Apple Watch, accompagnée du site vvake.com. Cette politique explique simplement quels renseignements nous recueillons, pourquoi, qui d'autre y a accès, combien de temps nous les gardons et ce que vous pouvez faire. Elle couvre les applications (y compris les versions d'essai TestFlight), l'API VVake avec laquelle elles communiquent, le compagnon de bureau pour Mac, le module VVake pour Claude Code et ce site, y compris vvake.com/rewards.",
       "VVake est une application d'entraînement et de mieux-être. Ce n'est pas un dispositif médical : elle ne pose aucun diagnostic et ne traite ni ne surveille aucun problème de santé.",
@@ -2361,7 +2360,7 @@ export const fr: Dictionary = {
         h: "Qui nous sommes",
         p: [
           "VVake est exploitée par l'équipe VVake, responsable des renseignements personnels décrits ici.",
-          "Personne responsable de la protection des renseignements personnels (Loi 25) : [CONFIRM : nom et titre]. Vous pouvez la joindre à {email} [CONFIRM : cette adresse existe et est consultée].",
+          "Personne responsable de la protection des renseignements personnels (Loi 25) : le fondateur de VVake. Vous pouvez le joindre à {email}.",
         ],
         list: [],
       },
@@ -2518,7 +2517,7 @@ export const fr: Dictionary = {
         list: [
           {
             t: "Le coach (Claude d'Anthropic).",
-            d: "Pour rédiger chaque réponse, nous transmettons à Anthropic : votre message et les derniers échanges (6 au maximum), les données en direct de votre séance (sport, temps, fréquence cardiaque et zone, distance, allure, cadence, écarts dans une course ou un défi, pointage de l'affrontement de votre ville), le plan du jour et votre rétroaction après la séance, et un résumé de votre profil (nom d'affichage, niveau, zones, objectifs et notes du coach, votre objectif, vos choix douleur, faible impact et effort léger, série, points et décisions récentes sur le plan). Nous ne transmettons pas votre courriel, votre identifiant de compte, votre position ni vos contacts. Anthropic traite ces données comme notre fournisseur de services et, selon ses conditions commerciales, ne s'en sert pas pour entraîner ses modèles [CONFIRM : conditions actuelles d'Anthropic et durée de conservation].",
+            d: "Pour rédiger chaque réponse, nous transmettons à Anthropic : votre message et les derniers échanges (6 au maximum), les données en direct de votre séance (sport, temps, fréquence cardiaque et zone, distance, allure, cadence, écarts dans une course ou un défi, pointage de l'affrontement de votre ville), le plan du jour et votre rétroaction après la séance, et un résumé de votre profil (nom d'affichage, niveau, zones, objectifs et notes du coach, votre objectif, vos choix douleur, faible impact et effort léger, série, points et décisions récentes sur le plan). Nous ne transmettons pas votre courriel, votre identifiant de compte, votre position ni vos contacts. Anthropic traite ces données comme notre fournisseur de services et, selon ses conditions commerciales, ne s'en sert pas pour entraîner ses modèles. Anthropic les supprime dans les 30 jours, sauf s'il doit les garder plus longtemps pour faire respecter sa politique d'utilisation (jusqu'à 2 ans pour un contenu signalé) ou pour se conformer à la loi.",
           },
           {
             t: "Changements de plan.",
@@ -2605,7 +2604,10 @@ export const fr: Dictionary = {
             d: "Héberge l'API VVake, la base de données et le stockage de fichiers, la liste d'attente, et la vérification anti-robots du formulaire d'inscription du site (Turnstile).",
           },
           { t: "Anthropic (États-Unis).", d: "Rédige les réponses du coach (voir Fonctions d'IA)." },
-          { t: "ElevenLabs (États-Unis) [CONFIRM : entité contractante et région].", d: "Transforme les répliques du coach en voix." },
+          {
+            t: "ElevenLabs (Eleven Labs Inc., États-Unis ; données stockées aux États-Unis).",
+            d: "Transforme les répliques du coach en voix.",
+          },
           { t: "xAI (États-Unis).", d: "Génère les images de VVaker personnalisés à partir de leurs traits." },
           {
             t: "Resend (États-Unis).",
@@ -2640,7 +2642,7 @@ export const fr: Dictionary = {
         id: "where",
         h: "Où vos données sont conservées",
         p: [
-          "Notre base de données (Cloudflare D1) et notre stockage de fichiers (Cloudflare R2 : audio de la voix du coach, images VVaker et sauvegardes chiffrées de vos parcours) se trouvent dans la juridiction européenne de Cloudflare. Les requêtes transitent par le réseau mondial de Cloudflare, et plusieurs fournisseurs ci-dessus sont aux États-Unis : vos données peuvent donc être traitées hors du Québec, du Canada et de l'UE. Nous nous appuyons sur les garanties contractuelles de nos fournisseurs, comme les clauses contractuelles types de l'UE [CONFIRM : ententes de traitement des données signées avec chaque fournisseur], et avons évalué ces communications comme l'exige la loi québécoise [CONFIRM : évaluation des facteurs relatifs à la vie privée pour les transferts réalisée].",
+          "Notre base de données (Cloudflare D1) et notre stockage de fichiers (Cloudflare R2 : audio de la voix du coach, images VVaker et sauvegardes chiffrées de vos parcours) se trouvent dans la juridiction européenne de Cloudflare. Les requêtes transitent par le réseau mondial de Cloudflare, et plusieurs fournisseurs ci-dessus sont aux États-Unis : vos données peuvent donc être traitées hors du Québec, du Canada et de l'UE. Nous nous appuyons sur les garanties contractuelles de nos fournisseurs : les conditions de traitement des données de Cloudflare, d'Anthropic et d'ElevenLabs, qui comprennent les clauses contractuelles types de l'UE, font partie de leurs conditions standard.",
         ],
         list: [],
       },
@@ -2695,11 +2697,11 @@ export const fr: Dictionary = {
           },
           {
             t: "Journaux serveur :",
-            d: "quelques jours, sans donnée de santé [CONFIRM : réglage de conservation des journaux Cloudflare].",
+            d: "nos serveurs ne conservent pas de journaux de requêtes. Si nous les activons pour corriger un problème, Cloudflare les garde 3 jours, sans donnée de santé.",
           },
           {
             t: "Sauvegardes :",
-            d: "la base de données peut être restaurée à un moment précis pendant 30 jours au plus ; après, les données supprimées disparaissent [CONFIRM].",
+            d: "la base de données peut être restaurée à un moment précis pendant 7 jours au plus ; après, les données supprimées disparaissent.",
           },
           {
             t: "Liste d'attente du site :",
@@ -2739,7 +2741,8 @@ export const fr: Dictionary = {
         ],
         after: [
           "Québec et Canada (Loi 25, LPRPDE) : vous pouvez accéder à vos renseignements et les faire rectifier, retirer votre consentement, les obtenir dans un format technologique structuré et couramment utilisé, et demander que nous cessions de les diffuser lorsque la loi le permet.",
-          "Union européenne, EEE et Royaume-Uni (RGPD) : vous disposez des droits d'accès, de rectification, d'effacement, de limitation, d'opposition et de portabilité. Nos bases légales : l'exécution de notre contrat avec vous (faire fonctionner l'application), votre consentement explicite pour les données de santé et les fonctions facultatives, et notre intérêt légitime à assurer la sécurité du service. Représentant dans l'UE : [CONFIRM : à désigner si VVake est offerte dans l'UE].",
+          "Union européenne et EEE : VVake n'y est pas offerte pour l'instant.",
+          "Royaume-Uni (RGPD du Royaume-Uni) : vous disposez des droits d'accès, de rectification, d'effacement, de limitation, d'opposition et de portabilité. Nos bases légales : l'exécution de notre contrat avec vous (faire fonctionner l'application), votre consentement explicite pour les données de santé et les fonctions facultatives, et notre intérêt légitime à assurer la sécurité du service.",
           "Californie et autres États américains : nous ne vendons pas de renseignements personnels et ne les communiquons pas pour de la publicité comportementale. Vous pouvez demander à connaître, corriger ou supprimer vos renseignements, sans être traité différemment pour autant.",
         ],
       },
@@ -2747,7 +2750,7 @@ export const fr: Dictionary = {
         id: "children",
         h: "Enfants",
         p: [
-          "VVake ne s'adresse pas aux enfants de moins de 13 ans, et nous ne recueillons pas sciemment leurs renseignements. Si vous n'avez pas l'âge du consentement numérique là où vous vivez (14 ans au Québec, jusqu'à 16 ans dans certains pays de l'UE), un parent ou tuteur doit donner son accord avant que vous utilisiez VVake [CONFIRM : âge minimum]. Les objectifs de poids et les rappels de repas sont réservés aux adultes. Si vous croyez qu'un enfant nous a transmis des renseignements, écrivez à {email} et nous les supprimerons.",
+          "VVake ne s'adresse pas aux enfants de moins de 13 ans, et nous ne recueillons pas sciemment leurs renseignements. Si vous n'avez pas l'âge du consentement numérique là où vous vivez (14 ans au Québec), un parent ou tuteur doit donner son accord avant que vous utilisiez VVake. Les objectifs de poids et les rappels de repas sont réservés aux adultes. Si vous croyez qu'un enfant nous a transmis des renseignements, écrivez à {email} et nous les supprimerons.",
         ],
         list: [],
       },

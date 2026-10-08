@@ -2180,8 +2180,7 @@ export const en = {
     description:
       "What the VVake iPhone and Apple Watch apps and vvake.com collect, why, who else sees it, how long we keep it and your rights.",
     updated: "Last updated: 2026-10-07",
-    draft:
-      "Draft for the TestFlight preview. Items marked [CONFIRM] are still being checked, and this policy will be reviewed by a lawyer before the public launch.",
+    draft: "Draft for the TestFlight preview. This policy will be reviewed by a lawyer before the public launch.",
     intro: [
       "VVake (also called VVake Fit) is a fitness coaching app for iPhone and Apple Watch, with this website, vvake.com. This policy explains in plain words what we collect, why, who else sees it, how long we keep it and what you can do about it. It covers the apps (TestFlight previews included), the VVake API they talk to, the desk companion for Mac, the VVake plugin for Claude Code and this website, including vvake.com/rewards.",
       "VVake is a training and wellness app. It is not a medical device and does not diagnose, treat or monitor any health condition.",
@@ -2204,7 +2203,7 @@ export const en = {
         h: "Who we are",
         p: [
           "VVake is run by the VVake team, which is responsible for the personal information described here.",
-          "Person in charge of the protection of personal information (Québec Law 25): [CONFIRM: name and title]. You can reach this person at {email} [CONFIRM: this mailbox exists and is monitored].",
+          "Person in charge of the protection of personal information (Québec Law 25): the founder of VVake. You can reach them at {email}.",
         ],
         list: [],
       },
@@ -2361,7 +2360,7 @@ export const en = {
         list: [
           {
             t: "The coach (Anthropic Claude).",
-            d: "To write each reply we send Anthropic: your message and the last few turns (up to 6), the live numbers of your session (sport, time, heart rate and zone, distance, pace, cadence, gaps in a race or challenge, your city's clash score), today's plan and your session feedback, and a summary of your profile (display name, level, zones, targets and coach notes, your aim, the pain, low-impact and easy-only choices, streak, points and recent plan decisions). We do not send your e-mail, account ID, location or contacts. Anthropic processes this as our service provider and, under its commercial terms, does not use it to train its models [CONFIRM: current Anthropic terms and retention period].",
+            d: "To write each reply we send Anthropic: your message and the last few turns (up to 6), the live numbers of your session (sport, time, heart rate and zone, distance, pace, cadence, gaps in a race or challenge, your city's clash score), today's plan and your session feedback, and a summary of your profile (display name, level, zones, targets and coach notes, your aim, the pain, low-impact and easy-only choices, streak, points and recent plan decisions). We do not send your e-mail, account ID, location or contacts. Anthropic processes this as our service provider and, under its commercial terms, does not use it to train its models. Anthropic deletes it within 30 days, unless it must keep it longer to enforce its usage policy (up to 2 years for flagged content) or to comply with the law.",
           },
           {
             t: "Plan changes.",
@@ -2448,7 +2447,7 @@ export const en = {
             d: "Hosts the VVake API, the database and file storage, the waitlist, and the bot check on the website's signup form (Turnstile).",
           },
           { t: "Anthropic (United States).", d: "Writes the coach's replies (see AI features)." },
-          { t: "ElevenLabs (United States) [CONFIRM: contracting entity and region].", d: "Turns coach lines into speech." },
+          { t: "ElevenLabs (Eleven Labs Inc., United States; data stored in the United States).", d: "Turns coach lines into speech." },
           { t: "xAI (United States).", d: "Renders custom VVaker images from their traits." },
           { t: "Resend (United States).", d: "Sends sign-in codes and waitlist e-mails. It receives your e-mail address and the message." },
           { t: "Google (United States).", d: "Only if you sign in with Google or connect Google Calendar." },
@@ -2477,7 +2476,7 @@ export const en = {
         id: "where",
         h: "Where your data is stored",
         p: [
-          "Our database (Cloudflare D1) and file storage (Cloudflare R2: coach voice audio, VVaker images and your encrypted route backups) are in Cloudflare's EU jurisdiction. Requests pass through Cloudflare's worldwide network, and several providers above are in the United States, so your data can be processed outside Québec, Canada and the EU. We rely on our providers' contractual safeguards, such as the EU Standard Contractual Clauses [CONFIRM: data processing agreements in place with each provider], and assessed these transfers as Québec law requires [CONFIRM: privacy impact assessment for transfers done].",
+          "Our database (Cloudflare D1) and file storage (Cloudflare R2: coach voice audio, VVaker images and your encrypted route backups) are in Cloudflare's EU jurisdiction. Requests pass through Cloudflare's worldwide network, and several providers above are in the United States, so your data can be processed outside Québec, Canada and the EU. We rely on our providers' contractual safeguards: Cloudflare's, Anthropic's and ElevenLabs' data processing terms, which include the EU Standard Contractual Clauses, are part of their standard terms.",
         ],
         list: [],
       },
@@ -2524,10 +2523,13 @@ export const en = {
             t: "Coach voice audio:",
             d: "a line only you had is deleted with your account; a word-for-word identical line other users also have stays for them.",
           },
-          { t: "Server logs:", d: "a few days, with no health data [CONFIRM: Cloudflare log retention setting]." },
+          {
+            t: "Server logs:",
+            d: "our servers don't keep request logs. If we turn them on to fix a problem, Cloudflare keeps them for 3 days, with no health data.",
+          },
           {
             t: "Backups:",
-            d: "the database can be restored to a point in time for up to 30 days, after which deleted data is gone [CONFIRM].",
+            d: "the database can be restored to a point in time for up to 7 days, after which deleted data is gone.",
           },
           { t: "Website waitlist:", d: "until launch plus 12 months, or until you unsubscribe or ask us to delete it." },
         ],
@@ -2561,7 +2563,8 @@ export const en = {
         ],
         after: [
           "Québec and Canada (Law 25, PIPEDA): you can access and correct your information, withdraw consent, ask for it in a structured, commonly used technological format, and ask us to stop disseminating it where the law allows.",
-          "European Union, EEA and UK (GDPR): you have the rights of access, rectification, erasure, restriction, objection and portability. Our legal bases: performing our contract with you (running the app), your explicit consent for health data and optional features, and our legitimate interest in keeping the service secure. EU representative: [CONFIRM: appoint one if VVake is offered in the EU].",
+          "European Union and EEA: VVake is not offered there for now.",
+          "United Kingdom (UK GDPR): you have the rights of access, rectification, erasure, restriction, objection and portability. Our legal bases: performing our contract with you (running the app), your explicit consent for health data and optional features, and our legitimate interest in keeping the service secure.",
           "California and other US states: we do not sell personal information or share it for cross-context behavioural advertising. You can ask to know, correct or delete your information, and we will not treat you differently for doing so.",
         ],
       },
@@ -2569,7 +2572,7 @@ export const en = {
         id: "children",
         h: "Children",
         p: [
-          "VVake is not for children under 13, and we do not knowingly collect their information. If you are under the age of digital consent where you live (14 in Québec, up to 16 in some EU countries), a parent or guardian must agree before you use VVake [CONFIRM: minimum age]. Weight goals and meal reminders are for adults only. If you think a child has given us information, write to {email} and we will delete it.",
+          "VVake is not for children under 13, and we do not knowingly collect their information. If you are under the age of digital consent where you live (14 in Québec), a parent or guardian must agree before you use VVake. Weight goals and meal reminders are for adults only. If you think a child has given us information, write to {email} and we will delete it.",
         ],
         list: [],
       },
