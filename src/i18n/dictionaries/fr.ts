@@ -1520,11 +1520,16 @@ export const fr: Dictionary = {
           {
             label: "Qui reçoit des prix",
             value:
-              "Les membres Plus ou inscrits gratuits (même prix) avec un portefeuille lié (18 ans et plus), le tout d'avant la semaine, qui ont bougé avec fréquence cardiaque et répondu à la question d'habileté",
+              "Les membres Plus ou inscrits gratuits (même prix) avec un portefeuille lié (18 ans et plus), le tout d'avant la semaine, qui ont bougé avec fréquence cardiaque, enregistré avec l'app sur un vrai iPhone ou une vraie Apple Watch, et répondu à la question d'habileté",
+          },
+          {
+            label: "Pilote",
+            value:
+              "Au plus 1 000 $VVAKE par personne et 20 000 en tout chaque semaine, pour les 200 premières personnes admissibles ; vérifié par une personne chaque semaine",
           },
           {
             label: "Cagnotte de la semaine",
-            value: "1/8 des $VVAKE du contrat de récompenses pas encore promis, au plus 1 000 000 par semaine",
+            value: "1/8 (12,5 %) des $VVAKE du contrat de récompenses pas encore promis, au plus 1 000 000 par semaine",
           },
           { label: "Par personne", value: "Partagée selon les points d'effort, au plus 10 % de la cagnotte de la semaine" },
         ],
@@ -1535,8 +1540,9 @@ export const fr: Dictionary = {
         steps: [
           "Les conversions se font par petites tranches plafonnées, au plus une fois par jour, et n'importe qui peut déclencher la suivante",
           "Les $VVAKE vont seulement au contrat de récompenses (VVakeRewards), jamais à une personne ni à un wallet de l'équipe",
-          "Chaque semaine, des prix pour l'effort. Deux façons d'entrer, le même prix : Plus ou l'inscription gratuite (aucun achat requis), avec un compte, une inscription et un portefeuille lié (18 ans et plus) d'avant la semaine, au moins 3 séances avec fréquence cardiaque ou 90 minutes actives, et la question d'habileté de la semaine. Jamais selon ce que tu détiens, jamais par tirage",
-          "La cagnotte de la semaine, c'est 1/8 des $VVAKE que le contrat de récompenses détient et n'a pas encore promis, au plus 1 000 000. Elle est partagée selon les points d'effort (au plus 150 par jour), personne ne reçoit plus de 10 %, et ce qui n'est pas distribué reste dans la cagnotte pour les semaines suivantes. Tu réclames depuis ton propre portefeuille sur vvake.com/rewards",
+          "Chaque semaine, des prix pour l'effort. Deux façons d'entrer, le même prix : Plus ou l'inscription gratuite (aucun achat requis), avec un compte, une inscription et un portefeuille lié (18 ans et plus) d'avant la semaine, au moins 3 séances avec fréquence cardiaque ou 90 minutes actives enregistrées avec l'app sur un vrai iPhone ou une vraie Apple Watch, et la question d'habileté de la semaine. Jamais selon ce que tu détiens, jamais par tirage",
+          "La cagnotte de la semaine, c'est 1/8 (12,5 %) des $VVAKE que le contrat de récompenses détient et n'a pas encore promis, au plus 1 000 000. Elle est partagée selon les points d'effort (au plus 150 par jour), personne ne reçoit plus de 10 %, et ce qui n'est pas distribué reste dans la cagnotte pour les semaines suivantes. Tu réclames depuis ton propre portefeuille sur vvake.com/rewards",
+          "Pendant le pilote : au plus 1 000 VVAKE par personne et 20 000 VVAKE en tout chaque semaine, pour les 200 premières personnes admissibles ; les autres sont sur une liste d'attente. Ce qu'un plafond laisse reste dans la cagnotte pour les semaines suivantes. Une personne vérifie chaque semaine, et rien n'est publié avant la fin de cette vérification.",
         ],
         note: "Testnet pour l'instant : les tokens n'ont aucune valeur. Rien n'est brûlé et rien ne va aux détenteurs. Un examen juridique et un audit externe des contrats passent avant toute valeur sur le mainnet. Payer Plus en $VVAKE de testnet existe seulement dans les versions de développement de l'app, pour tester le parcours (les tokens vont à la trésorerie de VVake) ; ce n'est proposé ni dans TestFlight ni sur l'App Store.",
         cta: "Voir les prix et la cagnotte",
@@ -2245,7 +2251,7 @@ export const fr: Dictionary = {
       },
       {
         q: "Il y a un token ? C'est quoi les prix $VVAKE ?",
-        a: "VVake est un service de sport et d'entraînement, pas un produit financier. Chaque semaine, les personnes qui ont assez bougé avec fréquence cardiaque (au moins 3 séances ou 90 minutes actives) se partagent des prix $VVAKE selon leur effort. Deux façons d'entrer, le même prix : VVake Fit Plus ou l'inscription gratuite (aucun achat requis), avec un compte, une inscription et un portefeuille lié d'avant la semaine, et une courte question d'habileté chaque semaine. Les prix sont pour les 18 ans et plus, les points comptent jusqu'à 150 par jour, personne ne reçoit plus de 10 % de la cagnotte d'une semaine, et les prix ne dépendent jamais du hasard, de ce que tu paies ni du nombre de tokens que tu détiens. Une part fixe et publiée des revenus nets de VVake Fit Plus alimente la cagnotte, convertie sur la chaîne selon des règles publiques. Tu réclames tes prix depuis ton propre portefeuille sur vvake.com/rewards ; VVake ne détient jamais tes tokens et ne te demande jamais ta phrase de récupération. Testnet pour l'instant : les tokens n'ont aucune valeur, rien à acheter, et rien ici n'est une offre ni un conseil en placement. Pas offert aux États-Unis ni au Royaume-Uni au lancement, sous réserve d'un examen juridique.",
+        a: "VVake est un service de sport et d'entraînement, pas un produit financier. Chaque semaine, les personnes qui ont assez bougé avec fréquence cardiaque (au moins 3 séances ou 90 minutes actives) se partagent des prix $VVAKE selon leur effort. Deux façons d'entrer, le même prix : VVake Fit Plus ou l'inscription gratuite (aucun achat requis), avec un compte, une inscription et un portefeuille lié d'avant la semaine, et une courte question d'habileté chaque semaine. Seules les séances enregistrées avec l'app VVake sur un vrai iPhone ou une vraie Apple Watch comptent, et pendant le pilote, les prix sont plafonnés et vérifiés par une personne chaque semaine. Les prix sont pour les 18 ans et plus, les points comptent jusqu'à 150 par jour, personne ne reçoit plus de 10 % de la cagnotte d'une semaine, et les prix ne dépendent jamais du hasard, de ce que tu paies ni du nombre de tokens que tu détiens. 30 % des revenus nets de VVake Fit Plus alimentent la cagnotte, convertie sur la chaîne selon des règles publiques. Tu réclames tes prix depuis ton propre portefeuille sur vvake.com/rewards ; VVake ne détient jamais tes tokens et ne te demande jamais ta phrase de récupération. Testnet pour l'instant : les tokens n'ont aucune valeur, rien à acheter, et rien ici n'est une offre ni un conseil en placement. Pas offert aux États-Unis ni au Royaume-Uni au lancement, sous réserve d'un examen juridique.",
         link: "rewards/",
       },
     ],
@@ -2375,7 +2381,7 @@ export const fr: Dictionary = {
           },
           {
             t: "Vos appareils.",
-            d: "Pour chaque iPhone ou Apple Watch utilisé : un identifiant d'appareil créé par l'application, son type (téléphone ou montre), son modèle et sa dernière connexion ; des jetons de connexion (nous n'en gardons qu'une empreinte) ; et un jeton de notification si vous acceptez les notifications. Si vous vous connectez sur vvake.com/rewards, ce navigateur est ajouté comme appareil nommé « Web (vvake.com) » ; chaque ordinateur lié à Claude Code est ajouté avec son nom (voir Compagnon de bureau et Claude Code). Pourquoi : garder votre session ouverte, vous permettre de déconnecter un appareil et envoyer les alertes demandées (défis, quêtes d'équipe, My Pulse).",
+            d: "Pour chaque iPhone ou Apple Watch utilisé : un identifiant d'appareil créé par l'application, son type (téléphone ou montre), son modèle et sa dernière connexion ; des jetons de connexion (nous n'en gardons qu'une empreinte) ; et un jeton de notification si vous acceptez les notifications. Si vous vous connectez sur vvake.com/rewards, ce navigateur est ajouté comme appareil nommé « Web (vvake.com) » ; chaque ordinateur lié à Claude Code est ajouté avec son nom (voir Compagnon de bureau et Claude Code). Pourquoi : garder votre session ouverte, vous permettre de déconnecter un appareil et envoyer les alertes demandées (défis, quêtes d'équipe, My Pulse). Pour vérifier que les séances viennent de la vraie application, nous gardons un identifiant de clé App Attest et le reçu d'attestation d'Apple pour chaque installation de l'application ; ils identifient l'installation, pas vous.",
           },
           {
             t: "Vos séances.",
@@ -2577,7 +2583,7 @@ export const fr: Dictionary = {
           },
           {
             t: "Listes hebdomadaires.",
-            d: "Chaque lundi, nous arrêtons la semaine écoulée : le montant de VVAKE de chaque compte admissible (Plus ou inscription gratuite, portefeuille lié, effort suffisant, question d'habileté). La liste de la semaine (adresses et montants, avec leurs preuves) est publiée pour que chacun puisse la vérifier, et son empreinte (une racine de Merkle) est inscrite sur la blockchain. Les noms, courriels et points ne figurent pas dans la liste, mais un montant indique à peu près l'activité de cette adresse cette semaine-là.",
+            d: "Chaque lundi, nous arrêtons la semaine écoulée : le montant de VVAKE de chaque compte admissible (Plus ou inscription gratuite, portefeuille lié, effort suffisant enregistré avec l'app sur un vrai iPhone ou une vraie Apple Watch, question d'habileté, une place dans le pilote), vérifié par une personne avant toute publication. La liste de la semaine (adresses et montants, avec leurs preuves) est publiée pour que chacun puisse la vérifier, et son empreinte (une racine de Merkle) est inscrite sur la blockchain. Les noms, courriels et points ne figurent pas dans la liste, mais un montant indique à peu près l'activité de cette adresse cette semaine-là.",
           },
           {
             t: "Réclamations.",
@@ -3007,7 +3013,19 @@ export const fr: Dictionary = {
       emptyHint: "Tu attendais des semaines ici ? Vérifie que tu t'es connecté avec le même compte que dans l'app.",
       wallet: "Vers {address}",
       ruleTitle: "Qui reçoit des prix",
-      rule: "Deux façons d'entrer, le même prix : VVake Fit Plus ou l'inscription gratuite. Une semaine compte pour les prix quand tout ceci est vrai : ton compte, ton inscription et ton portefeuille lié existaient avant le début de la semaine (lundi 00 h UTC ; un nouveau portefeuille compte à partir de la semaine suivante), tu as confirmé avoir 18 ans ou plus en le liant, tu as bougé avec la fréquence cardiaque d'une montre (au moins {sessions} séances ou {minutes} minutes actives, envoyées dans les {grace} heures après la fin de la semaine), et tu as répondu à la question d'habileté de la semaine. Les points comptent jusqu'à {cap} par jour et personne ne reçoit plus de 10 % de la cagnotte d'une semaine. Les Move Quests ne comptent pas pour les prix pour l'instant.",
+      rule: "Deux façons d'entrer, le même prix : VVake Fit Plus ou l'inscription gratuite. Une semaine compte pour les prix quand tout ceci est vrai :",
+      checklist: [
+        "Un compte, une inscription et un portefeuille lié, le tout d'avant le début de la semaine (lundi 00 h UTC ; un nouveau portefeuille compte à partir de la semaine suivante)",
+        "18 ans ou plus, confirmé en liant ton portefeuille",
+        "Séances enregistrées avec l'app sur un vrai iPhone ou une vraie Apple Watch",
+        "De l'effort avec la fréquence cardiaque d'une montre : au moins {sessions} séances ou {minutes} minutes actives, envoyées dans les {grace} heures après la fin de la semaine",
+        "La question d'habileté de la semaine, répondue",
+        "Une place dans le pilote",
+      ],
+      ruleNote:
+        "Les points comptent jusqu'à {cap} par jour et personne ne reçoit plus de 10 % de la cagnotte d'une semaine. Les Move Quests ne comptent jamais pour les prix. Seules les séances enregistrées avec l'app VVake sur un vrai iPhone ou une vraie Apple Watch comptent pour les prix (l'app le prouve avec App Attest d'Apple). Les séances venant du web, d'un simulateur ou d'autres outils restent dans ton journal avec leurs points, mais ne comptent pas pour les prix. Un téléphone ou une montre ne compte pour les prix que d'un seul compte. Les séances d'un appareil qui compte déjà pour un autre compte attendent une vérification.",
+      pilot:
+        "Pendant le pilote : au plus 1 000 VVAKE par personne et 20 000 VVAKE en tout chaque semaine, pour les 200 premières personnes admissibles ; les autres sont sur une liste d'attente. Ce qu'un plafond laisse reste dans la cagnotte pour les semaines suivantes. Une personne vérifie chaque semaine, et rien n'est publié avant la fin de cette vérification.",
       eligibleNow: "Cette semaine compte pour les prix jusqu'ici.",
       notEligibleNow: "Cette semaine ne compte pas encore pour les prix :",
       notEligibleWeek: "N'a pas compté : {reasons}",
@@ -3022,6 +3040,7 @@ export const fr: Dictionary = {
         effort:
           "pas encore assez d'effort avec fréquence cardiaque : 3 séances ou 90 minutes actives, avec la fréquence cardiaque d'une montre",
         skill: "la question d'habileté de la semaine n'a pas encore de réponse",
+        pilot: "pas encore de place dans le pilote : tu es sur la liste d'attente",
         other: "une condition des prix n'est pas remplie",
       },
     },
@@ -3187,11 +3206,19 @@ export const fr: Dictionary = {
         },
         {
           h: "Plus ou l'inscription gratuite, le même prix",
-          p: "Deux façons d'entrer : VVake Fit Plus ou l'inscription gratuite (aucun achat requis), mêmes règles et mêmes prix. Une semaine compte si ton compte, ton inscription et ton portefeuille lié existaient avant le début de la semaine, que tu as 18 ans ou plus et le droit de recevoir des prix là où tu vis (tu le confirmes en le liant), que tu as bougé avec la fréquence cardiaque d'une montre (au moins 3 séances ou 90 minutes actives ; un téléphone sans capteur cardiaque donne 0) et que tu as répondu à la question d'habileté de la semaine, comme l'exige la loi canadienne pour les prix. Les Move Quests ne comptent pas pour les prix pour l'instant.",
+          p: "Deux façons d'entrer : VVake Fit Plus ou l'inscription gratuite (aucun achat requis), mêmes règles et mêmes prix. Une semaine compte si ton compte, ton inscription et ton portefeuille lié existaient avant le début de la semaine, que tu as 18 ans ou plus et le droit de recevoir des prix là où tu vis (tu le confirmes en le liant), que tu as bougé avec la fréquence cardiaque d'une montre (au moins 3 séances ou 90 minutes actives ; un téléphone sans capteur cardiaque donne 0), que tu as enregistré tes séances avec l'app sur un vrai iPhone ou une vraie Apple Watch, et que tu as répondu à la question d'habileté de la semaine, comme l'exige la loi canadienne pour les prix. Les Move Quests ne comptent jamais pour les prix.",
+        },
+        {
+          h: "Seule la vraie app compte",
+          p: "Seules les séances enregistrées avec l'app VVake sur un vrai iPhone ou une vraie Apple Watch comptent pour les prix (l'app le prouve avec App Attest d'Apple). Les séances venant du web, d'un simulateur ou d'autres outils restent dans ton journal avec leurs points, mais ne comptent pas pour les prix. Un téléphone ou une montre ne compte pour les prix que d'un seul compte. Les séances d'un appareil qui compte déjà pour un autre compte attendent une vérification.",
+        },
+        {
+          h: "Le pilote",
+          p: "Pendant le pilote : au plus 1 000 VVAKE par personne et 20 000 VVAKE en tout chaque semaine, pour les 200 premières personnes admissibles ; les autres sont sur une liste d'attente. Ce qu'un plafond laisse reste dans la cagnotte pour les semaines suivantes. Une personne vérifie chaque semaine, et rien n'est publié avant la fin de cette vérification.",
         },
         {
           h: "La cagnotte de la semaine, partagée selon l'effort",
-          p: "La cagnotte de chaque semaine, c'est 1/8 des VVAKE que le contrat de récompenses détient et n'a pas encore promis, au plus 1 000 000 VVAKE. Elle est partagée selon les points d'effort, au plus 150 points par jour ; personne ne reçoit plus de 10 % de la cagnotte d'une semaine, et ce qui n'est pas distribué reste dans la cagnotte pour les semaines suivantes. Aucun tirage, aucun hasard, jamais selon ce que tu paies, ta façon d'entrer ni ce que tu détiens.",
+          p: "La cagnotte de chaque semaine, c'est 1/8 (12,5 %) des VVAKE que le contrat de récompenses détient et n'a pas encore promis, au plus 1 000 000 VVAKE. Elle est partagée selon les points d'effort, au plus 150 points par jour ; personne ne reçoit plus de 10 % de la cagnotte d'une semaine, et ce qui n'est pas distribué reste dans la cagnotte pour les semaines suivantes. Aucun tirage, aucun hasard, jamais selon ce que tu paies, ta façon d'entrer ni ce que tu détiens.",
         },
         {
           h: "Tu réclames, VVake ne les détient jamais",

@@ -935,14 +935,14 @@ function reasonsText(missing: readonly string[] | null | undefined, dict: Dict["
   return (keys.length ? keys : (["other"] as const)).map((k) => dict.missing[k]).join(" · ");
 }
 
-/** The rule with the API's numbers when it sends them (`rules`), else the published defaults (ADR-0024). */
-export function ruleText(dict: Dict["mine"], rules?: Rewards["rules"]) {
-  return format(dict.rule, {
+/** The rule's numbers from the API when it sends them (`rules`), else the published defaults (ADR-0024). */
+function ruleValues(rules?: Rewards["rules"]) {
+  return {
     sessions: rules?.minSessions ?? 3,
     minutes: rules?.minActiveMinutes ?? 90,
     grace: rules?.uploadGraceHours ?? 4,
     cap: rules?.dailyPointCap ?? 150,
-  });
+  };
 }
 
 /** One missing condition's words; a wallet linked this week says from when it counts. */
@@ -951,8 +951,8 @@ export function missingText(dict: Dict["mine"], k: ReturnType<typeof missingCond
 }
 
 /**
- * Who gets prizes (Plus or the free entry, an account and a wallet from before the week, 18+, heart-rate effort, the
- * skill question), next to the claim area. When GET /v1/rewards says whether this week counts so far (`week.eligible`,
+ * Who gets prizes (Plus or the free entry, an account and a wallet from before the week, 18+, sessions from the app on
+ * a real iPhone or Apple Watch, heart-rate effort, the skill question, a pilot seat), next to the claim area. When GET /v1/rewards says whether this week counts so far (`week.eligible`,
  * `week.missing`), it shows that too; older API versions don't, and then only the rule shows.
  */
 export function Eligibility({
@@ -967,11 +967,19 @@ export function Eligibility({
   walletFrom?: string | null;
 }) {
   const missing = missingConditions(week?.missing);
+  const values = ruleValues(rules);
   const state = week?.eligible === true ? "yes" : week?.eligible === false || missing.length ? "no" : null;
   return (
     <div className="mt-10 rounded-2xl border border-line bg-surface/60 p-6">
       <p className="font-mono text-xs tracking-[0.16em] text-faint uppercase">{dict.ruleTitle}</p>
-      <p className="mt-3 max-w-3xl text-sm leading-relaxed text-muted">{ruleText(dict, rules)}</p>
+      <p className="mt-3 max-w-3xl text-sm leading-relaxed text-muted">{dict.rule}</p>
+      <ul className="mt-2 max-w-3xl list-disc pl-5 text-sm leading-relaxed text-muted">
+        {dict.checklist.map((c) => (
+          <li key={c}>{format(c, values)}</li>
+        ))}
+      </ul>
+      <p className="mt-3 max-w-3xl text-sm leading-relaxed text-muted">{format(dict.ruleNote, values)}</p>
+      <p className="mt-3 max-w-3xl text-sm leading-relaxed text-muted">{dict.pilot}</p>
       {state === "yes" && (
         <p className="mt-4 text-sm text-up-fg" role="status">
           {dict.eligibleNow}

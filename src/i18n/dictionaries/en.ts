@@ -1450,9 +1450,14 @@ export const en = {
           {
             label: "Who gets prizes",
             value:
-              "Plus members or free entrants (same prize) with a linked wallet (18+), all from before the week, who moved with heart rate and answered the skill question",
+              "Plus members or free entrants (same prize) with a linked wallet (18+), all from before the week, who moved with heart rate, recorded with the app on a real iPhone or Apple Watch, and answered the skill question",
           },
-          { label: "Weekly pot", value: "1/8 of the unpromised $VVAKE in the rewards contract, at most 1,000,000 a week" },
+          {
+            label: "Pilot",
+            value:
+              "At most 1,000 $VVAKE per person and 20,000 in all each week, for the first 200 eligible people; reviewed by a person every week",
+          },
+          { label: "Weekly pot", value: "1/8 (12.5%) of the unpromised $VVAKE in the rewards contract, at most 1,000,000 a week" },
           { label: "Per person", value: "Shared by effort points, at most 10% of a week's pot" },
         ],
       },
@@ -1462,8 +1467,9 @@ export const en = {
         steps: [
           "Conversions run in small capped chunks, at most once a day, and anyone can trigger the next one",
           "The $VVAKE goes only to the rewards contract (VVakeRewards), never to a person or a team wallet",
-          "Each week, prizes for effort. Two ways in, same prize: Plus or the free entry (no purchase necessary), with an account, an entry and a linked wallet (18+) from before the week, at least 3 heart-rate sessions or 90 active minutes, and the week's skill question. Never by holdings, never by draw",
-          "The week's pot is 1/8 of the $VVAKE the rewards contract holds and hasn't promised yet, at most 1,000,000. It's shared by effort points (at most 150 a day), nobody gets more than 10%, and what isn't handed out stays in the pool for later weeks. You claim from your own wallet on vvake.com/rewards",
+          "Each week, prizes for effort. Two ways in, same prize: Plus or the free entry (no purchase necessary), with an account, an entry and a linked wallet (18+) from before the week, at least 3 heart-rate sessions or 90 active minutes recorded with the app on a real iPhone or Apple Watch, and the week's skill question. Never by holdings, never by draw",
+          "The week's pot is 1/8 (12.5%) of the $VVAKE the rewards contract holds and hasn't promised yet, at most 1,000,000. It's shared by effort points (at most 150 a day), nobody gets more than 10%, and what isn't handed out stays in the pool for later weeks. You claim from your own wallet on vvake.com/rewards",
+          "During the pilot: at most 1,000 VVAKE per person and 20,000 VVAKE in all each week, for the first 200 eligible people; others join a waiting list. What a cap leaves stays in the pool for later weeks. A person reviews every week, and nothing is posted until that review is done.",
         ],
         note: "Testnet today: the tokens have no value. Nothing is burned and nothing goes to holders. Legal review and an external audit of the contracts come before any mainnet value. Paying Plus with testnet $VVAKE exists only in development builds of the app, to test the flow (the tokens go to the VVake treasury); it isn't offered in TestFlight or the App Store.",
         cta: "See the prizes and the pool",
@@ -2088,7 +2094,7 @@ export const en = {
       },
       {
         q: "Is there a token? What are the $VVAKE prizes?",
-        a: "VVake is a fitness and training service, not a financial product. Each week, people who moved enough with heart-rate data (at least 3 sessions or 90 active minutes) share $VVAKE prizes by effort. Two ways in, same prize: VVake Fit Plus or the free entry (no purchase necessary), with an account, an entry and a linked wallet from before the week, and a short weekly skill question. Prizes are for people 18 or older, points count up to 150 a day, nobody gets more than 10% of a week's pot, and prizes never depend on chance, on how much you pay or on how many tokens you hold. A fixed, published share of net VVake Fit Plus revenue funds the prize pool, converted on chain by public rules. You claim from your own wallet on vvake.com/rewards; VVake never holds your tokens and never asks for your recovery phrase. Testnet today: the tokens have no value, nothing to buy, and nothing here is an offer or investment advice. Not offered in the US or UK at launch, subject to legal review.",
+        a: "VVake is a fitness and training service, not a financial product. Each week, people who moved enough with heart-rate data (at least 3 sessions or 90 active minutes) share $VVAKE prizes by effort. Two ways in, same prize: VVake Fit Plus or the free entry (no purchase necessary), with an account, an entry and a linked wallet from before the week, and a short weekly skill question. Only sessions recorded with the VVake app on a real iPhone or Apple Watch count, and during the pilot prizes are capped and reviewed by a person every week. Prizes are for people 18 or older, points count up to 150 a day, nobody gets more than 10% of a week's pot, and prizes never depend on chance, on how much you pay or on how many tokens you hold. 30% of net VVake Fit Plus revenue funds the prize pool, converted on chain by public rules. You claim from your own wallet on vvake.com/rewards; VVake never holds your tokens and never asks for your recovery phrase. Testnet today: the tokens have no value, nothing to buy, and nothing here is an offer or investment advice. Not offered in the US or UK at launch, subject to legal review.",
         link: "rewards/",
       },
     ],
@@ -2218,7 +2224,7 @@ export const en = {
           },
           {
             t: "Your devices.",
-            d: 'For each iPhone or Apple Watch you use: a device ID made by the app, whether it is a phone or a watch, its model and when it was last seen; sign-in tokens (we keep only a hash of them); and a push notification token if you allow notifications. If you sign in on vvake.com/rewards, that browser is added as a device named "Web (vvake.com)"; each computer you link to Claude Code is added with its name (see Desk companion and Claude Code). Why: to keep you signed in, let you sign a device out and send the alerts you asked for (challenges, crew quests, My Pulse).',
+            d: 'For each iPhone or Apple Watch you use: a device ID made by the app, whether it is a phone or a watch, its model and when it was last seen; sign-in tokens (we keep only a hash of them); and a push notification token if you allow notifications. If you sign in on vvake.com/rewards, that browser is added as a device named "Web (vvake.com)"; each computer you link to Claude Code is added with its name (see Desk companion and Claude Code). Why: to keep you signed in, let you sign a device out and send the alerts you asked for (challenges, crew quests, My Pulse). To check that sessions come from the genuine app, we keep an App Attest key identifier and Apple\'s attestation receipt for each app install; they identify the install, not you.',
           },
           {
             t: "Your sessions.",
@@ -2420,7 +2426,7 @@ export const en = {
           },
           {
             t: "Weekly lists.",
-            d: "Every Monday we settle the past week: the VVAKE amount for each eligible account (Plus or free entry, linked wallet, enough effort, skill question). The week's list (addresses and amounts, with their proofs) is published so anyone can check it, and its fingerprint (a Merkle root) is written to the blockchain. Names, e-mails and points are not in the list, but an amount says roughly how active that address was that week.",
+            d: "Every Monday we settle the past week: the VVAKE amount for each eligible account (Plus or free entry, linked wallet, enough effort recorded with the app on a real iPhone or Apple Watch, skill question, a seat in the pilot), checked by a person before anything is posted. The week's list (addresses and amounts, with their proofs) is published so anyone can check it, and its fingerprint (a Merkle root) is written to the blockchain. Names, e-mails and points are not in the list, but an amount says roughly how active that address was that week.",
           },
           {
             t: "Claims.",
@@ -2823,7 +2829,19 @@ export const en = {
       emptyHint: "Expected some weeks here? Check that you signed in with the same account as in the app.",
       wallet: "To {address}",
       ruleTitle: "Who gets prizes",
-      rule: "Two ways in, same prize: VVake Fit Plus or the free entry. A week counts for prizes when all of these are true: your account, your entry and your linked wallet all existed before the week started (Monday 00:00 UTC; a new wallet counts from the next week), you confirmed you're 18 or older when linking, you moved with heart-rate data from a watch (at least {sessions} sessions or {minutes} active minutes, uploaded within {grace} hours of the week's end), and you answered the week's skill question. Points count up to {cap} a day and nobody gets more than 10% of a week's pot. Move Quests don't count toward prizes for now.",
+      rule: "Two ways in, same prize: VVake Fit Plus or the free entry. A week counts for prizes when all of these are true:",
+      checklist: [
+        "An account, an entry and a linked wallet, all from before the week started (Monday 00:00 UTC; a new wallet counts from the next week)",
+        "18 or older, confirmed when you linked your wallet",
+        "Sessions recorded with the app on a real iPhone or Apple Watch",
+        "Heart-rate effort from a watch: at least {sessions} sessions or {minutes} active minutes, uploaded within {grace} hours of the week's end",
+        "This week's skill question, answered",
+        "A seat in the pilot",
+      ],
+      ruleNote:
+        "Points count up to {cap} a day and nobody gets more than 10% of a week's pot. Move Quests never count toward prizes. Only sessions recorded with the VVake app on a real iPhone or Apple Watch count toward prizes (the app proves it with Apple's App Attest). Sessions from the web, a simulator or other tools stay in your journal with their points, but don't count toward prizes. One phone or watch counts toward prizes for one account only. Sessions from a device that already counts for another account wait for a review.",
+      pilot:
+        "During the pilot: at most 1,000 VVAKE per person and 20,000 VVAKE in all each week, for the first 200 eligible people; others join a waiting list. What a cap leaves stays in the pool for later weeks. A person reviews every week, and nothing is posted until that review is done.",
       eligibleNow: "This week counts for prizes so far.",
       notEligibleNow: "This week doesn't count for prizes yet:",
       notEligibleWeek: "Didn't count: {reasons}",
@@ -2835,6 +2853,7 @@ export const en = {
         adult: "18+ not confirmed: link your wallet again and tick the box",
         effort: "not enough heart-rate effort yet: 3 sessions or 90 active minutes, with heart-rate data from a watch",
         skill: "this week's skill question isn't answered yet",
+        pilot: "no seat in the pilot yet: you're on the waiting list",
         other: "a prize condition isn't met",
       },
     },
@@ -2995,11 +3014,19 @@ export const en = {
         },
         {
           h: "Plus or the free entry, same prize",
-          p: "Two ways in: VVake Fit Plus or the free entry (no purchase necessary), same rules and same prizes. A week counts if your account, your entry and your linked wallet existed before the week started, you're 18 or older and allowed to receive prizes where you live (you confirm it when linking), you moved with heart-rate data from a watch (at least 3 sessions or 90 active minutes; a phone without a heart-rate sensor scores 0), and you answered the week's skill question, as Canadian law requires for prizes. Move Quests don't count toward prizes for now.",
+          p: "Two ways in: VVake Fit Plus or the free entry (no purchase necessary), same rules and same prizes. A week counts if your account, your entry and your linked wallet existed before the week started, you're 18 or older and allowed to receive prizes where you live (you confirm it when linking), you recorded your sessions with the app on a real iPhone or Apple Watch, you moved with heart-rate data from a watch (at least 3 sessions or 90 active minutes; a phone without a heart-rate sensor scores 0), and you answered the week's skill question, as Canadian law requires for prizes. Move Quests never count toward prizes.",
+        },
+        {
+          h: "Only the real app counts",
+          p: "Only sessions recorded with the VVake app on a real iPhone or Apple Watch count toward prizes (the app proves it with Apple's App Attest). Sessions from the web, a simulator or other tools stay in your journal with their points, but don't count toward prizes. One phone or watch counts toward prizes for one account only. Sessions from a device that already counts for another account wait for a review.",
+        },
+        {
+          h: "The pilot",
+          p: "During the pilot: at most 1,000 VVAKE per person and 20,000 VVAKE in all each week, for the first 200 eligible people; others join a waiting list. What a cap leaves stays in the pool for later weeks. A person reviews every week, and nothing is posted until that review is done.",
         },
         {
           h: "The weekly pot, shared by effort",
-          p: "Each week's pot is 1/8 of the VVAKE the rewards contract holds and hasn't promised yet, at most 1,000,000 VVAKE. It's shared by effort points, at most 150 points a day; nobody gets more than 10% of a week's pot, and what isn't handed out stays in the pool for later weeks. No draw, no chance, never by what you pay, how you entered or what you hold.",
+          p: "Each week's pot is 1/8 (12.5%) of the VVAKE the rewards contract holds and hasn't promised yet, at most 1,000,000 VVAKE. It's shared by effort points, at most 150 points a day; nobody gets more than 10% of a week's pot, and what isn't handed out stays in the pool for later weeks. No draw, no chance, never by what you pay, how you entered or what you hold.",
         },
         {
           h: "You claim, VVake never holds them",

@@ -146,10 +146,10 @@ describe("prize copy: Plus or the free entry, everywhere (EN and FR)", () => {
   });
 
   it("the rules say it all: free entry, heart rate, before the week, skill question, 150 a day, 10%", () => {
-    const how = JSON.stringify(en.rewards.how) + en.rewards.mine.rule;
+    const how = JSON.stringify(en.rewards.how) + JSON.stringify(en.rewards.mine);
     for (const s of ["free entry", "same prize", "heart-rate", "before the week", "skill question", "150", "10%", "48 hours"])
       expect(how).toContain(s);
-    const howFr = JSON.stringify(fr.rewards.how) + fr.rewards.mine.rule;
+    const howFr = JSON.stringify(fr.rewards.how) + JSON.stringify(fr.rewards.mine);
     for (const s of [
       "inscription gratuite",
       "même prix",
@@ -177,5 +177,55 @@ describe("prize copy: Plus or the free entry, everywhere (EN and FR)", () => {
     expect(newEn).not.toMatch(/\bearn|\byield|\bwin\b|\blottery|\bluck/i);
     const newFr = JSON.stringify({ e: fr.rewards.entry, s: fr.rewards.skill, m: fr.rewards.mine });
     expect(newFr).not.toMatch(/\bvous\b|\bvotre\b|\bvos\b/i);
+  });
+});
+
+describe("prize copy: App Attest, one device per account, the pilot and its review (EN and FR)", () => {
+  it.each([
+    [
+      "en",
+      en,
+      [
+        "real iPhone or Apple Watch",
+        "App Attest",
+        "one account",
+        "wait for a review",
+        "1,000 VVAKE per person",
+        "20,000 VVAKE",
+        "first 200",
+        "waiting list",
+        "A person reviews every week",
+        "A seat in the pilot",
+        "Move Quests never count",
+        "12.5%",
+      ],
+    ],
+    [
+      "fr",
+      fr,
+      [
+        "vrai iPhone ou une vraie Apple Watch",
+        "App Attest",
+        "un seul compte",
+        "attendent une vérification",
+        "1 000 VVAKE par personne",
+        "20 000 VVAKE",
+        "200 premières personnes",
+        "liste d'attente",
+        "Une personne vérifie chaque semaine",
+        "Une place dans le pilote",
+        "Move Quests ne comptent jamais",
+        "12,5 %",
+      ],
+    ],
+  ] as const)("(%s) the rewards page says it", (_lang, d, words) => {
+    const page = JSON.stringify(d.rewards.mine) + JSON.stringify(d.rewards.how);
+    for (const w of words) expect(page).toContain(w);
+    expect(page).not.toMatch(/for now\.|pour l'instant\./);
+  });
+
+  it("the privacy notice explains the App Attest key and receipt", () => {
+    expect(JSON.stringify(en.privacy)).toContain("App Attest key identifier");
+    expect(JSON.stringify(fr.privacy)).toContain("identifiant de clé App Attest");
   });
 });

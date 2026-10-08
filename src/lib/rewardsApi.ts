@@ -54,10 +54,10 @@ const missingField = z.optional(z.catch(z.nullable(z.array(z.string())), null));
 
 /**
  * What keeps a week from counting, as the page explains it: the API sends a subset of entry, account, wallet, adult,
- * effort, skill (in that order). Weeks built before migration 0019 say "plus", which is the entry condition now.
+ * effort, skill, pilot (in that order; pilot: no seat in the capped pilot cohort, on the waiting list). Weeks built before migration 0019 say "plus", which is the entry condition now.
  * Unknown codes from a newer API fall back to "other".
  */
-export type MissingCondition = "entry" | "account" | "wallet" | "adult" | "effort" | "skill" | "other";
+export type MissingCondition = "entry" | "account" | "wallet" | "adult" | "effort" | "skill" | "pilot" | "other";
 
 export function missingConditions(codes: readonly string[] | null | undefined): MissingCondition[] {
   const out = new Set<MissingCondition>();
@@ -68,6 +68,7 @@ export function missingConditions(codes: readonly string[] | null | undefined): 
     else if (c.includes("wallet")) out.add("wallet");
     else if (/adult|\bage\b|18/.test(c)) out.add("adult");
     else if (c.includes("skill") || c.includes("question")) out.add("skill");
+    else if (c.includes("pilot") || c.includes("wait")) out.add("pilot");
     else if (/effort|session|minute|activ|heart|\bhr\b/.test(c)) out.add("effort");
     else out.add("other");
   }
