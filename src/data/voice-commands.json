@@ -1119,6 +1119,9 @@
             "Start a run on VVake",
             "Go for a run with VVake",
             "Do yoga with VVake",
+            "VVake up and yoga",
+            "VVake up and start a run",
+            "VVake up and start my workout",
             "Start a workout with VVake",
             "Start a workout on VVake",
             "Begin a workout with VVake",
@@ -1135,6 +1138,9 @@
             "Commencer une course sur VVake",
             "Je pars faire une course avec VVake",
             "Je fais une course avec VVake",
+            "VVake up et une course",
+            "VVake et une course",
+            "VVake up et lance la séance",
             "Lance une séance avec VVake",
             "Commence une séance sur VVake",
             "Démarre une séance avec VVake",
@@ -1674,8 +1680,8 @@
       }
     ],
     "phrases": {
-      "phone": 796,
-      "watch": 796,
+      "phone": 928,
+      "watch": 928,
       "max": 1000
     }
   }
