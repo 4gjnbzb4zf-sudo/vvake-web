@@ -1210,7 +1210,7 @@ export const fr: Dictionary = {
       {
         src: "phone-06-rhythm",
         title: "Rythme du jour",
-        body: "Eau, repas et sommeil autour de l'entraînement. Sans compter les calories.",
+        body: "Eau, repas et sommeil autour de l'entraînement. Sans compter les calories. Réponds directement sur le rappel, sur ton téléphone ou ta montre : Fait, Dans 15 min ou Pas cette fois.",
       },
       {
         src: "phone-07-focus",
