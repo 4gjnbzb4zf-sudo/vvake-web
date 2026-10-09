@@ -1114,22 +1114,11 @@
         "examples": {
           "en": [
             "Start yoga with VVake",
-            "Start yoga on VVake",
-            "Start yoga in VVake",
             "VVake start yoga",
             "VVake start a run",
-            "Start a run with VVake",
             "Start a run on VVake",
-            "Begin a run on VVake",
-            "Begin yoga with VVake",
             "Go for a run with VVake",
-            "Go for a run on VVake",
             "Do yoga with VVake",
-            "Track a run with VVake",
-            "Record a run on VVake",
-            "Launch yoga with VVake",
-            "Start a run workout with VVake",
-            "Track yoga in VVake",
             "Start a workout with VVake",
             "Start a workout on VVake",
             "Begin a workout with VVake",
@@ -1141,22 +1130,11 @@
           ],
           "fr": [
             "Lance une course avec VVake",
-            "Commence une course sur VVake",
-            "Lance une course sur VVake",
             "VVake lance une course",
             "VVake commence une course",
-            "Commencer une course avec VVake",
             "Commencer une course sur VVake",
-            "Démarre une course sur VVake",
-            "Démarre une course avec VVake",
             "Je pars faire une course avec VVake",
-            "Commence une course avec VVake",
             "Je fais une course avec VVake",
-            "Enregistre une course avec VVake",
-            "Démarrer une course sur VVake",
-            "Lancer une course avec VVake",
-            "Lance une séance de course avec VVake",
-            "Commence une course dans VVake",
             "Lance une séance avec VVake",
             "Commence une séance sur VVake",
             "Démarre une séance avec VVake",
@@ -1266,15 +1244,13 @@
             "Race my best with VVake",
             "VVake race my ghost",
             "VVake race my best",
-            "VVake race my best run",
-            "Race my best run with VVake"
+            "VVake race my best run"
           ],
           "fr": [
             "Bats mon record avec VVake",
             "VVake course contre mon fantôme",
             "VVake bats mon record",
-            "VVake bats mon record en course",
-            "Bats mon record en course avec VVake"
+            "VVake bats mon record en course"
           ]
         }
       },
@@ -1399,8 +1375,6 @@
         "examples": {
           "en": [
             "Ask VVake when is my next training",
-            "VVake when is my next training",
-            "Tell VVake when is my next training",
             "Ask VVake",
             "Talk to VVake",
             "VVake I have a question",
@@ -1411,8 +1385,6 @@
           ],
           "fr": [
             "Demande à VVake c’est quand ma prochaine séance",
-            "VVake c’est quand ma prochaine séance",
-            "Dis à VVake c’est quand ma prochaine séance",
             "Demande à VVake",
             "Parle à VVake",
             "VVake j’ai une question",
@@ -1702,8 +1674,8 @@
       }
     ],
     "phrases": {
-      "phone": 913,
-      "watch": 913,
+      "phone": 796,
+      "watch": 796,
       "max": 1000
     }
   }
