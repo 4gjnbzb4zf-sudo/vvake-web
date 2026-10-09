@@ -1188,7 +1188,7 @@ export const en = {
       },
       {
         title: "Zones in your own numbers",
-        body: "“Zone 2 · 112–128 bpm” from your Health profile, plus the pace or speed that should put you there, learned from your sessions. On steady days, zone-hold blocks: the coach says the beats and the pace, and tells you when you drift.",
+        body: "“Zone 2 · 112–128 bpm” from your Health profile, plus the pace or speed that should put you there, learned from your sessions. On steady days, zone blocks count down (3 minutes on a run, 4 on a walk): hold your zone 80% of the block and it earns 10% more. Set your own zones per sport if you know them.",
       },
       {
         title: "Play on: phone or watch",
@@ -1196,7 +1196,7 @@ export const en = {
       },
       {
         title: "Maps that keep up",
-        body: "Street-level maps on phone and watch, the ghost and the gap above the controls, and your watch's workout mirrored on your phone's map. Routes pass between your own watch and phone, so route ghosts work on both.",
+        body: "Street-level maps on phone and watch, the ghost and the gap above the controls, and your watch's workout on one phone screen: map, heart rate, coach and music, with your route drawn as you go. Routes pass between your own watch and phone, so route ghosts work on both.",
       },
       {
         title: "Never lose the session",

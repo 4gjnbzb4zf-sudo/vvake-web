@@ -1240,7 +1240,7 @@ export const fr: Dictionary = {
       },
       {
         title: "Des zones à tes chiffres",
-        body: "« Zone 2 · 112–128 bpm » d'après ton profil Santé, avec l'allure ou la vitesse qui devrait t'y mettre, apprise de tes séances. Les jours tranquilles, des blocs de maintien de zone : le coach dit les battements et l'allure, et te prévient quand tu dérives.",
+        body: "« Zone 2 · 112–128 bpm » d'après ton profil Santé, avec l'allure ou la vitesse qui devrait t'y mettre, apprise de tes séances. Les jours tranquilles, des blocs de zone à rebours (3 minutes en course, 4 en marche) : tiens ta zone 80 % du bloc et il rapporte 10 % de plus. Règle tes propres zones par sport si tu les connais.",
       },
       {
         title: "Écouter sur : téléphone ou montre",
@@ -1248,7 +1248,7 @@ export const fr: Dictionary = {
       },
       {
         title: "Des cartes qui suivent",
-        body: "Cartes au niveau de la rue sur le téléphone et la montre, le fantôme et l'écart au-dessus des commandes, et la séance de ta montre en miroir sur la carte de ton téléphone. Les parcours passent entre ta montre et ton téléphone : les fantômes de parcours marchent sur les deux.",
+        body: "Cartes au niveau de la rue sur le téléphone et la montre, le fantôme et l'écart au-dessus des commandes, et la séance de ta montre sur un seul écran du téléphone : carte, cardio, coach et musique, avec ton parcours tracé au fil de la séance. Les parcours passent entre ta montre et ton téléphone : les fantômes de parcours marchent sur les deux.",
       },
       {
         title: "Tu ne perds jamais la séance",
