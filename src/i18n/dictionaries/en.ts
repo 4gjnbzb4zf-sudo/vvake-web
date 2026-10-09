@@ -556,7 +556,8 @@ export const en = {
       points: [
         "Rival points: 100 to start, +5 for each finished friend challenge you moved in (25 a day at most).",
         "An optional stake on a challenge sent straight to a friend: 10, 25 or 50 rival points each. The winner takes both; a draw, a decline, an expiry or a cancel gives each side theirs back. Accepting a stake is always its own explicit tap.",
-        "Spend them on VVaker effects: auras, trails, lightning, an outline, confetti, a crown, from 50 to 400 rival points. Looks only: no score, no chance, no reward changes. Fixed prices, no random boxes.",
+        "Good habits earn them too: each evening your water, meals and bedtime make a score out of 100; a good day earns 10 points (15 when perfect), a lighter one takes 5, never below zero. Good days in a row make your habit streak, with trophies you can only earn, never buy.",
+        "Spend them on VVaker effects: auras, trails, lightning, an outline, confetti, a crown, from 200 to 6,000 points. The rarest also ask for 14 to 100 good habit days in a row, and the Legend aura is earned only: 365 days. Looks only: no score, no chance, no reward changes. Fixed prices, no random boxes.",
       ],
       note: "Rival points have no money value. They can't be bought, sold, sent to anyone or turned into VV points, $VVAKE or prizes. They are separate from prizes and play no part in them.",
     },

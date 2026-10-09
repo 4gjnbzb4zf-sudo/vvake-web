@@ -560,7 +560,8 @@ export const fr: Dictionary = {
       points: [
         "Points de rival : 100 pour commencer, +5 par défi entre amis terminé où tu as bougé (25 par jour au plus).",
         "Une mise facultative sur un défi envoyé directement à un ami : 10, 25 ou 50 points de rival chacun. Le gagnant prend les deux ; un nul, un refus, une expiration ou une annulation rend sa mise à chacun. Accepter une mise demande toujours un geste explicite.",
-        "Dépense-les en effets VVaker : auras, traînées, éclairs, contour, confettis, couronne, de 50 à 400 points de rival. Purement visuels : ni score, ni chance, ni récompense changés. Prix fixes, pas de boîtes surprises.",
+        "Les bonnes habitudes en rapportent aussi : chaque soir, ton eau, tes repas et ton coucher donnent un score sur 100 ; une bonne journée rapporte 10 points (15 si elle est parfaite), une plus légère en retire 5, jamais sous zéro. Les bonnes journées d’affilée font ta série d’habitudes, avec des trophées qu’on ne peut que mériter, jamais acheter.",
+        "Dépense-les en effets VVaker : auras, traînées, éclairs, contour, confettis, couronne, de 200 à 6 000 points. Les plus rares demandent aussi de 14 à 100 bonnes journées d’habitudes d’affilée, et l’Aura de légende se mérite seulement : 365 jours. Purement visuels : ni score, ni chance, ni récompense changés. Prix fixes, pas de boîtes surprises.",
       ],
       note: "Les points de rival n'ont aucune valeur en argent. Ils ne s'achètent pas, ne se vendent pas, ne s'envoient à personne et ne se convertissent ni en points VV, ni en $VVAKE, ni en prix. Ils sont séparés des prix et n'y jouent aucun rôle.",
     },
