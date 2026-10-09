@@ -1159,11 +1159,15 @@ export const en = {
         title: "Your plan",
         body: "Fits your week and your body: heart-rate targets from the health data you share.",
       },
-      { src: "phone-05-race", title: "Race your best", body: "Your past self as a ghost on the map, seconds ahead or behind." },
+      {
+        src: "phone-05-live",
+        title: "Live, on one screen",
+        body: "Your heart, the map with your route, a zone block counting down, the coach's mic and your music. Race your best and your past self runs there too.",
+      },
       {
         src: "phone-06-rhythm",
         title: "Daily rhythm",
-        body: "Water, meals and sleep around your training. No calorie counting. Answer right on the reminder, on your phone or watch: Done, In 15 min or Not this time.",
+        body: "Water, meals and sleep around your training. No calorie counting. Answer right on the reminder, on your phone or watch: Done, In 15 min or Not this time. A daily habit score, points and trophies.",
       },
       { src: "phone-07-focus", title: "Focus lock", body: "For builders: after a long desk stretch, your Mac locks until you move." },
       { src: "phone-08-health", title: "Your health data", body: "Share only what you want, field by field. Never sold." },

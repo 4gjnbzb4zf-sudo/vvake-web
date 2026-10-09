@@ -1204,14 +1204,14 @@ export const fr: Dictionary = {
         body: "Calé sur ta semaine et ton corps : zones cardio à partir des données santé que tu partages.",
       },
       {
-        src: "phone-05-race",
-        title: "Bats ton record",
-        body: "Ton toi d'avant en fantôme sur la carte, en avance ou en retard à la seconde.",
+        src: "phone-05-live",
+        title: "En direct, sur un seul écran",
+        body: "Ton cœur, la carte avec ton parcours, un bloc de zone à rebours, le micro du coach et ta musique. Bats ton record et ton toi d'avant court là aussi.",
       },
       {
         src: "phone-06-rhythm",
         title: "Rythme du jour",
-        body: "Eau, repas et sommeil autour de l'entraînement. Sans compter les calories. Réponds directement sur le rappel, sur ton téléphone ou ta montre : Fait, Dans 15 min ou Pas cette fois.",
+        body: "Eau, repas et sommeil autour de l'entraînement. Sans compter les calories. Réponds directement sur le rappel, sur ton téléphone ou ta montre : Fait, Dans 15 min ou Pas cette fois. Un score d’habitudes chaque jour, des points et des trophées.",
       },
       {
         src: "phone-07-focus",
