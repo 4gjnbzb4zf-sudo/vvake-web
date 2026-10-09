@@ -881,6 +881,11 @@ export const fr: Dictionary = {
         body: "Des plans de 12 semaines qui s'adaptent à ton sommeil et à ta récupération, avec des blocs de préparation de course.",
       },
       {
+        icon: "📞",
+        title: "Ton coach t'appelle",
+        body: "Un court appel quand ça compte : ton plan a changé, ta série d'habitudes est en jeu ce soir, ou un nouveau record. Aussi souvent que tu veux, jamais la nuit, désactivé par défaut.",
+      },
+      {
         icon: "📅",
         title: "Replanification auto",
         body: "Nouvelle réunion ? Ta séance se déplace toute seule sur ton prochain créneau libre.",
@@ -2703,6 +2708,7 @@ export const fr: Dictionary = {
             t: "Listes hebdomadaires des prix :",
             d: "publiques et permanentes une fois publiées et inscrites sur la blockchain (voir Prix $VVAKE et votre portefeuille). Notre copie garde l'adresse, les points et le montant, sans votre compte une fois celui-ci supprimé.",
           },
+          { t: "Appels du coach (Plus, si tu les actives) :", d: "le texte, l'audio et l'état de chaque appel pendant 90 jours, puis supprimés ; tout de suite avec ton compte." },
           { t: "Codes de jumelage de Claude Code :", d: "10 minutes." },
           { t: "Comptes invités :", d: "supprimés automatiquement après 90 jours sans utilisation." },
           {

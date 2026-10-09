@@ -860,6 +860,7 @@ export const en = {
     cta: "Get notified at launch",
     perks: [
       { icon: "🧠", title: "Adaptive coach", body: "12-week plans that adapt to your sleep and recovery, with race-prep blocks." },
+      { icon: "📞", title: "Your coach calls you", body: "A short call when it matters: your plan changed, your habit streak is at risk tonight, or a new best. As often as you like it, never at night, off by default." },
       { icon: "📅", title: "Auto-reschedule", body: "New meeting? Your session moves itself to your next free slot." },
       { icon: "👥", title: "Host big", body: "Crews up to 50 people, 10 recurring events and your crew banner." },
       { icon: "🎯", title: "Challenge Maker", body: "Create custom challenges for your crew or city. Always free to join." },
@@ -2542,6 +2543,7 @@ export const en = {
             t: "Weekly prize lists:",
             d: "public and permanent once published and on chain (see $VVAKE prizes and your wallet). Our copy keeps the address, points and amount, without your account once you delete it.",
           },
+          { t: "Coach calls (Plus, if you turn them on):", d: "each call's script, audio and status for 90 days, then deleted; with your account at once." },
           { t: "Claude Code pairing codes:", d: "10 minutes." },
           { t: "Guest accounts:", d: "deleted automatically after 90 days without use." },
           {
