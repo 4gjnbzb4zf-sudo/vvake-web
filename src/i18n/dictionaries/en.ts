@@ -106,7 +106,7 @@ export const en = {
         icon: "📖",
         kicker: "Roadmap & Funding",
         title: "Open books, open plan",
-        body: "How each fee is split, $VVAKE and how to own a piece (planned).",
+        body: "How each fee is split, and what $VVAKE is (testnet, nothing to buy).",
         cta: "See the plan",
         page: "backers/",
       },
@@ -236,7 +236,7 @@ export const en = {
     backers: {
       kicker: "Roadmap & Funding",
       title: "Open books. Real assets. Fees only.",
-      lead: "Why we build on Robinhood Chain, how each fee is split, and how to own a piece of VVake (planned).",
+      lead: "Why we build on Robinhood Chain and how each fee is split. Nothing here is for sale.",
     },
   },
   og: {
@@ -267,13 +267,13 @@ export const en = {
       {
         tag: "RWA × Robinhood Chain",
         title: "Real-world assets, on Robinhood Chain.",
-        body: "Planned on Robinhood Chain, where tokenized stocks already live: public fee splits, season rewards on-chain and sport pairing with Robinhood stock tokens (where legal).",
+        body: "Planned on Robinhood Chain, where tokenized stocks already live: public fee splits and season rewards on-chain. Pairing your sports with stock tokens would go through a licensed broker, where legal (no agreement signed yet).",
         cta: "How it works",
       },
       {
         tag: "Sweat & Invest",
         title: "Train & invest, paired.",
-        body: "Every sport pairs with a stock: run → NKE, yoga → LULU. Each session can invest {money} of your own money in its pair, with Robinhood (planned).",
+        body: "Every sport pairs with a stock: run → NKE, yoga → LULU. Planned: each session could put {money} of your own money into its pair, at a licensed broker, within your budget.",
         cta: "Build your Pulse",
       },
     ],
@@ -281,13 +281,13 @@ export const en = {
   healthWealth: {
     kicker: "Health × Wealth",
     title: "Your health and your wealth, better together.",
-    body: "Every workout makes you stronger and, if you choose, puts a little of your own money to work in the brands you love, within a budget you set. Two good habits that feed each other: move more, build more.",
+    body: "Every workout makes you stronger and, if you choose, puts a little of your own money into the brands you love, within a budget you set, at a licensed broker. Two habits that go together: move more, and invest only what you can afford.",
     fitness: "Fitness",
     invested: "Invested (your contributions)",
     stats: [
       { value: "+1", label: "session: stronger heart, better sleep, calmer mind" },
       { value: "{money}", label: "per session, into a brand you pick, with a licensed partner" },
-      { value: "1 habit", label: "two wins that grow week after week" },
+      { value: "1 habit", label: "moving and saving, week after week" },
     ],
     disclaimer:
       "Invested shows your own contributions, not investment returns. Investments can go down as well as up. Optional, where available, not financial advice.",
@@ -444,7 +444,7 @@ export const en = {
   vibe: {
     kicker: "VV × v/v",
     title: "Two Vs. One vibe.",
-    body: "VVake's double V is our W: wellness, wealth, win. vibe/vibe's v/v is a launchpad on Robinhood Chain where products meet their community. Same double-V energy, and it's where our future web3 layer is planned to launch.",
+    body: "VVake's double V is our W: wellness, wealth, win. vibe/vibe's v/v is a launchpad on Robinhood Chain where products meet their community. Same double-V energy, and where a future web3 layer could launch, only after legal review.",
     link: "Visit the vibe/vibe launchpad",
     note: "Testnet today. Nothing to buy, no token offered on this site.",
     disclaimer:
@@ -742,14 +742,14 @@ export const en = {
       {
         icon: "📈",
         when: 2,
-        title: "Stocks for winners, investing for you",
-        body: "Where it's legal, a licensed broker may reward challenge winners with fractional shares (a non-financial prize is always available). And Sweat & Invest lets you auto-invest your own money after each workout.",
+        title: "Investing for you, the regulated way",
+        body: "Planned, with no partner signed yet: Sweat & Invest would let you auto-invest your own money after each workout at a licensed broker, and a broker could offer fractional shares as a challenge prize where legal (a non-financial prize always available).",
       },
       {
         icon: "🏛️",
         when: 3,
-        title: "Own a piece of VVake",
-        body: "A community equity round through a licensed crowdfunding platform: real shares, real disclosures.",
+        title: "Community, not speculation",
+        body: "No token sale, no presale, no shares on offer. If the company ever raises money from its community, it would only be through a licensed platform, where the law allows, with full disclosures.",
       },
     ],
     investors: {
@@ -1557,17 +1557,17 @@ export const en = {
       ],
     },
     wealth: {
-      title: "Build wealth, the regulated way",
-      body: "Tokens and collectibles are never sold as investments. If you want your fitness habit to feed a wealth habit, here's how we'll do it, with licensed partners:",
+      title: "Investing, only the regulated way",
+      body: "Tokens and collectibles are never sold as investments. If you want your fitness habit to go with a saving habit, this is how it could work, only with licensed partners (none signed yet):",
       items: [
         {
           title: "Sweat & Invest",
           body: "Every sport pairs with an asset you choose, like the brand of your running shoes. Set a rule at your broker (Robinhood planned, or another licensed broker; crypto via a regulated provider): “{money} for every workout”. Your money, your account; VVake only sends the verified-workout count, with your consent.",
         },
-        { title: "Stock rewards", body: "Broker partners may reward fitness-challenge winners with fractional shares, where it's legal." },
+        { title: "Stock prizes", body: "A licensed broker could offer fractional shares as a challenge prize, where it's legal (planned, no partner yet)." },
         {
-          title: "Own a piece of VVake",
-          body: "When we raise, fans will be able to invest in the company itself through a regulated equity crowdfunding round: real shares, real disclosures.",
+          title: "No shares on offer",
+          body: "VVake isn't raising money from the public. If that ever changes, it would only be through a licensed crowdfunding platform, where the law allows, with full disclosures. Nothing here is an offer.",
         },
       ],
       note: "Planned, subject to partner agreements and legal approval in each country. Investing involves risk, including loss of capital. Nothing here is investment advice.",

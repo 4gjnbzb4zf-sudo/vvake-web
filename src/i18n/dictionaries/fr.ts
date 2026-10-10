@@ -104,7 +104,7 @@ export const fr: Dictionary = {
         icon: "📖",
         kicker: "Feuille de route et financement",
         title: "Comptes ouverts, plan ouvert",
-        body: "Comment chaque frais est réparti, $VVAKE et comment détenir une part (prévu).",
+        body: "Comment chaque frais est réparti, et ce qu'est $VVAKE (testnet, rien à acheter).",
         cta: "Voir le plan",
         page: "backers/",
       },
@@ -234,7 +234,7 @@ export const fr: Dictionary = {
     backers: {
       kicker: "Feuille de route et financement",
       title: "Comptes ouverts. Actifs réels. Frais uniquement.",
-      lead: "Pourquoi on construit sur Robinhood Chain, comment chaque frais est réparti, et comment détenir une part de VVake (prévu).",
+      lead: "Pourquoi on construit sur Robinhood Chain et comment chaque frais est réparti. Rien n'est à vendre ici.",
     },
   },
   og: {
@@ -265,13 +265,13 @@ export const fr: Dictionary = {
       {
         tag: "RWA × Robinhood Chain",
         title: "Les actifs réels, sur Robinhood Chain.",
-        body: "Prévu sur Robinhood Chain, là où vivent déjà les actions tokenisées : des répartitions publiques des frais, des récompenses de saison on-chain et le duo sport-action avec les actions tokenisées Robinhood (selon le pays).",
+        body: "Prévu sur Robinhood Chain, là où vivent déjà les actions tokenisées : des répartitions publiques des frais et des récompenses de saison on-chain. Le duo sport-action passerait par un courtier agréé, selon le pays (aucun accord signé pour l'instant).",
         cta: "Comment ça marche",
       },
       {
         tag: "Sweat & Invest",
         title: "S'entraîner & investir, en duo.",
-        body: "Chaque sport fait duo avec une action : course → NKE, yoga → LULU. Chaque séance peut investir {money} de ton propre argent dans son duo, avec Robinhood (prévu).",
+        body: "Chaque sport fait duo avec une action : course → NKE, yoga → LULU. Prévu : chaque séance pourrait placer {money} de ton propre argent dans son duo, chez un courtier agréé, dans ton budget.",
         cta: "Crée ton Pulse",
       },
     ],
@@ -279,13 +279,13 @@ export const fr: Dictionary = {
   healthWealth: {
     kicker: "Santé × Richesse",
     title: "Ta santé et ta richesse, meilleures ensemble.",
-    body: "Chaque séance te rend plus fort et, si tu le veux, fait travailler un peu de ton propre argent dans les marques que tu aimes, dans un budget que tu fixes. Deux bonnes habitudes qui se nourrissent : bouge plus, construis plus.",
+    body: "Chaque séance te rend plus fort et, si tu le veux, fait travailler un peu de ton propre argent dans les marques que tu aimes, dans un budget que tu fixes, chez un courtier agréé. Deux habitudes qui vont ensemble : bouger plus, et n'investir que ce que tu peux te permettre.",
     fitness: "Forme",
     invested: "Investi (tes versements)",
     stats: [
       { value: "+1", label: "séance : cœur plus fort, meilleur sommeil, esprit plus calme" },
       { value: "{money}", label: "par séance, dans une marque que tu choisis, via un partenaire agréé" },
-      { value: "1 habitude", label: "deux victoires qui grandissent semaine après semaine" },
+      { value: "1 habitude", label: "bouger et épargner, semaine après semaine" },
     ],
     disclaimer:
       "« Investi » montre tes propres versements, pas des rendements. Un investissement peut baisser comme monter. Optionnel, selon le pays, pas un conseil financier.",
@@ -443,7 +443,7 @@ export const fr: Dictionary = {
   vibe: {
     kicker: "VV × v/v",
     title: "Deux V. Une vibe.",
-    body: "Le double V de VVake, c'est notre W : bien-être, richesse, victoire. Le v/v de vibe/vibe, c'est un launchpad sur Robinhood Chain où les produits rencontrent leur communauté. La même énergie double V, et c'est là que notre future couche web3 est prévue.",
+    body: "Le double V de VVake, c'est notre W : bien-être, richesse, victoire. Le v/v de vibe/vibe, c'est un launchpad sur Robinhood Chain où les produits rencontrent leur communauté. La même énergie double V, et c'est là qu'une future couche web3 pourrait voir le jour, seulement après une revue juridique.",
     link: "Découvrir le launchpad vibe/vibe",
     note: "Testnet aujourd'hui. Rien à acheter, aucun token proposé sur ce site.",
     disclaimer:
@@ -757,14 +757,14 @@ export const fr: Dictionary = {
       {
         icon: "📈",
         when: 2,
-        title: "Des actions pour les gagnants, l'investissement pour toi",
-        body: "Là où c'est légal, un courtier agréé pourra récompenser les gagnants de défis avec des fractions d'actions (un lot non financier est toujours proposé). Et Sweat & Invest te permet d'investir automatiquement ton propre argent après chaque séance.",
+        title: "Investir pour toi, dans les règles",
+        body: "Prévu, sans partenaire signé pour l'instant : Sweat & Invest te permettrait d'investir automatiquement ton propre argent après chaque séance chez un courtier agréé, et un courtier pourrait offrir des fractions d'actions en lot de défi là où c'est légal (un lot non financier toujours proposé).",
       },
       {
         icon: "🏛️",
         when: 3,
-        title: "Une part de VVake",
-        body: "Une levée de fonds communautaire via une plateforme de financement participatif agréée : de vraies actions, de vraies informations.",
+        title: "Communauté, pas spéculation",
+        body: "Pas de vente de token, pas de prévente, aucune action proposée. Si l'entreprise levait un jour des fonds auprès de sa communauté, ce serait uniquement via une plateforme agréée, là où la loi le permet, avec toutes les informations.",
       },
     ],
     investors: {
@@ -1636,20 +1636,20 @@ export const fr: Dictionary = {
       ],
     },
     wealth: {
-      title: "Construire son patrimoine, dans les règles",
-      body: "Les tokens et objets de collection ne sont jamais vendus comme des investissements. Si tu veux que ton habitude sportive nourrisse une habitude d'épargne, voici comment on le fera, avec des partenaires agréés :",
+      title: "Investir, uniquement dans les règles",
+      body: "Les tokens et objets de collection ne sont jamais vendus comme des investissements. Si tu veux que ton habitude sportive aille avec une habitude d'épargne, voici comment ça pourrait marcher, uniquement avec des partenaires agréés (aucun signé pour l'instant) :",
       items: [
         {
           title: "Sweat & Invest",
           body: "Chaque sport fait duo avec un actif que tu choisis, comme la marque de tes chaussures de running. Crée une règle chez ton courtier (Robinhood prévu, ou un autre courtier agréé ; crypto via un prestataire réglementé) : « {money} à chaque séance ». Ton argent, ton compte ; VVake envoie seulement le nombre de séances vérifiées, avec ton accord.",
         },
         {
-          title: "Récompenses en actions",
-          body: "Des courtiers partenaires pourront récompenser les gagnants de défis avec des fractions d'actions, là où c'est légal.",
+          title: "Lots en actions",
+          body: "Un courtier agréé pourrait offrir des fractions d'actions en lot de défi, là où c'est légal (prévu, aucun partenaire pour l'instant).",
         },
         {
-          title: "Devenir actionnaire de VVake",
-          body: "Lors d'une levée, les fans pourront investir dans l'entreprise elle-même via une campagne de financement participatif en capital réglementée : de vraies actions, de vraies informations.",
+          title: "Aucune action proposée",
+          body: "VVake ne lève pas d'argent auprès du public. Si ça changeait un jour, ce serait uniquement via une plateforme de financement participatif agréée, là où la loi le permet, avec toutes les informations. Rien ici n'est une offre.",
         },
       ],
       note: "Prévu, sous réserve d'accords avec des partenaires et d'autorisations légales dans chaque pays. Investir comporte des risques, dont la perte en capital. Rien ici n'est un conseil en investissement.",

@@ -102,3 +102,20 @@ keys or funds because of a VVake page.
 - Legal review per launch country (securities, money transmission, contests / sweepstakes, consumer protection, tax)
   and an external audit of the contracts, before $VVAKE prizes have any mainnet value. Not offered in the US or UK at
   launch (ADR-0020) until that review says otherwise.
+
+## Before the token and investing are cleared (2026-10-10)
+
+Hype the game and the transparency, never the token's value.
+
+- **Allowed:** the live game (ghost races, crews, City Clash, coach calls, habits, trophies), the waitlist race per
+  city, build-in-public facts (verified contracts, audit, fee-only charter, the treasury address, the reward rules'
+  code), the testnet demo ("testnet, no value"), status without cash value (founder badges, City Founder ranks, early
+  looks), "built on Robinhood Chain".
+- **Never:** price, "going up", "early = rich", x10/x100, returns, yield, APY, guaranteed listings, launch-date
+  countdowns tied to price, "points now = tokens later" (an implied airdrop), presale or token sale, paid posts without
+  a clear #ad, "Robinhood's fitness token" or any wording implying Robinhood endorses or partners with VVake.
+- **Equity:** never announce a share offering or say fans "will be able to invest". If a raise ever happens it goes
+  through a licensed platform with its own required wording.
+- **Planned partners:** any mention of a broker or partner says "planned" and "no agreement signed yet" until a
+  contract exists.
+- **EU:** no marketing of $VVAKE to the public before a MiCA white paper is published (counsel to confirm).
