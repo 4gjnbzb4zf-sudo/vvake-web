@@ -78,39 +78,69 @@ export function Faq({ locale, dict }: { locale: Locale; dict: Dictionary["faq"] 
 
 export function Footer({ locale, dict }: { locale: Locale; dict: Dictionary["footer"] }) {
   const year = new Date().getFullYear();
+  const page = (path: string) => `/${locale}/${path}`;
+  // Less visited pages live here, grouped: the header keeps the main sections.
+  const columns: { title: string; links: { label: string; href: string; external?: boolean }[] }[] = [
+    {
+      title: dict.groups.product,
+      links: [
+        { label: dict.app, href: page("app/") },
+        { label: dict.vvaker, href: page("vvaker/") },
+        { label: dict.plus, href: page("plus/") },
+        { label: dict.voice, href: page("voice/") },
+      ],
+    },
+    {
+      title: dict.groups.community,
+      links: [
+        { label: dict.rewards, href: page("rewards/") },
+        { label: dict.backers, href: page("backers/") },
+        { label: dict.partners, href: sectionHref(locale, "partners") },
+      ],
+    },
+    {
+      title: dict.groups.updates,
+      links: [
+        { label: dict.releases, href: page("releases/") },
+        { label: dict.follow, href: siteConfig.social.x, external: true },
+        { label: dict.contact, href: `mailto:${siteConfig.contactEmail}` },
+      ],
+    },
+    {
+      title: dict.groups.legal,
+      links: [
+        { label: dict.privacy, href: page("privacy/") },
+        { label: dict.safety, href: page("terms/") },
+      ],
+    },
+  ];
   return (
     <footer className="border-t border-line/60 py-14">
       <Container>
-        <div className="flex flex-col justify-between gap-8 sm:flex-row sm:items-center">
+        <div className="flex flex-col justify-between gap-10 lg:flex-row">
           <div>
             <AccountLogo />
             <p className="mt-3 font-display text-sm text-muted">{dict.tagline}</p>
           </div>
-          <nav aria-label="Footer" className="flex flex-wrap gap-6 text-sm text-muted">
-            <a href={`/${locale}/privacy/`} className="hover:text-text">
-              {dict.privacy}
-            </a>
-            <a href={`/${locale}/terms/`} className="hover:text-text">
-              {dict.safety}
-            </a>
-            <a href={`/${locale}/rewards/`} className="hover:text-text">
-              {dict.rewards}
-            </a>
-            <a href={`/${locale}/plus/`} className="hover:text-text">
-              {dict.plus}
-            </a>
-            <a href={sectionHref(locale, "partners")} className="hover:text-text">
-              {dict.partners}
-            </a>
-            <a href={`/${locale}/releases/`} className="hover:text-text">
-              {dict.releases}
-            </a>
-            <a href={`mailto:${siteConfig.contactEmail}`} className="hover:text-text">
-              {dict.contact}
-            </a>
-            <a href={siteConfig.social.x} target="_blank" rel="noopener noreferrer" className="hover:text-text">
-              X {siteConfig.social.xHandle}
-            </a>
+          <nav aria-label="Footer" className="grid grid-cols-2 gap-x-10 gap-y-8 text-sm sm:grid-cols-4">
+            {columns.map((col) => (
+              <div key={col.title}>
+                <p className="font-display text-xs tracking-wider text-faint uppercase">{col.title}</p>
+                <ul className="mt-3 space-y-2 text-muted">
+                  {col.links.map((l) => (
+                    <li key={l.href}>
+                      <a
+                        href={l.href}
+                        className="hover:text-text"
+                        {...(l.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+                      >
+                        {l.label}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
           </nav>
         </div>
         <p className="mt-10 max-w-4xl text-xs leading-relaxed text-faint">{dict.legal}</p>
