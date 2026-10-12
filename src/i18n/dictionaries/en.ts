@@ -2138,6 +2138,7 @@ export const en = {
     safety: "Health & safety",
     rewards: "$VVAKE prizes",
     partners: "Partners",
+    releases: "What's new",
     contact: "Contact",
     rights: "All rights reserved.",
   },

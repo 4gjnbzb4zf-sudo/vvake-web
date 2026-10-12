@@ -2291,6 +2291,7 @@ export const fr: Dictionary = {
     safety: "Santé et sécurité",
     rewards: "Prix $VVAKE",
     partners: "Partenaires",
+    releases: "Nouveautés",
     contact: "Contact",
     rights: "Tous droits réservés.",
   },
