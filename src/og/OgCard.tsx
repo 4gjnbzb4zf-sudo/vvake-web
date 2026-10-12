@@ -10,6 +10,7 @@ export function OgCard({
   challenge,
   invite,
   dare,
+  moment,
 }: {
   dict: Dictionary;
   cast?: string[];
@@ -17,15 +18,19 @@ export function OgCard({
   invite?: boolean;
   /** The "Beat me in 24 h" card of challenge links (/[lang]/c/). */
   dare?: boolean;
+  /** A moment share page's card (/[lang]/m/<kind>/): its own kicker, title and dare line. */
+  moment?: { kicker: string; title: string; cta: string };
 }) {
   // `invite`: the "Join me on VVake" card of invite links (/[lang]/r/), the same for every code.
-  const c = dare
-    ? { kicker: dict.challenge.ogKicker, title: dict.challenge.ogTitle, cta: dict.challenge.ogLine }
-    : invite
-      ? { kicker: dict.referral.ogKicker, title: dict.referral.ogTitle, cta: dict.referral.ogLine }
-      : challenge === undefined
-        ? undefined
-        : dict.og.challenges[challenge % dict.og.challenges.length]!;
+  const c = moment
+    ? moment
+    : dare
+      ? { kicker: dict.challenge.ogKicker, title: dict.challenge.ogTitle, cta: dict.challenge.ogLine }
+      : invite
+        ? { kicker: dict.referral.ogKicker, title: dict.referral.ogTitle, cta: dict.referral.ogLine }
+        : challenge === undefined
+          ? undefined
+          : dict.og.challenges[challenge % dict.og.challenges.length]!;
   return (
     <div
       style={{
@@ -71,6 +76,8 @@ export function OgCard({
               border: "2px solid rgba(204,255,0,0.45)",
               background: "rgba(23,26,29,0.92)",
               color: "#e6e9eb",
+              // Moment cards: kept clear of the duo on the right (long French titles wrap instead).
+              ...(moment ? { maxWidth: 620 } : {}),
             }}
           >
             <span style={{ fontSize: 22, color: "#ccff00", letterSpacing: 2 }}>{c.kicker.toUpperCase()}</span>

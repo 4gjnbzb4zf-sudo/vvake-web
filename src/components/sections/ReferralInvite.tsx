@@ -15,8 +15,17 @@ export function ReferralInvite({
   appScheme,
   joinHref,
   origin,
+  heading,
+  about,
+  codeOptional = false,
 }: {
   dict: Dictionary["referral"];
+  /** The headline instead of "A friend invited you" (moment pages, /[lang]/m/<kind>/). */
+  heading?: string;
+  /** The line under the headline instead of the referral one. */
+  about?: string;
+  /** A moment page works without a code: no "incomplete link" message then. */
+  codeOptional?: boolean;
   appScheme: string;
   joinHref: string;
   /** The site's origin, for the invite link shared on X (vvake.com/r/<code>). */
@@ -44,11 +53,11 @@ export function ReferralInvite({
   return (
     <div className="rounded-3xl border border-line bg-surface/60 p-6 text-center sm:p-10">
       <LogoMark className="mx-auto h-14 text-text" />
-      <h1 className="mt-6 font-display text-3xl leading-tight font-semibold sm:text-4xl">{dict.title}</h1>
-      <p className="mx-auto mt-4 max-w-md leading-relaxed text-muted">{dict.about}</p>
+      <h1 className="mt-6 font-display text-3xl leading-tight font-semibold sm:text-4xl">{heading ?? dict.title}</h1>
+      <p className="mx-auto mt-4 max-w-md leading-relaxed text-muted">{about ?? dict.about}</p>
 
       <div aria-live="polite" className="mt-6 min-h-14">
-        {state.kind === "invalid" && <p className="text-muted">{dict.invalid}</p>}
+        {state.kind === "invalid" && !codeOptional && <p className="text-muted">{dict.invalid}</p>}
         {state.kind === "ready" && (
           <>
             <p className="font-mono text-xs tracking-[0.16em] text-faint uppercase">{dict.code}</p>
@@ -61,7 +70,9 @@ export function ReferralInvite({
       </div>
 
       {state.kind === "ready" && <p className="mx-auto mt-6 max-w-md leading-relaxed text-text">{dict.steps}</p>}
-      <p className="mx-auto mt-4 max-w-md text-sm leading-relaxed text-muted">{dict.bonus}</p>
+      {(!codeOptional || state.kind === "ready") && (
+        <p className="mx-auto mt-4 max-w-md text-sm leading-relaxed text-muted">{dict.bonus}</p>
+      )}
 
       <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
         {state.kind === "ready" && (

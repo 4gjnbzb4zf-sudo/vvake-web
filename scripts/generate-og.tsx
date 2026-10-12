@@ -10,6 +10,7 @@ import { locales } from "../src/i18n/config";
 import { getDictionary } from "../src/i18n/dictionaries";
 import { OG_SIZE, OgCard } from "../src/og/OgCard";
 import { SHARE_VARIANTS } from "../src/lib/referral";
+import { MOMENT_CAST, MOMENT_KINDS } from "../src/lib/moments";
 
 /** A cast image as a PNG data URI (satori can't read WebP), trimmed to the character. */
 async function castPng(id: string): Promise<string> {
@@ -35,7 +36,7 @@ async function main() {
     ["boxer-f", "roller"],
   ];
   const png = new Map<string, string>();
-  for (const id of new Set(duos.flat())) png.set(id, await castPng(id));
+  for (const id of new Set([...duos.flat(), ...Object.values(MOMENT_CAST).flat()])) png.set(id, await castPng(id));
   for (const locale of locales) {
     const dict = getDictionary(locale);
     const render = async (file: string, cast: string[], challenge?: number, invite?: boolean, dare?: boolean) => {
@@ -61,6 +62,19 @@ async function main() {
       false,
       true,
     );
+    // Moment share pages (/[lang]/m/<kind>/): a card per kind, each with its own duo and line.
+    for (const kind of MOMENT_KINDS) {
+      const m = dict.moments.kinds[kind];
+      const image = new ImageResponse(
+        <OgCard
+          dict={dict}
+          cast={MOMENT_CAST[kind].map((id) => png.get(id)!)}
+          moment={{ kicker: m.ogKicker, title: m.ogTitle, cta: m.ogLine }}
+        />,
+        OG_SIZE,
+      );
+      await writeFile(join(outDir, `${locale}-m-${kind}.png`), Buffer.from(await image.arrayBuffer()));
+    }
     for (let n = 1; n <= SHARE_VARIANTS; n++) {
       // Alternate who stands first (and taller) so neither the woman nor the man always leads.
       const duo = n % 2 === 0 ? [...duos[n - 1]!].reverse() : duos[n - 1]!;
@@ -70,7 +84,7 @@ async function main() {
         n - 1,
       );
     }
-    console.log(`og: public/og/${locale}.png + ${SHARE_VARIANTS} share variants + join and challenge cards`);
+    console.log(`og: public/og/${locale}.png + ${SHARE_VARIANTS} share variants + join, challenge and ${MOMENT_KINDS.length} moment cards`);
   }
 }
 

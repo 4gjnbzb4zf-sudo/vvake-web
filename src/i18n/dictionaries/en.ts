@@ -860,7 +860,11 @@ export const en = {
     cta: "Get notified at launch",
     perks: [
       { icon: "🧠", title: "Adaptive coach", body: "12-week plans that adapt to your sleep and recovery, with race-prep blocks." },
-      { icon: "📞", title: "Your coach calls you", body: "A short call when it matters: your plan changed, your habit streak is at risk tonight, or a new best. As often as you like it, never at night, off by default." },
+      {
+        icon: "📞",
+        title: "Your coach calls you",
+        body: "A short call when it matters: your plan changed, your habit streak is at risk tonight, or a new best. As often as you like it, never at night, off by default.",
+      },
       { icon: "📅", title: "Auto-reschedule", body: "New meeting? Your session moves itself to your next free slot." },
       { icon: "👥", title: "Host big", body: "Crews up to 50 people, 10 recurring events and your crew banner." },
       { icon: "🎯", title: "Challenge Maker", body: "Create custom challenges for your crew or city. Always free to join." },
@@ -1000,7 +1004,7 @@ export const en = {
   journal: {
     kicker: "Your journal",
     title: "Every run, meetup and win. One swipe away.",
-    body: "Your history is the best motivation there is. VVake keeps every workout, crew meetup, challenge and clash in a journal that's fun to scroll, with your records and memories surfaced for you. Tap a session for its full review: the route, your heart rate and zones, splits in km or miles, the points and why. Then race it again, dare a friend to beat it, or share it on X, no sign-in needed. Outdoor routes are backed up to your account end-to-end encrypted (VVake can't read them), so your maps come back on a new iPhone, and iPhone sessions can be saved to Apple Health too.",
+    body: "Your history is the best motivation there is. VVake keeps every workout, crew meetup, challenge and clash in a journal that's fun to scroll, with your records and memories surfaced for you. Tap a session for its full review: the route, your heart rate and zones, splits in km or miles, the points and why. Then race it again, dare a friend to beat it, or share it on X, no sign-in needed. After a run, walk or ride you can add a moment if you like (a selfie, the view, or a 6-second clip): it stays on your phone and becomes a brag card with your VVaker and your highlights, ready for the share sheet. Outdoor routes are backed up to your account end-to-end encrypted (VVake can't read them), so your maps come back on a new iPhone, and iPhone sessions can be saved to Apple Health too.",
     example: "Example journal",
     filters: { all: "All", workout: "Workouts", crew: "Crew meetups", challenge: "Challenges", clash: "Clashes" },
     heatmap: "Last 12 weeks",
@@ -1564,7 +1568,10 @@ export const en = {
           title: "Sweat & Invest",
           body: "Every sport pairs with an asset you choose, like the brand of your running shoes. Set a rule at your broker (Robinhood planned, or another licensed broker; crypto via a regulated provider): “{money} for every workout”. Your money, your account; VVake only sends the verified-workout count, with your consent.",
         },
-        { title: "Stock prizes", body: "A licensed broker could offer fractional shares as a challenge prize, where it's legal (planned, no partner yet)." },
+        {
+          title: "Stock prizes",
+          body: "A licensed broker could offer fractional shares as a challenge prize, where it's legal (planned, no partner yet).",
+        },
         {
           title: "No shares on offer",
           body: "VVake isn't raising money from the public. If that ever changes, it would only be through a licensed crowdfunding platform, where the law allows, with full disclosures. Nothing here is an offer.",
@@ -2216,7 +2223,7 @@ export const en = {
     title: "Privacy policy",
     description:
       "What the VVake iPhone and Apple Watch apps and vvake.com collect, why, who else sees it, how long we keep it and your rights.",
-    updated: "Last updated: 2026-10-07",
+    updated: "Last updated: 2026-10-12",
     draft: "Draft for the TestFlight preview. This policy will be reviewed by a lawyer before the public launch.",
     intro: [
       "VVake (also called VVake Fit) is a fitness coaching app for iPhone and Apple Watch, with this website, vvake.com. This policy explains in plain words what we collect, why, who else sees it, how long we keep it and what you can do about it. It covers the apps (TestFlight previews included), the VVake API they talk to, the desk companion for Mac, the VVake plugin for Claude Code and this website, including vvake.com/rewards.",
@@ -2288,6 +2295,10 @@ export const en = {
           {
             t: "Your VVaker image (optional).",
             d: "If you render a custom VVaker: the trait code you designed and the images it produced.",
+          },
+          {
+            t: "Run moments (optional, kept on your phone).",
+            d: "After a session you can add a photo or a 6-second video to it. It stays on your iPhone, linked to that session, and is never uploaded to VVake's servers. When you share it, the picture or clip goes through your iPhone's share sheet to the app you choose. Location data (EXIF and GPS) is removed from the shared picture, and the shared card never shows a map or where you were: if you turn on the route shape, its first and last 300 m are hidden. Delete the moment or the session and it's gone from your phone.",
           },
           {
             t: "Security and abuse prevention.",
@@ -2543,7 +2554,10 @@ export const en = {
             t: "Weekly prize lists:",
             d: "public and permanent once published and on chain (see $VVAKE prizes and your wallet). Our copy keeps the address, points and amount, without your account once you delete it.",
           },
-          { t: "Coach calls (Plus, if you turn them on):", d: "each call's script, audio and status for 90 days, then deleted; with your account at once." },
+          {
+            t: "Coach calls (Plus, if you turn them on):",
+            d: "each call's script, audio and status for 90 days, then deleted; with your account at once.",
+          },
           { t: "Claude Code pairing codes:", d: "10 minutes." },
           { t: "Guest accounts:", d: "deleted automatically after 90 days without use." },
           {
@@ -2745,6 +2759,63 @@ export const en = {
     ogAlt: "Join me on VVake: think you can beat my ghost?",
     ogKicker: "👟 A friend invited you",
     ogLine: "Think you can beat my ghost?",
+  },
+  moments: {
+    /** Shown above the invite block on every moment page. */
+    about:
+      "VVake is a fitness coach for iPhone and Apple Watch. Your watch measures real effort, a coach plans a week that fits, and your VVaker and your ghost keep it fun.",
+    kinds: {
+      move: {
+        title: "A friend just finished a session on VVake",
+        headline: "Fresh off a session 💪",
+        sub: "Your friend just moved with their VVaker and shared the moment. Your turn?",
+        ogTitle: "Fresh off a session on VVake 💪",
+        ogDescription: "A selfie, the view, the highlights. Think you can keep up? Join me on VVake.",
+        ogAlt: "A friend just finished a session on VVake: think you can keep up?",
+        ogKicker: "👟 Just finished",
+        ogLine: "Think you can keep up?",
+      },
+      ghost: {
+        title: "A friend just beat their ghost on VVake",
+        headline: "Ghost: beaten 👻",
+        sub: "On VVake you race your own past self, live. Your friend just left theirs behind.",
+        ogTitle: "I just beat my ghost on VVake 👻",
+        ogDescription: "Race your past self, live, with your VVaker. Think you can beat mine?",
+        ogAlt: "A friend just beat their ghost on VVake: think you can beat it?",
+        ogKicker: "👻 Ghost race",
+        ogLine: "Think you can beat my ghost?",
+      },
+      trophy: {
+        title: "A friend just got a new trophy on VVake",
+        headline: "New trophy on the shelf 🏆",
+        sub: "A personal best, a challenge or a streak of good days: your friend is on a roll.",
+        ogTitle: "New trophy on VVake 🏆",
+        ogDescription: "Personal bests, friendly challenges and good-day streaks. Come and make me sweat.",
+        ogAlt: "A friend just got a new trophy on VVake: come and make them sweat",
+        ogKicker: "🏆 New trophy",
+        ogLine: "Who's next?",
+      },
+      vvaker: {
+        title: "Meet my VVaker",
+        headline: "Meet my VVaker ✨",
+        sub: "Every VVake member trains with their own character. Your friend wants you to meet theirs.",
+        ogTitle: "Meet my VVaker ✨",
+        ogDescription: "My training buddy on VVake moves when I move. Come and make your own.",
+        ogAlt: "Meet my VVaker, my training buddy on VVake",
+        ogKicker: "✨ My VVaker",
+        ogLine: "Make your own",
+      },
+      week: {
+        title: "A friend's week on VVake",
+        headline: "What a week 🔥",
+        sub: "Sessions done, streak alive. Your friend wants company next week.",
+        ogTitle: "My week on VVake 🔥",
+        ogDescription: "Sessions done, streak alive. Think you can top my week? Join me on VVake.",
+        ogAlt: "A friend's week on VVake: think you can top it?",
+        ogKicker: "🔥 My week",
+        ogLine: "Think you can top that?",
+      },
+    },
   },
   rewards: {
     title: "Rewards",

@@ -1040,7 +1040,7 @@ export const fr: Dictionary = {
   journal: {
     kicker: "Ton journal",
     title: "Chaque run, rencontre et victoire. À portée de doigt.",
-    body: "Ton historique, c'est la meilleure motivation. VVake garde chaque séance, rencontre de crew, défi et clash dans un journal agréable à parcourir, avec tes records et tes souvenirs mis en avant. Touche une séance pour son bilan complet : le parcours, ta fréquence cardiaque et tes zones, tes temps par km ou par mile, les points et pourquoi. Puis refais-la contre ton fantôme, défie un ami de la battre ou partage-la sur X, sans avoir à te connecter. Les parcours extérieurs sont sauvegardés dans ton compte, chiffrés de bout en bout (VVake ne peut pas les lire) : tes cartes reviennent sur un nouvel iPhone, et les séances faites avec l'iPhone peuvent aussi aller dans l'app Santé.",
+    body: "Ton historique, c'est la meilleure motivation. VVake garde chaque séance, rencontre de crew, défi et clash dans un journal agréable à parcourir, avec tes records et tes souvenirs mis en avant. Touche une séance pour son bilan complet : le parcours, ta fréquence cardiaque et tes zones, tes temps par km ou par mile, les points et pourquoi. Puis refais-la contre ton fantôme, défie un ami de la battre ou partage-la sur X, sans avoir à te connecter. Après un run, une marche ou une sortie vélo, tu peux ajouter un moment si tu veux (un selfie, le paysage ou un clip de 6 secondes) : il reste sur ton téléphone et devient une carte à partager avec ton VVaker et tes temps forts, prête pour la feuille de partage. Les parcours extérieurs sont sauvegardés dans ton compte, chiffrés de bout en bout (VVake ne peut pas les lire) : tes cartes reviennent sur un nouvel iPhone, et les séances faites avec l'iPhone peuvent aussi aller dans l'app Santé.",
     example: "Exemple de journal",
     filters: { all: "Tout", workout: "Séances", crew: "Rencontres", challenge: "Défis", clash: "Clashs" },
     heatmap: "12 dernières semaines",
@@ -2369,7 +2369,7 @@ export const fr: Dictionary = {
     title: "Politique de confidentialité",
     description:
       "Ce que les applications VVake pour iPhone et Apple Watch et le site vvake.com recueillent, pourquoi, qui y a accès, combien de temps nous le gardons et vos droits.",
-    updated: "Dernière mise à jour : 2026-10-07",
+    updated: "Dernière mise à jour : 2026-10-12",
     draft: "Version provisoire pour l'aperçu TestFlight. Cette politique sera revue par un avocat avant le lancement public.",
     intro: [
       "VVake (aussi appelée VVake Fit) est une application d'entraînement pour iPhone et Apple Watch, accompagnée du site vvake.com. Cette politique explique simplement quels renseignements nous recueillons, pourquoi, qui d'autre y a accès, combien de temps nous les gardons et ce que vous pouvez faire. Elle couvre les applications (y compris les versions d'essai TestFlight), l'API VVake avec laquelle elles communiquent, le compagnon de bureau pour Mac, le module VVake pour Claude Code et ce site, y compris vvake.com/rewards.",
@@ -2441,6 +2441,10 @@ export const fr: Dictionary = {
           {
             t: "Votre image VVaker (facultatif).",
             d: "Si vous faites générer un VVaker personnalisé : le code des traits que vous avez conçus et les images obtenues.",
+          },
+          {
+            t: "Moments de séance (facultatif, gardés sur votre téléphone).",
+            d: "Après une séance, vous pouvez y ajouter une photo ou une vidéo de 6 secondes. Elle reste sur votre iPhone, liée à cette séance, et n'est jamais envoyée sur les serveurs de VVake. Quand vous la partagez, la photo ou le clip passe par la feuille de partage de votre iPhone vers l'app que vous choisissez. Les données de lieu (EXIF et GPS) sont retirées de la photo partagée, et la carte partagée ne montre jamais de plan ni l'endroit où vous étiez : si vous activez la forme du parcours, ses 300 premiers et derniers mètres sont masqués. Supprimez le moment ou la séance et il disparaît de votre téléphone.",
           },
           {
             t: "Sécurité et prévention des abus.",
@@ -2708,7 +2712,10 @@ export const fr: Dictionary = {
             t: "Listes hebdomadaires des prix :",
             d: "publiques et permanentes une fois publiées et inscrites sur la blockchain (voir Prix $VVAKE et votre portefeuille). Notre copie garde l'adresse, les points et le montant, sans votre compte une fois celui-ci supprimé.",
           },
-          { t: "Appels du coach (Plus, si tu les actives) :", d: "le texte, l'audio et l'état de chaque appel pendant 90 jours, puis supprimés ; tout de suite avec ton compte." },
+          {
+            t: "Appels du coach (Plus, si tu les actives) :",
+            d: "le texte, l'audio et l'état de chaque appel pendant 90 jours, puis supprimés ; tout de suite avec ton compte.",
+          },
           { t: "Codes de jumelage de Claude Code :", d: "10 minutes." },
           { t: "Comptes invités :", d: "supprimés automatiquement après 90 jours sans utilisation." },
           {
@@ -2922,6 +2929,62 @@ export const fr: Dictionary = {
     ogAlt: "Rejoins-moi sur VVake : tu crois pouvoir battre mon fantôme ?",
     ogKicker: "👟 Un ami t'invite",
     ogLine: "Tu crois pouvoir battre mon fantôme ?",
+  },
+  moments: {
+    about:
+      "VVake est un coach sportif pour iPhone et Apple Watch. Ta montre mesure ton vrai effort, un coach prévoit une semaine qui te ressemble, et ton VVaker et ton fantôme rendent tout plus fun.",
+    kinds: {
+      move: {
+        title: "Un ami vient de finir une séance sur VVake",
+        headline: "Séance bouclée 💪",
+        sub: "Ton ami vient de bouger avec son VVaker et partage le moment. À toi ?",
+        ogTitle: "Séance bouclée sur VVake 💪",
+        ogDescription: "Un selfie, le paysage, les temps forts. Tu crois pouvoir suivre ? Rejoins-moi sur VVake.",
+        ogAlt: "Un ami vient de finir une séance sur VVake : tu crois pouvoir suivre ?",
+        ogKicker: "👟 Séance finie",
+        ogLine: "Tu crois pouvoir suivre ?",
+      },
+      ghost: {
+        title: "Un ami vient de battre son fantôme sur VVake",
+        headline: "Fantôme : battu 👻",
+        sub: "Sur VVake, tu fais la course contre toi-même, en direct. Ton ami vient de laisser le sien derrière.",
+        ogTitle: "Fantôme battu sur VVake 👻",
+        ogDescription: "Fais la course contre ton passé, en direct, avec ton VVaker. Tu crois pouvoir battre le mien ?",
+        ogAlt: "Un ami vient de battre son fantôme sur VVake : tu crois pouvoir le battre ?",
+        ogKicker: "👻 Course fantôme",
+        ogLine: "Tu crois pouvoir battre mon fantôme ?",
+      },
+      trophy: {
+        title: "Un ami vient de décrocher un trophée sur VVake",
+        headline: "Nouveau trophée 🏆",
+        sub: "Un record perso, un défi ou une série de bonnes journées : ton ami est en forme.",
+        ogTitle: "Nouveau trophée sur VVake 🏆",
+        ogDescription: "Records perso, défis entre amis et séries de bonnes journées. Viens me faire transpirer.",
+        ogAlt: "Un ami vient de décrocher un trophée sur VVake : viens le faire transpirer",
+        ogKicker: "🏆 Nouveau trophée",
+        ogLine: "À qui le tour ?",
+      },
+      vvaker: {
+        title: "Voici mon VVaker",
+        headline: "Voici mon VVaker ✨",
+        sub: "Chaque membre de VVake s'entraîne avec son propre personnage. Ton ami veut te présenter le sien.",
+        ogTitle: "Voici mon VVaker ✨",
+        ogDescription: "Mon partenaire d'entraînement sur VVake bouge quand je bouge. Viens créer le tien.",
+        ogAlt: "Voici mon VVaker, mon partenaire d'entraînement sur VVake",
+        ogKicker: "✨ Mon VVaker",
+        ogLine: "Crée le tien",
+      },
+      week: {
+        title: "La semaine d'un ami sur VVake",
+        headline: "Quelle semaine 🔥",
+        sub: "Séances faites, série intacte. Ton ami veut de la compagnie la semaine prochaine.",
+        ogTitle: "Ma semaine sur VVake 🔥",
+        ogDescription: "Séances faites, série intacte. Tu crois faire mieux ? Rejoins-moi sur VVake.",
+        ogAlt: "La semaine d'un ami sur VVake : tu crois faire mieux ?",
+        ogKicker: "🔥 Ma semaine",
+        ogLine: "Tu crois faire mieux ?",
+      },
+    },
   },
   rewards: {
     title: "Récompenses",
