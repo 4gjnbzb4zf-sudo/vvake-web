@@ -99,6 +99,9 @@ export function Footer({ locale, dict }: { locale: Locale; dict: Dictionary["foo
             <a href={sectionHref(locale, "partners")} className="hover:text-text">
               {dict.partners}
             </a>
+            <a href={`/${locale}/releases/`} className="hover:text-text">
+              {dict.releases}
+            </a>
             <a href={`mailto:${siteConfig.contactEmail}`} className="hover:text-text">
               {dict.contact}
             </a>
