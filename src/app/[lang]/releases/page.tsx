@@ -9,17 +9,20 @@ import { getDictionary } from "@/i18n/dictionaries";
 
 type Params = Promise<{ lang: string }>;
 
-const copy: Record<Locale, {
-  title: string;
-  description: string;
-  beta: string;
-  store: string;
-  iphone: string;
-  watch: string;
-  added: string;
-  improved: string;
-  fixed: string;
-}> = {
+const copy: Record<
+  Locale,
+  {
+    title: string;
+    description: string;
+    beta: string;
+    store: string;
+    iphone: string;
+    watch: string;
+    added: string;
+    improved: string;
+    fixed: string;
+  }
+> = {
   en: {
     title: "What's new",
     description: "Every VVake release on iPhone and Apple Watch: what was added, improved and fixed.",
@@ -59,7 +62,12 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
 }
 
 const dateText = (iso: string, lang: Locale) =>
-  new Date(`${iso}T12:00:00Z`).toLocaleDateString(lang === "fr" ? "fr-FR" : "en-US", { year: "numeric", month: "long", day: "numeric", timeZone: "UTC" });
+  new Date(`${iso}T12:00:00Z`).toLocaleDateString(lang === "fr" ? "fr-FR" : "en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+    timeZone: "UTC",
+  });
 
 /** Release notes: every app build people can get, newest first (src/data/releases.ts). Linked quietly from the footer. */
 export default async function ReleasesPage({ params }: { params: Params }) {
@@ -83,16 +91,22 @@ export default async function ReleasesPage({ params }: { params: Params }) {
                 { label: c.fixed, items: n.fixed },
               ].filter((g) => g.items?.length);
               return (
-                <li key={r.version} id={`v${r.version.replace(/\D+/g, "-").replace(/^-|-$/g, "")}`} className="border-t border-line/60 pt-8">
+                <li
+                  key={r.version}
+                  id={`v${r.version.replace(/\D+/g, "-").replace(/^-|-$/g, "")}`}
+                  className="border-t border-line/60 pt-8"
+                >
                   <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
                     <h2 className="font-display text-xl font-semibold">{r.version}</h2>
                     <span className="text-sm text-faint">{dateText(r.date, lang)}</span>
-                    <span className="rounded-full border border-line px-2 py-0.5 text-xs text-muted">{r.channel === "beta" ? c.beta : c.store}</span>
+                    <span className="rounded-full border border-line px-2 py-0.5 text-xs text-muted">
+                      {r.channel === "beta" ? c.beta : c.store}
+                    </span>
                     <span className="text-xs text-faint">{r.devices.map((d) => c[d]).join(" · ")}</span>
                   </div>
                   {groups.map((g) => (
                     <div key={g.label} className="mt-4">
-                      <h3 className="text-xs font-semibold uppercase tracking-widest text-faint">{g.label}</h3>
+                      <h3 className="text-xs font-semibold tracking-widest text-faint uppercase">{g.label}</h3>
                       <ul className="mt-2 list-disc space-y-1.5 pl-5 text-sm leading-relaxed text-muted">
                         {g.items!.map((item) => (
                           <li key={item}>{item}</li>

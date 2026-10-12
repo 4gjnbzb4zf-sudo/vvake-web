@@ -25,9 +25,7 @@ export const releases: Release[] = [
     devices: ["iphone", "watch"],
     notes: {
       en: {
-        improved: [
-          "Every VVaker the app makes shows the VVake sign: three fingers up in a row, thumb and little finger touching.",
-        ],
+        improved: ["Every VVaker the app makes shows the VVake sign: three fingers up in a row, thumb and little finger touching."],
         fixed: [
           "A generated VVaker no longer sits on a white box on the dark theme: the background is always made transparent, and pictures made before are cleaned up for free.",
           "The watch picks up your cleaned-up VVaker too.",
@@ -57,9 +55,7 @@ export const releases: Release[] = [
           "Plus preview for beta testers: try Plus for 30 days, nothing charged.",
           "Up to 3 VVaker renders per account during the beta.",
         ],
-        improved: [
-          "One coach voice at a time, and your music on the iPhone gets quieter while the watch coach talks.",
-        ],
+        improved: ["One coach voice at a time, and your music on the iPhone gets quieter while the watch coach talks."],
       },
       fr: {
         added: [
@@ -68,9 +64,7 @@ export const releases: Release[] = [
           "Aperçu de Plus pour les bêta-testeurs : 30 jours de Plus, rien n'est facturé.",
           "Jusqu'à 3 rendus de VVaker par compte pendant la bêta.",
         ],
-        improved: [
-          "Une seule voix de coach à la fois, et votre musique sur l'iPhone baisse quand le coach de la montre parle.",
-        ],
+        improved: ["Une seule voix de coach à la fois, et votre musique sur l'iPhone baisse quand le coach de la montre parle."],
       },
     },
   },
@@ -158,7 +152,7 @@ export const releases: Release[] = [
         added: [
           "Habit points: water, meals and sleep earn or cost points, with a daily history and a good-habits streak.",
           "New perks, some of them hard to get, and trophies to be proud of.",
-          "Start a workout with Siri using \"wake up\" phrases.",
+          'Start a workout with Siri using "wake up" phrases.',
         ],
         fixed: ["Siri recognizes VVake again (too many phrases had been registered)."],
       },

@@ -2709,7 +2709,10 @@ export const fr: Dictionary = {
             t: "Listes hebdomadaires des prix :",
             d: "publiques et permanentes une fois publiées et inscrites sur la blockchain (voir Prix $VVAKE et votre portefeuille). Notre copie garde l'adresse, les points et le montant, sans votre compte une fois celui-ci supprimé.",
           },
-          { t: "Appels du coach (Plus, si tu les actives) :", d: "le texte, l'audio et l'état de chaque appel pendant 90 jours, puis supprimés ; tout de suite avec ton compte." },
+          {
+            t: "Appels du coach (Plus, si tu les actives) :",
+            d: "le texte, l'audio et l'état de chaque appel pendant 90 jours, puis supprimés ; tout de suite avec ton compte.",
+          },
           { t: "Codes de jumelage de Claude Code :", d: "10 minutes." },
           { t: "Comptes invités :", d: "supprimés automatiquement après 90 jours sans utilisation." },
           {
