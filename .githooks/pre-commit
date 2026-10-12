@@ -1,0 +1,5 @@
+#!/bin/sh
+# Formats the staged files with prettier before each commit (lint-staged keeps unstaged edits out of the commit).
+# Installed by `npm install` (the "prepare" script sets git's core.hooksPath to .githooks); works in every worktree.
+# A format error on main once blocked the site's deploys for 3 days: this keeps it from coming back.
+exec npx --no -- lint-staged

@@ -29,6 +29,10 @@ npm run dev    # http://localhost:3000 → redirects to /en/ or /fr/
 | `npm run check` | Format check, lint, typecheck, tests        |
 | `npm run og`    | Regenerate `public/og/{en,fr}.png`          |
 
+**Pre-commit formatting.** `npm install` sets git's `core.hooksPath` to `.githooks/` (the `prepare` script), so every
+commit runs `prettier --write` on the staged files first (lint-staged). It works in every worktree. Skip it once with
+`git commit --no-verify`; if commits stop being formatted, run `npm run prepare` again.
+
 ## Languages
 
 English is the default. `/` picks the language in the browser: an explicit earlier choice (saved when
@@ -78,6 +82,20 @@ docs/                  DOMAIN_SETUP · WAITLIST_API · BRAND_GUARDRAILS
 ## Deploy
 
 Push to `main` → **CI checks → static build → GitHub Pages**. Domain setup: [docs/DOMAIN_SETUP.md](docs/DOMAIN_SETUP.md).
+
+**When a deploy fails.** The site keeps serving the last good build, so a red `main` is silent unless someone looks.
+Two GitHub-only alerts cover it:
+
+1. **Issue.** The deploy workflow's `report` job opens one issue, "Site deploy failing", with a link to the run,
+   comments on it at each new failure, and closes it at the next green deploy. Owners watch their repositories by
+   default, so it arrives by e-mail and in the GitHub app.
+2. **Workflow e-mail (once, by the account owner).** GitHub e-mails failed runs only to the account that pushed,
+   and only if allowed: [github.com/settings/notifications](https://github.com/settings/notifications) → **System →
+   Actions** → tick **Email**, and **Only notify for failed workflows**. Check that **Watching** on this repository
+   (repository page → Watch) is **All activity** or **Custom → Issues** so the issue mails arrive too.
+
+To see the state at any time: the repository's **Actions** tab → "Deploy to GitHub Pages", or `gh run list
+--workflow deploy.yml --limit 5`.
 
 ## Content rules
 

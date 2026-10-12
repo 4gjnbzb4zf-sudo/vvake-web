@@ -51,3 +51,32 @@ jobs:
     steps:
       - id: deployment
         uses: actions/deploy-pages@368f82528645a54fb793d4d04e342629a3f51346 # v5.0.1
+
+  # A red deploy must be seen the same day. GitHub e-mails the person who pushed only if their notification settings
+  # allow it (README "Deploy"), so this job also keeps one open issue "Site deploy failing" while main is red
+  # (repository watchers get an e-mail for it) and closes it on the next green deploy. GitHub only, no other service.
+  report:
+    needs: [build, deploy]
+    if: always() && github.event_name == 'push'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      issues: write
+    env:
+      GH_TOKEN: ${{ github.token }}
+      GH_REPO: ${{ github.repository }}
+      TITLE: Site deploy failing
+      RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+      SHA: ${{ github.sha }}
+      FAILED: ${{ contains(needs.*.result, 'failure') }}
+      PASSED: ${{ needs.build.result == 'success' && needs.deploy.result == 'success' }}
+    steps:
+      - name: Open, update or close the deploy issue
+        run: |
+          open="$(gh issue list --state open --search "in:title \"$TITLE\"" --json number,title --jq ".[] | select(.title == \"$TITLE\") | .number" | head -n1)"
+          if [ "$FAILED" = "true" ]; then
+            body="The deploy of \`$SHA\` failed: $RUN_URL"$'\n\n'"The site still serves the last good build. Fix main (often \`npm run format\`, then \`npm run check\`), push, and this issue closes itself on the next green deploy."
+            if [ -n "$open" ]; then gh issue comment "$open" --body "$body"; else gh issue create --title "$TITLE" --body "$body"; fi
+          elif [ "$PASSED" = "true" ] && [ -n "$open" ]; then
+            gh issue close "$open" --comment "Fixed: \`$SHA\` deployed ($RUN_URL)."
+          fi
