@@ -1,7 +1,7 @@
 import * as z from "zod/mini";
 import { accountPrefsSchema, type AccountPrefs } from "./accountPrefs";
 import { ClaimRefusedError } from "./claimTx";
-import { billingSchema, invoiceCreatedSchema, invoiceStatusSchema, quoteSchema } from "./plusPay";
+import { billingSchema, invoiceCreatedSchema, invoiceStatusSchema, quoteSchema, stripeUrlSchema } from "./plusPay";
 import { VAULT_FIELDS, type VaultBlob } from "./walletVault";
 
 /**
@@ -503,6 +503,16 @@ export class RewardsSession {
   vvakeInvoiceStatus(id: string) {
     if (!/^[0-9a-f]{24}$/.test(id)) return Promise.reject(new ApiError(404, "not_found", ""));
     return this.authed(`/v1/billing/vvake/invoice/${id}`, { method: "GET" }, invoiceStatusSchema);
+  }
+
+  /** A Stripe Checkout session for a monthly card subscription (409 already subscribed, 503 not set up). */
+  stripeCheckout(lang: string) {
+    return this.authed("/v1/billing/stripe/checkout", { method: "POST", body: JSON.stringify({ lang }) }, stripeUrlSchema);
+  }
+
+  /** Stripe's customer portal for the account's card subscription (card, invoices, cancel). */
+  stripePortal(lang: string) {
+    return this.authed(`/v1/billing/stripe/portal?lang=${encodeURIComponent(lang)}`, { method: "GET" }, stripeUrlSchema);
   }
 
   /** The free entry (no purchase necessary): same prizes as Plus, counts from the next week that starts. */

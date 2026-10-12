@@ -15,6 +15,8 @@ import {
   discountText,
   isHttpsUrl,
   isPayUri,
+  isStripeUrl,
+  paidByCard,
   plusActive,
   POLL_MS,
   rememberPlus,
@@ -41,11 +43,14 @@ export function PlusCheckout({
   rewards,
   lang,
   apiUrl,
+  notice,
 }: {
   dict: Dict;
   rewards: Dictionary["rewards"];
   lang: Locale;
   apiUrl: string;
+  /** Back from Stripe's checkout (/plus/success/, /plus/cancel/): a line at the top, and on success a short wait for Plus. */
+  notice?: "success" | "cancel";
 }) {
   const [session] = useState(() => new RewardsSession(apiUrl));
   const [auth, setAuth] = useState<"checking" | "out" | "in">("checking");
@@ -57,6 +62,8 @@ export function PlusCheckout({
   const [busy, setBusy] = useState(false);
   const [now, setNow] = useState(0);
   const [copied, setCopied] = useState<"amount" | "address" | null>(null);
+  const [cardBusy, setCardBusy] = useState(false);
+  const [cardProblem, setCardProblem] = useState<string | null>(null);
 
   const explain = useCallback(
     (e: unknown) => {
@@ -137,6 +144,46 @@ export function PlusCheckout({
     };
   }, [invoiceId, paid, session]);
 
+  // Back from a card checkout: Stripe tells the API a few seconds later (its webhook), so read Plus again for a minute.
+  const signedIn = auth === "in";
+  const hasPlusNow = plusActive(billing?.plusUntil, now);
+  useEffect(() => {
+    if (notice !== "success" || !signedIn || hasPlusNow) return;
+    let tries = 0;
+    const timer = window.setInterval(() => {
+      tries += 1;
+      if (tries > 20) {
+        window.clearInterval(timer);
+        return;
+      }
+      void session
+        .billing()
+        .then((b) => {
+          setBilling(b);
+          rememberPlus(b.plusUntil);
+          setNow(Date.now());
+        })
+        .catch(() => undefined);
+    }, 3000);
+    return () => window.clearInterval(timer);
+  }, [notice, signedIn, hasPlusNow, session]);
+
+  /** Stripe's hosted checkout (subscribe) or its customer portal (manage): the API gives the link, the tab goes there. */
+  const toStripe = async (what: "checkout" | "portal") => {
+    setCardBusy(true);
+    setCardProblem(null);
+    try {
+      const { url } = what === "checkout" ? await session.stripeCheckout(lang) : await session.stripePortal(lang);
+      if (!isStripeUrl(url)) throw new ApiError(502, "bad_response", "");
+      window.location.assign(url);
+    } catch (e) {
+      setCardBusy(false);
+      if (e instanceof ApiError && e.status === 409) setCardProblem(dict.card.already);
+      else if (e instanceof ApiError && (e.status === 503 || e.status === 404)) setCardProblem(dict.card.unavailable);
+      else setCardProblem(explain(e));
+    }
+  };
+
   const create = async () => {
     setBusy(true);
     setProblem(null);
@@ -176,6 +223,7 @@ export function PlusCheckout({
   if (auth === "out")
     return (
       <>
+        <Notice notice={notice} dict={dict} plus={false} />
         <SignIn
           dict={{ ...rewards, signIn: { ...rewards.signIn, ...dict.signIn } }}
           session={session}
@@ -192,8 +240,12 @@ export function PlusCheckout({
   const network = invoice?.network ?? quote?.network ?? billing?.vvakePay?.network;
   const testnet = network !== "mainnet";
 
+  const byCard = billing?.subscription?.provider === "stripe" && billing.subscription.active;
+  const cardShown = byCard || (!!billing?.stripe?.available && !(plus && billing?.plusSource === "apple"));
+
   return (
     <>
+      <Notice notice={notice} dict={dict} plus={plus} />
       <Section id="account" index={dict.account.index} kicker={dict.account.kicker} title={dict.account.title}>
         <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-4 rounded-2xl border border-line bg-surface/60 p-6">
           <Logo plus={plus} plusLabel="VVake Plus" className="pr-4" />
@@ -202,6 +254,7 @@ export function PlusCheckout({
               {plus && billing?.plusUntil ? format(dict.account.active, { date: date(billing.plusUntil) }) : dict.account.free}
             </p>
             {plus && billing?.plusSource === "apple" && <p className="mt-1 text-sm text-muted">{dict.account.appleSource}</p>}
+            {plus && paidByCard(billing?.plusSource) && <p className="mt-1 text-sm text-muted">{dict.account.cardSource}</p>}
             <p className="mt-1 text-sm text-muted">
               {format(dict.account.signedInAs, { name: who })}{" "}
               <button
@@ -328,14 +381,60 @@ export function PlusCheckout({
           <p className="mt-6 text-sm text-faint">{dict.safety}</p>
         </div>
       </Section>
+      {cardShown && (
+        <Section id="card" index={dict.card.index} kicker={dict.card.kicker} title={byCard ? dict.card.manageTitle : dict.card.title}>
+          <div className="mt-8 max-w-2xl rounded-3xl border border-line bg-surface/60 p-6 sm:p-8">
+            <p className="text-muted">{byCard ? dict.card.manageLead : dict.card.lead}</p>
+            <button
+              type="button"
+              className={cn(buttonClass(byCard ? "ghost" : "primary"), "mt-6")}
+              disabled={cardBusy}
+              onClick={() => void toStripe(byCard ? "portal" : "checkout")}
+            >
+              {cardBusy ? dict.card.opening : byCard ? dict.card.manage : dict.card.subscribe}
+            </button>
+            {cardProblem && (
+              <p className="mt-4 text-sm text-down-fg" role="alert">
+                {cardProblem}
+              </p>
+            )}
+            {!byCard && <p className="mt-6 text-sm text-faint">{dict.card.fine}</p>}
+          </div>
+        </Section>
+      )}
+
       <HowItWorks dict={dict} />
     </>
   );
 }
 
+/** Back from Stripe's checkout: what happened, in one line (the page below shows Plus once the API has it). */
+function Notice({ notice, dict, plus }: { notice?: "success" | "cancel"; dict: Dict; plus: boolean }) {
+  if (!notice) return null;
+  const text = notice === "cancel" ? dict.card.cancelled : plus ? dict.card.done : dict.card.finishing;
+  return (
+    <Section
+      id="checkout"
+      index="00"
+      kicker={dict.card.kicker}
+      title={notice === "cancel" ? dict.card.cancelledTitle : dict.card.doneTitle}
+    >
+      <p
+        className={cn(
+          "mt-8 max-w-2xl rounded-xl border px-4 py-3 text-sm",
+          notice === "cancel" ? "border-line bg-surface/60 text-muted" : "border-volt-fg/30 bg-volt/10 text-volt-fg",
+        )}
+        role="status"
+      >
+        {text}
+      </p>
+    </Section>
+  );
+}
+
 function HowItWorks({ dict }: { dict: Dict }) {
   return (
-    <Section id="how" index="04" kicker={dict.pay.kicker} title={dict.pay.howTitle}>
+    <Section id="how" index="05" kicker={dict.pay.kicker} title={dict.pay.howTitle}>
       <ol className="mt-10 grid gap-4 sm:grid-cols-3">
         {dict.pay.how.map((p, i) => (
           <li key={p} className="rounded-2xl border border-line bg-surface/60 p-6">

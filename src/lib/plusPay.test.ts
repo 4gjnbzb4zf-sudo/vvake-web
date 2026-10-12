@@ -6,6 +6,8 @@ import {
   invoiceSchema,
   isHttpsUrl,
   isPayUri,
+  isStripeUrl,
+  paidByCard,
   plusActive,
   quoteSchema,
   shortAddress,
@@ -90,5 +92,38 @@ describe("Plus with $VVAKE on vvake.com", () => {
     const qr = encodeQr(PAY_URI, { ecl: "M" });
     expect(qr.size).toBeGreaterThanOrEqual(21);
     expect(qrPath(qr, 2)).toMatch(/^M\d/);
+  });
+});
+
+describe("Plus by card (Stripe)", () => {
+  it("only Stripe's own https checkout and portal pages are followed", () => {
+    expect(isStripeUrl("https://checkout.stripe.com/c/pay/cs_test_a1b2#fid")).toBe(true);
+    expect(isStripeUrl("https://billing.stripe.com/p/session/test_123")).toBe(true);
+    expect(isStripeUrl("http://checkout.stripe.com/c/pay/cs_1")).toBe(false);
+    expect(isStripeUrl("https://checkout.stripe.com.evil.example/c")).toBe(false);
+    expect(isStripeUrl("https://evil.example/?https://checkout.stripe.com/")).toBe(false);
+    expect(isStripeUrl("javascript:alert(1)")).toBe(false);
+  });
+
+  it("a card subscription is live or test-mode Stripe", () => {
+    expect(paidByCard("stripe")).toBe(true);
+    expect(paidByCard("stripe_test")).toBe(true);
+    expect(paidByCard("apple")).toBe(false);
+    expect(paidByCard(null)).toBe(false);
+  });
+
+  it("reads the card channel and the store subscription, and tolerates an older API without them", () => {
+    const b = billingSchema.parse({
+      plan: "plus",
+      stripe: { available: true },
+      subscription: { provider: "stripe", active: true, autoRenew: true, expiresAt: "2026-11-12T00:00:00.000Z" },
+    });
+    expect(b.stripe?.available).toBe(true);
+    expect(b.subscription?.provider).toBe("stripe");
+    const old = billingSchema.parse({ plan: "free" });
+    expect(old.stripe).toBeUndefined();
+    const odd = billingSchema.parse({ plan: "free", stripe: "yes", subscription: 3 });
+    expect(odd.stripe?.available).toBe(false);
+    expect(odd.subscription).toBeNull();
   });
 });

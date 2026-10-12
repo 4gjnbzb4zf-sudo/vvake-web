@@ -65,8 +65,33 @@ export const billingSchema = z.object({
     ),
   ),
   openInvoice: z.optional(z.catch(z.nullable(invoiceSchema), null)),
+  /** Plus by card on vvake.com (Stripe): on only once the API has its keys (api-v1.md "Billing: Plus from a store"). */
+  stripe: z.optional(z.catch(z.object({ available: z.boolean() }), { available: false })),
+  /** The account's store subscription (App Store, card, Google Play), if any. */
+  subscription: z.optional(
+    z.catch(
+      z.nullable(
+        z.object({
+          provider: z.string(),
+          active: z.boolean(),
+          autoRenew: z.optional(z.nullable(z.boolean())),
+          expiresAt: z.optional(z.nullable(z.string())),
+        }),
+      ),
+      null,
+    ),
+  ),
 });
 export type Billing = z.infer<typeof billingSchema>;
+
+/** Stripe's hosted checkout or customer portal (POST /v1/billing/stripe/checkout, GET /v1/billing/stripe/portal). */
+export const stripeUrlSchema = z.object({ url: z.string() });
+
+/** Only Stripe's own https pages may become a navigation from an API answer (checkout and the customer portal). */
+export const isStripeUrl = (url: string) => /^https:\/\/(checkout|billing)\.stripe\.com\/[^\s"'<>]*$/.test(url);
+
+/** Plus is paid by a card subscription on vvake.com (live or test mode). */
+export const paidByCard = (source: string | null | undefined) => source === "stripe" || source === "stripe_test";
 
 export const invoiceStatusSchema = z.object({ invoice: invoiceSchema, ...planFields, checked: z.optional(z.boolean()) });
 export const invoiceCreatedSchema = z.object({ invoice: invoiceSchema });
