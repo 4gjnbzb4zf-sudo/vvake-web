@@ -981,9 +981,6 @@
   ],
   "custom": {
     "max": 20,
-    "tracking": [
-      "hr",
-      "gps"
-    ]
+    "tracking": ["hr", "gps"]
   }
 }

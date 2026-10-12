@@ -5,7 +5,7 @@ import { locales } from "@/i18n/config";
 export const dynamic = "force-static";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const pages = ["", "app/", "vvaker/", "backers/", "rewards/", "plus/", "voice/", "privacy/", "terms/"];
+  const pages = ["", "app/", "vvaker/", "backers/", "rewards/", "plus/", "voice/", "privacy/", "terms/", "releases/"];
   return pages.flatMap((page) =>
     locales.map((lang) => ({
       url: `${siteConfig.url}/${lang}/${page}`,

@@ -2292,6 +2292,7 @@ export const fr: Dictionary = {
     rewards: "Prix $VVAKE",
     plus: "Plus en $VVAKE",
     partners: "Partenaires",
+    releases: "Nouveautés",
     contact: "Contact",
     rights: "Tous droits réservés.",
   },

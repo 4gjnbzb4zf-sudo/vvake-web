@@ -2146,6 +2146,7 @@ export const en = {
     rewards: "$VVAKE prizes",
     plus: "Plus with $VVAKE",
     partners: "Partners",
+    releases: "What's new",
     contact: "Contact",
     rights: "All rights reserved.",
   },
