@@ -1,6 +1,7 @@
 import * as z from "zod/mini";
 import { accountPrefsSchema, type AccountPrefs } from "./accountPrefs";
 import { ClaimRefusedError } from "./claimTx";
+import { billingSchema, invoiceCreatedSchema, invoiceStatusSchema, quoteSchema, stripeUrlSchema } from "./plusPay";
 import { VAULT_FIELDS, type VaultBlob } from "./walletVault";
 
 /**
@@ -481,6 +482,37 @@ export class RewardsSession {
 
   deleteVault() {
     return this.authed("/v1/rewards/vault", { method: "DELETE" }, null);
+  }
+
+  /** Plus on the account, whether paying with $VVAKE is available, and an invoice still open (vvake.com/plus). */
+  billing() {
+    return this.authed("/v1/billing", { method: "GET" }, billingSchema);
+  }
+
+  /** What a month of Plus costs in VVAKE right now (503 without a trustworthy price). */
+  vvakeQuote() {
+    return this.authed("/v1/billing/vvake/quote", { method: "GET" }, quoteSchema);
+  }
+
+  /** A new invoice (or the open one while it has 10+ minutes left): an exact amount to send from the visitor's wallet. */
+  async vvakeInvoice() {
+    return (await this.authed("/v1/billing/vvake/invoice", { method: "POST" }, invoiceCreatedSchema)).invoice;
+  }
+
+  /** The invoice after the API checked the chain, with the account's Plus. */
+  vvakeInvoiceStatus(id: string) {
+    if (!/^[0-9a-f]{24}$/.test(id)) return Promise.reject(new ApiError(404, "not_found", ""));
+    return this.authed(`/v1/billing/vvake/invoice/${id}`, { method: "GET" }, invoiceStatusSchema);
+  }
+
+  /** A Stripe Checkout session for a monthly card subscription (409 already subscribed, 503 not set up). */
+  stripeCheckout(lang: string) {
+    return this.authed("/v1/billing/stripe/checkout", { method: "POST", body: JSON.stringify({ lang }) }, stripeUrlSchema);
+  }
+
+  /** Stripe's customer portal for the account's card subscription (card, invoices, cancel). */
+  stripePortal(lang: string) {
+    return this.authed(`/v1/billing/stripe/portal?lang=${encodeURIComponent(lang)}`, { method: "GET" }, stripeUrlSchema);
   }
 
   /** The free entry (no purchase necessary): same prizes as Plus, counts from the next week that starts. */

@@ -1,4 +1,4 @@
-import { Logo } from "@/components/brand/Logo";
+import { AccountLogo } from "@/components/brand/AccountLogo";
 import { Container, Section } from "@/components/ui/Section";
 import { siteConfig } from "@/config/site";
 import type { Locale } from "@/i18n/config";
@@ -83,7 +83,7 @@ export function Footer({ locale, dict }: { locale: Locale; dict: Dictionary["foo
       <Container>
         <div className="flex flex-col justify-between gap-8 sm:flex-row sm:items-center">
           <div>
-            <Logo />
+            <AccountLogo />
             <p className="mt-3 font-display text-sm text-muted">{dict.tagline}</p>
           </div>
           <nav aria-label="Footer" className="flex flex-wrap gap-6 text-sm text-muted">
@@ -95,6 +95,9 @@ export function Footer({ locale, dict }: { locale: Locale; dict: Dictionary["foo
             </a>
             <a href={`/${locale}/rewards/`} className="hover:text-text">
               {dict.rewards}
+            </a>
+            <a href={`/${locale}/plus/`} className="hover:text-text">
+              {dict.plus}
             </a>
             <a href={sectionHref(locale, "partners")} className="hover:text-text">
               {dict.partners}

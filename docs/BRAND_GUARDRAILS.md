@@ -69,8 +69,15 @@ keys or funds because of a VVake page.
   vvake.com/rewards asks the visitor to tick "I'm 18 or older and allowed to receive prizes where I live" before the
   link-wallet button works; the link request sends `adult: true` and the API requires it. Say 18+ wherever the prize
   rules are explained.
-- Paying Plus with testnet $VVAKE exists only in development builds of the app (App Store 3.1.1), never in TestFlight
-  or the App Store; the site may mention it only as that, with no burn-for-price framing.
+- Paying Plus with $VVAKE happens on **vvake.com/plus** (`/[lang]/plus/`): a one-month payment for the VVake account,
+  at the API's discount (`discountBps`, never hard-coded). The visitor sends one exact transfer from their own wallet
+  (QR, EIP-681 link, or copy the amount and address); the page **never connects a wallet** (wallet connection stays
+  rewards-only). Say it pays for Plus: never a deposit, a balance or "send us tokens". No USD price per VVAKE, no
+  burn-for-price framing, "testnet: no value" next to the amount. In the iOS app Plus is an App Store subscription
+  (3.1.1); the app links to /plus only on the US storefront (and in test builds), and the page says that in the app
+  Plus is managed in the App Store. The same page offers a monthly **card subscription** (Stripe's hosted checkout and
+  customer portal, back to `/plus/success/` or `/plus/cancel/`, not indexed) once the API has its Stripe keys; the
+  price is shown on Stripe's page, never written on ours. Card details never touch vvake.com.
 - VVake Fit Plus funds a monthly prize pool: a fixed, published share of net Plus revenue (ADR-0023), converted to
   VVAKE by rule on chain (capped chunks, permissionless trigger), sent straight to the rewards contract, and published
   (monthly report, `Funded` / `Bought` events, weekly lists). Plus never buys anyone a bigger prize.

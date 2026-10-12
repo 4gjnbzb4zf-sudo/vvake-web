@@ -40,6 +40,7 @@ import { ClaimItem, EntryChoice, SkillCard } from "./PrizeEntry";
 import { cn } from "@/lib/cn";
 import { ACCOUNT_LANG_TEXT, accountLangOffer, type AccountPrefs } from "@/lib/accountPrefs";
 import { visitorDatePrefs } from "@/lib/dates";
+import { rememberPlus } from "@/lib/plusPay";
 import { formatDate, formatDateTime } from "@/lib/datetime";
 import { LOCALE_STORAGE_KEY } from "@/i18n/negotiate";
 
@@ -118,6 +119,8 @@ export function RewardsAccount({ dict, lang, apiUrl }: { dict: Dict; lang: Local
       const next = await session.rewards();
       setNow(Date.now());
       setData(next);
+      // The logo's Plus "+" in this tab (header, footer).
+      rememberPlus(next.plus?.active ? (next.plus.until ?? null) : null);
       setWho(session.user?.email || session.user?.name || "VVake");
       setAuth("in");
     } catch (e) {
@@ -479,6 +482,7 @@ export function RewardsAccount({ dict, lang, apiUrl }: { dict: Dict; lang: Local
         onClick={() => {
           void session.signOut().then(() => {
             setData(null);
+            rememberPlus(null);
             setAuth("out");
           });
         }}
