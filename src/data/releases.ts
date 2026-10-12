@@ -19,6 +19,42 @@ export interface Release {
 
 export const releases: Release[] = [
   {
+    version: "1.0.0 (13)",
+    date: "2026-10-12",
+    channel: "beta",
+    devices: ["iphone", "watch"],
+    notes: {
+      en: {
+        added: [
+          "Coach calls ring on your iPhone and your Apple Watch: answer on either one, the other follows (in call on your watch, ended, declined).",
+          "A full call screen on the watch: your VVaker, the coach's voice, captions and Hang up.",
+          "Add a moment after a run, walk or ride: a selfie, the view, or a 6-second clip, kept on your phone.",
+          "Brag cards: your moment with your VVaker and the session's highlights, ready to share, with no map and no location.",
+          "Plus: a small + on the VVake logo when Plus is on, and Plus can be bought in the app through Apple once it opens (beta testers keep the free preview).",
+        ],
+        improved: [
+          "Shares on X come with a fun line for the moment and a link that shows a proper preview card.",
+          "After an outdoor workout, the watch reminds you that you can add a moment on your iPhone.",
+        ],
+        fixed: ["The coach call screen shows your whole VVaker in the circle, and the header no longer sits under the camera."],
+      },
+      fr: {
+        added: [
+          "Les appels du coach sonnent sur l'iPhone et sur l'Apple Watch : répondez sur l'un, l'autre suit (en appel sur la montre, terminé, refusé).",
+          "Un vrai écran d'appel sur la montre : votre VVaker, la voix du coach, les sous-titres et Raccrocher.",
+          "Ajoutez un moment après une course, une marche ou une sortie vélo : un selfie, la vue ou une vidéo de 6 secondes, gardés sur votre téléphone.",
+          "Les cartes à partager : votre moment avec votre VVaker et les temps forts de la séance, sans carte ni lieu.",
+          "Plus : un petit + sur le logo VVake quand Plus est actif, et Plus pourra s'acheter dans l'app via Apple dès son ouverture (les testeurs gardent l'aperçu gratuit).",
+        ],
+        improved: [
+          "Les partages sur X arrivent avec une phrase drôle pour le moment et un lien qui affiche un vrai aperçu.",
+          "Après une séance en extérieur, la montre rappelle qu'on peut ajouter un moment sur l'iPhone.",
+        ],
+        fixed: ["L'écran d'appel du coach montre votre VVaker en entier dans le cercle, et l'en-tête ne passe plus sous la caméra."],
+      },
+    },
+  },
+  {
     version: "1.0.0 (12)",
     date: "2026-10-12",
     channel: "beta",
