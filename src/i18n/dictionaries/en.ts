@@ -7,7 +7,7 @@ export const en = {
   meta: {
     title: "VVake Fit: your coach, your crew, your city",
     description:
-      "VVake Fit (say “wake fit”) is an AI fitness coach: a plan that fits your week, sessions at your pace, your crew and your city. iPhone and Apple Watch apps in development; early access opens city by city.",
+      "VVake Fit (say “wake fit”) is an AI fitness coach: a plan that fits your week, sessions at your pace, your crew and your city. iPhone and Apple Watch apps in private beta; early access opens city by city.",
     ogAlt: "VVake Fit: two Vs make a W. The market wakes, we move.",
   },
   nav: {
@@ -36,7 +36,7 @@ export const en = {
   },
   hero: {
     pronounce: "VVake Fit · say it “wake fit”",
-    status: "iPhone + Apple Watch · in development",
+    status: "iPhone + Apple Watch · private beta",
     prefix: "VVake up",
     anthem: ["for your health.", "for your wealth.", "for yourself.", "for your squad.", "for your city.", "for your team."],
     title: ["Your coach.", "Your crew.", "Your city."],
@@ -499,7 +499,7 @@ export const en = {
     },
     musicLabel: "Works with your music",
     musicServices: ["Spotify", "Apple Music", "VVake mixes"],
-    musicNote: "In the iPhone and Apple Watch apps, in development. Names are trademarks of their owners.",
+    musicNote: "In the iPhone and Apple Watch apps, in private beta. Names are trademarks of their owners.",
     healthy: ["Rest days are part of the streak", "Zone 5 never earns more", "No guilt trips", "Quiet hours at night"],
   },
   dare: {
@@ -2690,7 +2690,7 @@ export const en = {
     metrics: { effort: "effort for your heart", minutes: "active minutes", "active-days": "active days", distance: "distance" },
     lead: "Open the invite in the VVake app to accept it. Fair by design: scored on effort for your heart, not speed.",
     open: "Open in the app",
-    noApp: "No app yet? The iPhone and Apple Watch apps are in development and open city by city. Join early access to get in first.",
+    noApp: "No app yet? The iPhone and Apple Watch apps are in a private beta and open city by city. Join early access to get in first.",
     join: "Join early access",
     code: "Invite code",
     loading: "Looking up the invite…",
@@ -2746,7 +2746,7 @@ export const en = {
     code: "Link code",
     lead: "Scan this from your iPhone with VVake installed. Nothing from your code or prompts ever leaves your computer: only desk minutes.",
     open: "Open in VVake",
-    noApp: "No app yet? The iPhone and Apple Watch apps are in development and open city by city. Join early access to get in first.",
+    noApp: "No app yet? The iPhone and Apple Watch apps are in a private beta and open city by city. Join early access to get in first.",
     join: "Get VVake early access",
     invalid: "This link looks incomplete. Run /vvake:link in Claude Code for a fresh one.",
   },
@@ -2760,7 +2760,7 @@ export const en = {
     steps: "Install VVake, then enter this code when you sign up (or open this link again on your iPhone once installed).",
     bonus: "When you finish your first real workout with heart rate within 30 days, you and your friend both get 7 days of VVake Plus.",
     open: "Open in the app",
-    noApp: "No app yet? The iPhone and Apple Watch apps are in development and open city by city. Join early access to get in first.",
+    noApp: "No app yet? The iPhone and Apple Watch apps are in a private beta and open city by city. Join early access to get in first.",
     join: "Join early access",
     invalid: "This invite link looks incomplete. Ask your friend to send it again.",
     shareX: "Share on X",

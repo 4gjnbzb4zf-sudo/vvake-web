@@ -189,7 +189,7 @@ const TONES: Record<string, string> = {
   maybe: "border-line text-muted",
 };
 
-/** Honest device status: in development, planned, under consideration. */
+/** Honest device status: private beta, in development, being studied. */
 export function Devices({ dict, index }: { dict: Home["devices"]; index: string }) {
   return (
     <Section id="devices" index={index} kicker={dict.kicker} title={dict.title} lead={dict.lead} layout="split">

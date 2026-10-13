@@ -5,7 +5,7 @@ export const fr: Dictionary = {
   meta: {
     title: "VVake Fit : ton coach, ta crew, ta ville",
     description:
-      "VVake Fit (ça se dit « wake fit ») est un coach sportif IA : un plan qui colle à ta semaine, des séances à ton rythme, ta crew et ta ville. Apps iPhone et Apple Watch en développement ; accès anticipé ville par ville.",
+      "VVake Fit (ça se dit « wake fit ») est un coach sportif IA : un plan qui colle à ta semaine, des séances à ton rythme, ta crew et ta ville. Apps iPhone et Apple Watch en bêta privée ; accès anticipé ville par ville.",
     ogAlt: "VVake Fit : deux V font un W. La Bourse se réveille, nous on bouge.",
   },
   nav: {
@@ -34,7 +34,7 @@ export const fr: Dictionary = {
   },
   hero: {
     pronounce: "VVake Fit · ça se dit « wake fit »",
-    status: "iPhone + Apple Watch · en développement",
+    status: "iPhone + Apple Watch · bêta privée",
     prefix: "VVake up",
     anthem: ["pour ta santé.", "pour ta richesse.", "pour toi.", "pour ton squad.", "pour ta ville.", "pour ton équipe."],
     title: ["Ton coach.", "Ta crew.", "Ta ville."],
@@ -498,7 +498,7 @@ export const fr: Dictionary = {
     },
     musicLabel: "Fonctionne avec ta musique",
     musicServices: ["Spotify", "Apple Music", "Mix VVake"],
-    musicNote: "Dans les apps iPhone et Apple Watch, en développement. Ces noms sont des marques de leurs propriétaires.",
+    musicNote: "Dans les apps iPhone et Apple Watch, en bêta privée. Ces noms sont des marques de leurs propriétaires.",
     healthy: [
       "Les jours de repos font partie de la série",
       "La zone 5 ne rapporte jamais plus",
@@ -2858,7 +2858,7 @@ export const fr: Dictionary = {
     lead: "Ouvre l'invitation dans l'app VVake pour l'accepter. Juste par principe : compté sur l'effort de ton cœur, pas sur la vitesse.",
     open: "Ouvrir dans l'app",
     noApp:
-      "Pas encore l'app ? Les apps iPhone et Apple Watch sont en développement et ouvrent ville par ville. Rejoins l'accès anticipé pour passer en premier.",
+      "Pas encore l'app ? Les apps iPhone et Apple Watch sont en bêta privée et ouvrent ville par ville. Rejoins l'accès anticipé pour passer en premier.",
     join: "Rejoindre l'accès anticipé",
     code: "Code d'invitation",
     loading: "Recherche de l'invitation…",
@@ -2915,7 +2915,7 @@ export const fr: Dictionary = {
     lead: "Scanne ça avec ton iPhone où VVake est installée. Rien de ton code ni de tes requêtes ne quitte ton ordi : seulement des minutes au bureau.",
     open: "Ouvrir dans VVake",
     noApp:
-      "Pas encore l'app ? Les apps iPhone et Apple Watch sont en développement et ouvrent ville par ville. Rejoins l'accès anticipé pour passer en premier.",
+      "Pas encore l'app ? Les apps iPhone et Apple Watch sont en bêta privée et ouvrent ville par ville. Rejoins l'accès anticipé pour passer en premier.",
     join: "Rejoindre l'accès anticipé",
     invalid: "Ce lien semble incomplet. Lance /vvake:link dans Claude Code pour en avoir un nouveau.",
   },
@@ -2930,7 +2930,7 @@ export const fr: Dictionary = {
     bonus: "Termine ta première vraie séance avec fréquence cardiaque dans les 30 jours : 7 jours de VVake Plus offerts à vous deux.",
     open: "Ouvrir dans l'app",
     noApp:
-      "Pas encore l'app ? Les apps iPhone et Apple Watch sont en développement et ouvrent ville par ville. Rejoins l'accès anticipé pour passer en premier.",
+      "Pas encore l'app ? Les apps iPhone et Apple Watch sont en bêta privée et ouvrent ville par ville. Rejoins l'accès anticipé pour passer en premier.",
     join: "Rejoindre l'accès anticipé",
     invalid: "Ce lien d'invitation semble incomplet. Demande à ton ami de te le renvoyer.",
     shareX: "Partager sur X",
