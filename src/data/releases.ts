@@ -19,6 +19,38 @@ export interface Release {
 
 export const releases: Release[] = [
   {
+    version: "1.0.0 (14)",
+    date: "2026-10-13",
+    channel: "beta",
+    devices: ["iphone", "watch"],
+    notes: {
+      en: {
+        improved: [
+          'During a workout, "back to your workout" is now a slim bar at the very bottom of the phone, and screens move up so it never covers anything.',
+          "The watch's Today shows your VVaker in the background.",
+          "Every watch screen was checked on small and large watches in English and French, so text and buttons are no longer cut by the rounded corners.",
+          "When no free slot is left today, the phone and the watch say so plainly and offer a short daily move instead.",
+        ],
+        fixed: [
+          'On the watch\'s coach page, the "Your coaching" button is no longer cut off.',
+          "On the watch's music page, the page dots no longer sit on the speaker button.",
+        ],
+      },
+      fr: {
+        improved: [
+          "Pendant une séance, « Retour à ta séance » devient une fine barre tout en bas du téléphone, et les écrans remontent pour qu'elle ne cache rien.",
+          "L'écran Aujourd'hui de la montre affiche votre VVaker en fond.",
+          "Chaque écran de la montre a été vérifié sur petites et grandes montres, en anglais et en français : textes et boutons ne sont plus coupés par les coins arrondis.",
+          "Quand il ne reste plus de créneau libre aujourd'hui, le téléphone et la montre le disent clairement et proposent un petit mouvement du jour.",
+        ],
+        fixed: [
+          "Sur la page coach de la montre, le bouton « Ton coaching » n'est plus coupé.",
+          "Sur la page musique de la montre, les points de page ne recouvrent plus le bouton haut-parleur.",
+        ],
+      },
+    },
+  },
+  {
     version: "1.0.0 (13)",
     date: "2026-10-12",
     channel: "beta",
