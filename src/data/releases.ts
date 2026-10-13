@@ -19,6 +19,44 @@ export interface Release {
 
 export const releases: Release[] = [
   {
+    version: "1.0.0 (17)",
+    date: "2026-10-13",
+    channel: "beta",
+    devices: ["iphone", "watch"],
+    notes: {
+      en: {
+        added: [
+          'Tap a quick-check reminder (like "Had a meal?") and VVake opens right on that question, on the iPhone and on the Apple Watch.',
+        ],
+        improved: [
+          "Spotify from the watch: every music control drives Spotify, and the watch shows what Spotify is actually playing, even when you change it in the Spotify app.",
+          "The watch player shows Spotify as a neat chip at the top, with the album art next to the song.",
+          "The watch's Today screen keeps its shortcuts in a row inside the round corners, all visible at first sight.",
+        ],
+        fixed: [
+          "Spotify controls on the watch now work with the iPhone locked in your pocket.",
+          "Tapping the output device that is playing unselects it.",
+          '"Play on iPhone" and "Open Spotify" from the watch no longer ask you to update VVake.',
+        ],
+      },
+      fr: {
+        added: [
+          "Touchez un rappel rapide (comme « Tu as mangé ? ») et VVake s'ouvre directement sur cette question, sur l'iPhone et sur l'Apple Watch.",
+        ],
+        improved: [
+          "Spotify depuis la montre : chaque commande pilote Spotify, et la montre affiche ce que Spotify joue vraiment, même si vous changez dans l'app Spotify.",
+          "Le lecteur de la montre affiche Spotify dans une étiquette en haut, avec la pochette à côté du titre.",
+          "L'écran Aujourd'hui de la montre garde ses raccourcis sur une ligne dans les coins arrondis, tous visibles d'emblée.",
+        ],
+        fixed: [
+          "Les commandes Spotify de la montre fonctionnent avec l'iPhone verrouillé dans la poche.",
+          "Toucher l'appareil de sortie qui joue le désélectionne.",
+          "« Lire sur l'iPhone » et « Ouvrir Spotify » depuis la montre ne demandent plus de mettre VVake à jour.",
+        ],
+      },
+    },
+  },
+  {
     version: "1.0.0 (15)",
     date: "2026-10-13",
     channel: "beta",
