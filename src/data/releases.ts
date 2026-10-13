@@ -19,6 +19,24 @@ export interface Release {
 
 export const releases: Release[] = [
   {
+    version: "1.0.0 (19)",
+    date: "2026-10-13",
+    channel: "beta",
+    devices: ["watch"],
+    notes: {
+      en: {
+        fixed: [
+          "When Spotify plays from its own watch app, VVake's watch music page gives the whole screen to the player, so previous, play/pause and next are always in view, also during a workout.",
+        ],
+      },
+      fr: {
+        fixed: [
+          "Quand Spotify joue depuis son app de montre, la page musique de VVake laisse tout l'écran au lecteur : précédent, lecture/pause et suivant restent toujours visibles, aussi pendant une séance.",
+        ],
+      },
+    },
+  },
+  {
     version: "1.0.0 (18)",
     date: "2026-10-13",
     channel: "beta",
