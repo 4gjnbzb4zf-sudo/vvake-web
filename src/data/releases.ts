@@ -19,6 +19,20 @@ export interface Release {
 
 export const releases: Release[] = [
   {
+    version: "1.0.0 (15)",
+    date: "2026-10-13",
+    channel: "beta",
+    devices: ["iphone"],
+    notes: {
+      en: {
+        fixed: ["Changing the language or theme during a workout no longer ends it: the change applies as soon as the workout closes."],
+      },
+      fr: {
+        fixed: ["Changer la langue ou le thème pendant une séance ne l'arrête plus : le changement s'applique dès la fin de la séance."],
+      },
+    },
+  },
+  {
     version: "1.0.0 (14)",
     date: "2026-10-13",
     channel: "beta",
