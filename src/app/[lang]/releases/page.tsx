@@ -18,6 +18,8 @@ const copy: Record<
     store: string;
     iphone: string;
     watch: string;
+    android: string;
+    wear: string;
     added: string;
     improved: string;
     fixed: string;
@@ -25,22 +27,26 @@ const copy: Record<
 > = {
   en: {
     title: "What's new",
-    description: "Every VVake release on iPhone and Apple Watch: what was added, improved and fixed.",
+    description: "Every VVake release on iPhone, Apple Watch, Android and Wear OS: what was added, improved and fixed.",
     beta: "Beta",
     store: "App Store",
     iphone: "iPhone",
     watch: "Apple Watch",
+    android: "Android",
+    wear: "Wear OS",
     added: "New",
     improved: "Improved",
     fixed: "Fixed",
   },
   fr: {
     title: "Nouveautés",
-    description: "Chaque version de VVake sur iPhone et Apple Watch : ce qui a été ajouté, amélioré et corrigé.",
+    description: "Chaque version de VVake sur iPhone, Apple Watch, Android et Wear OS : ce qui a été ajouté, amélioré et corrigé.",
     beta: "Bêta",
     store: "App Store",
     iphone: "iPhone",
     watch: "Apple Watch",
+    android: "Android",
+    wear: "Wear OS",
     added: "Nouveau",
     improved: "Amélioré",
     fixed: "Corrigé",

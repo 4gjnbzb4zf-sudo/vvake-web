@@ -13,11 +13,43 @@ export interface Release {
   /** "beta" (TestFlight testers) or "store" (App Store / Google Play). */
   channel: "beta" | "store";
   /** Phone, watch or both. */
-  devices: ("iphone" | "watch")[];
+  devices: ("iphone" | "watch" | "android" | "wear")[];
   notes: Record<Locale, { added?: string[]; improved?: string[]; fixed?: string[] }>;
 }
 
 export const releases: Release[] = [
+  {
+    version: "1.0.0 (20)",
+    date: "2026-10-13",
+    channel: "beta",
+    devices: ["iphone", "watch", "android", "wear"],
+    notes: {
+      en: {
+        added: ["Hikes now show a topographic map with contour lines and relief; tap the map button to switch."],
+        improved: [
+          "Snow sessions (skiing, snowboarding, snowshoeing) and shared hike routes also open on the topographic map, and the map you pick is remembered for each sport.",
+          "Buttons that need Spotify now open it right on the playlist, song or album, and VVake comes back when it can.",
+          'On the watch, one "Start playing" button: it starts your music on the phone or where Spotify last played, and only opens Spotify if it has to.',
+          "On the watch, the heart in the corner of every workout page now shows a pause sign: tap it for big Pause and End workout buttons.",
+          "Ending a workout asks once, on one screen, with your time and distance: End and save, or Keep going.",
+          "The workout banner on your phone's other screens has Pause and End buttons too.",
+        ],
+      },
+      fr: {
+        added: [
+          "Les randonnées affichent maintenant une carte topographique avec courbes de niveau et relief ; touchez le bouton de la carte pour changer.",
+        ],
+        improved: [
+          "Les séances sur neige (ski, snowboard, raquettes) et les parcours de rando partagés s'ouvrent aussi sur la carte topographique, et la carte choisie est gardée pour chaque sport.",
+          "Les boutons qui ont besoin de Spotify l'ouvrent directement sur la playlist, le titre ou l'album, et VVake revient quand c'est possible.",
+          "Sur la montre, un seul bouton « Lancer la musique » : il démarre ta musique sur le téléphone ou là où Spotify jouait, et n'ouvre Spotify que si c'est nécessaire.",
+          "Sur la montre, le cœur dans le coin de chaque page de séance affiche un signe pause : touchez-le pour de grands boutons Pause et Terminer la séance.",
+          "Terminer une séance ne demande qu'une confirmation, sur un seul écran, avec votre temps et votre distance : Terminer et enregistrer, ou Je continue.",
+          "Le bandeau de séance sur les autres écrans du téléphone a aussi des boutons Pause et Fin.",
+        ],
+      },
+    },
+  },
   {
     version: "1.0.0 (19)",
     date: "2026-10-13",
