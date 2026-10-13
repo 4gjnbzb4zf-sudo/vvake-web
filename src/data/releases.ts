@@ -19,6 +19,26 @@ export interface Release {
 
 export const releases: Release[] = [
   {
+    version: "1.0.0 (18)",
+    date: "2026-10-13",
+    channel: "beta",
+    devices: ["iphone", "watch"],
+    notes: {
+      en: {
+        fixed: [
+          "On the watch's Today screen, the Race, Move, Quest and Coach buttons now sit fully inside the screen's rounded corners on every watch size, including Ultra.",
+          'When Spotify plays from its own watch app, VVake\'s watch player shows and controls it instead of "Open Spotify on your iPhone".',
+        ],
+      },
+      fr: {
+        fixed: [
+          "Sur l'écran Aujourd'hui de la montre, les boutons Course, Bouger, Quête et Coach restent entièrement dans les coins arrondis de l'écran, sur toutes les tailles, Ultra compris.",
+          "Quand Spotify joue depuis son app de montre, le lecteur VVake de la montre l'affiche et le contrôle au lieu de « Ouvre Spotify sur ton iPhone ».",
+        ],
+      },
+    },
+  },
+  {
     version: "1.0.0 (17)",
     date: "2026-10-13",
     channel: "beta",
