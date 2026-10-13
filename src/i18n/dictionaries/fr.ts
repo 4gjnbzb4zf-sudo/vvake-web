@@ -200,15 +200,19 @@ export const fr: Dictionary = {
     devices: {
       kicker: "Appareils",
       title: "Ton mouvement. Ton appareil.",
-      lead: "VVake n'est pas encore sur l'App Store : les apps sont en développement et testées sur nos propres appareils. Voici où on en est, honnêtement.",
+      lead: "VVake n'est pas encore sur l'App Store ni sur Google Play : les apps iPhone et Apple Watch sont en bêta privée avec un petit groupe de testeurs, et les apps Android sont en construction. Voici où on en est, honnêtement.",
       groups: [
         {
-          status: "En développement",
+          status: "Bêta privée",
           tone: "now",
           items: ["App iPhone", "App Apple Watch", "Apple Santé", "L'agenda de ton iPhone et Google Agenda"],
         },
-        { status: "Prévu", tone: "next", items: ["Téléphone Android et Health Connect", "Montres Wear OS", "Garmin"] },
-        { status: "À l'étude", tone: "maybe", items: ["Bagues connectées", "Autres objets connectés et apps"] },
+        {
+          status: "En développement",
+          tone: "next",
+          items: ["Téléphone Android et Health Connect", "Montres Wear OS, rondes et carrées"],
+        },
+        { status: "À l'étude", tone: "maybe", items: ["Bagues connectées", "Garmin", "Autres objets connectés et apps"] },
       ],
       note: "Dis-nous ce que tu portes en t'inscrivant : ça aide à choisir ce qui vient en premier. Rien ici n'est une promesse de compatibilité ni une date.",
     },
@@ -1300,7 +1304,7 @@ export const fr: Dictionary = {
         { icon: "❤️", name: "Synchro santé", spec: "Apple Santé" },
         { icon: "📶", name: "Ceintures cardio", spec: "Toute ceinture cardio Bluetooth" },
       ],
-      note: "Les deux apps sont en développement, pas encore sur l'App Store. Android, Wear OS et Garmin sont prévus, pas encore construits. La liste finale est publiée à chaque version de l'app.",
+      note: "Les apps iPhone et Apple Watch sont en bêta privée, pas encore sur l'App Store. Les apps pour téléphone Android et Wear OS sont en développement. Garmin et les bagues connectées sont à l'étude. La liste finale est publiée à chaque version de l'app.",
     },
     platforms: "Apple Watch · iPhone",
     soon: "Disponible au déblocage de ta ville",
@@ -1354,7 +1358,7 @@ export const fr: Dictionary = {
       },
       {
         title: "Partout",
-        body: "Apple Watch ou iPhone (Android et Wear OS sont prévus). Pas de réseau sur le sentier ? Les sessions s'enregistrent hors ligne et se synchronisent plus tard : tu ne perds jamais un jour.",
+        body: "Apple Watch ou iPhone (Android et Wear OS sont en développement). Pas de réseau sur le sentier ? Les sessions s'enregistrent hors ligne et se synchronisent plus tard : tu ne perds jamais un jour.",
       },
     ],
   },
@@ -2256,7 +2260,7 @@ export const fr: Dictionary = {
     items: [
       {
         q: "Je peux utiliser VVake maintenant ?",
-        a: "Pas encore. Les apps iPhone et Apple Watch sont en développement et pas sur l'App Store. Android et d'autres appareils sont prévus (voir l'état des appareils plus haut). Rejoins l'accès anticipé et on t'écrit quand tu peux commencer.",
+        a: "Pas encore. Les apps iPhone et Apple Watch sont en bêta privée avec un petit groupe de testeurs, pas sur l'App Store. Les apps pour téléphone Android et Wear OS sont en développement (voir l'état des appareils plus haut). Rejoins l'accès anticipé et on t'écrit quand tu peux commencer.",
       },
       {
         q: "Quand est-ce que ça arrive dans ma ville ?",

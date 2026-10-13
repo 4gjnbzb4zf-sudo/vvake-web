@@ -202,15 +202,19 @@ export const en = {
     devices: {
       kicker: "Devices",
       title: "Your movement. Your device.",
-      lead: "VVake isn't in the App Store yet: the apps are in development and tested on our own devices. Here's the honest status.",
+      lead: "VVake isn't in the App Store or on Google Play yet: the iPhone and Apple Watch apps are in a private beta with a small group of testers, and the Android apps are being built. Here's the honest status.",
       groups: [
         {
-          status: "In development",
+          status: "Private beta",
           tone: "now",
           items: ["iPhone app", "Apple Watch app", "Apple Health", "Your iPhone's calendar and Google Calendar"],
         },
-        { status: "Planned", tone: "next", items: ["Android phone and Health Connect", "Wear OS watches", "Garmin"] },
-        { status: "Under consideration", tone: "maybe", items: ["Smart rings", "Other wearables and apps"] },
+        {
+          status: "In development",
+          tone: "next",
+          items: ["Android phone and Health Connect", "Wear OS watches, round and square"],
+        },
+        { status: "Being studied", tone: "maybe", items: ["Smart rings", "Garmin", "Other wearables and apps"] },
       ],
       note: "Tell us what you wear when you join: it helps decide what comes first. Nothing here is a promise of support or a date.",
     },
@@ -1252,7 +1256,7 @@ export const en = {
         { icon: "❤️", name: "Health sync", spec: "Apple Health" },
         { icon: "📶", name: "Heart-rate straps", spec: "Any Bluetooth heart-rate strap" },
       ],
-      note: "Both apps are in development, not in the App Store yet. Android, Wear OS and Garmin are planned, not built. The final list is published with each app release.",
+      note: "The iPhone and Apple Watch apps are in a private beta, not in the App Store yet. The Android phone and Wear OS apps are in development. Garmin and smart rings are being studied. The final list is published with each app release.",
     },
     platforms: "Apple Watch · iPhone",
     soon: "Coming with your city's unlock",
@@ -1303,7 +1307,7 @@ export const en = {
       },
       {
         title: "Works anywhere",
-        body: "Apple Watch or iPhone (Android and Wear OS are planned). No signal on the trail? Sessions record offline and sync later, so you never lose a day.",
+        body: "Apple Watch or iPhone (Android and Wear OS are in development). No signal on the trail? Sessions record offline and sync later, so you never lose a day.",
       },
     ],
   },
@@ -2110,7 +2114,7 @@ export const en = {
     items: [
       {
         q: "Can I use VVake now?",
-        a: "Not yet. The iPhone and Apple Watch apps are in development and not in the App Store. Android and other devices are planned (see the device status above). Join early access and we'll email you when you can start.",
+        a: "Not yet. The iPhone and Apple Watch apps are in a private beta with a small group of testers, not in the App Store. The Android phone and Wear OS apps are in development (see the device status above). Join early access and we'll email you when you can start.",
       },
       {
         q: "When does it launch in my city?",
