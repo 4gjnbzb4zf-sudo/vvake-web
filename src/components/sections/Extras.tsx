@@ -93,6 +93,7 @@ export function Footer({ locale, dict }: { locale: Locale; dict: Dictionary["foo
     {
       title: dict.groups.community,
       links: [
+        { label: dict.clashes, href: page("clashes/") },
         { label: dict.rewards, href: page("rewards/") },
         { label: dict.backers, href: page("backers/") },
         { label: dict.partners, href: sectionHref(locale, "partners") },

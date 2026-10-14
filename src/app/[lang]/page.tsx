@@ -1,4 +1,6 @@
 import { notFound } from "next/navigation";
+import { HomeLiveClashes } from "@/components/clashes/LiveClashes";
+import { siteConfig } from "@/config/site";
 import { Faq, Footer } from "@/components/sections/Extras";
 import { Header } from "@/components/sections/Header";
 import { AppScreens } from "@/components/sections/AppScreens";
@@ -31,6 +33,8 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
       <Header locale={lang} dict={dict.nav} />
       <main id="main">
         <Hero dict={dict.hero} />
+        {/* Only there while a City Clash is on (live, results coming or starting soon): nothing otherwise. */}
+        <HomeLiveClashes apiUrl={siteConfig.apiUrl} dict={dict.clashes} lang={lang} href={`/${lang}/clashes/`} />
         <Film dict={home.film} locale={lang} />
         <Loop dict={home.loop} index="01" />
         <AppScreens dict={dict.screens} index="02" more={{ href: `${pageHref(lang, "app/")}#screens`, label: home.screens.more }} />
