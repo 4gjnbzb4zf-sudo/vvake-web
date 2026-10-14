@@ -2136,7 +2136,7 @@ export const en = {
       },
       {
         q: "Is there a token? What are the $VVAKE prizes?",
-        a: "VVake is a fitness and training service, not a financial product. Each week, people who moved enough with heart-rate data (at least 3 sessions or 90 active minutes) share $VVAKE prizes by effort. Two ways in, same prize: VVake Fit Plus or the free entry (no purchase necessary), with an account, an entry and a linked wallet from before the week, and a short weekly skill question. Only sessions recorded with the VVake app on a real iPhone or Apple Watch count, and during the pilot prizes are capped and reviewed by a person every week. Prizes are for people 18 or older, points count up to 150 a day, nobody gets more than 10% of a week's pot, and prizes never depend on chance, on how much you pay or on how many tokens you hold. 15% of net VVake Fit Plus revenue funds the prize pool, converted on chain by public rules. You claim from your own wallet on vvake.com/rewards; VVake never holds your tokens and never asks for your recovery phrase. Testnet today: the tokens have no value, nothing to buy, and nothing here is an offer or investment advice. Not offered in the US or UK at launch, subject to legal review.",
+        a: "VVake is a fitness and training service, not a financial product. Each week, people who moved enough with heart-rate data (at least 3 sessions of 10+ minutes or 90 active minutes, with movement) share $VVAKE prizes by effort. Two ways in, same prize: VVake Fit Plus or the free entry (no purchase necessary), with an account, an entry and a linked wallet from before the week, and a short weekly skill question. Only sessions recorded with the VVake app on a real iPhone or Apple Watch count, and during the pilot prizes are capped and reviewed by a person every week. Prizes are for people 18 or older, points count up to 150 a day, nobody gets more than 10% of a week's pot, and prizes never depend on chance, on how much you pay or on how many tokens you hold. 15% of net VVake Fit Plus revenue funds the prize pool, converted on chain by public rules. You claim from your own wallet on vvake.com/rewards; VVake never holds your tokens and never asks for your recovery phrase. Testnet today: the tokens have no value, nothing to buy, and nothing here is an offer or investment advice. Not offered in the US or UK at launch, subject to legal review.",
         link: "rewards/",
       },
     ],
@@ -2494,7 +2494,7 @@ export const en = {
         id: "rewards",
         h: "$VVAKE prizes and your wallet",
         p: [
-          "$VVAKE prizes are optional, and today they run on Robinhood Chain Testnet, where the tokens have no value. You never need a wallet to use VVake. In the apps you only see your points and read-only prize information; linking a wallet and claiming happen on vvake.com/rewards, from your own wallet. Prizes are for people 18 or older who entered with VVake Fit Plus or the free entry (same prize), linked a wallet before the week, moved enough with heart-rate data that week (at least 3 sessions or 90 active minutes) and answered the week's skill question; to check this we use your subscription status or free entry, when your account and wallet link were made, your counted sessions and active minutes, your skill answers, and the 18+ confirmation you give when linking. Legal basis: your consent, given by linking a wallet.",
+          "$VVAKE prizes are optional, and today they run on Robinhood Chain Testnet, where the tokens have no value. You never need a wallet to use VVake. In the apps you only see your points and read-only prize information; linking a wallet and claiming happen on vvake.com/rewards, from your own wallet. Prizes are for people 18 or older who entered with VVake Fit Plus or the free entry (same prize), linked a wallet before the week, moved enough with heart-rate data that week (at least 3 sessions of 10+ minutes or 90 active minutes, with movement) and answered the week's skill question; to check this we use your subscription status or free entry, when your account and wallet link were made, your counted sessions and active minutes, your skill answers, and the 18+ confirmation you give when linking. Legal basis: your consent, given by linking a wallet.",
         ],
         list: [
           {
@@ -2993,7 +2993,8 @@ export const en = {
         wallet: "a wallet must be linked before the week starts (a new wallet counts from the next week)",
         walletFrom: "your wallet counts from the week of {date} (a new wallet counts from the next week)",
         adult: "18+ not confirmed: link your wallet again and tick the box",
-        effort: "not enough heart-rate effort yet: 3 sessions or 90 active minutes, with heart-rate data from a watch",
+        effort:
+          "not enough heart-rate effort yet: 3 sessions of 10+ minutes or 90 active minutes, with movement, with heart-rate data from a watch",
         skill: "this week's skill question isn't answered yet",
         pilot: "no seat in the pilot yet: you're on the waiting list",
         other: "a prize condition isn't met",
@@ -3156,7 +3157,7 @@ export const en = {
         },
         {
           h: "Plus or the free entry, same prize",
-          p: "Two ways in: VVake Fit Plus or the free entry (no purchase necessary), same rules and same prizes. A week counts if your account, your entry and your linked wallet existed before the week started, you're 18 or older and allowed to receive prizes where you live (you confirm it when linking), you recorded your sessions with the app on a real iPhone or Apple Watch, you moved with heart-rate data from a watch (at least 3 sessions or 90 active minutes; a phone without a heart-rate sensor scores 0), and you answered the week's skill question, as Canadian law requires for prizes. Move Quests never count toward prizes.",
+          p: "Two ways in: VVake Fit Plus or the free entry (no purchase necessary), same rules and same prizes. A week counts if your account, your entry and your linked wallet existed before the week started, you're 18 or older and allowed to receive prizes where you live (you confirm it when linking), you recorded your sessions with the app on a real iPhone or Apple Watch, you moved with heart-rate data from a watch (at least 3 sessions of 10+ minutes or 90 active minutes, with movement; a phone without a heart-rate sensor scores 0), and you answered the week's skill question, as Canadian law requires for prizes. Move Quests never count toward prizes.",
         },
         {
           h: "Only the real app counts",
