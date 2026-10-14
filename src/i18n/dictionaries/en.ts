@@ -301,7 +301,7 @@ export const en = {
       { value: 44, label: "Launch cities" },
       { value: 22, label: "Rivalries" },
       { value: 4, label: "Energy refills a day" },
-      { value: 0, label: "Team tokens", suffix: "%" },
+      { value: 3, label: "Max team tokens (locked)", suffix: "%" },
     ],
     note: "Launch facts, not usage stats. Live counters arrive with the waitlist.",
   },
@@ -704,7 +704,7 @@ export const en = {
   earn: {
     kicker: "What you get",
     title: "Move. Get more than fit.",
-    body: "Health is the start. Every verified session also builds your status, your city's glory, real-life perks and, where the law allows, real rewards. The team is paid from fees only: never from tokens, never from new players' money.",
+    body: "Health is the start. Every verified session also builds your status, your city's glory, real-life perks and, where the law allows, real rewards. The team is paid from fees, never from new players' money. Its $VVAKE share is at most 3%, locked for 12 months, then released over 3 years.",
     when: ["Day one", "Seasons · where legal", "Licensed partners", "Planned"],
     items: [
       {
@@ -1479,7 +1479,7 @@ export const en = {
         items: [
           { label: "Ticker", value: "$VVAKE" },
           { label: "Chain", value: "Robinhood Chain, via vibe/vibe" },
-          { label: "Team allocation", value: "0%" },
+          { label: "Team allocation", value: "At most 3%: locked 12 months, then vested over 3 years" },
           { label: "Launch", value: "Public launch with anti-snipe settings" },
           { label: "Supply and tier amounts", value: "Fixed at launch, in the white paper" },
           { label: "Launchpad trading fees", value: "70% season rewards · 30% reserve" },
@@ -1519,7 +1519,7 @@ export const en = {
       },
       never: {
         title: "What $VVAKE never does",
-        items: ["Yield or staking returns", "Revenue share to holders", "Buy stats or an edge", "Team allocation", "Needed to play"],
+        items: ["Yield or staking returns", "Revenue share to holders", "Buy stats or an edge", "Needed to play"],
       },
       links: [
         { to: "vibe", label: "vibe/vibe launchpad (testnet)" },
@@ -1559,7 +1559,7 @@ export const en = {
       items: [
         "Let you bet on a stock",
         "Pay yield or staking returns",
-        "Keep team tokens",
+        "Sell team tokens before they unlock",
         "Buy, hold or give out stocks ourselves",
         "Ask for your seed phrase",
       ],
@@ -1731,7 +1731,7 @@ export const en = {
   openBook: {
     kicker: "Open book",
     title: "Where the money goes. Public before you ask.",
-    body: "The team has no token allocation and is paid only from fees. Each source has its own public split.",
+    body: "The team holds at most 3% of $VVAKE, locked for 12 months then vested over 3 years, and is paid from fees. Each source has its own public split.",
     sources: [
       {
         name: "VVake Fit Plus",
@@ -1751,7 +1751,7 @@ export const en = {
         note: "Testnet today: the tokens have no value. Planned: this split set in a public fee-split contract at the mainnet launch.",
       },
     ],
-    promise: "No hidden wallets. No team tokens. A public report every season.",
+    promise: "No hidden wallets. At most 3% team tokens, locked and vested. A public report every season.",
   },
   vvaker: {
     kicker: "Your VVaker",

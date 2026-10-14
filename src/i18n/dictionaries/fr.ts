@@ -299,7 +299,7 @@ export const fr: Dictionary = {
       { value: 44, label: "Villes au lancement" },
       { value: 22, label: "Rivalités" },
       { value: 4, label: "Recharges d'énergie par jour" },
-      { value: 0, label: "Tokens pour l'équipe", suffix: "%" },
+      { value: 3, label: "Tokens équipe max (bloqués)", suffix: "%" },
     ],
     note: "Des faits de lancement, pas des statistiques d'usage. Les compteurs en direct arrivent avec la liste d'attente.",
   },
@@ -719,7 +719,7 @@ export const fr: Dictionary = {
   earn: {
     kicker: "Ce que tu y trouves",
     title: "Bouge. Gagne plus que la forme.",
-    body: "La santé, c'est le début. Chaque séance vérifiée construit aussi ton statut, la gloire de ta ville, des avantages bien réels et, là où la loi le permet, de vraies récompenses. L'équipe est payée uniquement par les frais : jamais par des tokens, jamais par l'argent des nouveaux joueurs.",
+    body: "La santé, c'est le début. Chaque séance vérifiée construit aussi ton statut, la gloire de ta ville, des avantages bien réels et, là où la loi le permet, de vraies récompenses. L'équipe est payée par les frais, jamais par l'argent des nouveaux joueurs. Sa part de $VVAKE est d'au plus 3 %, bloquée 12 mois, puis libérée sur 3 ans.",
     when: ["Dès le jour 1", "Saisons · selon le pays", "Partenaires agréés", "Prévu"],
     items: [
       {
@@ -1541,7 +1541,7 @@ export const fr: Dictionary = {
         items: [
           { label: "Ticker", value: "$VVAKE" },
           { label: "Chaîne", value: "Robinhood Chain, via vibe/vibe" },
-          { label: "Allocation équipe", value: "0 %" },
+          { label: "Allocation équipe", value: "Au plus 3 % : bloquée 12 mois, puis libérée sur 3 ans" },
           { label: "Lancement", value: "Lancement public avec réglages anti-snipe" },
           { label: "Offre et montants des paliers", value: "Fixés au lancement, dans le livre blanc" },
           { label: "Frais de trading du launchpad", value: "70 % récompenses de saison · 30 % réserve" },
@@ -1588,7 +1588,6 @@ export const fr: Dictionary = {
           "Rendement ou staking",
           "Partage de revenus avec les détenteurs",
           "Acheter des stats ou un avantage",
-          "Allocation à l'équipe",
           "Obligatoire pour jouer",
         ],
       },
@@ -1634,7 +1633,7 @@ export const fr: Dictionary = {
       items: [
         "Te faire parier sur une action",
         "Verser du rendement ou du staking",
-        "Garder des tokens pour l'équipe",
+        "Vendre des tokens de l'équipe avant leur déblocage",
         "Acheter, détenir ou distribuer des actions nous-mêmes",
         "Te demander ta seed phrase",
       ],
@@ -1809,7 +1808,7 @@ export const fr: Dictionary = {
   openBook: {
     kicker: "Livre ouvert",
     title: "Où va l'argent. Public avant même que tu demandes.",
-    body: "L'équipe n'a aucune allocation de tokens et n'est payée que par les frais. Chaque source a sa propre répartition publique.",
+    body: "L'équipe détient au plus 3 % de $VVAKE, bloqués 12 mois puis libérés sur 3 ans, et elle est payée par les frais. Chaque source a sa propre répartition publique.",
     sources: [
       {
         name: "VVake Fit Plus",
@@ -1833,7 +1832,8 @@ export const fr: Dictionary = {
         note: "Testnet pour l'instant : les tokens n'ont aucune valeur. Prévu : cette répartition fixée dans un contrat public de répartition des frais au lancement sur le mainnet.",
       },
     ],
-    promise: "Pas de wallets cachés. Aucun token pour l'équipe. Un rapport public chaque saison.",
+    promise:
+      "Pas de wallets cachés. Au plus 3 % de tokens pour l'équipe, bloqués et libérés progressivement. Un rapport public chaque saison.",
   },
   vvaker: {
     kicker: "Ton VVaker",
