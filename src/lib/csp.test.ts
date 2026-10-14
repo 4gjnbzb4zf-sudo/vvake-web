@@ -73,6 +73,7 @@ describe("VV-12 Content-Security-Policy", () => {
     const sources: Record<string, (c: CspConfig) => string | null> = {
       "src/lib/rewardsApi.ts": (c) => c.apiUrl,
       "src/components/sections/ChallengeInvite.tsx": (c) => c.apiUrl,
+      "src/components/clashes/LiveClashes.tsx": (c) => c.apiUrl,
       "src/lib/chain.ts": (c) => c.rpcUrl,
       "src/lib/waitlist.ts": (c) => c.waitlistEndpoint || null,
       "src/components/sections/LiveMap.tsx": (c) => c.liveEndpoint || null,
