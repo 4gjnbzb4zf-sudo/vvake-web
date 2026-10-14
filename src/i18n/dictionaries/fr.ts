@@ -1330,7 +1330,7 @@ export const fr: Dictionary = {
         was: "Des récompenses imprimées sans limite",
         now: "Des récompenses financées uniquement par de vrais revenus, jamais par les nouveaux.",
       },
-      { was: "La vitesse décidait de tout", now: "Ton cœur décide. Un effort noté sur tes propres zones." },
+      { was: "La vitesse décidait de tout", now: "Ton effort décide : ton cœur sur tes propres zones, plus le GPS ou tes capteurs santé." },
       { was: "Un nouveau truc à acheter chaque mois", now: "Un seul écosystème. Pas de tapis roulant « paie plus pour moins »." },
     ],
   },

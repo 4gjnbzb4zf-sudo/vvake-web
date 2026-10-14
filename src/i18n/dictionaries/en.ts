@@ -1279,7 +1279,7 @@ export const en = {
     fixes: [
       { was: "{money} to start", now: "Free to start. No NFT paywall, ever." },
       { was: "Rewards printed without limit", now: "Rewards only from real revenue, never from new users." },
-      { was: "Speed decided everything", now: "Your heart decides. Effort scored on your own zones." },
+      { was: "Speed decided everything", now: "Your effort decides: your heart on your own zones, plus GPS or your health sensors." },
       { was: "A new thing to buy every month", now: "One ecosystem. No pay-more-for-less treadmill." },
     ],
   },
