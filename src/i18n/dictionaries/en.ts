@@ -904,7 +904,7 @@ export const en = {
       "Your data: your full journal and exports stay free",
     ],
     split:
-      "30% of net Plus revenue (what the stores pay us after their commission and taxes, minus refunds) goes to the prize pool, handed out each week for effort.",
+      "15% of net Plus revenue (what the stores pay us after their commission and taxes, minus refunds) goes to the prize pool, handed out each week for effort.",
     note: "In the iPhone app (and the Android app when it comes), Plus is an in-app subscription through the store; manage or cancel it in your store settings. Prices vary by country and include taxes where required.",
   },
   coach: {
@@ -1483,7 +1483,7 @@ export const en = {
           { label: "Launch", value: "Public launch with anti-snipe settings" },
           { label: "Supply and tier amounts", value: "Fixed at launch, in the white paper" },
           { label: "Launchpad trading fees", value: "70% season rewards · 30% reserve" },
-          { label: "Prize pool", value: "30% of net Plus revenue" },
+          { label: "Prize pool", value: "15% of net Plus revenue" },
           { label: "Conversions", value: "By rule on chain: capped daily, anyone can trigger" },
           { label: "Where converted $VVAKE goes", value: "Only to the rewards contract" },
           {
@@ -1502,7 +1502,7 @@ export const en = {
       },
       prizePool: {
         title: "🏆 Plus funds a monthly prize pool",
-        body: "Each month 30% of net VVake Fit Plus revenue (store proceeds after Apple's or Google's commission and withheld taxes, minus refunds) goes to the prize pool, a public contract (VVakePrizePool), with a hash of that month's report on chain. The pool turns it into $VVAKE by rule, never by anyone's choice.",
+        body: "Each month 15% of net VVake Fit Plus revenue (store proceeds after Apple's or Google's commission and withheld taxes, minus refunds) goes to the prize pool, a public contract (VVakePrizePool), with a hash of that month's report on chain. The pool turns it into $VVAKE by rule, never by anyone's choice.",
         steps: [
           "Conversions run in small capped chunks, at most once a day, and anyone can trigger the next one",
           "The $VVAKE goes only to the rewards contract (VVakeRewards), never to a person or a team wallet",
@@ -2136,7 +2136,7 @@ export const en = {
       },
       {
         q: "Is there a token? What are the $VVAKE prizes?",
-        a: "VVake is a fitness and training service, not a financial product. Each week, people who moved enough with heart-rate data (at least 3 sessions or 90 active minutes) share $VVAKE prizes by effort. Two ways in, same prize: VVake Fit Plus or the free entry (no purchase necessary), with an account, an entry and a linked wallet from before the week, and a short weekly skill question. Only sessions recorded with the VVake app on a real iPhone or Apple Watch count, and during the pilot prizes are capped and reviewed by a person every week. Prizes are for people 18 or older, points count up to 150 a day, nobody gets more than 10% of a week's pot, and prizes never depend on chance, on how much you pay or on how many tokens you hold. 30% of net VVake Fit Plus revenue funds the prize pool, converted on chain by public rules. You claim from your own wallet on vvake.com/rewards; VVake never holds your tokens and never asks for your recovery phrase. Testnet today: the tokens have no value, nothing to buy, and nothing here is an offer or investment advice. Not offered in the US or UK at launch, subject to legal review.",
+        a: "VVake is a fitness and training service, not a financial product. Each week, people who moved enough with heart-rate data (at least 3 sessions or 90 active minutes) share $VVAKE prizes by effort. Two ways in, same prize: VVake Fit Plus or the free entry (no purchase necessary), with an account, an entry and a linked wallet from before the week, and a short weekly skill question. Only sessions recorded with the VVake app on a real iPhone or Apple Watch count, and during the pilot prizes are capped and reviewed by a person every week. Prizes are for people 18 or older, points count up to 150 a day, nobody gets more than 10% of a week's pot, and prizes never depend on chance, on how much you pay or on how many tokens you hold. 15% of net VVake Fit Plus revenue funds the prize pool, converted on chain by public rules. You claim from your own wallet on vvake.com/rewards; VVake never holds your tokens and never asks for your recovery phrase. Testnet today: the tokens have no value, nothing to buy, and nothing here is an offer or investment advice. Not offered in the US or UK at launch, subject to legal review.",
         link: "rewards/",
       },
     ],
@@ -3148,7 +3148,7 @@ export const en = {
       items: [
         {
           h: "Plus funds the pool",
-          p: "Each month 30% of net Plus subscription revenue goes to an open prize pool contract, with a hash of that month's report on chain.",
+          p: "Each month 15% of net Plus subscription revenue goes to an open prize pool contract, with a hash of that month's report on chain.",
         },
         {
           h: "The pool turns ETH into VVAKE by rule",

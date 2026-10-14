@@ -19,9 +19,9 @@ describe("fee splits: one split per source (EN and FR)", () => {
 
   it("the tokenomics list says the same as the open book", () => {
     const items = (d: typeof en) => Object.fromEntries(d.rwa.token.tokenomics.items.map((i) => [i.label, i.value]));
-    expect(items(en)["Prize pool"]).toBe("30% of net Plus revenue");
+    expect(items(en)["Prize pool"]).toBe("15% of net Plus revenue");
     expect(items(en)["Launchpad trading fees"]).toBe("70% season rewards · 30% reserve");
-    expect(items(fr)["Cagnotte de prix"]).toBe("30 % des revenus nets de Plus");
+    expect(items(fr)["Cagnotte de prix"]).toBe("15 % des revenus nets de Plus");
     expect(items(fr)["Frais de trading du launchpad"]).toBe("70 % récompenses de saison · 30 % réserve");
   });
 });

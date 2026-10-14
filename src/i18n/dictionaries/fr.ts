@@ -940,7 +940,7 @@ export const fr: Dictionary = {
       "Tes données : ton journal complet et tes exports restent gratuits",
     ],
     split:
-      "30 % des revenus nets de Plus (ce que les stores nous versent après leur commission et les taxes, moins les remboursements) vont à la cagnotte de prix, distribuée chaque semaine pour l'effort.",
+      "15 % des revenus nets de Plus (ce que les stores nous versent après leur commission et les taxes, moins les remboursements) vont à la cagnotte de prix, distribuée chaque semaine pour l'effort.",
     note: "Dans l'app iPhone (et l'app Android quand elle arrivera), Plus est un abonnement intégré géré par le store ; gère-le ou résilie-le dans les réglages du store. Les prix varient selon le pays et incluent les taxes quand c'est requis.",
   },
   coach: {
@@ -1545,7 +1545,7 @@ export const fr: Dictionary = {
           { label: "Lancement", value: "Lancement public avec réglages anti-snipe" },
           { label: "Offre et montants des paliers", value: "Fixés au lancement, dans le livre blanc" },
           { label: "Frais de trading du launchpad", value: "70 % récompenses de saison · 30 % réserve" },
-          { label: "Cagnotte de prix", value: "30 % des revenus nets de Plus" },
+          { label: "Cagnotte de prix", value: "15 % des revenus nets de Plus" },
           { label: "Conversions", value: "Selon des règles on-chain : plafonnées par jour, déclenchables par tous" },
           { label: "Où vont les $VVAKE convertis", value: "Seulement au contrat de récompenses" },
           {
@@ -1567,7 +1567,7 @@ export const fr: Dictionary = {
       },
       prizePool: {
         title: "🏆 Plus alimente une cagnotte de prix mensuelle",
-        body: "Chaque mois, 30 % des revenus nets de VVake Fit Plus (ce que versent les stores après la commission d'Apple ou de Google et les taxes retenues, moins les remboursements) vont à la cagnotte, un contrat public (VVakePrizePool), avec l'empreinte du rapport du mois sur la chaîne. La cagnotte les convertit en $VVAKE selon des règles, jamais au choix de quelqu'un.",
+        body: "Chaque mois, 15 % des revenus nets de VVake Fit Plus (ce que versent les stores après la commission d'Apple ou de Google et les taxes retenues, moins les remboursements) vont à la cagnotte, un contrat public (VVakePrizePool), avec l'empreinte du rapport du mois sur la chaîne. La cagnotte les convertit en $VVAKE selon des règles, jamais au choix de quelqu'un.",
         steps: [
           "Les conversions se font par petites tranches plafonnées, au plus une fois par jour, et n'importe qui peut déclencher la suivante",
           "Les $VVAKE vont seulement au contrat de récompenses (VVakeRewards), jamais à une personne ni à un wallet de l'équipe",
@@ -2282,7 +2282,7 @@ export const fr: Dictionary = {
       },
       {
         q: "Il y a un token ? C'est quoi les prix $VVAKE ?",
-        a: "VVake est un service de sport et d'entraînement, pas un produit financier. Chaque semaine, les personnes qui ont assez bougé avec fréquence cardiaque (au moins 3 séances ou 90 minutes actives) se partagent des prix $VVAKE selon leur effort. Deux façons d'entrer, le même prix : VVake Fit Plus ou l'inscription gratuite (aucun achat requis), avec un compte, une inscription et un portefeuille lié d'avant la semaine, et une courte question d'habileté chaque semaine. Seules les séances enregistrées avec l'app VVake sur un vrai iPhone ou une vraie Apple Watch comptent, et pendant le pilote, les prix sont plafonnés et vérifiés par une personne chaque semaine. Les prix sont pour les 18 ans et plus, les points comptent jusqu'à 150 par jour, personne ne reçoit plus de 10 % de la cagnotte d'une semaine, et les prix ne dépendent jamais du hasard, de ce que tu paies ni du nombre de tokens que tu détiens. 30 % des revenus nets de VVake Fit Plus alimentent la cagnotte, convertie sur la chaîne selon des règles publiques. Tu réclames tes prix depuis ton propre portefeuille sur vvake.com/rewards ; VVake ne détient jamais tes tokens et ne te demande jamais ta phrase de récupération. Testnet pour l'instant : les tokens n'ont aucune valeur, rien à acheter, et rien ici n'est une offre ni un conseil en placement. Pas offert aux États-Unis ni au Royaume-Uni au lancement, sous réserve d'un examen juridique.",
+        a: "VVake est un service de sport et d'entraînement, pas un produit financier. Chaque semaine, les personnes qui ont assez bougé avec fréquence cardiaque (au moins 3 séances ou 90 minutes actives) se partagent des prix $VVAKE selon leur effort. Deux façons d'entrer, le même prix : VVake Fit Plus ou l'inscription gratuite (aucun achat requis), avec un compte, une inscription et un portefeuille lié d'avant la semaine, et une courte question d'habileté chaque semaine. Seules les séances enregistrées avec l'app VVake sur un vrai iPhone ou une vraie Apple Watch comptent, et pendant le pilote, les prix sont plafonnés et vérifiés par une personne chaque semaine. Les prix sont pour les 18 ans et plus, les points comptent jusqu'à 150 par jour, personne ne reçoit plus de 10 % de la cagnotte d'une semaine, et les prix ne dépendent jamais du hasard, de ce que tu paies ni du nombre de tokens que tu détiens. 15 % des revenus nets de VVake Fit Plus alimentent la cagnotte, convertie sur la chaîne selon des règles publiques. Tu réclames tes prix depuis ton propre portefeuille sur vvake.com/rewards ; VVake ne détient jamais tes tokens et ne te demande jamais ta phrase de récupération. Testnet pour l'instant : les tokens n'ont aucune valeur, rien à acheter, et rien ici n'est une offre ni un conseil en placement. Pas offert aux États-Unis ni au Royaume-Uni au lancement, sous réserve d'un examen juridique.",
         link: "rewards/",
       },
     ],
@@ -3328,7 +3328,7 @@ export const fr: Dictionary = {
       items: [
         {
           h: "Plus alimente la cagnotte",
-          p: "Chaque mois, 30 % des revenus nets des abonnements Plus vont vers un contrat de cagnotte ouvert, avec l'empreinte du rapport du mois sur la chaîne.",
+          p: "Chaque mois, 15 % des revenus nets des abonnements Plus vont vers un contrat de cagnotte ouvert, avec l'empreinte du rapport du mois sur la chaîne.",
         },
         {
           h: "La cagnotte convertit l'ETH en VVAKE selon des règles",
