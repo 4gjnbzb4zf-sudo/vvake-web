@@ -19,6 +19,44 @@ export interface Release {
 
 export const releases: Release[] = [
   {
+    version: "1.0.0 (21)",
+    date: "2026-10-14",
+    channel: "beta",
+    devices: ["iphone", "watch", "android", "wear"],
+    notes: {
+      en: {
+        added: [
+          "When a city is challenged, everyone in both cities gets a notification to jump in, and another when the 12 hours start.",
+          "City Clash shows your city's points against the other city's, a tug bar and a live countdown on the phone and the watch.",
+          "A Jump in button starts a workout while your city's clash is live.",
+          "You can turn City Clash alerts off in the settings.",
+        ],
+        improved: [
+          "Every City Clash lasts a fixed 12 hours from 8 AM in each city, and the countdown follows the server's clock.",
+          "Racing a ghost, the map keeps you both in view without zooming out too far, and a Recenter on me button brings it back after you move the map.",
+        ],
+        fixed: [
+          "During a workout the map follows you up close, at street level, with your VVaker clearly visible, instead of starting zoomed far out.",
+        ],
+      },
+      fr: {
+        added: [
+          "Quand une ville est défiée, tout le monde dans les deux villes reçoit une notification pour s'y mettre, puis une autre quand les 12 heures commencent.",
+          "Le City Clash montre les points de votre ville face à ceux de l'autre, une barre de duel et un compte à rebours en direct sur le téléphone et la montre.",
+          "Un bouton J'y vais lance une séance pendant que le clash de votre ville est en cours.",
+          "Vous pouvez couper les alertes City Clash dans les réglages.",
+        ],
+        improved: [
+          "Chaque City Clash dure 12 heures fixes à partir de 8 h dans chaque ville, et le compte à rebours suit l'horloge du serveur.",
+          "Pendant une course contre un fantôme, la carte vous garde tous les deux en vue sans trop dézoomer, et un bouton Recentrer sur moi la ramène sur vous après l'avoir déplacée.",
+        ],
+        fixed: [
+          "Pendant une séance, la carte vous suit de près, au niveau de la rue, avec votre VVaker bien visible, au lieu de s'ouvrir très dézoomée.",
+        ],
+      },
+    },
+  },
+  {
     version: "1.0.0 (20)",
     date: "2026-10-13",
     channel: "beta",
