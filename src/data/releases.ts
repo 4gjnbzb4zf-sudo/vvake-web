@@ -19,6 +19,38 @@ export interface Release {
 
 export const releases: Release[] = [
   {
+    version: "1.0.0 (22)",
+    date: "2026-10-15",
+    channel: "beta",
+    devices: ["iphone", "watch", "android", "wear"],
+    notes: {
+      en: {
+        added: [
+          "Fresh start: coming back after a break, start again at Day 1 from You › Settings, on the phone or the watch (hold to confirm).",
+          "A fresh start resets your plan and schedule, streak, daily habits, custom health settings, focus lock and the coach's memory.",
+          "Your VVaker, Health data, sessions, points, prizes, wallets, Plus and goals stay, and the other devices follow on their own.",
+        ],
+        improved: [
+          "Weekly prizes now need movement with your heart rate: a raised heart while sitting (sauna, bath, coffee, stress) still earns points in your journal, but no longer counts toward prizes.",
+          "The watch now records when your wrist moves during a workout, so strength sessions, wheelchair pushes and other workouts without steps count toward prizes.",
+          "A session that didn't count toward prizes because no movement was detected says so in its details, on the phone and on the watch.",
+        ],
+      },
+      fr: {
+        added: [
+          "Repartir à zéro : de retour après une pause, recommencez au jour 1 depuis Vous › Réglages, sur le téléphone ou la montre (maintenir pour confirmer).",
+          "Repartir à zéro remet à neuf votre plan et votre programme, votre série, vos habitudes, vos réglages santé perso, le verrou de concentration et la mémoire du coach.",
+          "Votre VVaker, vos données santé, séances, points, prix, portefeuilles, Plus et objectifs restent, et les autres appareils suivent d'eux-mêmes.",
+        ],
+        improved: [
+          "Les prix de la semaine demandent maintenant du mouvement avec votre fréquence cardiaque : un cœur qui monte en restant assis (sauna, bain, café, stress) donne toujours des points dans votre journal, mais ne compte plus pour les prix.",
+          "La montre enregistre maintenant quand votre poignet bouge pendant une séance : la musculation, les poussées en fauteuil et les autres séances sans pas comptent pour les prix.",
+          "Une séance qui ne compte pas pour les prix faute de mouvement le dit dans son détail, sur le téléphone et sur la montre.",
+        ],
+      },
+    },
+  },
+  {
     version: "1.0.0 (21)",
     date: "2026-10-14",
     channel: "beta",
