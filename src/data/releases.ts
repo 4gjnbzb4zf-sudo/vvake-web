@@ -19,6 +19,42 @@ export interface Release {
 
 export const releases: Release[] = [
   {
+    version: "1.0.0 (24)",
+    date: "2026-10-15",
+    channel: "beta",
+    devices: ["iphone", "watch", "android", "wear"],
+    notes: {
+      en: {
+        added: [
+          "Talk with your coach hands-free during a session: one tap, the coach answers out loud and listens again.",
+          "With Plus, it's a live conversation, up to 10 minutes a day; say bye or tap End to stop.",
+          "Without Plus, each tap asks one spoken question, answered out loud.",
+        ],
+        improved: [
+          "No keyboard during a session: on the phone, no more holding to talk; on the watch, Answer by voice.",
+          'Siri on the Apple Watch understands VVake when you say "Vee Wake", "Wake" or "The Wake".',
+          '"Talk to my coach in VVake" opens the coach on the watch, already listening, hands-free.',
+          'New phrase: "Start a run with VVake".',
+          "Previous song is now in the Shortcuts app on the watch.",
+        ],
+      },
+      fr: {
+        added: [
+          "Parlez à votre coach sans les mains en séance : une touche, il répond à voix haute et vous réécoute.",
+          "Avec Plus, une vraie conversation, jusqu'à 10 minutes par jour ; dites au revoir pour arrêter.",
+          "Sans Plus, une question parlée par touche, avec une réponse à voix haute.",
+        ],
+        improved: [
+          "Plus de clavier en séance : plus besoin de maintenir pour parler sur le téléphone, réponse à la voix sur la montre.",
+          "Siri sur l'Apple Watch comprend VVake quand vous dites « Vee Wake », « Wake » ou « The Wake ».",
+          "« Parle à mon coach VVake » ouvre le coach sur la montre, déjà à l'écoute, sans les mains.",
+          "Nouvelle phrase : « Démarre une course avec VVake ».",
+          "Chanson précédente se trouve maintenant dans l'app Raccourcis de la montre.",
+        ],
+      },
+    },
+  },
+  {
     version: "1.0.0 (23)",
     date: "2026-10-15",
     channel: "beta",

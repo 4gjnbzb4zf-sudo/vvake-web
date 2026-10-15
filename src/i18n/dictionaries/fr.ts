@@ -890,6 +890,11 @@ export const fr: Dictionary = {
         body: "Un court appel quand ça compte : ton plan a changé, ta série d'habitudes est en jeu ce soir, ou un nouveau record. Aussi souvent que tu veux, jamais la nuit, désactivé par défaut.",
       },
       {
+        icon: "🎙️",
+        title: "Coach vocal en direct",
+        body: "Coach vocal en direct : parle à ton coach sans les mains pendant une séance, 10 minutes par jour.",
+      },
+      {
         icon: "📅",
         title: "Replanification auto",
         body: "Nouvelle réunion ? Ta séance se déplace toute seule sur ton prochain créneau libre.",
@@ -1215,7 +1220,7 @@ export const fr: Dictionary = {
       {
         src: "phone-05-live",
         title: "En direct, sur un seul écran",
-        body: "Ton cœur, la carte avec ton parcours, un bloc de zone à rebours, le micro du coach et ta musique. Bats ton record et ton toi d'avant court là aussi.",
+        body: "Ton cœur, la carte avec ton parcours, un bloc de zone à rebours, un coach mains libres à une touche et ta musique. Bats ton record et ton toi d'avant court là aussi.",
       },
       {
         src: "phone-06-rhythm",
@@ -2559,7 +2564,9 @@ export const fr: Dictionary = {
         id: "voice",
         h: "Microphone et reconnaissance vocale",
         p: [
-          "Le microphone n'est utilisé que lorsque vous maintenez « Parler au coach ». La reconnaissance vocale d'Apple transforme vos paroles en texte, sur votre appareil quand il le permet (sinon sur les serveurs d'Apple, selon la politique de confidentialité d'Apple). Nous ne recevons ni ne gardons jamais l'audio : seul le texte est transmis au coach.",
+          "Le microphone n'est utilisé que lorsque vous parlez à VVake : une commande vocale après avoir touché le micro, ou une question ou une conversation avec le coach tant qu'elle est ouverte (une touche la lance ; l'écoute s'arrête quand vous dites au revoir, l'arrêtez d'une touche, mettez en pause ou terminez la séance, ou quand les minutes du jour sont épuisées).",
+          "Sur le téléphone, vos paroles sont transformées en texte par la reconnaissance vocale du téléphone (celle d'Apple sur iPhone, celle de Google sur Android), sur l'appareil quand il le permet (sinon sur les serveurs d'Apple ou de Google, selon leur politique de confidentialité). Seul le texte nous est envoyé, jamais l'audio.",
+          "Sur l'Apple Watch et les montres Wear OS, qui ne peuvent pas le faire elles-mêmes, l'enregistrement de ce que vous dites au coach est envoyé à notre API et à ElevenLabs (transcription de la parole) pour être transformé en texte. Nous ne conservons pas l'enregistrement : seul le texte est transmis au coach.",
           "Les réponses du coach sont lues par une voix de synthèse créée par ElevenLabs, ou par la voix de votre appareil si vous la choisissez. Le coach est une IA, pas une personne, et pas un médecin.",
         ],
         list: [],
@@ -2602,6 +2609,10 @@ export const fr: Dictionary = {
           {
             t: "Changements de plan.",
             d: "Le coach peut seulement proposer un changement à votre plan. Rien ne change tant que vous ne l'avez pas approuvé.",
+          },
+          {
+            t: "Transcription de la parole sur les montres (ElevenLabs).",
+            d: "Quand vous parlez au coach sur une Apple Watch ou une montre Wear OS, ElevenLabs reçoit l'enregistrement de ce que vous avez dit et renvoie le texte. Nous ne gardons pas l'enregistrement.",
           },
           {
             t: "La voix du coach (ElevenLabs).",
@@ -2686,7 +2697,7 @@ export const fr: Dictionary = {
           { t: "Anthropic (États-Unis).", d: "Rédige les réponses du coach (voir Fonctions d'IA)." },
           {
             t: "ElevenLabs (Eleven Labs Inc., États-Unis ; données stockées aux États-Unis).",
-            d: "Transforme les répliques du coach en voix.",
+            d: "Transforme les répliques du coach en voix, et ce que vous dites au coach sur une montre en texte.",
           },
           { t: "xAI (États-Unis).", d: "Génère les images de VVaker personnalisés à partir de leurs traits." },
           {

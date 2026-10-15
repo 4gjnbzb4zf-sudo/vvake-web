@@ -869,6 +869,11 @@ export const en = {
         title: "Your coach calls you",
         body: "A short call when it matters: your plan changed, your habit streak is at risk tonight, or a new best. As often as you like it, never at night, off by default.",
       },
+      {
+        icon: "🎙️",
+        title: "Live voice coach",
+        body: "Live voice coach: talk hands-free with your coach during a session, 10 minutes a day.",
+      },
       { icon: "📅", title: "Auto-reschedule", body: "New meeting? Your session moves itself to your next free slot." },
       { icon: "👥", title: "Host big", body: "Crews up to 50 people, 10 recurring events and your crew banner." },
       { icon: "🎯", title: "Challenge Maker", body: "Create custom challenges for your crew or city. Always free to join." },
@@ -1171,7 +1176,7 @@ export const en = {
       {
         src: "phone-05-live",
         title: "Live, on one screen",
-        body: "Your heart, the map with your route, a zone block counting down, the coach's mic and your music. Race your best and your past self runs there too.",
+        body: "Your heart, the map with your route, a zone block counting down, a hands-free coach one tap away and your music. Race your best and your past self runs there too.",
       },
       {
         src: "phone-06-rhythm",
@@ -2413,7 +2418,9 @@ export const en = {
         id: "voice",
         h: "Microphone and speech",
         p: [
-          "The microphone is used only while you hold \"Talk to coach\". Apple's speech recognition turns your words into text, on your device when it supports it (otherwise on Apple's servers, under Apple's privacy policy). We never receive or keep the audio: only the text goes to the coach.",
+          "The microphone is used only while you speak to VVake: a voice command after you press the mic, or a question or conversation with the coach while it's open (one tap starts it; it stops listening when you say bye, tap End, pause or end the session, or the day's minutes run out).",
+          "On the phone, your speech is turned into text by the phone's own speech recognition (Apple's on iPhone, Google's on Android), on the device when it supports it (otherwise on Apple's or Google's servers, under their privacy policies). Only the text is sent to us, never the audio.",
+          "On the Apple Watch and Wear OS watches, which can't do that themselves, the recording of what you say to the coach is sent to our API and to ElevenLabs (speech-to-text) to be turned into text. We don't store the recording: only the text goes on to the coach.",
           "Coach replies are spoken with a synthetic voice made by ElevenLabs, or by your device's own voice if you choose it. The coach is an AI, not a person, and not a doctor.",
         ],
         list: [],
@@ -2456,6 +2463,10 @@ export const en = {
           {
             t: "Plan changes.",
             d: "The coach can only propose a change to your plan. Nothing changes until you approve it.",
+          },
+          {
+            t: "Speech-to-text on the watches (ElevenLabs).",
+            d: "When you talk to the coach on an Apple Watch or a Wear OS watch, ElevenLabs receives the recording of what you said and returns the text. We don't keep the recording.",
           },
           {
             t: "The coach's voice (ElevenLabs).",
@@ -2538,7 +2549,10 @@ export const en = {
             d: "Hosts the VVake API, the database and file storage, the waitlist, and the bot check on the website's signup form (Turnstile).",
           },
           { t: "Anthropic (United States).", d: "Writes the coach's replies (see AI features)." },
-          { t: "ElevenLabs (Eleven Labs Inc., United States; data stored in the United States).", d: "Turns coach lines into speech." },
+          {
+            t: "ElevenLabs (Eleven Labs Inc., United States; data stored in the United States).",
+            d: "Turns coach lines into speech, and what you say to the coach on a watch into text.",
+          },
           { t: "xAI (United States).", d: "Renders custom VVaker images from their traits." },
           { t: "Resend (United States).", d: "Sends sign-in codes and waitlist e-mails. It receives your e-mail address and the message." },
           { t: "Google (United States).", d: "Only if you sign in with Google or connect Google Calendar." },

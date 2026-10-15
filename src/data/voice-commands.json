@@ -1069,36 +1069,36 @@
         "fr": "Rien à configurer : ça marche dès que VVake est installée, sur ton iPhone, ton Apple Watch et tes AirPods. D’autres actions (ouvrir une page, ton mouvement du jour, un défi fantôme, reporter le verrou Claude) sont dans l’app Raccourcis."
       },
       "name": {
-        "en": "Say the app’s name like “Wake” (or “Wake Fit”): “Hey Siri, Wake skip song”.",
-        "fr": "Dis le nom de l’app « Ouèk » (ou « Wake Fit ») : « Dis Siri, Ouèk coupe la musique »."
+        "en": "Say the app’s name “VVake” (“vee wake”) or just “Wake”: “Hey Siri, start a run with VVake”.",
+        "fr": "Dis le nom de l’app « VVake » (« vi ouèk ») ou juste « Wake » : « Dis Siri, je fais une course avec VVake »."
       }
     },
     "names": [
       {
+        "name": "Vee Wake",
+        "hint": {
+          "en": "vee wake",
+          "fr": "vi ouèk"
+        }
+      },
+      {
         "name": "Wake",
         "hint": {
           "en": "wake",
-          "fr": "ouéïk"
+          "fr": "ouèk"
         }
       },
       {
-        "name": "Wake Fit",
+        "name": "The Wake",
         "hint": {
-          "en": "wake fit",
-          "fr": "ouèk fit"
-        }
-      },
-      {
-        "name": "Double V Ake",
-        "hint": {
-          "en": "double vee ake",
-          "fr": "double vé ake"
+          "en": "the wake",
+          "fr": "ze ouèk"
         }
       }
     ],
     "spokenName": {
-      "en": "VVake",
-      "fr": "Ouèk"
+      "en": "Vee Wake",
+      "fr": "Vi Ouèk"
     },
     "shortcuts": [
       {
@@ -1118,7 +1118,7 @@
             "VVake start a run",
             "Start a run on VVake",
             "Go for a run with VVake",
-            "Do yoga with VVake",
+            "Start a run with VVake",
             "VVake up and yoga",
             "VVake up and start a run",
             "VVake up and start my workout",
@@ -1135,7 +1135,7 @@
             "Lance une course avec VVake",
             "VVake lance une course",
             "VVake commence une course",
-            "Commencer une course sur VVake",
+            "Démarre une course avec VVake",
             "Je pars faire une course avec VVake",
             "Je fais une course avec VVake",
             "VVake up et une course",
@@ -1346,25 +1346,35 @@
         }
       },
       {
-        "key": "previous-song",
-        "intent": "music.previous",
+        "key": "talk-coach",
+        "intent": "coach.talk",
         "title": {
-          "en": "Previous song",
-          "fr": "Chanson précédente"
+          "en": "Talk to my coach",
+          "fr": "Parler à mon coach"
         },
-        "icon": "backward.fill",
+        "icon": "waveform",
         "phone": false,
         "watch": true,
         "examples": {
           "en": [
-            "VVake previous song",
-            "VVake go back a song",
-            "Previous song with VVake"
+            "Talk to my coach in VVake",
+            "Talk to my VVake coach",
+            "VVake talk to my coach",
+            "Ask my VVake coach",
+            "Talk to VVake",
+            "Ask VVake",
+            "VVake I have a question",
+            "Tell VVake something"
           ],
           "fr": [
-            "VVake chanson précédente",
-            "VVake reviens en arrière",
-            "Chanson précédente avec VVake"
+            "Parle à mon coach dans VVake",
+            "Parle à mon coach VVake",
+            "VVake parle au coach",
+            "Demande à mon coach VVake",
+            "Parle à VVake",
+            "Demande à VVake",
+            "VVake j’ai une question",
+            "Dis quelque chose à VVake"
           ]
         }
       },
@@ -1681,7 +1691,7 @@
     ],
     "phrases": {
       "phone": 928,
-      "watch": 928,
+      "watch": 920,
       "max": 1000
     }
   }
