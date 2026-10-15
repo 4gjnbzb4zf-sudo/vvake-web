@@ -19,6 +19,30 @@ export interface Release {
 
 export const releases: Release[] = [
   {
+    version: "1.0.0 (23)",
+    date: "2026-10-15",
+    channel: "beta",
+    devices: ["iphone", "watch", "android", "wear"],
+    notes: {
+      en: {
+        improved: [
+          "The live map follows you like a car GPS on every map (Apple or Google, City, Outdoor): you stay in the middle, at street level, and the map turns with you.",
+          "The map opens straight on your position, or waits until it finds you: never a wrong city or the whole world.",
+          "Move the map with a finger to look around, then tap Recenter on me to follow you again.",
+          "The watch's route page follows you too, on Apple Watch and on round and square Wear OS watches.",
+        ],
+      },
+      fr: {
+        improved: [
+          "La carte en direct vous suit comme un GPS de voiture, sur toutes les cartes : vous au centre, à l'échelle de la rue, et elle tourne avec vous.",
+          "Elle s'ouvre directement sur vous, ou attend de vous trouver : jamais une mauvaise ville ni le monde entier.",
+          "Déplacez-la du doigt pour regarder autour, puis Recentrer sur moi pour qu'elle vous suive à nouveau.",
+          "La page du parcours de la montre vous suit aussi (Apple Watch, Wear OS rond ou carré).",
+        ],
+      },
+    },
+  },
+  {
     version: "1.0.0 (22)",
     date: "2026-10-15",
     channel: "beta",

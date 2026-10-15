@@ -2412,7 +2412,7 @@ export const fr: Dictionary = {
     title: "Politique de confidentialité",
     description:
       "Ce que les applications VVake pour iPhone et Apple Watch et le site vvake.com recueillent, pourquoi, qui y a accès, combien de temps nous le gardons et vos droits.",
-    updated: "Dernière mise à jour : 2026-10-12",
+    updated: "Dernière mise à jour : 2026-10-15",
     draft: "Version provisoire pour l'aperçu TestFlight. Cette politique sera revue par un avocat avant le lancement public.",
     intro: [
       "VVake (aussi appelée VVake Fit) est une application d'entraînement pour iPhone et Apple Watch, accompagnée du site vvake.com. Cette politique explique simplement quels renseignements nous recueillons, pourquoi, qui d'autre y a accès, combien de temps nous les gardons et ce que vous pouvez faire. Elle couvre les applications (y compris les versions d'essai TestFlight), l'API VVake avec laquelle elles communiquent, le compagnon de bureau pour Mac, le module VVake pour Claude Code et ce site, y compris vvake.com/rewards.",
@@ -2531,7 +2531,7 @@ export const fr: Dictionary = {
         list: [
           {
             t: "Pendant les séances extérieures seulement.",
-            d: "VVake utilise votre position pendant que vous utilisez l'application lors d'une séance extérieure, pour tracer votre parcours et mesurer la distance. Quand vous demandez à battre votre record, elle consulte aussi la dernière position connue de votre appareil, sur l'appareil lui-même, pour proposer un parcours qui part près de vous. Le tracé reste sur votre iPhone ou votre Apple Watch et dans l'app Santé ; votre Apple Watch transmet aussi les tracés qu'elle enregistre, et pendant une séance votre position (pour que la carte de votre iPhone la reflète), directement à votre propre iPhone, jamais par nos serveurs. Il n'est jamais envoyé à nos serveurs sous une forme lisible par nous (sauf si vous partagez un parcours pour un défi, voir plus bas) : nous recevons seulement des totaux comme la distance et l'allure, et la sauvegarde chiffrée de bout en bout décrite ci-dessous. Les cartes sont affichées par Plans d'Apple.",
+            d: "VVake utilise votre position pendant que vous utilisez l'application lors d'une séance extérieure, pour tracer votre parcours et mesurer la distance. Quand vous demandez à battre votre record, elle consulte aussi la dernière position connue de votre appareil, sur l'appareil lui-même, pour proposer un parcours qui part près de vous. La carte en direct garde seulement votre dernière position, sur votre téléphone lui-même et sans jamais l'envoyer, pour que la carte suivante s'ouvre tout de suite sur vous. Le tracé reste sur votre iPhone ou votre Apple Watch et dans l'app Santé ; votre Apple Watch transmet aussi les tracés qu'elle enregistre, et pendant une séance votre position (pour que la carte de votre iPhone la reflète), directement à votre propre iPhone, jamais par nos serveurs. Il n'est jamais envoyé à nos serveurs sous une forme lisible par nous (sauf si vous partagez un parcours pour un défi, voir plus bas) : nous recevons seulement des totaux comme la distance et l'allure, et la sauvegarde chiffrée de bout en bout décrite ci-dessous. Les cartes sont affichées par Plans d'Apple.",
           },
           {
             t: "Sauvegarde des parcours (chiffrée de bout en bout).",

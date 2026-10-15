@@ -2266,7 +2266,7 @@ export const en = {
     title: "Privacy policy",
     description:
       "What the VVake iPhone and Apple Watch apps and vvake.com collect, why, who else sees it, how long we keep it and your rights.",
-    updated: "Last updated: 2026-10-12",
+    updated: "Last updated: 2026-10-15",
     draft: "Draft for the TestFlight preview. This policy will be reviewed by a lawyer before the public launch.",
     intro: [
       "VVake (also called VVake Fit) is a fitness coaching app for iPhone and Apple Watch, with this website, vvake.com. This policy explains in plain words what we collect, why, who else sees it, how long we keep it and what you can do about it. It covers the apps (TestFlight previews included), the VVake API they talk to, the desk companion for Mac, the VVake plugin for Claude Code and this website, including vvake.com/rewards.",
@@ -2385,7 +2385,7 @@ export const en = {
         list: [
           {
             t: "During outdoor sessions only.",
-            d: "VVake uses your location while you use the app during an outdoor session, to draw your route and measure distance. When you ask to race your best, it also checks the position your device last recorded, on the device itself, to suggest a route that starts near you. The route stays on your iPhone or Apple Watch and in Apple Health; your Apple Watch also passes the routes it records, and during a workout where you are (so your iPhone's map can mirror it), straight to your own iPhone, never through our servers. It is never sent to our servers in a form we can read (unless you share a route for a challenge, below): we receive only totals such as distance and pace, and the end-to-end encrypted backup described next. Maps are drawn by Apple Maps.",
+            d: "VVake uses your location while you use the app during an outdoor session, to draw your route and measure distance. When you ask to race your best, it also checks the position your device last recorded, on the device itself, to suggest a route that starts near you. The live map keeps only your last position, on your phone itself and never uploaded, so the next map opens on you right away. The route stays on your iPhone or Apple Watch and in Apple Health; your Apple Watch also passes the routes it records, and during a workout where you are (so your iPhone's map can mirror it), straight to your own iPhone, never through our servers. It is never sent to our servers in a form we can read (unless you share a route for a challenge, below): we receive only totals such as distance and pace, and the end-to-end encrypted backup described next. Maps are drawn by Apple Maps.",
           },
           {
             t: "Route backup (end-to-end encrypted).",
