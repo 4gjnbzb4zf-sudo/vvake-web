@@ -892,7 +892,7 @@ export const fr: Dictionary = {
       {
         icon: "🎙️",
         title: "Coach vocal en direct",
-        body: "Coach vocal en direct : parle à ton coach sans les mains pendant une séance, 10 minutes par jour.",
+        body: "Coach vocal en direct : parle à ton coach sans les mains pendant une séance, jusqu'à 15 minutes par semaine.",
       },
       {
         icon: "📅",
@@ -2564,7 +2564,7 @@ export const fr: Dictionary = {
         id: "voice",
         h: "Microphone et reconnaissance vocale",
         p: [
-          "Le microphone n'est utilisé que lorsque vous parlez à VVake : une commande vocale après avoir touché le micro, ou une question ou une conversation avec le coach tant qu'elle est ouverte (une touche la lance ; l'écoute s'arrête quand vous dites au revoir, l'arrêtez d'une touche, mettez en pause ou terminez la séance, ou quand les minutes du jour sont épuisées).",
+          "Le microphone n'est utilisé que lorsque vous parlez à VVake : une commande vocale après avoir touché le micro, ou une question ou une conversation avec le coach tant qu'elle est ouverte (une touche la lance ; l'écoute s'arrête quand vous dites au revoir, l'arrêtez d'une touche, mettez en pause ou terminez la séance, ou quand vos minutes sont épuisées).",
           "Sur le téléphone, vos paroles sont transformées en texte par la reconnaissance vocale du téléphone (celle d'Apple sur iPhone, celle de Google sur Android), sur l'appareil quand il le permet (sinon sur les serveurs d'Apple ou de Google, selon leur politique de confidentialité). Seul le texte nous est envoyé, jamais l'audio.",
           "Sur l'Apple Watch et les montres Wear OS, qui ne peuvent pas le faire elles-mêmes, l'enregistrement de ce que vous dites au coach est envoyé à notre API et à ElevenLabs (transcription de la parole) pour être transformé en texte. Nous ne conservons pas l'enregistrement : seul le texte est transmis au coach.",
           "Les réponses du coach sont lues par une voix de synthèse créée par ElevenLabs, ou par la voix de votre appareil si vous la choisissez. Le coach est une IA, pas une personne, et pas un médecin.",

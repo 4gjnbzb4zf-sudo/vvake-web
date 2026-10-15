@@ -872,7 +872,7 @@ export const en = {
       {
         icon: "🎙️",
         title: "Live voice coach",
-        body: "Live voice coach: talk hands-free with your coach during a session, 10 minutes a day.",
+        body: "Live voice coach: talk hands-free with your coach during a workout, up to 15 minutes a week.",
       },
       { icon: "📅", title: "Auto-reschedule", body: "New meeting? Your session moves itself to your next free slot." },
       { icon: "👥", title: "Host big", body: "Crews up to 50 people, 10 recurring events and your crew banner." },
@@ -2418,7 +2418,7 @@ export const en = {
         id: "voice",
         h: "Microphone and speech",
         p: [
-          "The microphone is used only while you speak to VVake: a voice command after you press the mic, or a question or conversation with the coach while it's open (one tap starts it; it stops listening when you say bye, tap End, pause or end the session, or the day's minutes run out).",
+          "The microphone is used only while you speak to VVake: a voice command after you press the mic, or a question or conversation with the coach while it's open (one tap starts it; it stops listening when you say bye, tap End, pause or end the session, or your minutes run out).",
           "On the phone, your speech is turned into text by the phone's own speech recognition (Apple's on iPhone, Google's on Android), on the device when it supports it (otherwise on Apple's or Google's servers, under their privacy policies). Only the text is sent to us, never the audio.",
           "On the Apple Watch and Wear OS watches, which can't do that themselves, the recording of what you say to the coach is sent to our API and to ElevenLabs (speech-to-text) to be turned into text. We don't store the recording: only the text goes on to the coach.",
           "Coach replies are spoken with a synthetic voice made by ElevenLabs, or by your device's own voice if you choose it. The coach is an AI, not a person, and not a doctor.",

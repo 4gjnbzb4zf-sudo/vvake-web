@@ -27,7 +27,7 @@ export const releases: Release[] = [
       en: {
         added: [
           "Talk with your coach hands-free during a session: one tap, the coach answers out loud and listens again.",
-          "With Plus, it's a live conversation, up to 10 minutes a day; say bye or tap End to stop.",
+          "With Plus, it's a live conversation during a workout, up to 15 minutes a week; say bye or tap End to stop.",
           "Without Plus, each tap asks one spoken question, answered out loud.",
         ],
         improved: [
@@ -41,7 +41,7 @@ export const releases: Release[] = [
       fr: {
         added: [
           "Parlez à votre coach sans les mains en séance : une touche, il répond à voix haute et vous réécoute.",
-          "Avec Plus, une vraie conversation, jusqu'à 10 minutes par jour ; dites au revoir pour arrêter.",
+          "Avec Plus, une vraie conversation pendant une séance, jusqu'à 15 minutes par semaine ; dites au revoir pour arrêter.",
           "Sans Plus, une question parlée par touche, avec une réponse à voix haute.",
         ],
         improved: [
