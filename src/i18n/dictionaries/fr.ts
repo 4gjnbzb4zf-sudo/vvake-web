@@ -2271,6 +2271,10 @@ export const fr: Dictionary = {
         a: "Non. La marche, le vélo, la natation, le renfort musculaire et le yoga comptent tous, à ton rythme. Ton plan part de là où tu en es : tes jours, tes minutes, ton niveau. Les séances comptent sur l'effort de ton cœur, pas sur la vitesse, et si quelque chose fait mal, le plan s'allège et passe en faible impact. VVake n'est pas un avis médical : en cas de doute, parles-en à un médecin.",
       },
       {
+        q: "Je peux repartir à zéro après une pause ?",
+        a: "Oui. « Repartir à zéro » (dans les réglages, sur le téléphone ou la montre) remet à zéro ton plan et ton programme, ta série, tes habitudes du jour, tes réglages santé perso (zones cardiaques, FC de repos et max), le verrou de concentration et la mémoire du coach : tu recommences au jour 1. Ton VVaker, tes séances, tes scores, points et prix, ton portefeuille, Plus, tes amis et tes données Apple Santé ou Health Connect restent : rien n'y est supprimé. Tu maintiens le bouton pour confirmer, donc ça n'arrive jamais par erreur.",
+      },
+      {
         q: "C'est gratuit ? Faut-il un wallet ou des cryptos ?",
         a: "Gratuit pour commencer, et tu n'as jamais besoin d'un wallet ni de cryptos pour t'entraîner. Un wallet sert seulement à réclamer les prix $VVAKE hebdomadaires facultatifs, sur vvake.com/rewards, jamais dans l'app. Les options comme VVake Fit Plus ne sont jamais nécessaires pour t'entraîner ou participer aux défis et n'y donnent jamais d'avantage ; les prix $VVAKE hebdomadaires sont ouverts avec Plus ou l'inscription gratuite (le même prix, aucun achat requis), avec un portefeuille lié (18 ans et plus).",
         link: "app/#plus",

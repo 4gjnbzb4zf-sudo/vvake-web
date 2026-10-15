@@ -2125,6 +2125,10 @@ export const en = {
         a: "No. Walking, cycling, swimming, strength and yoga all count, at your pace. Your plan starts from where you are: your days, your minutes, your level. Sessions are scored on effort for your heart, not speed, and if something hurts the plan goes lighter and low-impact. VVake isn't medical advice: check with a doctor if in doubt.",
       },
       {
+        q: "Can I start over after a break?",
+        a: "Yes. Fresh start (Settings, on the phone or the watch) resets your plan and schedule, your streak, your daily habits, your custom health settings (heart zones, resting and max heart rate), focus lock and the coach's memory, so you begin again at day 1. Your VVaker, your sessions, your scores, points and prizes, your wallet, Plus, your friends and your Apple Health or Health Connect data all stay: nothing is deleted from them. You hold the button to confirm, so it never happens by accident.",
+      },
+      {
         q: "Is it free? Do I need a wallet or crypto?",
         a: "Free to start, and you never need a wallet or crypto to train. A wallet is only for claiming the optional weekly $VVAKE prizes, on vvake.com/rewards, never in the app. Optional extras like VVake Fit Plus are never required to train or take part in challenges and never give an edge in them; the weekly $VVAKE prizes are open with Plus or the free entry (same prize, no purchase necessary), with a linked wallet (18+).",
         link: "app/#plus",
