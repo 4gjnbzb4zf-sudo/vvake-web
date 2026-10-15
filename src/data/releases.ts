@@ -19,6 +19,30 @@ export interface Release {
 
 export const releases: Release[] = [
   {
+    version: "1.0.0 (25)",
+    date: "2026-10-15",
+    channel: "beta",
+    devices: ["iphone", "watch", "android", "wear"],
+    notes: {
+      en: {
+        added: [
+          "The coach reads your last 2 weeks and proposes settings changes: zones, heart rate, reminders, focus lock, goals.",
+          "Approve by tap or by saying yes, undo for 30 days; delete what the coach remembers.",
+          "Spotify on your watch without your phone (Plus + Spotify Premium): Connections › Spotify.",
+        ],
+        improved: ["Live coach (Plus): 15 minutes a week during a workout (5 per workout), yoga and strength included."],
+      },
+      fr: {
+        added: [
+          "Le coach lit vos 2 dernières semaines et propose des réglages : zones, cardio, rappels, verrou, objectifs.",
+          "Acceptez d'une touche ou d'un oui, annulez sous 30 jours ; effacez ce qu'il retient.",
+          "Spotify sur la montre sans le téléphone (Plus + Spotify Premium) : Connexions › Spotify.",
+        ],
+        improved: ["Coach en direct (Plus) : 15 min par semaine en séance (5 par séance), yoga et muscu compris."],
+      },
+    },
+  },
+  {
     version: "1.0.0 (24)",
     date: "2026-10-15",
     channel: "beta",

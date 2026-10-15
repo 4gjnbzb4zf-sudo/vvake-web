@@ -872,7 +872,12 @@ export const en = {
       {
         icon: "🎙️",
         title: "Live voice coach",
-        body: "Live voice coach: talk hands-free with your coach during a workout, up to 15 minutes a week.",
+        body: "Talk hands-free with your coach: 15 minutes a week during your workouts (up to 5 per workout).",
+      },
+      {
+        icon: "🎧",
+        title: "Spotify on your watch",
+        body: "Spotify on your watch without your phone (needs Spotify Premium).",
       },
       { icon: "📅", title: "Auto-reschedule", body: "New meeting? Your session moves itself to your next free slot." },
       { icon: "👥", title: "Host big", body: "Crews up to 50 people, 10 recurring events and your crew banner." },
@@ -2317,6 +2322,14 @@ export const en = {
             d: "For each workout: the sport, start and end time, active time, distance, average and maximum heart rate, time in each heart-rate zone, steps, cadence, calories, effort score, points and streak, and a sample every 10 seconds of distance, heart rate and steps. Never GPS coordinates we can read (your route backup is end-to-end encrypted, see Location; a route race adds only when you started and finished the route and the metres covered on it). Why: your journal, stats, streak, plan, races against your own past sessions, challenges and City Clash.",
           },
           {
+            t: "Live coach workouts (VVake Plus).",
+            d: "While a live conversation with the coach is possible during a workout, the app tells our API that the workout is running: the sport, when it started, its clock, whether it is indoors, its running totals (distance, steps, seconds of wrist movement or pedalling) and your heart-rate samples since the last update. Each message is signed by the device with Apple's App Attest (iPhone, Apple Watch) or checked with Google Play Integrity (Android, Wear OS), which tells us it comes from the genuine VVake app. Why: the live coach works only during a real workout (15 minutes a week, 5 per workout), and these checks stop scripts and copied requests from using it. We keep each workout's record 4 days, the minutes you used each week about 2 weeks, a salted hash of the device (never its ID) 60 days, and a trust score with any warning flags (flags 60 days; the score with your account). Your IP address is used only salted-hashed, for rate limits. Never used for ads or prizes.",
+          },
+          {
+            t: "What the coach remembers, and settings it changes.",
+            d: 'Up to 20 short lines you agreed on or told the coach (like "prefers morning runs"), never the name of a health condition: you see and delete them in Coach › What the coach remembers, and Fresh start clears them. When the coach proposes a settings change (heart zones, resting or maximum heart rate, reminders, focus lock, goals, how chatty it is), we keep the proposal and your answer, and for each change applied a record of the values before and after, which device or voice approved it and when, so you can undo it for 30 days. We also keep how your last 10 sessions felt (your one-tap feedback). Kept with your account and deleted with it; Fresh start clears the memory, feelings and proposals.',
+          },
+          {
             t: "Move Quests and Crew Quests.",
             d: "Move Quests are short motion challenges (10 to 60 seconds: hands up, jumps, freeze) on your Apple Watch. The watch's motion sensor is read on the watch only; we receive just the result: the kind of quest, when it started, how long it lasted, the reps, whether it succeeded, the time of each rep, the longest hold, the peak acceleration, and whether the watch was on your wrist (yes, no or unknown, worked out on the watch from how recent your latest Apple Health heart-rate reading is). Never the raw motion stream. Why: to check the quest was real, give VV points and a little streak help, and count your movement for the Claude Code unlock. A Crew Quest is the same quest at the same time with your crew, the people you have faced in an accepted challenge: when you start one, your crew gets a push notification with your display name and the quest, and everyone who joins sees each other's display name, VVaker and result (success, reps, time, points and rank).",
           },
@@ -2447,7 +2460,8 @@ export const en = {
         id: "music",
         h: "Music",
         p: [
-          "Apple Music and Spotify are controlled from your iPhone, and from your Apple Watch through your iPhone. VVake asks Apple Music (MusicKit) for permission to play your music and show what is playing. If you connect Spotify, sign-in happens on your iPhone, its tokens stay in your iPhone's Keychain, and your iPhone talks to Spotify directly: it reads what is playing, your Spotify devices, your playlists and Liked Songs, and sends play, pause, skip and volume commands and the search words you type or say on your watch. Nothing about your music reaches our servers, and nothing about your workouts or health is sent to Apple Music or Spotify.",
+          "Apple Music and Spotify are controlled from your iPhone, and from your Apple Watch through your iPhone. VVake asks Apple Music (MusicKit) for permission to play your music and show what is playing. If you connect Spotify, sign-in happens on your iPhone, its tokens stay in your iPhone's Keychain, and your iPhone talks to Spotify directly: it reads what is playing, your Spotify devices, your playlists and Liked Songs, and sends play, pause, skip and volume commands and the search words you type or say on your watch. Unless you turn on Spotify on my watch (below), nothing about your music reaches our servers, and nothing about your workouts or health is sent to Apple Music or Spotify.",
+          'Spotify on your watch (optional, VVake Plus). If you turn on "Spotify on my watch", your phone signs in to Spotify a second time for your watches and gives that sign-in to VVake. We keep the Spotify tokens encrypted and use them only to give your own signed-in watches a short-lived key, so they can control Spotify (play, pause, skip, volume, devices, your playlists, search) without your phone. We don\'t store what you listen to. Turn it off in Connections (or delete your account) and we delete the tokens. "Check Spotify on this watch" sends us, only when you tap Send, technical results (device types, status codes, network type, app and OS version), never names, songs or your account; we keep them 90 days.',
         ],
         list: [],
       },
@@ -2458,11 +2472,11 @@ export const en = {
         list: [
           {
             t: "The coach (Anthropic Claude).",
-            d: "To write each reply we send Anthropic: your message and the last few turns (up to 6), the live numbers of your session (sport, time, heart rate and zone, distance, pace, cadence, gaps in a race or challenge, your city's clash score), today's plan and your session feedback, and a summary of your profile (display name, level, zones, targets and coach notes, your aim, the pain, low-impact and easy-only choices, streak, points and recent plan decisions). We do not send your e-mail, account ID, location or contacts. Anthropic processes this as our service provider and, under its commercial terms, does not use it to train its models. Anthropic deletes it within 30 days, unless it must keep it longer to enforce its usage policy (up to 2 years for flagged content) or to comply with the law.",
+            d: "To write each reply we send Anthropic: your message and the last few turns (up to 6), the live numbers of your session (sport, time, heart rate and zone, distance, pace, cadence, gaps in a race or challenge, your city's clash score), today's plan and your session feedback, and a summary of your profile (display name, level, zones, targets and coach notes, your aim, the pain, low-impact and easy-only choices, streak, points and recent plan decisions). It also gets a short summary of your last 14 days (sessions per sport, minutes, time in zones, distance, average and maximum heart rate, how they felt), this week's planned and done sessions, last night's sleep and your resting-heart trend if you share them, your training settings (resting and maximum heart rate, zones, low impact, easy only, daily rhythm, daily move, focus lock), the settings changes you agreed to and what the coach remembers. Never the name of a health condition. We do not send your e-mail, account ID, location or contacts. Anthropic processes this as our service provider and, under its commercial terms, does not use it to train its models. Anthropic deletes it within 30 days, unless it must keep it longer to enforce its usage policy (up to 2 years for flagged content) or to comply with the law.",
           },
           {
-            t: "Plan changes.",
-            d: "The coach can only propose a change to your plan. Nothing changes until you approve it.",
+            t: "Plan and settings changes.",
+            d: "The coach can only propose a change to your plan or your settings. Nothing changes until you approve it, with a tap or a clear spoken yes, and a settings change can be undone for 30 days.",
           },
           {
             t: "Speech-to-text on the watches (ElevenLabs).",
@@ -2555,16 +2569,22 @@ export const en = {
           },
           { t: "xAI (United States).", d: "Renders custom VVaker images from their traits." },
           { t: "Resend (United States).", d: "Sends sign-in codes and waitlist e-mails. It receives your e-mail address and the message." },
-          { t: "Google (United States).", d: "Only if you sign in with Google or connect Google Calendar." },
+          {
+            t: "Google (United States).",
+            d: "If you sign in with Google or connect Google Calendar. On Android and Wear OS, Google Play Integrity tells us that a session upload or a live coach workout comes from the genuine app.",
+          },
           {
             t: "Apple (United States).",
-            d: "Sign in with Apple, push notifications (including crew quest invites), Apple Health, speech recognition, Apple Music, Maps, TestFlight and the App Store, under Apple's own privacy policy.",
+            d: "Sign in with Apple, push notifications (including crew quest invites), Apple Health, speech recognition, Apple Music, Maps, App Attest (which tells us a session upload or a live coach workout comes from the genuine app), TestFlight and the App Store, under Apple's own privacy policy.",
           },
           {
             t: "Finnhub (United States).",
             d: "Market quotes for My Pulse. We send only the symbols that someone follows, never who follows them.",
           },
-          { t: "Spotify.", d: "Only from your iPhone, if you connect it (see Music)." },
+          {
+            t: "Spotify.",
+            d: "From your iPhone if you connect it, and from our API and your watches if you turn on Spotify on my watch (see Music).",
+          },
           {
             t: "Robinhood Chain Testnet (public blockchain).",
             d: "Only if you link a wallet: the weekly roots and your claims are public to everyone (see $VVAKE prizes and your wallet).",
@@ -2614,6 +2634,18 @@ export const en = {
           {
             t: "Coach calls (Plus, if you turn them on):",
             d: "each call's script, audio and status for 90 days, then deleted; with your account at once.",
+          },
+          {
+            t: "Live coach workouts:",
+            d: "4 days; the weekly minutes about 2 weeks; device hashes and warning flags 60 days; the trust score with your account.",
+          },
+          {
+            t: "What the coach remembers and its settings changes:",
+            d: "with your account, until you delete a line, use Fresh start (memory, feelings and proposals) or delete your account (everything, including the before and after record).",
+          },
+          {
+            t: "Spotify on my watch:",
+            d: "the encrypted tokens until you turn it off or delete your account; Check Spotify reports 90 days, without your account.",
           },
           { t: "Claude Code pairing codes:", d: "10 minutes." },
           { t: "Guest accounts:", d: "deleted automatically after 90 days without use." },

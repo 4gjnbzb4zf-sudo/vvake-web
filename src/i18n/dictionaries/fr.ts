@@ -892,7 +892,12 @@ export const fr: Dictionary = {
       {
         icon: "🎙️",
         title: "Coach vocal en direct",
-        body: "Coach vocal en direct : parle à ton coach sans les mains pendant une séance, jusqu'à 15 minutes par semaine.",
+        body: "Parle à ton coach sans les mains : 15 minutes par semaine pendant tes séances (jusqu'à 5 par séance).",
+      },
+      {
+        icon: "🎧",
+        title: "Spotify sur ta montre",
+        body: "Spotify sur ta montre sans ton téléphone (Spotify Premium requis).",
       },
       {
         icon: "📅",
@@ -2463,6 +2468,14 @@ export const fr: Dictionary = {
             d: "Pour chaque entraînement : le sport, l'heure de début et de fin, le temps actif, la distance, la fréquence cardiaque moyenne et maximale, le temps passé dans chaque zone cardiaque, les pas, la cadence, les calories, le score d'effort, les points et la série, et un relevé aux 10 secondes de la distance, de la fréquence cardiaque et des pas. Jamais de coordonnées GPS lisibles par nous (la sauvegarde de votre parcours est chiffrée de bout en bout, voir Localisation ; une course sur parcours ajoute seulement quand vous avez commencé et fini le parcours et les mètres couverts dessus). Pourquoi : votre journal, vos statistiques, votre série, votre plan, vos courses contre vos séances passées, les défis et City Clash.",
           },
           {
+            t: "Séances avec le coach en direct (VVake Plus).",
+            d: "Quand une conversation en direct avec le coach est possible pendant une séance, l'app indique à notre API que la séance est en cours : le sport, son heure de début, son chrono, si elle est à l'intérieur, ses totaux (distance, pas, secondes de mouvement du poignet ou de pédalage) et vos mesures de fréquence cardiaque depuis la dernière mise à jour. Chaque message est signé par l'appareil avec App Attest d'Apple (iPhone, Apple Watch) ou vérifié avec Google Play Integrity (Android, Wear OS), ce qui nous indique qu'il vient de la vraie app VVake. Pourquoi : le coach en direct fonctionne seulement pendant une vraie séance (15 minutes par semaine, 5 par séance), et ces vérifications empêchent des scripts ou des requêtes copiées de l'utiliser. Nous gardons le relevé de chaque séance 4 jours, les minutes utilisées chaque semaine environ 2 semaines, une empreinte salée de l'appareil (jamais son identifiant) 60 jours, et un indice de confiance avec les éventuels signalements (signalements 60 jours ; l'indice avec votre compte). Votre adresse IP sert seulement sous forme d'empreinte salée, pour limiter le nombre de requêtes. Jamais utilisé pour la publicité ni pour les prix.",
+          },
+          {
+            t: "Ce que le coach retient, et les réglages qu'il change.",
+            d: "Jusqu'à 20 courtes lignes que vous avez convenues ou dites au coach (par exemple « préfère courir le matin »), jamais le nom d'un problème de santé : vous les voyez et les supprimez dans Coach › Ce que le coach retient, et Repartir à zéro les efface. Quand le coach propose un changement de réglage (zones cardiaques, fréquence cardiaque au repos ou maximale, rappels, verrou de concentration, objectifs, à quel point il parle), nous gardons la proposition et votre réponse, et pour chaque changement appliqué un relevé des valeurs avant et après, de l'appareil ou de la voix qui l'a approuvé et du moment, pour que vous puissiez l'annuler pendant 30 jours. Nous gardons aussi le ressenti de vos 10 dernières séances (votre avis en une touche). Conservé avec votre compte et supprimé avec lui ; Repartir à zéro efface la mémoire, les ressentis et les propositions.",
+          },
+          {
             t: "Move Quests et quêtes d'équipe.",
             d: "Les Move Quests sont de courts défis de mouvement (10 à 60 secondes : mains en l'air, sauts, statue) sur votre Apple Watch. Le capteur de mouvement est lu sur la montre seulement ; nous recevons uniquement le résultat : le type de quête, l'heure du début, la durée, les répétitions, la réussite, le moment de chaque répétition, le plus long maintien, l'accélération maximale et si la montre était à votre poignet (oui, non ou inconnu, déduit sur la montre de l'âge de votre dernière mesure de fréquence cardiaque dans l'app Santé). Jamais le flux brut du capteur. Pourquoi : vérifier que la quête est réelle, donner des points VV et un petit coup de pouce à la série, et compter votre mouvement pour le déblocage de Claude Code. Une quête d'équipe, c'est la même quête au même moment avec votre équipe, les personnes affrontées dans un défi accepté : quand vous en lancez une, votre équipe reçoit une notification avec votre nom d'affichage et la quête, et tous ceux qui la rejoignent voient le nom d'affichage, le VVaker et le résultat des autres (réussite, répétitions, durée, points et rang).",
           },
@@ -2593,7 +2606,8 @@ export const fr: Dictionary = {
         id: "music",
         h: "Musique",
         p: [
-          "Apple Music et Spotify se contrôlent depuis votre iPhone, et depuis votre Apple Watch par l'intermédiaire de votre iPhone. VVake demande à Apple Music (MusicKit) la permission de faire jouer votre musique et d'afficher ce qui joue. Si vous connectez Spotify, la connexion se fait sur votre iPhone, ses jetons restent dans le trousseau de votre iPhone, et votre iPhone communique directement avec Spotify : il lit ce qui joue, vos appareils Spotify, vos listes de lecture et vos titres likés, et envoie les commandes lecture, pause, piste suivante et volume ainsi que les mots de recherche que vous tapez ou dites sur votre montre. Rien de votre musique ne se rend à nos serveurs, et rien de vos entraînements ni de votre santé n'est communiqué à Apple Music ou à Spotify.",
+          "Apple Music et Spotify se contrôlent depuis votre iPhone, et depuis votre Apple Watch par l'intermédiaire de votre iPhone. VVake demande à Apple Music (MusicKit) la permission de faire jouer votre musique et d'afficher ce qui joue. Si vous connectez Spotify, la connexion se fait sur votre iPhone, ses jetons restent dans le trousseau de votre iPhone, et votre iPhone communique directement avec Spotify : il lit ce qui joue, vos appareils Spotify, vos listes de lecture et vos titres likés, et envoie les commandes lecture, pause, piste suivante et volume ainsi que les mots de recherche que vous tapez ou dites sur votre montre. Sauf si vous activez Spotify sur ma montre (ci-dessous), rien de votre musique ne se rend à nos serveurs, et rien de vos entraînements ni de votre santé n'est communiqué à Apple Music ou à Spotify.",
+          "Spotify sur votre montre (optionnel, VVake Plus). Si vous activez « Spotify sur ma montre », votre téléphone se connecte une deuxième fois à Spotify pour vos montres et confie cette connexion à VVake. Nous gardons les jetons Spotify chiffrés et nous en servons seulement pour donner à vos propres montres connectées une clé de courte durée, afin qu'elles contrôlent Spotify (lecture, pause, piste suivante, volume, appareils, vos listes de lecture, recherche) sans votre téléphone. Nous n'enregistrons pas ce que vous écoutez. Désactivez-le dans Connexions (ou supprimez votre compte) et nous supprimons les jetons. « Vérifier Spotify sur cette montre » nous envoie, seulement quand vous touchez Envoyer, des résultats techniques (types d'appareils, codes d'état, type de réseau, versions de l'app et du système), jamais de noms, de chansons ni votre compte ; nous les gardons 90 jours.",
         ],
         list: [],
       },
@@ -2604,11 +2618,11 @@ export const fr: Dictionary = {
         list: [
           {
             t: "Le coach (Claude d'Anthropic).",
-            d: "Pour rédiger chaque réponse, nous transmettons à Anthropic : votre message et les derniers échanges (6 au maximum), les données en direct de votre séance (sport, temps, fréquence cardiaque et zone, distance, allure, cadence, écarts dans une course ou un défi, pointage de l'affrontement de votre ville), le plan du jour et votre rétroaction après la séance, et un résumé de votre profil (nom d'affichage, niveau, zones, objectifs et notes du coach, votre objectif, vos choix douleur, faible impact et effort léger, série, points et décisions récentes sur le plan). Nous ne transmettons pas votre courriel, votre identifiant de compte, votre position ni vos contacts. Anthropic traite ces données comme notre fournisseur de services et, selon ses conditions commerciales, ne s'en sert pas pour entraîner ses modèles. Anthropic les supprime dans les 30 jours, sauf s'il doit les garder plus longtemps pour faire respecter sa politique d'utilisation (jusqu'à 2 ans pour un contenu signalé) ou pour se conformer à la loi.",
+            d: "Pour rédiger chaque réponse, nous transmettons à Anthropic : votre message et les derniers échanges (6 au maximum), les données en direct de votre séance (sport, temps, fréquence cardiaque et zone, distance, allure, cadence, écarts dans une course ou un défi, pointage de l'affrontement de votre ville), le plan du jour et votre rétroaction après la séance, et un résumé de votre profil (nom d'affichage, niveau, zones, objectifs et notes du coach, votre objectif, vos choix douleur, faible impact et effort léger, série, points et décisions récentes sur le plan). Il reçoit aussi un court résumé de vos 14 derniers jours (séances par sport, minutes, temps dans les zones, distance, fréquence cardiaque moyenne et maximale, ressenti), les séances prévues et faites de la semaine, votre sommeil de la nuit et la tendance de votre fréquence cardiaque au repos si vous les partagez, vos réglages d'entraînement (fréquence cardiaque au repos et maximale, zones, faible impact, effort léger, rythme quotidien, mouvement du jour, verrou de concentration), les changements de réglages acceptés et ce que le coach retient. Jamais le nom d'un problème de santé. Nous ne transmettons pas votre courriel, votre identifiant de compte, votre position ni vos contacts. Anthropic traite ces données comme notre fournisseur de services et, selon ses conditions commerciales, ne s'en sert pas pour entraîner ses modèles. Anthropic les supprime dans les 30 jours, sauf s'il doit les garder plus longtemps pour faire respecter sa politique d'utilisation (jusqu'à 2 ans pour un contenu signalé) ou pour se conformer à la loi.",
           },
           {
-            t: "Changements de plan.",
-            d: "Le coach peut seulement proposer un changement à votre plan. Rien ne change tant que vous ne l'avez pas approuvé.",
+            t: "Changements de plan et de réglages.",
+            d: "Le coach peut seulement proposer un changement à votre plan ou à vos réglages. Rien ne change tant que vous ne l'avez pas approuvé, d'une touche ou d'un oui clair à voix haute, et un changement de réglage peut être annulé pendant 30 jours.",
           },
           {
             t: "Transcription de la parole sur les montres (ElevenLabs).",
@@ -2704,16 +2718,22 @@ export const fr: Dictionary = {
             t: "Resend (États-Unis).",
             d: "Envoie les codes de connexion et les courriels de la liste d'attente. Reçoit votre adresse courriel et le message.",
           },
-          { t: "Google (États-Unis).", d: "Seulement si vous vous connectez avec Google ou connectez Google Agenda." },
+          {
+            t: "Google (États-Unis).",
+            d: "Si vous vous connectez avec Google ou connectez Google Agenda. Sur Android et Wear OS, Google Play Integrity nous indique qu'un envoi de séance ou une séance avec le coach en direct vient de la vraie app.",
+          },
           {
             t: "Apple (États-Unis).",
-            d: "Se connecter avec Apple, notifications (dont les invitations aux quêtes d'équipe), app Santé, reconnaissance vocale, Apple Music, Plans, TestFlight et l'App Store, selon la politique de confidentialité d'Apple.",
+            d: "Se connecter avec Apple, notifications (dont les invitations aux quêtes d'équipe), app Santé, reconnaissance vocale, Apple Music, Plans, App Attest (qui nous indique qu'un envoi de séance ou une séance avec le coach en direct vient de la vraie app), TestFlight et l'App Store, selon la politique de confidentialité d'Apple.",
           },
           {
             t: "Finnhub (États-Unis).",
             d: "Cours boursiers pour My Pulse. Nous envoyons seulement les symboles suivis par quelqu'un, jamais qui les suit.",
           },
-          { t: "Spotify.", d: "Seulement depuis votre iPhone, si vous le connectez (voir Musique)." },
+          {
+            t: "Spotify.",
+            d: "Depuis votre iPhone si vous le connectez, et depuis notre API et vos montres si vous activez Spotify sur ma montre (voir Musique).",
+          },
           {
             t: "Robinhood Chain Testnet (blockchain publique).",
             d: "Seulement si vous liez un portefeuille : les racines hebdomadaires et vos réclamations sont publiques pour tous (voir Prix $VVAKE et votre portefeuille).",
@@ -2769,6 +2789,18 @@ export const fr: Dictionary = {
           {
             t: "Appels du coach (Plus, si tu les actives) :",
             d: "le texte, l'audio et l'état de chaque appel pendant 90 jours, puis supprimés ; tout de suite avec ton compte.",
+          },
+          {
+            t: "Séances avec le coach en direct :",
+            d: "4 jours ; les minutes de la semaine environ 2 semaines ; empreintes d'appareil et signalements 60 jours ; l'indice de confiance avec votre compte.",
+          },
+          {
+            t: "Ce que le coach retient et ses changements de réglages :",
+            d: "avec votre compte, jusqu'à ce que vous supprimiez une ligne, utilisiez Repartir à zéro (mémoire, ressentis et propositions) ou supprimiez votre compte (tout, y compris le relevé avant et après).",
+          },
+          {
+            t: "Spotify sur ma montre :",
+            d: "les jetons chiffrés jusqu'à ce que vous le désactiviez ou supprimiez votre compte ; les rapports Vérifier Spotify 90 jours, sans votre compte.",
           },
           { t: "Codes de jumelage de Claude Code :", d: "10 minutes." },
           { t: "Comptes invités :", d: "supprimés automatiquement après 90 jours sans utilisation." },
