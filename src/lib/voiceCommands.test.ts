@@ -79,14 +79,14 @@ describe("Siri", () => {
     expect(voiceCommandsSchema.safeParse({ ...data, siri: { ...siri, names: [...siri.names, ...siri.names] } }).success).toBe(false);
   });
 
-  it("renders the export's phrases, every one naming VVake, and the name said like Wake / Ouèk", () => {
+  it("renders the export's phrases, every one naming VVake, and the name said like Wake / Vi Ouèk", () => {
     const s = voiceSiri();
     expect(s.shortcuts.map((x) => x.key)).toEqual(data.siri.shortcuts.map((x) => x.key));
     for (const x of s.shortcuts) for (const e of [...x.examples.en, ...x.examples.fr]) expect(e).toContain("VVake");
     expect(s.names.map((n) => n.name)).toContain("Wake");
-    // French: Siri knows VVake as "Ouèk" (its spoken name), and "Wake" with the other French pronunciation.
-    expect(s.spokenName.fr).toBe("Ouèk");
-    expect(s.names.find((n) => n.name === "Wake")?.hint.fr).toBe("ouéïk");
+    // French: Siri knows VVake as "Vi Ouèk" (its spoken name), and "Wake" with the other French pronunciation.
+    expect(s.spokenName.fr).toBe("Vi Ouèk");
+    expect(s.names.find((n) => n.name === "Wake")?.hint.fr).toBe("ouèk");
     const skip = s.shortcuts.find((x) => x.key === "skip-song");
     expect(skip?.phone && skip.watch).toBe(true);
     expect(skip?.examples.fr).toContain("VVake chanson suivante");
