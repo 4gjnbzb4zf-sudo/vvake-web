@@ -1553,8 +1553,8 @@ export const fr: Dictionary = {
         body: "$VVAKE est relancé comme un nouveau token v2 sur le launchpad vibe/vibe, sur Robinhood Chain Testnet. vibe/vibe associe désormais chaque nouveau lancement à un actif de type action : $VVAKE v2 y est donc associé à l'actif de test nommé ANTHROPIC, un actif de testnet de vibe/vibe sans valeur, ni une action ni une part de capital. VVake Fit n'est ni affilié à Anthropic, Robinhood ou vibe/vibe, ni approuvé par eux. Testnet seulement : les tokens n'ont aucune valeur.",
         points: [
           "L'ancien token de testnet est retiré : ce n'est plus $VVAKE. Ne l'achète pas et ne l'échange pas.",
-          "Taxe de trading : 1 % sur chaque achat et chaque vente. 0,8 % va à la trésorerie VVake, avec l'engagement public d'en consacrer 0,5 % aux dépenses de l'équipe et aux plateformes et 0,3 % aux récompenses de saison ; 0,2 % va à la plateforme vibe/vibe. Rien n'est brûlé et rien n'est versé aux détenteurs.",
-          "Pendant les 20 premières secondes après le lancement, vibe/vibe applique une taxe d'achat d'ouverture plus élevée, qui redescend à 1 %. Le surplus va à vibe/vibe.",
+          "Taxe de trading : 3 % sur chaque achat et chaque vente. 2,4 % va à la trésorerie VVake, avec l'engagement public d'en consacrer 1,5 % à l'équipe (développement, marketing, plateformes) et 0,9 % aux récompenses de saison ; 0,6 % va à la plateforme vibe/vibe (20 % de la taxe, fixe). Rien n'est brûlé et rien n'est versé aux détenteurs.",
+          "Pendant les 20 premières secondes après le lancement, vibe/vibe applique une taxe d'achat d'ouverture plus élevée, qui redescend à 3 %. Le surplus va à vibe/vibe.",
           "Au lancement, le wallet de lancement achète 5 % de l'offre (50 M de $VVAKE). Ils sont réservés uniquement à la réclamation unique des wallets qui ont acheté l'ancien token dans son pool. Ce n'est pas un stock de l'équipe.",
           "L'équipe portera v2 jusqu'à la graduation en testnet (le seuil d'environ 3,8 ETH de test de vibe/vibe) pour que la relance démarre dans le même état que l'ancien token ; chaque achat de l'équipe et la destination de ces tokens seront listés dans le livre ouvert.",
           "Équipe : au plus 3 %. L'équipe ne détient aucun token v2 aujourd'hui ; un blocage de 12 mois puis une libération sur 3 ans seront imposés par un contrat avant tout lancement sur le mainnet.",
@@ -1587,7 +1587,8 @@ export const fr: Dictionary = {
           { label: "Offre et montants des paliers", value: "Fixés au lancement, dans le livre blanc" },
           {
             label: "Frais de trading du launchpad",
-            value: "1 % par transaction : 0,5 % dépenses de l'équipe et plateformes · 0,3 % récompenses de saison · 0,2 % vibe/vibe",
+            value:
+              "3 % par transaction : 1,5 % équipe (développement, marketing, plateformes) · 0,9 % récompenses de saison · 0,6 % vibe/vibe",
           },
           {
             label: "Achat d'ouverture",
@@ -1873,22 +1874,22 @@ export const fr: Dictionary = {
       },
       {
         name: "Frais de trading du launchpad",
-        basis: "Taxe de 1 % sur chaque achat et vente de $VVAKE sur vibe/vibe, en % de la transaction",
-        total: 1,
+        basis: "Taxe de 3 % sur chaque achat et vente de $VVAKE sur vibe/vibe, en % de la transaction",
+        total: 3,
         split: [
           {
-            label: "Dépenses de l'équipe et plateformes",
-            note: "Sur les 0,8 % de la trésorerie VVake : frais de fonctionnement, plateformes et listings",
-            value: 0.5,
+            label: "Équipe",
+            note: "Sur les 2,4 % de la trésorerie VVake : développement, marketing et plateformes",
+            value: 1.5,
           },
           {
             label: "Récompenses de saison",
-            note: "Sur les 0,8 % de la trésorerie VVake : pour l'effort, jamais pour la détention",
-            value: 0.3,
+            note: "Sur les 2,4 % de la trésorerie VVake : pour l'effort, jamais pour la détention",
+            value: 0.9,
           },
-          { label: "vibe/vibe", note: "La part fixe de la plateforme du launchpad", value: 0.2 },
+          { label: "vibe/vibe", note: "La part fixe de la plateforme du launchpad : 20 % de la taxe", value: 0.6 },
         ],
-        note: "Testnet pour l'instant : les tokens n'ont aucune valeur. 0,8 % de chaque transaction va à la trésorerie VVake, qui publie cet engagement de 0,5 % / 0,3 % ; 0,2 % est la part fixe de vibe/vibe. Rien n'est brûlé et rien ne va aux détenteurs. Pendant les 20 premières secondes après le lancement, vibe/vibe applique une taxe d'achat d'ouverture plus élevée, qui redescend à 1 % ; le surplus va à vibe/vibe.",
+        note: "Testnet pour l'instant : les tokens n'ont aucune valeur. 2,4 % de chaque transaction va à la trésorerie VVake, qui publie cet engagement de 1,5 % / 0,9 % ; 0,6 % est la part fixe de vibe/vibe. Rien n'est brûlé et rien ne va aux détenteurs. Pendant les 20 premières secondes après le lancement, vibe/vibe applique une taxe d'achat d'ouverture plus élevée, qui redescend à 3 % ; le surplus va à vibe/vibe.",
       },
     ],
     promise:

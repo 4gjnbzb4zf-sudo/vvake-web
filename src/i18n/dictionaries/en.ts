@@ -1491,8 +1491,8 @@ export const en = {
         body: "$VVAKE is relaunching as a new v2 token on the vibe/vibe launchpad, on Robinhood Chain Testnet. vibe/vibe now pairs new launches with a stock-style asset, so $VVAKE v2 is paired there with the test asset labelled ANTHROPIC: a vibe/vibe testnet asset with no value, not a share and not equity. VVake Fit is not affiliated with or endorsed by Anthropic, Robinhood or vibe/vibe. Testnet only: the tokens have no value.",
         points: [
           "The old testnet token is retired: it is no longer $VVAKE. Don't buy or trade it.",
-          "Trading tax: 1% on every buy and sell. 0.8% goes to the VVake treasury, with a published commitment of 0.5% for team expenses and platforms and 0.3% for season rewards; 0.2% goes to the vibe/vibe platform. Nothing is burned and nothing is paid to holders.",
-          "For the first 20 seconds after launch, vibe/vibe applies a higher opening buy tax that falls to 1%. The extra goes to vibe/vibe.",
+          "Trading tax: 3% on every buy and sell. 2.4% goes to the VVake treasury, with a published commitment of 1.5% for the team (development, marketing, platforms) and 0.9% for season rewards; 0.6% goes to the vibe/vibe platform (20% of the tax, fixed). Nothing is burned and nothing is paid to holders.",
+          "For the first 20 seconds after launch, vibe/vibe applies a higher opening buy tax that falls to 3%. The extra goes to vibe/vibe.",
           "At launch, the launch wallet buys 5% of supply (50M $VVAKE). It is reserved only for the one-time claim by wallets that bought the old token through its pool. It is not team inventory.",
           "The team will carry v2 to graduation on testnet (vibe/vibe's ~3.8 test-ETH threshold) so the relaunch starts in the same state as the old token; every team buy and where those tokens go will be listed in the open book.",
           "Team: at most 3%. The team holds no v2 tokens today; a 12-month lock then a 3-year release will be enforced by a contract before any mainnet launch.",
@@ -1521,7 +1521,10 @@ export const en = {
             value: "v2 relaunch on vibe/vibe (testnet), paired with a test asset; higher opening buy tax for the first 20 s",
           },
           { label: "Supply and tier amounts", value: "Fixed at launch, in the white paper" },
-          { label: "Launchpad trading fees", value: "1% per trade: 0.5% team expenses & platforms · 0.3% season rewards · 0.2% vibe/vibe" },
+          {
+            label: "Launchpad trading fees",
+            value: "3% per trade: 1.5% team (development, marketing, platforms) · 0.9% season rewards · 0.6% vibe/vibe",
+          },
           { label: "Opening buy", value: "5% of supply (50M), only for the one-time claim by old-token pool buyers" },
           { label: "Prize pool", value: "15% of net Plus revenue" },
           { label: "Conversions", value: "By rule on chain: capped daily, anyone can trigger" },
@@ -1784,14 +1787,14 @@ export const en = {
       },
       {
         name: "Launchpad trading fees",
-        basis: "1% tax on every $VVAKE buy and sell on vibe/vibe, shown as % of the trade",
-        total: 1,
+        basis: "3% tax on every $VVAKE buy and sell on vibe/vibe, shown as % of the trade",
+        total: 3,
         split: [
-          { label: "Team expenses & platforms", note: "From the VVake treasury's 0.8%: running costs, platforms and listings", value: 0.5 },
-          { label: "Season rewards", note: "From the VVake treasury's 0.8%: paid for effort, never for holding", value: 0.3 },
-          { label: "vibe/vibe", note: "The launchpad's fixed platform share", value: 0.2 },
+          { label: "Team", note: "From the VVake treasury's 2.4%: development, marketing and platforms", value: 1.5 },
+          { label: "Season rewards", note: "From the VVake treasury's 2.4%: paid for effort, never for holding", value: 0.9 },
+          { label: "vibe/vibe", note: "The launchpad's fixed platform share: 20% of the tax", value: 0.6 },
         ],
-        note: "Testnet today: the tokens have no value. 0.8% of each trade goes to the VVake treasury, which publishes this 0.5% / 0.3% commitment; 0.2% is vibe/vibe's fixed share. Nothing is burned and nothing goes to holders. For the first 20 seconds after launch, vibe/vibe charges a higher opening buy tax that falls to 1%; the extra goes to vibe/vibe.",
+        note: "Testnet today: the tokens have no value. 2.4% of each trade goes to the VVake treasury, which publishes this 1.5% / 0.9% commitment; 0.6% is vibe/vibe's fixed share. Nothing is burned and nothing goes to holders. For the first 20 seconds after launch, vibe/vibe charges a higher opening buy tax that falls to 3%; the extra goes to vibe/vibe.",
       },
     ],
     promise:

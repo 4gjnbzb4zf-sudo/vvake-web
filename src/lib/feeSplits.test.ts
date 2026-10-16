@@ -10,22 +10,24 @@ describe("fee splits: one split per source (EN and FR)", () => {
   it.each([
     ["en", en],
     ["fr", fr],
-  ] as const)("(%s) no single-split claim, and the open book lists Plus 30% and the launchpad 1% tax as 0.5/0.3/0.2", (_lang, d) => {
+  ] as const)("(%s) no single-split claim, and the open book lists Plus 30% and the launchpad 3% tax as 1.5/0.9/0.6", (_lang, d) => {
     expect(JSON.stringify(d)).not.toMatch(ONE_SPLIT);
     const [plus, launchpad] = d.openBook.sources;
     expect(plus!.split.map((s) => s.value)).toEqual([30]);
-    expect(launchpad!.split.map((s) => s.value)).toEqual([0.5, 0.3, 0.2]);
-    expect(launchpad!.total).toBe(1);
-    expect(launchpad!.split.reduce((a, s) => a + s.value, 0)).toBeCloseTo(1);
+    expect(launchpad!.split.map((s) => s.value)).toEqual([1.5, 0.9, 0.6]);
+    expect(launchpad!.total).toBe(3);
+    expect(launchpad!.split.reduce((a, s) => a + s.value, 0)).toBeCloseTo(3);
   });
 
   it("the tokenomics list says the same as the open book", () => {
     const items = (d: typeof en) => Object.fromEntries(d.rwa.token.tokenomics.items.map((i) => [i.label, i.value]));
     expect(items(en)["Prize pool"]).toBe("15% of net Plus revenue");
-    expect(items(en)["Launchpad trading fees"]).toBe("1% per trade: 0.5% team expenses & platforms · 0.3% season rewards · 0.2% vibe/vibe");
+    expect(items(en)["Launchpad trading fees"]).toBe(
+      "3% per trade: 1.5% team (development, marketing, platforms) · 0.9% season rewards · 0.6% vibe/vibe",
+    );
     expect(items(fr)["Cagnotte de prix"]).toBe("15 % des revenus nets de Plus");
     expect(items(fr)["Frais de trading du launchpad"]).toBe(
-      "1 % par transaction : 0,5 % dépenses de l'équipe et plateformes · 0,3 % récompenses de saison · 0,2 % vibe/vibe",
+      "3 % par transaction : 1,5 % équipe (développement, marketing, plateformes) · 0,9 % récompenses de saison · 0,6 % vibe/vibe",
     );
   });
 

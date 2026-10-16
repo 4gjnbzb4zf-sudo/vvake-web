@@ -8,7 +8,7 @@ const TEXT_COLORS = ["text-volt-fg", "text-pulse-fg", "text-lilac-fg", "text-cal
 /**
  * Where the money goes: one public split per source (Plus revenue, launchpad trading fees), never one split for
  * everything. A share that no published rule sets is left blank rather than guessed. A source with `total` (the
- * launchpad's 1% tax, shown as % of the trade) fills the bar relative to that total.
+ * launchpad's 3% tax, shown as % of the trade) fills the bar relative to that total.
  */
 export function OpenBook({ locale, dict, index }: { locale: Locale; dict: Dictionary["openBook"]; index: string }) {
   const pct = (v: number) => `${v.toLocaleString(locale)}%`;
