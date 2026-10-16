@@ -705,7 +705,7 @@ export const en = {
   earn: {
     kicker: "What you get",
     title: "Move. Get more than fit.",
-    body: "Health is the start. Every verified session also builds your status, your city's glory, real-life perks and, where the law allows, real rewards. The team is paid from fees, never from new players' money. Its $VVAKE share is at most 3%: it holds no v2 tokens today, and a 12-month lock then a 3-year release will be enforced by a contract before any mainnet launch.",
+    body: "Health is the start. Every verified session also builds your status, your city's glory, real-life perks and, where the law allows, real rewards. The team is paid from fees, never from new players' money. Its $VVAKE share is at most 3%: its own v2 share is 0 today (the launch wallet holds only the 50M kept for the OG claim), and a 12-month lock then a 3-year release will be enforced by a contract before any mainnet launch.",
     when: ["Day one", "Seasons · where legal", "Licensed partners", "Planned"],
     items: [
       {
@@ -1495,7 +1495,7 @@ export const en = {
           "For the first 20 seconds after launch, vibe/vibe applies a higher opening buy tax that falls to 3%. The extra goes to vibe/vibe.",
           "At launch, the launch wallet buys 5% of supply (50M $VVAKE). It is reserved only for the one-time claim by wallets that bought the old token through its pool. It is not team inventory.",
           "The team will carry v2 to graduation on testnet (vibe/vibe's ~3.8 test-ETH threshold) so the relaunch starts in the same state as the old token; every team buy and where those tokens go will be listed in the open book.",
-          "Team: at most 3%. The team holds no v2 tokens today; a 12-month lock then a 3-year release will be enforced by a contract before any mainnet launch.",
+          "Team: at most 3%. The team's own v2 share is 0 today: the launch wallet holds only the 50M (5%) kept for the OG claim; a 12-month lock then a 3-year release will be enforced by a contract before any mainnet launch.",
         ],
         airdrop: {
           title: "Why a claim, not the launchpad airdrop",
@@ -1775,7 +1775,7 @@ export const en = {
   openBook: {
     kicker: "Open book",
     title: "Where the money goes. Public before you ask.",
-    body: "The team holds at most 3% of $VVAKE and no v2 tokens today; a 12-month lock then a 3-year release will be enforced by a contract before any mainnet launch. The team is paid from fees. Each source has its own public split.",
+    body: "The team holds at most 3% of $VVAKE; its own v2 share is 0 today (the launch wallet holds only the 50M kept for the OG claim); a 12-month lock then a 3-year release will be enforced by a contract before any mainnet launch. The team is paid from fees. Each source has its own public split.",
     sources: [
       {
         name: "VVake Fit Plus",

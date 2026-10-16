@@ -720,7 +720,7 @@ export const fr: Dictionary = {
   earn: {
     kicker: "Ce que tu y trouves",
     title: "Bouge. Gagne plus que la forme.",
-    body: "La santé, c'est le début. Chaque séance vérifiée construit aussi ton statut, la gloire de ta ville, des avantages bien réels et, là où la loi le permet, de vraies récompenses. L'équipe est payée par les frais, jamais par l'argent des nouveaux joueurs. Sa part de $VVAKE est d'au plus 3 % : elle ne détient aucun token v2 aujourd'hui, et un blocage de 12 mois puis une libération sur 3 ans seront imposés par un contrat avant tout lancement sur le mainnet.",
+    body: "La santé, c'est le début. Chaque séance vérifiée construit aussi ton statut, la gloire de ta ville, des avantages bien réels et, là où la loi le permet, de vraies récompenses. L'équipe est payée par les frais, jamais par l'argent des nouveaux joueurs. Sa part de $VVAKE est d'au plus 3 % : sa propre part v2 est de 0 aujourd'hui (le portefeuille de lancement ne détient que les 50 M réservés à la réclamation OG), et un blocage de 12 mois puis une libération sur 3 ans seront imposés par un contrat avant tout lancement sur le mainnet.",
     when: ["Dès le jour 1", "Saisons · selon le pays", "Partenaires agréés", "Prévu"],
     items: [
       {
@@ -1557,7 +1557,7 @@ export const fr: Dictionary = {
           "Pendant les 20 premières secondes après le lancement, vibe/vibe applique une taxe d'achat d'ouverture plus élevée, qui redescend à 3 %. Le surplus va à vibe/vibe.",
           "Au lancement, le wallet de lancement achète 5 % de l'offre (50 M de $VVAKE). Ils sont réservés uniquement à la réclamation unique des wallets qui ont acheté l'ancien token dans son pool. Ce n'est pas un stock de l'équipe.",
           "L'équipe portera v2 jusqu'à la graduation en testnet (le seuil d'environ 3,8 ETH de test de vibe/vibe) pour que la relance démarre dans le même état que l'ancien token ; chaque achat de l'équipe et la destination de ces tokens seront listés dans le livre ouvert.",
-          "Équipe : au plus 3 %. L'équipe ne détient aucun token v2 aujourd'hui ; un blocage de 12 mois puis une libération sur 3 ans seront imposés par un contrat avant tout lancement sur le mainnet.",
+          "Équipe : au plus 3 %. La propre part v2 de l'équipe est de 0 aujourd'hui : le portefeuille de lancement ne détient que les 50 M (5 %) réservés à la réclamation OG ; un blocage de 12 mois puis une libération sur 3 ans seront imposés par un contrat avant tout lancement sur le mainnet.",
         ],
         airdrop: {
           title: "Pourquoi une réclamation, et pas l'airdrop du launchpad",
@@ -1858,7 +1858,7 @@ export const fr: Dictionary = {
   openBook: {
     kicker: "Livre ouvert",
     title: "Où va l'argent. Public avant même que tu demandes.",
-    body: "L'équipe détient au plus 3 % de $VVAKE et aucun token v2 aujourd'hui ; un blocage de 12 mois puis une libération sur 3 ans seront imposés par un contrat avant tout lancement sur le mainnet. L'équipe est payée par les frais. Chaque source a sa propre répartition publique.",
+    body: "L'équipe détient au plus 3 % de $VVAKE ; sa propre part v2 est de 0 aujourd'hui (le portefeuille de lancement ne détient que les 50 M réservés à la réclamation OG) ; un blocage de 12 mois puis une libération sur 3 ans seront imposés par un contrat avant tout lancement sur le mainnet. L'équipe est payée par les frais. Chaque source a sa propre répartition publique.",
     sources: [
       {
         name: "VVake Fit Plus",

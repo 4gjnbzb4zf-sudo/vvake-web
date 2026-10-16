@@ -36,7 +36,7 @@ export const rewardsConfig = {
  * live; while it is null, the backers page says the address is "posted here once live".
  * Until then `rewardsConfig.token` stays the old (retired) testnet token the deployed rewards contracts pay out.
  */
-export const VVAKE_V2_ADDRESS: string | null = null;
+export const VVAKE_V2_ADDRESS: string | null = "0x6F5F7Dc8d9E03E22B20dAbd17075609812D53236";
 
 /** The retired v1 testnet token, shown as retired next to the v2 slot. */
 export const VVAKE_V1_RETIRED_ADDRESS = "0x2b85b57383bA4C7eDABf6289E6bfe3a9C4833Cde";
