@@ -48,9 +48,9 @@ export const VVAKE_V2_ADDRESS: string | null = "0x6F5F7Dc8d9E03E22B20dAbd1707560
  */
 export const ogClaimConfig = {
   /** VVakeOGClaim on Robinhood Chain Testnet. Null: not deployed yet ("opens soon"). */
-  address: null as string | null,
+  address: "0xeee3d0dff5997086e490863671a617c30737651f" as string | null,
   /** Unix seconds of the deployment block (claims open then). Null until deployed. */
-  openedAt: null as number | null,
+  openedAt: 1792180960 as number | null,
   /** Claim window from opening (the contract's deadline = deployment + 30 days). */
   windowDays: 30,
   /** The Merkle root the contract is deployed with; the page refuses a list with another root. */
