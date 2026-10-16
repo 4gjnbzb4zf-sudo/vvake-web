@@ -1,6 +1,7 @@
 import { siteConfig } from "@/config/site";
 import type { Locale } from "@/i18n/config";
 import type { Dictionary } from "@/i18n/dictionaries";
+import { VVAKE_V1_RETIRED_ADDRESS, VVAKE_V2_ADDRESS, explorerAddress } from "@/lib/rewards-config";
 import { sectionHref } from "@/lib/routes";
 
 const TIER_STYLES = ["border-line", "border-mint-fg/40", "border-volt-fg/40", "border-pulse-fg/50"] as const;
@@ -19,6 +20,42 @@ export function TokenHolders({ locale, dict }: { locale: Locale; dict: Dictionar
       <p className="font-mono text-xs tracking-[0.18em] text-pulse-fg uppercase">{dict.kicker}</p>
       <h3 className="mt-2 font-display text-2xl leading-tight font-bold sm:text-3xl">{dict.title}</h3>
       <p className="mt-3 max-w-3xl leading-relaxed text-muted">{dict.body}</p>
+
+      <div className="mt-6 rounded-2xl border border-volt-fg/40 bg-night/70 p-5 sm:p-6">
+        <p className="font-mono text-xs tracking-[0.18em] text-volt-fg uppercase">{dict.relaunch.kicker}</p>
+        <p className="mt-1.5 font-display text-xl font-semibold">{dict.relaunch.title}</p>
+        <p className="mt-2 max-w-3xl text-sm leading-relaxed text-muted">{dict.relaunch.body}</p>
+        <ul className="mt-3 space-y-1.5 text-sm leading-relaxed">
+          {dict.relaunch.points.map((p) => (
+            <li key={p}>
+              <span className="mr-2 text-volt-fg">→</span>
+              {p}
+            </li>
+          ))}
+        </ul>
+        <div className="mt-4 rounded-xl border border-mint-fg/40 p-4">
+          <p className="text-sm font-semibold text-mint-fg">{dict.relaunch.airdrop.title}</p>
+          <p className="mt-1.5 text-sm leading-relaxed text-muted">{dict.relaunch.airdrop.body}</p>
+        </div>
+        <dl className="mt-4 grid gap-2 text-sm sm:grid-cols-2">
+          <div className="min-w-0">
+            <dt className="text-muted">{dict.relaunch.address.label}</dt>
+            <dd className="mt-0.5 font-mono text-xs break-all text-text">
+              {VVAKE_V2_ADDRESS ? (
+                <a href={explorerAddress(VVAKE_V2_ADDRESS)} target="_blank" rel="noopener noreferrer" className="underline">
+                  {VVAKE_V2_ADDRESS}
+                </a>
+              ) : (
+                dict.relaunch.address.coming
+              )}
+            </dd>
+          </div>
+          <div className="min-w-0">
+            <dt className="text-muted">{dict.relaunch.address.retired}</dt>
+            <dd className="mt-0.5 font-mono text-xs break-all text-faint line-through">{VVAKE_V1_RETIRED_ADDRESS}</dd>
+          </div>
+        </dl>
+      </div>
 
       <ul className="mt-6 grid gap-3 md:grid-cols-2 lg:grid-cols-4">
         {dict.tiers.map((t, i) => (

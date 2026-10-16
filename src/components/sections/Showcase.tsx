@@ -74,7 +74,7 @@ function Web3() {
         />
       </svg>
       <div className="mt-3 flex flex-wrap justify-center gap-2 font-mono text-[0.7rem]">
-        {["Tokenized stocks", "On-chain fee split", "Robinhood Chain", "≤3% team tokens, vested"].map((c) => (
+        {["Tokenized stocks", "On-chain fee split", "Robinhood Chain", "≤3% team tokens"].map((c) => (
           <span key={c} className="rounded-full border border-volt-fg/40 bg-volt/10 px-2.5 py-1 text-volt-fg">
             {c}
           </span>

@@ -1,4 +1,5 @@
 import { Section } from "@/components/ui/Section";
+import type { Locale } from "@/i18n/config";
 import type { Dictionary } from "@/i18n/dictionaries";
 
 const SEGMENT_COLORS = ["bg-volt", "bg-pulse", "bg-lilac", "bg-calm"] as const;
@@ -6,9 +7,11 @@ const TEXT_COLORS = ["text-volt-fg", "text-pulse-fg", "text-lilac-fg", "text-cal
 
 /**
  * Where the money goes: one public split per source (Plus revenue, launchpad trading fees), never one split for
- * everything. A share that no published rule sets is left blank rather than guessed.
+ * everything. A share that no published rule sets is left blank rather than guessed. A source with `total` (the
+ * launchpad's 1% tax, shown as % of the trade) fills the bar relative to that total.
  */
-export function OpenBook({ dict, index }: { dict: Dictionary["openBook"]; index: string }) {
+export function OpenBook({ locale, dict, index }: { locale: Locale; dict: Dictionary["openBook"]; index: string }) {
+  const pct = (v: number) => `${v.toLocaleString(locale)}%`;
   return (
     <Section id="open-book" index={index} kicker={dict.kicker} title={dict.title} lead={dict.body}>
       <div className="mt-12 grid gap-6 lg:grid-cols-2">
@@ -19,17 +22,17 @@ export function OpenBook({ dict, index }: { dict: Dictionary["openBook"]; index:
             <div
               className="mt-6 flex h-5 w-full overflow-hidden rounded-full bg-line"
               role="img"
-              aria-label={source.split.map((s) => `${s.label} ${s.value}%`).join(", ")}
+              aria-label={source.split.map((s) => `${s.label} ${pct(s.value)}`).join(", ")}
             >
               {source.split.map((s, i) => (
-                <div key={s.label} className={SEGMENT_COLORS[i]} style={{ width: `${s.value}%` }} />
+                <div key={s.label} className={SEGMENT_COLORS[i]} style={{ width: `${(s.value / (source.total ?? 100)) * 100}%` }} />
               ))}
             </div>
             <dl className="mt-6 grid gap-5 sm:grid-cols-2">
               {source.split.map((s, i) => (
                 <div key={s.label}>
                   <dt className="flex items-baseline gap-2">
-                    <span className={`font-display text-4xl font-bold ${TEXT_COLORS[i]}`}>{s.value}%</span>
+                    <span className={`font-display text-4xl font-bold ${TEXT_COLORS[i]}`}>{pct(s.value)}</span>
                     <span className="font-display text-base font-semibold">{s.label}</span>
                   </dt>
                   <dd className="mt-2 text-sm leading-relaxed text-muted">{s.note}</dd>

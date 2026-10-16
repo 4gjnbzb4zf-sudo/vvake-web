@@ -30,7 +30,7 @@ export default async function BackersPage({ params }: { params: Params }) {
     <Subpage lang={lang} page="backers/">
       <Stats dict={dict.stats} />
       <Story dict={dict.story} index="01" />
-      <OpenBook dict={dict.openBook} index="02" />
+      <OpenBook locale={lang} dict={dict.openBook} index="02" />
       <Rwa locale={lang} dict={dict.rwa} index="03" />
       <HealthWealth dict={dict.healthWealth} />
       <Pulse dict={dict.pulse} index="04" sportNames={dict.multisport.sports} />

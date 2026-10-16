@@ -302,7 +302,7 @@ export const en = {
       { value: 44, label: "Launch cities" },
       { value: 22, label: "Rivalries" },
       { value: 4, label: "Energy refills a day" },
-      { value: 3, label: "Max team tokens (locked)", suffix: "%" },
+      { value: 3, label: "Max team tokens", suffix: "%" },
     ],
     note: "Launch facts, not usage stats. Live counters arrive with the waitlist.",
   },
@@ -705,7 +705,7 @@ export const en = {
   earn: {
     kicker: "What you get",
     title: "Move. Get more than fit.",
-    body: "Health is the start. Every verified session also builds your status, your city's glory, real-life perks and, where the law allows, real rewards. The team is paid from fees, never from new players' money. Its $VVAKE share is at most 3%, locked for 12 months, then released over 3 years.",
+    body: "Health is the start. Every verified session also builds your status, your city's glory, real-life perks and, where the law allows, real rewards. The team is paid from fees, never from new players' money. Its $VVAKE share is at most 3%: it holds no v2 tokens today, and a 12-month lock then a 3-year release will be enforced by a contract before any mainnet launch.",
     when: ["Day one", "Seasons · where legal", "Licensed partners", "Planned"],
     items: [
       {
@@ -1485,15 +1485,43 @@ export const en = {
           },
         ],
       },
+      relaunch: {
+        kicker: "Relaunch (v2) · testnet",
+        title: "$VVAKE v2 on vibe/vibe",
+        body: "$VVAKE is relaunching as a new v2 token on the vibe/vibe launchpad, on Robinhood Chain Testnet. vibe/vibe now pairs new launches with a stock-style asset, so $VVAKE v2 is paired there with the test asset labelled ANTHROPIC: a vibe/vibe testnet asset with no value, not a share and not equity. VVake Fit is not affiliated with or endorsed by Anthropic, Robinhood or vibe/vibe. Testnet only: the tokens have no value.",
+        points: [
+          "The old testnet token is retired: it is no longer $VVAKE. Don't buy or trade it.",
+          "Trading tax: 1% on every buy and sell. 0.8% goes to the VVake treasury, with a published commitment of 0.5% for team expenses and platforms and 0.3% for season rewards; 0.2% goes to the vibe/vibe platform. Nothing is burned and nothing is paid to holders.",
+          "For the first 20 seconds after launch, vibe/vibe applies a higher opening buy tax that falls to 1%. The extra goes to vibe/vibe.",
+          "At launch, the launch wallet buys 5% of supply (50M $VVAKE). It is reserved only for the one-time claim by wallets that bought the old token through its pool. It is not team inventory.",
+          "Team: at most 3%. The team holds no v2 tokens today; a 12-month lock then a 3-year release will be enforced by a contract before any mainnet launch.",
+        ],
+        airdrop: {
+          title: "Why a claim, not the launchpad airdrop",
+          body: "For fairness. vibe/vibe's Airdrop Board tokens stay locked until the token \"graduates\", and stay locked forever if it never does, and they go to a list without checking who really bought. Instead, wallets that actually bought the old $VVAKE through its pool get a one-time claim from a published snapshot: a pinned block, team and contract wallets excluded, dust filtered out, suspected farm wallets reviewed. Each wallet claims in proportion to what it bought, and only once, enforced by the contract, so nobody is paid twice and farmers don't dilute real buyers. The snapshot list is published before claims open.",
+        },
+        address: {
+          label: "$VVAKE v2 contract",
+          coming: "Posted here once live (and on @VVakeFit). Until then, any address claiming to be $VVAKE v2 is fake.",
+          retired: "Old testnet token (retired)",
+        },
+      },
       tokenomics: {
         title: "Tokenomics",
         items: [
           { label: "Ticker", value: "$VVAKE" },
           { label: "Chain", value: "Robinhood Chain, via vibe/vibe" },
-          { label: "Team allocation", value: "At most 3%: locked 12 months, then vested over 3 years" },
-          { label: "Launch", value: "Public launch with anti-snipe settings" },
+          {
+            label: "Team allocation",
+            value: "At most 3%. None held today; a contract will enforce a 12-month lock then a 3-year release before any mainnet launch",
+          },
+          {
+            label: "Launch",
+            value: "v2 relaunch on vibe/vibe (testnet), paired with a test asset; higher opening buy tax for the first 20 s",
+          },
           { label: "Supply and tier amounts", value: "Fixed at launch, in the white paper" },
-          { label: "Launchpad trading fees", value: "70% season rewards · 30% reserve" },
+          { label: "Launchpad trading fees", value: "1% per trade: 0.5% team expenses & platforms · 0.3% season rewards · 0.2% vibe/vibe" },
+          { label: "Opening buy", value: "5% of supply (50M), only for the one-time claim by old-token pool buyers" },
           { label: "Prize pool", value: "15% of net Plus revenue" },
           { label: "Conversions", value: "By rule on chain: capped daily, anyone can trigger" },
           { label: "Where converted $VVAKE goes", value: "Only to the rewards contract" },
@@ -1742,7 +1770,7 @@ export const en = {
   openBook: {
     kicker: "Open book",
     title: "Where the money goes. Public before you ask.",
-    body: "The team holds at most 3% of $VVAKE, locked for 12 months then vested over 3 years, and is paid from fees. Each source has its own public split.",
+    body: "The team holds at most 3% of $VVAKE and no v2 tokens today; a 12-month lock then a 3-year release will be enforced by a contract before any mainnet launch. The team is paid from fees. Each source has its own public split.",
     sources: [
       {
         name: "VVake Fit Plus",
@@ -1754,15 +1782,18 @@ export const en = {
       },
       {
         name: "Launchpad trading fees",
-        basis: "$VVAKE trading fees from the vibe/vibe launchpad",
+        basis: "1% tax on every $VVAKE buy and sell on vibe/vibe, shown as % of the trade",
+        total: 1,
         split: [
-          { label: "Season rewards", note: "Paid for effort, never for holding", value: 70 },
-          { label: "Reserve", note: "Keeps rewards steady in down seasons", value: 30 },
+          { label: "Team expenses & platforms", note: "From the VVake treasury's 0.8%: running costs, platforms and listings", value: 0.5 },
+          { label: "Season rewards", note: "From the VVake treasury's 0.8%: paid for effort, never for holding", value: 0.3 },
+          { label: "vibe/vibe", note: "The launchpad's fixed platform share", value: 0.2 },
         ],
-        note: "Testnet today: the tokens have no value. Planned: this split set in a public fee-split contract at the mainnet launch.",
+        note: "Testnet today: the tokens have no value. 0.8% of each trade goes to the VVake treasury, which publishes this 0.5% / 0.3% commitment; 0.2% is vibe/vibe's fixed share. Nothing is burned and nothing goes to holders. For the first 20 seconds after launch, vibe/vibe charges a higher opening buy tax that falls to 1%; the extra goes to vibe/vibe.",
       },
     ],
-    promise: "No hidden wallets. At most 3% team tokens, locked and vested. A public report every season.",
+    promise:
+      "No hidden wallets. At most 3% team tokens, none held today, locked by contract before any mainnet launch. A public report every season.",
   },
   vvaker: {
     kicker: "Your VVaker",

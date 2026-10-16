@@ -31,6 +31,16 @@ export const rewardsConfig = {
   maxLogWindows: 8,
 } as const;
 
+/**
+ * $VVAKE v2 (ADR-0042): the relaunch on vibe/vibe, Robinhood Chain Testnet. Fill in this one place once the token is
+ * live; while it is null, the backers page says the address is "posted here once live".
+ * Until then `rewardsConfig.token` stays the old (retired) testnet token the deployed rewards contracts pay out.
+ */
+export const VVAKE_V2_ADDRESS: string | null = null;
+
+/** The retired v1 testnet token, shown as retired next to the v2 slot. */
+export const VVAKE_V1_RETIRED_ADDRESS = "0x2b85b57383bA4C7eDABf6289E6bfe3a9C4833Cde";
+
 export const ADDRESS = /^0x[0-9a-fA-F]{40}$/;
 
 /** The first well-formed address, or null (config first, then what the API said). */

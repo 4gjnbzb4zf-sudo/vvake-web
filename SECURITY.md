@@ -16,7 +16,8 @@ Anything not on this list is not VVake.
 - Contracts on Robinhood Chain Testnet (chain ID 46630, explorer `https://explorer.testnet.chain.robinhood.com`):
   - VVakeRewards (weekly prize claims): `0xEF0D0c1c32D56A50dc1addc6471772F9E4a2aE0F`
   - VVakePrizePool: `0xDb99d6C7a5866a20705116d6a1a299A951d9C39C`
-  - $VVAKE token: `0x2b85b57383bA4C7eDABf6289E6bfe3a9C4833Cde`
+  - $VVAKE v2 token (relaunch on vibe/vibe): posted on vvake.com once live; until then any address claiming to be it is fake.
+  - Old $VVAKE testnet token (retired, no longer $VVAKE): `0x2b85b57383bA4C7eDABf6289E6bfe3a9C4833Cde`
 
 ## Engineering practices in this repo
 
