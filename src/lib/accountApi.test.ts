@@ -113,11 +113,13 @@ describe("account page helpers", () => {
     expect(withPick(full, "NEW", "stock")).toBeNull();
   });
 
-  it("Spotify route: shown only when the API sends a known one; the write hook stays empty until the API keeps it", () => {
+  it("Spotify route: read from the account's { route, at } (or a plain string), unknown ones ignored; the page writes it", () => {
+    expect(spotifyRouteOf({ route: { route: "auto", at: 1 } })).toBe("auto");
+    expect(spotifyRouteOf({ route: null })).toBeNull();
     expect(spotifyRouteOf({ route: "watch" })).toBe("watch");
     expect(spotifyRouteOf({ route: "moon" })).toBeNull();
     expect(spotifyRouteOf(null)).toBeNull();
-    expect(SPOTIFY_ROUTE_SYNC).toBeNull();
+    expect(SPOTIFY_ROUTE_SYNC).toBeTypeOf("function");
   });
 
   it("typed confirmations, and the fresh start list matches the app's (6 reset, 6 kept, both languages)", () => {

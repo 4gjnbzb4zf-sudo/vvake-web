@@ -168,21 +168,26 @@ const syncSchema = z.object({ ok: bool, reason: str });
 const integrationsSchema = z.object({ google: opt(z.object({ connected: z.boolean(), email: str, blocks: bool })) });
 export type Integrations = z.infer<typeof integrationsSchema>;
 
-const spotifySchema = z.object({ direct: bool, plus: bool, linked: bool, reason: str, web: bool, route: str });
+// route: the API keeps the watches' route on the account as { route, at } (ADR-0041, newest choice wins); a plain string is
+// accepted too. recent: the link gives the last song played.
+const routeSchema = opt(z.union([z.string(), z.object({ route: z.string(), at: z.number() })]));
+const spotifySchema = z.object({ direct: bool, plus: bool, linked: bool, reason: str, web: bool, route: routeSchema, recent: bool });
 export type SpotifyStatus = z.infer<typeof spotifySchema>;
 
 /**
- * "Spotify on my watch" route (Auto / Through my phone / Watch on its own). Today the phone keeps it on itself and
- * hands it to the watch; another branch (spotify-watch-first) is adding it to the account.
- * HOOK: once GET /v1/spotify/direct (or /v1/me) carries `route` and the API takes it back, set `SPOTIFY_ROUTE_SYNC`
- * to that write and the page shows the picker instead of the "chosen on the phone" note. Until then: read only when the
- * API sends it, the note otherwise.
+ * "Spotify on my watch" route (Auto / Through my phone / Watch on its own), kept on the account (ADR-0041): the phone,
+ * both watches and this page read it from GET /v1/spotify/direct and write it with PUT /v1/spotify/route { route, at }.
+ * The newest choice wins, so `at` is now.
  */
 export const SPOTIFY_ROUTES = ["auto", "phone", "watch"] as const;
 export type SpotifyRoute = (typeof SPOTIFY_ROUTES)[number];
-export const SPOTIFY_ROUTE_SYNC: ((s: RewardsSession, route: SpotifyRoute) => Promise<unknown>) | null = null;
-export const spotifyRouteOf = (s: SpotifyStatus | null | undefined): SpotifyRoute | null =>
-  (SPOTIFY_ROUTES as readonly string[]).includes(s?.route ?? "") ? (s!.route as SpotifyRoute) : null;
+export const SPOTIFY_ROUTE_SYNC: ((s: RewardsSession, route: SpotifyRoute) => Promise<unknown>) | null = (s, route) =>
+  s.call("/v1/spotify/route", send("PUT", { route, at: Date.now() }), null);
+export const spotifyRouteOf = (s: { route?: unknown } | null | undefined): SpotifyRoute | null => {
+  const r = s?.route;
+  const v = typeof r === "string" ? r : r && typeof r === "object" && "route" in r ? (r as { route: unknown }).route : null;
+  return typeof v === "string" && (SPOTIFY_ROUTES as readonly string[]).includes(v) ? (v as SpotifyRoute) : null;
+};
 
 const deskRuleSchema = z.object({
   enabled: z.boolean(),
