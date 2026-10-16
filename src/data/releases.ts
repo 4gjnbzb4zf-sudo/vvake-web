@@ -19,6 +19,34 @@ export interface Release {
 
 export const releases: Release[] = [
   {
+    version: "1.0.0 (26)",
+    date: "2026-10-15",
+    channel: "beta",
+    devices: ["iphone", "watch", "android", "wear"],
+    notes: {
+      en: {
+        added: [
+          "Spotify: when nothing plays, your last song shows; one tap plays it.",
+          "Your VVaker on almost every screen, phone and watch.",
+          "Watch maps: Standard, City, Outdoor or Satellite.",
+          "Spotify on the watch (Plus + Premium) turns on from the watch.",
+          "Its route stays on your account, the same everywhere.",
+          "vvake.com/account: your settings, connections, agenda and coach memory.",
+        ],
+      },
+      fr: {
+        added: [
+          "Spotify : quand rien ne joue, votre dernier titre s'affiche ; une touche le relance.",
+          "Votre VVaker sur presque tous les écrans, téléphone et montre.",
+          "Cartes de la montre : Standard, Ville, Plein air ou Satellite.",
+          "Spotify sur la montre (Plus + Premium) s'active depuis la montre.",
+          "Son chemin reste sur votre compte, le même partout.",
+          "vvake.com/account : vos réglages, connexions, agenda et mémoire du coach.",
+        ],
+      },
+    },
+  },
+  {
     version: "1.0.0 (25)",
     date: "2026-10-15",
     channel: "beta",

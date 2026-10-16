@@ -878,7 +878,7 @@ export const en = {
       {
         icon: "🎧",
         title: "Spotify on your watch",
-        body: "Spotify on your watch without your phone (needs Spotify Premium).",
+        body: "Spotify on your watch without your phone (needs Spotify Premium), turned on from the watch itself.",
       },
       { icon: "📅", title: "Auto-reschedule", body: "New meeting? Your session moves itself to your next free slot." },
       { icon: "👥", title: "Host big", body: "Crews up to 50 people, 10 recurring events and your crew banner." },
@@ -1216,11 +1216,11 @@ export const en = {
       },
       {
         title: "Play on: phone or watch",
-        body: "Choose where Spotify, Apple Music or a VVake mix plays: your iPhone, your Apple Watch or a speaker. Spotify asleep? One tap opens it and comes straight back. A VVake mix moves between watch and phone at the same track and second.",
+        body: "Choose where Spotify, Apple Music or a VVake mix plays: your iPhone, your Apple Watch or a speaker. Spotify asleep? One tap opens it and comes straight back. Nothing playing? Your last song shows, one tap plays it. A VVake mix moves between watch and phone at the same track and second.",
       },
       {
         title: "Maps that keep up",
-        body: "Street-level maps on phone and watch, the ghost and the gap above the controls, and your watch's workout on one phone screen: map, heart rate, coach and music, with your route drawn as you go. Routes pass between your own watch and phone, so route ghosts work on both.",
+        body: "Street-level maps on phone and watch, the ghost and the gap above the controls, and your watch's workout on one phone screen: map, heart rate, coach and music, with your route drawn as you go. On the watch, pick Standard, City, Outdoor or Satellite. Routes pass between your own watch and phone, so route ghosts work on both.",
       },
       {
         title: "Never lose the session",
@@ -2331,6 +2331,10 @@ export const en = {
             d: 'Up to 20 short lines you agreed on or told the coach (like "prefers morning runs"), never the name of a health condition: you see and delete them in Coach › What the coach remembers, and Fresh start clears them. When the coach proposes a settings change (heart zones, resting or maximum heart rate, reminders, focus lock, goals, how chatty it is), we keep the proposal and your answer, and for each change applied a record of the values before and after, which device or voice approved it and when, so you can undo it for 30 days. We also keep how your last 10 sessions felt (your one-tap feedback). Kept with your account and deleted with it; Fresh start clears the memory, feelings and proposals.',
           },
           {
+            t: "Your account page on vvake.com.",
+            d: "Once you sign in on vvake.com/account, the page shows and changes the same settings the apps keep, through our API; it collects nothing new. Your 7-day agenda there is worked out each time you open it, from your plan, your approved coach changes and your usual times, and is not stored.",
+          },
+          {
             t: "Move Quests and Crew Quests.",
             d: "Move Quests are short motion challenges (10 to 60 seconds: hands up, jumps, freeze) on your Apple Watch. The watch's motion sensor is read on the watch only; we receive just the result: the kind of quest, when it started, how long it lasted, the reps, whether it succeeded, the time of each rep, the longest hold, the peak acceleration, and whether the watch was on your wrist (yes, no or unknown, worked out on the watch from how recent your latest Apple Health heart-rate reading is). Never the raw motion stream. Why: to check the quest was real, give VV points and a little streak help, and count your movement for the Claude Code unlock. A Crew Quest is the same quest at the same time with your crew, the people you have faced in an accepted challenge: when you start one, your crew gets a push notification with your display name and the quest, and everyone who joins sees each other's display name, VVaker and result (success, reps, time, points and rank).",
           },
@@ -2462,7 +2466,7 @@ export const en = {
         h: "Music",
         p: [
           "Apple Music and Spotify are controlled from your iPhone, and from your Apple Watch through your iPhone. VVake asks Apple Music (MusicKit) for permission to play your music and show what is playing. If you connect Spotify, sign-in happens on your iPhone, its tokens stay in your iPhone's Keychain, and your iPhone talks to Spotify directly: it reads what is playing, your Spotify devices, your playlists and Liked Songs, and sends play, pause, skip and volume commands and the search words you type or say on your watch. Unless you turn on Spotify on my watch (below), nothing about your music reaches our servers, and nothing about your workouts or health is sent to Apple Music or Spotify.",
-          'Spotify on your watch (optional, VVake Plus). If you turn on "Spotify on my watch", your phone signs in to Spotify a second time for your watches and gives that sign-in to VVake. We keep the Spotify tokens encrypted and use them only to give your own signed-in watches a short-lived key, so they can control Spotify (play, pause, skip, volume, devices, your playlists, search) without your phone. We don\'t store what you listen to. Turn it off in Connections (or delete your account) and we delete the tokens. "Check Spotify on this watch" sends us, only when you tap Send, technical results (device types, status codes, network type, app and OS version), never names, songs or your account; we keep them 90 days.',
+          'Spotify on your watch (optional, VVake Plus). If you turn on "Spotify on my watch", your phone signs in to Spotify a second time for your watches and gives that sign-in to VVake. We keep the Spotify tokens encrypted and use them only to give your own signed-in watches a short-lived key, so they can control Spotify (play, pause, skip, volume, devices, your playlists, search) without your phone. We don\'t store what you listen to. Turn it off in Connections (or delete your account) and we delete the tokens. You can also turn it on from a watch (You › Spotify on this watch): we keep a pending request for 15 minutes and send your phones a notification to confirm; with no phone near, the watch shows an address and an 8-character code you can enter on any phone or computer to sign in to Spotify there (we keep only a hash of the code, and delete the request within about a week). You can also connect it from vvake.com/account: Spotify sends you back to our API with a single-use link valid 10 minutes, and the tokens are kept encrypted as above. The Spotify route you pick for your watches (Auto, Through my phone, Watch on its own) is kept with your account so your phone, your watches and vvake.com show the same; the newest choice wins. New Spotify sign-ins also allow reading your recently played songs, so when nothing plays your phone and watch show the last song (cover, title, artist) and can play it in one tap: they read it straight from Spotify, and it is not stored on our servers. "Check Spotify on this watch" sends us, only when you tap Send, technical results (device types, status codes, network type, app and OS version), never names, songs or your account; we keep them 90 days.',
         ],
         list: [],
       },
@@ -2646,7 +2650,7 @@ export const en = {
           },
           {
             t: "Spotify on my watch:",
-            d: "the encrypted tokens until you turn it off or delete your account; Check Spotify reports 90 days, without your account.",
+            d: "the encrypted tokens and your route choice until you turn it off or delete your account; requests from a watch 15 minutes (deleted within about a week); Check Spotify reports 90 days, without your account.",
           },
           { t: "Claude Code pairing codes:", d: "10 minutes." },
           { t: "Guest accounts:", d: "deleted automatically after 90 days without use." },

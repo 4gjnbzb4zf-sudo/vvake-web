@@ -898,7 +898,7 @@ export const fr: Dictionary = {
       {
         icon: "🎧",
         title: "Spotify sur ta montre",
-        body: "Spotify sur ta montre sans ton téléphone (Spotify Premium requis).",
+        body: "Spotify sur ta montre sans ton téléphone (Spotify Premium requis), activé depuis la montre elle-même.",
       },
       {
         icon: "📅",
@@ -1264,11 +1264,11 @@ export const fr: Dictionary = {
       },
       {
         title: "Écouter sur : téléphone ou montre",
-        body: "Choisis où jouent Spotify, Apple Music ou un mix VVake : ton iPhone, ton Apple Watch ou une enceinte. Spotify endormi ? Un geste l'ouvre et revient aussitôt. Un mix VVake passe de la montre au téléphone au même morceau, à la même seconde.",
+        body: "Choisis où jouent Spotify, Apple Music ou un mix VVake : ton iPhone, ton Apple Watch ou une enceinte. Spotify endormi ? Un geste l'ouvre et revient aussitôt. Rien ne joue ? Ton dernier titre s'affiche, une touche le relance. Un mix VVake passe de la montre au téléphone au même morceau, à la même seconde.",
       },
       {
         title: "Des cartes qui suivent",
-        body: "Cartes au niveau de la rue sur le téléphone et la montre, le fantôme et l'écart au-dessus des commandes, et la séance de ta montre sur un seul écran du téléphone : carte, cardio, coach et musique, avec ton parcours tracé au fil de la séance. Les parcours passent entre ta montre et ton téléphone : les fantômes de parcours marchent sur les deux.",
+        body: "Cartes au niveau de la rue sur le téléphone et la montre, le fantôme et l'écart au-dessus des commandes, et la séance de ta montre sur un seul écran du téléphone : carte, cardio, coach et musique, avec ton parcours tracé au fil de la séance. Sur la montre, choisis Standard, Ville, Plein air ou Satellite. Les parcours passent entre ta montre et ton téléphone : les fantômes de parcours marchent sur les deux.",
       },
       {
         title: "Tu ne perds jamais la séance",
@@ -2477,6 +2477,10 @@ export const fr: Dictionary = {
             d: "Jusqu'à 20 courtes lignes que vous avez convenues ou dites au coach (par exemple « préfère courir le matin »), jamais le nom d'un problème de santé : vous les voyez et les supprimez dans Coach › Ce que le coach retient, et Repartir à zéro les efface. Quand le coach propose un changement de réglage (zones cardiaques, fréquence cardiaque au repos ou maximale, rappels, verrou de concentration, objectifs, à quel point il parle), nous gardons la proposition et votre réponse, et pour chaque changement appliqué un relevé des valeurs avant et après, de l'appareil ou de la voix qui l'a approuvé et du moment, pour que vous puissiez l'annuler pendant 30 jours. Nous gardons aussi le ressenti de vos 10 dernières séances (votre avis en une touche). Conservé avec votre compte et supprimé avec lui ; Repartir à zéro efface la mémoire, les ressentis et les propositions.",
           },
           {
+            t: "Votre page compte sur vvake.com.",
+            d: "Une fois connecté sur vvake.com/account, la page affiche et modifie les mêmes réglages que les applications, via notre API ; elle ne collecte rien de plus. Votre agenda des 7 jours y est calculé à chaque ouverture, à partir de votre plan, des changements du coach que vous avez acceptés et de vos horaires habituels, et n'est pas enregistré.",
+          },
+          {
             t: "Move Quests et quêtes d'équipe.",
             d: "Les Move Quests sont de courts défis de mouvement (10 à 60 secondes : mains en l'air, sauts, statue) sur votre Apple Watch. Le capteur de mouvement est lu sur la montre seulement ; nous recevons uniquement le résultat : le type de quête, l'heure du début, la durée, les répétitions, la réussite, le moment de chaque répétition, le plus long maintien, l'accélération maximale et si la montre était à votre poignet (oui, non ou inconnu, déduit sur la montre de l'âge de votre dernière mesure de fréquence cardiaque dans l'app Santé). Jamais le flux brut du capteur. Pourquoi : vérifier que la quête est réelle, donner des points VV et un petit coup de pouce à la série, et compter votre mouvement pour le déblocage de Claude Code. Une quête d'équipe, c'est la même quête au même moment avec votre équipe, les personnes affrontées dans un défi accepté : quand vous en lancez une, votre équipe reçoit une notification avec votre nom d'affichage et la quête, et tous ceux qui la rejoignent voient le nom d'affichage, le VVaker et le résultat des autres (réussite, répétitions, durée, points et rang).",
           },
@@ -2608,7 +2612,7 @@ export const fr: Dictionary = {
         h: "Musique",
         p: [
           "Apple Music et Spotify se contrôlent depuis votre iPhone, et depuis votre Apple Watch par l'intermédiaire de votre iPhone. VVake demande à Apple Music (MusicKit) la permission de faire jouer votre musique et d'afficher ce qui joue. Si vous connectez Spotify, la connexion se fait sur votre iPhone, ses jetons restent dans le trousseau de votre iPhone, et votre iPhone communique directement avec Spotify : il lit ce qui joue, vos appareils Spotify, vos listes de lecture et vos titres likés, et envoie les commandes lecture, pause, piste suivante et volume ainsi que les mots de recherche que vous tapez ou dites sur votre montre. Sauf si vous activez Spotify sur ma montre (ci-dessous), rien de votre musique ne se rend à nos serveurs, et rien de vos entraînements ni de votre santé n'est communiqué à Apple Music ou à Spotify.",
-          "Spotify sur votre montre (optionnel, VVake Plus). Si vous activez « Spotify sur ma montre », votre téléphone se connecte une deuxième fois à Spotify pour vos montres et confie cette connexion à VVake. Nous gardons les jetons Spotify chiffrés et nous en servons seulement pour donner à vos propres montres connectées une clé de courte durée, afin qu'elles contrôlent Spotify (lecture, pause, piste suivante, volume, appareils, vos listes de lecture, recherche) sans votre téléphone. Nous n'enregistrons pas ce que vous écoutez. Désactivez-le dans Connexions (ou supprimez votre compte) et nous supprimons les jetons. « Vérifier Spotify sur cette montre » nous envoie, seulement quand vous touchez Envoyer, des résultats techniques (types d'appareils, codes d'état, type de réseau, versions de l'app et du système), jamais de noms, de chansons ni votre compte ; nous les gardons 90 jours.",
+          "Spotify sur votre montre (optionnel, VVake Plus). Si vous activez « Spotify sur ma montre », votre téléphone se connecte une deuxième fois à Spotify pour vos montres et confie cette connexion à VVake. Nous gardons les jetons Spotify chiffrés et nous en servons seulement pour donner à vos propres montres connectées une clé de courte durée, afin qu'elles contrôlent Spotify (lecture, pause, piste suivante, volume, appareils, vos listes de lecture, recherche) sans votre téléphone. Nous n'enregistrons pas ce que vous écoutez. Désactivez-le dans Connexions (ou supprimez votre compte) et nous supprimons les jetons. Vous pouvez aussi l'activer depuis une montre (Toi › Spotify sur cette montre) : nous gardons une demande en attente 15 minutes et envoyons à vos téléphones une notification pour confirmer ; sans téléphone à proximité, la montre affiche une adresse et un code de 8 caractères à saisir sur n'importe quel téléphone ou ordinateur pour vous connecter à Spotify (nous ne gardons qu'une empreinte du code, et supprimons la demande dans la semaine environ). Vous pouvez aussi le connecter depuis vvake.com/account : Spotify vous renvoie vers notre API avec un lien à usage unique valable 10 minutes, et les jetons sont gardés chiffrés comme ci-dessus. Le chemin Spotify choisi pour vos montres (Auto, Par mon téléphone, Montre seule) est gardé avec votre compte, pour que votre téléphone, vos montres et vvake.com affichent le même ; le choix le plus récent l'emporte. Les nouvelles connexions Spotify permettent aussi de lire vos titres écoutés récemment : quand rien ne joue, votre téléphone et votre montre affichent le dernier titre (pochette, titre, artiste) et le relancent d'une touche ; ils le lisent directement chez Spotify, et il n'est pas enregistré sur nos serveurs. « Vérifier Spotify sur cette montre » nous envoie, seulement quand vous touchez Envoyer, des résultats techniques (types d'appareils, codes d'état, type de réseau, versions de l'app et du système), jamais de noms, de chansons ni votre compte ; nous les gardons 90 jours.",
         ],
         list: [],
       },
@@ -2801,7 +2805,7 @@ export const fr: Dictionary = {
           },
           {
             t: "Spotify sur ma montre :",
-            d: "les jetons chiffrés jusqu'à ce que vous le désactiviez ou supprimiez votre compte ; les rapports Vérifier Spotify 90 jours, sans votre compte.",
+            d: "les jetons chiffrés et votre choix de chemin jusqu'à ce que vous le désactiviez ou supprimiez votre compte ; les demandes venues d'une montre 15 minutes (supprimées dans la semaine environ) ; les rapports Vérifier Spotify 90 jours, sans votre compte.",
           },
           { t: "Codes de jumelage de Claude Code :", d: "10 minutes." },
           { t: "Comptes invités :", d: "supprimés automatiquement après 90 jours sans utilisation." },
