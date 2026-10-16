@@ -14,6 +14,7 @@ export function TokenHolders({ locale, dict }: { locale: Locale; dict: Dictionar
     charter: sectionHref(locale, "open-book"),
     faq: sectionHref(locale, "faq"),
     rewards: `/${locale}/rewards/`,
+    roadmap: `/${locale}/roadmap/`,
   };
   return (
     <div className="mt-8 rounded-[2rem] border border-pulse-fg/40 bg-gradient-to-br from-pulse/10 via-transparent to-volt/10 p-6 sm:p-8">

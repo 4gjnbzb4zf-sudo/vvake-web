@@ -1494,6 +1494,7 @@ export const en = {
           "Trading tax: 1% on every buy and sell. 0.8% goes to the VVake treasury, with a published commitment of 0.5% for team expenses and platforms and 0.3% for season rewards; 0.2% goes to the vibe/vibe platform. Nothing is burned and nothing is paid to holders.",
           "For the first 20 seconds after launch, vibe/vibe applies a higher opening buy tax that falls to 1%. The extra goes to vibe/vibe.",
           "At launch, the launch wallet buys 5% of supply (50M $VVAKE). It is reserved only for the one-time claim by wallets that bought the old token through its pool. It is not team inventory.",
+          "The team will carry v2 to graduation on testnet (vibe/vibe's ~3.8 test-ETH threshold) so the relaunch starts in the same state as the old token; every team buy and where those tokens go will be listed in the open book.",
           "Team: at most 3%. The team holds no v2 tokens today; a 12-month lock then a 3-year release will be enforced by a contract before any mainnet launch.",
         ],
         airdrop: {
@@ -1565,6 +1566,7 @@ export const en = {
         { to: "x", label: "Announcements on X @VVakeFit" },
         { to: "charter", label: "Where token fees go" },
         { to: "faq", label: "Token FAQ" },
+        { to: "roadmap", label: "Roadmap" },
       ],
       notice:
         "Testnet only: the tokens have no value, there's no mainnet token yet, nothing to buy here, and holder features may change after legal review. The only official contract addresses are posted on vvake.com and @VVakeFit; anything else is fake. Not offered in the US or UK at launch. Nothing here is an offer of tokens or financial advice. Robinhood Chain is a trademark of Robinhood Markets, Inc.; VVake Fit is not affiliated with Robinhood.",
@@ -2223,12 +2225,13 @@ export const en = {
     plus: "VVake Plus",
     partners: "Partners",
     releases: "What's new",
+    roadmap: "Roadmap",
     clashes: "Live City Clashes",
     groups: { product: "Product", community: "Community", updates: "Updates", legal: "Legal" },
     app: "The app",
     vvaker: "VVaker",
     voice: "Siri and voice",
-    backers: "Roadmap & funding",
+    backers: "Backers & funding",
     follow: "VVake on X",
     contact: "Contact",
     rights: "All rights reserved.",
@@ -3462,6 +3465,93 @@ export const en = {
       askLead:
         "One breath: your next session, your week, your streak, the clash. Or say “Hey Siri, ask Wake”, then anything: a command, or a question for your coach. Siri says the answer.",
     },
+  },
+  roadmap: {
+    meta: {
+      title: "Roadmap",
+      description: "Where VVake is today, what comes next and what needs funding. Honest stages, no dates promised.",
+    },
+    kicker: "Roadmap",
+    title: "Where VVake is, honestly.",
+    lead: "What's built, what's next and what needs funding. No dates promised: each stage starts when the one before it is done.",
+    stages: [
+      {
+        tag: "Now",
+        status: "Built · private beta",
+        title: "The apps work, for invited testers",
+        items: [
+          "iPhone and Apple Watch apps in TestFlight, Android and Wear OS apps in Google Play internal testing, and beta builds on beta.vvake.com: invited testers only",
+          "The live coach: plans, check-ins and a hands-free voice coach during sport",
+          "VVakers: your own animal athlete, built and rendered",
+          "City Clash: cities and crews competing on verified effort",
+          "Weekly rewards and $VVAKE on Robinhood Chain Testnet only: testnet tokens have no value",
+        ],
+      },
+      {
+        tag: "Next",
+        status: "In progress",
+        title: "A small closed beta",
+        items: [
+          "We hand-pick testers from the waitlist before anything goes public",
+          "The $VVAKE v2 relaunch on vibe/vibe, on testnet (no value), with the one-time claim for wallets that bought the old token",
+        ],
+      },
+      {
+        tag: "After funding",
+        status: "Needs funding · not started",
+        title: "What a real launch needs",
+        items: [
+          "Register the company: VVake isn't a registered company yet",
+          "Developer program memberships in the company's name (Apple Developer Program, Google Play Console)",
+          "Legal review: health data, prizes and sweepstakes, the token and MiCA, country by country",
+          "An external audit of the smart contracts",
+          "A broker partnership for the stock features: none is signed",
+          "Support and infrastructure to run the apps for real users",
+        ],
+      },
+      {
+        tag: "After that",
+        status: "Depends on the stage before",
+        title: "Public release",
+        items: [
+          "The App Store and Google Play, in a first set of countries",
+          "Prizes only in the countries where legal review allows them",
+        ],
+      },
+      {
+        tag: "Later",
+        status: "Gated",
+        title: "Mainnet and investing, only when it's safe",
+        items: [
+          "$VVAKE on mainnet only after legal review, an external audit and a real multisig",
+          "Broker features only with a signed, licensed partner",
+          "Not in the US or UK at launch",
+        ],
+      },
+    ],
+    notDone: {
+      title: "What's not done yet",
+      items: [
+        "No registered company",
+        "No public App Store or Google Play release",
+        "No mainnet token: $VVAKE is on testnet only and has no value",
+        "No external audit of the contracts",
+        "No signed broker or Robinhood agreement",
+        "No legal opinion yet on prizes, health data or the token",
+        "The team's token lock isn't enforced by a contract yet: it will be before any mainnet launch",
+      ],
+    },
+    help: {
+      title: "How you can help",
+      items: [
+        { to: "waitlist", label: "Join the waitlist", body: "Closed beta testers are hand-picked from it." },
+        { to: "x", label: "Follow @VVakeFit", body: "Beta news, updates and the only official addresses." },
+        { to: "backers", label: "For backers", body: "Read the open book and the plan on the backers page." },
+        { to: "contact", label: "Get in touch", body: "Backers and partners: write to us from the contact address." },
+      ],
+    },
+    notice:
+      "No dates, returns or token value are promised. $VVAKE is on testnet only and has no value; nothing here is an offer of tokens or financial advice, and token features are not offered in the US or UK at launch. Robinhood and Robinhood Chain are trademarks of Robinhood Markets, Inc. VVake Fit is independent and is not affiliated with or endorsed by Robinhood, vibe/vibe or Anthropic.",
   },
   notFound: { title: "Lost your way?", body: "This page took a rest day.", cta: "Back home" },
   root: { choose: "Choose your language" },
