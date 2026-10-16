@@ -410,6 +410,11 @@ export class RewardsSession {
     }
   }
 
+  /** Any signed-in call (vvake.com/account, src/lib/accountApi.ts): the same 401 refresh as the rest. */
+  call<T>(path: string, init: RequestInit, schema: z.ZodMiniType<T> | null): Promise<T> {
+    return this.authed(path, init, schema);
+  }
+
   rewards() {
     return this.authed("/v1/rewards", { method: "GET" }, rewardsSchema);
   }

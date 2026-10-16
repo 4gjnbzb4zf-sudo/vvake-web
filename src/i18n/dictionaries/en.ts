@@ -14,6 +14,7 @@ export const en = {
     app: "The app",
     backers: "Roadmap & Funding",
     rewards: "Prizes",
+    account: "Account",
     why: "Why join",
     earn: "What you get",
     play: "Play",

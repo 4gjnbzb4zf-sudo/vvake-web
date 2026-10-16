@@ -12,6 +12,7 @@ export const fr: Dictionary = {
     app: "L'app",
     backers: "Feuille de route et financement",
     rewards: "Prix",
+    account: "Compte",
     why: "Pourquoi",
     earn: "Avantages",
     play: "Jouer",
