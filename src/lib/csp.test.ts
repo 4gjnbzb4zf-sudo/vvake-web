@@ -79,6 +79,8 @@ describe("VV-12 Content-Security-Policy", () => {
       "src/components/sections/LiveMap.tsx": (c) => c.liveEndpoint || null,
       // Dev-only: localhost render server, only tried when the page itself runs on localhost (next dev).
       "src/components/vvaker/PersonaBuilder.tsx": () => null,
+      // Same origin ('self'): the published OG claim list, a static file of this site (/og-drop/og-drop-claims.json).
+      "src/components/rewards/OgClaim.tsx": () => null,
     };
     const files = (dir: string): string[] =>
       readdirSync(dir).flatMap((n) => {

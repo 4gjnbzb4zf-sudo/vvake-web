@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { PublicRewards } from "@/components/rewards/PublicRewards";
 import { RewardsAccount } from "@/components/rewards/RewardsAccount";
+import { OgClaim } from "@/components/rewards/OgClaim";
 import { FrameGuard, ScamWarning } from "@/components/rewards/Safety";
 import { Footer } from "@/components/sections/Extras";
 import { Header } from "@/components/sections/Header";
@@ -54,6 +55,8 @@ export default async function RewardsPage({ params }: { params: Params }) {
             </p>
           </Container>
           <ScamWarning dict={t.scam} />
+          {/* OG v1 holders: the one-time claim of the relaunch (ADR-0042); "opens soon" until the contract is set. */}
+          <OgClaim dict={dict.ogClaim} lang={lang} />
           <RewardsAccount dict={t} lang={lang} apiUrl={siteConfig.apiUrl} />
           <Section id="how" index={t.how.index} kicker={t.how.kicker} title={t.how.title}>
             <ol className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">

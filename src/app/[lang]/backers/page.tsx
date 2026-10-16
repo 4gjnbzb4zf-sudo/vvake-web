@@ -10,6 +10,7 @@ import { Stats } from "@/components/sections/Stats";
 import { Story } from "@/components/sections/Story";
 import { Unlock } from "@/components/sections/Unlock";
 import { VibeLink } from "@/components/sections/VibeLink";
+import { Container } from "@/components/ui/Section";
 import { isLocale } from "@/i18n/config";
 import { getDictionary } from "@/i18n/dictionaries";
 import { Subpage, subpageMetadata } from "../subpage";
@@ -31,6 +32,15 @@ export default async function BackersPage({ params }: { params: Params }) {
       <Stats dict={dict.stats} />
       <Story dict={dict.story} index="01" />
       <OpenBook locale={lang} dict={dict.openBook} index="02" />
+      {/* The OG v1 holders claim list (ADR-0042), published in full on /og. */}
+      <Container className="-mt-8 pb-12">
+        <p className="rounded-2xl border border-line bg-surface/60 px-5 py-4 text-sm text-muted">
+          {dict.ogList.backers}{" "}
+          <a href={`/${lang}/og/`} className="text-text underline underline-offset-4 hover:text-pulse-fg">
+            {dict.ogList.backersLink}
+          </a>
+        </p>
+      </Container>
       <Rwa locale={lang} dict={dict.rwa} index="03" />
       <HealthWealth dict={dict.healthWealth} />
       <Pulse dict={dict.pulse} index="04" sportNames={dict.multisport.sports} />

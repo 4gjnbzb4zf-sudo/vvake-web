@@ -38,6 +38,34 @@ export const rewardsConfig = {
  */
 export const VVAKE_V2_ADDRESS: string | null = "0x6F5F7Dc8d9E03E22B20dAbd17075609812D53236";
 
+/**
+ * The OG v1 holders claim (ADR-0042, monorepo docs/03-economy/og-drop/): 50,000,000 v2 $VVAKE for the wallets that
+ * bought v1, claimed once per wallet from VVakeOGClaim (contracts/src/VVakeOGClaim.sol, no admin). The list is
+ * public/og-drop/og-drop-claims.json, copied byte for byte from the monorepo.
+ *
+ * Fill in `address` (and `openedAt`, the deployment block's unix time) once the contract is deployed and funded;
+ * while `address` is null the claim says "opens soon". The page reads the real deadline from the contract.
+ */
+export const ogClaimConfig = {
+  /** VVakeOGClaim on Robinhood Chain Testnet. Null: not deployed yet ("opens soon"). */
+  address: null as string | null,
+  /** Unix seconds of the deployment block (claims open then). Null until deployed. */
+  openedAt: null as number | null,
+  /** Claim window from opening (the contract's deadline = deployment + 30 days). */
+  windowDays: 30,
+  /** The Merkle root the contract is deployed with; the page refuses a list with another root. */
+  root: "0x736cf6b90d1aa6f1a34462e2f371d69ab388b3d69a15552d54d3abbbd0a9ed80",
+  /** 50,000,000 × 10^18. */
+  total: "50000000000000000000000000",
+  /** Where unclaimed tokens go after the deadline (the team's reserve for community events): the creator wallet. */
+  reserve: "0xF29c27A1F77800414A163E635c0381da76352804",
+  /** The published list (static files). */
+  listUrl: "/og-drop/og-drop-claims.json",
+  csvUrl: "/og-drop/og-drop.csv",
+  /** The snapshot block on v1. */
+  snapshotBlock: 136764295,
+};
+
 /** The retired v1 testnet token, shown as retired next to the v2 slot. */
 export const VVAKE_V1_RETIRED_ADDRESS = "0x2b85b57383bA4C7eDABf6289E6bfe3a9C4833Cde";
 

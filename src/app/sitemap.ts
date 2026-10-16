@@ -18,6 +18,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "releases/",
     "clashes/",
     "roadmap/",
+    "og/",
   ];
   return pages.flatMap((page) =>
     locales.map((lang) => ({
