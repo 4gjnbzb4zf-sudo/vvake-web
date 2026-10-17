@@ -310,6 +310,8 @@ const myVVakersSchema = z.object({
 export type MyVVaker = z.infer<typeof myVVakersSchema>["vvakers"][number];
 /** Only the API's own image paths are fetched with the token (never a URL from elsewhere). */
 const RENDER_PATH = /^\/v1\/vvaker\/renders\/[0-9a-f]{32}\.png$/;
+/** The coach's voice lines (API v1 "Voice"): the only audio fetched with the token. */
+export const VOICE_PATH = /^\/v1\/voice\/[0-9a-f]{32}\.mp3$/;
 
 /**
  * Refresh tokens rotate on every use and reusing an old one revokes the whole device (theft detection), so two
@@ -473,6 +475,25 @@ export class RewardsSession {
       let bin = "";
       for (let i = 0; i < bytes.length; i += 0x8000) bin += String.fromCharCode(...bytes.subarray(i, i + 0x8000));
       return `data:image/png;base64,${btoa(bin)}`;
+    } catch {
+      return null;
+    }
+  }
+
+  /**
+   * One line of the coach's voice (`/v1/voice/<key>.mp3`, the API's own path only) as audio bytes, for the web app's
+   * player (src/lib/webapp/coachAudio.ts). Null when it can't be had (offline, signed out, no audio).
+   */
+  async voiceAudio(path: string, signal?: AbortSignal): Promise<Blob | null> {
+    if (!VOICE_PATH.test(path)) return null;
+    if (!this.access && !(await this.resume())) return null;
+    const get = () =>
+      fetch(`${this.apiUrl}${path}`, { headers: { authorization: `Bearer ${this.access}` }, ...(signal ? { signal } : {}) });
+    try {
+      let res = await get();
+      if (res.status === 401 && (await this.resume())) res = await get();
+      if (!res.ok || !(res.headers.get("content-type") ?? "").startsWith("audio/")) return null;
+      return await res.blob();
     } catch {
       return null;
     }

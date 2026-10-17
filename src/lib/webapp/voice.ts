@@ -1,10 +1,11 @@
 import type { Locale } from "@/i18n/config";
+import { splitLines, zonePack, type Spoken } from "./voicePick";
 
 /**
- * The coach's voice in the browser: the apps' workout cues (apps/mobile lib/coachVoice.ts `cue`, same words in English
- * and French) said by the browser's own voice (Web Speech synthesis), one line at a time; and listening for the coach
- * chat (Web Speech recognition, where the browser has it: Chrome, Edge, Safari). The apps' recorded coach voice and
- * the live voice coach stay in the apps.
+ * The coach's words in the browser: the apps' workout cues (apps/mobile lib/coachVoice.ts `cue`, same words in English
+ * and French) and the recording each one plays (`cueSpoken`: the voice pack, the cheer library, or a line registered
+ * with the API), spoken by coachAudio.ts in VVake's recorded coach voice; and listening for the coach chat (Web Speech
+ * recognition, where the browser has it: Chrome, Edge, Safari). The live voice coach and coach calls stay in the apps.
  */
 
 type Vars = Record<string, string | number>;
@@ -82,6 +83,34 @@ export const cueText = {
   sensorBack: (l: Locale) => CUES[l].sensorBack,
 };
 
+/**
+ * What each cue plays (the phone's choices, apps/mobile workout.tsx `speakCue`/`playCheer`): the start, zones, pause,
+ * resume, energy and end from the voice pack (said without the name and the minutes, as on the phone); a split from
+ * the cheer library ("3 kilometres done. That one in 5:15."); the rest, lines with exact numbers, registered with the
+ * API. `text` stays the full screen line, and is what the browser voice says when the recording doesn't come.
+ */
+export const cueSpoken = {
+  start: (l: Locale, name: string, sport: string): Spoken => ({ text: cueText.start(l, name, sport), pack: "start" }),
+  zone: (l: Locale, z: number): Spoken => {
+    const pack = zonePack(z);
+    return { text: cueText.zone(l, z), ...(pack ? { pack } : {}) };
+  },
+  /** `splitS`: this km's (or mile's) own time, null when unknown. */
+  split: (l: Locale, n: number, time: string, miles: boolean, splitS: number | null): Spoken => ({
+    text: cueText.split(l, n, time, miles),
+    lib: splitLines(n, splitS, miles),
+  }),
+  minutes: (l: Locale, m: number, z: number): Spoken => ({ text: cueText.minutes(l, m, z) }),
+  energy: (l: Locale): Spoken => ({ text: cueText.energy(l), pack: "energy" }),
+  done: (l: Locale, minutes: number): Spoken => ({ text: cueText.done(l, minutes), pack: "done" }),
+  paused: (l: Locale): Spoken => ({ text: cueText.paused(l), pack: "paused" }),
+  resumed: (l: Locale): Spoken => ({ text: cueText.resumed(l), pack: "resumed" }),
+  noSensor: (l: Locale): Spoken => ({ text: cueText.noSensor(l) }),
+  points: (l: Locale, total: number): Spoken => ({ text: cueText.points(l, total) }),
+  sensorLost: (l: Locale): Spoken => ({ text: cueText.sensorLost(l) }),
+  sensorBack: (l: Locale): Spoken => ({ text: cueText.sensorBack(l) }),
+};
+
 /** Which cues a chattiness allows (apps/mobile lib/coachSettings.ts cueAllowed): quiet says only zone 5. */
 export function cueAllowed(level: Chattiness, cue: "zone" | "split" | "minutes", zone = 0): boolean {
   if (level === "quiet") return cue === "zone" && zone >= 5;
@@ -94,49 +123,6 @@ export function spokenClock(s: number): string {
   const m = Math.floor((s % 3600) / 60);
   const sec = Math.floor(s % 60);
   return h ? `${h}:${String(m).padStart(2, "0")}:${String(sec).padStart(2, "0")}` : `${m}:${String(sec).padStart(2, "0")}`;
-}
-
-// ── Speaking (browser only) ──────────────────────────────────────────────────────────────────────────────────
-
-export const canSpeak = () =>
-  typeof window !== "undefined" && "speechSynthesis" in window && typeof SpeechSynthesisUtterance !== "undefined";
-
-const speechLang = (l: Locale) => (l === "fr" ? "fr-FR" : "en-US");
-
-/** The best installed voice for the language (a local one first). */
-function pickVoice(l: Locale): SpeechSynthesisVoice | undefined {
-  try {
-    const all = window.speechSynthesis.getVoices();
-    const mine = all.filter((v) => v.lang.toLowerCase().startsWith(l));
-    return mine.find((v) => v.localService && /premium|enhanced|natural/i.test(v.name)) ?? mine.find((v) => v.localService) ?? mine[0];
-  } catch {
-    return undefined;
-  }
-}
-
-/** Says a line now, after the one being said (one voice at a time: a newer line never talks over an older one). */
-export function say(text: string, lang: Locale, o: { interrupt?: boolean } = {}) {
-  if (!text || !canSpeak()) return;
-  try {
-    const synth = window.speechSynthesis;
-    if (o.interrupt) synth.cancel();
-    const u = new SpeechSynthesisUtterance(text);
-    u.lang = speechLang(lang);
-    const v = pickVoice(lang);
-    if (v) u.voice = v;
-    u.rate = 1;
-    synth.speak(u);
-  } catch {
-    // no voice on this browser: the cue stays on screen
-  }
-}
-
-export function hush() {
-  try {
-    if (canSpeak()) window.speechSynthesis.cancel();
-  } catch {
-    // nothing to stop
-  }
 }
 
 // ── Listening (coach chat) ───────────────────────────────────────────────────────────────────────────────────
@@ -176,7 +162,7 @@ export function listen(
   if (!Ctor) return null;
   try {
     const r = new Ctor();
-    r.lang = speechLang(lang);
+    r.lang = lang === "fr" ? "fr-FR" : "en-US";
     r.interimResults = true;
     r.maxAlternatives = 1;
     r.continuous = false;

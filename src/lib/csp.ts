@@ -26,6 +26,16 @@ export const TURNSTILE_ORIGIN = "https://challenges.cloudflare.com";
  */
 export const MAP_ORIGIN = "https://tiles.openfreemap.org";
 
+/**
+ * The web app's coach voice (src/lib/webapp/coachAudio.ts): its recorded lines are fetched from the VVake API with the
+ * token (connect-src) and played from blob: URLs; the API origin is allowed for audio too. media-src on the web app's
+ * pages only; the rest of the site plays no audio (default-src 'self').
+ */
+export function webAppMedia(cfg: CspConfig = buildConfig()): string[] {
+  const api = cfg.apiUrl ? origin(cfg.apiUrl) : null;
+  return ["blob:", ...(api ? [api] : [])];
+}
+
 /** out/-relative path of a web app page (en/app/index.html, fr/app/index.html). */
 export const webAppFile = (file: string) => /^[a-z]{2}\/app\/index\.html$/.test(file.replace(/\\/g, "/"));
 
@@ -77,7 +87,12 @@ export function inlineScripts(html: string): string[] {
   return out;
 }
 
-export function buildCsp(hashes: string[], cfg: CspConfig = buildConfig(), extraConnect: readonly string[] = []): string {
+export function buildCsp(
+  hashes: string[],
+  cfg: CspConfig = buildConfig(),
+  extraConnect: readonly string[] = [],
+  extraMedia: readonly string[] = [],
+): string {
   const turnstile = cfg.turnstileSiteKey ? [TURNSTILE_ORIGIN] : [];
   const directives: [string, string[]][] = [
     ["default-src", ["'self'"]],
@@ -86,6 +101,7 @@ export function buildCsp(hashes: string[], cfg: CspConfig = buildConfig(), extra
     ["img-src", ["'self'", "data:"]],
     ["font-src", ["'self'"]],
     ["connect-src", ["'self'", ...connectOrigins(cfg), ...extraConnect]],
+    ...(extraMedia.length ? ([["media-src", ["'self'", ...extraMedia]]] as [string, string[]][]) : []),
     ["frame-src", turnstile.length ? turnstile : ["'none'"]],
     ["object-src", ["'none'"]],
     ["base-uri", ["'none'"]],
@@ -121,8 +137,12 @@ export function injectCsp(html: string, policy: string): string {
 }
 
 /** Adds this file's policy to an exported HTML file. */
-export const withCsp = (html: string, cfg: CspConfig = buildConfig(), extraConnect: readonly string[] = []) =>
-  injectCsp(html, buildCsp(inlineScripts(html).map(scriptHash), cfg, extraConnect));
+export const withCsp = (
+  html: string,
+  cfg: CspConfig = buildConfig(),
+  extraConnect: readonly string[] = [],
+  extraMedia: readonly string[] = [],
+) => injectCsp(html, buildCsp(inlineScripts(html).map(scriptHash), cfg, extraConnect, extraMedia));
 
 /** What a browser would block or what the policy misses in one exported HTML file; empty = fine. */
 export function cspProblems(html: string, cfg: CspConfig = buildConfig()): string[] {
@@ -149,6 +169,8 @@ export function cspProblems(html: string, cfg: CspConfig = buildConfig()): strin
   ] as const)
     if (d[k]?.join(" ") !== v) problems.push(`${k} is not ${v}`);
   if (!(d["img-src"] ?? []).every((s) => s === "'self'" || s === "data:")) problems.push("img-src is wider than 'self' data:");
+  const media = new Set(["'self'", ...webAppMedia(cfg)]);
+  if (!(d["media-src"] ?? []).every((s) => media.has(s))) problems.push("media-src is wider than 'self' blob: and the API");
   // Inline event handlers and javascript: URLs would need 'unsafe-hashes'/'unsafe-inline': there must be none.
   const tags = html.replace(/<script\b[\s\S]*?<\/script\s*>/gi, "");
   const handler = /<[a-z][^>]*\son[a-z]+\s*=/i.exec(tags);

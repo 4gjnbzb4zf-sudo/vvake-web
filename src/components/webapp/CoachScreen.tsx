@@ -4,7 +4,9 @@ import { useEffect, useMemo, useRef, useState, type FormEvent } from "react";
 import { cn } from "@/lib/cn";
 import type { CoachContext } from "@/lib/webapp/api";
 import { goalProgress } from "@/lib/webapp/goals";
-import { canListen, hush, listen, say } from "@/lib/webapp/voice";
+import { hush, speakReply, unlockAudio } from "@/lib/webapp/coachAudio";
+import { createConversationVoice } from "@/lib/webapp/speechQueue";
+import { canListen, listen } from "@/lib/webapp/voice";
 import { useApp } from "./AppContext";
 import { GetTheApp } from "./GetTheApp";
 import { goalTitle } from "./GoalsScreen";
@@ -14,7 +16,8 @@ import { useNow } from "./useNow";
 /**
  * Coach (apps/mobile app/(tabs)/coach.tsx): talk to your coach (POST /v1/coach/talk, the same coach as the app, with
  * your goals in the context so it follows up on them). Type, or speak where the browser can listen (Web Speech);
- * replies can be read aloud by the browser's voice. A plan change it proposes waits on Plan for your yes.
+ * replies can be read aloud: in the coach's own voice for Plus (the reply's audio from the API, within its daily voice
+ * quota, one voice for the whole conversation), else the browser's best voice. A plan change it proposes waits on Plan for your yes.
  */
 
 interface Turn {
@@ -43,6 +46,8 @@ export function CoachScreen() {
   const end = useRef<HTMLDivElement>(null);
   const [micOk] = useState(() => canListen());
   const now = useNow();
+  const conv = useMemo(() => createConversationVoice(), []);
+  const cloudVoice = me.coach?.voice !== "device";
 
   useEffect(() => {
     try {
@@ -82,6 +87,7 @@ export function CoachScreen() {
   const ask = async (message: string) => {
     const m = message.trim().slice(0, 500);
     if (!m || busy) return;
+    unlockAudio();
     setError(false);
     setBusy(true);
     const history = turns.slice(-6).map(({ role, text: x }) => ({ role, text: x.slice(0, 300) }));
@@ -95,10 +101,15 @@ export function CoachScreen() {
         lang,
         units: prefs.units,
         clock: new Intl.DateTimeFormat(lang, { hour: "numeric" }).resolvedOptions().hour12 ? "12h" : "24h",
+        voice: prefs.speakReplies && cloudVoice,
       });
       const proposal = r.action?.type === "propose_plan";
       setTurns((x) => [...x, { role: "coach", text: r.reply, proposal }]);
-      if (prefs.speakReplies) say(r.reply, lang, { interrupt: true });
+      if (prefs.speakReplies) {
+        hush();
+        conv.begin(cloudVoice);
+        speakReply(r.reply, r.voice, conv);
+      }
     } catch {
       setError(true);
     } finally {
@@ -116,6 +127,7 @@ export function CoachScreen() {
       stopper.current?.stop();
       return;
     }
+    unlockAudio();
     hush();
     let last = "";
     const h = listen(

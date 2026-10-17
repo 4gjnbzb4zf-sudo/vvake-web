@@ -9,7 +9,9 @@ import { HeartSensor, type SensorState } from "@/lib/webapp/ble";
 import type { Units } from "@/lib/webapp/format";
 import { parseGoals, type WebGoal } from "@/lib/webapp/goals";
 import { afterUpload, openKV, QUEUE_KEY, type KV, type Queued } from "@/lib/webapp/store";
+import { configureVoice, hush, warmVoice } from "@/lib/webapp/coachAudio";
 import type { Chattiness } from "@/lib/webapp/voice";
+import { voiceMode } from "@/lib/webapp/voicePick";
 import { maxEnergy, refill, type EnergyState, type WebSession } from "@/lib/webapp/workout";
 import { useNow } from "./useNow";
 
@@ -282,6 +284,16 @@ export function AppProvider({
     window.scrollTo({ top: 0 });
   }, []);
 
+  // The coach's voice: the account's choice (the app's Coach voice), language and units (the workout's voice toggle
+  // and "Read replies aloud" decide what is said: WorkoutContext, CoachScreen).
+  // The voice pack is fetched into this browser a few seconds after the app opens, so the first cue plays at once.
+  const accountVoice = me.coach?.voice;
+  useEffect(() => {
+    configureVoice({ api, session, apiUrl, lang, imperial: prefs.units === "imperial", mode: voiceMode(true, accountVoice) });
+    const id = window.setTimeout(() => void warmVoice(), 4000);
+    return () => window.clearTimeout(id);
+  }, [api, session, apiUrl, lang, prefs.units, accountVoice]);
+
   // The sensor paired on an earlier visit, without the picker where the browser allows it.
   useEffect(() => {
     void sensor.reconnectRemembered();
@@ -289,6 +301,7 @@ export function AppProvider({
   }, [sensor]);
 
   const signOut = useCallback(() => {
+    hush();
     sensor.disconnect();
     void session.signOut().then(onSignedOut);
   }, [session, sensor, onSignedOut]);

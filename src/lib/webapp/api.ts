@@ -115,9 +115,26 @@ export type PlanChange = z.infer<typeof planChangeSchema>;
 
 const coachReplySchema = z.object({
   reply: z.string(),
+  /** Plus, when asked for: the reply in the coach's voice (`tag`: which voice, the API's voiceTag). */
+  voice: opt(z.object({ key: z.string(), url: z.string(), tag: str })),
   action: opt(z.object({ type: z.string(), sport: str, minutes: num, proposal: opt(planChangeSchema) })),
 });
 export type CoachReply = z.infer<typeof coachReplySchema>;
+
+/** GET /v1/voice/pack and /v1/voice/library: the recorded lines (the same for every account) and their audio. */
+const voiceItems = z.array(z.object({ id: z.string(), text: z.string(), url: opt(z.string()) }));
+export const voiceSetSchema = z.object({
+  version: z.union([z.string(), z.number()]),
+  voice: str,
+  voiceTag: str,
+  items: voiceItems,
+});
+export type VoiceSet = z.infer<typeof voiceSetSchema>;
+/** POST /v1/voice/lines: a line's audio when Plus may record it or anyone recorded it already, else url null. */
+const voiceLinesSchema = z.object({
+  voiceTag: str,
+  items: z.array(z.object({ text: z.string(), key: str, url: str })),
+});
 
 const clashSide = z.object({ city: z.string(), score: z.number(), movers: num, participants: num });
 const clashSchema = z.object({
@@ -197,7 +214,16 @@ export function webApi(s: RewardsSession) {
       lang: string;
       units: string;
       clock: string;
-    }) => s.call("/v1/coach/talk", send("POST", { ...b, voice: false }), coachReplySchema),
+      /** The reply in the coach's voice (Plus; counted in the API's daily voice quota). */
+      voice?: boolean;
+    }) => s.call("/v1/coach/talk", send("POST", { ...b, voice: b.voice === true }), coachReplySchema),
+    voicePack: (lang: string) => s.call(`/v1/voice/pack${lang === "fr" ? "?lang=fr" : ""}`, GET, voiceSetSchema),
+    voiceLibrary: (lang: string, imperial: boolean) => {
+      const q = [lang === "fr" ? "lang=fr" : "", imperial ? "units=imperial" : ""].filter(Boolean).join("&");
+      return s.call(`/v1/voice/library${q ? `?${q}` : ""}`, GET, voiceSetSchema);
+    },
+    voiceLines: (lines: string[], lang: string) =>
+      s.call("/v1/voice/lines", send("POST", { lines, lang: lang === "fr" ? "fr" : "en" }), voiceLinesSchema),
     clashes: (status?: "live" | "upcoming" | "recent") => s.call(`/v1/clashes${status ? `?status=${status}` : ""}`, GET, clashesSchema),
     habits: (tz: string) => s.call(`/v1/habits?${tzQ(tz)}`, GET, habitsSchema),
     sendHabitDay: (d: HabitDaySend, tz: string) => s.call(`/v1/habits/days?${tzQ(tz)}`, send("POST", d), habitsSchema),
