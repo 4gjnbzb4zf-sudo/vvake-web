@@ -888,7 +888,7 @@ export const fr: Dictionary = {
       {
         icon: "📞",
         title: "Ton coach t'appelle",
-        body: "Un court appel quand ça compte : ton plan a changé, ta série d'habitudes est en jeu ce soir, ou un nouveau record. Aussi souvent que tu veux, jamais la nuit, désactivé par défaut.",
+        body: "Un court appel quand ça compte : ton plan a changé, ta série d'habitudes est en jeu ce soir, ou un nouveau record. Une seule voix du bonjour à l'au revoir, celle que tu as choisie, sur le téléphone ou la montre qui répond. Aussi souvent que tu veux, jamais la nuit, désactivé par défaut.",
       },
       {
         icon: "🎙️",

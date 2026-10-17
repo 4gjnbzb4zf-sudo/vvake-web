@@ -19,6 +19,32 @@ export interface Release {
 
 export const releases: Release[] = [
   {
+    version: "1.0.0 (27)",
+    date: "2026-10-17",
+    channel: "beta",
+    devices: ["iphone", "watch", "android", "wear"],
+    notes: {
+      en: {
+        improved: [
+          "With Plus, a coach call stays in one voice from the hello to the last answer: the voice you chose, never switching mid-call.",
+        ],
+        fixed: [
+          "During a coach call, two voices no longer talk at the same time: only the phone or the watch that answered speaks, and workout announcements wait until you hang up.",
+          "The coach never starts a slow answer over the phone's own voice: one or the other, never both.",
+        ],
+      },
+      fr: {
+        improved: [
+          "Avec Plus, un appel du coach garde une seule voix du bonjour à la dernière réponse : celle que vous avez choisie, sans changer en cours d'appel.",
+        ],
+        fixed: [
+          "Pendant un appel du coach, deux voix ne parlent plus en même temps : seul le téléphone ou la montre qui a répondu parle, et les annonces de séance attendent la fin de l'appel.",
+          "Le coach ne lance plus une réponse lente par-dessus la voix du téléphone : l'une ou l'autre, jamais les deux.",
+        ],
+      },
+    },
+  },
+  {
     version: "1.0.0 (26)",
     date: "2026-10-15",
     channel: "beta",

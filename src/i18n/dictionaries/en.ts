@@ -868,7 +868,7 @@ export const en = {
       {
         icon: "📞",
         title: "Your coach calls you",
-        body: "A short call when it matters: your plan changed, your habit streak is at risk tonight, or a new best. As often as you like it, never at night, off by default.",
+        body: "A short call when it matters: your plan changed, your habit streak is at risk tonight, or a new best. One voice from hello to goodbye, the one you chose, on the phone or watch that answers. As often as you like it, never at night, off by default.",
       },
       {
         icon: "🎙️",
