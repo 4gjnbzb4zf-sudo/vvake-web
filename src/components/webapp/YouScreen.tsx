@@ -3,11 +3,12 @@
 import { useEffect, useState } from "react";
 import type { ApiSession } from "@/lib/webapp/api";
 import { clock, dayLabel, distance } from "@/lib/webapp/format";
+import { WORKOUT_VOICE_MODES } from "@/lib/webapp/speedZones";
 import { sportLabel } from "@/lib/webapp/workout";
 import { useApp } from "./AppContext";
 import { GetTheApp } from "./GetTheApp";
 import { VVakerImg } from "./MyVVaker";
-import { Btn, Card, Field, H1, H2, inputCls, Kicker, List, Row, Segmented, Small, Toggle } from "./ui";
+import { Btn, Card, Field, H1, H2, inputCls, Kicker, List, Row, Segmented, Small } from "./ui";
 
 interface InstallPrompt extends Event {
   prompt(): Promise<void>;
@@ -19,7 +20,8 @@ interface InstallPrompt extends Event {
  * app can do, sign out.
  */
 export function YouScreen() {
-  const { t, lang, me, setMe, api, stats, sessions, prefs, setPrefs, go, signOut, sensorState, bpm, fmt } = useApp();
+  const { t, lang, me, setMe, api, stats, sessions, prefs, setPrefs, go, signOut, sensorState, bpm, fmt, workoutVoice, setWorkoutVoice } =
+    useApp();
   const [name, setName] = useState(me.name ?? "");
   const [city, setCity] = useState(me.city ?? "");
   const [saved, setSaved] = useState<"idle" | "saving" | "saved" | "error">("idle");
@@ -166,21 +168,28 @@ export function YouScreen() {
           }
           onClick={() => go({ name: "sensor" })}
         />
+        <Row tone="sky" icon="⏲" title={t.you.speedZones} detail={t.you.speedZonesDetail} onClick={() => go({ name: "zones" })} />
         <Row tone="volt" icon="◎" title={t.goals.title} onClick={() => go({ name: "goals" })} />
         <Row tone="sky" icon="💧" title={t.rhythm.title} onClick={() => go({ name: "rhythm" })} />
       </List>
 
       <Card>
-        <div className="flex items-center justify-between gap-3">
-          <div>
-            <H2>{t.you.voice}</H2>
-            <Small>{t.you.voiceDetail}</Small>
-          </div>
-          <Toggle label={t.you.voice} on={prefs.voice} onChange={(v) => setPrefs({ voice: v })} />
-        </div>
+        <H2>{t.you.voice}</H2>
+        <Small>{t.you.voiceDetail}</Small>
         <div className="mt-3">
+          <p className="mb-1 text-sm font-medium">{t.you.duringWorkouts}</p>
           <Segmented
-            label={t.you.voice}
+            label={t.you.duringWorkouts}
+            value={workoutVoice}
+            options={WORKOUT_VOICE_MODES.map((k) => ({ value: k, label: t.you.workoutVoice[k] }))}
+            onChange={(v) => setWorkoutVoice(v)}
+          />
+          <Small className="mt-1">{t.you.duringWorkoutsDetail}</Small>
+        </div>
+        <div className="mt-4">
+          <p className="mb-1 text-sm font-medium">{t.you.chattinessTitle}</p>
+          <Segmented
+            label={t.you.chattinessTitle}
             value={prefs.chattiness}
             options={(["quiet", "normal", "chatty"] as const).map((k) => ({ value: k, label: t.you.chattiness[k] }))}
             onChange={(v) => setPrefs({ chattiness: v })}

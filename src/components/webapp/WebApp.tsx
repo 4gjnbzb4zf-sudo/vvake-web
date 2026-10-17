@@ -19,6 +19,7 @@ import { SessionScreen } from "./SessionScreen";
 import { TodayScreen } from "./TodayScreen";
 import { VVakerScreen } from "./VVakerScreen";
 import { WorkoutScreen } from "./WorkoutScreen";
+import { ZonesScreen } from "./ZonesScreen";
 import { WorkoutPill } from "./WorkoutPill";
 import { YouScreen } from "./YouScreen";
 import { WorkoutProvider } from "./WorkoutContext";
@@ -155,6 +156,7 @@ function Shell() {
             {route.name === "rhythm" && <RhythmScreen />}
             {route.name === "vvaker" && <VVakerScreen />}
             {route.name === "sensor" && <SensorScreen />}
+            {route.name === "zones" && <ZonesScreen />}
             {route.name === "session" && <SessionScreen id={route.id} />}
           </main>
         </Frame>
