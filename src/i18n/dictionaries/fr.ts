@@ -2652,7 +2652,7 @@ export const fr: Dictionary = {
           },
           {
             t: "Micro et voix, seulement quand tu le demandes.",
-            d: "Parler au coach à la voix utilise la reconnaissance vocale de ton navigateur, qui peut envoyer le son à l’éditeur du navigateur (par exemple Google pour Chrome) pour le transformer en texte ; seul le texte arrive chez VVake. Les annonces parlées utilisent la voix de ton navigateur, sur ton appareil.",
+            d: "Parler au coach à la voix utilise la reconnaissance vocale de ton navigateur, qui peut envoyer le son à l’éditeur du navigateur (par exemple Google pour Chrome) pour le transformer en texte ; seul le texte arrive chez VVake. Les annonces de séance jouent la voix enregistrée du coach VVake : les mêmes enregistrements pour tout le monde, sans donnée personnelle, gardés dans le Cache Storage de ton navigateur pour partir tout de suite. Les annonces avec tes propres chiffres (allure, distance, temps) et, avec Plus, les réponses du coach sont lues par la voix du coach (ElevenLabs) via nos serveurs, comme sur le téléphone ; ton navigateur garde cet audio en mémoire seulement, jamais sur le disque. Si l’audio ne peut pas jouer, la voix de ton navigateur lit la phrase, sur ton appareil.",
           },
           {
             t: "Des points, jamais de prix.",

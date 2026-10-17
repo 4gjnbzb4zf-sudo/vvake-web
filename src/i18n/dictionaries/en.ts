@@ -2493,7 +2493,7 @@ export const en = {
           },
           {
             t: "Microphone and voice, only when you ask.",
-            d: "Talking to the coach by voice uses your browser's speech recognition, which may send the sound to your browser's maker (for example Google for Chrome) to turn it into text; only the text reaches VVake. Spoken cues use your browser's own voice, on your device.",
+            d: "Talking to the coach by voice uses your browser's speech recognition, which may send the sound to your browser's maker (for example Google for Chrome) to turn it into text; only the text reaches VVake. Workout cues play VVake's recorded coach voice: the same recordings for everyone, with no personal data, kept in your browser's Cache Storage so they play at once. Cues with your own numbers (pace, distance, time) and, with Plus, the coach's replies are spoken by the coach's voice (ElevenLabs) through our servers, as on the phone; your browser keeps that audio in memory only, never on disk. If the audio can't play, your browser's own voice reads the line, on your device.",
           },
           {
             t: "Points, never prizes.",
