@@ -1,11 +1,12 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { cn } from "@/lib/cn";
 import { bleSupport } from "@/lib/webapp/ble";
 import { clock, distanceNumber, distanceUnit, elevation, pace, speed, SPEED_SPORTS } from "@/lib/webapp/format";
 import { paceOf } from "@/lib/webapp/geo";
+import { toggleWorkoutVoice, WORKOUT_VOICE_MODES } from "@/lib/webapp/speedZones";
 import { elapsedS, isPaused, QUICK_SPORTS, sportLabel, sportOf, usesGps, WEB_SPORTS } from "@/lib/webapp/workout";
 import { sports as catalog } from "@/lib/sports";
 import { useApp } from "./AppContext";
@@ -151,7 +152,7 @@ function RestoreView() {
 }
 
 function LiveView() {
-  const { t, lang, go, prefs, setPrefs, bpm, fmt } = useApp();
+  const { t, lang, go, prefs, bpm, fmt } = useApp();
   const wk = useWorkout();
   const avatar = useVVakerSrc();
   const [confirmEnd, setConfirmEnd] = useState(false);
@@ -205,14 +206,7 @@ function LiveView() {
           >
             ⌄ {sportLabel(w.sport, lang)}
           </button>
-          <button
-            type="button"
-            onClick={() => setPrefs({ voice: !prefs.voice })}
-            aria-pressed={prefs.voice}
-            className="pointer-events-auto h-11 rounded-full bg-night/85 px-4 text-sm font-semibold ring-1 ring-line"
-          >
-            {prefs.voice ? `🔊 ${t.workout.voiceOn}` : `🔇 ${t.workout.voiceOff}`}
-          </button>
+          <VoiceSwitch />
         </div>
         {wk.lastCue && (
           <p
@@ -256,14 +250,24 @@ function LiveView() {
               />
             )}
             {gps && w.track.gainM > 0 && <Metric label={t.workout.elevation} value={elevation(w.track.gainM, prefs.units, lang)} />}
-            <Metric
-              label={t.workout.heart}
-              value={bpm ? String(bpm) : "–"}
-              unit={bpm ? (wk.zone > 0 ? fmt(t.workout.zone, { n: wk.zone }) : "bpm") : undefined}
-              tone={bpm ? "pulse" : undefined}
-            />
+            {wk.zoneSource === "speed" ? (
+              // No heart rate: the zone from speed (your speed zones for the sport), marked as such.
+              <Metric
+                label={`⏲ ${t.workout.speedZone}`}
+                value={wk.zone > 0 ? fmt(t.workout.zoneSpeed, { n: wk.zone }) : t.workout.noZone}
+                small={wk.zone === 0}
+              />
+            ) : (
+              <Metric
+                label={t.workout.heart}
+                value={bpm ? String(bpm) : "–"}
+                unit={bpm ? (wk.zone > 0 ? fmt(t.workout.zone, { n: wk.zone }) : "bpm") : undefined}
+                tone={bpm ? "pulse" : undefined}
+              />
+            )}
           </dl>
           {gps ? <Small className="mt-2">{gpsLine}</Small> : <Small className="mt-2">{t.workout.noGpsIndoor}</Small>}
+          {wk.zoneSource === "speed" && <Small className="mt-1">{t.zones.disclaimer}</Small>}
 
           {!confirmEnd ? (
             <div className="mt-3 flex gap-3">
@@ -316,11 +320,115 @@ function LiveView() {
   );
 }
 
-function Metric({ label, value, unit, tone }: { label: string; value: string; unit?: string; tone?: "pulse" }) {
+/**
+ * The workout voice switch (ADR-0044): one tap mutes the coach at once (the line speaking stops, nothing queued is
+ * said) and one tap turns it back on; "Essential only" from the menu next to it, or a long press. Remembered with the
+ * account for the next session on every device (AppContext). Taps and the cue text on screen stay when muted.
+ */
+function VoiceSwitch() {
+  const { t, workoutVoice, setWorkoutVoice } = useApp();
+  const [menu, setMenu] = useState(false);
+  const timer = useRef<number | null>(null);
+  const long = useRef(false);
+  const box = useRef<HTMLDivElement>(null);
+  const off = workoutVoice === "off";
+  const label = off ? t.workout.voiceOff : workoutVoice === "essential" ? t.workout.voiceEssential : t.workout.voiceOn;
+  const icon = off ? "🔇" : workoutVoice === "essential" ? "🔉" : "🔊";
+  const cancel = () => {
+    if (timer.current) window.clearTimeout(timer.current);
+    timer.current = null;
+  };
+  useEffect(() => {
+    if (!menu) return;
+    const close = (e: PointerEvent) => {
+      if (box.current && !box.current.contains(e.target as Node)) setMenu(false);
+    };
+    const esc = (e: KeyboardEvent) => e.key === "Escape" && setMenu(false);
+    document.addEventListener("pointerdown", close);
+    document.addEventListener("keydown", esc);
+    return () => {
+      document.removeEventListener("pointerdown", close);
+      document.removeEventListener("keydown", esc);
+    };
+  }, [menu]);
+  return (
+    <div ref={box} className="pointer-events-auto relative flex rounded-full bg-night/85 ring-1 ring-line">
+      <button
+        type="button"
+        aria-label={off ? t.workout.voiceUnmute : t.workout.voiceMute}
+        className={cn("h-11 rounded-l-full pr-3 pl-4 text-sm font-semibold select-none", off && "text-butter-fg")}
+        onPointerDown={() => {
+          long.current = false;
+          cancel();
+          timer.current = window.setTimeout(() => {
+            long.current = true;
+            setMenu(true);
+          }, 550);
+        }}
+        onPointerUp={cancel}
+        onPointerLeave={cancel}
+        onContextMenu={(e) => {
+          e.preventDefault();
+          setMenu(true);
+        }}
+        onClick={() => {
+          if (long.current) return void (long.current = false);
+          setMenu(false);
+          setWorkoutVoice(toggleWorkoutVoice(workoutVoice));
+        }}
+      >
+        <span aria-hidden>{icon}</span> {label}
+      </button>
+      <button
+        type="button"
+        aria-label={t.workout.voiceMore}
+        aria-haspopup="menu"
+        aria-expanded={menu}
+        onClick={() => setMenu((m) => !m)}
+        className="h-11 w-9 rounded-r-full border-l border-line text-sm text-muted"
+      >
+        ▾
+      </button>
+      {menu && (
+        <div role="menu" className="absolute top-12 right-0 z-10 w-56 rounded-2xl bg-night-2 p-1 shadow-lg ring-1 ring-line">
+          {WORKOUT_VOICE_MODES.map((m) => (
+            <button
+              key={m}
+              type="button"
+              role="menuitemradio"
+              aria-checked={m === workoutVoice}
+              onClick={() => {
+                setMenu(false);
+                if (m !== workoutVoice) setWorkoutVoice(m);
+              }}
+              className={cn(
+                "flex min-h-11 w-full items-center gap-2 rounded-xl px-3 text-left text-sm",
+                m === workoutVoice ? "bg-surface font-semibold text-volt-fg" : "hover:bg-surface",
+              )}
+            >
+              <span aria-hidden className="w-4">
+                {m === workoutVoice ? "✓" : ""}
+              </span>
+              {t.you.workoutVoice[m]}
+            </button>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
+function Metric({ label, value, unit, tone, small }: { label: string; value: string; unit?: string; tone?: "pulse"; small?: boolean }) {
   return (
     <div className="rounded-xl bg-surface p-2">
       <dt className="text-[11px] text-muted">{label}</dt>
-      <dd className={cn("font-display text-xl leading-tight font-bold tabular-nums", tone === "pulse" && "text-pulse-fg")}>
+      <dd
+        className={cn(
+          "font-display leading-tight font-bold tabular-nums",
+          small ? "text-sm" : "text-xl",
+          tone === "pulse" && "text-pulse-fg",
+        )}
+      >
         {value}
         {unit && <span className="ml-1 text-xs font-semibold text-muted">{unit}</span>}
       </dd>

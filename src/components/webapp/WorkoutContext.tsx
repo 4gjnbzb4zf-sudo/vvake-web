@@ -9,6 +9,7 @@ import { enqueue, WORKOUT_KEY } from "@/lib/webapp/store";
 import { hush, playCue, prefetchLines, unlockAudio, warmVoice } from "@/lib/webapp/coachAudio";
 import { cueAllowed, cueSpoken, spokenClock } from "@/lib/webapp/voice";
 import { splitLines, type Spoken } from "@/lib/webapp/voicePick";
+import { speedThresholdsFor, windowSpeedKmh, workoutChattiness, zoneOfSpeed } from "@/lib/webapp/speedZones";
 import {
   afterReload,
   buildSession,
@@ -37,6 +38,11 @@ import { useApp } from "./AppContext";
  * in IndexedDB (a reload resumes it), follows GPS with navigator.geolocation.watchPosition (high accuracy, filtered
  * by geo.ts), keeps the screen on with the Screen Wake Lock (asked again when the page comes back), takes the heart
  * rate from the paired sensor, says the apps' cues, and at the end builds the session, queues it and uploads it.
+ *
+ * Without a heart rate streaming (no strap, or it dropped), a GPS sport's live zone comes from speed instead (ADR-0044:
+ * the distance over the last 30 s against your speed zones for the sport): the zone shown and the zone cues only.
+ * It never goes into the session (no zone seconds, no heart samples): no heart rate, no points, as before. The
+ * workout voice switch (on, essential, off) decides what is said.
  */
 
 export type GpsState = "off" | "searching" | "live" | "denied" | "unsupported";
@@ -61,6 +67,8 @@ interface WorkoutApi {
   accuracy: number | null;
   bars: number;
   zone: number;
+  /** Where the zone comes from: the heart rate, speed (no heart rate, GPS sport with speed zones), or nothing. */
+  zoneSource: "heart" | "speed" | null;
   heart: HeartProfile;
   wakeLock: boolean | null;
   gap: boolean;
@@ -91,6 +99,7 @@ interface WakeLockSentinelLike {
 export function WorkoutProvider({ children }: { children: ReactNode }) {
   const app = useApp();
   const { lang, me, prefs, kv, athlete, energy, setEnergy, bpm, sensorState, api, deviceKey, queue, setQueue, refresh } = app;
+  const { workoutVoice, speedZones } = app;
   const [w, setW] = useState<WorkoutSnapshot | null>(null);
   const wRef = useRef<WorkoutSnapshot | null>(null);
   const [restored, setRestored] = useState(false);
@@ -111,9 +120,17 @@ export function WorkoutProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const heart = useMemo(() => heartProfileOf(athlete?.health ?? null, w?.sport), [athlete, w?.sport]);
-  const zone = bpm !== null ? zoneOf(bpm, heart) : 0;
   const sport = w ? sportOf(w.sport) : null;
   const gpsOn = !!sport && usesGps(sport);
+  // Speed zones (ADR-0044): only while no heart rate is streaming, for a GPS sport that has them.
+  const sportKey = w?.sport;
+  const thresholds = useMemo(() => (sportKey ? speedThresholdsFor(sportKey, speedZones) : undefined), [sportKey, speedZones]);
+  const speedOn = bpm === null && gpsOn && !!thresholds;
+  const [speedZone, setSpeedZone] = useState(0);
+  /** [elapsed s, metres] over the last minute, for the speed over the last 30 s. */
+  const distRef = useRef<[number, number][]>([]);
+  const zone = bpm !== null ? zoneOf(bpm, heart) : speedOn ? speedZone : 0;
+  const zoneSource = bpm !== null ? "heart" : speedOn ? "speed" : null;
 
   // ── Restore after a reload ────────────────────────────────────────────────────────────────────────────────
   useEffect(() => {
@@ -149,20 +166,17 @@ export function WorkoutProvider({ children }: { children: ReactNode }) {
   }, [kv]);
 
   // ── Speaking ─────────────────────────────────────────────────────────────────────────────────────────────────
+  // The workout voice switch: off says nothing, essential only the essentials (start, pause, end, and the cues quiet
+  // chattiness allows); the line stays on screen either way. Muting stops the line speaking now (AppContext: hush()).
   const speak = useCallback(
-    (line: Spoken) => {
+    (line: Spoken, essential = false) => {
       const text = line.text;
       setLastCue(text);
       window.setTimeout(() => setLastCue((x) => (x === text ? null : x)), 4000);
-      if (prefs.voice) playCue(line);
+      if (workoutVoice === "on" || (workoutVoice === "essential" && essential)) playCue(line);
     },
-    [prefs.voice],
+    [workoutVoice],
   );
-
-  // The voice turned off mid-line: silent at once.
-  useEffect(() => {
-    if (!prefs.voice) hush();
-  }, [prefs.voice]);
 
   // ── The clock: a tick a second (samples every 10 s, cues) ─────────────────────────────────────────────────────
   const zoneRef = useRef({ zone: -1, since: 0, spoken: -1 });
@@ -179,15 +193,21 @@ export function WorkoutProvider({ children }: { children: ReactNode }) {
       const cur = wRef.current;
       if (!cur || isPaused(cur)) return;
       const s = elapsedS(cur, t);
+      // The speed over the last 30 s (GPS distance), for the speed zone when there is no heart rate.
+      const d = distRef.current;
+      if (!d.length || d[d.length - 1]![0] < s) d.push([s, cur.track.metres]);
+      while (d.length && d[0]![0] < s - 60) d.shift();
+      const sz = speedOn && thresholds ? zoneOfSpeed(windowSpeedKmh(d), thresholds) : 0;
+      if (sz !== speedZone) setSpeedZone(sz);
       const z = zoneRef.current;
-      const level = prefs.chattiness;
+      const level = workoutChattiness(workoutVoice, prefs.chattiness) ?? "quiet";
       // A zone settled for 15 s is said once.
       if (zone !== z.zone) {
         z.zone = zone;
         z.since = s;
       } else if (s - z.since === 15 && zone > 0 && zone !== z.spoken) {
         z.spoken = zone;
-        if (cueAllowed(level, "zone", zone)) speak(cueSpoken.zone(lang, zone));
+        if (cueAllowed(level, "zone", zone)) speak(cueSpoken.zone(lang, zone), true);
       }
       // Each full km (or mile) outdoors, with its split; every 5 minutes indoors.
       const unit = prefs.units === "imperial" ? MILE_M : 1000;
@@ -198,10 +218,10 @@ export function WorkoutProvider({ children }: { children: ReactNode }) {
         const splitS = full === splitCount.current + 1 ? s - splitAt.current : null;
         splitCount.current = full;
         splitAt.current = s;
-        if (cueAllowed(level, "split")) speak(cueSpoken.split(lang, full, spokenClock(s), imperial, splitS));
+        if (cueAllowed(level, "split")) speak(cueSpoken.split(lang, full, spokenClock(s), imperial, splitS), true);
         void prefetchLines(splitLines(full + 1, null, imperial));
       } else if (s > 0 && s % 300 === 0 && (!gpsOn ? cueAllowed(level, "minutes") : level === "chatty")) {
-        speak(cueSpoken.minutes(lang, s / 60, zone));
+        speak(cueSpoken.minutes(lang, s / 60, zone), true);
       }
       // Energy used up (heart rate only: without it nothing is scored anyway).
       const cap = cur.energyAtStart * MINUTES_PER_ENERGY * 60;
@@ -211,7 +231,7 @@ export function WorkoutProvider({ children }: { children: ReactNode }) {
       }
     }, 1000);
     return () => window.clearInterval(id);
-  }, [w, summary, restored, update, zone, prefs.chattiness, prefs.units, gpsOn, lang, speak]);
+  }, [w, summary, restored, update, zone, prefs.chattiness, prefs.units, gpsOn, lang, speak, speedOn, thresholds, speedZone, workoutVoice]);
 
   // ── Heart rate from the sensor ────────────────────────────────────────────────────────────────────────────────
   useEffect(() => {
@@ -305,23 +325,25 @@ export function WorkoutProvider({ children }: { children: ReactNode }) {
       setGps("searching");
       setNow(t);
       zoneRef.current = { zone: -1, since: 0, spoken: -1 };
+      distRef.current = [];
+      setSpeedZone(0);
       splitCount.current = 0;
       splitAt.current = 0;
       energyCueSaid.current = false;
       void kv?.set(WORKOUT_KEY, fresh);
-      speak(cueSpoken.start(lang, me.name ?? "", sportLabel(sportKey, lang)));
+      speak(cueSpoken.start(lang, me.name ?? "", sportLabel(sportKey, lang)), true);
     },
     [me.id, me.name, energy, kv, lang, speak],
   );
   const pause = useCallback(() => {
     unlockAudio();
     update((x) => pauseW(x, Date.now()));
-    speak(cueSpoken.paused(lang));
+    speak(cueSpoken.paused(lang), true);
   }, [update, speak, lang]);
   const resume = useCallback(() => {
     unlockAudio();
     update((x) => resumeW(x, Date.now()));
-    speak(cueSpoken.resumed(lang));
+    speak(cueSpoken.resumed(lang), true);
   }, [update, speak, lang]);
   const confirmRestore = useCallback(() => {
     setRestored(false);
@@ -369,7 +391,7 @@ export function WorkoutProvider({ children }: { children: ReactNode }) {
     setQueue(q);
     clear();
     hush();
-    if (prefs.voice) playCue(cueSpoken.done(lang, Math.floor(activeS / 60)));
+    if (workoutVoice !== "off") playCue(cueSpoken.done(lang, Math.floor(activeS / 60)));
     setSummary({ session, discarded: false, reply: null, uploading: true, queued: true, splits, gainM: done.track.gainM });
     void api
       .upload(session, localTz())
@@ -377,11 +399,11 @@ export function WorkoutProvider({ children }: { children: ReactNode }) {
         setQueue(queueRef.current.filter((x) => x.session.id !== session.id));
         setSummary((s) => (s && s.session?.id === session.id ? { ...s, reply, uploading: false, queued: false } : s));
         const pts = reply.points?.total ?? reply.session?.points ?? 0;
-        if (prefs.voice) playCue(!hrSamples ? cueSpoken.noSensor(lang) : cueSpoken.points(lang, pts));
+        if (workoutVoice === "on") playCue(!hrSamples ? cueSpoken.noSensor(lang) : cueSpoken.points(lang, pts));
         void refresh();
       })
       .catch(() => setSummary((s) => (s && s.session?.id === session.id ? { ...s, uploading: false } : s)));
-  }, [prefs.units, prefs.voice, deviceKey, heart, energy, setEnergy, me.id, setQueue, clear, lang, api, refresh]);
+  }, [prefs.units, workoutVoice, deviceKey, heart, energy, setEnergy, me.id, setQueue, clear, lang, api, refresh]);
 
   const closeSummary = useCallback(() => setSummary(null), []);
 
@@ -403,6 +425,7 @@ export function WorkoutProvider({ children }: { children: ReactNode }) {
     accuracy: w?.track.accuracy ?? null,
     bars: gpsBars(w?.track.accuracy ?? null),
     zone,
+    zoneSource,
     heart,
     wakeLock,
     gap,

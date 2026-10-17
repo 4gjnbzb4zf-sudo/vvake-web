@@ -60,7 +60,17 @@ export const appMeSchema = z.object({
   plan: str,
   plusUntil: str,
   coach: opt(z.object({ on: bool, chattiness: str, voice: str, units: str })),
-  prefs: opt(z.object({ lang: str, theme: str, timeFormat: str, dateFormat: str })),
+  prefs: opt(
+    z.object({
+      lang: str,
+      theme: str,
+      timeFormat: str,
+      dateFormat: str,
+      /** ADR-0044: `{ mode, at }` and `{ at, sports }`, checked by workoutPrefs.ts (a bad value reads as none). */
+      workoutVoice: z.optional(z.unknown()),
+      speedZones: z.optional(z.unknown()),
+    }),
+  ),
   consents: opt(z.object({ disclaimer: opt(z.object({ version: z.number(), acceptedAt: z.string() })) })),
 });
 export type AppMe = z.infer<typeof appMeSchema>;

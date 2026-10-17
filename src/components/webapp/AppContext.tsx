@@ -11,6 +11,8 @@ import { parseGoals, type WebGoal } from "@/lib/webapp/goals";
 import { afterUpload, openKV, QUEUE_KEY, type KV, type Queued } from "@/lib/webapp/store";
 import { configureVoice, hush, warmVoice } from "@/lib/webapp/coachAudio";
 import type { Chattiness } from "@/lib/webapp/voice";
+import type { SportSpeedSetting, SpeedZonesPrefs, WorkoutVoiceMode, WorkoutVoicePref } from "@/lib/webapp/speedZones";
+import { parseSpeedZones, parseWorkoutVoice, readStored, reconcile, voiceKey, writeStored, zonesKey } from "@/lib/webapp/workoutPrefs";
 import { voiceMode } from "@/lib/webapp/voicePick";
 import { maxEnergy, refill, type EnergyState, type WebSession } from "@/lib/webapp/workout";
 import { useNow } from "./useNow";
@@ -22,7 +24,7 @@ import { useNow } from "./useNow";
  */
 
 export type Route =
-  | { name: "today" | "plan" | "crew" | "coach" | "you" | "goals" | "rhythm" | "vvaker" | "sensor" | "workout" }
+  | { name: "today" | "plan" | "crew" | "coach" | "you" | "goals" | "rhythm" | "vvaker" | "sensor" | "workout" | "zones" }
   | { name: "session"; id: string };
 
 export const TABS = ["today", "plan", "crew", "coach", "you"] as const;
@@ -31,7 +33,7 @@ export function parseRoute(hash: string): Route {
   const h = hash.replace(/^#\/?/, "");
   const [name, arg] = h.split("/");
   if (name === "session" && arg) return { name: "session", id: decodeURIComponent(arg) };
-  const known = ["today", "plan", "crew", "coach", "you", "goals", "rhythm", "vvaker", "sensor", "workout"] as const;
+  const known = ["today", "plan", "crew", "coach", "you", "goals", "rhythm", "vvaker", "sensor", "workout", "zones"] as const;
   return { name: (known as readonly string[]).includes(name ?? "") ? (name as (typeof known)[number]) : "today" };
 }
 
@@ -39,13 +41,22 @@ export const routeHash = (r: Route) => (r.name === "session" ? `#/session/${enco
 
 export interface Prefs {
   units: Units;
-  voice: boolean;
   chattiness: Chattiness;
   speakReplies: boolean;
 }
 
 const PREFS_KEY = "vvake-app-prefs";
-const DEFAULT_PREFS: Prefs = { units: "metric", voice: true, chattiness: "normal", speakReplies: false };
+const DEFAULT_PREFS: Prefs = { units: "metric", chattiness: "normal", speakReplies: false };
+
+/** Before ADR-0044 this browser kept an on/off voice in its prefs: the starting point until a choice is made. */
+const legacyVoiceOff = () =>
+  readLocal(PREFS_KEY, (raw) => {
+    try {
+      return raw ? (JSON.parse(raw) as { voice?: unknown }).voice === false : false;
+    } catch {
+      return false;
+    }
+  });
 
 function readLocal<T>(key: string, parse: (raw: string | null) => T): T {
   try {
@@ -79,6 +90,12 @@ export interface AppState {
   refresh: () => Promise<void>;
   prefs: Prefs;
   setPrefs: (p: Partial<Prefs>) => void;
+  /** The workout voice switch (ADR-0044): this browser's choice, synced with the account (newest wins). */
+  workoutVoice: WorkoutVoiceMode;
+  setWorkoutVoice: (m: WorkoutVoiceMode) => void;
+  /** Speed zones per sport (ADR-0044), null until set on any device. */
+  speedZones: SpeedZonesPrefs | null;
+  setSpeedZones: (sports: Record<string, SportSpeedSetting>) => void;
   goals: WebGoal[];
   setGoals: (g: WebGoal[]) => void;
   energy: EnergyState;
@@ -192,6 +209,68 @@ export function AppProvider({
     },
     [energyKey],
   );
+
+  // ── The two workout settings kept with the account (ADR-0044): ours per account, the account's adopted when newer ──
+  const [voicePref, setVoicePref] = useState<WorkoutVoicePref | null>(() => readStored(voiceKey(me.id), parseWorkoutVoice));
+  const [legacyOff] = useState(legacyVoiceOff);
+  const workoutVoice: WorkoutVoiceMode = voicePref?.mode ?? (legacyOff ? "off" : "on");
+  const [speedZones, setSpeedZonesState] = useState<SpeedZonesPrefs | null>(() => readStored(zonesKey(me.id), parseSpeedZones));
+  const voiceRef = useRef(voicePref);
+  const zonesRef = useRef(speedZones);
+  const pushPrefs = useCallback(
+    (p: { workoutVoice?: WorkoutVoicePref; speedZones?: SpeedZonesPrefs }) =>
+      void api
+        .patchMe({ prefs: p })
+        .then(setMe)
+        .catch(() => undefined), // offline: ours is newer, sent on the next load
+    [api],
+  );
+  const adoptVoice = useCallback(
+    (p: WorkoutVoicePref) => {
+      voiceRef.current = p;
+      setVoicePref(p);
+      writeStored(voiceKey(me.id), p);
+      // Muted from here or from another device: the line speaking now stops and nothing queued is said.
+      if (p.mode === "off") hush();
+    },
+    [me.id],
+  );
+  const adoptZones = useCallback(
+    (p: SpeedZonesPrefs) => {
+      zonesRef.current = p;
+      setSpeedZonesState(p);
+      writeStored(zonesKey(me.id), p);
+    },
+    [me.id],
+  );
+  const setWorkoutVoice = useCallback(
+    (mode: WorkoutVoiceMode) => {
+      const p = { mode, at: new Date().toISOString() };
+      adoptVoice(p);
+      pushPrefs({ workoutVoice: p });
+    },
+    [adoptVoice, pushPrefs],
+  );
+  const setSpeedZones = useCallback(
+    (sports: Record<string, SportSpeedSetting>) => {
+      const p = { at: new Date().toISOString(), sports };
+      adoptZones(p);
+      pushPrefs({ speedZones: p });
+    },
+    [adoptZones, pushPrefs],
+  );
+  const accountVoiceRaw = me.prefs?.workoutVoice;
+  const accountZonesRaw = me.prefs?.speedZones;
+  useEffect(() => {
+    const v = reconcile(voiceRef.current, parseWorkoutVoice(accountVoiceRaw));
+    const z = reconcile(zonesRef.current, parseSpeedZones(accountZonesRaw));
+    const id = window.setTimeout(() => {
+      if (v.adopt) adoptVoice(v.adopt);
+      if (z.adopt) adoptZones(z.adopt);
+    }, 0);
+    if (v.push || z.push) pushPrefs({ ...(v.push ? { workoutVoice: v.push } : {}), ...(z.push ? { speedZones: z.push } : {}) });
+    return () => window.clearTimeout(id);
+  }, [accountVoiceRaw, accountZonesRaw, adoptVoice, adoptZones, pushPrefs]);
 
   const tz = useMemo(() => localTz(), []);
   const refresh = useCallback(async () => {
@@ -323,6 +402,10 @@ export function AppProvider({
     refresh,
     prefs,
     setPrefs,
+    workoutVoice,
+    setWorkoutVoice,
+    speedZones,
+    setSpeedZones,
     goals,
     setGoals,
     energy,
