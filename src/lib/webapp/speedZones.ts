@@ -20,7 +20,7 @@
  * catalog exported; the web has no custom sports.
  */
 import type { Units } from "./format";
-import { MILE_M } from "./format";
+import { MILE_M, SPEED_SPORTS } from "./format";
 import { WEB_SPORTS, type WebSport } from "./workout";
 
 export type Zone = 0 | 1 | 2 | 3 | 4 | 5;
@@ -78,6 +78,12 @@ export function speedShownAsPace(sport: string): boolean {
   const cap = sportInfo(sport)?.capKmh;
   return cap !== undefined && cap !== null && cap <= 35 && sport !== "skate";
 }
+
+/**
+ * Speed (km/h, mph) rather than pace on the live screen and session summaries: the spec's rule for GPS sports (the
+ * opposite of `speedShownAsPace`, so the editor and the live screen agree); the older list for anything else.
+ */
+export const showsSpeed = (sport: string) => (hasSpeedZones(sport) ? !speedShownAsPace(sport) : SPEED_SPORTS.has(sport));
 
 /** The default easy / hard for a sport (km/h), or undefined for a sport without speed zones. */
 export function defaultSpeedSetting(sport: string): { easy: number; hard: number } | undefined {

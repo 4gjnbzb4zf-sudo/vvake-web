@@ -8,6 +8,7 @@ import {
   newerPref,
   normalizeEasyHard,
   parseSpeedInput,
+  showsSpeed,
   speedShownAsPace,
   speedThresholdsFor,
   speedThresholdsFrom,
@@ -83,6 +84,14 @@ describe("speed zones", () => {
     expect(speedShownAsPace("walk")).toBe(true);
     expect(speedShownAsPace("ride")).toBe(false);
     expect(speedShownAsPace("skate")).toBe(false);
+  });
+
+  it("shows speed on the live screen exactly where the editor shows speed", () => {
+    for (const sport of Object.keys(speedZonesTable())) expect(showsSpeed(sport), sport).toBe(!speedShownAsPace(sport));
+    expect(showsSpeed("ride")).toBe(true);
+    expect(showsSpeed("run")).toBe(false);
+    expect(showsSpeed("paddle")).toBe(false);
+    expect(showsSpeed("rowing")).toBe(true); // not a GPS-zone sport: the older list
   });
 
   it("lists walk, run, hike, ride first, then every other GPS sport once", () => {

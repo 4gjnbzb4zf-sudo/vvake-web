@@ -4,9 +4,9 @@ import dynamic from "next/dynamic";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { cn } from "@/lib/cn";
 import { bleSupport } from "@/lib/webapp/ble";
-import { clock, distanceNumber, distanceUnit, elevation, pace, speed, SPEED_SPORTS } from "@/lib/webapp/format";
+import { clock, distanceNumber, distanceUnit, elevation, pace, speed } from "@/lib/webapp/format";
 import { paceOf } from "@/lib/webapp/geo";
-import { toggleWorkoutVoice, WORKOUT_VOICE_MODES } from "@/lib/webapp/speedZones";
+import { showsSpeed, toggleWorkoutVoice, WORKOUT_VOICE_MODES } from "@/lib/webapp/speedZones";
 import { elapsedS, isPaused, QUICK_SPORTS, sportLabel, sportOf, usesGps, WEB_SPORTS } from "@/lib/webapp/workout";
 import { sports as catalog } from "@/lib/sports";
 import { useApp } from "./AppContext";
@@ -164,7 +164,7 @@ function LiveView() {
   const paused = isPaused(w);
   const m = w.track.metres;
   const p = gps ? paceOf(s, m) : null;
-  const useSpeed = SPEED_SPORTS.has(w.sport);
+  const useSpeed = showsSpeed(w.sport);
   const gpsLine =
     wk.gps === "denied"
       ? t.workout.gps.denied
@@ -469,8 +469,8 @@ function SummaryView() {
           ) : null}
           {p ? (
             <Metric
-              label={SPEED_SPORTS.has(s.sport) ? t.workout.speed : t.workout.pace}
-              value={SPEED_SPORTS.has(s.sport) ? speed(p, prefs.units, lang) : pace(p, prefs.units)}
+              label={showsSpeed(s.sport) ? t.workout.speed : t.workout.pace}
+              value={showsSpeed(s.sport) ? speed(p, prefs.units, lang) : pace(p, prefs.units)}
             />
           ) : null}
           {s.avgBpm ? <Metric label={t.workout.heart} value={`${s.avgBpm}`} unit={`/ ${s.maxBpm} bpm`} tone="pulse" /> : null}

@@ -2,7 +2,8 @@
 
 import { useEffect, useState } from "react";
 import type { ApiSession } from "@/lib/webapp/api";
-import { clock, dayLabel, distance, pace, speed, SPEED_SPORTS, timeLabel } from "@/lib/webapp/format";
+import { showsSpeed } from "@/lib/webapp/speedZones";
+import { clock, dayLabel, distance, pace, speed, timeLabel } from "@/lib/webapp/format";
 import { paceOf } from "@/lib/webapp/geo";
 import { sportLabel } from "@/lib/webapp/workout";
 import { useApp } from "./AppContext";
@@ -45,8 +46,8 @@ export function SessionScreen({ id }: { id: string }) {
           {s.distanceM ? <Stat label={t.workout.distance} value={distance(s.distanceM, prefs.units, lang)} /> : null}
           {p ? (
             <Stat
-              label={SPEED_SPORTS.has(s.sport) ? t.workout.speed : t.workout.pace}
-              value={SPEED_SPORTS.has(s.sport) ? speed(p, prefs.units, lang) : pace(p, prefs.units)}
+              label={showsSpeed(s.sport) ? t.workout.speed : t.workout.pace}
+              value={showsSpeed(s.sport) ? speed(p, prefs.units, lang) : pace(p, prefs.units)}
             />
           ) : null}
           {s.avgBpm ? <Stat label={t.workout.heart} value={`${s.avgBpm} / ${s.maxBpm ?? "–"} bpm`} /> : null}
