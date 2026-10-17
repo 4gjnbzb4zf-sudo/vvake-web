@@ -1,0 +1,601 @@
+{
+ "table": {
+  "run": {
+   "easy": 9,
+   "hard": 12,
+   "thresholds": [
+    5.4,
+    7.7,
+    10,
+    11,
+    13
+   ],
+   "pace": true
+  },
+  "walk": {
+   "easy": 4.5,
+   "hard": 6.5,
+   "thresholds": [
+    2.7,
+    3.8,
+    5.2,
+    5.8,
+    7
+   ],
+   "pace": true
+  },
+  "ride": {
+   "easy": 18,
+   "hard": 27,
+   "thresholds": [
+    10.8,
+    15.3,
+    21,
+    24,
+    29.2
+   ],
+   "pace": false
+  },
+  "hike": {
+   "easy": 3.5,
+   "hard": 5,
+   "thresholds": [
+    2.1,
+    3,
+    4,
+    4.5,
+    5.4
+   ],
+   "pace": true
+  },
+  "skate": {
+   "easy": 12,
+   "hard": 20,
+   "thresholds": [
+    7.2,
+    10.2,
+    14.7,
+    17.3,
+    21.6
+   ],
+   "pace": false
+  },
+  "swim-bike-run": {
+   "easy": 9,
+   "hard": 12,
+   "thresholds": [
+    5.4,
+    7.7,
+    10,
+    11,
+    13
+   ],
+   "pace": false
+  },
+  "wheelchair-walk": {
+   "easy": 4,
+   "hard": 6,
+   "thresholds": [
+    2.4,
+    3.4,
+    4.7,
+    5.3,
+    6.5
+   ],
+   "pace": true
+  },
+  "wheelchair-run": {
+   "easy": 10,
+   "hard": 16,
+   "thresholds": [
+    6,
+    8.5,
+    12,
+    14,
+    17.3
+   ],
+   "pace": true
+  },
+  "hand-cycling": {
+   "easy": 12,
+   "hard": 20,
+   "thresholds": [
+    7.2,
+    10.2,
+    14.7,
+    17.3,
+    21.6
+   ],
+   "pace": false
+  },
+  "open-water": {
+   "easy": 2.8,
+   "hard": 4.4,
+   "thresholds": [
+    1.7,
+    2.4,
+    3.3,
+    3.9,
+    4.8
+   ],
+   "pace": true
+  },
+  "surf": {
+   "easy": 17.5,
+   "hard": 27.5,
+   "thresholds": [
+    10.5,
+    14.9,
+    20.8,
+    24.2,
+    29.7
+   ],
+   "pace": false
+  },
+  "paddle": {
+   "easy": 8.8,
+   "hard": 13.8,
+   "thresholds": [
+    5.3,
+    7.5,
+    10.5,
+    12.1,
+    14.9
+   ],
+   "pace": true
+  },
+  "sailing": {
+   "easy": 21,
+   "hard": 33,
+   "thresholds": [
+    12.6,
+    17.8,
+    25,
+    29,
+    35.6
+   ],
+   "pace": false
+  },
+  "water-sports": {
+   "easy": 28,
+   "hard": 44,
+   "thresholds": [
+    16.8,
+    23.8,
+    33.3,
+    38.7,
+    47.5
+   ],
+   "pace": false
+  },
+  "downhill-ski": {
+   "easy": 42,
+   "hard": 66,
+   "thresholds": [
+    25.2,
+    35.7,
+    50,
+    58,
+    71.3
+   ],
+   "pace": false
+  },
+  "cross-country-ski": {
+   "easy": 14,
+   "hard": 22,
+   "thresholds": [
+    8.4,
+    11.9,
+    16.7,
+    19.3,
+    23.8
+   ],
+   "pace": false
+  },
+  "snowboard": {
+   "easy": 42,
+   "hard": 66,
+   "thresholds": [
+    25.2,
+    35.7,
+    50,
+    58,
+    71.3
+   ],
+   "pace": false
+  },
+  "snow-sports": {
+   "easy": 42,
+   "hard": 66,
+   "thresholds": [
+    25.2,
+    35.7,
+    50,
+    58,
+    71.3
+   ],
+   "pace": false
+  },
+  "equestrian": {
+   "easy": 24.5,
+   "hard": 38.5,
+   "thresholds": [
+    14.7,
+    20.8,
+    29.2,
+    33.8,
+    41.6
+   ],
+   "pace": false
+  }
+ },
+ "fromPairs": [
+  {
+   "easy": 4.5,
+   "hard": 6.5,
+   "thresholds": [
+    2.7,
+    3.8,
+    5.2,
+    5.8,
+    7
+   ]
+  },
+  {
+   "easy": 9,
+   "hard": 12,
+   "thresholds": [
+    5.4,
+    7.7,
+    10,
+    11,
+    13
+   ]
+  },
+  {
+   "easy": 3,
+   "hard": 2,
+   "thresholds": [
+    1.8,
+    2.6,
+    3.1,
+    3.2,
+    3.6
+   ]
+  },
+  {
+   "easy": 1,
+   "hard": 1,
+   "thresholds": [
+    0.6,
+    0.9,
+    1,
+    1.1,
+    1.2
+   ]
+  },
+  {
+   "easy": 18.3,
+   "hard": 27.7,
+   "thresholds": [
+    11,
+    15.6,
+    21.4,
+    24.6,
+    29.9
+   ]
+  },
+  {
+   "easy": 5.04,
+   "hard": 7.06,
+   "thresholds": [
+    3,
+    4.3,
+    5.7,
+    6.4,
+    7.7
+   ]
+  },
+  {
+   "easy": 0.2,
+   "hard": 0.3,
+   "thresholds": [
+    0.6,
+    0.9,
+    1,
+    1.1,
+    1.2
+   ]
+  },
+  {
+   "easy": 60,
+   "hard": 200,
+   "thresholds": [
+    36,
+    51,
+    86.3,
+    112.6,
+    150
+   ]
+  }
+ ],
+ "zones": [
+  {
+   "kmh": 0,
+   "walk": 0,
+   "run": 0
+  },
+  {
+   "kmh": 0.4,
+   "walk": 0,
+   "run": 0
+  },
+  {
+   "kmh": 2.69,
+   "walk": 0,
+   "run": 0
+  },
+  {
+   "kmh": 2.7,
+   "walk": 1,
+   "run": 0
+  },
+  {
+   "kmh": 3.8,
+   "walk": 2,
+   "run": 0
+  },
+  {
+   "kmh": 5.19,
+   "walk": 2,
+   "run": 0
+  },
+  {
+   "kmh": 5.2,
+   "walk": 3,
+   "run": 0
+  },
+  {
+   "kmh": 6.9,
+   "walk": 4,
+   "run": 1
+  },
+  {
+   "kmh": 7,
+   "walk": 5,
+   "run": 1
+  },
+  {
+   "kmh": 12,
+   "walk": 5,
+   "run": 4
+  },
+  {
+   "kmh": 30,
+   "walk": 5,
+   "run": 5
+  }
+ ],
+ "cleaned": [
+  {
+   "input": {
+    "easy": 5,
+    "hard": 7
+   },
+   "out": {
+    "easy": 5,
+    "hard": 7
+   }
+  },
+  {
+   "input": {
+    "easy": 5,
+    "hard": 7,
+    "custom": [
+     1,
+     2,
+     3,
+     4,
+     5
+    ]
+   },
+   "out": {
+    "easy": 5,
+    "hard": 7,
+    "custom": [
+     1,
+     2,
+     3,
+     4,
+     5
+    ]
+   }
+  },
+  {
+   "input": {
+    "easy": 5,
+    "hard": 7,
+    "custom": [
+     5,
+     4,
+     3,
+     2,
+     1
+    ]
+   },
+   "out": {
+    "easy": 5,
+    "hard": 7
+   }
+  },
+  {
+   "input": {
+    "easy": 10,
+    "hard": 9
+   },
+   "out": {
+    "easy": 10,
+    "hard": 11
+   }
+  },
+  {
+   "input": {
+    "easy": -1,
+    "hard": 7
+   },
+   "out": null
+  }
+ ],
+ "prefs": {
+  "at": "2026-10-17T00:00:00.000Z",
+  "sports": {
+   "walk": {
+    "easy": 5.5,
+    "hard": 7.5
+   },
+   "run": {
+    "easy": 8,
+    "hard": 11,
+    "custom": [
+     4,
+     6,
+     8,
+     10,
+     12
+    ]
+   }
+  }
+ },
+ "resolved": [
+  {
+   "sport": "walk",
+   "thresholds": [
+    3.3,
+    4.7,
+    6.2,
+    6.8,
+    8.1
+   ]
+  },
+  {
+   "sport": "run",
+   "thresholds": [
+    4,
+    6,
+    8,
+    10,
+    12
+   ]
+  },
+  {
+   "sport": "hike",
+   "thresholds": [
+    2.1,
+    3,
+    4,
+    4.5,
+    5.4
+   ]
+  },
+  {
+   "sport": "ride",
+   "thresholds": [
+    10.8,
+    15.3,
+    21,
+    24,
+    29.2
+   ]
+  },
+  {
+   "sport": "yoga",
+   "thresholds": null
+  },
+  {
+   "sport": "strength",
+   "thresholds": null
+  }
+ ],
+ "learn": [
+  {
+   "sport": "walk",
+   "sessions": [
+    {
+     "distanceM": 4200,
+     "durationS": 3600
+    },
+    {
+     "distanceM": 4800,
+     "durationS": 3600
+    },
+    {
+     "distanceM": 5000,
+     "durationS": 3600
+    },
+    {
+     "distanceM": 5200,
+     "durationS": 3600
+    },
+    {
+     "distanceM": 6000,
+     "durationS": 3600
+    }
+   ],
+   "out": {
+    "easy": 5,
+    "hard": 5.8
+   }
+  },
+  {
+   "sport": "run",
+   "sessions": [
+    {
+     "distanceM": 4000,
+     "durationS": 1800
+    },
+    {
+     "distanceM": 4500,
+     "durationS": 1800
+    },
+    {
+     "distanceM": 4750,
+     "durationS": 1800
+    },
+    {
+     "distanceM": 5000,
+     "durationS": 1800
+    },
+    {
+     "distanceM": 5100,
+     "durationS": 1800
+    },
+    {
+     "distanceM": 5750,
+     "durationS": 1800
+    }
+   ],
+   "out": {
+    "easy": 9.8,
+    "hard": 11.2
+   }
+  },
+  {
+   "sport": "walk",
+   "sessions": [
+    {
+     "distanceM": 4000,
+     "durationS": 3600
+    },
+    {
+     "distanceM": 300,
+     "durationS": 3600
+    },
+    {
+     "distanceM": 60000,
+     "durationS": 3600
+    }
+   ],
+   "out": null
+  }
+ ]
+}
