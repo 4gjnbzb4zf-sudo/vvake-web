@@ -1,13 +1,13 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { siteConfig } from "@/config/site";
 import type { ApiSession } from "@/lib/webapp/api";
 import { clock, dayLabel, distance } from "@/lib/webapp/format";
 import { sportLabel } from "@/lib/webapp/workout";
 import { useApp } from "./AppContext";
+import { GetTheApp } from "./GetTheApp";
 import { VVakerImg } from "./MyVVaker";
-import { Btn, Card, Field, H1, H2, inputCls, Kicker, LinkBtn, List, Row, Segmented, Small, Toggle } from "./ui";
+import { Btn, Card, Field, H1, H2, inputCls, Kicker, List, Row, Segmented, Small, Toggle } from "./ui";
 
 interface InstallPrompt extends Event {
   prompt(): Promise<void>;
@@ -222,9 +222,7 @@ export function YouScreen() {
             <li key={x}>{x}</li>
           ))}
         </ul>
-        <LinkBtn href={siteConfig.appDownloadUrl || `/${lang}/#unlock`} variant="volt" className="mt-4 w-full">
-          {t.you.getApp}
-        </LinkBtn>
+        <GetTheApp t={t} compact className="mt-4" />
       </Card>
 
       <Btn variant="danger" className="w-full" onClick={signOut}>

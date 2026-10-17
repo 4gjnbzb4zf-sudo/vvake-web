@@ -6,6 +6,7 @@ import type { CoachContext } from "@/lib/webapp/api";
 import { goalProgress } from "@/lib/webapp/goals";
 import { canListen, hush, listen, say } from "@/lib/webapp/voice";
 import { useApp } from "./AppContext";
+import { GetTheApp } from "./GetTheApp";
 import { goalTitle } from "./GoalsScreen";
 import { Btn, H1, Kicker, Note, Small, Toggle } from "./ui";
 import { useNow } from "./useNow";
@@ -206,6 +207,7 @@ export function CoachScreen() {
       {!micOk && <Small className="mt-2">{t.coach.noMic}</Small>}
       <div className="mt-3">
         <Note>{t.coach.voiceNote}</Note>
+        <GetTheApp t={t} compact className="mt-2" />
       </div>
     </div>
   );

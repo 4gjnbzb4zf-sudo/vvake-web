@@ -28,6 +28,12 @@ const en = {
     offline: "You're offline. Workouts are kept in this browser and upload when you're back.",
     getApp: "Get the app",
     appOnly: "In the app",
+    stores: {
+      soon: "Coming soon",
+      appStore: "App Store",
+      googlePlay: "Google Play",
+      line: "The full app is coming soon to the App Store and Google Play.",
+    },
     more: "More",
     minutes: "{n} min",
     km: "{n} km",
@@ -247,7 +253,6 @@ const en = {
       "Prizes and City Clash scores (they need the app's device check and a watch)",
       "Siri, widgets, reminders on the lock screen, focus lock, coach calls, live voice coach",
     ],
-    getApp: "Get the app",
     privacy: "Privacy on the web",
   },
   goals: {
@@ -407,6 +412,12 @@ const fr: WebAppDict = {
     offline: "Tu es hors ligne. Les séances restent dans ce navigateur et s’envoient à ton retour.",
     getApp: "Télécharger l’app",
     appOnly: "Dans l’app",
+    stores: {
+      soon: "Bientôt",
+      appStore: "App Store",
+      googlePlay: "Google Play",
+      line: "L’app complète arrive bientôt sur l’App Store et Google Play.",
+    },
     more: "Plus",
     minutes: "{n} min",
     km: "{n} km",
@@ -627,7 +638,6 @@ const fr: WebAppDict = {
       "Les prix et les scores du City Clash (il leur faut la vérification d’appareil de l’app et une montre)",
       "Siri, widgets, rappels sur l’écran verrouillé, verrou de concentration, appels du coach, coach vocal en direct",
     ],
-    getApp: "Télécharger l’app",
     privacy: "Confidentialité sur le web",
   },
   goals: {

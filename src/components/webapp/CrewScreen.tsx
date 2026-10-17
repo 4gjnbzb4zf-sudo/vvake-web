@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import type { Clash } from "@/lib/webapp/api";
 import { dayLabel, timeLabel } from "@/lib/webapp/format";
 import { useApp } from "./AppContext";
+import { GetTheApp } from "./GetTheApp";
 import { Card, H1, Kicker, Note, Small } from "./ui";
 
 /**
@@ -78,6 +79,7 @@ export function CrewScreen() {
       )}
       <Note tone="butter">{t.crew.webNote}</Note>
       <Note>{t.crew.challengesNote}</Note>
+      <GetTheApp t={t} compact />
     </div>
   );
 }

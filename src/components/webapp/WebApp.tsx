@@ -10,6 +10,7 @@ import { AppProvider, TABS, useApp } from "./AppContext";
 import { Onboarding, needsOnboarding } from "./Onboarding";
 import { CoachScreen } from "./CoachScreen";
 import { CrewScreen } from "./CrewScreen";
+import { GetTheApp } from "./GetTheApp";
 import { GoalsScreen } from "./GoalsScreen";
 import { PlanScreen } from "./PlanScreen";
 import { RhythmScreen } from "./RhythmScreen";
@@ -339,6 +340,7 @@ function SignInScreen({ t, lang, session, onSignedIn }: { t: WebAppDict; lang: L
           {s.privacyLink}
         </a>
       </Small>
+      <GetTheApp t={t} className="mt-6" />
       <p className="mt-8 text-center text-sm">
         <a className="text-muted underline" href={`/${lang}/`}>
           {t.common.site}
