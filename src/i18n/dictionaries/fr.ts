@@ -1262,7 +1262,7 @@ export const fr: Dictionary = {
       },
       {
         title: "Des zones à tes chiffres",
-        body: "« Zone 2 · 112–128 bpm » d'après ton profil Santé, avec l'allure ou la vitesse qui devrait t'y mettre, apprise de tes séances. Les jours tranquilles, des blocs de zone à rebours (3 minutes en course, 4 en marche) : tiens ta zone 80 % du bloc et il rapporte 10 % de plus. Règle tes propres zones par sport si tu les connais. Pas de fréquence cardiaque ? Des zones de vitesse que tu règles par sport te guident, toi et les annonces du coach, dans l'app et sur le web (les points demandent toujours une fréquence cardiaque).",
+        body: "« Zone 2 · 112–128 bpm » d'après ton profil Santé, avec l'allure ou la vitesse qui devrait t'y mettre, apprise de tes séances. Les jours tranquilles, des blocs de zone à rebours (3 minutes en course, 4 en marche) : tiens ta zone 80 % du bloc et il rapporte 10 % de plus. Règle tes propres zones par sport si tu les connais. Pas de fréquence cardiaque ? Des zones de vitesse que tu règles par sport te guident, toi et les annonces du coach : sur le web dès aujourd'hui, dans l'app à la prochaine mise à jour (les points demandent toujours une fréquence cardiaque).",
       },
       {
         title: "Écouter sur : téléphone ou montre",
