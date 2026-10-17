@@ -12,6 +12,7 @@ export const en = {
   },
   nav: {
     app: "The app",
+    webApp: "Try in browser",
     backers: "Roadmap & Funding",
     rewards: "Prizes",
     account: "Account",
@@ -44,6 +45,7 @@ export const en = {
     lead: "VVake is an AI fitness coach. It helps you make a plan that fits your week, move at your pace, show up with your crew and count for your city.",
     ctaPrimary: "Join early access",
     ctaSecondary: "Watch the film",
+    ctaWeb: "Try it in your browser",
     eyebrow: "A little movement. A bigger reason.",
     filmLength: "0:37",
     note: "Launching city by city · free to start",
@@ -91,7 +93,7 @@ export const en = {
         title: "Everything it does for you",
         body: "Coach, plan, challenges, crews, city clashes and Plus.",
         cta: "Explore the app",
-        page: "app/",
+        page: "tour/",
       },
       {
         key: "learn",
@@ -2220,6 +2222,7 @@ export const en = {
   },
   footer: {
     tagline: "VVake Fit · Move for your health, your first wealth.",
+    webApp: "VVake on the web",
     legal:
       "VVake Fit is a fitness and training service, not a financial product. Nothing on this site is investment advice or an offer of any token, security or financial instrument. Market data is shown for entertainment only. Team names and tickers are used for identification only; no affiliation or endorsement is implied.",
     privacy: "Privacy",
@@ -2314,7 +2317,7 @@ export const en = {
     title: "Privacy policy",
     description:
       "What the VVake iPhone and Apple Watch apps and vvake.com collect, why, who else sees it, how long we keep it and your rights.",
-    updated: "Last updated: 2026-10-15",
+    updated: "Last updated: 2026-10-17",
     draft: "Draft for the TestFlight preview. This policy will be reviewed by a lawyer before the public launch.",
     intro: [
       "VVake (also called VVake Fit) is a fitness coaching app for iPhone and Apple Watch, with this website, vvake.com. This policy explains in plain words what we collect, why, who else sees it, how long we keep it and what you can do about it. It covers the apps (TestFlight previews included), the VVake API they talk to, the desk companion for Mac, the VVake plugin for Claude Code and this website, including vvake.com/rewards.",
@@ -2466,6 +2469,35 @@ export const en = {
           {
             t: "Public totals only.",
             d: "City Clash and the live map show totals per city (shown only from 10 people moving, and rounded), never an individual's position, route or name.",
+          },
+        ],
+      },
+      {
+        id: "web-app",
+        h: "VVake on the web (vvake.com/app)",
+        p: [
+          "VVake also runs in your browser, for people who don't want to install the app. It uses the same account and the same servers as the app, and only what a browser allows:",
+        ],
+        list: [
+          {
+            t: "Location, only while a workout runs.",
+            d: "When you start an outdoor workout, your browser asks whether vvake.com may use your location. It is read only while that workout runs and the page is open on screen (a browser stops tracking when the phone locks or the page is hidden), to draw your route and measure distance, pace and climb. The route stays in your browser: we receive only the totals and a distance every 10 seconds, never a position. The map's tiles come from OpenFreeMap, which sees the map area your browser asks for, like any map site.",
+          },
+          {
+            t: "Bluetooth heart rate, read in your browser.",
+            d: "If you connect a heart-rate strap or arm band (Chrome or Edge, through Web Bluetooth), your browser reads the heart rate from it. We receive the heart rate every 10 seconds with the workout, its average, maximum and time in each zone, like a workout from the app; never the beat-to-beat intervals, the sensor's name or its Bluetooth address. Your browser remembers which sensor you picked, so the next workout can reconnect; forget it from the sensor screen or your browser's site settings.",
+          },
+          {
+            t: "Kept in your browser.",
+            d: "The workout under way is saved in your browser (IndexedDB) every few seconds, so a reload or a closed tab can resume it; finished workouts wait there until they are uploaded, then they are deleted. Your goals, daily rhythm check-ins, voice settings and sign-in (for at most 24 hours) are kept in your browser's storage too. Signing out or clearing the site's data removes them.",
+          },
+          {
+            t: "Microphone and voice, only when you ask.",
+            d: "Talking to the coach by voice uses your browser's speech recognition, which may send the sound to your browser's maker (for example Google for Chrome) to turn it into text; only the text reaches VVake. Spoken cues use your browser's own voice, on your device.",
+          },
+          {
+            t: "Points, never prizes.",
+            d: "A workout recorded in a browser is marked as a web workout: it counts for your journal, your streak and (with a heart-rate sensor) your points, but never for prizes or City Clash scores, because a browser can't prove where the data comes from.",
           },
         ],
       },

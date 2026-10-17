@@ -7,7 +7,7 @@
  */
 import { readdirSync, readFileSync, statSync, writeFileSync } from "node:fs";
 import { join, relative } from "node:path";
-import { cspProblems, withCsp } from "../src/lib/csp";
+import { buildConfig, cspProblems, MAP_ORIGIN, webAppFile, withCsp } from "../src/lib/csp";
 
 const OUT = join(process.cwd(), "out");
 
@@ -25,7 +25,7 @@ let bad = 0;
 for (const file of files) {
   let html = readFileSync(file, "utf8");
   if (!checkOnly) {
-    html = withCsp(html);
+    html = withCsp(html, buildConfig(), webAppFile(relative(OUT, file)) ? [MAP_ORIGIN] : []);
     writeFileSync(file, html);
   }
   const problems = cspProblems(html);

@@ -10,6 +10,7 @@ export const fr: Dictionary = {
   },
   nav: {
     app: "L'app",
+    webApp: "Essayer en ligne",
     backers: "Feuille de route et financement",
     rewards: "Prix",
     account: "Compte",
@@ -42,6 +43,7 @@ export const fr: Dictionary = {
     lead: "VVake est un coach sportif IA. Il t'aide à faire un plan qui colle à ta semaine, à bouger à ton rythme, à venir avec ta crew et à compter pour ta ville.",
     ctaPrimary: "Rejoindre l'accès anticipé",
     ctaSecondary: "Voir le film",
+    ctaWeb: "Essaie dans ton navigateur",
     eyebrow: "Un peu de mouvement. Une plus grande raison.",
     filmLength: "0:37",
     note: "Lancement ville par ville · gratuit pour commencer",
@@ -89,7 +91,7 @@ export const fr: Dictionary = {
         title: "Tout ce qu'elle fait pour toi",
         body: "Coach, plan, défis, crews, duels de villes et Plus.",
         cta: "Explorer l'app",
-        page: "app/",
+        page: "tour/",
       },
       {
         key: "learn",
@@ -2379,6 +2381,7 @@ export const fr: Dictionary = {
   },
   footer: {
     tagline: "VVake Fit · Bouge pour ta santé, ta première richesse.",
+    webApp: "VVake sur le web",
     legal:
       "VVake Fit est un service de fitness et d'entraînement, pas un produit financier. Rien sur ce site ne constitue un conseil en investissement ni une offre de token, de titre ou d'instrument financier. Les données de marché sont affichées à titre de divertissement. Les noms d'équipes et les tickers sont utilisés à des fins d'identification uniquement ; aucune affiliation ni aucun partenariat n'est sous-entendu.",
     privacy: "Confidentialité",
@@ -2473,7 +2476,7 @@ export const fr: Dictionary = {
     title: "Politique de confidentialité",
     description:
       "Ce que les applications VVake pour iPhone et Apple Watch et le site vvake.com recueillent, pourquoi, qui y a accès, combien de temps nous le gardons et vos droits.",
-    updated: "Dernière mise à jour : 2026-10-15",
+    updated: "Dernière mise à jour : 2026-10-17",
     draft: "Version provisoire pour l'aperçu TestFlight. Cette politique sera revue par un avocat avant le lancement public.",
     intro: [
       "VVake (aussi appelée VVake Fit) est une application d'entraînement pour iPhone et Apple Watch, accompagnée du site vvake.com. Cette politique explique simplement quels renseignements nous recueillons, pourquoi, qui d'autre y a accès, combien de temps nous les gardons et ce que vous pouvez faire. Elle couvre les applications (y compris les versions d'essai TestFlight), l'API VVake avec laquelle elles communiquent, le compagnon de bureau pour Mac, le module VVake pour Claude Code et ce site, y compris vvake.com/rewards.",
@@ -2625,6 +2628,35 @@ export const fr: Dictionary = {
           {
             t: "Des totaux publics seulement.",
             d: "City Clash et la carte en direct affichent des totaux par ville (seulement à partir de 10 personnes en mouvement, et arrondis), jamais la position, le parcours ou le nom d'une personne.",
+          },
+        ],
+      },
+      {
+        id: "web-app",
+        h: "VVake sur le web (vvake.com/app)",
+        p: [
+          "VVake fonctionne aussi dans ton navigateur, pour qui ne veut pas installer l’app. Même compte et mêmes serveurs que l’app, et seulement ce qu’un navigateur permet :",
+        ],
+        list: [
+          {
+            t: "La localisation, seulement pendant une séance.",
+            d: "Quand tu lances une séance en extérieur, ton navigateur te demande si vvake.com peut utiliser ta position. Elle n’est lue que pendant cette séance, page ouverte à l’écran (un navigateur arrête le suivi quand le téléphone se verrouille ou que la page est cachée), pour tracer ton parcours et mesurer distance, allure et dénivelé. Le tracé reste dans ton navigateur : nous recevons seulement les totaux et une distance toutes les 10 secondes, jamais une position. Les tuiles de la carte viennent d’OpenFreeMap, qui voit la zone demandée par ton navigateur, comme sur tout site de cartes.",
+          },
+          {
+            t: "La fréquence cardiaque Bluetooth, lue dans ton navigateur.",
+            d: "Si tu connectes une ceinture ou un brassard cardio (Chrome ou Edge, via Web Bluetooth), ton navigateur en lit la fréquence cardiaque. Nous recevons la fréquence toutes les 10 secondes avec la séance, sa moyenne, son maximum et le temps passé dans chaque zone, comme pour une séance de l’app ; jamais les intervalles battement à battement, le nom du capteur ni son adresse Bluetooth. Ton navigateur retient le capteur choisi pour te reconnecter à la séance suivante ; oublie-le depuis l’écran du capteur ou les réglages du site dans ton navigateur.",
+          },
+          {
+            t: "Gardé dans ton navigateur.",
+            d: "La séance en cours est enregistrée dans ton navigateur (IndexedDB) toutes les quelques secondes, pour qu’un rechargement ou un onglet fermé puisse la reprendre ; les séances terminées y attendent leur envoi, puis sont effacées. Tes objectifs, ton rythme du jour, tes réglages de voix et ta connexion (24 heures au plus) sont aussi gardés dans le stockage de ton navigateur. Te déconnecter ou effacer les données du site les supprime.",
+          },
+          {
+            t: "Micro et voix, seulement quand tu le demandes.",
+            d: "Parler au coach à la voix utilise la reconnaissance vocale de ton navigateur, qui peut envoyer le son à l’éditeur du navigateur (par exemple Google pour Chrome) pour le transformer en texte ; seul le texte arrive chez VVake. Les annonces parlées utilisent la voix de ton navigateur, sur ton appareil.",
+          },
+          {
+            t: "Des points, jamais de prix.",
+            d: "Une séance enregistrée dans un navigateur est marquée comme séance web : elle compte pour ton journal, ta série et (avec un capteur cardio) tes points, mais jamais pour les prix ni les scores du City Clash, car un navigateur ne peut pas prouver d’où viennent les données.",
           },
         ],
       },

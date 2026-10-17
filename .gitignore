@@ -52,3 +52,6 @@ next-env.d.ts
 
 # cloudflare (wrangler)
 /.wrangler/
+
+# MapLibre worker, copied from node_modules by scripts/copy-maplibre.ts
+/public/maplibre/

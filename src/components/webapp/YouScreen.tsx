@@ -1,0 +1,235 @@
+"use client";
+
+import { useEffect, useState } from "react";
+import { siteConfig } from "@/config/site";
+import type { ApiSession } from "@/lib/webapp/api";
+import { clock, dayLabel, distance } from "@/lib/webapp/format";
+import { sportLabel } from "@/lib/webapp/workout";
+import { useApp } from "./AppContext";
+import { VVakerImg } from "./MyVVaker";
+import { Btn, Card, Field, H1, H2, inputCls, Kicker, LinkBtn, List, Row, Segmented, Small, Toggle } from "./ui";
+
+interface InstallPrompt extends Event {
+  prompt(): Promise<void>;
+}
+
+/**
+ * You (apps/mobile app/(tabs)/you.tsx): your VVaker and profile, your numbers, history, the heart-rate sensor, the
+ * voice coach and units on this browser, every other setting on the account page, add to home screen, what only the
+ * app can do, sign out.
+ */
+export function YouScreen() {
+  const { t, lang, me, setMe, api, stats, sessions, prefs, setPrefs, go, signOut, sensorState, bpm, fmt } = useApp();
+  const [name, setName] = useState(me.name ?? "");
+  const [city, setCity] = useState(me.city ?? "");
+  const [saved, setSaved] = useState<"idle" | "saving" | "saved" | "error">("idle");
+  const [more, setMore] = useState<ApiSession[]>([]);
+  const [nextLoaded, setNext] = useState<string | null | undefined>(undefined);
+  const next = nextLoaded !== undefined ? nextLoaded : sessions.length >= 30 ? sessions[sessions.length - 1]!.startedAt : null;
+  const [install, setInstall] = useState<InstallPrompt | null>(null);
+  const [standalone, setStandalone] = useState(false);
+  const [ios, setIos] = useState(false);
+
+  useEffect(() => {
+    const id = window.setTimeout(() => {
+      setStandalone(
+        window.matchMedia?.("(display-mode: standalone)").matches ||
+          (navigator as Navigator & { standalone?: boolean }).standalone === true,
+      );
+      setIos(/iPad|iPhone|iPod/.test(navigator.userAgent));
+    }, 0);
+    const onPrompt = (e: Event) => {
+      e.preventDefault();
+      setInstall(e as InstallPrompt);
+    };
+    window.addEventListener("beforeinstallprompt", onPrompt);
+    return () => {
+      window.clearTimeout(id);
+      window.removeEventListener("beforeinstallprompt", onPrompt);
+    };
+  }, []);
+
+  const saveProfile = async () => {
+    setSaved("saving");
+    try {
+      setMe(await api.patchMe({ name: name.trim().slice(0, 80), city: city.trim() ? city.trim().slice(0, 80) : null }));
+      setSaved("saved");
+    } catch {
+      setSaved("error");
+    }
+  };
+  const loadMore = async () => {
+    if (!next) return;
+    try {
+      const r = await api.sessions(next);
+      setMore((x) => [...x, ...r.sessions]);
+      setNext(r.next ?? null);
+    } catch {
+      // try again later
+    }
+  };
+  const all = [...sessions, ...more];
+  const period = (k: "week" | "month" | "all") => stats?.[k];
+
+  return (
+    <div className="space-y-5">
+      <div className="flex items-center gap-4">
+        <button type="button" onClick={() => go({ name: "vvaker" })} aria-label={t.today.vvakerRow}>
+          <VVakerImg alt="" className="h-24 w-16" />
+        </button>
+        <div className="min-w-0">
+          <H1>{me.name || t.you.title}</H1>
+          {me.email && <Small>{fmt(t.you.signedInAs, { name: me.email })}</Small>}
+        </div>
+      </div>
+
+      <Card>
+        <H2>{t.you.profile}</H2>
+        <div className="mt-3 space-y-3">
+          <Field label={t.you.name}>
+            <input className={inputCls} value={name} maxLength={80} onChange={(e) => (setName(e.target.value), setSaved("idle"))} />
+          </Field>
+          <Field label={t.you.city} hint={t.onboarding.name.cityHint}>
+            <input className={inputCls} value={city} maxLength={80} onChange={(e) => (setCity(e.target.value), setSaved("idle"))} />
+          </Field>
+          <div className="flex items-center gap-3">
+            <Btn variant="volt" disabled={saved === "saving" || !name.trim()} onClick={() => void saveProfile()}>
+              {saved === "saving" ? t.common.saving : t.common.save}
+            </Btn>
+            {saved === "saved" && <Small className="text-up-fg">{t.common.saved}</Small>}
+            {saved === "error" && <Small className="text-down-fg">{t.common.error}</Small>}
+          </div>
+        </div>
+      </Card>
+
+      {stats && (
+        <Card>
+          <H2>{t.you.stats}</H2>
+          <div className="mt-3 grid grid-cols-3 gap-2 text-center">
+            {(["week", "month", "all"] as const).map((k) => (
+              <div key={k} className="rounded-xl bg-surface-2 p-2">
+                <Kicker>{k === "week" ? t.you.weekShort : k === "month" ? t.you.monthShort : t.you.allShort}</Kicker>
+                <p className="mt-1 font-display text-xl font-bold">{period(k)?.sessions ?? 0}</p>
+                <Small>{t.you.sessions}</Small>
+                <p className="mt-1 text-sm font-semibold">{period(k)?.activeMin ?? 0}</p>
+                <Small>{t.you.active}</Small>
+                <p className="mt-1 text-sm font-semibold">{distance(period(k)?.distanceM ?? 0, prefs.units, lang)}</p>
+              </div>
+            ))}
+          </div>
+          {stats.best && (stats.best.longestM || stats.best.fastestKmS) ? (
+            <p className="mt-3 text-sm text-muted">
+              {t.you.best}: {stats.best.longestM ? `${t.you.longest} ${distance(stats.best.longestM, prefs.units, lang)}` : ""}
+              {stats.best.fastestKmS ? ` · ${t.you.fastest} ${clock(stats.best.fastestKmS)}` : ""}
+            </p>
+          ) : null}
+        </Card>
+      )}
+
+      <section className="space-y-2">
+        <H2>{t.you.history}</H2>
+        {all.length === 0 ? (
+          <Small>{t.you.noHistory}</Small>
+        ) : (
+          <List>
+            {all.map((s) => (
+              <Row
+                key={s.id}
+                tone={s.source === "web" ? "sky" : s.source === "watch" ? "pulse" : "volt"}
+                icon={s.source === "web" ? "⌘" : s.source === "watch" ? "⌚" : "▲"}
+                title={sportLabel(s.sport, lang)}
+                detail={`${dayLabel(s.startedAt, lang)} · ${clock(s.activeS)}${s.distanceM ? ` · ${distance(s.distanceM, prefs.units, lang)}` : ""}`}
+                value={typeof s.points === "number" ? fmt(t.workout.points, { n: s.points }) : undefined}
+                onClick={() => go({ name: "session", id: s.id })}
+              />
+            ))}
+          </List>
+        )}
+        {next && (
+          <Btn variant="ghost" className="w-full" onClick={() => void loadMore()}>
+            {t.you.loadMore}
+          </Btn>
+        )}
+      </section>
+
+      <List>
+        <Row
+          tone="mint"
+          icon="♥"
+          title={t.you.heart}
+          detail={
+            sensorState === "connected" && bpm
+              ? fmt(t.sensor.bpm, { n: bpm })
+              : sensorState === "idle"
+                ? t.sensor.connect
+                : t.sensor[sensorState]
+          }
+          onClick={() => go({ name: "sensor" })}
+        />
+        <Row tone="volt" icon="◎" title={t.goals.title} onClick={() => go({ name: "goals" })} />
+        <Row tone="sky" icon="💧" title={t.rhythm.title} onClick={() => go({ name: "rhythm" })} />
+      </List>
+
+      <Card>
+        <div className="flex items-center justify-between gap-3">
+          <div>
+            <H2>{t.you.voice}</H2>
+            <Small>{t.you.voiceDetail}</Small>
+          </div>
+          <Toggle label={t.you.voice} on={prefs.voice} onChange={(v) => setPrefs({ voice: v })} />
+        </div>
+        <div className="mt-3">
+          <Segmented
+            label={t.you.voice}
+            value={prefs.chattiness}
+            options={(["quiet", "normal", "chatty"] as const).map((k) => ({ value: k, label: t.you.chattiness[k] }))}
+            onChange={(v) => setPrefs({ chattiness: v })}
+          />
+        </div>
+        <div className="mt-4">
+          <p className="mb-1 text-sm font-medium">{t.you.units}</p>
+          <Segmented
+            label={t.you.units}
+            value={prefs.units}
+            options={[
+              { value: "metric", label: t.you.metric },
+              { value: "imperial", label: t.you.imperial },
+            ]}
+            onChange={(v) => setPrefs({ units: v })}
+          />
+        </div>
+      </Card>
+
+      <List>
+        <Row tone="sky" icon="⚙" title={t.you.settings} detail={t.you.settingsDetail} href={`/${lang}/account/`} />
+        {!standalone && (install || ios) && (
+          <Row
+            tone="volt"
+            icon="⊕"
+            title={t.you.install}
+            detail={install ? t.you.installDetail : t.you.installIos}
+            onClick={install ? () => void install.prompt().then(() => setInstall(null)) : undefined}
+          />
+        )}
+        <Row tone="faint" icon="🔒" title={t.you.privacy} href={`/${lang}/privacy/#web-app`} />
+      </List>
+
+      <Card>
+        <H2>{t.you.appOnlyTitle}</H2>
+        <Small className="mt-1">{t.you.appOnlyLead}</Small>
+        <ul className="mt-3 list-disc space-y-1 pl-5 text-sm">
+          {t.you.appOnly.map((x) => (
+            <li key={x}>{x}</li>
+          ))}
+        </ul>
+        <LinkBtn href={siteConfig.appDownloadUrl || `/${lang}/#unlock`} variant="volt" className="mt-4 w-full">
+          {t.you.getApp}
+        </LinkBtn>
+      </Card>
+
+      <Btn variant="danger" className="w-full" onClick={signOut}>
+        {t.you.signOut}
+      </Btn>
+    </div>
+  );
+}

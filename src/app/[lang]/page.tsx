@@ -37,7 +37,7 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
         <HomeLiveClashes apiUrl={siteConfig.apiUrl} dict={dict.clashes} lang={lang} href={`/${lang}/clashes/`} />
         <Film dict={home.film} locale={lang} />
         <Loop dict={home.loop} index="01" />
-        <AppScreens dict={dict.screens} index="02" more={{ href: `${pageHref(lang, "app/")}#screens`, label: home.screens.more }} />
+        <AppScreens dict={dict.screens} index="02" more={{ href: `${pageHref(lang, "tour/")}#screens`, label: home.screens.more }} />
         <Section id="sample-week" index="03" kicker={home.sample.kicker} title={home.sample.title} lead={home.sample.lead} layout="split">
           <SampleWeek dict={home.sample} />
         </Section>

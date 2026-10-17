@@ -20,6 +20,15 @@ import { rewardsConfig } from "./rewards-config";
 
 export const TURNSTILE_ORIGIN = "https://challenges.cloudflare.com";
 
+/**
+ * The web app's live map (vvake.com/<lang>/app): OpenFreeMap vector tiles and glyphs, fetched by MapLibre. Allowed on
+ * the web app's pages only (`webAppFile`), never site-wide.
+ */
+export const MAP_ORIGIN = "https://tiles.openfreemap.org";
+
+/** out/-relative path of a web app page (en/app/index.html, fr/app/index.html). */
+export const webAppFile = (file: string) => /^[a-z]{2}\/app\/index\.html$/.test(file.replace(/\\/g, "/"));
+
 const origin = (url: string) => {
   try {
     return new URL(url).origin;
@@ -68,7 +77,7 @@ export function inlineScripts(html: string): string[] {
   return out;
 }
 
-export function buildCsp(hashes: string[], cfg: CspConfig = buildConfig()): string {
+export function buildCsp(hashes: string[], cfg: CspConfig = buildConfig(), extraConnect: readonly string[] = []): string {
   const turnstile = cfg.turnstileSiteKey ? [TURNSTILE_ORIGIN] : [];
   const directives: [string, string[]][] = [
     ["default-src", ["'self'"]],
@@ -76,7 +85,7 @@ export function buildCsp(hashes: string[], cfg: CspConfig = buildConfig()): stri
     ["style-src", ["'self'", "'unsafe-inline'"]],
     ["img-src", ["'self'", "data:"]],
     ["font-src", ["'self'"]],
-    ["connect-src", ["'self'", ...connectOrigins(cfg)]],
+    ["connect-src", ["'self'", ...connectOrigins(cfg), ...extraConnect]],
     ["frame-src", turnstile.length ? turnstile : ["'none'"]],
     ["object-src", ["'none'"]],
     ["base-uri", ["'none'"]],
@@ -112,8 +121,8 @@ export function injectCsp(html: string, policy: string): string {
 }
 
 /** Adds this file's policy to an exported HTML file. */
-export const withCsp = (html: string, cfg: CspConfig = buildConfig()) =>
-  injectCsp(html, buildCsp(inlineScripts(html).map(scriptHash), cfg));
+export const withCsp = (html: string, cfg: CspConfig = buildConfig(), extraConnect: readonly string[] = []) =>
+  injectCsp(html, buildCsp(inlineScripts(html).map(scriptHash), cfg, extraConnect));
 
 /** What a browser would block or what the policy misses in one exported HTML file; empty = fine. */
 export function cspProblems(html: string, cfg: CspConfig = buildConfig()): string[] {

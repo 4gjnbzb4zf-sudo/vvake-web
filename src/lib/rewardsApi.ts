@@ -18,6 +18,7 @@ import { VAULT_FIELDS, type VaultBlob } from "./walletVault";
  */
 
 const REFRESH_KEY = "vvake-rewards-refresh";
+const APP_REFRESH_KEY = "vvake-app-refresh";
 const DEVICE_KEY = "vvake-web-device";
 
 /** A claim asked for before its week's claims open (claimableAt in the future): nothing is sent. */
@@ -249,6 +250,9 @@ function deviceId(): string {
   return id;
 }
 
+/** This browser's device id (also the web app's session `deviceKey`: one browser, one account, like a phone). */
+export const browserDeviceId = () => deviceId();
+
 // The API only knows "phone" and "watch" devices; a browser signs in as a phone-kind device named for the web.
 const device = () => ({ id: deviceId(), kind: "phone" as const, model: "Web (vvake.com)" });
 
@@ -327,12 +331,24 @@ export class RewardsSession {
   private access: string | null = null;
   user: SessionUser | null = null;
 
-  constructor(private readonly apiUrl: string) {}
+  /**
+   * `kind` "session" (rewards, account): the refresh token lives in this tab only. "local" (the web app, vvake.com/app):
+   * kept in this browser, so the app opened from the home screen stays signed in for the web sign-in's day; refreshes
+   * are serialised across tabs (Web Locks), since reusing a rotated token would sign the browser out.
+   */
+  constructor(
+    private readonly apiUrl: string,
+    private readonly kind: "local" | "session" = "session",
+  ) {}
 
-  /** Whether this tab holds a refresh token from an earlier sign-in. */
-  static hasStored(): boolean {
+  private get key() {
+    return this.kind === "local" ? APP_REFRESH_KEY : REFRESH_KEY;
+  }
+
+  /** Whether this tab (or, for "local", this browser) holds a refresh token from an earlier sign-in. */
+  static hasStored(kind: "local" | "session" = "session"): boolean {
     try {
-      return Boolean(storage("session")?.getItem(REFRESH_KEY));
+      return Boolean(storage(kind)?.getItem(kind === "local" ? APP_REFRESH_KEY : REFRESH_KEY));
     } catch {
       return false;
     }
@@ -342,7 +358,7 @@ export class RewardsSession {
     this.access = pair.accessToken;
     this.user = pair.user;
     try {
-      storage("session")?.setItem(REFRESH_KEY, pair.refreshToken);
+      storage(this.kind)?.setItem(this.key, pair.refreshToken);
     } catch {
       // not kept: signed in until the page is closed or reloaded
     }
@@ -352,7 +368,7 @@ export class RewardsSession {
     this.access = null;
     this.user = null;
     try {
-      storage("session")?.removeItem(REFRESH_KEY);
+      storage(this.kind)?.removeItem(this.key);
     } catch {
       // nothing stored
     }
@@ -373,9 +389,21 @@ export class RewardsSession {
 
   /** Uses the stored refresh token; false when there is none or it no longer works. */
   async resume(): Promise<boolean> {
+    const locks = typeof navigator !== "undefined" ? (navigator as Navigator & { locks?: LockManager }).locks : undefined;
+    if (this.kind === "local" && locks?.request) {
+      try {
+        return await locks.request("vvake-app-refresh", () => this.resumeOnce());
+      } catch {
+        return this.resumeOnce();
+      }
+    }
+    return this.resumeOnce();
+  }
+
+  private async resumeOnce(): Promise<boolean> {
     let refreshToken: string | null = null;
     try {
-      refreshToken = storage("session")?.getItem(REFRESH_KEY) ?? null;
+      refreshToken = storage(this.kind)?.getItem(this.key) ?? null;
     } catch {
       refreshToken = null;
     }
@@ -392,7 +420,7 @@ export class RewardsSession {
   async signOut() {
     let refreshToken: string | null = null;
     try {
-      refreshToken = storage("session")?.getItem(REFRESH_KEY) ?? null;
+      refreshToken = storage(this.kind)?.getItem(this.key) ?? null;
     } catch {
       refreshToken = null;
     }

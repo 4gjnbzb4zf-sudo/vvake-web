@@ -84,7 +84,8 @@ export function Footer({ locale, dict }: { locale: Locale; dict: Dictionary["foo
     {
       title: dict.groups.product,
       links: [
-        { label: dict.app, href: page("app/") },
+        { label: dict.webApp, href: page("app/") },
+        { label: dict.app, href: page("tour/") },
         { label: dict.vvaker, href: page("vvaker/") },
         { label: dict.plus, href: page("plus/") },
         { label: dict.voice, href: page("voice/") },

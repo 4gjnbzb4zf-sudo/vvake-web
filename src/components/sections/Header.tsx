@@ -26,7 +26,8 @@ function NavLabel({ label }: { label: string }) {
 
 export function Header({ locale, dict }: { locale: Locale; dict: Dictionary["nav"] }) {
   const links = [
-    { href: pageHref(locale, "app/"), label: dict.app },
+    { href: `/${locale}/app/`, label: dict.webApp },
+    { href: pageHref(locale, "tour/"), label: dict.app },
     { href: pageHref(locale, "vvaker/"), label: dict.vvaker },
     { href: pageHref(locale, "backers/"), label: dict.backers },
     { href: `/${locale}/rewards/`, label: dict.rewards },

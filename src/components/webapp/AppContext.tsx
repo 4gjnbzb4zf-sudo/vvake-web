@@ -1,0 +1,333 @@
+"use client";
+
+import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState, type ReactNode } from "react";
+import type { Locale } from "@/i18n/config";
+import { fmt, type WebAppDict } from "@/i18n/webapp";
+import { ApiError, RewardsSession, browserDeviceId } from "@/lib/rewardsApi";
+import { localTz, webApi, type ApiSession, type AppAthlete, type AppMe, type Stats, type Streak, type WebApi } from "@/lib/webapp/api";
+import { HeartSensor, type SensorState } from "@/lib/webapp/ble";
+import type { Units } from "@/lib/webapp/format";
+import { parseGoals, type WebGoal } from "@/lib/webapp/goals";
+import { afterUpload, openKV, QUEUE_KEY, type KV, type Queued } from "@/lib/webapp/store";
+import type { Chattiness } from "@/lib/webapp/voice";
+import { maxEnergy, refill, type EnergyState, type WebSession } from "@/lib/webapp/workout";
+import { useNow } from "./useNow";
+
+/**
+ * Everything the web app's screens share: the signed-in session and the API, the account (me, athlete, stats,
+ * streak, recent sessions), this browser's settings (units, voice), goals and energy, the upload queue, the route
+ * (hash), and the heart-rate sensor (one connection for the whole visit, so it survives moving between tabs).
+ */
+
+export type Route =
+  | { name: "today" | "plan" | "crew" | "coach" | "you" | "goals" | "rhythm" | "vvaker" | "sensor" | "workout" }
+  | { name: "session"; id: string };
+
+export const TABS = ["today", "plan", "crew", "coach", "you"] as const;
+
+export function parseRoute(hash: string): Route {
+  const h = hash.replace(/^#\/?/, "");
+  const [name, arg] = h.split("/");
+  if (name === "session" && arg) return { name: "session", id: decodeURIComponent(arg) };
+  const known = ["today", "plan", "crew", "coach", "you", "goals", "rhythm", "vvaker", "sensor", "workout"] as const;
+  return { name: (known as readonly string[]).includes(name ?? "") ? (name as (typeof known)[number]) : "today" };
+}
+
+export const routeHash = (r: Route) => (r.name === "session" ? `#/session/${encodeURIComponent(r.id)}` : `#/${r.name}`);
+
+export interface Prefs {
+  units: Units;
+  voice: boolean;
+  chattiness: Chattiness;
+  speakReplies: boolean;
+}
+
+const PREFS_KEY = "vvake-app-prefs";
+const DEFAULT_PREFS: Prefs = { units: "metric", voice: true, chattiness: "normal", speakReplies: false };
+
+function readLocal<T>(key: string, parse: (raw: string | null) => T): T {
+  try {
+    return parse(localStorage.getItem(key));
+  } catch {
+    return parse(null);
+  }
+}
+function writeLocal(key: string, value: string) {
+  try {
+    localStorage.setItem(key, value);
+  } catch {
+    // private mode: kept for this visit only
+  }
+}
+
+export interface AppState {
+  lang: Locale;
+  t: WebAppDict;
+  apiUrl: string;
+  session: RewardsSession;
+  api: WebApi;
+  deviceKey: string;
+  me: AppMe;
+  setMe: (m: AppMe) => void;
+  athlete: AppAthlete | null;
+  setAthlete: (a: AppAthlete | null) => void;
+  stats: Stats | null;
+  streak: Streak | null;
+  sessions: ApiSession[];
+  refresh: () => Promise<void>;
+  prefs: Prefs;
+  setPrefs: (p: Partial<Prefs>) => void;
+  goals: WebGoal[];
+  setGoals: (g: WebGoal[]) => void;
+  energy: EnergyState;
+  setEnergy: (e: EnergyState) => void;
+  energyMax: number;
+  kv: KV | null;
+  queue: Queued<WebSession>[];
+  setQueue: (q: Queued<WebSession>[]) => void;
+  flush: () => Promise<void>;
+  online: boolean;
+  route: Route;
+  go: (r: Route) => void;
+  sensor: HeartSensor;
+  sensorState: SensorState;
+  bpm: number | null;
+  battery: number | null;
+  signOut: () => void;
+  fmt: typeof fmt;
+}
+
+const Ctx = createContext<AppState | null>(null);
+
+export function useApp(): AppState {
+  const v = useContext(Ctx);
+  if (!v) throw new Error("useApp outside the web app");
+  return v;
+}
+
+export function AppProvider({
+  lang,
+  t,
+  apiUrl,
+  session,
+  me: initialMe,
+  onSignedOut,
+  children,
+}: {
+  lang: Locale;
+  t: WebAppDict;
+  apiUrl: string;
+  session: RewardsSession;
+  me: AppMe;
+  onSignedOut: () => void;
+  children: ReactNode;
+}) {
+  const api = useMemo(() => webApi(session), [session]);
+  const [me, setMe] = useState<AppMe>(initialMe);
+  const [athlete, setAthlete] = useState<AppAthlete | null>(null);
+  const [stats, setStats] = useState<Stats | null>(null);
+  const [streak, setStreak] = useState<Streak | null>(null);
+  const [sessions, setSessions] = useState<ApiSession[]>([]);
+  const [prefs, setPrefsState] = useState<Prefs>(() =>
+    readLocal(PREFS_KEY, (raw) => ({ ...DEFAULT_PREFS, ...(raw ? (JSON.parse(raw) as Partial<Prefs>) : {}) })),
+  );
+  const goalsKey = `vvake-app-goals:${me.id}`;
+  const energyKey = `vvake-app-energy:${me.id}`;
+  const [goals, setGoalsState] = useState<WebGoal[]>(() => readLocal(goalsKey, parseGoals));
+  const energyMax = maxEnergy(streak?.days ?? 0);
+  const [energyRaw, setEnergyRaw] = useState<EnergyState | null>(() =>
+    readLocal(energyKey, (raw) => {
+      try {
+        return raw ? (JSON.parse(raw) as EnergyState) : null;
+      } catch {
+        return null;
+      }
+    }),
+  );
+  const clockNow = useNow(60_000);
+  const energy = useMemo(
+    () => refill(energyRaw, clockNow, energyMax, -new Date(clockNow).getTimezoneOffset()),
+    [energyRaw, energyMax, clockNow],
+  );
+  const [kv, setKv] = useState<KV | null>(null);
+  const [queue, setQueueState] = useState<Queued<WebSession>[]>([]);
+  const [online, setOnline] = useState(true);
+  const [route, setRoute] = useState<Route>(() => parseRoute(window.location.hash));
+  const [sensorState, setSensorState] = useState<SensorState>("idle");
+  const [bpm, setBpm] = useState<number | null>(null);
+  const [battery, setBattery] = useState<number | null>(null);
+  const [sensor] = useState(
+    () =>
+      new HeartSensor({
+        onState: (s) => {
+          setSensorState(s);
+          if (s !== "connected") setBpm(null);
+        },
+        onReading: (b) => setBpm(b),
+        onBattery: (p) => setBattery(p),
+      }),
+  );
+  const deviceKey = useMemo(() => browserDeviceId(), []);
+
+  const setPrefs = useCallback((p: Partial<Prefs>) => {
+    setPrefsState((old) => {
+      const next = { ...old, ...p };
+      writeLocal(PREFS_KEY, JSON.stringify(next));
+      return next;
+    });
+  }, []);
+  const setGoals = useCallback(
+    (g: WebGoal[]) => {
+      setGoalsState(g);
+      writeLocal(goalsKey, JSON.stringify(g));
+    },
+    [goalsKey],
+  );
+  const setEnergy = useCallback(
+    (e: EnergyState) => {
+      setEnergyRaw(e);
+      writeLocal(energyKey, JSON.stringify(e));
+    },
+    [energyKey],
+  );
+
+  const tz = useMemo(() => localTz(), []);
+  const refresh = useCallback(async () => {
+    const [st, sk, ss, at] = await Promise.allSettled([api.stats(tz), api.streak(tz), api.sessions(), api.athlete()]);
+    if (st.status === "fulfilled") setStats(st.value);
+    if (sk.status === "fulfilled") setStreak(sk.value);
+    if (ss.status === "fulfilled") setSessions(ss.value.sessions);
+    if (at.status === "fulfilled") setAthlete(at.value);
+    const failed = [st, sk, ss].find((r) => r.status === "rejected") as PromiseRejectedResult | undefined;
+    if (failed && failed.reason instanceof ApiError && failed.reason.status === 401) onSignedOut();
+  }, [api, tz, onSignedOut]);
+
+  // The queue lives in IndexedDB; only this account's sessions are sent with this account's sign-in.
+  const queueRef = useRef(queue);
+  const setQueue = useCallback(
+    (q: Queued<WebSession>[]) => {
+      queueRef.current = q;
+      setQueueState(q);
+      void kv?.set(QUEUE_KEY, q);
+    },
+    [kv],
+  );
+  const flushing = useRef(false);
+  const flush = useCallback(async () => {
+    if (flushing.current) return;
+    const mine = queueRef.current.filter((x) => x.userId === me.id).slice(0, 20);
+    if (!mine.length) return;
+    flushing.current = true;
+    try {
+      const r = await api.uploadBatch(
+        mine.map((x) => x.session),
+        tz,
+      );
+      setQueue(afterUpload(queueRef.current, r.results));
+      void refresh();
+    } catch {
+      // offline or refused for now: the queue stays, the next try is on reconnect or the next launch
+    } finally {
+      flushing.current = false;
+    }
+  }, [api, me.id, tz, setQueue, refresh]);
+
+  useEffect(() => {
+    let alive = true;
+    void openKV().then(async (store) => {
+      if (!alive) return;
+      setKv(store);
+      const q = ((await store.get<Queued<WebSession>[]>(QUEUE_KEY)) ?? []).filter((x) => x && x.session && typeof x.userId === "string");
+      queueRef.current = q;
+      setQueueState(q);
+    });
+    return () => {
+      alive = false;
+    };
+  }, []);
+
+  useEffect(() => {
+    if (kv && navigator.onLine) void flush();
+  }, [kv, flush]);
+
+  useEffect(() => {
+    const first = window.setTimeout(() => void refresh(), 0);
+    const on = () => {
+      setOnline(true);
+      void flush();
+      void refresh();
+    };
+    const off = () => setOnline(false);
+    const id = window.setTimeout(() => setOnline(navigator.onLine), 0);
+    window.addEventListener("online", on);
+    window.addEventListener("offline", off);
+    return () => {
+      window.clearTimeout(first);
+      window.clearTimeout(id);
+      window.removeEventListener("online", on);
+      window.removeEventListener("offline", off);
+    };
+  }, [refresh, flush]);
+
+  // Hash routing: the back button and links work as in any page.
+  useEffect(() => {
+    const read = () => setRoute(parseRoute(window.location.hash));
+    window.addEventListener("hashchange", read);
+    return () => window.removeEventListener("hashchange", read);
+  }, []);
+  const go = useCallback((r: Route) => {
+    const h = routeHash(r);
+    if (window.location.hash !== h) window.location.hash = h;
+    else setRoute(r);
+    window.scrollTo({ top: 0 });
+  }, []);
+
+  // The sensor paired on an earlier visit, without the picker where the browser allows it.
+  useEffect(() => {
+    void sensor.reconnectRemembered();
+    return () => sensor.disconnect();
+  }, [sensor]);
+
+  const signOut = useCallback(() => {
+    sensor.disconnect();
+    void session.signOut().then(onSignedOut);
+  }, [session, sensor, onSignedOut]);
+
+  const value: AppState = {
+    lang,
+    t,
+    apiUrl,
+    session,
+    api,
+    deviceKey,
+    me,
+    setMe,
+    athlete,
+    setAthlete,
+    stats,
+    streak,
+    sessions,
+    refresh,
+    prefs,
+    setPrefs,
+    goals,
+    setGoals,
+    energy,
+    setEnergy,
+    energyMax,
+    kv,
+    queue,
+    setQueue,
+    flush,
+    online,
+    route,
+    go,
+    sensor,
+    sensorState,
+    bpm,
+    battery,
+    signOut,
+    fmt,
+  };
+  return <Ctx.Provider value={value}>{children}</Ctx.Provider>;
+}

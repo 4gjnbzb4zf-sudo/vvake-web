@@ -34,6 +34,15 @@ export const BASE_HEADERS: [string, string][] = [
 
 export const AASA_PATH = "/.well-known/apple-app-site-association";
 
+/**
+ * The web app (vvake.com/<lang>/app) records workouts: it needs location (GPS), the microphone (talk to the coach),
+ * Bluetooth (a heart-rate strap) and the screen wake lock, for itself only. Its pages drop the site-wide policy
+ * (`! Permissions-Policy`) and get this one instead.
+ */
+export const WEB_APP_PERMISSIONS =
+  "accelerometer=(), browsing-topics=(), camera=(), display-capture=(), geolocation=(self), gyroscope=(), hid=(), magnetometer=(), microphone=(self), midi=(), payment=(), serial=(), usb=(), bluetooth=(self), screen-wake-lock=(self)";
+export const WEB_APP_PATHS = ["/en/app/*", "/fr/app/*"];
+
 export const MAX_RULES = 100;
 export const MAX_LINE = 2000;
 
@@ -49,6 +58,7 @@ export function pagePath(file: string): string | null {
 /** The `_headers` text for these exported HTML files ({ file: out/-relative path, html }). */
 export function buildHeaders(pages: { file: string; html: string }[]): string {
   const lines: string[] = ["/*", ...BASE_HEADERS.map(([k, v]) => `  ${k}: ${v}`), "", AASA_PATH, "  Content-Type: application/json", ""];
+  for (const p of WEB_APP_PATHS) lines.push(p, "  ! Permissions-Policy", `  Permissions-Policy: ${WEB_APP_PERMISSIONS}`, "");
   const rules = pages
     .map(({ file, html }) => ({ path: pagePath(file), csp: readCsp(html) }))
     .filter((r): r is { path: string; csp: string } => Boolean(r.path && r.csp))

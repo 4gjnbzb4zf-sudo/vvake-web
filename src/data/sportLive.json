@@ -1,0 +1,650 @@
+{
+  "run": {
+    "outdoor": true,
+    "cap": 25,
+    "persona": "runner",
+    "vvaker": "runner",
+    "category": "endurance",
+    "met": 8
+  },
+  "walk": {
+    "outdoor": true,
+    "cap": 12,
+    "persona": "walker",
+    "vvaker": "walker",
+    "category": "endurance",
+    "met": 3.5
+  },
+  "ride": {
+    "outdoor": true,
+    "cap": 80,
+    "persona": "cyclist",
+    "vvaker": "cyclist",
+    "category": "endurance",
+    "met": 6
+  },
+  "hike": {
+    "outdoor": true,
+    "cap": 12,
+    "persona": "hiker",
+    "vvaker": "hiker",
+    "category": "endurance",
+    "met": 5
+  },
+  "strength": {
+    "outdoor": false,
+    "cap": null,
+    "persona": "lifter",
+    "vvaker": "lifter",
+    "category": "strength",
+    "met": 4.5
+  },
+  "dance": {
+    "outdoor": false,
+    "cap": null,
+    "persona": "dancer",
+    "vvaker": "dancer",
+    "category": "dance",
+    "met": 5
+  },
+  "boxing": {
+    "outdoor": false,
+    "cap": null,
+    "persona": "boxer",
+    "vvaker": "boxer",
+    "category": "combat",
+    "met": 7
+  },
+  "yoga": {
+    "outdoor": false,
+    "cap": null,
+    "persona": "yogi",
+    "vvaker": "yogi",
+    "category": "mind",
+    "met": 2.5
+  },
+  "swim": {
+    "outdoor": false,
+    "cap": 8,
+    "persona": "swimmer",
+    "vvaker": "swimmer",
+    "category": "water",
+    "met": 7
+  },
+  "skate": {
+    "outdoor": true,
+    "cap": 50,
+    "persona": "skater",
+    "vvaker": "skater",
+    "category": "outdoor",
+    "met": 7
+  },
+  "track-field": {
+    "outdoor": true,
+    "cap": null,
+    "persona": "runner",
+    "vvaker": "track-field",
+    "category": "endurance",
+    "met": 8
+  },
+  "swim-bike-run": {
+    "outdoor": true,
+    "cap": 80,
+    "persona": "runner",
+    "vvaker": "swim-bike-run",
+    "category": "endurance",
+    "met": 9
+  },
+  "transition": {
+    "outdoor": true,
+    "cap": null,
+    "persona": null,
+    "vvaker": "transition",
+    "category": "endurance",
+    "met": 4
+  },
+  "wheelchair-walk": {
+    "outdoor": true,
+    "cap": 15,
+    "persona": null,
+    "vvaker": "wheelchair-walk",
+    "category": "endurance",
+    "met": 3.5
+  },
+  "wheelchair-run": {
+    "outdoor": true,
+    "cap": 35,
+    "persona": null,
+    "vvaker": "wheelchair-run",
+    "category": "endurance",
+    "met": 6
+  },
+  "hand-cycling": {
+    "outdoor": true,
+    "cap": 60,
+    "persona": "cyclist",
+    "vvaker": "hand-cycling",
+    "category": "endurance",
+    "met": 6
+  },
+  "elliptical": {
+    "outdoor": false,
+    "cap": null,
+    "persona": null,
+    "vvaker": "elliptical",
+    "category": "gym",
+    "met": 5
+  },
+  "rowing": {
+    "outdoor": false,
+    "cap": null,
+    "persona": "paddler",
+    "vvaker": "rowing",
+    "category": "gym",
+    "met": 6
+  },
+  "stair-stepper": {
+    "outdoor": false,
+    "cap": null,
+    "persona": null,
+    "vvaker": "stair-stepper",
+    "category": "gym",
+    "met": 8
+  },
+  "stairs": {
+    "outdoor": false,
+    "cap": null,
+    "persona": null,
+    "vvaker": "stairs",
+    "category": "gym",
+    "met": 8
+  },
+  "hiit": {
+    "outdoor": false,
+    "cap": null,
+    "persona": null,
+    "vvaker": "hiit",
+    "category": "gym",
+    "met": 8
+  },
+  "mixed-cardio": {
+    "outdoor": false,
+    "cap": null,
+    "persona": null,
+    "vvaker": "mixed-cardio",
+    "category": "gym",
+    "met": 6
+  },
+  "cross-training": {
+    "outdoor": false,
+    "cap": null,
+    "persona": "lifter",
+    "vvaker": "cross-training",
+    "category": "gym",
+    "met": 7
+  },
+  "step-training": {
+    "outdoor": false,
+    "cap": null,
+    "persona": null,
+    "vvaker": "step-training",
+    "category": "gym",
+    "met": 7
+  },
+  "jump-rope": {
+    "outdoor": false,
+    "cap": null,
+    "persona": null,
+    "vvaker": "jump-rope",
+    "category": "gym",
+    "met": 11
+  },
+  "fitness-gaming": {
+    "outdoor": false,
+    "cap": null,
+    "persona": null,
+    "vvaker": "fitness-gaming",
+    "category": "gym",
+    "met": 4
+  },
+  "functional-strength": {
+    "outdoor": false,
+    "cap": null,
+    "persona": "lifter",
+    "vvaker": "functional-strength",
+    "category": "strength",
+    "met": 5
+  },
+  "core": {
+    "outdoor": false,
+    "cap": null,
+    "persona": "lifter",
+    "vvaker": "core",
+    "category": "strength",
+    "met": 4
+  },
+  "gymnastics": {
+    "outdoor": false,
+    "cap": null,
+    "persona": null,
+    "vvaker": "gymnastics",
+    "category": "strength",
+    "met": 4
+  },
+  "pilates": {
+    "outdoor": false,
+    "cap": null,
+    "persona": "yogi",
+    "vvaker": "pilates",
+    "category": "mind",
+    "met": 3
+  },
+  "barre": {
+    "outdoor": false,
+    "cap": null,
+    "persona": "dancer",
+    "vvaker": "barre",
+    "category": "mind",
+    "met": 3.5
+  },
+  "tai-chi": {
+    "outdoor": false,
+    "cap": null,
+    "persona": "meditator",
+    "vvaker": "tai-chi",
+    "category": "mind",
+    "met": 3
+  },
+  "mind-body": {
+    "outdoor": false,
+    "cap": null,
+    "persona": "meditator",
+    "vvaker": "mind-body",
+    "category": "mind",
+    "met": 2.5
+  },
+  "flexibility": {
+    "outdoor": false,
+    "cap": null,
+    "persona": "yogi",
+    "vvaker": "flexibility",
+    "category": "mind",
+    "met": 2.3
+  },
+  "cooldown": {
+    "outdoor": false,
+    "cap": null,
+    "persona": null,
+    "vvaker": "cooldown",
+    "category": "mind",
+    "met": 2.5
+  },
+  "recovery": {
+    "outdoor": false,
+    "cap": null,
+    "persona": null,
+    "vvaker": "recovery",
+    "category": "mind",
+    "met": 2.5
+  },
+  "cardio-dance": {
+    "outdoor": false,
+    "cap": null,
+    "persona": "dancer",
+    "vvaker": "cardio-dance",
+    "category": "dance",
+    "met": 6.5
+  },
+  "kickboxing": {
+    "outdoor": false,
+    "cap": null,
+    "persona": "boxer",
+    "vvaker": "kickboxing",
+    "category": "combat",
+    "met": 7.5
+  },
+  "martial-arts": {
+    "outdoor": false,
+    "cap": null,
+    "persona": "martial",
+    "vvaker": "martial-arts",
+    "category": "combat",
+    "met": 6
+  },
+  "wrestling": {
+    "outdoor": false,
+    "cap": null,
+    "persona": "martial",
+    "vvaker": "wrestling",
+    "category": "combat",
+    "met": 6
+  },
+  "fencing": {
+    "outdoor": false,
+    "cap": null,
+    "persona": null,
+    "vvaker": "fencing",
+    "category": "combat",
+    "met": 6
+  },
+  "tennis": {
+    "outdoor": true,
+    "cap": null,
+    "persona": "racket",
+    "vvaker": "tennis",
+    "category": "racket",
+    "met": 7
+  },
+  "badminton": {
+    "outdoor": false,
+    "cap": null,
+    "persona": "racket",
+    "vvaker": "badminton",
+    "category": "racket",
+    "met": 5.5
+  },
+  "table-tennis": {
+    "outdoor": false,
+    "cap": null,
+    "persona": "racket",
+    "vvaker": "table-tennis",
+    "category": "racket",
+    "met": 4
+  },
+  "pickleball": {
+    "outdoor": true,
+    "cap": null,
+    "persona": "racket",
+    "vvaker": "pickleball",
+    "category": "racket",
+    "met": 4.5
+  },
+  "squash": {
+    "outdoor": false,
+    "cap": null,
+    "persona": "racket",
+    "vvaker": "squash",
+    "category": "racket",
+    "met": 7.3
+  },
+  "racquetball": {
+    "outdoor": false,
+    "cap": null,
+    "persona": "racket",
+    "vvaker": "racquetball",
+    "category": "racket",
+    "met": 7
+  },
+  "soccer": {
+    "outdoor": true,
+    "cap": null,
+    "persona": "footballer",
+    "vvaker": "soccer",
+    "category": "team",
+    "met": 7
+  },
+  "basketball": {
+    "outdoor": false,
+    "cap": null,
+    "persona": "baller",
+    "vvaker": "basketball",
+    "category": "team",
+    "met": 6.5
+  },
+  "volleyball": {
+    "outdoor": false,
+    "cap": null,
+    "persona": null,
+    "vvaker": "volleyball",
+    "category": "team",
+    "met": 4
+  },
+  "hockey": {
+    "outdoor": false,
+    "cap": null,
+    "persona": null,
+    "vvaker": "hockey",
+    "category": "team",
+    "met": 8
+  },
+  "rugby": {
+    "outdoor": true,
+    "cap": null,
+    "persona": null,
+    "vvaker": "rugby",
+    "category": "team",
+    "met": 8.3
+  },
+  "american-football": {
+    "outdoor": true,
+    "cap": null,
+    "persona": null,
+    "vvaker": "american-football",
+    "category": "team",
+    "met": 8
+  },
+  "australian-football": {
+    "outdoor": true,
+    "cap": null,
+    "persona": null,
+    "vvaker": "australian-football",
+    "category": "team",
+    "met": 8
+  },
+  "baseball": {
+    "outdoor": true,
+    "cap": null,
+    "persona": null,
+    "vvaker": "baseball",
+    "category": "team",
+    "met": 5
+  },
+  "softball": {
+    "outdoor": true,
+    "cap": null,
+    "persona": null,
+    "vvaker": "softball",
+    "category": "team",
+    "met": 5
+  },
+  "cricket": {
+    "outdoor": true,
+    "cap": null,
+    "persona": null,
+    "vvaker": "cricket",
+    "category": "team",
+    "met": 4.8
+  },
+  "lacrosse": {
+    "outdoor": true,
+    "cap": null,
+    "persona": null,
+    "vvaker": "lacrosse",
+    "category": "team",
+    "met": 8
+  },
+  "handball": {
+    "outdoor": false,
+    "cap": null,
+    "persona": null,
+    "vvaker": "handball",
+    "category": "team",
+    "met": 8
+  },
+  "disc-sports": {
+    "outdoor": true,
+    "cap": null,
+    "persona": null,
+    "vvaker": "disc-sports",
+    "category": "team",
+    "met": 4
+  },
+  "water-polo": {
+    "outdoor": false,
+    "cap": null,
+    "persona": "swimmer",
+    "vvaker": "water-polo",
+    "category": "team",
+    "met": 10
+  },
+  "open-water": {
+    "outdoor": true,
+    "cap": 8,
+    "persona": "swimmer",
+    "vvaker": "open-water",
+    "category": "water",
+    "met": 7
+  },
+  "surf": {
+    "outdoor": true,
+    "cap": 50,
+    "persona": null,
+    "vvaker": "surf",
+    "category": "water",
+    "met": 3.5
+  },
+  "paddle": {
+    "outdoor": true,
+    "cap": 25,
+    "persona": "paddler",
+    "vvaker": "paddle",
+    "category": "water",
+    "met": 5
+  },
+  "sailing": {
+    "outdoor": true,
+    "cap": 60,
+    "persona": null,
+    "vvaker": "sailing",
+    "category": "water",
+    "met": 3
+  },
+  "water-sports": {
+    "outdoor": true,
+    "cap": 80,
+    "persona": null,
+    "vvaker": "water-sports",
+    "category": "water",
+    "met": 5
+  },
+  "water-fitness": {
+    "outdoor": false,
+    "cap": null,
+    "persona": "swimmer",
+    "vvaker": "water-fitness",
+    "category": "water",
+    "met": 5.5
+  },
+  "downhill-ski": {
+    "outdoor": true,
+    "cap": 120,
+    "persona": "skier",
+    "vvaker": "downhill-ski",
+    "category": "snow",
+    "met": 5.5
+  },
+  "cross-country-ski": {
+    "outdoor": true,
+    "cap": 40,
+    "persona": "skier",
+    "vvaker": "cross-country-ski",
+    "category": "snow",
+    "met": 9
+  },
+  "snowboard": {
+    "outdoor": true,
+    "cap": 120,
+    "persona": "skier",
+    "vvaker": "snowboard",
+    "category": "snow",
+    "met": 5
+  },
+  "snow-sports": {
+    "outdoor": true,
+    "cap": 120,
+    "persona": null,
+    "vvaker": "snow-sports",
+    "category": "snow",
+    "met": 6
+  },
+  "curling": {
+    "outdoor": false,
+    "cap": null,
+    "persona": null,
+    "vvaker": "curling",
+    "category": "snow",
+    "met": 4
+  },
+  "climbing": {
+    "outdoor": false,
+    "cap": null,
+    "persona": "climber",
+    "vvaker": "climbing",
+    "category": "outdoor",
+    "met": 7
+  },
+  "equestrian": {
+    "outdoor": true,
+    "cap": 70,
+    "persona": null,
+    "vvaker": "equestrian",
+    "category": "outdoor",
+    "met": 5.5
+  },
+  "golf": {
+    "outdoor": true,
+    "cap": null,
+    "persona": null,
+    "vvaker": "golf",
+    "category": "outdoor",
+    "met": 4.5
+  },
+  "archery": {
+    "outdoor": true,
+    "cap": null,
+    "persona": null,
+    "vvaker": "archery",
+    "category": "outdoor",
+    "met": 4.3
+  },
+  "fishing": {
+    "outdoor": true,
+    "cap": null,
+    "persona": null,
+    "vvaker": "fishing",
+    "category": "outdoor",
+    "met": 3
+  },
+  "hunting": {
+    "outdoor": true,
+    "cap": null,
+    "persona": null,
+    "vvaker": "hunting",
+    "category": "outdoor",
+    "met": 5
+  },
+  "bowling": {
+    "outdoor": false,
+    "cap": null,
+    "persona": null,
+    "vvaker": "bowling",
+    "category": "other",
+    "met": 3.8
+  },
+  "play": {
+    "outdoor": true,
+    "cap": null,
+    "persona": null,
+    "vvaker": "play",
+    "category": "other",
+    "met": 5
+  },
+  "other": {
+    "outdoor": false,
+    "cap": null,
+    "persona": null,
+    "vvaker": "other",
+    "category": "other",
+    "met": 4
+  }
+}

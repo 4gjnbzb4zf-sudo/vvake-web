@@ -9,7 +9,7 @@ import { getDictionary } from "@/i18n/dictionaries";
 import type { Page } from "@/lib/routes";
 
 type SubPage = Exclude<Page, "">;
-const KEYS = { "app/": "app", "vvaker/": "vvaker", "backers/": "backers" } as const;
+const KEYS = { "tour/": "app", "vvaker/": "vvaker", "backers/": "backers" } as const;
 
 export function subpageMetadata(lang: Locale, page: SubPage): Metadata {
   const intro = getDictionary(lang).pages[KEYS[page]];

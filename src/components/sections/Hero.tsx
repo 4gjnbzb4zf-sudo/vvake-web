@@ -65,6 +65,9 @@ export function Hero({ dict }: { dict: Dictionary["hero"] }) {
               ▶ {dict.ctaSecondary}
               <span className="ml-2 font-mono text-xs text-faint">{dict.filmLength}</span>
             </ButtonLink>
+            <ButtonLink href="app/" variant="ghost">
+              {dict.ctaWeb} →
+            </ButtonLink>
           </div>
           <p className="mt-4 text-sm text-faint">{dict.note}</p>
         </div>

@@ -8,6 +8,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const pages = [
     "",
     "app/",
+    "tour/",
     "vvaker/",
     "backers/",
     "rewards/",
