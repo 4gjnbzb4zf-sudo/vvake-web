@@ -1214,7 +1214,7 @@ export const en = {
       },
       {
         title: "Zones in your own numbers",
-        body: "“Zone 2 · 112–128 bpm” from your Health profile, plus the pace or speed that should put you there, learned from your sessions. On steady days, zone blocks count down (3 minutes on a run, 4 on a walk): hold your zone 80% of the block and it earns 10% more. Set your own zones per sport if you know them.",
+        body: "“Zone 2 · 112–128 bpm” from your Health profile, plus the pace or speed that should put you there, learned from your sessions. On steady days, zone blocks count down (3 minutes on a run, 4 on a walk): hold your zone 80% of the block and it earns 10% more. Set your own zones per sport if you know them. No heart rate? Speed zones you set per sport guide you and the coach's cues instead, in the app and on the web (points still need a heart rate).",
       },
       {
         title: "Play on: phone or watch",
@@ -2489,7 +2489,7 @@ export const en = {
           },
           {
             t: "Kept in your browser.",
-            d: "The workout under way is saved in your browser (IndexedDB) every few seconds, so a reload or a closed tab can resume it; finished workouts wait there until they are uploaded, then they are deleted. Your goals, daily rhythm check-ins, voice settings and sign-in (for at most 24 hours) are kept in your browser's storage too. Signing out or clearing the site's data removes them.",
+            d: "The workout under way is saved in your browser (IndexedDB) every few seconds, so a reload or a closed tab can resume it; finished workouts wait there until they are uploaded, then they are deleted. Your goals, daily rhythm check-ins, voice settings and sign-in (for at most 24 hours) are kept in your browser's storage too. Signing out or clearing the site's data removes them. Your workout voice choice (voice on, essential only or off) and your speed zones per sport (numbers only) are also kept with your account, so your other devices use the same.",
           },
           {
             t: "Microphone and voice, only when you ask.",

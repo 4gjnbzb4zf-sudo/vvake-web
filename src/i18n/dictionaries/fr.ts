@@ -1262,7 +1262,7 @@ export const fr: Dictionary = {
       },
       {
         title: "Des zones à tes chiffres",
-        body: "« Zone 2 · 112–128 bpm » d'après ton profil Santé, avec l'allure ou la vitesse qui devrait t'y mettre, apprise de tes séances. Les jours tranquilles, des blocs de zone à rebours (3 minutes en course, 4 en marche) : tiens ta zone 80 % du bloc et il rapporte 10 % de plus. Règle tes propres zones par sport si tu les connais.",
+        body: "« Zone 2 · 112–128 bpm » d'après ton profil Santé, avec l'allure ou la vitesse qui devrait t'y mettre, apprise de tes séances. Les jours tranquilles, des blocs de zone à rebours (3 minutes en course, 4 en marche) : tiens ta zone 80 % du bloc et il rapporte 10 % de plus. Règle tes propres zones par sport si tu les connais. Pas de fréquence cardiaque ? Des zones de vitesse que tu règles par sport te guident, toi et les annonces du coach, dans l'app et sur le web (les points demandent toujours une fréquence cardiaque).",
       },
       {
         title: "Écouter sur : téléphone ou montre",
@@ -2648,7 +2648,7 @@ export const fr: Dictionary = {
           },
           {
             t: "Gardé dans ton navigateur.",
-            d: "La séance en cours est enregistrée dans ton navigateur (IndexedDB) toutes les quelques secondes, pour qu’un rechargement ou un onglet fermé puisse la reprendre ; les séances terminées y attendent leur envoi, puis sont effacées. Tes objectifs, ton rythme du jour, tes réglages de voix et ta connexion (24 heures au plus) sont aussi gardés dans le stockage de ton navigateur. Te déconnecter ou effacer les données du site les supprime.",
+            d: "La séance en cours est enregistrée dans ton navigateur (IndexedDB) toutes les quelques secondes, pour qu’un rechargement ou un onglet fermé puisse la reprendre ; les séances terminées y attendent leur envoi, puis sont effacées. Tes objectifs, ton rythme du jour, tes réglages de voix et ta connexion (24 heures au plus) sont aussi gardés dans le stockage de ton navigateur. Te déconnecter ou effacer les données du site les supprime. Ton choix de voix pendant les séances (voix activée, l’essentiel seulement ou voix coupée) et tes zones de vitesse par sport (des nombres seulement) sont aussi gardés avec ton compte, pour que tes autres appareils utilisent les mêmes.",
           },
           {
             t: "Micro et voix, seulement quand tu le demandes.",
