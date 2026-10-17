@@ -19,6 +19,52 @@ export interface Release {
 
 export const releases: Release[] = [
   {
+    version: "1.0.0 (28)",
+    date: "2026-10-17",
+    channel: "beta",
+    devices: ["iphone", "watch", "android", "wear"],
+    notes: {
+      en: {
+        added: [
+          'Turn the coach\'s voice off in one tap during a workout: the speaker in the top corner of the workout screen silences it at once (what it was saying stops). Tap again to turn it back on, or hold for "Essential only" (start, pause, end and a zone 5 warning). Your choice stays for your next workouts and follows you to your iPhone.',
+          "Speed zones on Apple Watch: when there's no heart rate, your zone now comes from your speed, set per sport in You → Speed zones (your easy and hard pace). They guide you and the coach's cues; points still need a heart rate.",
+          'Wear OS: a voice switch on the workout screen. One tap on the voice button (top right of the controls page, and in the workout controls from any page) silences the coach at once; tap again to bring it back. Hold it for "Essential only": just the start, pause, end and a zone 5 warning. Your choice is kept for your next workout and follows you to your phone.',
+          "Wear OS: speed zones without a heart rate. On a walk, run, hike or ride with GPS but no heart reading, your zone now comes from your speed over the last 30 seconds, marked with a speedometer, and the coach's zone cues follow it. Set your easy and hard pace for each sport in You → Speed zones (the crown or − / +, a preview of the five zones, Reset to default). Points still need a heart rate.",
+          "Speed zones per sport: set your easy and hard pace (or speed for rides and other fast sports) in You › Settings › Speed zones, or from Your zones on the health screen. See your five zones in your units, go back to the default, set your own five values, or let VVake learn them from your sessions.",
+          'With no heart rate, an outdoor GPS session now shows your zone from your speed over the last 30 seconds ("ZONE 2 · SPEED"), and the coach\'s zone announcements and pace hints follow it. Points still need a heart rate.',
+        ],
+        improved: [
+          "Today shows your goals in one card: with Plus, the coach's note about your goals now sits at the top of it instead of a second card saying almost the same thing.",
+          "The map styles really look different on the watch: City is a quiet blue-grey map, and Outdoor shows the terrain with relief shading and contour lines. Satellite is no longer offered on the watch, which can't show imagery.",
+          "Wear OS: the Outdoor map is now clearly a hiking map: Google's terrain map with relief shading and contour lines, light, a little further out so the terrain shows.",
+          "Wear OS: with the voice off, zone and coach lines still show on screen and the taps on your wrist stay.",
+          'The voice button on the workout screen silences the coach at once with one tap, and turns it back on with another. Hold it for "Essential only" (start, pause, end, and a word in zone 5).',
+          'Your voice choice is remembered for your next workouts on every account, free included, and follows you to your watch, the website and your other phones. It is also in Coach › voice settings, "During workouts".',
+          "The voice button is on the screen of a workout mirrored from your watch too: the watch follows it.",
+        ],
+      },
+      fr: {
+        added: [
+          "Coupez la voix du coach d'un geste pendant une séance : le haut-parleur en haut de l'écran de séance la coupe tout de suite (ce qu'elle disait s'arrête). Touchez à nouveau pour la réactiver, ou maintenez pour « L'essentiel seulement » (départ, pause, fin et l'alerte zone 5). Votre choix reste pour les prochaines séances et vous suit sur l'iPhone.",
+          "Zones de vitesse sur l'Apple Watch : sans fréquence cardiaque, votre zone vient maintenant de votre vitesse, réglée par sport dans Toi → Zones de vitesse (votre allure facile et soutenue). Elles vous guident, vous et les annonces du coach ; les points demandent toujours une fréquence cardiaque.",
+          "Wear OS : un bouton de voix sur l'écran de séance. Un appui sur le bouton de voix (en haut à droite de la page des commandes, et dans les commandes de séance depuis n'importe quelle page) coupe le coach tout de suite ; un autre appui le réactive. Un appui long propose « L'essentiel seulement » : le départ, la pause, la fin et l'alerte zone 5. Votre choix est gardé pour la prochaine séance et suit votre téléphone.",
+          "Wear OS : des zones de vitesse sans fréquence cardiaque. En marche, course, randonnée ou vélo avec le GPS mais sans pouls, votre zone vient maintenant de votre vitesse sur les 30 dernières secondes, signalée par un compteur, et les annonces de zone du coach la suivent. Réglez votre allure facile et soutenue pour chaque sport dans Vous → Zones de vitesse (la couronne ou − / +, un aperçu des cinq zones, Revenir au réglage par défaut). Les points demandent toujours une fréquence cardiaque.",
+          "Zones de vitesse par sport : réglez votre allure facile et votre allure soutenue (ou votre vitesse pour le vélo et les autres sports rapides) dans Vous › Réglages › Zones de vitesse, ou depuis Vos zones dans l'écran santé. Voyez vos cinq zones dans vos unités, revenez au réglage par défaut, entrez vos cinq valeurs, ou laissez VVake les apprendre de vos séances.",
+          "Sans fréquence cardiaque, une séance GPS en extérieur affiche maintenant votre zone selon votre vitesse sur les 30 dernières secondes (« ZONE 2 · VITESSE »), et les annonces de zone du coach et les conseils d'allure la suivent. Les points demandent toujours une fréquence cardiaque.",
+        ],
+        improved: [
+          "Aujourd'hui montre vos objectifs dans une seule carte : avec Plus, le mot du coach sur vos objectifs s'affiche en haut de cette carte au lieu d'une deuxième carte qui disait presque la même chose.",
+          "Les styles de carte sont vraiment différents sur la montre : Ville est une carte gris-bleu discrète, et Plein air montre le terrain avec l'ombrage du relief et les courbes de niveau. Satellite n'est plus proposé sur la montre, qui ne peut pas afficher d'imagerie.",
+          "Wear OS : la carte Outdoor est maintenant clairement une carte de randonnée : la carte relief de Google avec ombrage et courbes de niveau, claire, un peu plus éloignée pour que le relief apparaisse.",
+          "Wear OS : voix coupée, les annonces de zone et du coach restent affichées à l'écran et les vibrations au poignet restent.",
+          "Le bouton de voix de l'écran de séance coupe le coach tout de suite d'un seul appui, et le réactive d'un autre. Maintenez-le pour « L'essentiel seulement » (départ, pause, fin, et un mot en zone 5).",
+          "Votre choix de voix est gardé pour vos prochaines séances sur tous les comptes, gratuits compris, et vous suit sur votre montre, le site et vos autres téléphones. Il est aussi dans Coach › réglages de la voix, « Pendant les séances ».",
+          "Le bouton de voix est aussi sur l'écran d'une séance de la montre suivie sur le téléphone : la montre le suit.",
+        ],
+      },
+    },
+  },
+  {
     version: "1.0.0 (27)",
     date: "2026-10-17",
     channel: "beta",

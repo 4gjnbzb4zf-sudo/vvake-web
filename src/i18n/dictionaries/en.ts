@@ -1214,7 +1214,7 @@ export const en = {
       },
       {
         title: "Zones in your own numbers",
-        body: "“Zone 2 · 112–128 bpm” from your Health profile, plus the pace or speed that should put you there, learned from your sessions. On steady days, zone blocks count down (3 minutes on a run, 4 on a walk): hold your zone 80% of the block and it earns 10% more. Set your own zones per sport if you know them. No heart rate? Speed zones you set per sport guide you and the coach's cues instead: on the web today, in the app with the next update (points still need a heart rate).",
+        body: "“Zone 2 · 112–128 bpm” from your Health profile, plus the pace or speed that should put you there, learned from your sessions. On steady days, zone blocks count down (3 minutes on a run, 4 on a walk): hold your zone 80% of the block and it earns 10% more. Set your own zones per sport if you know them. No heart rate? Speed zones you set per sport guide you and the coach's cues instead: on the web, and in the app since build 28 for testers (points still need a heart rate).",
       },
       {
         title: "Play on: phone or watch",
