@@ -64,6 +64,44 @@ export const ogClaimConfig = {
   csvUrl: "/og-drop/og-drop.csv",
   /** The snapshot block on v1. */
   snapshotBlock: 136764295,
+  /**
+   * Paid: the team pushed claim() for all 74 wallets and paid the gas (2026-10-16, 74 txs, monorepo
+   * docs/03-economy/og-drop/og-drop-paid.csv). Nobody has anything to claim; the page shows "sent" and each wallet's tx.
+   */
+  paid: true,
+  paidAt: "2026-10-16",
+  firstTx: "0xb4c27d16448be387a90121e653907a49d1f5fe3ce4dcaa3c75b5decc67e34ac3",
+  lastTx: "0x20e9ba55590151155436cd6e5d7731fe86cb63de4a20969ec5091a9a4e1aaf9d",
+  txCount: 74,
+  paidCsvUrl: "/og-drop/og-drop-paid.csv",
+};
+
+/**
+ * The second v2 drop: the free v1 holders (monorepo docs/03-economy/holders-drop/). They got v1 for free (launch
+ * airdrop / launchpad holder share) and never bought; they share 40 % of the creator wallet's remaining reserve, pro
+ * rata, through a second, unchanged VVakeOGClaim. The team pushes every claim and pays the gas: nothing to do.
+ * The list is public/holders-drop/holders-drop-claims.json, copied byte for byte from the monorepo.
+ */
+export const holdersDropConfig = {
+  /**
+   * "sending": the team is pushing the claims ("being sent"). Flip to "sent" once totalClaimed() == total on chain.
+   * The page also shows the live totalClaimed() either way.
+   */
+  status: "sending" as "sending" | "sent",
+  /** VVakeOGClaim (2nd) on Robinhood Chain Testnet. */
+  address: "0x60c256eB609cdC28af4e960DEEbB69F021EaA032",
+  deployTx: "0xf1cc4abb4e4cb852cfdc1fef517bca344cb82fb55ef890899308906f240f6c3b",
+  fundingTx: "0x2eac1eb1b427419407d1bd4c310e2506b2ea12383685a65d17d0c0a004542861",
+  root: "0x450557ef217d52c1bad64e1c557a58015ba995b422acd6c0ecec20bcfa31411d",
+  /** 61,940,487.697068869562145750 × 10^18 (40 % of the creator wallet's 154.85M). */
+  total: "61940487697068869562145750",
+  count: 3199,
+  /** Wallets under 1,000 VVAKE left out. */
+  dustWallets: 722,
+  /** What the creator wallet keeps for community events after funding (whole VVAKE). */
+  reserveLeft: 92_910_731,
+  listUrl: "/holders-drop/holders-drop-claims.json",
+  csvUrl: "/holders-drop/holders-drop.csv",
 };
 
 /** The retired v1 testnet token, shown as retired next to the v2 slot. */

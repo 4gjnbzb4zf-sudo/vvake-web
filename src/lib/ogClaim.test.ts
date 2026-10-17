@@ -13,7 +13,7 @@ import {
   verifyOgProof,
   type OgList,
 } from "./ogClaim";
-import { ogClaimConfig } from "./rewards-config";
+import { holdersDropConfig, ogClaimConfig } from "./rewards-config";
 
 const raw = JSON.parse(readFileSync(fileURLToPath(new URL("../../public/og-drop/og-drop-claims.json", import.meta.url)), "utf8"));
 const list = parseOgList(raw) as OgList;
@@ -93,5 +93,21 @@ describe("planOgClaim", () => {
     expect(isSafeOgClaimTx({ ...plan.tx, data: "0x095ea7b3" + plan.tx.data.slice(10) }, CONTRACT)).toBe(false);
     expect(isSafeOgClaimTx({ ...plan.tx, value: "0x1" }, CONTRACT)).toBe(false);
     expect(isSafeOgClaimTx(plan.tx, null)).toBe(false);
+  });
+});
+
+describe("the published drop 2 list (free v1 holders)", () => {
+  const holders = parseOgList(
+    JSON.parse(readFileSync(fileURLToPath(new URL("../../public/holders-drop/holders-drop-claims.json", import.meta.url)), "utf8")),
+  )!;
+  it("matches the pinned root and total, every proof verifies", () => {
+    expect(holders.count).toBe(holdersDropConfig.count);
+    expect(isPinnedList(holders, holdersDropConfig.root, holdersDropConfig.total)).toBe(true);
+  });
+  it("shares no wallet with drop 1, and every drop 1 wallet has its paid transaction", () => {
+    const og = new Set(Object.keys(parseOgList(raw)!.claims).map((a) => a.toLowerCase()));
+    expect(Object.keys(holders.claims).some((a) => og.has(a.toLowerCase()))).toBe(false);
+    const paid = JSON.parse(readFileSync(fileURLToPath(new URL("../../public/og-drop/og-drop-paid.json", import.meta.url)), "utf8"));
+    expect(new Set(Object.keys(paid).map((a) => a.toLowerCase()))).toEqual(og);
   });
 });

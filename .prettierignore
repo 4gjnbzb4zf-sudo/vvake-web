@@ -6,6 +6,8 @@ package-lock.json
 src/data/voice-commands.json
 # Copied byte for byte from the VVFit monorepo (docs/03-economy/og-drop/): the published OG list and its hash
 public/og-drop
+# Copied byte for byte from the VVFit monorepo (docs/03-economy/holders-drop/): the second drop's list
+public/holders-drop
 # MapLibre worker copied from node_modules (scripts/copy-maplibre.ts)
 public/maplibre
 # Exported from the VVFit monorepo (apps/mobile lib/mapStyles.ts onlineStyle)
