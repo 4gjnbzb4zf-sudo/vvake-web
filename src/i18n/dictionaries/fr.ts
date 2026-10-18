@@ -1266,7 +1266,7 @@ export const fr: Dictionary = {
       },
       {
         title: "Écouter sur : téléphone ou montre",
-        body: "Choisis où jouent Spotify, Apple Music ou un mix VVake : ton iPhone, ton Apple Watch ou une enceinte. Spotify endormi ? Un geste l'ouvre et revient aussitôt. Rien ne joue ? Ton dernier titre s'affiche, une touche le relance. Un mix VVake passe de la montre au téléphone au même morceau, à la même seconde.",
+        body: "Choisis où jouent Spotify, Apple Music ou un mix VVake : ton iPhone, ton Apple Watch ou une enceinte, et Spotify démarre là, jamais ailleurs. Spotify endormi ? Un geste l'ouvre et revient aussitôt. Rien ne joue ? Ton dernier titre s'affiche, une touche le relance. Un mix VVake passe de la montre au téléphone au même morceau, à la même seconde.",
       },
       {
         title: "Des cartes qui suivent",

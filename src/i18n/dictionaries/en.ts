@@ -1218,7 +1218,7 @@ export const en = {
       },
       {
         title: "Play on: phone or watch",
-        body: "Choose where Spotify, Apple Music or a VVake mix plays: your iPhone, your Apple Watch or a speaker. Spotify asleep? One tap opens it and comes straight back. Nothing playing? Your last song shows, one tap plays it. A VVake mix moves between watch and phone at the same track and second.",
+        body: "Choose where Spotify, Apple Music or a VVake mix plays: your iPhone, your Apple Watch or a speaker, and Spotify starts right there, never somewhere else. Spotify asleep? One tap opens it and comes straight back. Nothing playing? Your last song shows, one tap plays it. A VVake mix moves between watch and phone at the same track and second.",
       },
       {
         title: "Maps that keep up",
