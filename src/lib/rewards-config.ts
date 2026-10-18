@@ -87,7 +87,7 @@ export const holdersDropConfig = {
    * "sending": the team is pushing the claims ("being sent"). Flip to "sent" once totalClaimed() == total on chain.
    * The page also shows the live totalClaimed() either way.
    */
-  status: "sending" as "sending" | "sent",
+  status: "sent" as "sending" | "sent",
   /** VVakeOGClaim (2nd) on Robinhood Chain Testnet. */
   address: "0x60c256eB609cdC28af4e960DEEbB69F021EaA032",
   deployTx: "0xf1cc4abb4e4cb852cfdc1fef517bca344cb82fb55ef890899308906f240f6c3b",
