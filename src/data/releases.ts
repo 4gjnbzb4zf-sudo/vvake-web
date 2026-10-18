@@ -19,6 +19,46 @@ export interface Release {
 
 export const releases: Release[] = [
   {
+    version: "1.0.0 (29)",
+    date: "2026-10-18",
+    channel: "beta",
+    devices: ["iphone", "watch", "android", "wear"],
+    notes: {
+      en: {
+        improved: [
+          "Picking a device in Play on now starts the music there, not just moves it.",
+          "With nothing playing anywhere, the watch offers Play on this watch or On phone, instead of sending you to your phone.",
+          "Apple Watch: if Spotify isn't open on the watch, VVake asks once to open Spotify there, then starts the music by itself as soon as Spotify shows the watch.",
+          "Wear OS: picking this watch opens Spotify's watch app for you, then starts the music on the watch.",
+        ],
+        fixed: [
+          'Siri answers VVake commands right away instead of "Something went wrong": starting a workout, pausing, music and the coach all reply in under a second, and the app finishes the rest.',
+          'Say the app\'s name and a sport to start it: "Wake run", "Wake walk", or in French "Wake marche", "Wake course", "Wake démarre une course".',
+          'Siri finds your sport in English and in French whatever language your iPhone is set to (for example "marche" with Siri in French on an English iPhone).',
+          "When the coach takes longer than Siri waits, VVake says the answer itself instead of it being lost.",
+          "Spotify plays where you picked: choose your watch, your phone or a speaker in Play on, press Play, and the music starts there, never somewhere else.",
+          "If Spotify can't reach the device you picked, the watch says so and offers Try again instead of playing on another device.",
+        ],
+      },
+      fr: {
+        improved: [
+          "Choisir un appareil dans Écouter sur y lance maintenant la musique, au lieu de seulement l'y déplacer.",
+          "Quand rien ne joue nulle part, la montre propose Écouter sur cette montre ou Sur le téléphone, au lieu de vous envoyer vers votre téléphone.",
+          "Apple Watch : si Spotify n'est pas ouvert sur la montre, VVake demande une fois de l'y ouvrir, puis lance la musique tout seul dès que Spotify affiche la montre.",
+          "Wear OS : choisir cette montre ouvre l'app Spotify de la montre pour vous, puis lance la musique sur la montre.",
+        ],
+        fixed: [
+          "Siri répond tout de suite aux commandes VVake au lieu de « Un problème est survenu » : lancer une séance, la pause, la musique et le coach répondent en moins d'une seconde, et l'app termine le reste.",
+          "Dites le nom de l'app et un sport pour le lancer : « Wake marche », « Wake course », « Wake démarre une course », ou en anglais « Wake run ».",
+          "Siri trouve votre sport en français et en anglais quelle que soit la langue de l'iPhone (par exemple « marche » avec Siri en français sur un iPhone en anglais).",
+          "Quand le coach met plus de temps que Siri n'attend, VVake dit la réponse lui-même au lieu de la perdre.",
+          "Spotify joue là où vous l'avez choisi : choisissez votre montre, votre téléphone ou une enceinte dans Écouter sur, appuyez sur Lecture, et la musique démarre là, jamais ailleurs.",
+          "Si Spotify ne joint pas l'appareil choisi, la montre le dit et propose Réessayer au lieu de jouer sur un autre appareil.",
+        ],
+      },
+    },
+  },
+  {
     version: "1.0.0 (28)",
     date: "2026-10-17",
     channel: "beta",
