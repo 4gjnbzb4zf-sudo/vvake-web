@@ -19,6 +19,28 @@ export interface Release {
 
 export const releases: Release[] = [
   {
+    version: "1.0.0 (30)",
+    date: "2026-10-19",
+    channel: "beta",
+    devices: ["iphone", "watch", "android", "wear"],
+    notes: {
+      en: {
+        fixed: [
+          "Spotify just opened on your watch, nothing playing yet: VVake now shows the last song you played, and Play starts it on the watch (inside its playlist or album, or your Liked Songs). No more trip back to Spotify to press Play there first.",
+          "The same on the phone's player bar: with Spotify open but nothing loaded, the last song shows and Play starts it.",
+          "If Play still can't start the music, the watch now says why and offers Send Spotify report, so we can see exactly what Spotify answered (no names, devices or songs are sent).",
+        ],
+      },
+      fr: {
+        fixed: [
+          "Spotify vient d'être ouvert sur la montre et rien ne joue encore : VVake affiche maintenant le dernier morceau écouté, et Lecture le lance sur la montre (dans sa playlist ou son album, ou vos Titres likés). Plus besoin de repasser par Spotify pour appuyer sur Lecture.",
+          "Pareil dans le lecteur du téléphone : Spotify ouvert mais rien de chargé, le dernier morceau s'affiche et Lecture le lance.",
+          "Si Lecture n'arrive toujours pas à lancer la musique, la montre dit pourquoi et propose Envoyer un rapport Spotify, pour qu'on voie exactement ce que Spotify a répondu (sans nom, appareil ni morceau).",
+        ],
+      },
+    },
+  },
+  {
     version: "1.0.0 (29)",
     date: "2026-10-18",
     channel: "beta",
