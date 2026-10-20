@@ -19,6 +19,34 @@ export interface Release {
 
 export const releases: Release[] = [
   {
+    version: "1.0.0 (31)",
+    date: "2026-10-20",
+    channel: "beta",
+    devices: ["iphone", "android"],
+    notes: {
+      en: {
+        added: [
+          "Camera workout: prop your phone 2–3 m away and VVake counts your reps and holds from your pose, no watch or phone to wear.",
+          "It knows bodyweight moves, weights (dumbbell, barbell, kettlebell; you enter the load per set) and stretches, or recognises your move when you just start.",
+          "The coach voice gives form cues (depth, knees, back, elbows, lockout, left and right even) and follows your workout voice switch.",
+          "Sets, rest timer, routines and today's strength, core or mobility plan; your VVaker moves with you on screen.",
+          'Without a heart sensor it earns small points (at most 15 a session, 45 a week, with quick live checks like "raise your left arm"), never prizes; wear your watch and its session carries the heart points.',
+          "The video never leaves your phone and nothing is recorded: only the counts are saved with the session.",
+        ],
+      },
+      fr: {
+        added: [
+          "Séance caméra : posez votre téléphone à 2–3 m et VVake compte vos répétitions et vos maintiens à partir de votre posture, sans montre ni téléphone sur vous.",
+          "Elle connaît les mouvements au poids du corps, les charges (haltères, barre, kettlebell ; vous saisissez la charge à chaque série) et les étirements, ou reconnaît votre mouvement quand vous commencez.",
+          "La voix du coach corrige votre posture (profondeur, genoux, dos, coudes, verrouillage, équilibre gauche-droite) et suit votre réglage de voix pendant la séance.",
+          "Séries, minuteur de repos, routines et votre plan du jour en renfo, gainage ou mobilité ; votre VVaker bouge avec vous à l'écran.",
+          "Sans capteur cardiaque elle rapporte quelques points (15 au plus par séance, 45 par semaine, avec de petits contrôles en direct comme « levez le bras gauche »), jamais de prix ; avec votre montre, c'est sa séance qui porte les points cardio.",
+          "La vidéo ne quitte jamais votre téléphone et rien n'est enregistré : seuls les comptes sont gardés avec la séance.",
+        ],
+      },
+    },
+  },
+  {
     version: "1.0.0 (30)",
     date: "2026-10-19",
     channel: "beta",
