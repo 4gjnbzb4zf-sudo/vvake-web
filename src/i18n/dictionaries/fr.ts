@@ -384,7 +384,7 @@ export const fr: Dictionary = {
     cameraBadge: "Dans la prochaine version bêta",
     cameraTitle: "Séance caméra (téléphone)",
     cameraBody:
-      "Pose ton téléphone à 2 ou 3 m : VVake compte tes répétitions et tes maintiens, au poids du corps comme avec des charges (tu saisis la charge), te donne des conseils de posture à voix haute, et ton VVaker bouge avec toi. La vidéo ne quitte jamais ton téléphone et rien n'est enregistré. Sans capteur cardio, de petits points plafonnés ; avec ta montre ou une ceinture cardio, les points cardio habituels. Jamais de prix.",
+      "Pose ton téléphone à 2 ou 3 m : VVake compte tes répétitions et tes maintiens, au poids du corps comme avec des charges (tu saisis la charge), te donne des conseils de posture à voix haute, et ton VVaker bouge avec toi. La vidéo ne quitte jamais ton téléphone et rien n'est enregistré. Sans capteur cardio, de petits points (15 au plus par jour) ; porte ta montre et la montre et la caméra font une seule séance avec les points cardio habituels, ou jumelle une ceinture cardio Bluetooth au téléphone pour des points cardio aussi. Jamais de prix venant de la caméra.",
   },
   challenges: {
     kicker: "Défis",
@@ -2705,6 +2705,31 @@ export const fr: Dictionary = {
         ],
       },
       {
+        id: "strap",
+        h: "Ceinture cardio (téléphone)",
+        p: [
+          "Dans les applications iPhone et Android, vous pouvez jumeler une ceinture ou un brassard cardio Bluetooth (tout capteur avec le service standard de fréquence cardiaque), pour les séances au téléphone et les séances caméra.",
+        ],
+        list: [
+          {
+            t: "Le Bluetooth sert seulement à trouver et lire votre ceinture.",
+            d: "L'application demande l'accès au Bluetooth la première fois que vous jumelez un capteur. Elle ne cherche que des capteurs cardio et n'utilise jamais le Bluetooth pour savoir où vous êtes.",
+          },
+          {
+            t: "Ce que l'application lit.",
+            d: "Votre fréquence cardiaque, les intervalles battement à battement quand la ceinture les envoie, si la ceinture touche la peau, et le niveau de sa batterie. Les intervalles battement à battement et la batterie restent sur le téléphone.",
+          },
+          {
+            t: "Ce que nous recevons.",
+            d: "La fréquence cardiaque toutes les 10 secondes avec la séance, sa moyenne, son maximum et le temps passé dans chaque zone, comme pour une séance de la montre. Jamais l'adresse Bluetooth du capteur.",
+          },
+          {
+            t: "Retenue sur le téléphone, oubliez-la en tout temps.",
+            d: "Le téléphone retient la ceinture jumelée (son identifiant et son nom) pour s'y reconnecter à la séance suivante. Oubliez-la dans Réglages > Ceinture cardio, ou retirez l'accès au Bluetooth dans les réglages du téléphone ; le reste de VVake continue de fonctionner.",
+          },
+        ],
+      },
+      {
         id: "calendar",
         h: "Calendrier",
         p: [],
@@ -3835,7 +3860,7 @@ export const fr: Dictionary = {
         items: [
           "On choisit les testeurs à la main dans la liste d'attente avant toute ouverture au public",
           "La relance de $VVAKE v2 sur vibe/vibe, en testnet (aucune valeur), avec la réclamation unique pour les wallets qui ont acheté l'ancien token",
-          "Les séances caméra sur iPhone et téléphone Android (répétitions, maintiens et conseils de posture par la caméra, sur le téléphone), dans la prochaine version bêta",
+          "Les séances caméra sur iPhone et téléphone Android (répétitions, maintiens et conseils de posture par la caméra, sur le téléphone ; avec ta montre, une seule séance avec les points cardio), et les ceintures cardio Bluetooth jumelées au téléphone, dans la prochaine version bêta",
         ],
       },
       {

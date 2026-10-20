@@ -385,7 +385,7 @@ export const en = {
     cameraBadge: "Coming in the next beta build",
     cameraTitle: "Camera workout (phone)",
     cameraBody:
-      "Prop your phone 2 to 3 m away: VVake counts your reps and holds for bodyweight and weight training (you enter the load), gives form cues by voice, and your VVaker moves with you. The video never leaves your phone and nothing is recorded. Without a heart sensor it earns small, capped points; with your watch or a heart-rate strap, the normal heart points. Never prizes.",
+      "Prop your phone 2 to 3 m away: VVake counts your reps and holds for bodyweight and weight training (you enter the load), gives form cues by voice, and your VVaker moves with you. The video never leaves your phone and nothing is recorded. Without a heart sensor it earns small points (at most 15 a day); wear your watch and the watch and the camera make one session with the normal heart points, or pair a Bluetooth heart-rate strap with the phone for heart points too. Never prizes from the camera.",
   },
   challenges: {
     kicker: "Challenges",
@@ -2546,6 +2546,31 @@ export const en = {
         ],
       },
       {
+        id: "strap",
+        h: "Heart-rate strap (phone)",
+        p: [
+          "On the iPhone and Android phone apps you can pair a Bluetooth heart-rate strap or arm band (any sensor with the standard Heart Rate service), for phone workouts and camera workouts.",
+        ],
+        list: [
+          {
+            t: "Bluetooth is used only to find and read your strap.",
+            d: "The app asks for Bluetooth permission the first time you pair a sensor. It looks only for heart-rate sensors and never uses Bluetooth to work out where you are.",
+          },
+          {
+            t: "What the app reads.",
+            d: "Your heart rate, the beat-to-beat intervals when the strap sends them, whether the strap touches your skin, and its battery level. The beat-to-beat intervals and the battery stay on the phone.",
+          },
+          {
+            t: "What we receive.",
+            d: "The heart rate every 10 seconds with the workout, its average, maximum and time in each zone, like a workout from the watch. Never the sensor's Bluetooth address.",
+          },
+          {
+            t: "Remembered on the phone, forget it any time.",
+            d: "The phone remembers the strap you paired (its id and name) so it reconnects at the next workout. Forget it in Settings > Heart-rate strap, or turn Bluetooth permission off in your phone's settings; the rest of VVake keeps working.",
+          },
+        ],
+      },
+      {
         id: "calendar",
         h: "Calendar",
         p: [],
@@ -3641,7 +3666,7 @@ export const en = {
         items: [
           "We hand-pick testers from the waitlist before anything goes public",
           "The $VVAKE v2 relaunch on vibe/vibe, on testnet (no value), with the one-time claim for wallets that bought the old token",
-          "Camera workouts on the iPhone and Android phone (reps, holds and form cues from the camera, on the phone), in the next beta build",
+          "Camera workouts on the iPhone and Android phone (reps, holds and form cues from the camera, on the phone; with your watch, one session with heart points), and Bluetooth heart-rate straps paired with the phone, in the next beta build",
         ],
       },
       {
