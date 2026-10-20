@@ -382,6 +382,10 @@ export const en = {
     customTitle: "Not in the list? Add your own sport",
     customBody:
       "Name it, pick an icon, and choose how it's tracked: heart rate only, or GPS tracking for distance too. Points always come from your heart rate, prizes keep the same rules, and your sport works by voice.",
+    cameraBadge: "Coming in the next beta build",
+    cameraTitle: "Camera workout (phone)",
+    cameraBody:
+      "Prop your phone 2 to 3 m away: VVake counts your reps and holds for bodyweight and weight training (you enter the load), gives form cues by voice, and your VVaker moves with you. The video never leaves your phone and nothing is recorded. Without a heart sensor it earns small, capped points; with your watch or a heart-rate strap, the normal heart points. Never prizes.",
   },
   challenges: {
     kicker: "Challenges",
@@ -2317,7 +2321,7 @@ export const en = {
     title: "Privacy policy",
     description:
       "What the VVake iPhone and Apple Watch apps and vvake.com collect, why, who else sees it, how long we keep it and your rights.",
-    updated: "Last updated: 2026-10-17",
+    updated: "Last updated: 2026-10-20",
     draft: "Draft for the TestFlight preview. This policy will be reviewed by a lawyer before the public launch.",
     intro: [
       "VVake (also called VVake Fit) is a fitness coaching app for iPhone and Apple Watch, with this website, vvake.com. This policy explains in plain words what we collect, why, who else sees it, how long we keep it and what you can do about it. It covers the apps (TestFlight previews included), the VVake API they talk to, the desk companion for Mac, the VVake plugin for Claude Code and this website, including vvake.com/rewards.",
@@ -2360,7 +2364,7 @@ export const en = {
           },
           {
             t: "Your sessions.",
-            d: "For each workout: the sport, start and end time, active time, distance, average and maximum heart rate, time in each heart-rate zone, steps, cadence, calories, effort score, points and streak, and a sample every 10 seconds of distance, heart rate and steps. Never GPS coordinates we can read (your route backup is end-to-end encrypted, see Location; a route race adds only when you started and finished the route and the metres covered on it). Why: your journal, stats, streak, plan, races against your own past sessions, challenges and City Clash.",
+            d: "For each workout: the sport, start and end time, active time, distance, average and maximum heart rate, time in each heart-rate zone, steps, cadence, calories, effort score, points and streak, and a sample every 10 seconds of distance, heart rate and steps. For a camera workout, the counts of the session (moves, sets, reps, the load you typed; see Camera workouts), never an image. Never GPS coordinates we can read (your route backup is end-to-end encrypted, see Location; a route race adds only when you started and finished the route and the metres covered on it). Why: your journal, stats, streak, plan, races against your own past sessions, challenges and City Clash.",
           },
           {
             t: "Live coach workouts (VVake Plus).",
@@ -2511,6 +2515,35 @@ export const en = {
           "Coach replies are spoken with a synthetic voice made by ElevenLabs, or by your device's own voice if you choose it. The coach is an AI, not a person, and not a doctor.",
         ],
         list: [],
+      },
+      {
+        id: "camera",
+        h: "Camera workouts (phone)",
+        p: [
+          "On the iPhone and Android phone apps you can do a camera workout: you prop the phone 2 to 3 m away and VVake counts your reps and holds and gives form cues by voice.",
+        ],
+        list: [
+          {
+            t: "The camera is used only while a camera workout is open.",
+            d: "The app asks for camera permission the first time; the camera turns off when you leave the workout.",
+          },
+          {
+            t: "Your pose is computed on the phone.",
+            d: "Apple Vision (iPhone) or Google's MediaPipe Pose Landmarker running inside the app (Android) finds the position of your joints, on the device. No image goes to us or to anyone else.",
+          },
+          {
+            t: "Video and images are never recorded, stored or sent.",
+            d: "Nothing is saved to your photos or files, and no frame leaves the phone.",
+          },
+          {
+            t: "Only the counts are saved.",
+            d: 'With the session we keep the moves, sets and reps, the load you typed, hold times, range-of-motion and tempo summaries, the ids of the form cues you got and the results of the quick checks ("raise your left arm now") that show someone was really there. They are saved with the session and synced to your account like any session, and you can delete that session at any time.',
+          },
+          {
+            t: "You decide.",
+            d: "You can turn camera permission off at any time in your phone's settings (iPhone: Settings > Privacy & Security > Camera; Android: Settings > Apps > VVake > Permissions); the rest of VVake keeps working.",
+          },
+        ],
       },
       {
         id: "calendar",
@@ -3608,6 +3641,7 @@ export const en = {
         items: [
           "We hand-pick testers from the waitlist before anything goes public",
           "The $VVAKE v2 relaunch on vibe/vibe, on testnet (no value), with the one-time claim for wallets that bought the old token",
+          "Camera workouts on the iPhone and Android phone (reps, holds and form cues from the camera, on the phone), in the next beta build",
         ],
       },
       {

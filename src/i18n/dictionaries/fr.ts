@@ -381,6 +381,10 @@ export const fr: Dictionary = {
     customTitle: "Pas dans la liste ? Ajoute ton sport",
     customBody:
       "Donne-lui un nom, choisis une icône et la façon de le suivre : fréquence cardiaque seule, ou suivi GPS pour la distance aussi. Les points viennent toujours de ton cœur, les prix gardent les mêmes règles, et ton sport marche à la voix.",
+    cameraBadge: "Dans la prochaine version bêta",
+    cameraTitle: "Séance caméra (téléphone)",
+    cameraBody:
+      "Pose ton téléphone à 2 ou 3 m : VVake compte tes répétitions et tes maintiens, au poids du corps comme avec des charges (tu saisis la charge), te donne des conseils de posture à voix haute, et ton VVaker bouge avec toi. La vidéo ne quitte jamais ton téléphone et rien n'est enregistré. Sans capteur cardio, de petits points plafonnés ; avec ta montre ou une ceinture cardio, les points cardio habituels. Jamais de prix.",
   },
   challenges: {
     kicker: "Défis",
@@ -2476,7 +2480,7 @@ export const fr: Dictionary = {
     title: "Politique de confidentialité",
     description:
       "Ce que les applications VVake pour iPhone et Apple Watch et le site vvake.com recueillent, pourquoi, qui y a accès, combien de temps nous le gardons et vos droits.",
-    updated: "Dernière mise à jour : 2026-10-17",
+    updated: "Dernière mise à jour : 2026-10-20",
     draft: "Version provisoire pour l'aperçu TestFlight. Cette politique sera revue par un avocat avant le lancement public.",
     intro: [
       "VVake (aussi appelée VVake Fit) est une application d'entraînement pour iPhone et Apple Watch, accompagnée du site vvake.com. Cette politique explique simplement quels renseignements nous recueillons, pourquoi, qui d'autre y a accès, combien de temps nous les gardons et ce que vous pouvez faire. Elle couvre les applications (y compris les versions d'essai TestFlight), l'API VVake avec laquelle elles communiquent, le compagnon de bureau pour Mac, le module VVake pour Claude Code et ce site, y compris vvake.com/rewards.",
@@ -2519,7 +2523,7 @@ export const fr: Dictionary = {
           },
           {
             t: "Vos séances.",
-            d: "Pour chaque entraînement : le sport, l'heure de début et de fin, le temps actif, la distance, la fréquence cardiaque moyenne et maximale, le temps passé dans chaque zone cardiaque, les pas, la cadence, les calories, le score d'effort, les points et la série, et un relevé aux 10 secondes de la distance, de la fréquence cardiaque et des pas. Jamais de coordonnées GPS lisibles par nous (la sauvegarde de votre parcours est chiffrée de bout en bout, voir Localisation ; une course sur parcours ajoute seulement quand vous avez commencé et fini le parcours et les mètres couverts dessus). Pourquoi : votre journal, vos statistiques, votre série, votre plan, vos courses contre vos séances passées, les défis et City Clash.",
+            d: "Pour chaque entraînement : le sport, l'heure de début et de fin, le temps actif, la distance, la fréquence cardiaque moyenne et maximale, le temps passé dans chaque zone cardiaque, les pas, la cadence, les calories, le score d'effort, les points et la série, et un relevé aux 10 secondes de la distance, de la fréquence cardiaque et des pas. Pour une séance caméra, les comptes de la séance (mouvements, séries, répétitions, la charge saisie ; voir Séances caméra), jamais une image. Jamais de coordonnées GPS lisibles par nous (la sauvegarde de votre parcours est chiffrée de bout en bout, voir Localisation ; une course sur parcours ajoute seulement quand vous avez commencé et fini le parcours et les mètres couverts dessus). Pourquoi : votre journal, vos statistiques, votre série, votre plan, vos courses contre vos séances passées, les défis et City Clash.",
           },
           {
             t: "Séances avec le coach en direct (VVake Plus).",
@@ -2670,6 +2674,35 @@ export const fr: Dictionary = {
           "Les réponses du coach sont lues par une voix de synthèse créée par ElevenLabs, ou par la voix de votre appareil si vous la choisissez. Le coach est une IA, pas une personne, et pas un médecin.",
         ],
         list: [],
+      },
+      {
+        id: "camera",
+        h: "Séances caméra (téléphone)",
+        p: [
+          "Dans les applications iPhone et Android, vous pouvez faire une séance caméra : vous posez le téléphone à 2 ou 3 m et VVake compte vos répétitions et vos maintiens, et vous donne des conseils de posture à voix haute.",
+        ],
+        list: [
+          {
+            t: "La caméra n'est utilisée que pendant une séance caméra ouverte.",
+            d: "L'application demande l'accès à la caméra la première fois ; la caméra s'éteint quand vous quittez la séance.",
+          },
+          {
+            t: "Votre posture est calculée sur le téléphone.",
+            d: "Apple Vision (iPhone) ou MediaPipe Pose Landmarker de Google, qui tourne dans l'application (Android), repère la position de vos articulations, sur l'appareil. Aucune image ne nous est envoyée, ni à personne d'autre.",
+          },
+          {
+            t: "La vidéo et les images ne sont jamais enregistrées, conservées ni envoyées.",
+            d: "Rien n'est enregistré dans vos photos ou vos fichiers, et aucune image ne quitte le téléphone.",
+          },
+          {
+            t: "Seuls les comptes sont gardés.",
+            d: "Avec la séance, nous gardons les mouvements, les séries et les répétitions, la charge que vous avez saisie, les temps de maintien, des résumés d'amplitude et de tempo, les identifiants des conseils de posture reçus et les résultats des petites vérifications (« levez le bras gauche ») qui montrent que quelqu'un était bien là. Ils sont gardés avec la séance et synchronisés avec votre compte comme toute séance, et vous pouvez supprimer cette séance en tout temps.",
+          },
+          {
+            t: "Vous décidez.",
+            d: "Vous pouvez retirer l'accès à la caméra en tout temps dans les réglages du téléphone (iPhone : Réglages > Confidentialité et sécurité > Appareil photo ; Android : Paramètres > Applications > VVake > Autorisations) ; le reste de VVake continue de fonctionner.",
+          },
+        ],
       },
       {
         id: "calendar",
@@ -3802,6 +3835,7 @@ export const fr: Dictionary = {
         items: [
           "On choisit les testeurs à la main dans la liste d'attente avant toute ouverture au public",
           "La relance de $VVAKE v2 sur vibe/vibe, en testnet (aucune valeur), avec la réclamation unique pour les wallets qui ont acheté l'ancien token",
+          "Les séances caméra sur iPhone et téléphone Android (répétitions, maintiens et conseils de posture par la caméra, sur le téléphone), dans la prochaine version bêta",
         ],
       },
       {
