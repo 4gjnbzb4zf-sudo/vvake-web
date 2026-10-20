@@ -19,6 +19,42 @@ export interface Release {
 
 export const releases: Release[] = [
   {
+    version: "1.0.0 (32)",
+    date: "2026-10-20",
+    channel: "beta",
+    devices: ["iphone", "watch", "android", "wear"],
+    notes: {
+      en: {
+        added: [
+          "Heart-rate strap on the phone: pair any Bluetooth heart-rate strap or arm band in You › Heart-rate strap (live bpm, battery, forget). The phone reconnects to it at your next workout.",
+          "With a strap, phone workouts and camera workouts record your heart rate like the watch does, and earn heart points (never prizes).",
+          'Camera workout + watch = one session: turn on "Wear your watch for heart rate" and your watch starts a linked workout. It shows "Linked to camera workout", your heart rate and the phone\'s rep count, and it ends or is discarded with the phone.',
+        ],
+        improved: [
+          "A camera workout with your watch is one session in your journal: the watch's heart rate and calories with the camera's sets, reps and loads, and the full heart points.",
+          "Camera points without a heart sensor: 1 a counted minute from 5 minutes, at most 15 a day (no session or weekly limit any more).",
+        ],
+        fixed: [
+          "A camera workout and the watch session recorded at the same time could count twice, depending on which one synced first. They now count once, in whatever order they arrive.",
+        ],
+      },
+      fr: {
+        added: [
+          "Ceinture cardio sur le téléphone : jumelez une ceinture ou un brassard cardio Bluetooth dans Vous › Ceinture cardio (bpm en direct, batterie, oublier). Le téléphone s'y reconnecte à la séance suivante.",
+          "Avec une ceinture, les séances au téléphone et les séances caméra enregistrent votre fréquence cardiaque comme la montre, et rapportent des points cardio (jamais de prix).",
+          "Séance caméra + montre = une seule séance : activez « Porte ta montre pour le cardio » et la montre lance une séance liée. Elle affiche « Lié à l'entraînement caméra », votre fréquence cardiaque et le compte de répétitions du téléphone, et se termine ou s'annule avec le téléphone.",
+        ],
+        improved: [
+          "Une séance caméra avec votre montre est une seule séance dans votre journal : la fréquence cardiaque et les calories de la montre avec les séries, répétitions et charges de la caméra, et les points cardio complets.",
+          "Points caméra sans capteur cardio : 1 par minute comptée à partir de 5 minutes, 15 au plus par jour (plus de limite par séance ni par semaine).",
+        ],
+        fixed: [
+          "Une séance caméra et la séance de la montre enregistrées en même temps pouvaient compter deux fois, selon celle qui se synchronisait en premier. Elles comptent maintenant une seule fois, dans n'importe quel ordre.",
+        ],
+      },
+    },
+  },
+  {
     version: "1.0.0 (31)",
     date: "2026-10-20",
     channel: "beta",

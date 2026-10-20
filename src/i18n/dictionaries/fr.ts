@@ -381,7 +381,7 @@ export const fr: Dictionary = {
     customTitle: "Pas dans la liste ? Ajoute ton sport",
     customBody:
       "Donne-lui un nom, choisis une icône et la façon de le suivre : fréquence cardiaque seule, ou suivi GPS pour la distance aussi. Les points viennent toujours de ton cœur, les prix gardent les mêmes règles, et ton sport marche à la voix.",
-    cameraBadge: "Dans la bêta maintenant (version 31, testeurs)",
+    cameraBadge: "Dans la bêta maintenant (version 32, testeurs)",
     cameraTitle: "Séance caméra (téléphone)",
     cameraBody:
       "Pose ton téléphone à 2 ou 3 m : VVake compte tes répétitions et tes maintiens, au poids du corps comme avec des charges (tu saisis la charge), te donne des conseils de posture à voix haute, et ton VVaker bouge avec toi. La vidéo ne quitte jamais ton téléphone et rien n'est enregistré. Sans capteur cardio, de petits points (15 au plus par jour) ; porte ta montre et la montre et la caméra font une seule séance avec les points cardio habituels, ou jumelle une ceinture cardio Bluetooth au téléphone pour des points cardio aussi. Jamais de prix venant de la caméra.",
@@ -3861,7 +3861,7 @@ export const fr: Dictionary = {
           "On choisit les testeurs à la main dans la liste d'attente avant toute ouverture au public",
           "La relance de $VVAKE v2 sur vibe/vibe, en testnet (aucune valeur), avec la réclamation unique pour les wallets qui ont acheté l'ancien token",
           "Les séances caméra sur iPhone et téléphone Android (répétitions, maintiens et conseils de posture par la caméra, sur le téléphone), dans la bêta pour les testeurs depuis la version 31",
-          "Les séances caméra avec ta montre en une seule séance avec les points cardio, et les ceintures cardio Bluetooth jumelées au téléphone, dans la prochaine version bêta",
+          "Les séances caméra avec ta montre en une seule séance avec les points cardio, et les ceintures cardio Bluetooth jumelées au téléphone, dans la bêta pour les testeurs depuis la version 32",
         ],
       },
       {
