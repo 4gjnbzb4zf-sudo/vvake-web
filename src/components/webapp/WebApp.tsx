@@ -124,7 +124,11 @@ export function WebApp({ lang, t, apiUrl, legacyTour }: { lang: Locale; t: WebAp
 
 /** The page's frame: phone width, centred on a computer, safe areas on a phone. */
 function Frame({ children }: { children: ReactNode }) {
-  return <div className="mx-auto min-h-dvh w-full max-w-xl px-4 pt-[max(env(safe-area-inset-top),1rem)] pb-40">{children}</div>;
+  return (
+    <div className="mx-auto min-h-dvh w-full max-w-xl pt-[max(env(safe-area-inset-top),1rem)] pr-[max(env(safe-area-inset-right),1rem)] pb-40 pl-[max(env(safe-area-inset-left),1rem)]">
+      {children}
+    </div>
+  );
 }
 
 const TAB_ICONS: Record<(typeof TABS)[number], string> = { today: "☀", plan: "▦", crew: "⚑", coach: "◉", you: "●" };
@@ -168,7 +172,7 @@ function Shell() {
       {!fullScreen && (
         <nav
           aria-label="VVake"
-          className="fixed inset-x-0 bottom-0 z-40 border-t border-line bg-night-2/95 pb-[env(safe-area-inset-bottom)] backdrop-blur"
+          className="fixed inset-x-0 bottom-0 z-40 border-t border-line bg-night-2/95 pr-[env(safe-area-inset-right)] pb-[env(safe-area-inset-bottom)] pl-[env(safe-area-inset-left)] backdrop-blur"
         >
           <ul className="mx-auto flex max-w-xl">
             {TABS.map((k) => (

@@ -29,7 +29,15 @@ import { demoFrameAt, demoLoop, moveTip, targetText, type DemoLoop } from "@/lib
 import { applyLoads, flowLine, HandsFreeWorkout, manualSetMs, weightedMoves, type FlowEvent } from "@/lib/webapp/camera/cameraFlow";
 import { cameraTotals, cameraVolumeKg, type CameraSummary } from "@/lib/webapp/camera/cameraPoints";
 import { CameraHeart, clockText, heartSourceLabel, heartZoneLabel, holdText, type CameraHeartStats } from "@/lib/webapp/camera/cameraHeart";
-import { bigNumberFallback, bigNumberPx, hasStrapHeart, zoneBars, zoneTone } from "@/lib/webapp/camera/webHeart";
+import {
+  bigNumberFallback,
+  bigNumberPx,
+  hasStrapHeart,
+  middleFitPx,
+  shortScreenCap,
+  zoneBars,
+  zoneTone,
+} from "@/lib/webapp/camera/webHeart";
 import { seen, type BodyArea, type Framing, type FramingTip, type Joint, type PoseFrame } from "@/lib/webapp/camera/cameraPose";
 import { CAMERA_ROUTINES, routineForPlan, type CameraRoutine } from "@/lib/webapp/camera/cameraSession";
 import { createPoseDetector, type PoseDetector } from "@/lib/webapp/camera/landmarker";
@@ -532,7 +540,7 @@ function Setup({
   const ready = cam.state === "ready" && cam.running && cam.model === "ready";
 
   return (
-    <div className="mx-auto w-full max-w-xl space-y-4 px-4 pt-[max(env(safe-area-inset-top),1rem)] pb-16">
+    <div className="mx-auto w-full max-w-xl space-y-4 pt-[max(env(safe-area-inset-top),1rem)] pr-[max(env(safe-area-inset-right),1rem)] pb-16 pl-[max(env(safe-area-inset-left),1rem)]">
       <button type="button" className="h-11 text-sm text-muted" onClick={() => go({ name: "workout" })}>
         ‹ {t.common.back}
       </button>
@@ -836,7 +844,7 @@ function MovePicker({ onClose, onPick }: { onClose: () => void; onPick: (id: str
   }, [onClose]);
   return (
     <div role="dialog" aria-modal="true" aria-label={c.pickTitle} className="fixed inset-0 z-[60] overflow-y-auto bg-night">
-      <div className="mx-auto w-full max-w-xl space-y-3 px-4 pt-[max(env(safe-area-inset-top),1rem)] pb-16">
+      <div className="mx-auto w-full max-w-xl space-y-3 pt-[max(env(safe-area-inset-top),1rem)] pr-[max(env(safe-area-inset-right),1rem)] pb-16 pl-[max(env(safe-area-inset-left),1rem)]">
         <div className="flex items-center justify-between">
           <Kicker tone="volt">{c.pickTitle}</Kicker>
           <button type="button" className="h-11 px-2 text-sm text-muted" onClick={onClose}>
@@ -1147,6 +1155,18 @@ function Live({
   const move = set?.move ?? null;
   const phase = flow.phase;
   const target = flow.target;
+  const middle = useRef<HTMLDivElement>(null);
+  const [middleH, setMiddleH] = useState(0);
+  const middleShown = phase !== "demo";
+  useEffect(() => {
+    const el = middle.current;
+    if (!el) return;
+    const measure = () => setMiddleH(el.clientHeight);
+    measure();
+    const ro = new ResizeObserver(measure);
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, [middleShown]);
   const targetDef = target ? (cameraMove(target.move) ?? null) : null;
   const sessionS = Math.floor(e.sessionS(now));
   const restLeft = phase === "rest" ? flow.phaseUntilMs - now : 0;
@@ -1163,6 +1183,8 @@ function Live({
   const showHeart = heartSignal !== "none" || sensorState === "connected";
   const heartLineShown = heartLine && phase === "rest" && now - heartLine.at < 8000 ? heartLine.text : null;
   const demoLoopNo = Math.min(2, 1 + Math.floor((now - flow.phaseStartMs) / (flow.demo?.loopMs ?? 3000)));
+  // The big number also fits the middle's height (between the controls and the heart tile), with room for its lines.
+  const fit = (reserved: number) => middleFitPx(middleH, reserved);
 
   if (nothing)
     return (
@@ -1178,7 +1200,7 @@ function Live({
       <Preview cam={cam} frame={frame} outlineVisible={outlineVisible && phase !== "demo"} className="min-h-0 flex-1">
         {/* The move's demo, full screen, played twice: watch, then it's your turn. */}
         {phase === "demo" && targetDef && (
-          <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 bg-night px-4 pt-16 pb-6 text-center">
+          <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 bg-night px-4 pt-[calc(max(env(safe-area-inset-top),0.75rem)+4rem)] pb-6 text-center">
             <p className="text-sm font-semibold tracking-widest text-sky-fg uppercase">{fmt(c.watch, { n: demoLoopNo })}</p>
             <DemoFigure loop={flow.demo} startedAt={flow.phaseStartMs} className="h-[42vh] max-h-[460px] w-full max-w-md" />
             <p className="font-display text-4xl leading-tight font-bold text-white sm:text-6xl">{targetDef.name[lang]}</p>
@@ -1188,106 +1210,139 @@ function Live({
           </div>
         )}
 
-        {/* Top: the controls, the clock, the strap's heart rate. */}
-        <div className="absolute inset-x-0 top-0 space-y-2 p-3 pt-[max(env(safe-area-inset-top),0.75rem)]">
-          <div className="flex flex-wrap items-center gap-2">
-            <TopBtn onClick={() => setConfirmEnd(true)}>■ {c.end}</TopBtn>
-            <TopBtn onClick={togglePause}>{paused ? `▶ ${c.resume}` : `❚❚ ${c.pause}`}</TopBtn>
-            <TopBtn onClick={() => setOutlineOn(!outlineOn)} pressed={outlineOn}>
-              {c.outline}
-            </TopBtn>
-            {cam.cameras > 1 && <TopBtn onClick={cam.flip}>⟲ {c.switchCamera}</TopBtn>}
-            <span className="flex-1" />
-            <span className="rounded-full bg-black/60 px-3 py-1 font-display text-lg font-semibold whitespace-nowrap text-white tabular-nums">
-              {clockText(sessionS * 1000)}
-            </span>
+        {/* The HUD in one column, so nothing overlaps at 320 px wide or on a short screen: the controls at the top
+            (clear of the notch / Dynamic Island), the middle taking what's left, the heart tile and the next move's
+            preview in the bottom row. */}
+        <div className="pointer-events-none absolute inset-0 flex flex-col pr-[env(safe-area-inset-right)] pl-[env(safe-area-inset-left)]">
+          {/* Top: the controls, the clock, the strap's heart rate. */}
+          <div className="pointer-events-auto shrink-0 space-y-2 p-3 pt-[max(env(safe-area-inset-top),0.75rem)]">
+            <div className="flex flex-wrap items-center gap-2">
+              <TopBtn onClick={() => setConfirmEnd(true)}>■ {c.end}</TopBtn>
+              <TopBtn onClick={togglePause}>{paused ? `▶ ${c.resume}` : `❚❚ ${c.pause}`}</TopBtn>
+              {/* Not during the demo (no outline there): one row of controls at 320 px, clear of the demo's lines. */}
+              {phase !== "demo" && (
+                <TopBtn onClick={() => setOutlineOn(!outlineOn)} pressed={outlineOn}>
+                  {c.outline}
+                </TopBtn>
+              )}
+              {cam.cameras > 1 && phase !== "demo" && <TopBtn onClick={cam.flip}>⟲ {c.switchCamera}</TopBtn>}
+              <span className="flex-1" />
+              <span className="rounded-full bg-black/60 px-3 py-1 font-display text-lg font-semibold whitespace-nowrap text-white tabular-nums">
+                {clockText(sessionS * 1000)}
+              </span>
+            </div>
+            {framingNow.framing !== "ok" && phase !== "demo" ? (
+              <FramingTips shown={framingNow} compact={phase === "set"} lang={lang} />
+            ) : null}
+            {paused && <p className="rounded-xl bg-butter/90 px-3 py-2 text-center font-semibold text-ink">{c.paused}</p>}
+            {cam.slow && <p className="rounded-xl bg-black/70 px-3 py-1 text-center text-xs text-white">{c.slow}</p>}
           </div>
-          {framingNow.framing !== "ok" && phase !== "demo" ? (
-            <FramingTips shown={framingNow} compact={phase === "set"} lang={lang} />
-          ) : null}
-          {paused && <p className="rounded-xl bg-butter/90 px-3 py-2 text-center font-semibold text-ink">{c.paused}</p>}
-          {cam.slow && <p className="rounded-xl bg-black/70 px-3 py-1 text-center text-xs text-white">{c.slow}</p>}
-        </div>
 
-        {/* The middle: big enough to read from 2–3 m. */}
-        {phase !== "demo" && (
-          <div className="pointer-events-none absolute inset-x-0 top-[22%] flex flex-col items-center px-3 text-center [text-shadow:0_2px_8px_#000]">
-            {phase === "countdown" && (
-              <>
-                <p className="font-display text-4xl font-bold text-white sm:text-5xl">{targetDef ? targetDef.name[lang] : ""}</p>
-                <BigDigits text={String(Math.max(1, 3 - Math.floor((now - flow.phaseStartMs) / 1000)))} small={160} large={224} />
-                <p className="text-2xl font-semibold text-white">{targetText(target, targetDef, lang)}</p>
-              </>
-            )}
-            {phase === "set" && (
-              <>
-                <p className="font-display text-4xl font-bold text-white sm:text-5xl">{move ? move.name[lang] : c.detecting}</p>
-                <BigDigits
-                  text={
-                    move?.judge === "manual"
-                      ? clockText(Math.max(0, manualLeft))
-                      : move?.kind === "hold"
-                        ? holdText(set?.holdS ?? 0)
-                        : String(set?.reps ?? 0)
-                  }
-                  small={144}
-                  large={192}
+          {/* The middle: big enough to read from 2–3 m. */}
+          {phase !== "demo" && (
+            <div
+              ref={middle}
+              className="flex min-h-0 flex-1 flex-col items-center justify-center-safe overflow-hidden px-3 text-center [text-shadow:0_2px_8px_#000]"
+            >
+              {phase === "countdown" && (
+                <>
+                  <p className="font-display text-4xl font-bold text-white sm:text-5xl">{targetDef ? targetDef.name[lang] : ""}</p>
+                  <BigDigits
+                    text={String(Math.max(1, 3 - Math.floor((now - flow.phaseStartMs) / 1000)))}
+                    small={160}
+                    large={224}
+                    fit={fit(90)}
+                  />
+                  <p className="text-2xl font-semibold text-white">{targetText(target, targetDef, lang)}</p>
+                </>
+              )}
+              {phase === "set" && (
+                <>
+                  <p className="font-display text-4xl font-bold text-white sm:text-5xl">{move ? move.name[lang] : c.detecting}</p>
+                  <BigDigits
+                    text={
+                      move?.judge === "manual"
+                        ? clockText(Math.max(0, manualLeft))
+                        : move?.kind === "hold"
+                          ? holdText(set?.holdS ?? 0)
+                          : String(set?.reps ?? 0)
+                    }
+                    small={144}
+                    fit={fit(cue ? 180 : 130)}
+                    large={192}
+                  />
+                  {target && (
+                    <p className="text-2xl font-semibold text-white">
+                      {target.reps ? fmt(c.of, { n: target.reps }) : target.holdS ? fmt(c.ofS, { n: target.holdS }) : ""}
+                    </p>
+                  )}
+                  {so.of > 1 && <p className="text-lg text-white">{fmt(c.setOf, { n: so.n, of: so.of })}</p>}
+                  {set?.loadKg ? <p className="text-lg text-white">{`${kgToUnits(set.loadKg, units)} ${loadUnit(units)}`}</p> : null}
+                  {move?.judge === "manual" && <p className="text-lg text-white">{c.manualTimed}</p>}
+                  {move && move.judge === "count" && (
+                    <p className="mt-1 rounded-full bg-sky/80 px-3 py-0.5 text-sm text-ink">{c.judge[move.judge]}</p>
+                  )}
+                  {cue && <p className="mt-3 rounded-full bg-pulse/90 px-5 py-2 text-xl font-semibold text-ink">{cue}</p>}
+                </>
+              )}
+              {phase === "rest" && (
+                <>
+                  <p className="font-display text-4xl font-bold text-white">{c.rest}</p>
+                  <BigDigits text={clockText(Math.max(0, restLeft))} small={128} large={176} fit={fit(heartLineShown ? 160 : 110)} />
+                  {heartLineShown && (
+                    <p role="status" className="mt-1 rounded-full bg-pulse/90 px-5 py-2 text-xl font-semibold text-ink">
+                      {heartLineShown}
+                    </p>
+                  )}
+                  {nextDef ? (
+                    <>
+                      <p className="font-display text-3xl font-bold text-white">{fmt(c.next, { move: nextDef.name[lang] })}</p>
+                      <p className="text-xl text-white">{targetText(nextSet, nextDef, lang)}</p>
+                    </>
+                  ) : (
+                    <p className="text-2xl text-white">{flow.free ? c.restReady : ""}</p>
+                  )}
+                </>
+              )}
+              {phase === "ready" && (
+                <>
+                  <p className="font-display text-5xl font-bold text-volt sm:text-6xl">{c.startMoving}</p>
+                  <p className="mt-2 max-w-xl text-xl text-white">{c.startMovingDetail}</p>
+                </>
+              )}
+              {phase === "done" && <p className="font-display text-5xl font-bold text-volt">{c.workoutDone}</p>}
+            </div>
+          )}
+
+          {phase === "demo" && <span className="flex-1" />}
+
+          {/* Bottom row: the heart tile and the outline button on the left, the next move's preview on the right. */}
+          <div className="flex shrink-0 items-end justify-between gap-2 p-3">
+            <div className="flex min-w-0 flex-col items-start gap-2">
+              {/* The strap's heart rate, readable from 2–3 m: bpm, the zone's colour and name, the source. */}
+              {/* Not over the demo's lines: back as soon as the demo ends (the strap keeps recording). */}
+              {showHeart && phase !== "demo" && (
+                <HeartTile
+                  bpm={heartNow?.bpm ?? null}
+                  zone={heartNow?.zone ?? null}
+                  label={heartSourceLabel(heartNow?.source ?? null, heartSignal, lang)}
+                  zoneLabel={heartNow ? heartZoneLabel(heartNow.zone, lang) : null}
                 />
-                {target && (
-                  <p className="text-2xl font-semibold text-white">
-                    {target.reps ? fmt(c.of, { n: target.reps }) : target.holdS ? fmt(c.ofS, { n: target.holdS }) : ""}
-                  </p>
-                )}
-                {so.of > 1 && <p className="text-lg text-white">{fmt(c.setOf, { n: so.n, of: so.of })}</p>}
-                {set?.loadKg ? <p className="text-lg text-white">{`${kgToUnits(set.loadKg, units)} ${loadUnit(units)}`}</p> : null}
-                {move?.judge === "manual" && <p className="text-lg text-white">{c.manualTimed}</p>}
-                {move && move.judge === "count" && (
-                  <p className="mt-1 rounded-full bg-sky/80 px-3 py-0.5 text-sm text-ink">{c.judge[move.judge]}</p>
-                )}
-                {cue && <p className="mt-3 rounded-full bg-pulse/90 px-5 py-2 text-xl font-semibold text-ink">{cue}</p>}
-              </>
-            )}
-            {phase === "rest" && (
-              <>
-                <p className="font-display text-4xl font-bold text-white">{c.rest}</p>
-                <BigDigits text={clockText(Math.max(0, restLeft))} small={128} large={176} />
-                {heartLineShown && (
-                  <p role="status" className="mt-1 rounded-full bg-pulse/90 px-5 py-2 text-xl font-semibold text-ink">
-                    {heartLineShown}
-                  </p>
-                )}
-                {nextDef ? (
-                  <>
-                    <p className="font-display text-3xl font-bold text-white">{fmt(c.next, { move: nextDef.name[lang] })}</p>
-                    <p className="text-xl text-white">{targetText(nextSet, nextDef, lang)}</p>
-                  </>
-                ) : (
-                  <p className="text-2xl text-white">{flow.free ? c.restReady : ""}</p>
-                )}
-              </>
-            )}
-            {phase === "ready" && (
-              <>
-                <p className="font-display text-5xl font-bold text-volt sm:text-6xl">{c.startMoving}</p>
-                <p className="mt-2 max-w-xl text-xl text-white">{c.startMovingDetail}</p>
-              </>
-            )}
-            {phase === "done" && <p className="font-display text-5xl font-bold text-volt">{c.workoutDone}</p>}
+              )}
+              {!outlineVisible && phase !== "demo" && (
+                <button
+                  type="button"
+                  onClick={() => outline.show(Date.now())}
+                  className="pointer-events-auto h-10 rounded-full bg-black/60 px-4 text-sm font-semibold text-white"
+                >
+                  {c.showOutline}
+                </button>
+              )}
+            </div>
+            {/* The next move doing itself during the rest (a small preview). */}
+            {phase === "rest" && nextDef && <RestPreview move={nextDef.id} startedAt={flow.phaseStartMs} label={c.nextPreview} />}
           </div>
-        )}
-
-        {/* The next move doing itself during the rest (a small preview). */}
-        {phase === "rest" && nextDef && <RestPreview move={nextDef.id} startedAt={flow.phaseStartMs} label={c.nextPreview} />}
-
-        {/* The strap's heart rate, readable from 2–3 m: bpm, the zone's colour and name, the source. */}
-        {showHeart && (
-          <HeartTile
-            bpm={heartNow?.bpm ?? null}
-            zone={heartNow?.zone ?? null}
-            label={heartSourceLabel(heartNow?.source ?? null, heartSignal, lang)}
-            zoneLabel={heartNow ? heartZoneLabel(heartNow.zone, lang) : null}
-          />
-        )}
+        </div>
 
         {/* A liveness check: big, with its countdown (answered by moving, never by a click). */}
         {check && (
@@ -1296,20 +1351,10 @@ function Live({
             <p className="text-lg">{fmt(c.checkLeft, { n: checkLeft })}</p>
           </div>
         )}
-
-        {!outlineVisible && phase !== "demo" && (
-          <button
-            type="button"
-            onClick={() => outline.show(Date.now())}
-            className="absolute bottom-3 left-3 h-10 rounded-full bg-black/60 px-4 text-sm font-semibold text-white"
-          >
-            {c.showOutline}
-          </button>
-        )}
       </Preview>
 
       {/* Bottom: optional only. The workout runs on its own; ±1 fixes a miscount, a chip names a weighted lookalike. */}
-      <div className="border-t border-line bg-night-2 px-4 pt-3 pb-[max(env(safe-area-inset-bottom),0.75rem)]">
+      <div className="border-t border-line bg-night-2 pt-3 pr-[max(env(safe-area-inset-right),1rem)] pb-[max(env(safe-area-inset-bottom),0.75rem)] pl-[max(env(safe-area-inset-left),1rem)]">
         <div className="mx-auto max-w-xl space-y-2">
           <Small>{c.keepOpen}</Small>
           {confirmEnd ? (
@@ -1340,7 +1385,8 @@ function Live({
           ) : phase === "set" ? (
             <>
               {switchTo.length > 0 && (
-                <div className="flex flex-wrap gap-2">
+                // One row (scrolls sideways on a narrow screen), so the picture keeps its height.
+                <div className="-mx-1 flex [scrollbar-width:none] gap-2 overflow-x-auto px-1">
                   {switchTo.slice(0, 4).map((m) => (
                     <button
                       key={m.id}
@@ -1349,7 +1395,7 @@ function Live({
                         e.switchMove(m.id);
                         bump();
                       }}
-                      className="min-h-10 rounded-full border border-line px-3 text-sm"
+                      className="min-h-10 shrink-0 rounded-full border border-line px-3 text-sm whitespace-nowrap"
                     >
                       {m.name[lang]}
                     </button>
@@ -1458,8 +1504,13 @@ function DemoFigure({ loop, startedAt, className }: { loop: DemoLoop | null; sta
 function RestPreview({ move, startedAt, label }: { move: string; startedAt: number; label: string }) {
   const loop = useMemo(() => demoLoop(move), [move]);
   return (
-    <div className="pointer-events-none absolute right-3 bottom-3 flex flex-col items-center rounded-2xl bg-black/70 p-2">
-      <DemoFigure loop={loop} startedAt={startedAt} className="h-40 w-28 sm:h-56 sm:w-40" />
+    <div className="pointer-events-none flex shrink-0 flex-col items-center rounded-2xl bg-black/70 p-2">
+      {/* Smaller on a short or narrow screen, so the rest's countdown keeps its room. */}
+      <DemoFigure
+        loop={loop}
+        startedAt={startedAt}
+        className="h-28 w-20 [@media(min-height:700px)]:h-40 [@media(min-height:700px)]:w-28 sm:[@media(min-height:800px)]:h-56 sm:[@media(min-height:800px)]:w-40"
+      />
       <span className="text-sm font-semibold text-white">{label}</span>
     </div>
   );
@@ -1502,19 +1553,42 @@ function ExitButton({ danger, label }: { danger?: boolean; label?: string }) {
  * A big number on the camera screen, always on one line: tabular digits, no wrapping, sized from the measured width
  * (game-core bigDigitSize), with a vw-based clamp() until it's measured. Readable from 2–3 m.
  */
-function BigDigits({ text, small, large, className }: { text: string; small: number; large: number; className?: string }) {
+function BigDigits({
+  text,
+  small,
+  large,
+  fit,
+  className,
+}: {
+  text: string;
+  small: number;
+  large: number;
+  fit?: number | null;
+  className?: string;
+}) {
   const ref = useRef<HTMLDivElement>(null);
   const [width, setWidth] = useState(0);
+  const [height, setHeight] = useState(0);
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
-    const measure = () => setWidth(el.clientWidth);
+    const measure = () => {
+      setWidth(el.clientWidth);
+      setHeight(window.innerHeight);
+    };
     measure();
     const ro = new ResizeObserver(measure);
     ro.observe(el);
-    return () => ro.disconnect();
+    window.addEventListener("resize", measure);
+    return () => {
+      ro.disconnect();
+      window.removeEventListener("resize", measure);
+    };
   }, []);
-  const px = bigNumberPx(text, width, { small, large });
+  // A short screen (a 320×640 phone, a phone in landscape): the number also fits the height, so the lines under it
+  // and the heart tile keep their room.
+  const capped = shortScreenCap(bigNumberPx(text, width, { small, large }), height);
+  const px = capped && fit ? Math.min(capped, fit) : capped;
   return (
     <div ref={ref} className="w-full overflow-hidden">
       <p
@@ -1530,18 +1604,15 @@ function BigDigits({ text, small, large, className }: { text: string; small: num
 /** The heart tile on the camera picture: the bpm big, the zone's colour and name, where it comes from. */
 function HeartTile({ bpm, zone, label, zoneLabel }: { bpm: number | null; zone: number | null; label: string; zoneLabel: string | null }) {
   return (
-    <div
-      role="status"
-      className="pointer-events-none absolute bottom-16 left-3 flex max-w-[calc(100%-1.5rem)] flex-wrap items-center gap-x-3 gap-y-1 rounded-2xl bg-black/70 px-3 py-2 text-white"
-    >
+    <div role="status" className="pointer-events-none flex max-w-full items-center gap-x-3 rounded-2xl bg-black/70 px-3 py-2 text-white">
       <p className="flex items-baseline gap-1 whitespace-nowrap">
         <span aria-hidden className="text-2xl text-pulse-fg">
           ♥
         </span>
-        <span className="font-display text-[clamp(2rem,12vw,3.75rem)] leading-none font-bold tabular-nums">{bpm ?? "–"}</span>
+        <span className="font-display text-[clamp(2rem,min(12vw,8dvh),3.75rem)] leading-none font-bold tabular-nums">{bpm ?? "–"}</span>
         <span className="text-lg">bpm</span>
       </p>
-      <div className="flex flex-col items-start gap-0.5">
+      <div className="flex min-w-0 flex-col items-start gap-0.5">
         {zoneLabel && zone !== null && (
           <span className={cn("rounded-full px-3 py-0.5 text-base font-semibold whitespace-nowrap sm:text-lg", zoneTone(zone))}>
             {zoneLabel}
@@ -1633,7 +1704,7 @@ function Summary({ result }: { result: LiveResult }) {
 
   return (
     <div
-      className="mx-auto w-full max-w-xl space-y-4 px-4 pt-[max(env(safe-area-inset-top),1.5rem)] pb-16"
+      className="mx-auto w-full max-w-xl space-y-4 pt-[max(env(safe-area-inset-top),1.5rem)] pr-[max(env(safe-area-inset-right),1rem)] pb-16 pl-[max(env(safe-area-inset-left),1rem)]"
       onPointerDown={() => setTouched(true)}
       onKeyDown={() => setTouched(true)}
     >

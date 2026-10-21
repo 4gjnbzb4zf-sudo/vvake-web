@@ -49,3 +49,21 @@ export function zoneBars(stats: CameraHeartStats | null): { zone: number; s: num
   if (total <= 0) return [];
   return z.map((s, i) => ({ zone: i + 1, s, share: s / total }));
 }
+
+/**
+ * On a screen shorter than 760 px (a 320×640 phone, a phone in landscape) the camera screen's big number is at most
+ * 17% of the height (never under 72 px), so the lines under it and the heart tile keep their room.
+ */
+export function shortScreenCap<T extends number | null>(px: T, viewportHeight: number): T {
+  if (!px || !viewportHeight || viewportHeight >= 760) return px;
+  return Math.min(px, Math.max(72, Math.round(viewportHeight * 0.17))) as T;
+}
+
+/**
+ * The big number's size to fit the camera screen's middle (between the controls and the heart tile): its height less
+ * the room its lines take (`reserved`), never under `min`. Null until the middle is measured.
+ */
+export function middleFitPx(middleHeight: number, reserved: number, min = 56): number | null {
+  if (!(middleHeight > 0)) return null;
+  return Math.max(min, Math.round(middleHeight - reserved));
+}

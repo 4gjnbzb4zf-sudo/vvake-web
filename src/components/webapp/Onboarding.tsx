@@ -97,7 +97,7 @@ export function Onboarding({ onDone }: { onDone: () => void }) {
   const canNext = step === "name" ? name.trim().length > 0 : step === "moves" ? sports.length > 0 : step === "safety" ? accepted : true;
 
   return (
-    <div className="mx-auto min-h-dvh w-full max-w-xl px-4 pt-[max(env(safe-area-inset-top),1rem)] pb-32">
+    <div className="mx-auto min-h-dvh w-full max-w-xl pt-[max(env(safe-area-inset-top),1rem)] pr-[max(env(safe-area-inset-right),1rem)] pb-32 pl-[max(env(safe-area-inset-left),1rem)]">
       <div className="flex items-center justify-between">
         <Small>{fmt(o.step, { n: i + 1, total: steps.length })}</Small>
         {i > 0 && (
@@ -299,7 +299,7 @@ export function Onboarding({ onDone }: { onDone: () => void }) {
         </p>
       )}
 
-      <div className="fixed inset-x-0 bottom-0 border-t border-line bg-night/95 px-4 pt-3 pb-[max(env(safe-area-inset-bottom),0.75rem)] backdrop-blur">
+      <div className="fixed inset-x-0 bottom-0 border-t border-line bg-night/95 pt-3 pr-[max(env(safe-area-inset-right),1rem)] pb-[max(env(safe-area-inset-bottom),0.75rem)] pl-[max(env(safe-area-inset-left),1rem)] backdrop-blur">
         <div className="mx-auto flex max-w-xl gap-3">
           {step === "goal" ? (
             <Btn big variant="volt" className="flex-1" disabled={busy} onClick={() => void finish()}>

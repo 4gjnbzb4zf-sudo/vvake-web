@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { CameraHeart, clockText, holdText } from "./cameraHeart";
-import { bigNumberFallback, bigNumberPx, hasStrapHeart, pointsKind, zoneBars, zoneTone } from "./webHeart";
+import { bigNumberFallback, bigNumberPx, hasStrapHeart, middleFitPx, pointsKind, shortScreenCap, zoneBars, zoneTone } from "./webHeart";
 import { zoneOf } from "../heart";
 
 /** About 0.8 em a digit in the display font: what a size gives as a width (the colon and "s" narrower). */
@@ -47,5 +47,25 @@ describe("the strap's heart on the camera screen", () => {
     expect(hasStrapHeart([{ bpm: 120 }])).toBe(false);
     expect(pointsKind([{ bpm: 120 }, {}, { bpm: 121 }])).toBe("heart");
     expect(pointsKind([])).toBe("camera");
+  });
+});
+
+describe("shortScreenCap", () => {
+  it("leaves tall screens alone (375×812 and up)", () => {
+    expect(shortScreenCap(160, 812)).toBe(160);
+    expect(shortScreenCap(160, 0)).toBe(160);
+  });
+  it("fits the big number to a short screen (320×640), never under 72 px", () => {
+    expect(shortScreenCap(144, 640)).toBe(109);
+    expect(shortScreenCap(144, 360)).toBe(72);
+    expect(shortScreenCap(60, 640)).toBe(60);
+  });
+});
+
+describe("middleFitPx", () => {
+  it("fits the number in the middle's height less its lines, never under 56 px", () => {
+    expect(middleFitPx(0, 130)).toBeNull();
+    expect(middleFitPx(300, 130)).toBe(170);
+    expect(middleFitPx(150, 130)).toBe(56);
   });
 });
