@@ -7,9 +7,12 @@ import { cameraSessionPoints, cameraTotals, cleanCameraSummary, type CameraSumma
  * source "web" (the server decides it anyway), the `camera` flag and summary cleaned exactly as the server will, no
  * distance, never an image or a pose. Without a heart rate: tier C, small capped camera points by the phone's rule
  * (the server's, shared 15 a UTC day, ADR-0046 amendment 2026-10-21), never a prize. With a Web Bluetooth strap (two
- * heart samples or more): tier B, its 10-s samples and heart fields like any web workout, camera.heart = "strap", heart
- * points (camera points 0). Pure: tested in webCameraSession.test.ts.
+ * heart samples or more): tier B, its 10-s samples and heart fields like any web workout, the `hr_strap` flag,
+ * camera.heart = "strap", heart points (camera points 0). Pure: tested in webCameraSession.test.ts.
  */
+
+/** The flag of a session whose heart rate came from a Bluetooth strap (the phone's heartStrap.ts STRAP_FLAG). */
+export const STRAP_FLAG = "hr_strap";
 
 export interface CameraRecord {
   id: string;
@@ -57,6 +60,8 @@ export function toWebCameraSession(r: CameraRecord): WebSession {
   return {
     ...s,
     tier: "B",
+    // The phone's strap upload (apps/mobile lib/cameraWorkout.ts): the camera flag and the strap's.
+    flags: ["camera", STRAP_FLAG],
     samples: [...samples],
     avgBpm: Math.round(bpms.reduce((a, b) => a + b, 0) / bpms.length),
     maxBpm: Math.max(...bpms),

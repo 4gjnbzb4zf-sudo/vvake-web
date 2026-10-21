@@ -96,8 +96,16 @@ export class HeartSensor {
   name = "";
   battery: number | null = null;
   bpm: number | null = null;
+  /** Extra listeners for every reading, the same value included (a screen that times its own freshness). */
+  private readers = new Set<(bpm: number, atMs: number) => void>();
 
   constructor(private readonly ev: SensorEvents = {}) {}
+
+  /** Every usable reading from now on (even when the bpm repeats). Returns the unsubscribe. */
+  subscribe(fn: (bpm: number, atMs: number) => void): () => void {
+    this.readers.add(fn);
+    return () => void this.readers.delete(fn);
+  }
 
   private set(s: SensorState) {
     this.state = s;
@@ -111,6 +119,8 @@ export class HeartSensor {
     if (!usableBpm(p)) return;
     this.bpm = p.bpm;
     this.ev.onReading?.(p.bpm, p);
+    const at = Date.now();
+    for (const fn of this.readers) fn(p.bpm, at);
   };
 
   private onDisconnect = () => {

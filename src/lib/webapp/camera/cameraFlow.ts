@@ -1,4 +1,4 @@
-// Copied from VVFit packages/game-core/src/cameraFlow.ts (200973e 2026-10-21) by scripts/sync-camera-core.ts. Do not edit: re-sync.
+// Copied from VVFit packages/game-core/src/cameraFlow.ts (0be276a 2026-10-21) by scripts/sync-camera-core.ts. Do not edit: re-sync.
 /**
  * Camera workouts, hands-free (ADR-0046 amendment 2026-10-21). Founder, after build 34: "It's video training mode:
  * the user should not have to go to the phone and tap or type to be recognised." One tap on Start, then the session
@@ -22,6 +22,7 @@ import { DETECT, detectMove } from "./cameraDetect";
 import { demoLoop, demoMs, targetText, type DemoLoop } from "./cameraDemo";
 import type { PoseFrame } from "./cameraPose";
 import type { CameraSummary } from "./cameraPoints";
+import { CAMERA_HEART, restHeartDecision, restHeartLine, type RestRule } from "./cameraHeart";
 
 export const HANDS_FREE = {
   /** The 3-2-1 before each set. */
@@ -59,6 +60,9 @@ export type FlowEvent =
   | { type: "go"; move: string | null; setNo: number; sets: number }
   | { type: "setEnd"; move: string | null; set: CameraSet | null; reason: SetEndReason }
   | { type: "rest"; untilMs: number; restS: number; next: PlannedSet | null }
+  /** The rest followed the heart (cameraHeart.ts): stretched (`addS`) or the next set soon (`leftS`). */
+  | { type: "restHeart"; kind: "extend"; addS: number; untilMs: number }
+  | { type: "restHeart"; kind: "shorten"; leftS: number; untilMs: number }
   | { type: "done" };
 
 export interface FlowOptions {
@@ -111,12 +115,33 @@ export class HandsFreeWorkout {
   private lastHoldS = 0;
   private resumedMs = 0;
   private pausedAt = 0;
+  /** The heart now (the screen sets it from cameraHeart.ts before each push; null: no fresh reading). */
+  private heartNow: { bpm: number; zone: number } | null = null;
+  private recoveredSince: number | null = null;
+  private restPlannedS = 0;
+  private restExtraS = 0;
+  private restShortened = false;
+  /** How this plan's rests may follow the heart. */
+  readonly restRule: RestRule;
 
   constructor(nowMs: number, rnd: () => number, o: FlowOptions = {}) {
     this.engine = new CameraWorkoutEngine(nowMs, rnd);
     this.plan = flowPlan(o);
     this.loads = { ...(o.loads ?? {}) };
     this.lastActivityMs = nowMs;
+    this.restRule = o.routine?.rest ?? "flex";
+  }
+
+  /** The heart rate now (bpm and zone), or null when there's no fresh reading: planned rests follow it. */
+  setHeart(h: { bpm: number; zone: number } | null, nowMs: number) {
+    this.heartNow = h;
+    if (h && h.zone <= CAMERA_HEART.recoveredZone) this.recoveredSince ??= nowMs;
+    else this.recoveredSince = null;
+  }
+
+  /** Seconds the heart added to the rest on now. */
+  get restExtra() {
+    return this.restExtraS;
   }
 
   get free() {
@@ -207,6 +232,7 @@ export class HandsFreeWorkout {
         break;
       case "rest":
         if (this.free && this.detectStart(nowMs, out)) break;
+        if (this.plan) this.heartRest(nowMs, out);
         if (nowMs >= this.phaseUntilMs && !this.engine.liveness.active) {
           if (this.plan) out.push(...this.beginPlanned(nowMs));
           else this.enter("ready", nowMs, 0);
@@ -399,7 +425,37 @@ export class HandsFreeWorkout {
       if (this.idx >= this.plan.length) return this.finishFlow(out);
     }
     this.enter("rest", nowMs, restS * 1000);
+    this.restPlannedS = restS;
+    this.restExtraS = 0;
+    this.restShortened = false;
     out.push({ type: "rest", untilMs: this.phaseUntilMs, restS, next: this.target && this.plan ? this.target : null });
+  }
+
+  /** A planned rest follows the heart: 15 s more while it's still high at the end (≤ 45 s), or sooner once recovered. */
+  private heartRest(nowMs: number, out: FlowEvent[]) {
+    if (this.engine.liveness.active) return;
+    const d = restHeartDecision({
+      nowMs,
+      restStartMs: this.phaseStartMs,
+      restUntilMs: this.phaseUntilMs,
+      plannedS: this.restPlannedS,
+      extraS: this.restExtraS,
+      shortened: this.restShortened,
+      rule: this.restRule,
+      heart: this.heartNow,
+      recoveredSince: this.recoveredSince,
+    });
+    if (!d) return;
+    if (d.kind === "extend") {
+      this.restExtraS += d.addS;
+      this.phaseUntilMs = Math.max(this.phaseUntilMs, nowMs) + d.addS * 1000;
+      out.push({ type: "restHeart", kind: "extend", addS: d.addS, untilMs: this.phaseUntilMs });
+    } else {
+      this.restShortened = true;
+      this.phaseUntilMs = nowMs + d.leftS * 1000;
+      out.push({ type: "restHeart", kind: "shorten", leftS: d.leftS, untilMs: this.phaseUntilMs });
+    }
+    if (this.engine.restUntilMs) this.engine.restUntilMs = this.phaseUntilMs;
   }
 
   private finishFlow(out: FlowEvent[]) {
@@ -471,6 +527,10 @@ export function flowLine(e: FlowEvent, lang: "en" | "fr"): string | null {
       return fr ? `Repos ${e.restS} secondes. Ensuite : ${name(e.next.move)}.` : `Rest ${e.restS} seconds. Next: ${name(e.next.move)}.`;
     case "done":
       return fr ? "Séance terminée. Bravo !" : "Workout done. Great work.";
+    case "restHeart":
+      return e.kind === "extend"
+        ? restHeartLine({ kind: "extend", addS: e.addS }, lang)
+        : restHeartLine({ kind: "shorten", leftS: e.leftS }, lang);
     default:
       return null;
   }

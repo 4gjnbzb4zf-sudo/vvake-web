@@ -3867,6 +3867,7 @@ export const fr: Dictionary = {
           "Les séances caméra sur iPhone et téléphone Android (répétitions, maintiens et conseils de posture par la caméra, sur le téléphone), dans la bêta pour les testeurs depuis la version 31",
           "Les séances caméra avec ta montre en une seule séance avec les points cardio, et les ceintures cardio Bluetooth jumelées au téléphone, dans la bêta pour les testeurs depuis la version 32",
           "Les séances caméra dans le navigateur avec la webcam de ton ordinateur (vvake.com/app) : mêmes répétitions, maintiens et conseils de posture, la vidéo reste dans l’onglet ; disponible maintenant",
+          "Le cœur en direct pendant les séances caméra (les bpm et leur zone à l’écran, des repos qui le suivent, des points cœur) : dans le navigateur avec une ceinture cardio Bluetooth, disponible maintenant ; sur les téléphones avec la montre ou une ceinture dans la prochaine version bêta",
         ],
       },
       {

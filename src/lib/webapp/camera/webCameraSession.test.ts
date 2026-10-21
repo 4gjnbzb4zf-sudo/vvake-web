@@ -48,7 +48,13 @@ describe("the web camera session", () => {
       strap: { samples, heart, energyAtStart: 4 },
     });
     expect(s.tier).toBe("B");
+    expect(s.flags).toEqual(["camera", "hr_strap"]);
+    expect(s.samples.every((x, i) => x.t === (i + 1) * 10 && x.bpm === 130)).toBe(true);
     expect(s.avgBpm).toBe(130);
+    // The server credits min(client scored, its own score): the upload carries the client's heart effort.
+    expect(s.scored).toBeGreaterThan(0);
+    expect(s).toMatchObject({ maxBpm: 130, hrProfile: { age: 35, restingHr: 60 } });
+    expect(s.zoneS?.reduce((x, y) => x + y, 0)).toBeGreaterThan(0);
     expect(s.camera?.heart).toBe("strap");
     expect(s.samples).toHaveLength(90);
     expect(strapSample(10, { v: 120, at: 0 }, 20_000).bpm).toBeUndefined();

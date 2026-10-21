@@ -3673,6 +3673,7 @@ export const en = {
           "Camera workouts on the iPhone and Android phone (reps, holds and form cues from the camera, on the phone), in the beta for testers since build 31",
           "Camera workouts with your watch as one session with heart points, and Bluetooth heart-rate straps paired with the phone, in the beta for testers since build 32",
           "Camera workouts in the browser with your computer's webcam (vvake.com/app): the same reps, holds and form cues, the video stays in the tab; live now",
+          "Live heart rate during camera workouts (the bpm and its zone on screen, rests that follow it, heart points): in the browser with a Bluetooth heart-rate strap, live now; on the phones with the watch or a strap in the next beta build",
         ],
       },
       {

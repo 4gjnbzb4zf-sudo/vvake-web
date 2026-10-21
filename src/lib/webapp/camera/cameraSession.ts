@@ -1,4 +1,4 @@
-// Copied from VVFit packages/game-core/src/cameraSession.ts (200973e 2026-10-21) by scripts/sync-camera-core.ts. Do not edit: re-sync.
+// Copied from VVFit packages/game-core/src/cameraSession.ts (0be276a 2026-10-21) by scripts/sync-camera-core.ts. Do not edit: re-sync.
 /**
  * Camera workouts (ADR-0046): one session in front of the camera. Sets of a move (picked, planned, or detected), reps
  * or a hold counted from the pose, the load you typed, a rest timer between sets, liveness checks during rest, and
@@ -349,6 +349,8 @@ export interface CameraRoutine {
   minutes: number;
   equipment: "none" | "dumbbells" | "barbell" | "kettlebell";
   sets: PlannedSet[];
+  /** How its rests may follow the heart (cameraHeart.ts): "flex" (default) or "fixed" (intervals: never shortened). */
+  rest?: "flex" | "fixed";
 }
 
 const rx = (move: string, n: number, sets: number, restS: number, hold = false): PlannedSet[] =>
@@ -373,6 +375,7 @@ export const CAMERA_ROUTINES: readonly CameraRoutine[] = [
     name: { en: "10-minute cardio blast", fr: "Cardio express 10 minutes" },
     minutes: 10,
     equipment: "none",
+    rest: "fixed",
     sets: [
       ...rx("jumping-jack", 30, 2, 20),
       ...rx("high-knees", 30, 2, 20),

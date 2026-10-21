@@ -6,7 +6,8 @@ import { cn } from "@/lib/cn";
 import type { Locale } from "@/i18n/config";
 import { localTz, type UploadReply } from "@/lib/webapp/api";
 import { playCue, playQuick, hush, unlockAudio, warmVoice } from "@/lib/webapp/coachAudio";
-import { heartProfileOf } from "@/lib/webapp/heart";
+import { bleSupport } from "@/lib/webapp/ble";
+import { heartProfileOf, zoneOf } from "@/lib/webapp/heart";
 import { enqueue } from "@/lib/webapp/store";
 import { SAMPLE_EVERY_S, spend, uuid, type Sample, type WebSession } from "@/lib/webapp/workout";
 import {
@@ -27,6 +28,8 @@ import { CAMERA_MOVES, cameraMove, EQUIPMENT_NAMES, FAMILY_NAMES, type MoveDef, 
 import { demoFrameAt, demoLoop, moveTip, targetText, type DemoLoop } from "@/lib/webapp/camera/cameraDemo";
 import { applyLoads, flowLine, HandsFreeWorkout, manualSetMs, weightedMoves, type FlowEvent } from "@/lib/webapp/camera/cameraFlow";
 import { cameraTotals, cameraVolumeKg, type CameraSummary } from "@/lib/webapp/camera/cameraPoints";
+import { CameraHeart, clockText, heartSourceLabel, heartZoneLabel, holdText, type CameraHeartStats } from "@/lib/webapp/camera/cameraHeart";
+import { bigNumberFallback, bigNumberPx, hasStrapHeart, zoneBars, zoneTone } from "@/lib/webapp/camera/webHeart";
 import { seen, type BodyArea, type Framing, type FramingTip, type Joint, type PoseFrame } from "@/lib/webapp/camera/cameraPose";
 import { CAMERA_ROUTINES, routineForPlan, type CameraRoutine } from "@/lib/webapp/camera/cameraSession";
 import { createPoseDetector, type PoseDetector } from "@/lib/webapp/camera/landmarker";
@@ -334,6 +337,8 @@ interface LiveResult {
   activeS: number;
   sport: string;
   strap: Sample[];
+  /** The strap's heart effort over the session (cameraHeart.ts), null without two readings. */
+  heart: CameraHeartStats | null;
   /** The loads used per move (the last ones remembered in this browser, editable on the summary). */
   loads: Record<string, number>;
 }
@@ -568,6 +573,7 @@ function Setup({
         )}
       </div>
       <Small>{c.pointsRule}</Small>
+      {bleSupport() === "ok" && <Small>{c.strapHint}</Small>}
       <Small>{c.handsFree}</Small>
       <Btn
         big
@@ -909,10 +915,11 @@ function Live({
   setOutlineOn: (v: boolean) => void;
   onDone: (r: LiveResult) => void;
 }) {
-  const { t, lang, fmt, prefs, workoutVoice, bpm } = useApp();
+  const { t, lang, fmt, prefs, workoutVoice, sensor, sensorState, athlete } = useApp();
   const c = t.camera;
   const units = prefs.units;
   const now = useTick(250);
+  const [heartLine, setHeartLine] = useState<{ text: string; at: number } | null>(null);
   const [frame, setFrame] = useState<PoseFrame | null>(null);
   const [framingNow, setFraming] = useState<FramingShown>({ framing: "none", missing: [], tips: [] });
   const [cue, setCue] = useState<string | null>(null);
@@ -941,12 +948,23 @@ function Live({
   const framingVoice = useRef(new FramingVoice());
   const framingState = useRef<Framing>("none");
   const finished = useRef(false);
-  // The strap paired in this browser (You > Heart-rate sensor): its heart rate every 10 s of the session.
+  // The strap paired in this browser (You > Heart-rate sensor): its heart rate every 10 s of the session, and live
+  // (cameraHeart.ts: the bpm now, its zone from your zones for the sport, "no heart signal" after 15 s, the effort).
   const strap = useRef<Sample[]>([]);
   const lastBpm = useRef<{ v: number; at: number } | null>(null);
-  useEffect(() => {
-    if (bpm !== null) lastBpm.current = { v: bpm, at: Date.now() };
-  }, [bpm]);
+  const zonesRef = useRef(heartProfileOf(athlete?.health ?? null, e.sport()));
+  zonesRef.current = heartProfileOf(athlete?.health ?? null, e.sport());
+  const heartRef = useRef<CameraHeart | null>(null);
+  if (!heartRef.current) heartRef.current = new CameraHeart((b) => zoneOf(b, zonesRef.current));
+  const heart = heartRef.current;
+  useEffect(
+    () =>
+      sensor.subscribe((v, at) => {
+        lastBpm.current = { v, at };
+        heart.push("strap", v, at);
+      }),
+    [sensor, heart],
+  );
 
   const voiceRef = useRef(workoutVoice);
   voiceRef.current = workoutVoice;
@@ -975,9 +993,10 @@ function Live({
       activeS,
       sport: e.sport(),
       strap: strap.current,
+      heart: heart.stats(),
       loads: { ...flow.allLoads },
     });
-  }, [flow, e, onDone]);
+  }, [flow, e, onDone, heart]);
 
   /** What the flow said: the screen and the coach voice follow. */
   const handle = useCallback(
@@ -1036,6 +1055,13 @@ function Live({
             setCue(null);
             speak(flowLine(x, lang), true);
             break;
+          case "restHeart": {
+            // The rest follows the heart: said (in the voice mode) and shown under the rest timer for a few seconds.
+            const line = flowLine(x, lang);
+            if (line) setHeartLine({ text: line, at });
+            speak(line, true);
+            break;
+          }
           case "done":
             speak(flowLine(x, lang), true);
             // The summary follows on its own (the voice says the last line first).
@@ -1095,10 +1121,12 @@ function Live({
       const f = f0 ? { ...f0, t: at - started.current } : null;
       outline.track(at, !!f);
       setFrame(f);
+      const h = heart.now(at);
+      flow.setHeart(h ? { bpm: h.bpm, zone: h.zone } : null, at);
       handle(flow.push(f, at), at);
       if (framingVoice.current.push(at, framingState.current) === "remind") speak(FRAMING_VOICE.remind[lang], true);
     },
-    [flow, outline, lang, speak, handle],
+    [flow, outline, lang, speak, handle, heart],
   );
 
   useEffect(() => {
@@ -1130,6 +1158,10 @@ function Live({
   const setsSoFar = e.log.reduce((n, m) => n + m.sets.length, 0) + (e.state === "set" && (set?.reps || set?.holdS) ? 1 : 0);
   const so = flow.setOf();
   const manualLeft = phase === "set" && move?.judge === "manual" ? manualSetMs(move, target) - (now - flow.phaseStartMs) : 0;
+  const heartNow = heart.now(now);
+  const heartSignal = heart.signal(now);
+  const showHeart = heartSignal !== "none" || sensorState === "connected";
+  const heartLineShown = heartLine && phase === "rest" && now - heartLine.at < 8000 ? heartLine.text : null;
   const demoLoopNo = Math.min(2, 1 + Math.floor((now - flow.phaseStartMs) / (flow.demo?.loopMs ?? 3000)));
 
   if (nothing)
@@ -1166,9 +1198,8 @@ function Live({
             </TopBtn>
             {cam.cameras > 1 && <TopBtn onClick={cam.flip}>⟲ {c.switchCamera}</TopBtn>}
             <span className="flex-1" />
-            {bpm ? <span className="rounded-full bg-black/60 px-3 py-1 font-semibold text-pulse-fg tabular-nums">♥ {bpm}</span> : null}
-            <span className="rounded-full bg-black/60 px-3 py-1 font-display text-lg font-semibold text-white tabular-nums">
-              {restClock(sessionS * 1000)}
+            <span className="rounded-full bg-black/60 px-3 py-1 font-display text-lg font-semibold whitespace-nowrap text-white tabular-nums">
+              {clockText(sessionS * 1000)}
             </span>
           </div>
           {framingNow.framing !== "ok" && phase !== "demo" ? (
@@ -1184,22 +1215,24 @@ function Live({
             {phase === "countdown" && (
               <>
                 <p className="font-display text-4xl font-bold text-white sm:text-5xl">{targetDef ? targetDef.name[lang] : ""}</p>
-                <p className="font-display text-[10rem] leading-none font-bold text-volt tabular-nums sm:text-[14rem]">
-                  {Math.max(1, 3 - Math.floor((now - flow.phaseStartMs) / 1000))}
-                </p>
+                <BigDigits text={String(Math.max(1, 3 - Math.floor((now - flow.phaseStartMs) / 1000)))} small={160} large={224} />
                 <p className="text-2xl font-semibold text-white">{targetText(target, targetDef, lang)}</p>
               </>
             )}
             {phase === "set" && (
               <>
                 <p className="font-display text-4xl font-bold text-white sm:text-5xl">{move ? move.name[lang] : c.detecting}</p>
-                <p className="font-display text-[9rem] leading-none font-bold text-volt tabular-nums sm:text-[12rem]">
-                  {move?.judge === "manual"
-                    ? restClock(Math.max(0, manualLeft))
-                    : move?.kind === "hold"
-                      ? `${Math.floor(set?.holdS ?? 0)}s`
-                      : String(set?.reps ?? 0)}
-                </p>
+                <BigDigits
+                  text={
+                    move?.judge === "manual"
+                      ? clockText(Math.max(0, manualLeft))
+                      : move?.kind === "hold"
+                        ? holdText(set?.holdS ?? 0)
+                        : String(set?.reps ?? 0)
+                  }
+                  small={144}
+                  large={192}
+                />
                 {target && (
                   <p className="text-2xl font-semibold text-white">
                     {target.reps ? fmt(c.of, { n: target.reps }) : target.holdS ? fmt(c.ofS, { n: target.holdS }) : ""}
@@ -1217,9 +1250,12 @@ function Live({
             {phase === "rest" && (
               <>
                 <p className="font-display text-4xl font-bold text-white">{c.rest}</p>
-                <p className="font-display text-[8rem] leading-none font-bold text-volt tabular-nums sm:text-[11rem]">
-                  {restClock(Math.max(0, restLeft))}
-                </p>
+                <BigDigits text={clockText(Math.max(0, restLeft))} small={128} large={176} />
+                {heartLineShown && (
+                  <p role="status" className="mt-1 rounded-full bg-pulse/90 px-5 py-2 text-xl font-semibold text-ink">
+                    {heartLineShown}
+                  </p>
+                )}
                 {nextDef ? (
                   <>
                     <p className="font-display text-3xl font-bold text-white">{fmt(c.next, { move: nextDef.name[lang] })}</p>
@@ -1242,6 +1278,16 @@ function Live({
 
         {/* The next move doing itself during the rest (a small preview). */}
         {phase === "rest" && nextDef && <RestPreview move={nextDef.id} startedAt={flow.phaseStartMs} label={c.nextPreview} />}
+
+        {/* The strap's heart rate, readable from 2–3 m: bpm, the zone's colour and name, the source. */}
+        {showHeart && (
+          <HeartTile
+            bpm={heartNow?.bpm ?? null}
+            zone={heartNow?.zone ?? null}
+            label={heartSourceLabel(heartNow?.source ?? null, heartSignal, lang)}
+            zoneLabel={heartNow ? heartZoneLabel(heartNow.zone, lang) : null}
+          />
+        )}
 
         {/* A liveness check: big, with its countdown (answered by moving, never by a click). */}
         {check && (
@@ -1452,6 +1498,61 @@ function ExitButton({ danger, label }: { danger?: boolean; label?: string }) {
   );
 }
 
+/**
+ * A big number on the camera screen, always on one line: tabular digits, no wrapping, sized from the measured width
+ * (game-core bigDigitSize), with a vw-based clamp() until it's measured. Readable from 2–3 m.
+ */
+function BigDigits({ text, small, large, className }: { text: string; small: number; large: number; className?: string }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const [width, setWidth] = useState(0);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const measure = () => setWidth(el.clientWidth);
+    measure();
+    const ro = new ResizeObserver(measure);
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, []);
+  const px = bigNumberPx(text, width, { small, large });
+  return (
+    <div ref={ref} className="w-full overflow-hidden">
+      <p
+        className={cn("font-display leading-none font-bold whitespace-nowrap text-volt tabular-nums", className)}
+        style={{ fontSize: px ? `${px}px` : bigNumberFallback(text, small) }}
+      >
+        {text}
+      </p>
+    </div>
+  );
+}
+
+/** The heart tile on the camera picture: the bpm big, the zone's colour and name, where it comes from. */
+function HeartTile({ bpm, zone, label, zoneLabel }: { bpm: number | null; zone: number | null; label: string; zoneLabel: string | null }) {
+  return (
+    <div
+      role="status"
+      className="pointer-events-none absolute bottom-16 left-3 flex max-w-[calc(100%-1.5rem)] flex-wrap items-center gap-x-3 gap-y-1 rounded-2xl bg-black/70 px-3 py-2 text-white"
+    >
+      <p className="flex items-baseline gap-1 whitespace-nowrap">
+        <span aria-hidden className="text-2xl text-pulse-fg">
+          ♥
+        </span>
+        <span className="font-display text-[clamp(2rem,12vw,3.75rem)] leading-none font-bold tabular-nums">{bpm ?? "–"}</span>
+        <span className="text-lg">bpm</span>
+      </p>
+      <div className="flex flex-col items-start gap-0.5">
+        {zoneLabel && zone !== null && (
+          <span className={cn("rounded-full px-3 py-0.5 text-base font-semibold whitespace-nowrap sm:text-lg", zoneTone(zone))}>
+            {zoneLabel}
+          </span>
+        )}
+        <span className="text-sm text-white/85">{label}</span>
+      </div>
+    </div>
+  );
+}
+
 // ── Summary ─────────────────────────────────────────────────────────────────────────────────────────────────────
 
 function Summary({ result }: { result: LiveResult }) {
@@ -1477,7 +1578,8 @@ function Summary({ result }: { result: LiveResult }) {
   const summary = applyLoads(result.summary, loads);
   const totals = cameraTotals(summary);
   const volume = cameraVolumeKg(summary);
-  const strapHeart = result.strap.filter((s) => s.bpm !== undefined).length >= 2;
+  const strapHeart = hasStrapHeart(result.strap);
+  const bars = zoneBars(result.heart);
   const preview = cameraPointsPreview(summary, result.activeS);
   const queueRef = useRef(queue);
   queueRef.current = queue;
@@ -1568,6 +1670,29 @@ function Summary({ result }: { result: LiveResult }) {
         )}
         <Small className="mt-2">{c.privacyLine}</Small>
       </Card>
+      {result.heart && (
+        <Card>
+          <Kicker tone="pulse">{c.heartTitle}</Kicker>
+          <p className="mt-2 font-display text-xl font-bold tabular-nums">
+            {fmt(c.heartStats, { avg: result.heart.avgBpm, max: result.heart.maxBpm })}
+          </p>
+          {bars.length > 0 && (
+            <div className="mt-3 space-y-1.5" aria-label={c.timeInZones}>
+              <Small>{c.timeInZones}</Small>
+              {bars.map((b) => (
+                <div key={b.zone} className="flex items-center gap-2 text-xs">
+                  <span className="w-28 shrink-0">{heartZoneLabel(b.zone, lang)}</span>
+                  <div className="h-2 flex-1 overflow-hidden rounded-full bg-surface-2">
+                    <div className={cn("h-full rounded-full", zoneTone(b.zone))} style={{ width: `${b.share * 100}%` }} />
+                  </div>
+                  <span className="w-12 text-right tabular-nums">{clockText(b.s * 1000)}</span>
+                </div>
+              ))}
+            </div>
+          )}
+          <Small className="mt-2">{c.heartFromStrap}</Small>
+        </Card>
+      )}
       {weighted.length > 0 && !saved && (
         <Card>
           <Kicker tone="sky">{c.weightsTitle}</Kicker>
@@ -1593,7 +1718,7 @@ function Summary({ result }: { result: LiveResult }) {
         </Card>
       )}
       <Card tone="volt">
-        <Kicker tone="volt">{c.pointsTitle}</Kicker>
+        <Kicker tone="volt">{strapHeart ? c.heartPointsTitle : c.cameraPointsTitle}</Kicker>
         {got ? (
           got.tier === "B" ? (
             <p className="mt-2 font-display text-2xl font-bold text-volt-fg">

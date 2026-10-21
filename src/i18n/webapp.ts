@@ -507,6 +507,14 @@ const en = {
     held: "Held",
     checks: "Quick checks: {passed} of {asked} passed.",
     pointsTitle: "VV points",
+    heartPointsTitle: "Heart points",
+    cameraPointsTitle: "Camera points",
+    heartTitle: "Heart",
+    heartStats: "Average {avg} bpm · max {max} bpm",
+    heartFromStrap: "From your heart-rate strap.",
+    timeInZones: "Time in zones",
+    strapHint:
+      "With a Bluetooth heart-rate strap connected (You › Heart-rate sensor), your heart rate shows live with its zone, the rests follow it (a little longer while it's still high), and the workout earns heart points instead.",
     pointsUpTo: "Up to {n} camera points (your account confirms, at most 15 a day).",
     pointsGot: "{n} camera points",
     reason: {
@@ -1065,6 +1073,14 @@ const fr: WebAppDict = {
     held: "Tenu",
     checks: "Contrôles rapides : {passed} sur {asked} réussis.",
     pointsTitle: "Points VV",
+    heartPointsTitle: "Points cœur",
+    cameraPointsTitle: "Points caméra",
+    heartTitle: "Cœur",
+    heartStats: "Moyenne {avg} bpm · max {max} bpm",
+    heartFromStrap: "Depuis ta ceinture cardio.",
+    timeInZones: "Temps par zone",
+    strapHint:
+      "Avec une ceinture cardio Bluetooth connectée (Toi › Capteur cardio), ton cœur s’affiche en direct avec sa zone, les repos le suivent (un peu plus longs tant qu’il est encore haut), et la séance rapporte des points cœur à la place.",
     pointsUpTo: "Jusqu’à {n} points caméra (ton compte confirme, 15 au plus par jour).",
     pointsGot: "{n} points caméra",
     reason: {
