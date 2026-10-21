@@ -25,7 +25,9 @@ import { useNow } from "./useNow";
 
 export type Route =
   | { name: "today" | "plan" | "crew" | "coach" | "you" | "goals" | "rhythm" | "vvaker" | "sensor" | "workout" | "zones" }
-  | { name: "session"; id: string };
+  | { name: "session"; id: string }
+  /** The camera workout (CameraScreen.tsx), with the sport whose routine it suggests (#/camera/strength). */
+  | { name: "camera"; sport?: string };
 
 export const TABS = ["today", "plan", "crew", "coach", "you"] as const;
 
@@ -33,11 +35,17 @@ export function parseRoute(hash: string): Route {
   const h = hash.replace(/^#\/?/, "");
   const [name, arg] = h.split("/");
   if (name === "session" && arg) return { name: "session", id: decodeURIComponent(arg) };
+  if (name === "camera") return arg && /^[a-z-]{2,30}$/.test(arg) ? { name: "camera", sport: arg } : { name: "camera" };
   const known = ["today", "plan", "crew", "coach", "you", "goals", "rhythm", "vvaker", "sensor", "workout", "zones"] as const;
   return { name: (known as readonly string[]).includes(name ?? "") ? (name as (typeof known)[number]) : "today" };
 }
 
-export const routeHash = (r: Route) => (r.name === "session" ? `#/session/${encodeURIComponent(r.id)}` : `#/${r.name}`);
+export const routeHash = (r: Route) =>
+  r.name === "session"
+    ? `#/session/${encodeURIComponent(r.id)}`
+    : r.name === "camera"
+      ? `#/camera${r.sport ? `/${r.sport}` : ""}`
+      : `#/${r.name}`;
 
 export interface Prefs {
   units: Units;

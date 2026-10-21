@@ -382,9 +382,9 @@ export const fr: Dictionary = {
     customBody:
       "Donne-lui un nom, choisis une icône et la façon de le suivre : fréquence cardiaque seule, ou suivi GPS pour la distance aussi. Les points viennent toujours de ton cœur, les prix gardent les mêmes règles, et ton sport marche à la voix.",
     cameraBadge: "Dans la bêta maintenant (version 32, testeurs)",
-    cameraTitle: "Séance caméra (téléphone)",
+    cameraTitle: "Séance caméra (téléphone et web)",
     cameraBody:
-      "Pose ton téléphone à 2 ou 3 m : VVake compte tes répétitions et tes maintiens, au poids du corps comme avec des charges (tu saisis la charge), te donne des conseils de posture à voix haute, et ton VVaker bouge avec toi. La vidéo ne quitte jamais ton téléphone et rien n'est enregistré. Sans capteur cardio, de petits points (15 au plus par jour) ; porte ta montre et la montre et la caméra font une seule séance avec les points cardio habituels, ou jumelle une ceinture cardio Bluetooth au téléphone pour des points cardio aussi. Jamais de prix venant de la caméra.",
+      "Pose ton téléphone à 2 ou 3 m : VVake compte tes répétitions et tes maintiens, au poids du corps comme avec des charges (tu saisis la charge), te donne des conseils de posture à voix haute, et ton VVaker bouge avec toi. La vidéo ne quitte jamais ton téléphone et rien n'est enregistré. Sans capteur cardio, de petits points (15 au plus par jour) ; porte ta montre et la montre et la caméra font une seule séance avec les points cardio habituels, ou jumelle une ceinture cardio Bluetooth au téléphone pour des points cardio aussi. Jamais de prix venant de la caméra. Pas de téléphone ? La même séance caméra tourne dans ton navigateur sur vvake.com/app avec la webcam de ton ordinateur : la posture est lue dans l’onglet, la vidéo n’en sort jamais, et ses petits points partagent les mêmes 15 par jour.",
   },
   challenges: {
     kicker: "Défis",
@@ -2480,7 +2480,7 @@ export const fr: Dictionary = {
     title: "Politique de confidentialité",
     description:
       "Ce que les applications VVake pour iPhone et Apple Watch et le site vvake.com recueillent, pourquoi, qui y a accès, combien de temps nous le gardons et vos droits.",
-    updated: "Dernière mise à jour : 2026-10-20",
+    updated: "Dernière mise à jour : 2026-10-21",
     draft: "Version provisoire pour l'aperçu TestFlight. Cette politique sera revue par un avocat avant le lancement public.",
     intro: [
       "VVake (aussi appelée VVake Fit) est une application d'entraînement pour iPhone et Apple Watch, accompagnée du site vvake.com. Cette politique explique simplement quels renseignements nous recueillons, pourquoi, qui d'autre y a accès, combien de temps nous les gardons et ce que vous pouvez faire. Elle couvre les applications (y compris les versions d'essai TestFlight), l'API VVake avec laquelle elles communiquent, le compagnon de bureau pour Mac, le module VVake pour Claude Code et ce site, y compris vvake.com/rewards.",
@@ -2659,8 +2659,12 @@ export const fr: Dictionary = {
             d: "Parler au coach à la voix utilise la reconnaissance vocale de ton navigateur, qui peut envoyer le son à l’éditeur du navigateur (par exemple Google pour Chrome) pour le transformer en texte ; seul le texte arrive chez VVake. Les annonces de séance jouent la voix enregistrée du coach VVake : les mêmes enregistrements pour tout le monde, sans donnée personnelle, gardés dans le Cache Storage de ton navigateur pour partir tout de suite. Les annonces avec tes propres chiffres (allure, distance, temps) et, avec Plus, les réponses du coach sont lues par la voix du coach (ElevenLabs) via nos serveurs, comme sur le téléphone ; ton navigateur garde cet audio en mémoire seulement, jamais sur le disque. Si l’audio ne peut pas jouer, la voix de ton navigateur lit la phrase, sur ton appareil.",
           },
           {
+            t: "La caméra, seulement pendant une séance caméra.",
+            d: "Quand tu ouvres une séance caméra, ton navigateur te demande si vvake.com peut utiliser ta caméra (sur un ordinateur, sa webcam). Ta posture est calculée dans l’onglet même, par MediaPipe Pose Landmarker de Google servi depuis vvake.com : chaque image est analysée en mémoire puis effacée. La vidéo n’est jamais enregistrée, stockée ni envoyée, ni à nous ni à personne, et rien n’est sauvegardé dans tes fichiers. Seuls les comptes de la séance sont envoyés (mouvements, séries, répétitions, la charge que tu as saisie, temps de maintien, résumés d’amplitude et de tempo, identifiants des conseils de posture et résultats des petits contrôles comme « lève le bras gauche maintenant »), comme pour une séance caméra sur le téléphone. La caméra s’éteint quand tu quittes la séance caméra ; tu peux la bloquer à tout moment dans les réglages du site de ton navigateur.",
+          },
+          {
             t: "Des points, jamais de prix.",
-            d: "Une séance enregistrée dans un navigateur est marquée comme séance web : elle compte pour ton journal, ta série et (avec un capteur cardio) tes points, mais jamais pour les prix ni les scores du City Clash, car un navigateur ne peut pas prouver d’où viennent les données.",
+            d: "Une séance enregistrée dans un navigateur est marquée comme séance web : elle compte pour ton journal, ta série et (avec un capteur cardio, ou les petits points plafonnés d’une séance caméra) tes points, mais jamais pour les prix ni les scores du City Clash, car un navigateur ne peut pas prouver d’où viennent les données.",
           },
         ],
       },
@@ -3862,6 +3866,7 @@ export const fr: Dictionary = {
           "La relance de $VVAKE v2 sur vibe/vibe, en testnet (aucune valeur), avec la réclamation unique pour les wallets qui ont acheté l'ancien token",
           "Les séances caméra sur iPhone et téléphone Android (répétitions, maintiens et conseils de posture par la caméra, sur le téléphone), dans la bêta pour les testeurs depuis la version 31",
           "Les séances caméra avec ta montre en une seule séance avec les points cardio, et les ceintures cardio Bluetooth jumelées au téléphone, dans la bêta pour les testeurs depuis la version 32",
+          "Les séances caméra dans le navigateur avec la webcam de ton ordinateur (vvake.com/app) : mêmes répétitions, maintiens et conseils de posture, la vidéo reste dans l’onglet ; disponible maintenant",
         ],
       },
       {

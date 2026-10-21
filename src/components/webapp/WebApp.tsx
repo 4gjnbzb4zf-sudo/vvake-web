@@ -8,6 +8,7 @@ import { ApiError, RewardsSession, errorKey, isAppCode } from "@/lib/rewardsApi"
 import { webApi, type AppMe } from "@/lib/webapp/api";
 import { AppProvider, TABS, useApp } from "./AppContext";
 import { Onboarding, needsOnboarding } from "./Onboarding";
+import { CameraScreen } from "./CameraScreen";
 import { CoachScreen } from "./CoachScreen";
 import { CrewScreen } from "./CrewScreen";
 import { GetTheApp } from "./GetTheApp";
@@ -136,7 +137,7 @@ function Shell() {
   if (!onboarded) return <Onboarding onDone={() => setOnboarded(true)} />;
 
   const tab = (TABS as readonly string[]).includes(route.name) ? route.name : null;
-  const fullScreen = route.name === "workout";
+  const fullScreen = route.name === "workout" || route.name === "camera";
   return (
     <>
       {!fullScreen && (
@@ -161,7 +162,8 @@ function Shell() {
           </main>
         </Frame>
       )}
-      {fullScreen && <WorkoutScreen />}
+      {route.name === "workout" && <WorkoutScreen />}
+      {route.name === "camera" && <CameraScreen sport={route.sport} />}
       {!fullScreen && <WorkoutPill />}
       {!fullScreen && (
         <nav

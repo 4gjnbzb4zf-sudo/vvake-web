@@ -14,3 +14,7 @@ public/maplibre
 src/data/map
 # Copied byte for byte from the VVFit monorepo (apps/watch-ios/VVakeWatchTests/speed-zone-fixtures.json): speed-zone parity data
 src/lib/webapp/fixtures/speed-zone-fixtures.json
+# Written by scripts/sync-camera-core.ts from the VVFit monorepo (game-core camera parity vectors), kept compact
+src/lib/webapp/fixtures/camera-fixtures.json
+# MediaPipe runtime copied from node_modules (scripts/copy-mediapipe.ts)
+public/mediapipe

@@ -9,6 +9,14 @@ import { paceOf } from "@/lib/webapp/geo";
 import { showsSpeed, toggleWorkoutVoice, WORKOUT_VOICE_MODES } from "@/lib/webapp/speedZones";
 import { elapsedS, isPaused, QUICK_SPORTS, sportLabel, sportOf, usesGps, WEB_SPORTS } from "@/lib/webapp/workout";
 import { sports as catalog } from "@/lib/sports";
+import {
+  cameraSport,
+  defaultEntry,
+  loadEntryChoices,
+  saveEntryChoices,
+  withEntryChoice,
+  type EntryMode,
+} from "@/lib/webapp/camera/webSetup";
 import { useApp } from "./AppContext";
 import { useVVakerSrc } from "./MyVVaker";
 import { useWorkout } from "./WorkoutContext";
@@ -53,9 +61,57 @@ function SensorChip() {
   );
 }
 
+/**
+ * "With the camera" or "Heart only" for the sports the camera counts (strength, core, HIIT, yoga, mobility…), the
+ * phone's choice (apps/mobile lib/cameraEntry.ts): the last pick per sport is highlighted, remembered in this browser.
+ */
+export function EntryChoice({ sport, onClose, onHeart }: { sport: string; onClose: () => void; onHeart: () => void }) {
+  const { t, lang, go } = useApp();
+  const c = t.camera;
+  const [choices] = useState(() => loadEntryChoices());
+  const def = defaultEntry(choices, sport);
+  const pick = (m: EntryMode) => {
+    saveEntryChoices(withEntryChoice(choices, sport, m));
+    onClose();
+    if (m === "camera") go({ name: "camera", sport });
+    else onHeart();
+  };
+  return (
+    <div
+      role="dialog"
+      aria-modal="true"
+      aria-label={c.howTitle}
+      className="fixed inset-0 z-[60] flex items-end justify-center bg-black/60 p-4 sm:items-center"
+    >
+      <div className="w-full max-w-md space-y-3 rounded-3xl bg-night-2 p-5 ring-1 ring-line">
+        <Kicker tone="volt">{sportLabel(sport, lang)}</Kicker>
+        <p className="font-display text-xl font-semibold">{c.howTitle}</p>
+        {(["camera", "heart"] as const).map((m) => (
+          <button
+            key={m}
+            type="button"
+            onClick={() => pick(m)}
+            className={cn("w-full rounded-2xl border bg-surface px-4 py-3 text-left", def === m ? "border-volt-fg" : "border-line")}
+          >
+            <span className="block font-display font-semibold">{m === "camera" ? c.withCamera : c.heartOnly}</span>
+            <span className="block text-sm text-muted">{m === "camera" ? c.withCameraDetail : c.heartOnlyDetail}</span>
+          </button>
+        ))}
+        <Small>{c.remembers}</Small>
+        <Btn variant="ghost" className="w-full" onClick={onClose}>
+          {t.common.cancel}
+        </Btn>
+      </div>
+    </div>
+  );
+}
+
 function PickView() {
   const { t, lang, go } = useApp();
   const wk = useWorkout();
+  const [asking, setAsking] = useState<string | null>(null);
+  /** A sport the camera counts asks first; any other starts at once. */
+  const pickSport = (k: string) => (cameraSport(k) ? setAsking(k) : wk.start(k));
   const [q, setQ] = useState("");
   const [support] = useState(() => (typeof window === "undefined" ? null : bleSupport()));
   const list = useMemo(() => {
@@ -76,13 +132,29 @@ function PickView() {
       <h1 className="mt-2 font-display text-2xl font-bold">{t.workout.pick}</h1>
       {support === "ios" && <Small className="mt-2">{t.sensor.unsupportedIos}</Small>}
       {support === "unsupported" && <Small className="mt-2">{t.sensor.unsupported}</Small>}
+      <button
+        type="button"
+        onClick={() => go({ name: "camera" })}
+        className="mt-4 flex min-h-16 w-full items-center gap-3 rounded-2xl border border-volt-fg/60 bg-surface px-4 text-left hover:border-volt-fg"
+      >
+        <span aria-hidden className="text-2xl">
+          ◎
+        </span>
+        <span className="flex-1">
+          <span className="block font-display font-semibold">{t.camera.tile}</span>
+          <span className="block text-sm text-muted">{t.camera.tileDetail}</span>
+        </span>
+        <span aria-hidden className="text-muted">
+          ›
+        </span>
+      </button>
       <Kicker className="mt-5">{t.workout.quick}</Kicker>
       <div className="mt-2 grid grid-cols-2 gap-2">
         {QUICK_SPORTS.map((k) => (
           <button
             key={k}
             type="button"
-            onClick={() => wk.start(k)}
+            onClick={() => pickSport(k)}
             className="flex min-h-16 items-center gap-3 rounded-2xl border border-line bg-surface px-4 text-left font-display font-semibold hover:border-volt-fg"
           >
             {sportLabel(k, lang)}
@@ -111,7 +183,7 @@ function PickView() {
                 <button
                   key={s.key}
                   type="button"
-                  onClick={() => wk.start(s.key)}
+                  onClick={() => pickSport(s.key)}
                   className="min-h-11 rounded-full border border-line bg-surface px-4 text-sm"
                 >
                   {s.name[lang]}
@@ -124,6 +196,7 @@ function PickView() {
       <div className="mt-6">
         <Note tone="butter">{t.workout.webRule}</Note>
       </div>
+      {asking && <EntryChoice sport={asking} onClose={() => setAsking(null)} onHeart={() => wk.start(asking)} />}
     </div>
   );
 }

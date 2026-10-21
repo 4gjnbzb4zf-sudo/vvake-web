@@ -1,11 +1,17 @@
 import { describe, expect, it } from "vitest";
-import { AASA_PATH, BASE_HEADERS, buildHeaders, headersProblems, MAX_LINE, pagePath } from "./cloudflareHeaders";
+import { AASA_PATH, BASE_HEADERS, buildHeaders, headersProblems, MAX_LINE, pagePath, WEB_APP_PERMISSIONS } from "./cloudflareHeaders";
 import { buildCsp, injectCsp, scriptHash } from "./csp";
 
 const page = (script: string) =>
   injectCsp(`<html><head><script>${script}</script></head><body></body></html>`, buildCsp([scriptHash(script)]));
 
 describe("Cloudflare _headers (WEB-SEC-01)", () => {
+  it("lets the web app (only) use the camera for its camera workout", () => {
+    expect(WEB_APP_PERMISSIONS).toContain("camera=(self)");
+    expect(BASE_HEADERS.find(([k]) => k === "Permissions-Policy")![1]).toContain("camera=()");
+    expect(buildHeaders([])).toContain(`/en/app/*\n  ! Permissions-Policy\n  Permissions-Policy: ${WEB_APP_PERMISSIONS}`);
+  });
+
   it("maps exported files to the paths Cloudflare serves, and skips the 404 page", () => {
     expect(pagePath("index.html")).toBe("/");
     expect(pagePath("en/rewards/index.html")).toBe("/en/rewards/");

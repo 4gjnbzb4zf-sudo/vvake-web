@@ -11,6 +11,8 @@ import { goalTitle } from "./GoalsScreen";
 import { VVakerImg } from "./MyVVaker";
 import { glassesToday } from "./RhythmScreen";
 import { useWorkout } from "./WorkoutContext";
+import { EntryChoice } from "./WorkoutScreen";
+import { cameraSport } from "@/lib/webapp/camera/webSetup";
 import { Bar, Btn, Card, Kicker, List, Pill, Row, Small } from "./ui";
 import { useNow } from "./useNow";
 
@@ -22,6 +24,7 @@ export function TodayScreen() {
   const { t, lang, me, streak, energy, energyMax, go, goals, sessions, stats, api, queue, flush, fmt } = useApp();
   const wk = useWorkout();
   const [energyInfo, setEnergyInfo] = useState(false);
+  const [asking, setAsking] = useState<string | null>(null);
   const [week, setWeek] = useState<Week | null>(null);
   useEffect(() => {
     void api
@@ -124,6 +127,8 @@ export function TodayScreen() {
                 className="flex-1"
                 disabled={!!wk.w}
                 onClick={() => {
+                  // A sport the camera counts asks "With the camera" or "Heart only" first (the phone's Today ask=1).
+                  if (cameraSport(planned.sport)) return setAsking(planned.sport);
                   wk.start(planned.sport);
                   go({ name: "workout" });
                 }}
@@ -140,6 +145,24 @@ export function TodayScreen() {
             </Btn>
           )}
         </div>
+        <button
+          type="button"
+          className="mt-3 min-h-11 text-sm font-semibold text-sky-fg"
+          onClick={() => go({ name: "camera" })}
+          disabled={!!wk.w}
+        >
+          {t.camera.todayButton}
+        </button>
+        {asking && (
+          <EntryChoice
+            sport={asking}
+            onClose={() => setAsking(null)}
+            onHeart={() => {
+              wk.start(asking);
+              go({ name: "workout" });
+            }}
+          />
+        )}
       </Card>
 
       {pending > 0 && (

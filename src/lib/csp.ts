@@ -36,7 +36,16 @@ export function webAppMedia(cfg: CspConfig = buildConfig()): string[] {
   return ["blob:", ...(api ? [api] : [])];
 }
 
+/**
+ * The web app's camera workout (src/lib/webapp/camera/landmarker.ts): MediaPipe's pose model runs as WebAssembly,
+ * served from vvake.com. Compiling WebAssembly needs 'wasm-unsafe-eval' (it allows WebAssembly only, never eval or
+ * new Function). On the web app's pages only.
+ */
+export const webAppScript = (): string[] => ["'wasm-unsafe-eval'"];
+
 /** out/-relative path of a web app page (en/app/index.html, fr/app/index.html). */
+export const webAppHtml = (html: string) => /<link rel="canonical" href="[^"]*\/[a-z]{2}\/app\/"/i.test(html);
+
 export const webAppFile = (file: string) => /^[a-z]{2}\/app\/index\.html$/.test(file.replace(/\\/g, "/"));
 
 const origin = (url: string) => {
@@ -92,11 +101,12 @@ export function buildCsp(
   cfg: CspConfig = buildConfig(),
   extraConnect: readonly string[] = [],
   extraMedia: readonly string[] = [],
+  extraScript: readonly string[] = [],
 ): string {
   const turnstile = cfg.turnstileSiteKey ? [TURNSTILE_ORIGIN] : [];
   const directives: [string, string[]][] = [
     ["default-src", ["'self'"]],
-    ["script-src", ["'self'", ...turnstile, ...[...new Set(hashes)].sort()]],
+    ["script-src", ["'self'", ...extraScript, ...turnstile, ...[...new Set(hashes)].sort()]],
     ["style-src", ["'self'", "'unsafe-inline'"]],
     ["img-src", ["'self'", "data:"]],
     ["font-src", ["'self'"]],
@@ -142,7 +152,8 @@ export const withCsp = (
   cfg: CspConfig = buildConfig(),
   extraConnect: readonly string[] = [],
   extraMedia: readonly string[] = [],
-) => injectCsp(html, buildCsp(inlineScripts(html).map(scriptHash), cfg, extraConnect, extraMedia));
+  extraScript: readonly string[] = [],
+) => injectCsp(html, buildCsp(inlineScripts(html).map(scriptHash), cfg, extraConnect, extraMedia, extraScript));
 
 /** What a browser would block or what the policy misses in one exported HTML file; empty = fine. */
 export function cspProblems(html: string, cfg: CspConfig = buildConfig()): string[] {
@@ -155,6 +166,7 @@ export function cspProblems(html: string, cfg: CspConfig = buildConfig()): strin
   if (firstScript >= 0 && metaAt > firstScript) problems.push("CSP meta comes after a script");
   const script = d["script-src"] ?? d["default-src"] ?? [];
   if (script.includes("'unsafe-inline'") || script.includes("'unsafe-eval'")) problems.push("script-src allows unsafe-inline/eval");
+  if (script.includes("'wasm-unsafe-eval'") && !webAppHtml(html)) problems.push("script-src allows WebAssembly outside the web app");
   for (const body of inlineScripts(html)) {
     const h = scriptHash(body);
     if (!script.includes(h)) problems.push(`inline script not allowed by script-src: ${h} ${body.slice(0, 60)}`);

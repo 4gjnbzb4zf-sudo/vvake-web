@@ -4,9 +4,9 @@
   "private": true,
   "scripts": {
     "og": "tsx scripts/generate-og.tsx",
-    "predev": "npm run og && npm run maplibre",
+    "predev": "npm run og && npm run maplibre && npm run mediapipe",
     "dev": "next dev",
-    "prebuild": "npm run og && npm run maplibre",
+    "prebuild": "npm run og && npm run maplibre && npm run mediapipe",
     "build": "next build",
     "postbuild": "tsx scripts/csp.ts",
     "check:csp": "tsx scripts/csp.ts --check",
@@ -20,9 +20,11 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "prepare": "git config core.hooksPath .githooks || true",
-    "maplibre": "tsx scripts/copy-maplibre.ts"
+    "maplibre": "tsx scripts/copy-maplibre.ts",
+    "mediapipe": "tsx scripts/copy-mediapipe.ts"
   },
   "dependencies": {
+    "@mediapipe/tasks-vision": "0.10.35",
     "@noble/curves": "2.4.0",
     "@noble/hashes": "2.4.0",
     "d3-geo": "^3.1.1",

@@ -36,11 +36,12 @@ export const AASA_PATH = "/.well-known/apple-app-site-association";
 
 /**
  * The web app (vvake.com/<lang>/app) records workouts: it needs location (GPS), the microphone (talk to the coach),
- * Bluetooth (a heart-rate strap) and the screen wake lock, for itself only. Its pages drop the site-wide policy
+ * the camera (camera workouts: pose read in the tab, never recorded or sent), Bluetooth (a heart-rate strap) and the
+ * screen wake lock, for itself only. Its pages drop the site-wide policy
  * (`! Permissions-Policy`) and get this one instead.
  */
 export const WEB_APP_PERMISSIONS =
-  "accelerometer=(), browsing-topics=(), camera=(), display-capture=(), geolocation=(self), gyroscope=(), hid=(), magnetometer=(), microphone=(self), midi=(), payment=(), serial=(), usb=(), bluetooth=(self), screen-wake-lock=(self)";
+  "accelerometer=(), browsing-topics=(), camera=(self), display-capture=(), geolocation=(self), gyroscope=(), hid=(), magnetometer=(), microphone=(self), midi=(), payment=(), serial=(), usb=(), bluetooth=(self), screen-wake-lock=(self)";
 export const WEB_APP_PATHS = ["/en/app/*", "/fr/app/*"];
 
 export const MAX_RULES = 100;

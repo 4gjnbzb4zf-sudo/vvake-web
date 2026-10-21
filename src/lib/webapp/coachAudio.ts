@@ -410,6 +410,16 @@ export function playCue(s: Spoken) {
 }
 
 /**
+ * A short line said at once by the browser voice, through the same queue (newest wins, barge-in silences it): a camera
+ * workout's rep count, which can't wait for a recording.
+ */
+export function playQuick(text: string) {
+  const c = cfg;
+  if (!c || c.mode === "off" || !text) return;
+  queueLine({ text, kind: "cue", startMs: 0, playCloud: null });
+}
+
+/**
  * A coach reply: its audio (Plus) when the API sent one and the conversation is still in the coach's voice, else the
  * browser voice for this reply and the rest of the conversation.
  */

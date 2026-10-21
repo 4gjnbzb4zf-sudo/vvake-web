@@ -1,7 +1,18 @@
 import { existsSync, readdirSync, readFileSync, statSync } from "node:fs";
 import { join, relative } from "node:path";
 import { describe, expect, it } from "vitest";
-import { buildCsp, connectOrigins, cspProblems, inlineScripts, parseCsp, readCsp, scriptHash, withCsp, type CspConfig } from "./csp";
+import {
+  buildCsp,
+  connectOrigins,
+  cspProblems,
+  inlineScripts,
+  parseCsp,
+  readCsp,
+  scriptHash,
+  webAppScript,
+  withCsp,
+  type CspConfig,
+} from "./csp";
 
 const ROOT = join(__dirname, "..", "..");
 const OUT = join(ROOT, "out");
@@ -102,6 +113,21 @@ describe("VV-12 Content-Security-Policy", () => {
   });
 });
 
+describe("the web app's camera workout (WebAssembly)", () => {
+  it("allows WebAssembly ('wasm-unsafe-eval', never 'unsafe-eval') on the web app's pages only", () => {
+    const app = page('<link rel="canonical" href="https://vvake.com/en/app/"/>');
+    const withWasm = withCsp(app, cfg, [], [], webAppScript());
+    const d = parseCsp(readCsp(withWasm)!);
+    expect(d["script-src"]).toContain("'wasm-unsafe-eval'");
+    expect(d["script-src"]).not.toContain("'unsafe-eval'");
+    expect(cspProblems(withWasm, cfg)).toEqual([]);
+    // Anywhere else it is reported.
+    const other = withCsp(page('<link rel="canonical" href="https://vvake.com/en/tour/"/>'), cfg, [], [], webAppScript());
+    expect(cspProblems(other, cfg)).toContain("script-src allows WebAssembly outside the web app");
+    expect(parseCsp(readCsp(withCsp(page(""), cfg))!)["script-src"]).not.toContain("'wasm-unsafe-eval'");
+  });
+});
+
 function htmlFiles(dir: string): string[] {
   return readdirSync(dir).flatMap((name) => {
     const p = join(dir, name);
@@ -115,6 +141,15 @@ describe.skipIf(!existsSync(OUT))("VV-12 built site (out/)", () => {
     expect(files.length).toBeGreaterThan(0);
     const bad = files.map((f) => [relative(OUT, f), cspProblems(readFileSync(f, "utf8"))] as const).filter(([, p]) => p.length);
     expect(bad).toEqual([]);
+  });
+
+  it("the web app's pages run WebAssembly (the camera workout's pose model), the rest of the site doesn't", () => {
+    for (const lang of ["en", "fr"]) {
+      const app = parseCsp(readCsp(readFileSync(join(OUT, lang, "app", "index.html"), "utf8"))!);
+      expect(app["script-src"]).toContain("'wasm-unsafe-eval'");
+      const tour = parseCsp(readCsp(readFileSync(join(OUT, lang, "tour", "index.html"), "utf8"))!);
+      expect(tour["script-src"]).not.toContain("'wasm-unsafe-eval'");
+    }
   });
 
   it("VV-12 /en/rewards/ and /fr/rewards/ carry the frame guard", () => {

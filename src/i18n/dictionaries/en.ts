@@ -383,9 +383,9 @@ export const en = {
     customBody:
       "Name it, pick an icon, and choose how it's tracked: heart rate only, or GPS tracking for distance too. Points always come from your heart rate, prizes keep the same rules, and your sport works by voice.",
     cameraBadge: "In the beta now (build 32, testers)",
-    cameraTitle: "Camera workout (phone)",
+    cameraTitle: "Camera workout (phone and web)",
     cameraBody:
-      "Prop your phone 2 to 3 m away: VVake counts your reps and holds for bodyweight and weight training (you enter the load), gives form cues by voice, and your VVaker moves with you. The video never leaves your phone and nothing is recorded. Without a heart sensor it earns small points (at most 15 a day); wear your watch and the watch and the camera make one session with the normal heart points, or pair a Bluetooth heart-rate strap with the phone for heart points too. Never prizes from the camera.",
+      "Prop your phone 2 to 3 m away: VVake counts your reps and holds for bodyweight and weight training (you enter the load), gives form cues by voice, and your VVaker moves with you. The video never leaves your phone and nothing is recorded. Without a heart sensor it earns small points (at most 15 a day); wear your watch and the watch and the camera make one session with the normal heart points, or pair a Bluetooth heart-rate strap with the phone for heart points too. Never prizes from the camera. No phone? The same camera workout runs in your browser at vvake.com/app with your computer's webcam: the pose is read in the tab, the video never leaves it, and its small points share the same 15 a day.",
   },
   challenges: {
     kicker: "Challenges",
@@ -2321,7 +2321,7 @@ export const en = {
     title: "Privacy policy",
     description:
       "What the VVake iPhone and Apple Watch apps and vvake.com collect, why, who else sees it, how long we keep it and your rights.",
-    updated: "Last updated: 2026-10-20",
+    updated: "Last updated: 2026-10-21",
     draft: "Draft for the TestFlight preview. This policy will be reviewed by a lawyer before the public launch.",
     intro: [
       "VVake (also called VVake Fit) is a fitness coaching app for iPhone and Apple Watch, with this website, vvake.com. This policy explains in plain words what we collect, why, who else sees it, how long we keep it and what you can do about it. It covers the apps (TestFlight previews included), the VVake API they talk to, the desk companion for Mac, the VVake plugin for Claude Code and this website, including vvake.com/rewards.",
@@ -2500,8 +2500,12 @@ export const en = {
             d: "Talking to the coach by voice uses your browser's speech recognition, which may send the sound to your browser's maker (for example Google for Chrome) to turn it into text; only the text reaches VVake. Workout cues play VVake's recorded coach voice: the same recordings for everyone, with no personal data, kept in your browser's Cache Storage so they play at once. Cues with your own numbers (pace, distance, time) and, with Plus, the coach's replies are spoken by the coach's voice (ElevenLabs) through our servers, as on the phone; your browser keeps that audio in memory only, never on disk. If the audio can't play, your browser's own voice reads the line, on your device.",
           },
           {
+            t: "The camera, only during a camera workout.",
+            d: "When you open a camera workout, your browser asks whether vvake.com may use your camera (on a computer, its webcam). Your pose is found in the browser tab itself, by Google's MediaPipe Pose Landmarker served from vvake.com: each frame is analysed in memory and dropped. The video is never recorded, stored or sent, to us or anyone else, and nothing is saved to your files. Only the counts of the session are uploaded (moves, sets, reps, the load you typed, hold times, range-of-motion and tempo summaries, form cue ids and the results of the quick checks such as \"raise your left arm now\"), like a camera workout on the phone. The camera turns off when you leave the camera workout; you can block it at any time in your browser's site settings.",
+          },
+          {
             t: "Points, never prizes.",
-            d: "A workout recorded in a browser is marked as a web workout: it counts for your journal, your streak and (with a heart-rate sensor) your points, but never for prizes or City Clash scores, because a browser can't prove where the data comes from.",
+            d: "A workout recorded in a browser is marked as a web workout: it counts for your journal, your streak and (with a heart-rate sensor, or the small capped points of a camera workout) your points, but never for prizes or City Clash scores, because a browser can't prove where the data comes from.",
           },
         ],
       },
@@ -3668,6 +3672,7 @@ export const en = {
           "The $VVAKE v2 relaunch on vibe/vibe, on testnet (no value), with the one-time claim for wallets that bought the old token",
           "Camera workouts on the iPhone and Android phone (reps, holds and form cues from the camera, on the phone), in the beta for testers since build 31",
           "Camera workouts with your watch as one session with heart points, and Bluetooth heart-rate straps paired with the phone, in the beta for testers since build 32",
+          "Camera workouts in the browser with your computer's webcam (vvake.com/app): the same reps, holds and form cues, the video stays in the tab; live now",
         ],
       },
       {

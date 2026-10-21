@@ -3,6 +3,7 @@ import { sports } from "@/lib/sports";
 import type { Locale } from "@/i18n/config";
 import { emptyTrack, type TrackState } from "./geo";
 import { heartEffort, zoneSeconds, type HeartProfile } from "./heart";
+import type { CameraSummary } from "./camera/cameraPoints";
 
 /**
  * A workout recorded in the browser (vvake.com/app), with the phone app's rules (apps/mobile app/workout.tsx):
@@ -200,6 +201,8 @@ export interface WebSession {
   samples: Sample[];
   deviceKey: string;
   hrProfile?: { age: number; restingHr: number; maxHr?: number; female?: boolean; zones?: number[] };
+  /** A camera workout (camera/webCameraSession.ts): counts only, never an image or a pose. */
+  camera?: CameraSummary;
 }
 
 export const MINUTES_PER_ENERGY = 5;

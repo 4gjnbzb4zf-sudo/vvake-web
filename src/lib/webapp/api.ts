@@ -105,6 +105,17 @@ export const sessionSchema = z.object({
   excluded: bool,
   samples: opt(z.array(z.object({ t: z.number(), m: z.number(), bpm: num }))),
   pointsDetail: opt(z.object({ base: z.number(), streakBonus: z.number(), total: z.number(), streakDays: z.number() })),
+  /** A camera workout (ADR-0046): its counts, the camera points it got and why (ok, budget, too_little…). */
+  camera: opt(
+    z.object({
+      moves: z.array(
+        z.object({ id: z.string(), sets: z.array(z.object({ reps: z.number(), holdS: num, loadKg: num, side: str, judged: z.string() })) }),
+      ),
+      liveness: opt(z.object({ asked: z.number(), passed: z.number() })),
+    }),
+  ),
+  cameraPoints: num,
+  cameraReason: str,
 });
 export type ApiSession = z.infer<typeof sessionSchema>;
 const sessionsSchema = z.object({ sessions: z.array(sessionSchema), next: str });
