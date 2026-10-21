@@ -5,6 +5,9 @@ import { framing, JOINTS, type Joint, type PoseFrame } from "./cameraPose";
 import { HoldTimer, RepCounter } from "./cameraReps";
 import { CameraWorkoutEngine } from "./cameraSession";
 import { seededRandom } from "./cameraLiveness";
+import { HandsFreeWorkout, type FlowEvent } from "./cameraFlow";
+import { demoLoop } from "./cameraDemo";
+import type { CameraRoutine } from "./cameraSession";
 import { flatFromLandmarks, frameFromLandmarks, MP_INDEX, type Landmark } from "./webPose";
 
 /**
@@ -133,6 +136,48 @@ describe("camera parity with game-core", () => {
     expect(events).toEqual(x.expect.events);
     expect(e.summary(clock)).toEqual(x.expect.summary);
     expect(e.sport()).toBe(x.expect.sport);
+  });
+
+  it("hands-free: the same routine runs itself the same way (demo, 3-2-1, sets ending on their own, rest, done)", () => {
+    const x = fixtures.hands;
+    const flow = new HandsFreeWorkout(0, seededRandom(x.seed), { routine: x.routine as CameraRoutine });
+    const name = (ev: FlowEvent) =>
+      ev.type === "countdown"
+        ? `countdown:${ev.n}`
+        : ev.type === "demo"
+          ? `demo:${ev.move}:${ev.loop}`
+          : ev.type === "setEnd"
+            ? `setEnd:${ev.reason}`
+            : ev.type === "rep"
+              ? `rep:${ev.n}`
+              : ev.type === "framing"
+                ? `framing:${ev.framing}`
+                : ev.type;
+    const events = flow.start(0).map(name);
+    let last = 0;
+    for (const a of x.frames as Flat[]) {
+      const f = frameOf(a);
+      last = f.t;
+      events.push(...flow.push(f, f.t).map(name));
+      if (flow.phase === "done") break;
+    }
+    expect(events).toEqual(x.expect.events);
+    expect(flow.phase).toBe("done");
+    expect(flow.summary(last)).toEqual(x.expect.summary);
+    expect(events.filter((e) => e.startsWith("setEnd"))).toEqual(["setEnd:target", "setEnd:target"]);
+  });
+
+  it("hands-free: the move demo is the same figure as on the phone", () => {
+    const d = fixtures.hands.demo;
+    const l = demoLoop(d.move);
+    expect(l.loopMs).toBe(d.loopMs);
+    (d.frames as Flat[]).forEach((a, i) => {
+      const f = frameOf(a);
+      for (const j of JOINTS) {
+        expect(l.frames[i]!.joints[j]!.x).toBeCloseTo(f.joints[j]!.x, 3);
+        expect(l.frames[i]!.joints[j]!.y).toBeCloseTo(f.joints[j]!.y, 3);
+      }
+    });
   });
 
   it("reads nobody from too few landmarks", () => {

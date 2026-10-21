@@ -24,15 +24,11 @@ import {
 import { LIVENESS_TEXT, type LivenessKind } from "@/lib/webapp/camera/cameraLiveness";
 import { lookalikes } from "@/lib/webapp/camera/cameraDetect";
 import { CAMERA_MOVES, cameraMove, EQUIPMENT_NAMES, FAMILY_NAMES, type MoveDef, type MoveFamily } from "@/lib/webapp/camera/cameraMoves";
+import { demoFrameAt, demoLoop, moveTip, targetText, type DemoLoop } from "@/lib/webapp/camera/cameraDemo";
+import { applyLoads, flowLine, HandsFreeWorkout, manualSetMs, weightedMoves, type FlowEvent } from "@/lib/webapp/camera/cameraFlow";
 import { cameraTotals, cameraVolumeKg, type CameraSummary } from "@/lib/webapp/camera/cameraPoints";
 import { seen, type BodyArea, type Framing, type FramingTip, type Joint, type PoseFrame } from "@/lib/webapp/camera/cameraPose";
-import {
-  CAMERA_ROUTINES,
-  CameraWorkoutEngine,
-  routineForPlan,
-  type CameraRoutine,
-  type PlannedSet,
-} from "@/lib/webapp/camera/cameraSession";
+import { CAMERA_ROUTINES, routineForPlan, type CameraRoutine } from "@/lib/webapp/camera/cameraSession";
 import { createPoseDetector, type PoseDetector } from "@/lib/webapp/camera/landmarker";
 import { cameraPointsPreview, cameraSessionEmpty, strapSample, toWebCameraSession } from "@/lib/webapp/camera/webCameraSession";
 import {
@@ -54,7 +50,10 @@ import {
   errorState,
   forCamera,
   initialState,
+  autoSaveLeft,
+  loadCameraLoads,
   loadOutlinePref,
+  saveCameraLoads,
   OUTLINE_FADE_MS,
   OutlineClock,
   previewHint,
@@ -335,6 +334,8 @@ interface LiveResult {
   activeS: number;
   sport: string;
   strap: Sample[];
+  /** The loads used per move (the last ones remembered in this browser, editable on the summary). */
+  loads: Record<string, number>;
 }
 
 export function CameraScreen({ sport }: { sport?: string }) {
@@ -567,6 +568,7 @@ function Setup({
         )}
       </div>
       <Small>{c.pointsRule}</Small>
+      <Small>{c.handsFree}</Small>
       <Btn
         big
         variant="volt"
@@ -886,6 +888,12 @@ interface WakeLockSentinelLike {
   release(): Promise<void>;
 }
 
+/**
+ * The live workout, hands-free (ADR-0046 amendment 2026-10-21; the phone's Live): HandsFreeWorkout (camera/cameraFlow.ts,
+ * copied from game-core) runs it from the one click on Start: each new move's demo (full screen, twice), 3-2-1, the
+ * count, the set ending by itself, the rest, the next set or move, the end. Readable from 2–3 m. Pause, End, ±1 and
+ * the lookalike chips stay, never needed.
+ */
 function Live({
   cam,
   plan,
@@ -917,21 +925,22 @@ function Live({
   const bump = () => setTick((n) => n + 1);
 
   const started = useRef(Date.now());
-  const engine = useRef<CameraWorkoutEngine | null>(null);
-  if (!engine.current) {
+  const flowRef = useRef<HandsFreeWorkout | null>(null);
+  if (!flowRef.current) {
     const seed = new Uint32Array(1);
     crypto.getRandomValues(seed);
-    engine.current = new CameraWorkoutEngine(started.current, rngFrom(seed[0]!));
+    flowRef.current = new HandsFreeWorkout(started.current, rngFrom(seed[0]!), {
+      routine: plan.routine,
+      move: plan.move,
+      loads: loadCameraLoads(),
+    });
   }
-  const e = engine.current;
+  const flow = flowRef.current;
+  const e = flow.engine;
   const pacer = useRef(new CuePacer());
   const framingVoice = useRef(new FramingVoice());
   const framingState = useRef<Framing>("none");
-  const planIdx = useRef(0);
-  const [loadKg, setLoadKg] = useState<number | undefined>(undefined);
-  const [loadText, setLoadText] = useState("");
-  const [nextMove, setNextMove] = useState<string | null>(plan.routine ? plan.routine.sets[0]!.move : plan.move);
-  const target = useRef<PlannedSet | null>(plan.routine ? plan.routine.sets[0]! : null);
+  const finished = useRef(false);
   // The strap paired in this browser (You > Heart-rate sensor): its heart rate every 10 s of the session.
   const strap = useRef<Sample[]>([]);
   const lastBpm = useRef<{ v: number; at: number } | null>(null);
@@ -941,16 +950,109 @@ function Live({
 
   const voiceRef = useRef(workoutVoice);
   voiceRef.current = workoutVoice;
-  const speak = useCallback((text: string, essential = false) => {
+  const speak = useCallback((text: string | null, essential = false) => {
+    if (!text) return;
     const m = voiceRef.current;
     if (m === "off" || (!essential && m !== "on")) return;
     playCue({ text });
   }, []);
 
-  // The first set, the one positioning line, audio off at the end.
+  const finish = useCallback(() => {
+    if (finished.current) return;
+    finished.current = true;
+    const t2 = Date.now();
+    const summary = flow.summary(t2);
+    const activeS = Math.round(e.sessionS(t2));
+    hush();
+    if (!summary || cameraSessionEmpty(activeS, summary)) {
+      setNothing(true);
+      return;
+    }
+    onDone({
+      summary,
+      startedAt: started.current,
+      endedAt: t2,
+      activeS,
+      sport: e.sport(),
+      strap: strap.current,
+      loads: { ...flow.allLoads },
+    });
+  }, [flow, e, onDone]);
+
+  /** What the flow said: the screen and the coach voice follow. */
+  const handle = useCallback(
+    (evs: FlowEvent[], at: number) => {
+      for (const x of evs) {
+        switch (x.type) {
+          case "framing":
+            // On screen only: never read aloud during the workout.
+            framingState.current = x.framing;
+            setFraming({ framing: x.framing, missing: x.missing, tips: x.tips });
+            break;
+          case "rep": {
+            const c1 = sayCues(voiceRef.current) ? pacer.current.pick(at, x.cues) : null;
+            if (c1) {
+              const line = cueLine(c1, e.set?.move ?? undefined, lang);
+              setCue(line);
+              speak(line);
+            } else if (sayRep(x.n, voiceRef.current)) playQuick(String(x.n));
+            break;
+          }
+          case "partial": {
+            const c2 = sayCues(voiceRef.current) ? pacer.current.pick(at, ["depth"]) : null;
+            if (c2) {
+              const line = cueLine("depth", e.set?.move ?? undefined, lang);
+              setCue(line);
+              speak(line);
+            }
+            break;
+          }
+          case "hold":
+            if (x.s > 0 && x.s % 10 === 0) speak(fmt(c.say.seconds, { n: x.s }), true);
+            break;
+          case "holdCue": {
+            const c3 = sayCues(voiceRef.current) ? pacer.current.pick(at, x.cues) : null;
+            if (c3) {
+              const line = cueLine(c3, e.set?.move ?? undefined, lang);
+              setCue(line);
+              speak(line);
+            }
+            break;
+          }
+          case "liveness":
+            setCheck({ kind: x.kind, at });
+            speak(LIVENESS_TEXT[x.kind][lang], true);
+            break;
+          case "livenessResult":
+            setCheck(null);
+            speak(x.result.ok ? c.say.thanks : c.say.missed, true);
+            break;
+          case "countdown":
+            if (voiceRef.current !== "off") playQuick(String(x.n));
+            break;
+          case "go":
+          case "setEnd":
+            pacer.current = new CuePacer();
+            setCue(null);
+            speak(flowLine(x, lang), true);
+            break;
+          case "done":
+            speak(flowLine(x, lang), true);
+            // The summary follows on its own (the voice says the last line first).
+            window.setTimeout(finish, 1800);
+            break;
+          default:
+            speak(flowLine(x, lang), true);
+        }
+      }
+    },
+    [e, lang, speak, fmt, c, finish],
+  );
+
+  // The one click was Start: from here the workout runs on its own. The one positioning line; audio off at the end.
   useEffect(() => {
-    e.startSet(Date.now(), nextMove, loadKg ? { loadKg } : {});
     if (framingVoice.current.start(Date.now())) speak(FRAMING_VOICE.start[lang], true);
+    handle(flow.start(Date.now()), Date.now());
     return () => hush();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -988,87 +1090,15 @@ function Live({
     return () => window.clearInterval(id);
   }, [e]);
 
-  const endSet = useCallback(() => {
-    if (e.state !== "set") return;
-    const tg = target.current;
-    const set = e.endSet(Date.now(), tg?.restS);
-    if (set) speak(fmt(c.say.setDone, { n: set.holdS ? fmt(c.say.seconds, { n: set.holdS }) : set.reps }), true);
-    if (plan.routine) {
-      planIdx.current++;
-      const nx = plan.routine.sets[planIdx.current] ?? null;
-      target.current = nx;
-      setNextMove(nx?.move ?? null);
-      if (!nx) speak(c.say.routineDone, true);
-    }
-    bump();
-  }, [e, plan.routine, speak, fmt, c]);
-
   const onPose = useCallback(
     (f0: PoseFrame | null, at: number) => {
       const f = f0 ? { ...f0, t: at - started.current } : null;
       outline.track(at, !!f);
       setFrame(f);
-      for (const x of e.push(f, at)) {
-        switch (x.type) {
-          case "framing":
-            // On screen only: never read aloud during the workout.
-            framingState.current = x.framing;
-            setFraming({ framing: x.framing, missing: x.missing, tips: x.tips });
-            break;
-          case "rep": {
-            const c1 = sayCues(voiceRef.current) ? pacer.current.pick(at, x.cues) : null;
-            if (c1) {
-              const line = cueLine(c1, e.set?.move ?? undefined, lang);
-              setCue(line);
-              speak(line);
-            } else if (sayRep(x.n, voiceRef.current)) playQuick(String(x.n));
-            const tg = target.current;
-            if (tg?.reps && x.n >= tg.reps) endSet();
-            break;
-          }
-          case "partial": {
-            const c2 = sayCues(voiceRef.current) ? pacer.current.pick(at, ["depth"]) : null;
-            if (c2) {
-              const line = cueLine("depth", e.set?.move ?? undefined, lang);
-              setCue(line);
-              speak(line);
-            }
-            break;
-          }
-          case "hold":
-            if (x.s > 0 && x.s % 10 === 0) speak(fmt(c.say.seconds, { n: x.s }), true);
-            if (target.current?.holdS && x.s >= target.current.holdS) endSet();
-            break;
-          case "holdCue": {
-            const c3 = sayCues(voiceRef.current) ? pacer.current.pick(at, x.cues) : null;
-            if (c3) {
-              const line = cueLine(c3, e.set?.move ?? undefined, lang);
-              setCue(line);
-              speak(line);
-            }
-            break;
-          }
-          case "detected": {
-            const m = cameraMove(x.move);
-            speak(fmt(c.say.detected, { move: m ? m.name[lang] : "" }), true);
-            break;
-          }
-          case "restOver":
-            speak(c.say.restOver, true);
-            break;
-          case "liveness":
-            setCheck({ kind: x.kind, at });
-            speak(LIVENESS_TEXT[x.kind][lang], true);
-            break;
-          case "livenessResult":
-            setCheck(null);
-            speak(x.result.ok ? c.say.thanks : c.say.missed, true);
-            break;
-        }
-      }
+      handle(flow.push(f, at), at);
       if (framingVoice.current.push(at, framingState.current) === "remind") speak(FRAMING_VOICE.remind[lang], true);
     },
-    [e, outline, lang, speak, endSet, fmt, c],
+    [flow, outline, lang, speak, handle],
   );
 
   useEffect(() => {
@@ -1076,33 +1106,10 @@ function Live({
     return () => cam.setListener(null);
   }, [cam, onPose]);
 
-  const startSet = () => {
-    unlockAudio();
-    pacer.current = new CuePacer();
-    e.startSet(Date.now(), nextMove, loadKg ? { loadKg } : {});
-    const m = nextMove ? cameraMove(nextMove) : null;
-    if (m) speak(m.name[lang], true);
-    setCue(null);
-    bump();
-  };
-
-  const finish = () => {
-    const t2 = Date.now();
-    const summary = e.summary(t2);
-    const activeS = Math.round(e.sessionS(t2));
-    if (!summary || cameraSessionEmpty(activeS, summary)) {
-      hush();
-      setNothing(true);
-      return;
-    }
-    hush();
-    onDone({ summary, startedAt: started.current, endedAt: t2, activeS, sport: e.sport(), strap: strap.current });
-  };
-
   const togglePause = () => {
     unlockAudio();
-    if (paused) e.resume(Date.now());
-    else e.pause(Date.now());
+    if (paused) flow.resume(Date.now());
+    else flow.pause(Date.now());
     cam.setPaused(!paused);
     setPaused(!paused);
     speak(paused ? t.workout.resumed : t.workout.paused, true);
@@ -1110,14 +1117,20 @@ function Live({
 
   const set = e.set;
   const move = set?.move ?? null;
+  const phase = flow.phase;
+  const target = flow.target;
+  const targetDef = target ? (cameraMove(target.move) ?? null) : null;
   const sessionS = Math.floor(e.sessionS(now));
-  const resting = e.state === "rest";
-  const restLeft = resting && e.restUntilMs ? e.restUntilMs - now : 0;
-  const nextDef = nextMove ? cameraMove(nextMove) : null;
-  const switchTo = move ? lookalikes(move.id) : [];
+  const restLeft = phase === "rest" ? flow.phaseUntilMs - now : 0;
+  const nextSet = flow.upNext;
+  const nextDef = nextSet ? (cameraMove(nextSet.move) ?? null) : null;
+  const switchTo = move && phase === "set" ? lookalikes(move.id) : [];
   const checkLeft = check ? Math.max(0, 6 - Math.floor((now - check.at) / 1000)) : 0;
   const outlineVisible = outline.visible(now);
   const setsSoFar = e.log.reduce((n, m) => n + m.sets.length, 0) + (e.state === "set" && (set?.reps || set?.holdS) ? 1 : 0);
+  const so = flow.setOf();
+  const manualLeft = phase === "set" && move?.judge === "manual" ? manualSetMs(move, target) - (now - flow.phaseStartMs) : 0;
+  const demoLoopNo = Math.min(2, 1 + Math.floor((now - flow.phaseStartMs) / (flow.demo?.loopMs ?? 3000)));
 
   if (nothing)
     return (
@@ -1130,7 +1143,19 @@ function Live({
 
   return (
     <div className="fixed inset-0 flex flex-col bg-black">
-      <Preview cam={cam} frame={frame} outlineVisible={outlineVisible} className="min-h-0 flex-1">
+      <Preview cam={cam} frame={frame} outlineVisible={outlineVisible && phase !== "demo"} className="min-h-0 flex-1">
+        {/* The move's demo, full screen, played twice: watch, then it's your turn. */}
+        {phase === "demo" && targetDef && (
+          <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 bg-night px-4 pt-16 pb-6 text-center">
+            <p className="text-sm font-semibold tracking-widest text-sky-fg uppercase">{fmt(c.watch, { n: demoLoopNo })}</p>
+            <DemoFigure loop={flow.demo} startedAt={flow.phaseStartMs} className="h-[42vh] max-h-[460px] w-full max-w-md" />
+            <p className="font-display text-4xl leading-tight font-bold text-white sm:text-6xl">{targetDef.name[lang]}</p>
+            <p className="font-display text-2xl font-bold text-volt sm:text-4xl">{targetText(target, targetDef, lang)}</p>
+            {so.of > 1 && <p className="text-lg text-white">{fmt(c.setOf, { n: so.n, of: so.of })}</p>}
+            <p className="max-w-xl text-lg text-white/85 sm:text-2xl">{moveTip(targetDef, lang)}</p>
+          </div>
+        )}
+
         {/* Top: the controls, the clock, the strap's heart rate. */}
         <div className="absolute inset-x-0 top-0 space-y-2 p-3 pt-[max(env(safe-area-inset-top),0.75rem)]">
           <div className="flex flex-wrap items-center gap-2">
@@ -1146,54 +1171,87 @@ function Live({
               {restClock(sessionS * 1000)}
             </span>
           </div>
-          {framingNow.framing !== "ok" ? <FramingTips shown={framingNow} compact={e.state === "set"} lang={lang} /> : null}
+          {framingNow.framing !== "ok" && phase !== "demo" ? (
+            <FramingTips shown={framingNow} compact={phase === "set"} lang={lang} />
+          ) : null}
           {paused && <p className="rounded-xl bg-butter/90 px-3 py-2 text-center font-semibold text-ink">{c.paused}</p>}
           {cam.slow && <p className="rounded-xl bg-black/70 px-3 py-1 text-center text-xs text-white">{c.slow}</p>}
         </div>
 
-        {/* The count. */}
-        <div className="pointer-events-none absolute inset-x-0 top-[28%] flex flex-col items-center text-center [text-shadow:0_2px_8px_#000]">
-          {!resting ? (
-            <>
-              <p className="text-lg font-semibold text-white">{move ? move.name[lang] : c.detecting}</p>
-              <p className="font-display text-8xl leading-none font-bold text-volt tabular-nums">
-                {move?.kind === "hold" ? `${Math.floor(set?.holdS ?? 0)}s` : String(set?.reps ?? 0)}
-              </p>
-              {target.current && (
-                <p className="text-white">
-                  {target.current.reps
-                    ? fmt(c.of, { n: target.current.reps })
-                    : target.current.holdS
-                      ? fmt(c.ofS, { n: target.current.holdS })
-                      : ""}
+        {/* The middle: big enough to read from 2–3 m. */}
+        {phase !== "demo" && (
+          <div className="pointer-events-none absolute inset-x-0 top-[22%] flex flex-col items-center px-3 text-center [text-shadow:0_2px_8px_#000]">
+            {phase === "countdown" && (
+              <>
+                <p className="font-display text-4xl font-bold text-white sm:text-5xl">{targetDef ? targetDef.name[lang] : ""}</p>
+                <p className="font-display text-[10rem] leading-none font-bold text-volt tabular-nums sm:text-[14rem]">
+                  {Math.max(1, 3 - Math.floor((now - flow.phaseStartMs) / 1000))}
                 </p>
-              )}
-              {set?.loadKg ? <p className="text-white">{`${kgToUnits(set.loadKg, units)} ${loadUnit(units)}`}</p> : null}
-              {move && move.judge !== "camera" && (
-                <p className="mt-1 rounded-full bg-sky/80 px-3 py-0.5 text-sm text-ink">{c.judge[move.judge]}</p>
-              )}
-              {cue && <p className="mt-3 rounded-full bg-pulse/90 px-4 py-2 font-semibold text-ink">{cue}</p>}
-            </>
-          ) : (
-            <>
-              <p className="text-lg font-semibold text-white">{c.rest}</p>
-              <p className="font-display text-7xl leading-none font-bold text-volt tabular-nums">{restClock(restLeft)}</p>
-              <p className="text-white">
-                {nextDef ? fmt(c.next, { move: nextDef.name[lang] }) : plan.routine ? c.routineDone : c.nextMove}
-              </p>
-            </>
-          )}
-        </div>
-
-        {/* A liveness check: big, with its countdown. */}
-        {check && (
-          <div role="alert" className="absolute inset-x-5 top-[45%] rounded-2xl bg-volt/95 p-4 text-center text-ink">
-            <p className="font-display text-2xl font-bold">{LIVENESS_TEXT[check.kind][lang]}</p>
-            <p>{fmt(c.checkLeft, { n: checkLeft })}</p>
+                <p className="text-2xl font-semibold text-white">{targetText(target, targetDef, lang)}</p>
+              </>
+            )}
+            {phase === "set" && (
+              <>
+                <p className="font-display text-4xl font-bold text-white sm:text-5xl">{move ? move.name[lang] : c.detecting}</p>
+                <p className="font-display text-[9rem] leading-none font-bold text-volt tabular-nums sm:text-[12rem]">
+                  {move?.judge === "manual"
+                    ? restClock(Math.max(0, manualLeft))
+                    : move?.kind === "hold"
+                      ? `${Math.floor(set?.holdS ?? 0)}s`
+                      : String(set?.reps ?? 0)}
+                </p>
+                {target && (
+                  <p className="text-2xl font-semibold text-white">
+                    {target.reps ? fmt(c.of, { n: target.reps }) : target.holdS ? fmt(c.ofS, { n: target.holdS }) : ""}
+                  </p>
+                )}
+                {so.of > 1 && <p className="text-lg text-white">{fmt(c.setOf, { n: so.n, of: so.of })}</p>}
+                {set?.loadKg ? <p className="text-lg text-white">{`${kgToUnits(set.loadKg, units)} ${loadUnit(units)}`}</p> : null}
+                {move?.judge === "manual" && <p className="text-lg text-white">{c.manualTimed}</p>}
+                {move && move.judge === "count" && (
+                  <p className="mt-1 rounded-full bg-sky/80 px-3 py-0.5 text-sm text-ink">{c.judge[move.judge]}</p>
+                )}
+                {cue && <p className="mt-3 rounded-full bg-pulse/90 px-5 py-2 text-xl font-semibold text-ink">{cue}</p>}
+              </>
+            )}
+            {phase === "rest" && (
+              <>
+                <p className="font-display text-4xl font-bold text-white">{c.rest}</p>
+                <p className="font-display text-[8rem] leading-none font-bold text-volt tabular-nums sm:text-[11rem]">
+                  {restClock(Math.max(0, restLeft))}
+                </p>
+                {nextDef ? (
+                  <>
+                    <p className="font-display text-3xl font-bold text-white">{fmt(c.next, { move: nextDef.name[lang] })}</p>
+                    <p className="text-xl text-white">{targetText(nextSet, nextDef, lang)}</p>
+                  </>
+                ) : (
+                  <p className="text-2xl text-white">{flow.free ? c.restReady : ""}</p>
+                )}
+              </>
+            )}
+            {phase === "ready" && (
+              <>
+                <p className="font-display text-5xl font-bold text-volt sm:text-6xl">{c.startMoving}</p>
+                <p className="mt-2 max-w-xl text-xl text-white">{c.startMovingDetail}</p>
+              </>
+            )}
+            {phase === "done" && <p className="font-display text-5xl font-bold text-volt">{c.workoutDone}</p>}
           </div>
         )}
 
-        {!outlineVisible && (
+        {/* The next move doing itself during the rest (a small preview). */}
+        {phase === "rest" && nextDef && <RestPreview move={nextDef.id} startedAt={flow.phaseStartMs} label={c.nextPreview} />}
+
+        {/* A liveness check: big, with its countdown (answered by moving, never by a click). */}
+        {check && (
+          <div role="alert" className="absolute inset-x-5 top-[45%] rounded-2xl bg-volt/95 p-5 text-center text-ink">
+            <p className="font-display text-3xl font-bold sm:text-4xl">{LIVENESS_TEXT[check.kind][lang]}</p>
+            <p className="text-lg">{fmt(c.checkLeft, { n: checkLeft })}</p>
+          </div>
+        )}
+
+        {!outlineVisible && phase !== "demo" && (
           <button
             type="button"
             onClick={() => outline.show(Date.now())}
@@ -1204,7 +1262,7 @@ function Live({
         )}
       </Preview>
 
-      {/* Bottom: the set's controls, or the rest's. */}
+      {/* Bottom: optional only. The workout runs on its own; ±1 fixes a miscount, a chip names a weighted lookalike. */}
       <div className="border-t border-line bg-night-2 px-4 pt-3 pb-[max(env(safe-area-inset-bottom),0.75rem)]">
         <div className="mx-auto max-w-xl space-y-2">
           <Small>{c.keepOpen}</Small>
@@ -1233,9 +1291,8 @@ function Live({
                 )}
               </div>
             </Card>
-          ) : !resting ? (
+          ) : phase === "set" ? (
             <>
-              {move?.judge === "manual" && <Small>{move.kind === "reps" ? c.manualReps : c.manualHold}</Small>}
               {switchTo.length > 0 && (
                 <div className="flex flex-wrap gap-2">
                   {switchTo.slice(0, 4).map((m) => (
@@ -1244,7 +1301,6 @@ function Live({
                       type="button"
                       onClick={() => {
                         e.switchMove(m.id);
-                        setNextMove(m.id);
                         bump();
                       }}
                       className="min-h-10 rounded-full border border-line px-3 text-sm"
@@ -1254,10 +1310,9 @@ function Live({
                   ))}
                 </div>
               )}
-              <div className="flex gap-2">
-                {move?.kind !== "hold" && (
+              <div className="flex items-center gap-2">
+                {move?.kind === "reps" && move.judge !== "manual" && (
                   <Btn
-                    big
                     variant="ghost"
                     aria-label="−1"
                     onClick={() => {
@@ -1268,12 +1323,9 @@ function Live({
                     −1
                   </Btn>
                 )}
-                <Btn big className="flex-1" onClick={endSet}>
-                  {c.endSet}
-                </Btn>
-                {move?.kind !== "hold" && (
+                <Small className="flex-1 text-center">{c.handsFreeHint}</Small>
+                {move?.kind === "reps" && move.judge !== "manual" && (
                   <Btn
-                    big
                     variant="ghost"
                     aria-label="+1"
                     onClick={() => {
@@ -1285,51 +1337,84 @@ function Live({
                   </Btn>
                 )}
               </div>
-              {move && move.kind === "hold" && move.judge === "manual" && (
-                <Btn
-                  variant="ghost"
-                  className="w-full"
-                  onClick={() => {
-                    e.setHold(Math.max(0, (Date.now() - (set?.startedMs ?? Date.now())) / 1000));
-                    bump();
-                  }}
-                >
-                  {c.timeIt}
-                </Btn>
-              )}
             </>
           ) : (
-            <>
-              {(nextDef?.weighted || (!nextDef && move?.weighted)) && (
-                <label className="flex items-center gap-2 text-sm">
-                  <span className="flex-1">{c.load}</span>
-                  <input
-                    className="h-11 w-24 rounded-xl border border-line bg-surface px-3 text-right tabular-nums"
-                    inputMode="decimal"
-                    value={loadText}
-                    onChange={(ev) => {
-                      setLoadText(ev.target.value);
-                      setLoadKg(loadToKg(ev.target.value, units));
-                    }}
-                  />
-                  <span>{loadUnit(units)}</span>
-                </label>
-              )}
-              <div className="flex gap-2">
-                <Btn big className="flex-1" onClick={plan.routine && !nextDef ? () => setConfirmEnd(true) : startSet}>
-                  {plan.routine && !nextDef ? c.finish : c.startNext}
-                </Btn>
-                <Btn big variant="ghost" onClick={() => setConfirmEnd(true)}>
-                  {c.finish}
-                </Btn>
-              </div>
-              <button type="button" onClick={() => setNextMove(null)} className="w-full py-1 text-center text-sm text-sky-fg">
-                {c.anotherMove}
-              </button>
-            </>
+            <Small className="text-center">{c.handsFreeHint}</Small>
           )}
         </div>
       </div>
+    </div>
+  );
+}
+
+/** A move's demo: a thick stick figure doing it (camera/cameraDemo.ts frames, the same joints as the outline). */
+function DemoFigure({ loop, startedAt, className }: { loop: DemoLoop | null; startedAt: number; className?: string }) {
+  const [now, setNow] = useState(() => Date.now());
+  useEffect(() => {
+    if (!loop) return;
+    let raf = 0;
+    const step = () => {
+      setNow(Date.now());
+      raf = window.requestAnimationFrame(step);
+    };
+    raf = window.requestAnimationFrame(step);
+    return () => window.cancelAnimationFrame(raf);
+  }, [loop]);
+  if (!loop) return null;
+  const f = demoFrameAt(loop, now - startedAt);
+  const p = (j: Joint) => {
+    const q = f.joints[j];
+    return q ? { x: q.x * f.w, y: q.y * f.h } : null;
+  };
+  const head = p("nose");
+  const sh = p("lShoulder");
+  const sh2 = p("rShoulder");
+  const hp = p("lHip");
+  const hp2 = p("rHip");
+  return (
+    <svg viewBox={`0 0 ${f.w} ${f.h}`} className={className} role="img" aria-hidden>
+      {sh && sh2 && hp && hp2 && (
+        <polygon
+          points={[sh, sh2, hp2, hp].map((q) => `${q.x},${q.y}`).join(" ")}
+          className="fill-pulse stroke-pulse"
+          strokeWidth={26}
+          strokeLinejoin="round"
+        />
+      )}
+      {BONES.filter(
+        ([a, b]) =>
+          !(a.endsWith("Shoulder") && b.endsWith("Shoulder")) &&
+          !(a.endsWith("Hip") && b.endsWith("Hip")) &&
+          !(a.endsWith("Shoulder") && b.endsWith("Hip")),
+      ).map(([a, b]) => {
+        const q = p(a);
+        const r = p(b);
+        if (!q || !r) return null;
+        return (
+          <line
+            key={`${a}-${b}`}
+            x1={q.x}
+            y1={q.y}
+            x2={r.x}
+            y2={r.y}
+            className={a.startsWith("l") ? "stroke-volt" : "stroke-mint"}
+            strokeWidth={30}
+            strokeLinecap="round"
+          />
+        );
+      })}
+      {head && <circle cx={head.x} cy={head.y} r={34} className="fill-night stroke-volt" strokeWidth={6} />}
+    </svg>
+  );
+}
+
+/** The next move, small, doing itself (the rest screen's preview). */
+function RestPreview({ move, startedAt, label }: { move: string; startedAt: number; label: string }) {
+  const loop = useMemo(() => demoLoop(move), [move]);
+  return (
+    <div className="pointer-events-none absolute right-3 bottom-3 flex flex-col items-center rounded-2xl bg-black/70 p-2">
+      <DemoFigure loop={loop} startedAt={startedAt} className="h-40 w-28 sm:h-56 sm:w-40" />
+      <span className="text-sm font-semibold text-white">{label}</span>
     </div>
   );
 }
@@ -1378,14 +1463,30 @@ function Summary({ result }: { result: LiveResult }) {
   const [saved, setSaved] = useState<WebSession | null>(null);
   const [failed, setFailed] = useState(false);
   const [confirmDiscard, setConfirmDiscard] = useState(false);
-  const totals = cameraTotals(result.summary);
-  const volume = cameraVolumeKg(result.summary);
+  // Loads: optional, once per weighted move, prefilled with the ones used; never needed to save.
+  const [loads, setLoads] = useState<Record<string, number | undefined>>(() => ({ ...result.loads }));
+  const [loadText, setLoadText] = useState<Record<string, string>>(() =>
+    Object.fromEntries(Object.entries(result.loads).map(([k, v]) => [k, kgToUnits(v, prefs.units)])),
+  );
+  // Hands-free to the end: it saves itself after 20 s unless you touch the page.
+  const [touched, setTouched] = useState(false);
+  const [shownAt] = useState(() => Date.now());
+  const now = useTick(500);
+  const left = saved ? null : autoSaveLeft(shownAt, now, touched);
+  const weighted = weightedMoves(result.summary);
+  const summary = applyLoads(result.summary, loads);
+  const totals = cameraTotals(summary);
+  const volume = cameraVolumeKg(summary);
   const strapHeart = result.strap.filter((s) => s.bpm !== undefined).length >= 2;
-  const preview = cameraPointsPreview(result.summary, result.activeS);
+  const preview = cameraPointsPreview(summary, result.activeS);
   const queueRef = useRef(queue);
   queueRef.current = queue;
+  const savedRef = useRef(false);
 
   const save = () => {
+    if (savedRef.current) return;
+    savedRef.current = true;
+    saveCameraLoads(loads);
     setSaving(true);
     const session = toWebCameraSession({
       id: uuid(),
@@ -1393,7 +1494,7 @@ function Summary({ result }: { result: LiveResult }) {
       startedAtMs: result.startedAt,
       endedAtMs: result.endedAt,
       activeS: result.activeS,
-      summary: result.summary,
+      summary,
       deviceKey,
       ...(strapHeart
         ? {
@@ -1419,12 +1520,21 @@ function Summary({ result }: { result: LiveResult }) {
       .finally(() => setSaving(false));
   };
 
+  useEffect(() => {
+    if (left === 0 && !savedRef.current) save();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [left]);
+
   const got = reply?.session;
   const reason = got?.cameraReason ?? null;
   const reasonText = (r: string) => (r in c.reason ? c.reason[r as keyof typeof c.reason] : null);
 
   return (
-    <div className="mx-auto w-full max-w-xl space-y-4 px-4 pt-[max(env(safe-area-inset-top),1.5rem)] pb-16">
+    <div
+      className="mx-auto w-full max-w-xl space-y-4 px-4 pt-[max(env(safe-area-inset-top),1.5rem)] pb-16"
+      onPointerDown={() => setTouched(true)}
+      onKeyDown={() => setTouched(true)}
+    >
       <Kicker tone="volt">{c.kicker}</Kicker>
       <h1 className="font-display text-3xl font-bold">{c.niceWork}</h1>
       <Card>
@@ -1436,7 +1546,7 @@ function Summary({ result }: { result: LiveResult }) {
           <Stat label={t.workout.elapsed} value={restClock(result.activeS * 1000)} />
         </dl>
         <ul className="mt-3 space-y-1 text-sm">
-          {result.summary.moves.map((m) => {
+          {summary.moves.map((m) => {
             const def = cameraMove(m.id);
             return (
               <li key={m.id}>
@@ -1453,11 +1563,35 @@ function Summary({ result }: { result: LiveResult }) {
             );
           })}
         </ul>
-        {result.summary.liveness.asked > 0 && (
-          <Small className="mt-2">{fmt(c.checks, { passed: result.summary.liveness.passed, asked: result.summary.liveness.asked })}</Small>
+        {summary.liveness.asked > 0 && (
+          <Small className="mt-2">{fmt(c.checks, { passed: summary.liveness.passed, asked: summary.liveness.asked })}</Small>
         )}
         <Small className="mt-2">{c.privacyLine}</Small>
       </Card>
+      {weighted.length > 0 && !saved && (
+        <Card>
+          <Kicker tone="sky">{c.weightsTitle}</Kicker>
+          <Small className="mt-1">{c.weightsBody}</Small>
+          <div className="mt-2 space-y-2">
+            {weighted.map((id) => (
+              <label key={id} className="flex items-center gap-2 text-sm">
+                <span className="flex-1">{cameraMove(id)?.name[lang] ?? id}</span>
+                <input
+                  className="h-11 w-24 rounded-xl border border-line bg-surface px-3 text-right tabular-nums"
+                  inputMode="decimal"
+                  value={loadText[id] ?? ""}
+                  onChange={(ev) => {
+                    const v = ev.target.value;
+                    setLoadText((x) => ({ ...x, [id]: v }));
+                    setLoads((x) => ({ ...x, [id]: loadToKg(v, prefs.units) }));
+                  }}
+                />
+                <span>{loadUnit(prefs.units)}</span>
+              </label>
+            ))}
+          </div>
+        </Card>
+      )}
       <Card tone="volt">
         <Kicker tone="volt">{c.pointsTitle}</Kicker>
         {got ? (
@@ -1483,6 +1617,7 @@ function Summary({ result }: { result: LiveResult }) {
         {streak && got && <Small className="mt-1">{fmt(t.workout.streakNow, { n: streak.days })}</Small>}
       </Card>
       <Note tone="butter">{t.workout.webRule}</Note>
+      {left !== null && !saving && <Small className="text-center">{fmt(c.autoSave, { n: left })}</Small>}
       {!saved ? (
         <>
           <Btn big variant="volt" className="w-full" disabled={saving} onClick={save}>

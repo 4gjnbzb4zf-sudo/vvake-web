@@ -103,3 +103,19 @@ describe("the body outline", () => {
     expect(off.leftS(10)).toBe(35);
   });
 });
+
+describe("hands-free camera workout in the browser", () => {
+  it("remembers the last load per move, drops anything odd", async () => {
+    const { parseLoads, mergeLoads } = await import("./webSetup");
+    expect(parseLoads(null)).toEqual({});
+    expect(parseLoads("{oops")).toEqual({});
+    expect(parseLoads('{"goblet-squat":16,"Bad":3,"deadlift":-1,"bench-press":"80"}')).toEqual({ "goblet-squat": 16 });
+    expect(mergeLoads({ "goblet-squat": 16, deadlift: 60 }, { "goblet-squat": 20, deadlift: undefined })).toEqual({ "goblet-squat": 20 });
+  });
+  it("the summary saves itself after 20 s unless you touch it", async () => {
+    const { autoSaveLeft } = await import("./webSetup");
+    expect(autoSaveLeft(0, 0, false)).toBe(20);
+    expect(autoSaveLeft(0, 21_000, false)).toBe(0);
+    expect(autoSaveLeft(0, 1000, true)).toBeNull();
+  });
+});

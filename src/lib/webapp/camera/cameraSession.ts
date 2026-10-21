@@ -1,4 +1,4 @@
-// Copied from VVFit packages/game-core/src/cameraSession.ts (d40e8e6 2026-10-21) by scripts/sync-camera-core.ts. Do not edit: re-sync.
+// Copied from VVFit packages/game-core/src/cameraSession.ts (200973e 2026-10-21) by scripts/sync-camera-core.ts. Do not edit: re-sync.
 /**
  * Camera workouts (ADR-0046): one session in front of the camera. Sets of a move (picked, planned, or detected), reps
  * or a hold counted from the pose, the load you typed, a rest timer between sets, liveness checks during rest, and
@@ -84,6 +84,11 @@ export class CameraWorkoutEngine {
   private pausedMs = 0;
   private pausedAt = 0;
   heart: "watch" | "strap" | undefined;
+  /**
+   * No new liveness check while true (the hands-free flow's demo and countdown: you're watching the screen, not
+   * resting). A check already asked runs to its end.
+   */
+  noChecks = false;
 
   constructor(nowMs: number, rnd: () => number) {
     this.startedMs = nowMs;
@@ -128,6 +133,32 @@ export class CameraWorkoutEngine {
     this.frames = [];
     this.arm(move);
     this.state = "set";
+  }
+
+  /**
+   * Starts a set of a move recognised from these frames (the hands-free flow's own detection, cameraFlow.ts): its
+   * reps so far count, and the counter replays the frames so the next rep isn't missed. Like a set that started on
+   * "just start moving" and named the move.
+   */
+  startDetected(nowMs: number, moveId: string, reps: number, frames: readonly PoseFrame[], o: { loadKg?: number } = {}) {
+    this.startSet(nowMs, null, o);
+    const m = cameraMove(moveId);
+    if (m) this.adopt(m, reps, frames, nowMs);
+  }
+
+  private adopt(move: MoveDef, reps: number, frames: readonly PoseFrame[], nowMs: number) {
+    const s = this.set!;
+    s.move = move;
+    s.manual = move.judge === "manual";
+    s.reps = reps;
+    // The frames' clock (the reps' times are frame times too; the screen's clock may differ from it).
+    const at = frames.length ? frames[frames.length - 1]!.t : nowMs;
+    s.firstRepMs = at;
+    s.lastRepMs = at;
+    this.arm(move);
+    // Bring the counter to the same place: replay the window so the next rep isn't missed.
+    if (this.counter) for (const x of frames) this.counter.push(x);
+    this.frames = [];
   }
 
   private arm(move: MoveDef | null) {
@@ -227,7 +258,7 @@ export class CameraWorkoutEngine {
     if (this.liveness.active) {
       const r = this.liveness.push(f, nowMs);
       if (r) out.push({ type: "livenessResult", result: r });
-    } else if (this.liveness.due(sessS, this.state === "rest" || this.state === "idle") && fr !== "none") {
+    } else if (!this.noChecks && this.liveness.due(sessS, this.state === "rest" || this.state === "idle") && fr !== "none") {
       out.push({ type: "liveness", kind: this.liveness.ask(nowMs, sessS, f) });
     }
     if (this.state === "rest" && this.restUntilMs && nowMs >= this.restUntilMs) {
@@ -243,14 +274,7 @@ export class CameraWorkoutEngine {
       while (this.frames.length && this.frames[0]!.t < cutoff) this.frames.shift();
       const d = detectMove(this.frames);
       if (d) {
-        s.move = d.move;
-        s.reps = d.reps;
-        s.firstRepMs = nowMs;
-        s.lastRepMs = nowMs;
-        this.arm(d.move);
-        // Bring the counter to the same place: replay the window so the next rep isn't missed.
-        if (this.counter) for (const x of this.frames) this.counter.push(x);
-        this.frames = [];
+        this.adopt(d.move, d.reps, this.frames, nowMs);
         out.push({ type: "detected", move: d.move.id, reps: d.reps });
       }
       return out;

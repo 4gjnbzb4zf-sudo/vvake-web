@@ -180,8 +180,66 @@ async function vectors() {
     expect: { events, summary: e.summary(clock), sport: e.sport() },
   };
 
-  writeFileSync(fixtures, JSON.stringify({ source: `VVFit packages/game-core ${rev}`, reps, holds, engine }));
-  console.log(`camera: test vectors written (${reps.length} rep cases, ${holds.length} hold, engine ${events.length} events)`);
+  // Hands-free (cameraFlow.ts): a two-set routine run on its own, nobody touching anything: the demo, 3-2-1, the
+  // sets ending at their target, the rest, the countdown again, done. Fixed frames (stand, squat, stand, squat, stand).
+  const { HandsFreeWorkout } = await imp("src/cameraFlow.ts");
+  const { demoLoop } = await imp("src/cameraDemo.ts");
+  const segs: Frame[] = [];
+  let tEnd = 0;
+  const push = (fs: Frame[]) => {
+    const base = tEnd;
+    for (const f of fs) segs.push({ ...f, t: base + f.t });
+    tEnd = segs.length ? segs[segs.length - 1]!.t + 100 : 0;
+  };
+  const stand = (s: number, seed: number) => rounded(S.record(s, 10, () => S.standing(), { view: "front" }, seed));
+  push(stand(9, 21));
+  push(rounded(seq((k) => S.squat(k), { view: "front" }, 5, 2.2, 23)));
+  push(stand(25, 22));
+  push(rounded(seq((k) => S.squat(k), { view: "front" }, 5, 2.2, 24)));
+  push(stand(10, 25));
+  const routine = {
+    id: "parity",
+    name: { en: "Parity", fr: "Parité" },
+    minutes: 2,
+    equipment: "none",
+    sets: [
+      { move: "squat", reps: 5, restS: 10 },
+      { move: "squat", reps: 5, restS: 10 },
+    ],
+  };
+  const flow = new HandsFreeWorkout(0, seededRandom(5), { routine });
+  const flowEvents: string[] = [];
+  const name = (x: { type: string; [k: string]: unknown }) =>
+    x.type === "countdown"
+      ? `countdown:${x.n}`
+      : x.type === "demo"
+        ? `demo:${x.move}:${x.loop}`
+        : x.type === "setEnd"
+          ? `setEnd:${x.reason}`
+          : x.type === "rep"
+            ? `rep:${x.n}`
+            : x.type === "framing"
+              ? `framing:${x.framing}`
+              : x.type;
+  for (const x of flow.start(0)) flowEvents.push(name(x));
+  let last = 0;
+  for (const f of segs) {
+    last = f.t;
+    for (const x of flow.push(f, f.t)) flowEvents.push(name(x));
+    if (flow.phase === "done") break;
+  }
+  const hands = {
+    seed: 5,
+    routine,
+    frames: segs.map(flat),
+    expect: { events: flowEvents, phase: flow.phase, summary: flow.summary(last) },
+    demo: { move: "push-up", loopMs: demoLoop("push-up").loopMs, frames: demoLoop("push-up").frames.slice(0, 6).map(flat) },
+  };
+
+  writeFileSync(fixtures, JSON.stringify({ source: `VVFit packages/game-core ${rev}`, reps, holds, engine, hands }));
+  console.log(
+    `camera: test vectors written (${reps.length} rep cases, ${holds.length} hold, engine ${events.length} events, hands-free ${flowEvents.length} events, ${flow.phase})`,
+  );
 
   execFileSync("npx", ["prettier", "--write", out], { stdio: "inherit" });
 }

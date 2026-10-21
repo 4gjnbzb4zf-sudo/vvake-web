@@ -1,4 +1,4 @@
-// Copied from VVFit packages/game-core/src/cameraPoints.ts (d40e8e6 2026-10-21) by scripts/sync-camera-core.ts. Do not edit: re-sync.
+// Copied from VVFit packages/game-core/src/cameraPoints.ts (200973e 2026-10-21) by scripts/sync-camera-core.ts. Do not edit: re-sync.
 /**
  * Camera workouts (ADR-0046): what a session recorded with the phone's camera (on-device pose, no phone or watch worn)
  * uploads, and the small, capped points it may earn. Pure and deterministic, shared by the API (which enforces it)

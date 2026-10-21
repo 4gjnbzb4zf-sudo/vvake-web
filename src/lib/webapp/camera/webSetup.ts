@@ -280,3 +280,60 @@ export function forCamera(text: string, lang: Locale): string {
       .replace(/\bLe téléphone\b/g, "La caméra");
   return text.replace(/\bthe phone\b/g, "the camera").replace(/\bThe phone\b/g, "The camera");
 }
+
+// ── Hands-free (ADR-0046 amendment 2026-10-21): the last load per move, the summary's auto-save ────────────────────
+
+const LOADS_KEY = "vvake.cameraLoads.v1";
+
+/** The last load used per move (kg), as stored in this browser; anything odd is dropped. */
+export function parseLoads(raw: string | null | undefined): Record<string, number> {
+  if (!raw) return {};
+  try {
+    const o = JSON.parse(raw) as unknown;
+    if (!o || typeof o !== "object" || Array.isArray(o)) return {};
+    const out: Record<string, number> = {};
+    for (const [k, v] of Object.entries(o as Record<string, unknown>))
+      if (/^[a-z0-9-]{2,40}$/.test(k) && typeof v === "number" && Number.isFinite(v) && v > 0 && v <= 500) out[k] = Math.round(v * 10) / 10;
+    return out;
+  } catch {
+    return {};
+  }
+}
+
+/** This workout's loads over the stored ones; a cleared one (0 or none) is forgotten. */
+export function mergeLoads(
+  old: Readonly<Record<string, number>>,
+  now: Readonly<Record<string, number | undefined>>,
+): Record<string, number> {
+  const out: Record<string, number> = { ...old };
+  for (const [k, v] of Object.entries(now)) {
+    if (v && v > 0) out[k] = Math.round(v * 10) / 10;
+    else delete out[k];
+  }
+  return parseLoads(JSON.stringify(out));
+}
+
+export function loadCameraLoads(): Record<string, number> {
+  try {
+    return parseLoads(localStorage.getItem(LOADS_KEY));
+  } catch {
+    return {};
+  }
+}
+
+export function saveCameraLoads(now: Readonly<Record<string, number | undefined>>) {
+  try {
+    localStorage.setItem(LOADS_KEY, JSON.stringify(mergeLoads(loadCameraLoads(), now)));
+  } catch {
+    // forgotten next time
+  }
+}
+
+/** The summary saves itself after this long unless you touch the page (hands-free to the end). */
+export const AUTO_SAVE_S = 20;
+
+/** Seconds left before the auto-save (null once you touched the page: you save yourself). */
+export function autoSaveLeft(shownAtMs: number, nowMs: number, touched: boolean): number | null {
+  if (touched) return null;
+  return Math.max(0, AUTO_SAVE_S - Math.floor((nowMs - shownAtMs) / 1000));
+}
