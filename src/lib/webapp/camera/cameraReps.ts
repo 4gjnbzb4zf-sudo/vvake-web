@@ -1,4 +1,4 @@
-// Copied from VVFit packages/game-core/src/cameraReps.ts (4fe0f2a 2026-10-21) by scripts/sync-camera-core.ts. Do not edit: re-sync.
+// Copied from VVFit packages/game-core/src/cameraReps.ts (322f91e 2026-10-21) by scripts/sync-camera-core.ts. Do not edit: re-sync.
 /**
  * Camera workouts (ADR-0046): reps and holds from joint angles. A move (cameraMoves.ts) names one signal (an angle, the
  * torso's tilt, how far the hips dropped toward the knees, how high the wrists are); a rep is that signal leaving its

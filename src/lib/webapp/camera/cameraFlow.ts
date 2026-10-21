@@ -1,4 +1,4 @@
-// Copied from VVFit packages/game-core/src/cameraFlow.ts (4fe0f2a 2026-10-21) by scripts/sync-camera-core.ts. Do not edit: re-sync.
+// Copied from VVFit packages/game-core/src/cameraFlow.ts (322f91e 2026-10-21) by scripts/sync-camera-core.ts. Do not edit: re-sync.
 /**
  * Camera workouts, hands-free (ADR-0046 amendment 2026-10-21). Founder, after build 34: "It's video training mode:
  * the user should not have to go to the phone and tap or type to be recognised." One tap on Start, then the session
@@ -106,6 +106,8 @@ export class HandsFreeWorkout {
   private buf: PoseFrame[] = [];
   private lastDetectMs = 0;
   private cand: { id: string; since: number } | null = null;
+  /** "Just start moving": the winner of the last look (a move starts when two looks in a row agree). */
+  private startCand: string | null = null;
   private lastActivityMs: number;
   private holdGrowMs = 0;
   /** The last rep (the screen's clock: frame times may run on another one). */
@@ -397,7 +399,11 @@ export class HandsFreeWorkout {
     if (this.engine.liveness.active || nowMs - this.lastDetectMs < HANDS_FREE.detectEveryMs) return false;
     this.lastDetectMs = nowMs;
     const d = detectMove(this.buf);
-    if (!d) return false;
+    // The same clear winner twice in a row (hysteresis): one look's answer can depend on where the window starts.
+    const prev = this.startCand;
+    this.startCand = d ? d.move.id : null;
+    if (!d || prev !== d.move.id) return false;
+    this.startCand = null;
     this.adoptDetected(nowMs, d.move.id, d.reps, out);
     return true;
   }
@@ -509,7 +515,8 @@ export function flowLine(e: FlowEvent, lang: "en" | "fr"): string | null {
     case "demo": {
       if (e.loop !== 1) return null;
       const m = cameraMove(e.move) ?? null;
-      return `${name(e.move)}. ${targetText(e.target, m, lang)}.`;
+      const zone = e.target?.zone ? (fr ? ` Zone ${e.target.zone}.` : ` Zone ${e.target.zone}.`) : "";
+      return `${name(e.move)}. ${targetText(e.target, m, lang)}.${zone}`;
     }
     case "countdown":
       return String(e.n);

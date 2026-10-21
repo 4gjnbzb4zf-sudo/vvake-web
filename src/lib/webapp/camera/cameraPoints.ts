@@ -1,4 +1,4 @@
-// Copied from VVFit packages/game-core/src/cameraPoints.ts (4fe0f2a 2026-10-21) by scripts/sync-camera-core.ts. Do not edit: re-sync.
+// Copied from VVFit packages/game-core/src/cameraPoints.ts (322f91e 2026-10-21) by scripts/sync-camera-core.ts. Do not edit: re-sync.
 /**
  * Camera workouts (ADR-0046): what a session recorded with the phone's camera (on-device pose, no phone or watch worn)
  * uploads, and the small, capped points it may earn. Pure and deterministic, shared by the API (which enforces it)
@@ -183,7 +183,8 @@ export function cleanCameraSummary(raw: unknown): CameraSummary | null {
   const moves: CameraMoveLog[] = [];
   for (const m of Array.isArray(r.moves) ? r.moves.slice(0, CAMERA_LIMITS.moves) : []) {
     const mm = m as Record<string, unknown>;
-    if (typeof mm?.id !== "string" || !/^[a-z0-9-]{2,40}$/.test(mm.id)) continue;
+    // Catalogue ids, or a custom move's (m_ + 10, ADR-0047).
+    if (typeof mm?.id !== "string" || !(/^[a-z0-9-]{2,40}$/.test(mm.id) || /^m_[a-z0-9]{10}$/.test(mm.id))) continue;
     const sets: CameraSet[] = [];
     for (const s of Array.isArray(mm.sets) ? mm.sets.slice(0, CAMERA_LIMITS.setsPerMove) : []) {
       const ss = s as Record<string, unknown>;

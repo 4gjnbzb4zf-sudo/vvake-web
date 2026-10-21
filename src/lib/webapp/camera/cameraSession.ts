@@ -1,4 +1,4 @@
-// Copied from VVFit packages/game-core/src/cameraSession.ts (4fe0f2a 2026-10-21) by scripts/sync-camera-core.ts. Do not edit: re-sync.
+// Copied from VVFit packages/game-core/src/cameraSession.ts (322f91e 2026-10-21) by scripts/sync-camera-core.ts. Do not edit: re-sync.
 /**
  * Camera workouts (ADR-0046): one session in front of the camera. Sets of a move (picked, planned, or detected), reps
  * or a hold counted from the pose, the load you typed, a rest timer between sets, liveness checks during rest, and
@@ -7,7 +7,9 @@
  */
 import { CAMERA_POINTS, type CameraJudge, type CameraMoveLog, type CameraSet, type CameraSummary } from "./cameraPoints";
 import { cameraMove, cameraSessionSport, moveNeeds, type MoveDef } from "./cameraMoves";
-import { HoldTimer, RepCounter, type CueId } from "./cameraReps";
+import { HoldTimer, RepCounter, type CueId, type RepEvent, type SignalSpec } from "./cameraReps";
+import { TemplateCounter, TemplateHold } from "./cameraTemplate";
+import type { CustomMoveDef } from "./cameraCustom";
 import {
   DETECT_AREAS,
   framingReport,
@@ -63,6 +65,9 @@ export interface PlannedSet {
   reps?: number;
   holdS?: number;
   restS?: number;
+  /** Custom trainings (ADR-0047): the target heart zone 1–5, and the effort out of 10 without a sensor. */
+  zone?: number;
+  rpe?: number;
 }
 
 export class CameraWorkoutEngine {
@@ -71,13 +76,14 @@ export class CameraWorkoutEngine {
   set: CurrentSet | null = null;
   readonly log: CameraMoveLog[] = [];
   restUntilMs = 0;
-  private counter: RepCounter | null = null;
-  private timer: HoldTimer | null = null;
+  private counter: { push(f: PoseFrame): { reps: RepEvent[]; partials?: unknown[] }; sig?: SignalSpec } | null = null;
+  private timer: { push(f: PoseFrame): CueId[] | []; heldS: number } | null = null;
   private trackedS = 0;
   private workS = 0;
   private lastFrameMs = 0;
   private frames: PoseFrame[] = [];
   private lastFraming: string | null = null;
+  private lastDetectT = -Infinity;
   private pendingFraming: { key: string; since: number } | null = null;
   readonly liveness: LivenessChecker;
   /** Seconds paused (not counted as session time for liveness scheduling). */
@@ -159,12 +165,24 @@ export class CameraWorkoutEngine {
     this.arm(move);
     // Bring the counter to the same place: replay the window so the next rep isn't missed.
     if (this.counter) for (const x of frames) this.counter.push(x);
+    // A hold recognised from the window: the seconds already held count.
+    if (this.timer && frames.length) {
+      for (const x of frames) this.timer.push(x);
+      s.holdS = this.timer.heldS;
+    }
     this.frames = [];
   }
 
   private arm(move: MoveDef | null) {
     this.counter = null;
     this.timer = null;
+    if (move && "custom" in move) {
+      // A move you taught (ADR-0047): its template counts it.
+      const tpl = (move as CustomMoveDef).custom.template;
+      if (tpl.kind === "reps") this.counter = new TemplateCounter(tpl);
+      else this.timer = new TemplateHold(tpl);
+      return;
+    }
     if (!move || move.judge === "manual" || !move.sig) return;
     if (move.kind === "reps" && move.rep) this.counter = new RepCounter(move.sig, move.rep, move.guards ?? [], move.cues ?? []);
     if (move.kind === "hold" && move.hold) this.timer = new HoldTimer(move.sig, move.hold, move.guards ?? [], move.cues ?? []);
@@ -274,6 +292,9 @@ export class CameraWorkoutEngine {
       // The frames' own clock (session time), not the screen's (`nowMs`): mixing them emptied the window every frame.
       const cutoff = f.t - DETECT.windowMs;
       while (this.frames.length && this.frames[0]!.t < cutoff) this.frames.shift();
+      // Every half second (each look replays the window through every candidate).
+      if (f.t - this.lastDetectT < 500) return out;
+      this.lastDetectT = f.t;
       const d = detectMove(this.frames);
       if (d) {
         this.adopt(d.move, d.reps, this.frames, nowMs);
@@ -282,7 +303,7 @@ export class CameraWorkoutEngine {
       return out;
     }
     if (this.counter) {
-      const { reps, partials } = this.counter.push(f);
+      const { reps, partials = [] } = this.counter.push(f);
       for (const r of reps) {
         s.reps++;
         if (!s.firstRepMs) s.firstRepMs = r.t - r.durS * 1000;
@@ -290,7 +311,8 @@ export class CameraWorkoutEngine {
         s.roms.push(r.romPct);
         s.tempos.push(r.durS);
         r.cues.forEach((c) => s.cues.add(c));
-        const side = this.counter.sig.k !== "tilt" && this.counter.sig.side === "alt" ? (r.ch === 0 ? "l" : "r") : undefined;
+        const sig = this.counter.sig;
+        const side = sig && sig.k !== "tilt" && sig.side === "alt" ? (r.ch === 0 ? "l" : "r") : undefined;
         out.push({ type: "rep", n: s.reps, ...(side ? { side } : {}), cues: r.cues });
       }
       if (partials.length) {

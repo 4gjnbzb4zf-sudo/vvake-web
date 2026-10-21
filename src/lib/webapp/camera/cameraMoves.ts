@@ -1,4 +1,4 @@
-// Copied from VVFit packages/game-core/src/cameraMoves.ts (4fe0f2a 2026-10-21) by scripts/sync-camera-core.ts. Do not edit: re-sync.
+// Copied from VVFit packages/game-core/src/cameraMoves.ts (322f91e 2026-10-21) by scripts/sync-camera-core.ts. Do not edit: re-sync.
 /**
  * Camera workouts (ADR-0046): the move catalog. Data only: each move names its signal (cameraReps.ts), the rest and
  * worked positions, the body checks that must hold for a rep to count, the form cues that apply, where to put the
@@ -14,6 +14,7 @@
 import type { BodyPart, CueCheck, Guard, HoldSpec, RepSpec, SignalSpec } from "./cameraReps";
 import type { CameraJudge } from "./cameraPoints";
 import { CORE_AREAS, type BodyArea } from "./cameraPose";
+import { customMove } from "./cameraCustom";
 
 export type Equipment = "bodyweight" | "dumbbell" | "barbell" | "kettlebell" | "bar" | "bench" | "box";
 export type MoveFamily =
@@ -74,6 +75,13 @@ const HORIZONTAL: Guard = { sig: TILT, min: 55 };
 const HINGED: Guard = { sig: TILT, min: 25 };
 const ARMS_UP: Guard = { sig: wrists("min"), min: 0.2 };
 const ARMS_DOWN: Guard = { sig: wrists("max"), max: -0.3 };
+/**
+ * Shoulders, hips and knees in one line (push-ups: a bent-over row bends the elbows with the torso low too, but
+ * hinged at the hips). Added 2026-10-21 (ADR-0047) so "just start moving" tells them apart.
+ */
+const BODY_STRAIGHT: Guard = { sig: bodyHip(), min: 140 };
+/** Hands below the shoulders (a burpee's plank; lying for a sit-up, the hands are at the chest or up). */
+const HANDS_LOW: Guard = { sig: wrists("max"), max: -0.2 };
 /** Elbows by your sides (curls: the wrists come up, the elbows stay down). */
 const ELBOWS_DOWN: Guard = { sig: { k: "elbowHeight", side: "max" }, max: -0.3 };
 
@@ -190,7 +198,7 @@ export const CAMERA_MOVES: readonly MoveDef[] = [
     view: "side",
     sig: elbow(),
     rep: PUSHUP,
-    guards: [HORIZONTAL],
+    guards: [HORIZONTAL, BODY_STRAIGHT],
     cues: PUSH_CUES,
     detect: true,
   }),
@@ -198,7 +206,7 @@ export const CAMERA_MOVES: readonly MoveDef[] = [
     view: "side",
     sig: elbow(),
     rep: PUSHUP,
-    guards: [{ sig: TILT, min: 45 }],
+    guards: [{ sig: TILT, min: 45 }, BODY_STRAIGHT],
     cues: [{ id: "depth" }, { id: "lockout" }],
   }),
   reps("pike-push-up", name("Pike push-up", "Pompe pike"), "push", "functional-strength", {
@@ -221,7 +229,7 @@ export const CAMERA_MOVES: readonly MoveDef[] = [
     view: "side",
     sig: TILT,
     rep: { dir: "up", rest: 30, work: 60, minS: 1.2, maxS: 12 },
-    guards: [{ sig: bodyHip(), min: 145 }],
+    guards: [{ sig: bodyHip(), min: 145 }, HANDS_LOW],
     judge: "count",
     detect: true,
   }),
@@ -660,7 +668,8 @@ export const CAMERA_MOVES: readonly MoveDef[] = [
 ];
 
 const BY_ID = new Map(CAMERA_MOVES.map((m) => [m.id, m]));
-export const cameraMove = (id: string): MoveDef | undefined => BY_ID.get(id);
+/** A catalogue move, or a custom move registered for this session (cameraCustom.ts, ADR-0047). */
+export const cameraMove = (id: string): MoveDef | undefined => BY_ID.get(id) ?? customMove(id);
 export const moveName = (m: Pick<MoveDef, "name">, lang: "en" | "fr") => m.name[lang];
 
 /** The equipment chips the picker shows. */
@@ -724,6 +733,17 @@ function signalAreas(sig: SignalSpec): BodyArea[] {
  */
 export function moveNeeds(m: Pick<MoveDef, "sig" | "guards" | "judge">): BodyArea[] {
   const out = new Set<BodyArea>(CORE_AREAS);
+  // A custom move: the parts its template reads (ADR-0047).
+  const custom = (m as { custom?: { template: { ch: string[] } } }).custom;
+  if (custom)
+    for (const c of custom.template.ch)
+      out.add(
+        c.startsWith("elbow") || c.startsWith("wrist") || c.startsWith("shoulder")
+          ? "arms"
+          : c.startsWith("knee") || c.startsWith("drop")
+            ? "knees"
+            : "hips",
+      );
   if (m.judge !== "manual") {
     if (m.sig) signalAreas(m.sig).forEach((a) => out.add(a));
     for (const g of m.guards ?? []) signalAreas(g.sig).forEach((a) => out.add(a));
@@ -754,7 +774,7 @@ export function placementHint(m: Pick<MoveDef, "view" | "sig" | "guards" | "judg
 export function cameraSessionSport(moveIds: readonly string[]): MoveDef["sport"] {
   const n = new Map<MoveDef["sport"], number>();
   for (const id of moveIds) {
-    const m = BY_ID.get(id);
+    const m = cameraMove(id);
     if (m) n.set(m.sport, (n.get(m.sport) ?? 0) + 1);
   }
   if ((n.get("strength") ?? 0) > 0) return "strength";

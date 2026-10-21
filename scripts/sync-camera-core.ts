@@ -18,7 +18,10 @@ const out = join(process.cwd(), "src", "lib", "webapp", "camera");
 const fixtures = join(process.cwd(), "src", "lib", "webapp", "fixtures", "camera-fixtures.json");
 mkdirSync(out, { recursive: true });
 
-const files = readdirSync(join(core, "src")).filter((f) => /^camera[A-Z]\w*\.ts$/.test(f));
+// The camera files, and the public text filter they use (ugc.ts: custom move and training names, ADR-0047).
+const EXTRA = ["ugc.ts"];
+const copied = (f: string) => /^camera[A-Z]\w*\.ts$/.test(f) || EXTRA.includes(f);
+const files = readdirSync(join(core, "src")).filter(copied);
 if (!files.includes("cameraPose.ts")) throw new Error(`no game-core camera files in ${core}/src`);
 const rev = (() => {
   try {
@@ -31,8 +34,8 @@ const rev = (() => {
 for (const f of files) {
   const src = readFileSync(join(core, "src", f), "utf8");
   for (const m of src.matchAll(/from '\.\/([\w.]+)'/g))
-    if (!/^camera[A-Z]\w*\.js$/.test(m[1]!)) throw new Error(`${f} imports ./${m[1]}: only camera files can be copied`);
-  const body = src.replace(/from '\.\/(camera\w+)\.js'/g, "from './$1'");
+    if (!copied(m[1]!.replace(/\.js$/, ".ts"))) throw new Error(`${f} imports ./${m[1]}: only camera files can be copied`);
+  const body = src.replace(/from '\.\/(camera\w+|ugc)\.js'/g, "from './$1'");
   writeFileSync(
     join(out, f),
     `// Copied from VVFit packages/game-core/src/${f} (${rev}) by scripts/sync-camera-core.ts. Do not edit: re-sync.\n${body}`,
@@ -236,9 +239,91 @@ async function vectors() {
     demo: { move: "push-up", loopMs: demoLoop("push-up").loopMs, frames: demoLoop("push-up").frames.slice(0, 6).map(flat) },
   };
 
-  writeFileSync(fixtures, JSON.stringify({ source: `VVFit packages/game-core ${rev}`, reps, holds, engine, hands }));
+  // Custom moves and trainings (ADR-0047): a move taught from a recording (a straight punch, not in the catalogue),
+  // counted back on another recording, recognised in "just start moving"; a training cleaned, expanded and scored.
+  const T = await imp("src/cameraTemplate.ts");
+  const C = await imp("src/cameraCustom.ts");
+  const D = await imp("src/cameraDetect.ts");
+  const TR = await imp("src/cameraTraining.ts");
+  const punch = (k: number) =>
+    S.standingWith({ l: { pitch: 90, roll: 0, elbow: 55 }, r: { pitch: 90, roll: 0, elbow: 55 + (172 - 55) * k } });
+  const teachFrames = rounded(seq(punch, { view: "side" }, 4, 1.6, 3));
+  const taught = T.buildTemplate(teachFrames, "reps");
+  if (!taught.ok) throw new Error(`custom vectors: teaching failed (${taught.error})`);
+  const testFrames = rounded(seq(punch, { view: "side" }, 6, 1.6, 9));
+  const counted = T.countWith(taught.template, testFrames);
+  const move = C.cleanCustomMove({ id: "m_parity0001", name: "Punch", icon: "figure.boxing", template: taught.template, checked: true });
+  C.registerCustomMoves([move]);
+  let detected: string | null = null;
+  for (let i = 10; i <= testFrames.length && !detected; i += 7)
+    detected = D.detectMove(testFrames.slice(Math.max(0, i - 8 * FPS), i))?.move.id ?? null;
+  C.registerCustomMoves([]);
+  const trainingIn = {
+    name: "Parity burner",
+    description: "Squats, punches, a plank.",
+    level: "beginner",
+    rounds: 2,
+    roundRestS: 45,
+    sets: [
+      { move: "squat", reps: 12, zone: 3, restS: 30 },
+      { move: "m_parity0001", reps: 10, zone: 4, restS: 20 },
+      { move: "plank", holdS: 30, rpe: 6 },
+    ],
+    moves: [move],
+    visibility: "public",
+    lang: "en",
+    tags: ["Legs", "core!"],
+  };
+  const cleaned = TR.cleanTraining(trainingIn);
+  if (!("training" in cleaned)) throw new Error(`custom vectors: training refused (${cleaned.problem})`);
+  const runSummary = {
+    moves: [
+      { id: "squat", sets: [{ reps: 12 }, { reps: 9 }] },
+      { id: "m_parity0001", sets: [{ reps: 10 }, { reps: 10 }] },
+      {
+        id: "plank",
+        sets: [
+          { reps: 0, holdS: 30 },
+          { reps: 0, holdS: 15 },
+        ],
+      },
+    ],
+  };
+  const heartZones = { zoneS: [10, 40, 200, 300, 120, 30] };
+  const custom = {
+    teach: { frames: teachFrames.map(flat), expect: { reps: taught.reps, template: taught.template } },
+    count: { frames: testFrames.map(flat), expect: { reps: counted, detected } },
+    move,
+    training: {
+      input: trainingIn,
+      expect: {
+        training: cleaned.training,
+        routine: TR.trainingRoutine(cleaned.training),
+        minutes: TR.trainingMinutes(cleaned.training),
+        run: TR.trainingRun(cleaned.training, runSummary, heartZones),
+        runNoHeart: TR.trainingRun(cleaned.training, runSummary, null),
+      },
+      runSummary,
+      heartZones,
+      problems: [
+        { input: { ...trainingIn, name: "" }, problem: TR.cleanTraining({ ...trainingIn, name: "" }).problem },
+        { input: { ...trainingIn, sets: [] }, problem: TR.cleanTraining({ ...trainingIn, sets: [] }).problem },
+        {
+          input: { ...trainingIn, sets: [{ move: "nope", reps: 3 }] },
+          problem: TR.cleanTraining({ ...trainingIn, sets: [{ move: "nope", reps: 3 }] }).problem,
+        },
+        { input: { ...trainingIn, rounds: 11 }, problem: TR.cleanTraining({ ...trainingIn, rounds: 11 }).problem },
+        {
+          input: { ...trainingIn, name: "Visit www.example.com" },
+          problem: TR.cleanTraining({ ...trainingIn, name: "Visit www.example.com" }).problem,
+        },
+      ],
+    },
+  };
+
+  writeFileSync(fixtures, JSON.stringify({ source: `VVFit packages/game-core ${rev}`, reps, holds, engine, hands, custom }));
   console.log(
-    `camera: test vectors written (${reps.length} rep cases, ${holds.length} hold, engine ${events.length} events, hands-free ${flowEvents.length} events, ${flow.phase})`,
+    `camera: test vectors written (${reps.length} rep cases, ${holds.length} hold, engine ${events.length} events, hands-free ${flowEvents.length} events, ${flow.phase}; custom: taught ${taught.reps}, counted ${counted}, detected ${detected})`,
   );
 
   execFileSync("npx", ["prettier", "--write", out], { stdio: "inherit" });

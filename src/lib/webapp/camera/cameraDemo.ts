@@ -1,4 +1,4 @@
-// Copied from VVFit packages/game-core/src/cameraDemo.ts (4fe0f2a 2026-10-21) by scripts/sync-camera-core.ts. Do not edit: re-sync.
+// Copied from VVFit packages/game-core/src/cameraDemo.ts (322f91e 2026-10-21) by scripts/sync-camera-core.ts. Do not edit: re-sync.
 /**
  * Camera workouts, hands-free (ADR-0046 amendment 2026-10-21): the demo of each move, shown full screen before its
  * first set and played twice. A stick body (adult proportions, metres) posed per move and projected the way the phone
@@ -8,6 +8,8 @@
 import { JOINTS, type Joint, type PoseFrame, type Pt } from "./cameraPose";
 import { cameraMove, type MoveDef } from "./cameraMoves";
 import { cueLine } from "./cameraCues";
+import { customMove } from "./cameraCustom";
+import { templateDemo } from "./cameraTemplate";
 
 type V3 = [number, number, number]; // x: your left (+), y: up, z: forward
 const add = (a: V3, b: V3): V3 => [a[0] + b[0], a[1] + b[1], a[2] + b[2]];
@@ -600,6 +602,9 @@ const H = 640;
 
 /** One loop of the move's demo (a standing body that breathes when the move has none). */
 export function demoLoop(moveId: string, fps = DEMO_FPS): DemoLoop {
+  // A move you taught (ADR-0047): its own keyframes, from the rep you taught it with.
+  const custom = customMove(moveId);
+  if (custom) return templateDemo(moveId, custom.custom.template);
   const d: Demo = DEMOS[moveId] ?? {
     kind: "rep",
     at: (k: number) => standing(both({ pitch: 4 + 6 * k, roll: 6, elbow: 170 })),
@@ -674,6 +679,8 @@ export const demoRepsPerLoop = (moveId: string) => (DEMOS[moveId]?.kind === "alt
 
 /** How long the full demo plays (both loops), ms. */
 export function demoMs(moveId: string): number {
+  const custom = customMove(moveId);
+  if (custom) return custom.custom.template.demo.ms * DEMO_LOOPS;
   const d = DEMOS[moveId];
   return (d?.ms ?? DEMO_LOOP_MS[d?.kind ?? "rep"]) * DEMO_LOOPS;
 }

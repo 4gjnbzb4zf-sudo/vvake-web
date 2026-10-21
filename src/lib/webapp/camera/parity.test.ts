@@ -8,6 +8,12 @@ import { seededRandom } from "./cameraLiveness";
 import { HandsFreeWorkout, type FlowEvent } from "./cameraFlow";
 import { demoLoop } from "./cameraDemo";
 import type { CameraRoutine } from "./cameraSession";
+import { buildTemplate, countWith, TemplateRecorder, type MoveTemplate } from "./cameraTemplate";
+import { cleanCustomMove, registerCustomMoves, type CustomMove } from "./cameraCustom";
+import { detectMove } from "./cameraDetect";
+import { cleanTraining, trainingMinutes, trainingRoutine, trainingRun, type Training } from "./cameraTraining";
+import type { CameraSummary } from "./cameraPoints";
+import type { CameraHeartStats } from "./cameraHeart";
 import { flatFromLandmarks, frameFromLandmarks, MP_INDEX, type Landmark } from "./webPose";
 
 /**
@@ -183,5 +189,46 @@ describe("camera parity with game-core", () => {
   it("reads nobody from too few landmarks", () => {
     expect(flatFromLandmarks([], false)).toEqual([]);
     expect(frameFromLandmarks(0, 640, 480, null, true)).toBeNull();
+  });
+
+  describe("custom moves and trainings (ADR-0047)", () => {
+    const x = fixtures.custom;
+    const teach = (x.teach.frames as Flat[]).map(frameOf);
+    const test = (x.count.frames as Flat[]).map(frameOf);
+
+    it(`teaching the same recording gives the phone's template (${x.teach.expect.reps} reps)`, () => {
+      const r = buildTemplate(teach, "reps");
+      expect(r.ok).toBe(true);
+      expect(r.reps).toBe(x.teach.expect.reps);
+      expect(r.template).toEqual(x.teach.expect.template);
+      // The recorder the teaching screen feeds frame by frame builds the same.
+      const rec = new TemplateRecorder("reps");
+      for (const f of teach) rec.push(f);
+      expect(rec.build().template).toEqual(x.teach.expect.template);
+    });
+
+    it(`counts the taught move back like the phone (${x.count.expect.reps} reps) and recognises it in free mode`, () => {
+      expect(countWith(x.teach.expect.template as MoveTemplate, test)).toBe(x.count.expect.reps);
+      const move = cleanCustomMove(x.move);
+      expect(move).toEqual(x.move);
+      registerCustomMoves([move as CustomMove]);
+      let detected: string | null = null;
+      for (let i = 10; i <= test.length && !detected; i += 7)
+        detected = detectMove(test.slice(Math.max(0, i - 8 * 15), i))?.move.id ?? null;
+      registerCustomMoves([]);
+      expect(detected).toBe(x.count.expect.detected);
+    });
+
+    it("cleans, expands, times and scores a training like the phone and the API", () => {
+      const c = cleanTraining(x.training.input);
+      expect("training" in c && c.training).toEqual(x.training.expect.training);
+      const t = x.training.expect.training as unknown as Training;
+      expect(trainingRoutine(t)).toEqual(x.training.expect.routine);
+      expect(trainingMinutes(t)).toBe(x.training.expect.minutes);
+      const sum = x.training.runSummary as unknown as Pick<CameraSummary, "moves">;
+      expect(trainingRun(t, sum, x.training.heartZones as Pick<CameraHeartStats, "zoneS">)).toEqual(x.training.expect.run);
+      expect(trainingRun(t, sum, null)).toEqual(x.training.expect.runNoHeart);
+      for (const p of x.training.problems) expect(cleanTraining(p.input)).toEqual({ problem: p.problem });
+    });
   });
 });
