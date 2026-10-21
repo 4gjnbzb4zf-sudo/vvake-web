@@ -122,7 +122,7 @@ function PickView() {
     .map((c) => ({ key: c.key, title: c.name[lang], items: list.filter((s) => s.category === c.key) }))
     .filter((g) => g.items.length);
   return (
-    <div className="mx-auto min-h-dvh w-full max-w-xl px-4 pt-[max(env(safe-area-inset-top),1rem)] pb-16">
+    <div className="mx-auto min-h-dvh w-full max-w-xl pt-[max(env(safe-area-inset-top),1rem)] pr-[max(env(safe-area-inset-right),1rem)] pb-16 pl-[max(env(safe-area-inset-left),1rem)]">
       <div className="flex items-center justify-between">
         <button type="button" className="h-11 text-sm text-muted" onClick={() => go({ name: "today" })}>
           ‹ {t.common.back}
@@ -270,7 +270,7 @@ function LiveView() {
             <img src={avatar.src} alt="" className={cn("h-3/4 max-h-96 w-auto object-contain", !paused && "animate-float")} />
           </div>
         )}
-        <div className="pointer-events-none absolute inset-x-0 top-0 flex items-start justify-between gap-2 p-3 pt-[max(env(safe-area-inset-top),0.75rem)]">
+        <div className="pointer-events-none absolute inset-x-0 top-0 flex items-start justify-between gap-2 p-3 pt-[max(env(safe-area-inset-top),0.75rem)] pr-[max(env(safe-area-inset-right),0.75rem)] pl-[max(env(safe-area-inset-left),0.75rem)]">
           <button
             type="button"
             onClick={() => go({ name: "today" })}
@@ -292,7 +292,7 @@ function LiveView() {
       </div>
 
       {/* The numbers and the controls. */}
-      <div className="border-t border-line bg-night-2 px-4 pt-3 pb-[max(env(safe-area-inset-bottom),0.75rem)]">
+      <div className="border-t border-line bg-night-2 pt-3 pr-[max(env(safe-area-inset-right),1rem)] pb-[max(env(safe-area-inset-bottom),0.75rem)] pl-[max(env(safe-area-inset-left),1rem)]">
         <div className="mx-auto max-w-xl">
           <p
             className={cn(
@@ -531,7 +531,7 @@ function SummaryView() {
   const points = sm.reply?.points;
   const p = s.distanceM ? paceOf(s.activeS, s.distanceM) : null;
   return (
-    <div className="mx-auto min-h-dvh w-full max-w-xl space-y-4 px-4 pt-[max(env(safe-area-inset-top),1.5rem)] pb-16">
+    <div className="mx-auto min-h-dvh w-full max-w-xl space-y-4 pt-[max(env(safe-area-inset-top),1.5rem)] pr-[max(env(safe-area-inset-right),1rem)] pb-16 pl-[max(env(safe-area-inset-left),1rem)]">
       <Kicker tone="volt">{t.workout.summary}</Kicker>
       <h1 className="font-display text-3xl font-bold">{sportLabel(s.sport, lang)}</h1>
       <Card>
