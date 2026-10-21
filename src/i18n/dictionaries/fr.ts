@@ -381,7 +381,7 @@ export const fr: Dictionary = {
     customTitle: "Pas dans la liste ? Ajoute ton sport",
     customBody:
       "Donne-lui un nom, choisis une icône et la façon de le suivre : fréquence cardiaque seule, ou suivi GPS pour la distance aussi. Les points viennent toujours de ton cœur, les prix gardent les mêmes règles, et ton sport marche à la voix.",
-    cameraBadge: "Dans la bêta maintenant (version 34, testeurs)",
+    cameraBadge: "Dans la bêta maintenant (version 35, testeurs)",
     cameraTitle: "Séance caméra (téléphone et web)",
     cameraBody:
       "Pose ton téléphone à 2 ou 3 m : VVake compte tes répétitions et tes maintiens, au poids du corps comme avec des charges (tu saisis la charge), te donne des conseils de posture à voix haute, et ton VVaker bouge avec toi. La vidéo ne quitte jamais ton téléphone et rien n'est enregistré. Sans capteur cardio, de petits points (15 au plus par jour) ; porte ta montre et la montre et la caméra font une seule séance avec les points cardio habituels, ou jumelle une ceinture cardio Bluetooth au téléphone pour des points cardio aussi. Jamais de prix venant de la caméra. Pas de téléphone ? La même séance caméra tourne dans ton navigateur sur vvake.com/app avec la webcam de ton ordinateur : la posture est lue dans l’onglet, la vidéo n’en sort jamais, et ses petits points partagent les mêmes 15 par jour.",

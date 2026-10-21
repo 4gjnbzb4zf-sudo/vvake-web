@@ -19,6 +19,48 @@ export interface Release {
 
 export const releases: Release[] = [
   {
+    version: "1.0.0 (35)",
+    date: "2026-10-21",
+    channel: "beta",
+    devices: ["iphone", "android"],
+    notes: {
+      en: {
+        added: [
+          "Camera workouts are now hands-free. Tap Start once, then step back: the phone runs the whole workout and you never need to come back to it.",
+          "Before each new move, its demo plays full screen twice: your VVaker does the move, with its name, the target (reps or seconds) and one key tip. Then a 3, 2, 1 and counting starts.",
+          "Each set ends by itself when you reach the target, when a hold's time is up, or when you stop moving for a few seconds. The rest timer runs on its own, then the next set or the next move starts.",
+          "During the rest you see the next move doing itself in a small preview.",
+          '"Just start moving" now recognises the move you\'re doing, ends the set when you stop, starts a new set when you move again, and switches by itself when you change moves.',
+          "When the workout is done, the summary saves itself after 20 seconds unless you touch the screen.",
+        ],
+        improved: [
+          "The rep count, the move's name and the rest timer are much bigger, readable from 2 to 3 metres.",
+          "Weights are no longer asked during the workout. Each weighted set starts with the last weight you used for that move, and you can change the weights once on the summary if you like.",
+          "Moves the camera can't count, like calf raises, become timed sets that move on by themselves.",
+          "The +1 and −1 buttons are still there to fix a count, but you never need them.",
+        ],
+        fixed: ["A set with nothing counted no longer waits forever for a tap: after a minute the workout moves on."],
+      },
+      fr: {
+        added: [
+          "Les séances caméra se font maintenant mains libres. Appuyez une fois sur Démarrer, puis reculez : le téléphone mène toute la séance et vous n'avez plus besoin d'y revenir.",
+          "Avant chaque nouveau mouvement, sa démonstration passe deux fois en plein écran : votre VVaker fait le mouvement, avec son nom, l'objectif (répétitions ou secondes) et un conseil clé. Puis 3, 2, 1, et le comptage commence.",
+          "Chaque série se termine toute seule quand vous atteignez l'objectif, quand le temps d'un maintien est écoulé, ou quand vous arrêtez de bouger quelques secondes. Le repos se décompte tout seul, puis la série ou le mouvement suivant démarre.",
+          "Pendant le repos, une petite fenêtre montre le mouvement suivant.",
+          "« Bouge, je reconnais » reconnaît maintenant le mouvement que vous faites, termine la série quand vous vous arrêtez, en commence une nouvelle quand vous reprenez, et change tout seul quand vous changez de mouvement.",
+          "À la fin de la séance, le résumé s'enregistre tout seul au bout de 20 secondes, sauf si vous touchez l'écran.",
+        ],
+        improved: [
+          "Le nombre de répétitions, le nom du mouvement et le minuteur de repos sont beaucoup plus grands, lisibles à 2 ou 3 mètres.",
+          "Les charges ne sont plus demandées pendant la séance. Chaque série avec charge reprend la dernière charge utilisée pour ce mouvement, et vous pouvez les modifier une fois sur le résumé si vous le souhaitez.",
+          "Les mouvements que la caméra ne peut pas compter, comme les extensions des mollets, deviennent des séries chronométrées qui s'enchaînent toutes seules.",
+          "Les boutons +1 et −1 restent là pour corriger un compte, mais vous n'en avez jamais besoin.",
+        ],
+        fixed: ["Une série où rien n'est compté n'attend plus un appui indéfiniment : au bout d'une minute, la séance passe à la suite."],
+      },
+    },
+  },
+  {
     version: "1.0.0 (34)",
     date: "2026-10-21",
     channel: "beta",
