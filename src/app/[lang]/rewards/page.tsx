@@ -69,6 +69,18 @@ export default async function RewardsPage({ params }: { params: Params }) {
               ))}
             </ol>
           </Section>
+          {/* Creators (ADR-0047): 5% of the existing weekly pool for trainings other people complete for real. */}
+          <Section id="creators" index={t.creators.index} kicker={t.creators.kicker} title={t.creators.title}>
+            <p className="mt-4 max-w-2xl text-muted">{t.creators.lead}</p>
+            <ol className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              {t.creators.items.map((item) => (
+                <li key={item.h} className="rounded-2xl border border-line bg-surface/60 p-6">
+                  <h3 className="font-display text-lg font-semibold">{item.h}</h3>
+                  <p className="mt-2 text-sm leading-relaxed text-muted">{item.p}</p>
+                </li>
+              ))}
+            </ol>
+          </Section>
           <PublicRewards dict={t} lang={lang} apiUrl={siteConfig.apiUrl} />
         </FrameGuard>
       </main>

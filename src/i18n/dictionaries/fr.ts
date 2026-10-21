@@ -381,6 +381,10 @@ export const fr: Dictionary = {
     customTitle: "Pas dans la liste ? Ajoute ton sport",
     customBody:
       "Donne-lui un nom, choisis une icône et la façon de le suivre : fréquence cardiaque seule, ou suivi GPS pour la distance aussi. Les points viennent toujours de ton cœur, les prix gardent les mêmes règles, et ton sport marche à la voix.",
+    trainingsBadge: "Dans le navigateur maintenant · dans les apps à la prochaine version bêta",
+    trainingsTitle: "Tes propres mouvements et séances",
+    trainingsBody:
+      "Apprends un mouvement à toi à VVake : 3 à 5 répétitions devant la caméra, et il compte ce mouvement dès lors, dans tes séries comme dans « Commence simplement à bouger ». Il ne garde que des nombres (angles des articulations et rythme), jamais une vidéo ni une photo. Crée une séance avec les mouvements de VVake et les tiens : des répétitions ou une tenue, une zone cardio visée (ou un effort sur 10 sans capteur) et le repos après chaque série. Partage-la avec un lien, défie tes amis de battre ton score dessus, ou, dans les apps, montre une carte de fierté avec le nombre de personnes qui l’ont faite. Trouve les séances et les coachs des autres dans Découvrir. Quand d’autres personnes terminent vraiment ta séance, avec des données cardio d’une montre ou d’une ceinture, tu gagnes des points créateur.",
     cameraBadge: "Dans la bêta maintenant (version 35, testeurs)",
     cameraTitle: "Séance caméra (téléphone et web)",
     cameraBody:
@@ -2709,6 +2713,39 @@ export const fr: Dictionary = {
         ],
       },
       {
+        id: "trainings",
+        h: "Mouvements appris, séances perso et profils de coach",
+        p: [
+          "Vous pouvez apprendre un mouvement à vous à VVake, créer des séances, les partager, rejoindre les séances et les défis d’autres personnes et, si vous le choisissez, afficher un profil de coach public. Voici ce que cela implique.",
+        ],
+        list: [
+          {
+            t: "Un mouvement appris, ce sont des nombres.",
+            d: "Quand vous apprenez un mouvement, le modèle est construit sur votre appareil à partir des positions des articulations que la séance caméra lit déjà : des courbes d’angles des articulations, le rythme d’une répétition, une tolérance et quelques images en bâtons (13 articulations, sans visage) pour sa démo. Jamais une vidéo ni une photo, et on ne peut pas reconstruire un visage à partir de ces nombres. C’est ce modèle que nous gardons, et ce qu’un lien de partage contient.",
+          },
+          {
+            t: "Les séances que vous partagez sont visibles par d’autres.",
+            d: "Le nom d’une séance, sa description, son niveau, ses mots-clés, ses séries et les modèles des mouvements qu’elle utilise sont visibles par les personnes que vous choisissez : tout le monde dans Découvrir (publique), seulement les personnes qui ont le lien (par lien, le réglage par défaut) ou vous seul (privée). Sa page montre votre nom, et votre pseudo si vous avez un profil public.",
+          },
+          {
+            t: "Les profils de coach sont facultatifs.",
+            d: "Désactivés par défaut. Si vous l’activez, votre nom, votre pseudo, votre courte bio, vos séances publiques, le nombre d’abonnés et d’inscriptions et votre score de coach sont publics. Votre ville n’est affichée que si vous le choisissez.",
+          },
+          {
+            t: "Les autres ne voient que des totaux.",
+            d: "La page d’une séance montre des totaux (combien de personnes l’ont faite, les répétitions au total, les points cœur au total, le score de coach), jamais qui a fait quoi ni les données cardio de quelqu’un. Au classement d’un défi, seuls les membres qui ont choisi d’afficher leur nom apparaissent par leur nom.",
+          },
+          {
+            t: "Ce que nous gardons.",
+            d: "Vos mouvements appris et vos séances ; les séances faites d’une séance perso (son score, la part faite, le temps dans les zones visées et la présence ou non de données cardio, liés à la séance enregistrée) ; qui a rejoint ou suit quoi ; vos signalements et vos blocages ; et, pour les créateurs, les points et les parts créateurs. Les signalements sont lus par nos modérateurs.",
+          },
+          {
+            t: "Supprimer.",
+            d: "Vous pouvez supprimer un mouvement appris ou une séance en tout temps : ils disparaissent partout où ils étaient partagés. Les copies déjà dans les séances que d’autres personnes ont rejointes continuent de marcher pour elles, mais ne sont plus partagées. Supprimer votre compte supprime tout cela.",
+          },
+        ],
+      },
+      {
         id: "strap",
         h: "Ceinture cardio (téléphone)",
         p: [
@@ -3636,8 +3673,40 @@ export const fr: Dictionary = {
         },
       ],
     },
-    pool: {
+    creators: {
       index: "05",
+      kicker: "Créateurs",
+      title: "Une part pour les séances qui font bouger les autres",
+      lead: "Avec la prochaine version bêta, tu peux créer et partager tes propres séances caméra. Quand d’autres personnes les terminent pour de vrai, leur créateur gagne des points et, en testnet, une petite part de la cagnotte hebdomadaire.",
+      items: [
+        {
+          h: "D’abord des points",
+          p: "5 points créateur chaque fois qu’une autre personne termine ta séance avec des données cardio d’une montre ou d’une ceinture, 100 par jour au plus. Ce sont tes points comme les autres, mais ils ne s’ajoutent pas à ton effort pour les prix de la semaine.",
+        },
+        {
+          h: "5 % de la cagnotte hebdomadaire existante",
+          p: "Aucun nouveau jeton n’est créé pour les créateurs. 5 % de la cagnotte de chaque semaine sont partagés selon les séances qui comptent ; les 95 % restants sont partagés selon l’effort, comme avant.",
+        },
+        {
+          h: "2 % au plus par créateur",
+          p: "Personne ne prend plus de 2 % de la cagnotte d’une semaine. Ce qu’un créateur plafonné ne peut pas prendre va aux autres ; ce que personne ne peut prendre reste dans la cagnotte pour les semaines suivantes.",
+        },
+        {
+          h: "Gardée 7 jours",
+          p: "Chaque part est gardée 7 jours après la fin de la semaine, pour qu’une personne puisse la vérifier et l’annuler en cas de fraude. Ensuite, elle rejoint les réclamations de la semaine suivante, depuis ton propre portefeuille comme toute autre semaine.",
+        },
+        {
+          h: "Seules les vraies séances comptent",
+          p: "Une séance compte quand elle vient d’un autre compte établi (pour l’instant : 14 jours d’ancienneté et 5 séances avec données cardio avant), avec des données cardio d’une montre ou d’une ceinture (les séances caméra seule et sur le web ne comptent jamais), et 80 % du travail fait. Une fois par personne, par séance et par semaine, jamais depuis tes propres appareils, jamais entre personnes bloquées, et pas pour deux comptes qui font les séances l’un de l’autre.",
+        },
+        {
+          h: "Un pilote en testnet",
+          p: "Tout ça tourne sur Robinhood Chain Testnet : les jetons n’ont aucune valeur. Les apps montrent seulement des points ; la part d’un créateur s’affiche ici une fois un portefeuille connecté. Rien ici n’est une offre, un investissement ni une promesse de quoi que ce soit.",
+        },
+      ],
+    },
+    pool: {
+      index: "06",
       kicker: "Cagnotte",
       title: "Chaque dépôt et chaque conversion, sur la chaîne",
       lead: "Lu directement sur la chaîne, dans ton navigateur. Rien ici ne passe par les serveurs de VVake.",
@@ -3692,7 +3761,7 @@ export const fr: Dictionary = {
       vaultTaken: "Ce compte a déjà un portefeuille à clé d'accès.",
     },
     trees: {
-      index: "06",
+      index: "07",
       kicker: "Listes de la semaine",
       title: "La liste de chaque semaine est publique",
       lead: "Qui peut réclamer combien chaque semaine : des adresses et des montants seulement, jamais de noms ni de points. N'importe qui peut les vérifier avec la racine sur la chaîne et réclamer sans VVake.",
@@ -3868,6 +3937,8 @@ export const fr: Dictionary = {
           "Les séances caméra avec ta montre en une seule séance avec les points cardio, et les ceintures cardio Bluetooth jumelées au téléphone, dans la bêta pour les testeurs depuis la version 32",
           "Les séances caméra dans le navigateur avec la webcam de ton ordinateur (vvake.com/app) : mêmes répétitions, maintiens et conseils de posture, la vidéo reste dans l’onglet ; disponible maintenant",
           "Le cœur en direct pendant les séances caméra (les bpm et leur zone à l’écran, des repos qui le suivent, des points cœur) : dans le navigateur avec une ceinture cardio Bluetooth, disponible maintenant ; sur les téléphones avec la montre ou une ceinture dans la prochaine version bêta",
+          "Les séances perso : apprendre un mouvement à toi à VVake (des nombres seulement, jamais une vidéo), créer des séances avec des zones cardio visées, les partager avec un lien, défier tes amis dessus, Découvrir et les pages de coach : dans le navigateur (vvake.com/app) maintenant ; dans les apps iPhone, Android et montres, avec les cartes de fierté, à la prochaine version bêta",
+          "Des points créateur quand d’autres terminent tes séances avec des données cardio, et une part créateurs de la cagnotte hebdomadaire testnet (5 %, testnet, aucune valeur) : à partir de la prochaine version bêta",
         ],
       },
       {

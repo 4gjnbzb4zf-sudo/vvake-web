@@ -184,6 +184,11 @@ export function Multisport({ dict, index, locale }: { dict: Dictionary["multispo
         </h3>
         <p className="mt-1 text-xs font-semibold tracking-wide text-faint uppercase">{dict.cameraBadge}</p>
         <p className="mt-2 text-sm text-muted">{dict.cameraBody}</p>
+        <h3 id="custom-trainings" className="mt-8 font-display text-xl font-semibold">
+          {dict.trainingsTitle}
+        </h3>
+        <p className="mt-1 text-xs font-semibold tracking-wide text-faint uppercase">{dict.trainingsBadge}</p>
+        <p className="mt-2 text-sm text-muted">{dict.trainingsBody}</p>
       </div>
     </Section>
   );

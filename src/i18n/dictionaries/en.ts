@@ -382,6 +382,10 @@ export const en = {
     customTitle: "Not in the list? Add your own sport",
     customBody:
       "Name it, pick an icon, and choose how it's tracked: heart rate only, or GPS tracking for distance too. Points always come from your heart rate, prizes keep the same rules, and your sport works by voice.",
+    trainingsBadge: "In the browser now · in the apps in the next beta build",
+    trainingsTitle: "Your own moves and trainings",
+    trainingsBody:
+      "Teach VVake a move of your own: 3 to 5 reps in front of the camera, and it counts that move from then on, in your sets and in Just start moving. It keeps numbers only (joint angles and timing), never a video or a picture. Build a training from VVake's moves and yours: reps or a hold, a target heart zone (or an effort out of 10 without a sensor) and the rest after each set. Share it with a link, challenge friends to beat your score on it, or, in the apps, show off a brag card with how many people trained it. Find other people's trainings and coaches in Discover. When other people complete your training for real, with heart data from a watch or a strap, you earn creator points.",
     cameraBadge: "In the beta now (build 35, testers)",
     cameraTitle: "Camera workout (phone and web)",
     cameraBody:
@@ -2550,6 +2554,39 @@ export const en = {
         ],
       },
       {
+        id: "trainings",
+        h: "Taught moves, custom trainings and coach profiles",
+        p: [
+          "You can teach VVake a move of your own, build trainings, share them, join other people's trainings and challenges, and, if you choose, show a public coach profile. This is what that involves.",
+        ],
+        list: [
+          {
+            t: "A taught move is numbers only.",
+            d: "When you teach a move, the template is built on your device from the joint positions the camera workout already reads: joint-angle curves, the timing of a rep, a tolerance and a few stick-figure keyframes (13 joints, no face) for its demo. Never a video or a picture, and a face can't be rebuilt from it. That template is what we store, and what a share link carries.",
+          },
+          {
+            t: "Trainings you share are visible to others.",
+            d: "A training's name, description, level, tags, sets and the templates of the moves it uses are visible to the people you choose: everyone in Discover (public), only people with the link (link only, the default) or only you (private). Its page shows your name, and your handle if you have a public profile.",
+          },
+          {
+            t: "Coach profiles are opt-in.",
+            d: "Off by default. If you switch it on, your name, handle, short bio, public trainings, followers and joins counts and coach score are public. Your city is shown only if you choose to show it.",
+          },
+          {
+            t: "Others see totals only.",
+            d: "A training's page shows totals (how many people trained it, total reps, total heart points, the coach score), never who did what or anyone's heart data. On a challenge's leaderboard, only the members who chose to show their name appear by name.",
+          },
+          {
+            t: "What we keep.",
+            d: "Your taught moves and trainings; the runs of a training (its score, how much of it was done, the time in the target zones and whether heart data was there, linked to the session); who joined or follows what; your reports and blocks; and creator points and shares for creators. Reports are read by our moderators.",
+          },
+          {
+            t: "Deleting.",
+            d: "You can delete a taught move or a training at any time: it disappears everywhere it was shared. Copies already inside trainings that other people joined keep working for them, but are no longer shared. Deleting your account deletes all of it.",
+          },
+        ],
+      },
+      {
         id: "strap",
         h: "Heart-rate strap (phone)",
         p: [
@@ -3446,8 +3483,40 @@ export const en = {
         },
       ],
     },
-    pool: {
+    creators: {
       index: "05",
+      kicker: "Creators",
+      title: "A share for trainings that move other people",
+      lead: "With the next beta build you can build and share your own camera trainings. When other people complete them for real, their creator earns points and, on testnet, a small share of the weekly rewards pool.",
+      items: [
+        {
+          h: "Points first",
+          p: "5 creator points each time another person completes your training with heart data from a watch or a strap, at most 100 a day. They're your points like any other, but they don't add to your effort for the weekly prizes.",
+        },
+        {
+          h: "5% of the existing weekly pool",
+          p: "No new tokens are made for creators. 5% of each week's existing rewards pool is shared by qualifying completions; the other 95% is shared by effort, as before.",
+        },
+        {
+          h: "At most 2% per creator",
+          p: "Nobody takes more than 2% of a week's pool. What a capped creator can't take goes to the others; what nobody can take stays in the pool for later weeks.",
+        },
+        {
+          h: "Held for 7 days",
+          p: "Each share is held for 7 days after the week ends, so a person can review it and void it in case of fraud. Then it joins the next week's claims, from your own wallet like any other week.",
+        },
+        {
+          h: "Only real runs count",
+          p: "A completion counts when it's by another established account (for now: 14 days old with 5 earlier sessions with heart data), with heart data from a watch or a strap (camera-only and web runs never count), and 80% of the work done. Once a person per training per week, never from your own devices, never between blocked people, and not for two accounts that complete each other's trainings.",
+        },
+        {
+          h: "A testnet pilot",
+          p: "This runs on Robinhood Chain Testnet: the tokens have no value. The apps show points only; a creator's share shows here once a wallet is connected. Nothing here is an offer, an investment or a promise of anything.",
+        },
+      ],
+    },
+    pool: {
+      index: "06",
       kicker: "Prize pool",
       title: "Every deposit and every conversion, on chain",
       lead: "Read straight from the chain in your browser. Nothing here goes through VVake's servers.",
@@ -3500,7 +3569,7 @@ export const en = {
       vaultTaken: "This account already has a passkey wallet.",
     },
     trees: {
-      index: "06",
+      index: "07",
       kicker: "Weekly lists",
       title: "Every week's list is public",
       lead: "Who can claim how much each week: addresses and amounts only, never names or points. Anyone can check them against the root on chain and claim without VVake.",
@@ -3674,6 +3743,8 @@ export const en = {
           "Camera workouts with your watch as one session with heart points, and Bluetooth heart-rate straps paired with the phone, in the beta for testers since build 32",
           "Camera workouts in the browser with your computer's webcam (vvake.com/app): the same reps, holds and form cues, the video stays in the tab; live now",
           "Live heart rate during camera workouts (the bpm and its zone on screen, rests that follow it, heart points): in the browser with a Bluetooth heart-rate strap, live now; on the phones with the watch or a strap in the next beta build",
+          "Custom trainings: teach VVake a move of your own (numbers only, never a video), build trainings with target heart zones, share them with a link, challenge friends on them, Discover and coach pages: in the browser (vvake.com/app) now; in the iPhone, Android and watch apps, with brag cards, in the next beta build",
+          "Creator points when other people complete your trainings with heart data, and a creator share of the weekly testnet rewards pool (5%, testnet, no value): starting with the next beta build",
         ],
       },
       {

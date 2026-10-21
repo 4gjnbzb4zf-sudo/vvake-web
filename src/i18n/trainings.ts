@@ -478,7 +478,7 @@ const fr: TrainingsDict = {
       icon: "Icône",
       weighted: "J’utilise une charge",
       save: "Enregistrer le mouvement",
-      saved: "Enregistré. Il compte maintenant dans tes séances et dans « Bouge, simplement ».",
+      saved: "Enregistré. Il compte maintenant dans tes séances et dans « Commence simplement à bouger ».",
       quality: { good: "Bon : il peut rapporter des points caméra.", fair: "Moyen : il compte, mais ne rapporte pas de points caméra." },
       errors: {
         not_seen: "VVake ne te voyait pas assez bien. Recule pour que tout ton corps soit dans l’image.",
