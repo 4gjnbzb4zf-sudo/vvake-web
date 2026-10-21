@@ -28,3 +28,7 @@ export function momentUrl(origin: string, locale: Locale, kind: MomentKind, code
   const base = `${origin.replace(/\/$/, "")}/${locale}/m/${kind}/`;
   return code ? `${base}#${encodeURIComponent(code.toUpperCase())}` : base;
 }
+
+/** Shared custom trainings (/<lang>/t/) and creator pages (/<lang>/coach/): one preview card per language, nothing personal. */
+export const TRAINING_CAST: readonly [string, string] = ["lifter-f", "boxer"];
+export const trainingOgPath = (locale: Locale) => `/og/${locale}-t.png`;

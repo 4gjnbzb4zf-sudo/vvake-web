@@ -10,6 +10,7 @@ import { challengeRedirect } from "@/lib/challengeLink";
 import { claudeRedirect } from "@/lib/claudeLink";
 import { referralRedirect } from "@/lib/referralLink";
 import { rewardsRedirect } from "@/lib/rewards-config";
+import { creatorRedirect, trainingRedirect } from "@/lib/trainings/link";
 import { fontVariables } from "./fonts";
 import "./globals.css";
 
@@ -41,7 +42,9 @@ export const metadata: Metadata = {
  * GitHub Pages serves this page for every unknown path, including challenge links (/c/<code>) opened by someone
  * without the app, Claude Code link codes (/claude/<code>) and referral invites (/r/<code>): send those to the localized
  * fallback page (/<lang>/c/#<code>, /<lang>/claude/#<code>, /<lang>/r/#<code>), same language rules as "/".
- * The rewards page (/rewards, linked from the app) goes to /<lang>/rewards/ the same way.
+ * The rewards page (/rewards, linked from the app) goes to /<lang>/rewards/ the same way. Shared custom trainings
+ * (/<lang>/t/<code>, ?c= a challenge) go to /<lang>/t/#<code> and creator pages (/<lang>/coach/<handle>) to
+ * /<lang>/coach/#<handle>.
  */
 const CHALLENGE_REDIRECT = `(function(){
 var negotiate=${negotiateLocale.toString()};
@@ -49,11 +52,13 @@ var challengeRedirect=${challengeRedirect.toString()};
 var claudeRedirect=${claudeRedirect.toString()};
 var referralRedirect=${referralRedirect.toString()};
 var rewardsRedirect=${rewardsRedirect.toString()};
+var trainingRedirect=${trainingRedirect.toString()};
+var creatorRedirect=${creatorRedirect.toString()};
 var supported=${JSON.stringify(locales)};
 var saved=null;try{saved=localStorage.getItem(${JSON.stringify(LOCALE_STORAGE_KEY)})}catch(e){}
 var prefs=navigator.languages&&navigator.languages.length?navigator.languages:[navigator.language||""];
 var lang=saved&&supported.indexOf(saved)>=0?saved:negotiate(prefs,supported,${JSON.stringify(defaultLocale)});
-var to=challengeRedirect(location.pathname,lang)||claudeRedirect(location.pathname,lang)||referralRedirect(location.pathname,lang)||rewardsRedirect(location.pathname,lang);if(to)location.replace(to);
+var to=challengeRedirect(location.pathname,lang)||claudeRedirect(location.pathname,lang)||referralRedirect(location.pathname,lang)||rewardsRedirect(location.pathname,lang)||trainingRedirect(location.pathname,lang,location.search)||creatorRedirect(location.pathname,lang);if(to)location.replace(to);
 })();`;
 
 export default function GlobalNotFound() {

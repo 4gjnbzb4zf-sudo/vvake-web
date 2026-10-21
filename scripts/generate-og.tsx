@@ -10,7 +10,8 @@ import { locales } from "../src/i18n/config";
 import { getDictionary } from "../src/i18n/dictionaries";
 import { OG_SIZE, OgCard } from "../src/og/OgCard";
 import { SHARE_VARIANTS } from "../src/lib/referral";
-import { MOMENT_CAST, MOMENT_KINDS } from "../src/lib/moments";
+import { MOMENT_CAST, MOMENT_KINDS, TRAINING_CAST } from "../src/lib/moments";
+import { getTrainingsDict } from "../src/i18n/trainings";
 
 /** A cast image as a PNG data URI (satori can't read WebP), trimmed to the character. */
 async function castPng(id: string): Promise<string> {
@@ -36,7 +37,7 @@ async function main() {
     ["boxer-f", "roller"],
   ];
   const png = new Map<string, string>();
-  for (const id of new Set([...duos.flat(), ...Object.values(MOMENT_CAST).flat()])) png.set(id, await castPng(id));
+  for (const id of new Set([...duos.flat(), ...Object.values(MOMENT_CAST).flat(), ...TRAINING_CAST])) png.set(id, await castPng(id));
   for (const locale of locales) {
     const dict = getDictionary(locale);
     const render = async (file: string, cast: string[], challenge?: number, invite?: boolean, dare?: boolean) => {
@@ -75,6 +76,19 @@ async function main() {
       );
       await writeFile(join(outDir, `${locale}-m-${kind}.png`), Buffer.from(await image.arrayBuffer()));
     }
+    // Shared custom trainings (/[lang]/t/) and creator pages (/[lang]/coach/): one card per language.
+    {
+      const t = getTrainingsDict(locale).share;
+      const image = new ImageResponse(
+        <OgCard
+          dict={dict}
+          cast={TRAINING_CAST.map((id) => png.get(id)!)}
+          moment={{ kicker: t.ogKicker, title: t.ogTitle, cta: t.ogLine }}
+        />,
+        OG_SIZE,
+      );
+      await writeFile(join(outDir, `${locale}-t.png`), Buffer.from(await image.arrayBuffer()));
+    }
     for (let n = 1; n <= SHARE_VARIANTS; n++) {
       // Alternate who stands first (and taller) so neither the woman nor the man always leads.
       const duo = n % 2 === 0 ? [...duos[n - 1]!].reverse() : duos[n - 1]!;
@@ -84,7 +98,9 @@ async function main() {
         n - 1,
       );
     }
-    console.log(`og: public/og/${locale}.png + ${SHARE_VARIANTS} share variants + join, challenge and ${MOMENT_KINDS.length} moment cards`);
+    console.log(
+      `og: public/og/${locale}.png + ${SHARE_VARIANTS} share variants + join, challenge and ${MOMENT_KINDS.length} moment cards + training card`,
+    );
   }
 }
 

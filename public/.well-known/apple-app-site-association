@@ -6,7 +6,10 @@
         "components": [
           { "/": "/c/*", "comment": "Challenge invites: open in the VVake app" },
           { "/": "/claude/*", "comment": "Claude Code link codes: open in the VVake app" },
-          { "/": "/r/*", "comment": "Referral invites: open in the VVake app" }
+          { "/": "/r/*", "comment": "Referral invites: open in the VVake app" },
+          { "/": "/t/*", "comment": "Shared custom trainings: open in the VVake app" },
+          { "/": "/en/t/*", "comment": "Shared custom trainings (English link): open in the VVake app" },
+          { "/": "/fr/t/*", "comment": "Shared custom trainings (French link): open in the VVake app" }
         ]
       }
     ]
