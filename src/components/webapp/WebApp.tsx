@@ -21,6 +21,8 @@ import { TodayScreen } from "./TodayScreen";
 import { VVakerScreen } from "./VVakerScreen";
 import { WorkoutScreen } from "./WorkoutScreen";
 import { ZonesScreen } from "./ZonesScreen";
+import { BuilderScreen, CoachProfileScreen, CreatorScreen, TrainingDetailScreen, TrainingsScreen, useTrainingRef } from "./TrainingsScreen";
+import { getTrainingsDict } from "@/i18n/trainings";
 import { WorkoutPill } from "./WorkoutPill";
 import { YouScreen } from "./YouScreen";
 import { WorkoutProvider } from "./WorkoutContext";
@@ -127,7 +129,7 @@ function Frame({ children }: { children: ReactNode }) {
   return <div className="mx-auto min-h-dvh w-full max-w-xl px-4 pt-[max(env(safe-area-inset-top),1rem)] pb-40">{children}</div>;
 }
 
-const TAB_ICONS: Record<(typeof TABS)[number], string> = { today: "☀", plan: "▦", crew: "⚑", coach: "◉", you: "●" };
+const TAB_ICONS: Record<(typeof TABS)[number], string> = { today: "☀", plan: "▦", trainings: "✚", crew: "⚑", coach: "◉", you: "●" };
 
 function Shell() {
   const app = useApp();
@@ -137,7 +139,7 @@ function Shell() {
   if (!onboarded) return <Onboarding onDone={() => setOnboarded(true)} />;
 
   const tab = (TABS as readonly string[]).includes(route.name) ? route.name : null;
-  const fullScreen = route.name === "workout" || route.name === "camera";
+  const fullScreen = route.name === "workout" || route.name === "camera" || route.name === "train" || route.name === "teach";
   return (
     <>
       {!fullScreen && (
@@ -159,11 +161,18 @@ function Shell() {
             {route.name === "sensor" && <SensorScreen />}
             {route.name === "zones" && <ZonesScreen />}
             {route.name === "session" && <SessionScreen id={route.id} />}
+            {route.name === "trainings" && <TrainingsScreen />}
+            {route.name === "training" && <TrainingDetailScreen key={route.ref} refId={route.ref} challenge={route.challenge} />}
+            {route.name === "build" && <BuilderScreen key={route.id ?? "new"} id={route.id} />}
+            {route.name === "coach-profile" && <CoachProfileScreen />}
+            {route.name === "creator" && <CreatorScreen key={route.handle} handle={route.handle} />}
           </main>
         </Frame>
       )}
       {route.name === "workout" && <WorkoutScreen />}
       {route.name === "camera" && <CameraScreen sport={route.sport} />}
+      {route.name === "train" && <TrainingRun key={route.ref} refId={route.ref} challenge={route.challenge} />}
+      {route.name === "teach" && <CameraScreen teach />}
       {!fullScreen && <WorkoutPill />}
       {!fullScreen && (
         <nav
@@ -193,6 +202,29 @@ function Shell() {
         </nav>
       )}
     </>
+  );
+}
+
+/** #/train/<code or id>(/<challenge>): the training loaded, then the camera workout running it (ADR-0047). */
+function TrainingRun({ refId, challenge }: { refId: string; challenge?: string }) {
+  const { lang, go } = useApp();
+  const state = useTrainingRef(refId);
+  const r = getTrainingsDict(lang).app.run;
+  if (state.kind === "ready")
+    return <CameraScreen training={{ training: state.shared.training, code: state.shared.code, challenge: challenge ?? null }} />;
+  return (
+    <Frame>
+      <div className="mt-24 space-y-4 text-center">
+        <p role="status" className="text-muted">
+          {state.kind === "loading" ? r.loading : r.notFound}
+        </p>
+        {state.kind === "missing" && (
+          <Btn variant="ghost" onClick={() => go({ name: "trainings" })}>
+            {getTrainingsDict(lang).app.title}
+          </Btn>
+        )}
+      </div>
+    </Frame>
   );
 }
 

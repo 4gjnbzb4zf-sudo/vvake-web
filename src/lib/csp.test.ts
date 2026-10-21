@@ -85,6 +85,8 @@ describe("VV-12 Content-Security-Policy", () => {
       "src/lib/rewardsApi.ts": (c) => c.apiUrl,
       "src/components/sections/ChallengeInvite.tsx": (c) => c.apiUrl,
       "src/components/clashes/LiveClashes.tsx": (c) => c.apiUrl,
+      // Custom training share and creator pages: the public GET /v1/t/:code, /v1/creators/:handle (ADR-0047).
+      "src/lib/trainings/api.ts": (c) => c.apiUrl,
       "src/lib/chain.ts": (c) => c.rpcUrl,
       "src/lib/waitlist.ts": (c) => c.waitlistEndpoint || null,
       "src/components/sections/LiveMap.tsx": (c) => c.liveEndpoint || null,

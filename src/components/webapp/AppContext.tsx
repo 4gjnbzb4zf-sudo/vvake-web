@@ -27,15 +27,37 @@ export type Route =
   | { name: "today" | "plan" | "crew" | "coach" | "you" | "goals" | "rhythm" | "vvaker" | "sensor" | "workout" | "zones" }
   | { name: "session"; id: string }
   /** The camera workout (CameraScreen.tsx), with the sport whose routine it suggests (#/camera/strength). */
-  | { name: "camera"; sport?: string };
+  | { name: "camera"; sport?: string }
+  /**
+   * Custom trainings (ADR-0047, TrainingsScreen.tsx). `ref` is a share code (8 letters) or a training id (t_…):
+   * #/train/<ref>(/<challenge>) runs it with the webcam, #/training/<ref>(/<challenge>) shows it.
+   */
+  | { name: "trainings" | "teach" | "coach-profile" }
+  | { name: "train" | "training"; ref: string; challenge?: string }
+  | { name: "build"; id?: string }
+  | { name: "creator"; handle: string };
 
-export const TABS = ["today", "plan", "crew", "coach", "you"] as const;
+export const TABS = ["today", "plan", "trainings", "crew", "coach", "you"] as const;
+
+const TRAINING_REF = /^([A-HJ-NP-Z2-9]{8}|t_[a-z0-9]{10})$/;
+const CHALLENGE_REF = /^[A-HJ-NP-Z2-9]{8}$/;
 
 export function parseRoute(hash: string): Route {
   const h = hash.replace(/^#\/?/, "");
   const [name, arg] = h.split("/");
   if (name === "session" && arg) return { name: "session", id: decodeURIComponent(arg) };
   if (name === "camera") return arg && /^[a-z-]{2,30}$/.test(arg) ? { name: "camera", sport: arg } : { name: "camera" };
+  if (name === "train" || name === "training") {
+    const parts = h.split("/");
+    const ref = /^t_/i.test(parts[1] ?? "") ? (parts[1] ?? "").toLowerCase() : (parts[1] ?? "").toUpperCase();
+    const ch = (parts[2] ?? "").toUpperCase();
+    if (!TRAINING_REF.test(ref)) return { name: "trainings" };
+    return CHALLENGE_REF.test(ch) ? { name, ref, challenge: ch } : { name, ref };
+  }
+  if (name === "build") return arg && /^t_[a-z0-9]{10}$/.test(arg) ? { name: "build", id: arg } : { name: "build" };
+  if (name === "creator")
+    return arg && /^[a-z0-9_]{3,20}$/i.test(arg) ? { name: "creator", handle: arg.toLowerCase() } : { name: "trainings" };
+  if (name === "trainings" || name === "teach" || name === "coach-profile") return { name };
   const known = ["today", "plan", "crew", "coach", "you", "goals", "rhythm", "vvaker", "sensor", "workout", "zones"] as const;
   return { name: (known as readonly string[]).includes(name ?? "") ? (name as (typeof known)[number]) : "today" };
 }
@@ -45,7 +67,13 @@ export const routeHash = (r: Route) =>
     ? `#/session/${encodeURIComponent(r.id)}`
     : r.name === "camera"
       ? `#/camera${r.sport ? `/${r.sport}` : ""}`
-      : `#/${r.name}`;
+      : r.name === "train" || r.name === "training"
+        ? `#/${r.name}/${r.ref}${r.challenge ? `/${r.challenge}` : ""}`
+        : r.name === "build"
+          ? `#/build${r.id ? `/${r.id}` : ""}`
+          : r.name === "creator"
+            ? `#/creator/${r.handle}`
+            : `#/${r.name}`;
 
 export interface Prefs {
   units: Units;

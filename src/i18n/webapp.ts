@@ -40,7 +40,7 @@ const en = {
     mi: "{n} mi",
     site: "vvake.com",
   },
-  tabs: { today: "Today", plan: "Plan", crew: "Crew & City", coach: "Coach", you: "You" },
+  tabs: { today: "Today", plan: "Plan", trainings: "Trainings", crew: "Crew & City", coach: "Coach", you: "You" },
   signIn: {
     kicker: "VVake on the web",
     title: "Train in your browser",
@@ -603,7 +603,7 @@ const fr: WebAppDict = {
     mi: "{n} mi",
     site: "vvake.com",
   },
-  tabs: { today: "Aujourd’hui", plan: "Plan", crew: "Crew & Ville", coach: "Coach", you: "Toi" },
+  tabs: { today: "Aujourd’hui", plan: "Plan", trainings: "Séances", crew: "Crew & Ville", coach: "Coach", you: "Toi" },
   signIn: {
     kicker: "VVake sur le web",
     title: "Entraîne-toi dans ton navigateur",

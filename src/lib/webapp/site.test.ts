@@ -42,6 +42,25 @@ describe("the web app on the site", () => {
     expect(parseRoute("#/nope")).toEqual({ name: "today" });
     expect(routeHash({ name: "session", id: "a b" })).toBe("#/session/a%20b");
   });
+  it("custom training routes (ADR-0047): run, page, builder, teach, creator", () => {
+    expect(parseRoute("#/train/abcd2345")).toEqual({ name: "train", ref: "ABCD2345" });
+    expect(parseRoute("#/train/ABCD2345/wxyz2345")).toEqual({ name: "train", ref: "ABCD2345", challenge: "WXYZ2345" });
+    expect(parseRoute("#/training/t_abcdefghij")).toEqual({ name: "training", ref: "t_abcdefghij" });
+    expect(parseRoute("#/training/ABCD0345")).toEqual({ name: "trainings" });
+    expect(parseRoute("#/build/t_abcdefghij")).toEqual({ name: "build", id: "t_abcdefghij" });
+    expect(parseRoute("#/build")).toEqual({ name: "build" });
+    expect(parseRoute("#/teach")).toEqual({ name: "teach" });
+    expect(parseRoute("#/coach-profile")).toEqual({ name: "coach-profile" });
+    expect(parseRoute("#/creator/Sam_Fit")).toEqual({ name: "creator", handle: "sam_fit" });
+    for (const r of [
+      { name: "train", ref: "ABCD2345", challenge: "WXYZ2345" },
+      { name: "training", ref: "t_abcdefghij" },
+      { name: "build", id: "t_abcdefghij" },
+      { name: "creator", handle: "sam_fit" },
+      { name: "trainings" },
+    ] as const)
+      expect(parseRoute(routeHash(r))).toEqual(r);
+  });
 });
 
 describe("voice cues, EN and FR (the apps' words)", () => {

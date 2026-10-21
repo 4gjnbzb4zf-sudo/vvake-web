@@ -100,6 +100,12 @@ export function trainingsApi(s: RewardsSession) {
 
     trainings: async () => readMyTrainings(await call("/v1/trainings", GET)),
     training: async (id: string) => readTraining(await call(`/v1/trainings/${enc(id)}`, GET)),
+    /** The signed-in view: the training, whose it is (the creator's id, for blocking), and whether it's mine. */
+    trainingFull: async (id: string, myId: string) => {
+      const j = (await call(`/v1/trainings/${enc(id)}`, GET)) as { creator?: { id?: unknown }; userId?: unknown; mine?: unknown } | null;
+      const creatorId = typeof j?.creator?.id === "string" ? j.creator.id : typeof j?.userId === "string" ? j.userId : null;
+      return { parsed: readTraining(j), creatorId, mine: j?.mine === true || (!!creatorId && creatorId === myId) };
+    },
     createTraining: async (b: TrainingBody) => {
       const j = (await call("/v1/trainings", send("POST", b))) as { training?: unknown; code?: unknown; url?: unknown } | null;
       return {

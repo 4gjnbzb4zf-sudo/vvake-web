@@ -64,7 +64,21 @@ import {
   Steady,
   type CameraSetupState,
 } from "@/lib/webapp/camera/webSetup";
+import { addCustomMoves, cleanCustomMove, registerCustomMoves, type CustomMove } from "@/lib/webapp/camera/cameraCustom";
+import {
+  trainingRoutine,
+  trainingRun,
+  ZoneCuePacer,
+  zoneFeel,
+  zoneLine,
+  type Training,
+  type TrainingRun,
+} from "@/lib/webapp/camera/cameraTraining";
+import { getTrainingsDict } from "@/i18n/trainings";
+import { trainingsApi } from "@/lib/trainings/api";
+import { setRows as setRowsOf, type RunReply } from "@/lib/trainings/data";
 import { useApp } from "./AppContext";
+import { TeachMove } from "./TeachMove";
 import { Btn, Card, Kicker, Note, Small, Toggle } from "./ui";
 
 /**
@@ -326,7 +340,7 @@ function useWebcam() {
     times: { startedAt, lastFrameAt, lastPersonAt },
   };
 }
-type Webcam = ReturnType<typeof useWebcam>;
+export type Webcam = ReturnType<typeof useWebcam>;
 
 // ── The screen ──────────────────────────────────────────────────────────────────────────────────────────────────
 
@@ -343,10 +357,41 @@ interface LiveResult {
   loads: Record<string, number>;
 }
 
-export function CameraScreen({ sport }: { sport?: string }) {
+/** A custom training run from its page or a share link (ADR-0047): its sets, its custom moves, the challenge if any. */
+export interface TrainingToRun {
+  training: Training;
+  code: string | null;
+  challenge?: string | null;
+}
+
+export function CameraScreen({ sport, training, teach }: { sport?: string; training?: TrainingToRun; teach?: boolean }) {
   const cam = useWebcam();
+  const { session } = useApp();
   const [phase, setPhase] = useState<Phase>("setup");
-  const [plan, setPlan] = useState<Plan>(() => ({ routine: sport ? routineForPlan(sport, 20, true) : null, move: null }));
+  // The moves this session can count: the training's taught moves at once, mine (GET /v1/moves) as they arrive, so
+  // a set of a custom move and "just start moving" count them like catalogue moves (game-core cameraCustom.ts).
+  const [, setMovesReady] = useState(() => {
+    registerCustomMoves(training?.training.moves ?? []);
+    return false;
+  });
+  useEffect(() => {
+    let alive = true;
+    void trainingsApi(session)
+      .myMoves()
+      .then((list) => {
+        if (!alive) return;
+        addCustomMoves(list.map(cleanCustomMove).filter((m): m is CustomMove => !!m));
+        setMovesReady(true);
+      })
+      .catch(() => undefined);
+    return () => {
+      alive = false;
+    };
+  }, [session]);
+  const [plan, setPlan] = useState<Plan>(() => ({
+    routine: training ? trainingRoutine(training.training) : sport ? routineForPlan(sport, 20, true) : null,
+    move: null,
+  }));
   const [result, setResult] = useState<LiveResult | null>(null);
   const [outlineOn, setOutlineOnState] = useState(() => (typeof window === "undefined" ? true : loadOutlinePref()));
   const outline = useRef<OutlineClock | null>(null);
@@ -360,8 +405,20 @@ export function CameraScreen({ sport }: { sport?: string }) {
   return (
     <div className="fixed inset-0 z-50 overflow-y-auto bg-night">
       {/* One <video> for the whole screen: setup shows it in a card, live full screen. */}
-      {phase === "setup" && (
+      {teach && (
+        <TeachMove
+          cam={cam}
+          check={<CameraCheck cam={cam} outline={outline.current} outlineOn={outlineOn} setOutlineOn={setOutlineOn} />}
+          preview={(frame, children) => (
+            <Preview cam={cam} frame={frame} outlineVisible className="aspect-[3/4] w-full rounded-2xl sm:aspect-video">
+              {children}
+            </Preview>
+          )}
+        />
+      )}
+      {!teach && phase === "setup" && (
         <Setup
+          training={training}
           cam={cam}
           plan={plan}
           setPlan={setPlan}
@@ -371,7 +428,7 @@ export function CameraScreen({ sport }: { sport?: string }) {
           onStart={() => setPhase("live")}
         />
       )}
-      {phase === "live" && (
+      {!teach && phase === "live" && (
         <Live
           cam={cam}
           plan={plan}
@@ -384,7 +441,7 @@ export function CameraScreen({ sport }: { sport?: string }) {
           }}
         />
       )}
-      {phase === "summary" && result && <Summary result={result} />}
+      {!teach && phase === "summary" && result && <Summary result={result} training={training} />}
     </div>
   );
 }
@@ -509,6 +566,7 @@ function useTick(ms = 500) {
 // ── Setup ───────────────────────────────────────────────────────────────────────────────────────────────────────
 
 function Setup({
+  training,
   cam,
   plan,
   setPlan,
@@ -517,6 +575,7 @@ function Setup({
   setOutlineOn,
   onStart,
 }: {
+  training?: TrainingToRun;
   cam: Webcam;
   plan: Plan;
   setPlan: (p: Plan) => void;
@@ -533,12 +592,27 @@ function Setup({
 
   return (
     <div className="mx-auto w-full max-w-xl space-y-4 px-4 pt-[max(env(safe-area-inset-top),1rem)] pb-16">
-      <button type="button" className="h-11 text-sm text-muted" onClick={() => go({ name: "workout" })}>
+      <button
+        type="button"
+        className="h-11 text-sm text-muted"
+        onClick={() =>
+          go(
+            training
+              ? {
+                  name: "training",
+                  ref: training.code ?? training.training.id,
+                  ...(training.challenge ? { challenge: training.challenge } : {}),
+                }
+              : { name: "workout" },
+          )
+        }
+      >
         ‹ {t.common.back}
       </button>
       <Kicker tone="volt">{c.kicker}</Kicker>
-      <h1 className="font-display text-2xl font-bold">{c.title}</h1>
+      <h1 className="font-display text-2xl font-bold">{training ? training.training.name : c.title}</h1>
       <p className="text-muted">{c.lead}</p>
+      {training && <TrainingSetsCard training={training.training} />}
 
       <Kicker tone="sky">{c.step1}</Kicker>
       <CameraCheck cam={cam} outline={outline} outlineOn={outlineOn} setOutlineOn={setOutlineOn} />
@@ -957,6 +1031,9 @@ function Live({
   const heartRef = useRef<CameraHeart | null>(null);
   if (!heartRef.current) heartRef.current = new CameraHeart((b) => zoneOf(b, zonesRef.current));
   const heart = heartRef.current;
+  // A custom training's target zone (ADR-0047): the zone feel on screen, a calm line said when it held 8 s.
+  const zonePacer = useRef(new ZoneCuePacer());
+  const [zoneSaid, setZoneSaid] = useState<{ text: string; at: number } | null>(null);
   useEffect(
     () =>
       sensor.subscribe((v, at) => {
@@ -1052,6 +1129,7 @@ function Live({
           case "go":
           case "setEnd":
             pacer.current = new CuePacer();
+            zonePacer.current.reset();
             setCue(null);
             speak(flowLine(x, lang), true);
             break;
@@ -1124,6 +1202,13 @@ function Live({
       const h = heart.now(at);
       flow.setHeart(h ? { bpm: h.bpm, zone: h.zone } : null, at);
       handle(flow.push(f, at), at);
+      const zt = flow.phase === "set" ? flow.target?.zone : undefined;
+      const feel = zonePacer.current.push(zt, h ? h.zone : null, at);
+      if (feel && zt) {
+        const line = zoneLine(zt, feel, lang);
+        setZoneSaid({ text: line, at });
+        speak(line, true);
+      }
       if (framingVoice.current.push(at, framingState.current) === "remind") speak(FRAMING_VOICE.remind[lang], true);
     },
     [flow, outline, lang, speak, handle, heart],
@@ -1183,6 +1268,7 @@ function Live({
             <DemoFigure loop={flow.demo} startedAt={flow.phaseStartMs} className="h-[42vh] max-h-[460px] w-full max-w-md" />
             <p className="font-display text-4xl leading-tight font-bold text-white sm:text-6xl">{targetDef.name[lang]}</p>
             <p className="font-display text-2xl font-bold text-volt sm:text-4xl">{targetText(target, targetDef, lang)}</p>
+            <ZoneTarget target={target} zoneNow={null} lang={lang} />
             {so.of > 1 && <p className="text-lg text-white">{fmt(c.setOf, { n: so.n, of: so.of })}</p>}
             <p className="max-w-xl text-lg text-white/85 sm:text-2xl">{moveTip(targetDef, lang)}</p>
           </div>
@@ -1239,6 +1325,12 @@ function Live({
                   </p>
                 )}
                 {so.of > 1 && <p className="text-lg text-white">{fmt(c.setOf, { n: so.n, of: so.of })}</p>}
+                <ZoneTarget target={target} zoneNow={heartNow?.zone ?? null} lang={lang} />
+                {zoneSaid && now - zoneSaid.at < 6000 && (
+                  <p role="status" className="mt-2 rounded-full bg-black/70 px-4 py-1 text-lg text-white">
+                    {zoneSaid.text}
+                  </p>
+                )}
                 {set?.loadKg ? <p className="text-lg text-white">{`${kgToUnits(set.loadKg, units)} ${loadUnit(units)}`}</p> : null}
                 {move?.judge === "manual" && <p className="text-lg text-white">{c.manualTimed}</p>}
                 {move && move.judge === "count" && (
@@ -1555,9 +1647,11 @@ function HeartTile({ bpm, zone, label, zoneLabel }: { bpm: number | null; zone: 
 
 // ── Summary ─────────────────────────────────────────────────────────────────────────────────────────────────────
 
-function Summary({ result }: { result: LiveResult }) {
+function Summary({ result, training }: { result: LiveResult; training?: TrainingToRun }) {
   const app = useApp();
   const { t, lang, fmt, go, prefs, me, athlete, deviceKey, energy, setEnergy, api, refresh, setQueue, queue, streak } = app;
+  // A custom training's run (ADR-0047): scored here first (game-core trainingRun), then by the API once uploaded.
+  const [run, setRun] = useState<RunReply | "busy" | "failed" | null>(null);
   const c = t.camera;
   const [saving, setSaving] = useState(false);
   const [reply, setReply] = useState<UploadReply | null>(null);
@@ -1617,8 +1711,18 @@ function Summary({ result }: { result: LiveResult }) {
         setQueue(queueRef.current.filter((x) => x.session.id !== session.id));
         setReply(r);
         void refresh();
+        if (training) {
+          setRun("busy");
+          void trainingsApi(app.session)
+            .recordRun(training.training.id, { sessionId: r.session?.id ?? session.id, challengeCode: training.challenge ?? null })
+            .then((x) => setRun(x ?? "failed"))
+            .catch(() => setRun("failed"));
+        }
       })
-      .catch(() => setFailed(true))
+      .catch(() => {
+        setFailed(true);
+        if (training) setRun("failed");
+      })
       .finally(() => setSaving(false));
   };
 
@@ -1717,6 +1821,7 @@ function Summary({ result }: { result: LiveResult }) {
           </div>
         </Card>
       )}
+      {training && <TrainingRunCard training={training.training} summary={summary} heart={result.heart} run={run} />}
       <Card tone="volt">
         <Kicker tone="volt">{strapHeart ? c.heartPointsTitle : c.cameraPointsTitle}</Kicker>
         {got ? (
@@ -1773,5 +1878,90 @@ function Stat({ label, value }: { label: string; value: string }) {
       <dt className="text-[11px] text-muted">{label}</dt>
       <dd className="font-display text-xl leading-tight font-bold tabular-nums">{value}</dd>
     </div>
+  );
+}
+
+// ── Custom trainings (ADR-0047) ─────────────────────────────────────────────────────────────────────────────────
+
+/** The set's target zone (or effort out of 10) and, with a strap, how the heart is doing against it. */
+function ZoneTarget({ target, zoneNow, lang }: { target: { zone?: number; rpe?: number } | null; zoneNow: number | null; lang: Locale }) {
+  const r = getTrainingsDict(lang).app.run;
+  if (!target?.zone && !target?.rpe) return null;
+  if (!target.zone)
+    return (
+      <p className="mt-1 rounded-full bg-black/60 px-4 py-1 text-lg font-semibold text-white">
+        {r.effortTarget.replace("{n}", String(target.rpe))}
+      </p>
+    );
+  const feel = zoneNow ? zoneFeel(target.zone, zoneNow) : null;
+  return (
+    <p
+      className={cn(
+        "mt-1 rounded-full px-4 py-1 text-lg font-semibold",
+        feel === "in"
+          ? "bg-volt text-ink"
+          : feel === "below"
+            ? "bg-sky text-ink"
+            : feel === "above"
+              ? "bg-pulse text-ink"
+              : "bg-black/60 text-white",
+      )}
+    >
+      {r.zoneTarget.replace("{n}", String(target.zone))}
+      {feel ? ` · ${zoneLine(target.zone, feel, lang)}` : target.rpe ? ` · ${r.effortTarget.replace("{n}", String(target.rpe))}` : ""}
+    </p>
+  );
+}
+
+/** The training's sets before starting: move, target, zone or effort. */
+function TrainingSetsCard({ training }: { training: Training }) {
+  const { lang } = useApp();
+  const d = getTrainingsDict(lang);
+  const rows = setRowsOf(training, lang);
+  return (
+    <Card>
+      <ol className="space-y-1 text-sm">
+        {rows.map((r, i) => (
+          <li key={i} className="flex flex-wrap justify-between gap-2">
+            <span>
+              <span className="font-semibold">{r.name}</span> <span className="text-muted">{r.target}</span>
+            </span>
+            {r.intensity && <span className="text-muted">{r.intensity}</span>}
+          </li>
+        ))}
+      </ol>
+      {training.rounds > 1 && <Small className="mt-2">{d.share.rounds.replace("{n}", String(training.rounds))}</Small>}
+      {rows.some((r) => r.zone) && <Small className="mt-2">{d.share.zonesNote}</Small>}
+    </Card>
+  );
+}
+
+/** The run's score: 700 for the work, 300 for the time in the target zones with a strap (game-core trainingRun). */
+function TrainingRunCard({
+  training,
+  summary,
+  heart,
+  run,
+}: {
+  training: Training;
+  summary: CameraSummary;
+  heart: CameraHeartStats | null;
+  run: RunReply | "busy" | "failed" | null;
+}) {
+  const { lang } = useApp();
+  const r = getTrainingsDict(lang).app.run;
+  const local: TrainingRun = trainingRun(training, summary, heart);
+  const shown = run && typeof run === "object" ? run : local;
+  return (
+    <Card tone="pulse">
+      <Kicker tone="pulse">{r.score}</Kicker>
+      <p className="mt-2 font-display text-3xl font-bold tabular-nums">{r.scoreOf.replace("{n}", String(shown.score))}</p>
+      <p className="mt-1 text-sm">{shown.completed ? r.completed : r.notCompleted}</p>
+      {shown.inZone !== null && <p className="text-sm text-muted">{r.inZone.replace("{n}", String(Math.round(shown.inZone * 100)))}</p>}
+      {!heart && <Small className="mt-1">{r.noSensor}</Small>}
+      {run === "busy" && <Small className="mt-1">{r.recording}</Small>}
+      {run === "failed" && <Small className="mt-1 text-butter-fg">{r.failed}</Small>}
+      <Small className="mt-2">{r.webRule}</Small>
+    </Card>
   );
 }
