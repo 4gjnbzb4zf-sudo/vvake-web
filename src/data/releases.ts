@@ -19,6 +19,76 @@ export interface Release {
 
 export const releases: Release[] = [
   {
+    version: "1.0.0 (34)",
+    date: "2026-10-21",
+    channel: "beta",
+    devices: ["iphone", "android"],
+    notes: {
+      en: {
+        added: [
+          'New setting in camera workouts: "Show my body outline". When it\'s on, the stick figure shows for 35 seconds to help you get in position, then fades out so you can train.',
+          '"Show outline" brings the stick figure back for 35 seconds, and it also comes back by itself when the camera lost you for a few seconds.',
+        ],
+        improved: [
+          "Camera workouts now count from your shoulders, arms, hips and knees. Your head and feet can be out of the picture or hard to see.",
+          'Positioning tips are written on the screen and name what the camera can\'t see, for example "Tilt the phone down or step back: your knees are cut off". Other tips suggest more light or turning side-on for moves that need it.',
+          "The voice says one short positioning line when the camera starts, and one reminder at most if you're still not in view after 20 seconds. It no longer talks about framing during your sets.",
+        ],
+        fixed: [
+          "Lunges, wall sits, planks and other leg moves no longer miss reps or stop the timer when the camera can't see your feet.",
+          "Quick checks during rest (\"hands on your head\") pass even when the camera can't see your head, and you're no longer asked to touch a knee that's out of the picture.",
+        ],
+      },
+      fr: {
+        added: [
+          "Nouveau réglage dans les séances caméra : « Afficher ma silhouette ». Quand il est activé, le bonhomme en traits s'affiche 35 secondes pour vous aider à vous placer, puis s'efface pour vous laisser vous entraîner.",
+          "« Afficher la silhouette » fait revenir le bonhomme pendant 35 secondes. Il revient aussi tout seul quand la caméra vous a perdu quelques secondes.",
+        ],
+        improved: [
+          "Les séances caméra comptent maintenant à partir de vos épaules, bras, hanches et genoux. Votre tête et vos pieds peuvent sortir du cadre ou être mal vus.",
+          "Les conseils de placement s'affichent à l'écran et disent ce que la caméra ne voit pas, par exemple « Incline le téléphone vers le bas ou recule : tes genoux sont coupés ». D'autres conseils proposent plus de lumière, ou de se mettre de profil pour les mouvements qui le demandent.",
+          "La voix dit une seule phrase courte pour vous placer quand la caméra démarre, et au plus un rappel si vous n'êtes toujours pas dans le cadre après 20 secondes. Elle ne parle plus du cadrage pendant vos séries.",
+        ],
+        fixed: [
+          "Les fentes, la chaise contre le mur, le gainage et les autres mouvements de jambes ne ratent plus de répétitions et n'arrêtent plus le chrono quand la caméra ne voit pas vos pieds.",
+          "Les petits contrôles pendant le repos (« mains sur la tête ») passent même quand la caméra ne voit pas votre tête, et on ne vous demande plus de toucher un genou hors du cadre.",
+        ],
+      },
+    },
+  },
+  {
+    version: "1.0.0 (33)",
+    date: "2026-10-20",
+    channel: "beta",
+    devices: ["iphone", "android"],
+    notes: {
+      en: {
+        improved: [
+          'Picking Strength, Core, HIIT, Yoga or Mobility now asks first: "With the camera (counts your reps)" or "Watch / heart only", and remembers your choice for that sport.',
+          "The workout picker has a Camera workout tile, and Today has a full Camera workout button instead of a small link.",
+          "A camera workout starts with a camera step: it explains why, asks for the camera, then shows you live with your skeleton, the framing guide and your VVaker copying you before you press Start.",
+          'With a watch paired, "Wear your watch for heart rate" sits right by the camera step and is on by default.',
+        ],
+        fixed: [
+          "Starting a strength workout no longer skips the camera without saying so: the camera mode was easy to miss.",
+          "The camera workout never shows a blank screen: camera off (with Open Settings), no camera, an app update needed, the camera not starting, or nobody in the picture (too dark or too close) each say what to do.",
+        ],
+      },
+      fr: {
+        improved: [
+          "Choisir Musculation, Gainage, HIIT, Yoga ou Mobilité demande d'abord : « Avec la caméra (compte vos répétitions) » ou « Montre / cœur seulement », et retient votre choix pour ce sport.",
+          "Le choix du sport a une tuile Séance caméra, et Aujourd'hui un vrai bouton Séance caméra au lieu d'un petit lien.",
+          "Une séance caméra commence par une étape caméra : elle explique pourquoi, demande la caméra, puis vous montre en direct avec votre squelette, le cadre et votre VVaker qui vous imite avant d'appuyer sur Démarrer.",
+          "Avec une montre jumelée, « Portez votre montre pour le rythme cardiaque » est juste à côté de l'étape caméra et activé par défaut.",
+        ],
+        fixed: [
+          "Lancer une séance de musculation ne passe plus à côté de la caméra sans le dire : le mode caméra était facile à manquer.",
+          "La séance caméra ne montre jamais d'écran vide : caméra refusée (avec Ouvrir Réglages), pas de caméra, mise à jour nécessaire, caméra qui ne démarre pas, ou personne dans le cadre (trop sombre ou trop près) disent chacun quoi faire.",
+        ],
+      },
+    },
+  },
+  {
     version: "1.0.0 (32)",
     date: "2026-10-20",
     channel: "beta",

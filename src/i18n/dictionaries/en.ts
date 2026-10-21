@@ -382,7 +382,7 @@ export const en = {
     customTitle: "Not in the list? Add your own sport",
     customBody:
       "Name it, pick an icon, and choose how it's tracked: heart rate only, or GPS tracking for distance too. Points always come from your heart rate, prizes keep the same rules, and your sport works by voice.",
-    cameraBadge: "In the beta now (build 32, testers)",
+    cameraBadge: "In the beta now (build 34, testers)",
     cameraTitle: "Camera workout (phone and web)",
     cameraBody:
       "Prop your phone 2 to 3 m away: VVake counts your reps and holds for bodyweight and weight training (you enter the load), gives form cues by voice, and your VVaker moves with you. The video never leaves your phone and nothing is recorded. Without a heart sensor it earns small points (at most 15 a day); wear your watch and the watch and the camera make one session with the normal heart points, or pair a Bluetooth heart-rate strap with the phone for heart points too. Never prizes from the camera. No phone? The same camera workout runs in your browser at vvake.com/app with your computer's webcam: the pose is read in the tab, the video never leaves it, and its small points share the same 15 a day.",
