@@ -1,4 +1,4 @@
-// Copied from VVFit packages/game-core/src/cameraMoves.ts (0be276a 2026-10-21) by scripts/sync-camera-core.ts. Do not edit: re-sync.
+// Copied from VVFit packages/game-core/src/cameraMoves.ts (4fe0f2a 2026-10-21) by scripts/sync-camera-core.ts. Do not edit: re-sync.
 /**
  * Camera workouts (ADR-0046): the move catalog. Data only: each move names its signal (cameraReps.ts), the rest and
  * worked positions, the body checks that must hold for a rep to count, the form cues that apply, where to put the

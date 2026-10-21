@@ -1,4 +1,4 @@
-// Copied from VVFit packages/game-core/src/cameraDemo.ts (0be276a 2026-10-21) by scripts/sync-camera-core.ts. Do not edit: re-sync.
+// Copied from VVFit packages/game-core/src/cameraDemo.ts (4fe0f2a 2026-10-21) by scripts/sync-camera-core.ts. Do not edit: re-sync.
 /**
  * Camera workouts, hands-free (ADR-0046 amendment 2026-10-21): the demo of each move, shown full screen before its
  * first set and played twice. A stick body (adult proportions, metres) posed per move and projected the way the phone

@@ -1,4 +1,4 @@
-// Copied from VVFit packages/game-core/src/cameraDetect.ts (0be276a 2026-10-21) by scripts/sync-camera-core.ts. Do not edit: re-sync.
+// Copied from VVFit packages/game-core/src/cameraDetect.ts (4fe0f2a 2026-10-21) by scripts/sync-camera-core.ts. Do not edit: re-sync.
 /**
  * Camera workouts (ADR-0046): "just start moving". Replays the last seconds of pose through the counters of the moves
  * marked `detect` and names the move when one clearly counted reps (two or more, more than any other). Weighted

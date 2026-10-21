@@ -1,4 +1,4 @@
-// Copied from VVFit packages/game-core/src/cameraSession.ts (0be276a 2026-10-21) by scripts/sync-camera-core.ts. Do not edit: re-sync.
+// Copied from VVFit packages/game-core/src/cameraSession.ts (4fe0f2a 2026-10-21) by scripts/sync-camera-core.ts. Do not edit: re-sync.
 /**
  * Camera workouts (ADR-0046): one session in front of the camera. Sets of a move (picked, planned, or detected), reps
  * or a hold counted from the pose, the load you typed, a rest timer between sets, liveness checks during rest, and
@@ -146,13 +146,14 @@ export class CameraWorkoutEngine {
     if (m) this.adopt(m, reps, frames, nowMs);
   }
 
-  private adopt(move: MoveDef, reps: number, frames: readonly PoseFrame[], nowMs: number) {
+  private adopt(move: MoveDef, reps: number, frames: readonly PoseFrame[], _nowMs: number) {
     const s = this.set!;
     s.move = move;
     s.manual = move.judge === "manual";
     s.reps = reps;
     // The frames' clock (the reps' times are frame times too; the screen's clock may differ from it).
-    const at = frames.length ? frames[frames.length - 1]!.t : nowMs;
+    // No frames (a hold recognised without a window): 0 = not known yet, the first rep sets it (never the screen's clock).
+    const at = frames.length ? frames[frames.length - 1]!.t : 0;
     s.firstRepMs = at;
     s.lastRepMs = at;
     this.arm(move);
@@ -270,7 +271,8 @@ export class CameraWorkoutEngine {
 
     if (!s.move) {
       this.frames.push(f);
-      const cutoff = nowMs - DETECT.windowMs;
+      // The frames' own clock (session time), not the screen's (`nowMs`): mixing them emptied the window every frame.
+      const cutoff = f.t - DETECT.windowMs;
       while (this.frames.length && this.frames[0]!.t < cutoff) this.frames.shift();
       const d = detectMove(this.frames);
       if (d) {

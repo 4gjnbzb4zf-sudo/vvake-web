@@ -1,4 +1,4 @@
-// Copied from VVFit packages/game-core/src/cameraFlow.ts (0be276a 2026-10-21) by scripts/sync-camera-core.ts. Do not edit: re-sync.
+// Copied from VVFit packages/game-core/src/cameraFlow.ts (4fe0f2a 2026-10-21) by scripts/sync-camera-core.ts. Do not edit: re-sync.
 /**
  * Camera workouts, hands-free (ADR-0046 amendment 2026-10-21). Founder, after build 34: "It's video training mode:
  * the user should not have to go to the phone and tap or type to be recognised." One tap on Start, then the session
@@ -129,6 +129,8 @@ export class HandsFreeWorkout {
     this.plan = flowPlan(o);
     this.loads = { ...(o.loads ?? {}) };
     this.lastActivityMs = nowMs;
+    // The screen's clock starts here (any epoch: Date.now on a phone), so the detection pace doesn't depend on it.
+    this.lastDetectMs = nowMs;
     this.restRule = o.routine?.rest ?? "flex";
   }
 
@@ -217,7 +219,8 @@ export class HandsFreeWorkout {
     if (this.paused || this.phase === "done") return out;
     if (f) {
       this.buf.push(f);
-      const cutoff = nowMs - DETECT.windowMs;
+      // The frames' own clock (session time): never the screen's clock, which is another one (Date.now on the phone).
+      const cutoff = f.t - DETECT.windowMs;
       while (this.buf.length && this.buf[0]!.t < cutoff) this.buf.shift();
     }
     switch (this.phase) {

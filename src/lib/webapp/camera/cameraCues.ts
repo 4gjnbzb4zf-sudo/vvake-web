@@ -1,4 +1,4 @@
-// Copied from VVFit packages/game-core/src/cameraCues.ts (0be276a 2026-10-21) by scripts/sync-camera-core.ts. Do not edit: re-sync.
+// Copied from VVFit packages/game-core/src/cameraCues.ts (4fe0f2a 2026-10-21) by scripts/sync-camera-core.ts. Do not edit: re-sync.
 /**
  * Camera workouts (ADR-0046): what the coach says. Form cues (short, said by the coach voice through the workout voice
  * switch, ADR-0044), the framing guide and the liveness prompts, in English and French. And when a cue may be said:

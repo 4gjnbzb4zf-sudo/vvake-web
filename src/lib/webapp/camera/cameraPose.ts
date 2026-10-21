@@ -1,4 +1,4 @@
-// Copied from VVFit packages/game-core/src/cameraPose.ts (0be276a 2026-10-21) by scripts/sync-camera-core.ts. Do not edit: re-sync.
+// Copied from VVFit packages/game-core/src/cameraPose.ts (4fe0f2a 2026-10-21) by scripts/sync-camera-core.ts. Do not edit: re-sync.
 /**
  * Camera workouts (ADR-0046): one body pose as the phone's on-device detector gives it (Apple Vision on iOS, MediaPipe
  * Pose Landmarker on Android), in one shared shape, and the geometry the rep counters and form cues read from it.

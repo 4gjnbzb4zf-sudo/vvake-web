@@ -1,4 +1,4 @@
-// Copied from VVFit packages/game-core/src/cameraHeart.ts (0be276a 2026-10-21) by scripts/sync-camera-core.ts. Do not edit: re-sync.
+// Copied from VVFit packages/game-core/src/cameraHeart.ts (4fe0f2a 2026-10-21) by scripts/sync-camera-core.ts. Do not edit: re-sync.
 /**
  * The heart rate during a camera workout (ADR-0046 amendment 2026-10-21, "live heart rate"). Founder, after build 35:
  * "while video training, the heart rate should be shown and taken into account for intensity and points when a sensor
