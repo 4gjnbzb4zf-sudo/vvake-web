@@ -1,5 +1,7 @@
 import * as z from "zod/mini";
 import type { RewardsSession } from "./rewardsApi";
+import type { HeartZonesPrefs } from "@/lib/webapp/sportHeart";
+import type { SpeedZonesPrefs } from "@/lib/webapp/speedZones";
 
 /**
  * vvake.com/account: every setting the VVake account keeps on the API (monorepo docs/05-tech/api-v1.md "Me",
@@ -38,6 +40,9 @@ const prefsSchema = z.object({
   region: str,
   reminders: opt(remindersSchema),
   cityClashAlerts: bool,
+  /** ADR-0044 / ADR-0048: `{ at, sports }` and `{ at, rpe?, sports }`, checked by speedZones.ts / sportHeart.ts. */
+  speedZones: z.optional(z.unknown()),
+  heartZones: z.optional(z.unknown()),
 });
 export type Prefs = z.infer<typeof prefsSchema>;
 
@@ -80,6 +85,9 @@ export interface MePatch {
     dateFormat?: "system" | "dmy" | "mdy" | "ymd";
     reminders?: Reminders;
     cityClashAlerts?: boolean;
+    /** Sent whole with a fresh `at` (newest wins on the server). */
+    speedZones?: SpeedZonesPrefs;
+    heartZones?: HeartZonesPrefs;
   };
   coach?: { callsOn?: boolean; callWindows?: [number, number][]; ringWatch?: boolean };
 }
@@ -136,7 +144,7 @@ export type Week = z.infer<typeof weekSchema>;
 const athleteSchema = z.object({
   survey: opt(
     z.object({
-      sports: opt(z.array(z.object({ sport: z.string() }))),
+      sports: opt(z.array(z.object({ sport: z.string(), experience: str }))),
       aim: str,
       daysPerWeek: num,
       minutesPerDay: num,

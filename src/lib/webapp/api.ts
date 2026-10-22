@@ -69,6 +69,8 @@ export const appMeSchema = z.object({
       /** ADR-0044: `{ mode, at }` and `{ at, sports }`, checked by workoutPrefs.ts (a bad value reads as none). */
       workoutVoice: z.optional(z.unknown()),
       speedZones: z.optional(z.unknown()),
+      /** Sport zones (ADR-0048): `{ at, rpe?, sports }`, checked by sportHeart.ts; absent until the API keeps it. */
+      heartZones: z.optional(z.unknown()),
     }),
   ),
   consents: opt(z.object({ disclaimer: opt(z.object({ version: z.number(), acceptedAt: z.string() })) })),

@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { parseSpeedZones, parseWorkoutVoice, reconcile } from "./workoutPrefs";
+import { parseHeartZones, parseSpeedZones, parseWorkoutVoice, reconcile } from "./workoutPrefs";
 
 const at10 = "2026-10-17T10:00:00.000Z";
 const at11 = "2026-10-17T11:00:00.000Z";
@@ -38,5 +38,18 @@ describe("workout prefs (newest wins)", () => {
     expect(parseSpeedZones({ at: at10, sports: [] })).toBeNull();
     expect(parseSpeedZones({ sports: {} })).toBeNull();
     expect(parseSpeedZones({ at: at10, sports: {} })).toEqual({ at: at10, sports: {} });
+  });
+
+  it("reads heart zones, and treats an absent or broken value (an older API) as none", () => {
+    expect(parseHeartZones(undefined)).toBeNull();
+    expect(parseHeartZones({ sports: {} })).toBeNull();
+    expect(parseHeartZones({ at: at10, rpe: true, sports: { swim: { maxHr: 172 }, run: { zones: [1, 2, 3, 4, 5] } } })).toEqual({
+      at: at10,
+      rpe: true,
+      sports: { swim: { maxHr: 172 } },
+    });
+    // Newest wins as for the other settings.
+    const ours = { at: at11, sports: {} };
+    expect(reconcile(ours, parseHeartZones(undefined))).toEqual({ push: ours });
   });
 });

@@ -1225,6 +1225,10 @@ export const en = {
         body: "“Zone 2 · 112–128 bpm” from your Health profile, plus the pace or speed that should put you there, learned from your sessions. On steady days, zone blocks count down (3 minutes on a run, 4 on a walk): hold your zone 80% of the block and it earns 10% more. Set your own zones per sport if you know them. No heart rate? Speed zones you set per sport guide you and the coach's cues instead: on the web, and in the app since build 28 for testers (points still need a heart rate).",
       },
       {
+        title: "Zones for every sport",
+        body: "Your heart tops out lower on a bike than on a run, and lower again in the pool or when only your arms work, so each sport gets its own heart-rate zones, worked out for you. Know your max for a sport? Set it, or set your own zones in bpm or percent. Pace reads the way the sport does: per km or mile on foot, km/h or mph on wheels, per 100 m in the water, per 500 m on a rower, and not at all where pace means nothing. Prefer effort by feel? One switch shows easy, steady and hard instead of numbers on every device. Set it on the web or on your account page now, and in the app from the next beta build. Wellness guidance, not medical advice; points and prizes don't change.",
+      },
+      {
         title: "Play on: phone or watch",
         body: "Choose where Spotify, Apple Music or a VVake mix plays: your iPhone, your Apple Watch or a speaker, and Spotify starts right there, never somewhere else. Spotify asleep? One tap opens it and comes straight back. Nothing playing? Your last song shows, one tap plays it. A VVake mix moves between watch and phone at the same track and second.",
       },
@@ -2497,7 +2501,7 @@ export const en = {
           },
           {
             t: "Kept in your browser.",
-            d: "The workout under way is saved in your browser (IndexedDB) every few seconds, so a reload or a closed tab can resume it; finished workouts wait there until they are uploaded, then they are deleted. Your goals, daily rhythm check-ins, voice settings and sign-in (for at most 24 hours) are kept in your browser's storage too. Signing out or clearing the site's data removes them. Your workout voice choice (voice on, essential only or off) and your speed zones per sport (numbers only) are also kept with your account, so your other devices use the same.",
+            d: "The workout under way is saved in your browser (IndexedDB) every few seconds, so a reload or a closed tab can resume it; finished workouts wait there until they are uploaded, then they are deleted. Your goals, daily rhythm check-ins, voice settings and sign-in (for at most 24 hours) are kept in your browser's storage too. Signing out or clearing the site's data removes them. Your workout voice choice (voice on, essential only or off) and your heart-rate and speed zones per sport and the effort-by-feel switch (numbers only) are also kept with your account, so your other devices use the same.",
           },
           {
             t: "Microphone and voice, only when you ask.",
