@@ -1,7 +1,7 @@
 /**
  * Social kit for the brand accounts: profile pictures and banners, written to ../VVFit/marketing/social
  * (or the folder given as the first argument). Same renderer as the share cards (scripts/generate-og.tsx).
- * Usage: npx tsx scripts/generate-social.tsx [outDir]
+ * Usage: pnpm exec tsx scripts/generate-social.tsx [outDir]
  */
 import { mkdir, writeFile } from "node:fs/promises";
 import { join, resolve } from "node:path";

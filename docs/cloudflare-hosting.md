@@ -14,7 +14,7 @@ Nothing here is deployed yet. GitHub Pages keeps serving vvake.com until step 5.
 | `wrangler.jsonc`                          | An assets-only Worker named `vvake-web`. It serves `out/` with `html_handling: auto-trailing-slash` (`/en/rewards` → `/en/rewards/`, like Pages) and `not_found_handling: 404-page`. Unknown paths get `out/404.html` with a 404 status, and its script forwards `/c/…`, `/r/…`, `/claude/…` and `/rewards`. |
 | `scripts/cloudflare-headers.ts`           | Writes `out/_headers` after the build (`src/lib/cloudflareHeaders.ts`, tested).                                                                                                                                                                                                                              |
 | `.github/workflows/deploy-cloudflare.yml` | A manual deploy (Actions → Deploy to Cloudflare → Run workflow). It runs the same checks and build as `deploy.yml`, then `wrangler deploy`.                                                                                                                                                                  |
-| `npm run deploy:cloudflare`               | The same deploy from your computer (`npx wrangler login` first).                                                                                                                                                                                                                                             |
+| `pnpm run deploy:cloudflare`              | The same deploy from your computer (`pnpm exec wrangler login` first).                                                                                                                                                                                                                                       |
 
 ### Headers sent
 
@@ -31,7 +31,7 @@ Nothing here is deployed yet. GitHub Pages keeps serving vvake.com until step 5.
 - **`/.well-known/apple-app-site-association`:** `Content-Type: application/json` (universal links and passkeys).
 - **Hidden files:** Wrangler uploads `out/.well-known/`. `wrangler deploy --dry-run` lists `/.well-known/apple-app-site-association`.
 
-A local check with `npx wrangler@4.136.0 dev` returned, as expected:
+A local check with `pnpm exec wrangler@4.136.0 dev` returned, as expected:
 
 - `/en/rewards/`: 200 with every header;
 - `/en/rewards`: 307 to `/en/rewards/`;

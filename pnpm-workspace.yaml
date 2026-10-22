@@ -1,0 +1,12 @@
+# pnpm settings for the site (a single package, not a monorepo). Worktrees link node_modules from the one pnpm store.
+packages:
+  - .
+
+# prebuild/postbuild (OG images, MapLibre and MediaPipe assets, the CSP) must run with `pnpm run build`.
+enablePrePostScripts: true
+
+# Dependencies allowed to run their install scripts (pnpm runs none by default).
+onlyBuiltDependencies:
+  - esbuild
+  - fsevents
+  - unrs-resolver

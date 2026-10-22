@@ -17,21 +17,22 @@ VVaker avatar builder. English and French. Deployed as a static site on GitHub P
 
 ```sh
 nvm use        # Node 22 (22.12+ recommended)
-npm install
-npm run dev    # http://localhost:3000 → redirects to /en/ or /fr/
+corepack enable pnpm   # once: pnpm at the version pinned in package.json (packageManager)
+pnpm install
+pnpm run dev    # http://localhost:3000 → redirects to /en/ or /fr/
 ```
 
-| Script          | What it does                                |
-| --------------- | ------------------------------------------- |
-| `npm run dev`   | Dev server (also regenerates social images) |
-| `npm run build` | Static export to `out/`                     |
-| `npm start`     | Serve `out/` locally                        |
-| `npm run check` | Format check, lint, typecheck, tests        |
-| `npm run og`    | Regenerate `public/og/{en,fr}.png`          |
+| Script           | What it does                                |
+| ---------------- | ------------------------------------------- |
+| `pnpm run dev`   | Dev server (also regenerates social images) |
+| `pnpm run build` | Static export to `out/`                     |
+| `pnpm start`     | Serve `out/` locally                        |
+| `pnpm run check` | Format check, lint, typecheck, tests        |
+| `pnpm run og`    | Regenerate `public/og/{en,fr}.png`          |
 
-**Pre-commit formatting.** `npm install` sets git's `core.hooksPath` to `.githooks/` (the `prepare` script), so every
+**Pre-commit formatting.** `pnpm install` sets git's `core.hooksPath` to `.githooks/` (the `prepare` script), so every
 commit runs `prettier --write` on the staged files first (lint-staged). It works in every worktree. Skip it once with
-`git commit --no-verify`; if commits stop being formatted, run `npm run prepare` again.
+`git commit --no-verify`; if commits stop being formatted, run `pnpm run prepare` again.
 
 ## Languages
 
@@ -47,10 +48,10 @@ Logic: `src/i18n/negotiate.ts` (tested).
 VVFit monorepo (never edit it by hand; Prettier skips it). To refresh it, from the VVFit repo:
 
 ```sh
-npx tsx packages/game-core/scripts/export-voice-commands.ts --site ../vvake-web
+pnpm exec tsx packages/game-core/scripts/export-voice-commands.ts --site ../vvake-web
 ```
 
-then `npm test` here: `src/lib/voiceCommands.test.ts` validates the file, checks the page shows every command and
+then `pnpm test` here: `src/lib/voiceCommands.test.ts` validates the file, checks the page shows every command and
 example, and compares it with `../VVFit/docs/05-tech/voice-commands.json` (or `$VVFIT_DIR`) when that repo is present.
 
 ## Configuration (build-time)

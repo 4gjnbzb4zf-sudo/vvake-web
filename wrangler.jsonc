@@ -1,6 +1,6 @@
 // Cloudflare Workers static assets for vvake.com (docs/cloudflare-hosting.md, review WEB-SEC-01).
 // An assets-only Worker: no script runs, Cloudflare serves out/ with the headers in out/_headers
-// (written by scripts/cloudflare-headers.ts). Deploy: npm run deploy:cloudflare, or the "Deploy to Cloudflare"
+// (written by scripts/cloudflare-headers.ts). Deploy: pnpm run deploy:cloudflare, or the "Deploy to Cloudflare"
 // workflow (manual). GitHub Pages keeps serving vvake.com until the DNS switch.
 {
   "name": "vvake-web",

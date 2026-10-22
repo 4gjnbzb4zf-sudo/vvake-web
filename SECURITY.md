@@ -26,5 +26,5 @@ Anything not on this list is not VVake.
   written at build time by `scripts/csp.ts`; the rewards page hides itself inside a frame.
 - The claim transaction is built in the browser from the pinned contract address; nothing from the API can change
   its target, its function or its value.
-- GitHub Actions pinned to commit SHAs; `npm ci --ignore-scripts` in CI; Dependabot for npm and Actions.
+- GitHub Actions pinned to commit SHAs; `pnpm install --frozen-lockfile --ignore-scripts` in CI; Dependabot for the npm packages (pnpm lockfile) and Actions.
 - Least-privilege workflow permissions; Pages deploy via OIDC (`id-token: write`) only in the deploy job.

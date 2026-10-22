@@ -326,7 +326,7 @@ async function vectors() {
     `camera: test vectors written (${reps.length} rep cases, ${holds.length} hold, engine ${events.length} events, hands-free ${flowEvents.length} events, ${flow.phase}; custom: taught ${taught.reps}, counted ${counted}, detected ${detected})`,
   );
 
-  execFileSync("npx", ["prettier", "--write", out], { stdio: "inherit" });
+  execFileSync("pnpm", ["exec", "prettier", "--write", out], { stdio: "inherit" });
 }
 
 vectors().catch((e: unknown) => {
