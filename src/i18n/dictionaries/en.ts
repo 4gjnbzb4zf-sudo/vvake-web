@@ -2337,7 +2337,7 @@ export const en = {
     summary: [
       "No ads, no sale of your data, no tracking across apps or websites.",
       "Health data is used only to coach you. It is never sold, never used for advertising and never shown to other people.",
-      "Your GPS route stays on your iPhone or Apple Watch and in Apple Health. Our servers never receive your location in a form we can read: your routes are backed up to your account end-to-end encrypted, with a key held only on your devices, so VVake can't read them. The only readable route we ever receive is one you choose to share for one challenge: trimmed at both ends, kept only while that challenge lasts, then deleted.",
+      "Your GPS route stays on your iPhone or Apple Watch and in Apple Health. Our servers never receive your location in a form we can read: your routes are backed up to your account end-to-end encrypted, with a key held only on your devices, so VVake can't read them. The only readable route we ever receive is one you choose to share for one challenge: trimmed at both ends, kept only while that challenge lasts, then deleted. When you look for places to train nearby, we receive a point rounded to about 1 km, which we don't keep.",
       "You can use VVake without signing in, and you can delete your account and everything with it.",
       "Our database and stored files are kept in the European Union.",
       "$VVAKE prizes are optional. If you link a wallet, its address and weekly prize amounts become public on a blockchain, which can't be erased.",
@@ -2455,7 +2455,7 @@ export const en = {
         p: [],
         list: [
           {
-            t: "During outdoor sessions only.",
+            t: "During outdoor sessions.",
             d: "VVake uses your location while you use the app during an outdoor session, to draw your route and measure distance. When you ask to race your best, it also checks the position your device last recorded, on the device itself, to suggest a route that starts near you. The live map keeps only your last position, on your phone itself and never uploaded, so the next map opens on you right away. The route stays on your iPhone or Apple Watch and in Apple Health; your Apple Watch also passes the routes it records, and during a workout where you are (so your iPhone's map can mirror it), straight to your own iPhone, never through our servers. It is never sent to our servers in a form we can read (unless you share a route for a challenge, below): we receive only totals such as distance and pace, and the end-to-end encrypted backup described next. Maps are drawn by Apple Maps.",
           },
           {
@@ -2478,6 +2478,10 @@ export const en = {
             t: "Public totals only.",
             d: "City Clash and the live map show totals per city (shown only from 10 people moving, and rounded), never an individual's position, route or name.",
           },
+          {
+            t: "Places to train near you, when you ask.",
+            d: "When you look for places to practise a sport near you (on the phone, on the watch through the phone, or on vvake.com/app), your device reads your position once, while you use the app, and sends our servers only that position rounded to about 1 km (two decimals) and the sport. Our servers ask OpenStreetMap's Overpass service for that sport's places in whole map tiles of about 5 to 40 km around the rounded point, so neither we nor OpenStreetMap ever receive your exact position. We keep those map tiles (public map data) for up to 60 days, never your position, the search or who made it. Distances and directions are worked out on your device; the list sent to your watch stays on your devices. Places you save as favourites stay on your phone. Tapping Directions hands the place (not your position) to Apple Maps or Google Maps, under their own policy. Place data © OpenStreetMap contributors, under the Open Database License (ODbL).",
+          },
         ],
       },
       {
@@ -2488,8 +2492,8 @@ export const en = {
         ],
         list: [
           {
-            t: "Location, only while a workout runs.",
-            d: "When you start an outdoor workout, your browser asks whether vvake.com may use your location. It is read only while that workout runs and the page is open on screen (a browser stops tracking when the phone locks or the page is hidden), to draw your route and measure distance, pace and climb. The route stays in your browser: we receive only the totals and a distance every 10 seconds, never a position. The map's tiles come from OpenFreeMap, which sees the map area your browser asks for, like any map site.",
+            t: "Location, only during a workout or a places search.",
+            d: "When you start an outdoor workout, your browser asks whether vvake.com may use your location. It is read only while that workout runs and the page is open on screen (a browser stops tracking when the phone locks or the page is hidden), to draw your route and measure distance, pace and climb. The route stays in your browser: we receive only the totals and a distance every 10 seconds, never a position. The map's tiles come from OpenFreeMap, which sees the map area your browser asks for, like any map site. Places near me reads your position once, when you tap Use my location, and sends only a point rounded to about 1 km (see Location).",
           },
           {
             t: "Bluetooth heart rate, read in your browser.",
@@ -2764,6 +2768,10 @@ export const en = {
           },
           { t: "Coinbase (United States).", d: "Our API reads the public ETH/USD price from Coinbase. No data about you is sent." },
           { t: "GitHub (United States).", d: "Hosts this website. Like any web host, it sees visitors' IP addresses." },
+          {
+            t: "OpenStreetMap's Overpass service (FOSSGIS e.V., Germany).",
+            d: "Answers our servers' searches for places to train: it receives the map area and the kind of place asked for, never your position, your name or your IP address.",
+          },
         ],
         after: [
           "Other VVake users see only your display name and VVaker (on challenge and crew quest invites, on challenge links you send to anyone and in the lists of people you have faced), challenge results and your record against them, your crew quest results to the crew members who join, and your city's totals. Never your health data, sessions or location, except a route you choose to share for a challenge, which only the people racing it can see (see Location).",
