@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { Section } from "@/components/ui/Section";
 import { format } from "@/i18n/dictionaries";
 import {
+  coachTier,
   confirmed,
   MAX_WATCHLIST,
   SPOTIFY_ROUTE_SYNC,
@@ -12,6 +13,7 @@ import {
   withoutPick,
   withPick,
   type Desk,
+  type Me,
   type DeskRule,
   type Integrations,
   type Pulse,
@@ -22,6 +24,21 @@ import { formatDate } from "@/lib/datetime";
 import { ApiError } from "@/lib/rewardsApi";
 import { Card, linkButton, Pill, Row, Select, smallButton, smallInput, Toggle, useAction, Value } from "./AccountUi";
 import { mins, pageUrl, sectionIndex, type PanelProps } from "./shared";
+
+/**
+ * The plan pill (Free, Coach Plus or Coach Premium: the API's tier "premium", or "pro" before the rename) and, for an
+ * early tester, the "Early tester · Coach Premium" badge. On the profile line and the plan card.
+ */
+export function PlanPills({ t, me }: { t: PanelProps["t"]; me: Me }) {
+  const tier = coachTier(me);
+  const s = t.plusSection;
+  return (
+    <>
+      <Pill tone={tier === "free" ? "muted" : "volt"}>{tier === "premium" ? s.tierPremium : tier === "plus" ? s.tierPlus : s.free}</Pill>
+      {me.earlyTester === true && <Pill tone="ok">{s.earlyTester}</Pill>}
+    </>
+  );
+}
 
 export function ConnectionsSection(p: PanelProps) {
   const { t, api, session, me, errorMsg } = p;
@@ -128,7 +145,7 @@ export function ConnectionsSection(p: PanelProps) {
           badge={
             spotify ? (
               <Pill tone={spotify.linked ? "ok" : plus ? "muted" : "volt"}>
-                {spotify.linked ? c.connected : plus ? c.notConnected : "Plus"}
+                {spotify.linked ? c.connected : plus ? c.notConnected : t.plusSection.tierPlus}
               </Pill>
             ) : undefined
           }
@@ -452,20 +469,30 @@ export function PlusSection(p: PanelProps) {
   const { t, me, api, session, setMe, lang, dates, errorMsg } = p;
   const a = useAction(errorMsg);
   const plus = me.plan === "plus";
+  const premium = coachTier(me) === "premium";
   const src = me.plusSource ?? "";
   const srcLabel = (t.plusSection.sources as Record<string, string>)[src];
 
   return (
     <Section id="plus" index={sectionIndex("plus")} kicker={t.sections.plus} title={t.sections.plus} lead={t.plusSection.lead}>
       <div className="mt-8 max-w-3xl">
-        <Card title={t.sections.plus} badge={<Pill tone={plus ? "volt" : "muted"}>{plus ? "Plus" : t.plusSection.free}</Pill>}>
+        <Card
+          title={t.sections.plus}
+          badge={
+            <span className="flex flex-wrap justify-end gap-1.5">
+              <PlanPills t={t} me={me} />
+            </span>
+          }
+        >
           <p className="mt-4 font-display text-2xl font-semibold">
-            {plus && me.plusUntil ? format(t.plusSection.active, { date: formatDate(me.plusUntil, dates, "medium") }) : t.plusSection.free}
+            {plus && me.plusUntil
+              ? format(premium ? t.plusSection.activePremium : t.plusSection.active, { date: formatDate(me.plusUntil, dates, "medium") })
+              : t.plusSection.free}
           </p>
           {srcLabel && <p className="mt-1 text-sm text-muted">{srcLabel}</p>}
           {(src === "apple" || src === "google") && <p className="mt-2 text-sm text-faint">{t.plusSection.store}</p>}
           <div className="mt-4 flex flex-wrap gap-2">
-            <a href={`/${lang}/plus/`} className={smallButton("primary")}>
+            <a href={`/${lang}/plans/`} className={smallButton("primary")}>
               {t.plusSection.manage}
             </a>
             {src === "stripe" && (

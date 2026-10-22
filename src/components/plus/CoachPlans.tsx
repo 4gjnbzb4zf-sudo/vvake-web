@@ -7,14 +7,14 @@ const usd = (n: number, lang: string) =>
   new Intl.NumberFormat(lang === "fr" ? "fr-FR" : "en-US", { style: "currency", currency: "USD" }).format(n);
 
 /**
- * vvake.com/plus: Free / Plus / Coach Pro side by side and the minute packs (ADR-0051). Static: the planned prices,
+ * vvake.com/<lang>/plans/: Free / VVake Coach Plus / Coach Premium side by side and the minute packs (ADR-0051). Static: the planned prices,
  * each marked "Coming soon" (payments stay off until the store products exist). Same numbers as the API's defaults.
  */
 export function CoachPlans({ t, lang }: { t: Dictionary["plusPay"]["plans"]; lang: string }) {
   const tiers = [
     { id: "free" as const, price: t.current },
     { id: "plus" as const, price: format(t.perMonth, { price: usd(COACH_PLAN_PRICES.plus, lang) }) },
-    { id: "pro" as const, price: format(t.perMonth, { price: usd(COACH_PLAN_PRICES.pro, lang) }) },
+    { id: "premium" as const, price: format(t.perMonth, { price: usd(COACH_PLAN_PRICES.premium, lang) }) },
   ];
   return (
     <section
@@ -32,11 +32,12 @@ export function CoachPlans({ t, lang }: { t: Dictionary["plusPay"]["plans"]; lan
           {t.title}
         </h2>
         <p className="mt-3 max-w-3xl text-muted">{t.lead}</p>
+        <p className="mt-3 max-w-3xl text-sm font-medium text-lilac-fg">{t.beta}</p>
         <div className="mt-8 grid gap-4 md:grid-cols-3">
           {tiers.map((x) => (
             <div
               key={x.id}
-              className={`rounded-2xl border p-5 ${x.id === "pro" ? "border-lilac/60 bg-lilac/5" : "border-line bg-surface/60"}`}
+              className={`rounded-2xl border p-5 ${x.id === "premium" ? "border-lilac/60 bg-lilac/5" : "border-line bg-surface/60"}`}
             >
               <h3 className="font-display text-xl font-semibold">{t.tiers[x.id].name}</h3>
               <p className="mt-1 text-sm text-muted">

@@ -89,7 +89,7 @@ export const fr: Dictionary = {
         icon: "📱",
         kicker: "L'app",
         title: "Tout ce qu'elle fait pour toi",
-        body: "Coach, plan, défis, crews, duels de villes et Plus.",
+        body: "Coach, plan, défis, crews, duels de villes et Coach Plus.",
         cta: "Explorer l'app",
         page: "tour/",
       },
@@ -767,7 +767,7 @@ export const fr: Dictionary = {
         icon: "💵",
         when: 1,
         title: "Des prix chaque semaine pour avoir bougé",
-        body: "Plus alimente une cagnotte mensuelle, convertie en $VVAKE selon des règles publiques et distribuée chaque semaine pour l'effort. Deux façons d'entrer, le même prix : Plus ou l'inscription gratuite (aucun achat requis), avec un portefeuille lié (18 ans et plus). Tu réclames depuis ton propre portefeuille sur vvake.com/rewards. Testnet pour l'instant : aucune valeur.",
+        body: "Coach Plus alimente une cagnotte mensuelle, convertie en $VVAKE selon des règles publiques et distribuée chaque semaine pour l'effort. Deux façons d'entrer, le même prix : Coach Plus ou l'inscription gratuite (aucun achat requis), avec un portefeuille lié (18 ans et plus). Tu réclames depuis ton propre portefeuille sur vvake.com/rewards. Testnet pour l'instant : aucune valeur.",
       },
       {
         icon: "📈",
@@ -873,20 +873,20 @@ export const fr: Dictionary = {
       "Conseils bien-être, pas un avis médical. Blessure, grossesse ou problème de santé ? Demande d'abord l'avis d'un professionnel.",
   },
   plus: {
-    kicker: "VVake Fit Plus · optionnel",
+    kicker: "VVake Coach Plus · optionnel",
     title: "Plus d'outils. Jamais d'avantage.",
-    body: "L'offre gratuite est complète. Plus, c'est pour celles et ceux qui veulent un coaching plus poussé, de plus grandes crews et quelques petits plaisirs.",
-    name: "VVake Fit Plus",
+    body: "L'offre gratuite est complète. Coach Plus, c'est pour celles et ceux qui veulent un coaching plus poussé, de plus grandes crews et quelques petits plaisirs.",
+    name: "VVake Coach Plus",
     price: "{money}",
     per: "/ mois",
     yearly: "ou à l'année, 2 mois offerts",
     trial: "7 jours d'essai gratuit · résiliable à tout moment",
     lifetime: {
       tag: "Offre fondatrice · saison de lancement uniquement",
-      title: "Plus à vie",
+      title: "Coach Plus à vie",
       price: "{money}",
       per: "une fois",
-      body: "Tous les outils Plus, pour toujours, pour environ 30 mois d'abonnement. Même règle : jamais d'avantage. Compté comme revenu Plus étalé sur 36 mois, pour financer VVake pendant des années.",
+      body: "Tous les outils Coach Plus, pour toujours, pour environ 30 mois d'abonnement. Même règle : jamais d'avantage. Compté comme revenu Coach Plus étalé sur 36 mois, pour financer VVake pendant des années.",
     },
     cta: "Être prévenu au lancement",
     perks: [
@@ -903,7 +903,7 @@ export const fr: Dictionary = {
       {
         icon: "🎙️",
         title: "Coach vocal en direct",
-        body: "Parle à ton coach sans les mains pendant tes séances : 5 minutes par semaine avec Plus, 15 avec Coach Pro (jusqu'à 5 par séance), et des packs de minutes pour tout le monde (bientôt).",
+        body: "Parle à ton coach sans les mains pendant tes séances : 5 minutes par semaine avec Coach Plus, 15 avec Coach Premium (jusqu'à 5 par séance), et des packs de minutes pour tout le monde (bientôt).",
       },
       {
         icon: "🎧",
@@ -931,9 +931,9 @@ export const fr: Dictionary = {
       { icon: "✨", title: "Finition du mois", body: "Une nouvelle finition cosmétique pour ton VVaker chaque mois." },
     ],
     invest: {
-      kicker: "Plus + Invest",
+      kicker: "Coach Plus + Invest",
       title: "Abonne-toi et investis, en une seule étape.",
-      body: "Lance Plus et un plan d'investissement mensuel en même temps. Ton plan utilise ton propre argent chez ton courtier agréé (Robinhood prévu) et suit tes règles :",
+      body: "Lance Coach Plus et un plan d'investissement mensuel en même temps. Ton plan utilise ton propre argent chez ton courtier agréé (Robinhood prévu) et suit tes règles :",
       rules: [
         {
           icon: "🎯",
@@ -951,9 +951,9 @@ export const fr: Dictionary = {
       example: "Exemple de mois · budget {budget} · objectif 12 séances, 12 faites · ville gagnante",
       cash: "Reste ton argent : {money}",
       why: { pairs: "duo sport", side: "poche annexe", home: "bonus régional" },
-      note: "Plus est un abonnement aux fonctionnalités de l'app ; il n'achète jamais d'actions. L'investissement est séparé, avec ton propre argent et ton compte chez un courtier agréé, selon le pays. Tes résultats changent la façon dont ton propre plan s'exécute, jamais un lot. Un investissement peut baisser comme monter ; pas un conseil financier.",
+      note: "Coach Plus est un abonnement aux fonctionnalités de l'app ; il n'achète jamais d'actions. L'investissement est séparé, avec ton propre argent et ton compte chez un courtier agréé, selon le pays. Tes résultats changent la façon dont ton propre plan s'exécute, jamais un lot. Un investissement peut baisser comme monter ; pas un conseil financier.",
     },
-    neverTitle: "Jamais dans Plus",
+    neverTitle: "Jamais dans Coach Plus",
     never: [
       "Plus d'énergie ou de points",
       "Un meilleur classement ou de meilleures stats",
@@ -961,8 +961,8 @@ export const fr: Dictionary = {
       "Tes données : ton journal complet et tes exports restent gratuits",
     ],
     split:
-      "15 % des revenus nets de Plus (ce que les stores nous versent après leur commission et les taxes, moins les remboursements) vont à la cagnotte de prix, distribuée chaque semaine pour l'effort.",
-    note: "Dans l'app iPhone (et l'app Android quand elle arrivera), Plus est un abonnement intégré géré par le store ; gère-le ou résilie-le dans les réglages du store. Les prix varient selon le pays et incluent les taxes quand c'est requis.",
+      "15 % des revenus nets de Coach Plus (ce que les stores nous versent après leur commission et les taxes, moins les remboursements) vont à la cagnotte de prix, distribuée chaque semaine pour l'effort.",
+    note: "Dans l'app iPhone (et l'app Android quand elle arrivera), Coach Plus est un abonnement intégré géré par le store ; gère-le ou résilie-le dans les réglages du store. Les prix varient selon le pays et incluent les taxes quand c'est requis.",
   },
   coach: {
     kicker: "Ton VVaker, ton coach",
@@ -1483,7 +1483,7 @@ export const fr: Dictionary = {
     token: {
       kicker: "$VVAKE · testnet · Robinhood Chain",
       title: "À quoi sert $VVAKE.",
-      body: "$VVAKE est une clé de communauté, pas un tableau des scores. Le détenir te donne une voix dans la communauté, des looks à montrer et des portes qui s'ouvrent avec les autres sportifs. Il fonctionne seul, et en fait un peu plus avec Plus. Tout ce qui compte dans tes défis se gagne toujours en bougeant.",
+      body: "$VVAKE est une clé de communauté, pas un tableau des scores. Le détenir te donne une voix dans la communauté, des looks à montrer et des portes qui s'ouvrent avec les autres sportifs. Il fonctionne seul, et en fait un peu plus avec Coach Plus. Tout ce qui compte dans tes défis se gagne toujours en bougeant.",
       tiers: [
         {
           icon: "🏃",
@@ -1493,12 +1493,12 @@ export const fr: Dictionary = {
             "Tout le gratuit : plan, crews, défis, déblocage des villes",
             "Stats, niveaux et classements gagnés en bougeant",
             "Points VV, séries, quêtes et le coach",
-            "L'inscription gratuite aux prix $VVAKE hebdomadaires : les mêmes prix qu'avec Plus (portefeuille lié, 18 ans et plus, testnet pour l'instant)",
+            "L'inscription gratuite aux prix $VVAKE hebdomadaires : les mêmes prix qu'avec Coach Plus (portefeuille lié, 18 ans et plus, testnet pour l'instant)",
           ],
         },
         {
           icon: "⭐",
-          name: "Plus",
+          name: "Coach Plus",
           who: "Abonnement, sans token",
           perks: [
             "Coaching plus poussé et ton coach vocal",
@@ -1520,7 +1520,7 @@ export const fr: Dictionary = {
         },
         {
           icon: "🔥",
-          name: "Détenteur + Plus",
+          name: "Détenteur + Coach Plus",
           who: "Token et abonnement",
           perks: [
             "Tout ce qui précède, des deux côtés",
@@ -1608,13 +1608,13 @@ export const fr: Dictionary = {
             label: "Achat d'ouverture",
             value: "5 % de l'offre (50 M), uniquement pour la réclamation unique des acheteurs de l'ancien token dans son pool",
           },
-          { label: "Cagnotte de prix", value: "15 % des revenus nets de Plus" },
+          { label: "Cagnotte de prix", value: "15 % des revenus nets de Coach Plus" },
           { label: "Conversions", value: "Selon des règles on-chain : plafonnées par jour, déclenchables par tous" },
           { label: "Où vont les $VVAKE convertis", value: "Seulement au contrat de récompenses" },
           {
             label: "Qui reçoit des prix",
             value:
-              "Les membres Plus ou inscrits gratuits (même prix) avec un portefeuille lié (18 ans et plus), le tout d'avant la semaine, qui ont bougé avec fréquence cardiaque, enregistré avec l'app sur un vrai iPhone ou une vraie Apple Watch, et répondu à la question d'habileté",
+              "Les membres Coach Plus ou inscrits gratuits (même prix) avec un portefeuille lié (18 ans et plus), le tout d'avant la semaine, qui ont bougé avec fréquence cardiaque, enregistré avec l'app sur un vrai iPhone ou une vraie Apple Watch, et répondu à la question d'habileté",
           },
           {
             label: "Pilote",
@@ -1629,21 +1629,21 @@ export const fr: Dictionary = {
         ],
       },
       prizePool: {
-        title: "🏆 Plus alimente une cagnotte de prix mensuelle",
-        body: "Chaque mois, 15 % des revenus nets de VVake Fit Plus (ce que versent les stores après la commission d'Apple ou de Google et les taxes retenues, moins les remboursements) vont à la cagnotte, un contrat public (VVakePrizePool), avec l'empreinte du rapport du mois sur la chaîne. La cagnotte les convertit en $VVAKE selon des règles, jamais au choix de quelqu'un.",
+        title: "🏆 Coach Plus alimente une cagnotte de prix mensuelle",
+        body: "Chaque mois, 15 % des revenus nets de VVake Coach Plus (ce que versent les stores après la commission d'Apple ou de Google et les taxes retenues, moins les remboursements) vont à la cagnotte, un contrat public (VVakePrizePool), avec l'empreinte du rapport du mois sur la chaîne. La cagnotte les convertit en $VVAKE selon des règles, jamais au choix de quelqu'un.",
         steps: [
           "Les conversions se font par petites tranches plafonnées, au plus une fois par jour, et n'importe qui peut déclencher la suivante",
           "Les $VVAKE vont seulement au contrat de récompenses (VVakeRewards), jamais à une personne ni à un wallet de l'équipe",
-          "Chaque semaine, des prix pour l'effort. Deux façons d'entrer, le même prix : Plus ou l'inscription gratuite (aucun achat requis), avec un compte, une inscription et un portefeuille lié (18 ans et plus) d'avant la semaine, au moins 3 séances de 10 minutes ou plus avec fréquence cardiaque, ou 90 minutes actives en mouvement enregistrées avec l'app sur un vrai iPhone ou une vraie Apple Watch, et la question d'habileté de la semaine. Jamais selon ce que tu détiens, jamais par tirage",
+          "Chaque semaine, des prix pour l'effort. Deux façons d'entrer, le même prix : Coach Plus ou l'inscription gratuite (aucun achat requis), avec un compte, une inscription et un portefeuille lié (18 ans et plus) d'avant la semaine, au moins 3 séances de 10 minutes ou plus avec fréquence cardiaque, ou 90 minutes actives en mouvement enregistrées avec l'app sur un vrai iPhone ou une vraie Apple Watch, et la question d'habileté de la semaine. Jamais selon ce que tu détiens, jamais par tirage",
           "La cagnotte de la semaine, c'est 1/8 (12,5 %) des $VVAKE que le contrat de récompenses détient et n'a pas encore promis, au plus 1 000 000. Elle est partagée selon les points d'effort (au plus 150 par jour), personne ne reçoit plus de 10 %, et ce qui n'est pas distribué reste dans la cagnotte pour les semaines suivantes. Tu réclames depuis ton propre portefeuille sur vvake.com/rewards",
           "Pendant le pilote : au plus 1 000 VVAKE par personne et 20 000 VVAKE en tout chaque semaine, pour les 200 premières personnes admissibles ; les autres sont sur une liste d'attente. Ce qu'un plafond laisse reste dans la cagnotte pour les semaines suivantes. Une personne vérifie chaque semaine, et rien n'est publié avant la fin de cette vérification.",
         ],
-        note: "Testnet pour l'instant : les tokens n'ont aucune valeur. Rien n'est brûlé et rien ne va aux détenteurs. Un examen juridique et un audit externe des contrats passent avant toute valeur sur le mainnet. Payer Plus en $VVAKE de testnet existe seulement dans les versions de développement de l'app, pour tester le parcours (les tokens vont à la trésorerie de VVake) ; ce n'est proposé ni dans TestFlight ni sur l'App Store.",
+        note: "Testnet pour l'instant : les tokens n'ont aucune valeur. Rien n'est brûlé et rien ne va aux détenteurs. Un examen juridique et un audit externe des contrats passent avant toute valeur sur le mainnet. Payer Coach Plus en $VVAKE de testnet existe seulement dans les versions de développement de l'app, pour tester le parcours (les tokens vont à la trésorerie de VVake) ; ce n'est proposé ni dans TestFlight ni sur l'App Store.",
         cta: "Voir les prix et la cagnotte",
       },
       equal: {
         title: "Pareil pour tous, avec ou sans token",
-        body: "Stats, niveaux, classements et matchmaking sont les mêmes pour tous. Les prix hebdomadaires sont ouverts avec Plus ou l'inscription gratuite, le même prix, et suivent l'effort seulement : jamais la détention de $VVAKE, jamais le hasard, jamais ce que tu paies.",
+        body: "Stats, niveaux, classements et matchmaking sont les mêmes pour tous. Les prix hebdomadaires sont ouverts avec Coach Plus ou l'inscription gratuite, le même prix, et suivent l'effort seulement : jamais la détention de $VVAKE, jamais le hasard, jamais ce que tu paies.",
       },
       never: {
         title: "Ce que $VVAKE ne fait jamais",
@@ -1680,7 +1680,7 @@ export const fr: Dictionary = {
       {
         tag: "On-chain (prévu)",
         title: "Robinhood Chain garde tout ouvert",
-        body: "La chaîne où vivent déjà les actions tokenisées (RWA). Sur le testnet aujourd'hui : des prix $VVAKE chaque semaine pour l'effort, alimentés par Plus et réclamés depuis ton propre portefeuille. Prévu : un contrat public de répartition des frais, des objets de collection avec une vraie utilité (jamais un avantage), et le lancement de $VVAKE sur le mainnet via vibe/vibe après revue juridique.",
+        body: "La chaîne où vivent déjà les actions tokenisées (RWA). Sur le testnet aujourd'hui : des prix $VVAKE chaque semaine pour l'effort, alimentés par Coach Plus et réclamés depuis ton propre portefeuille. Prévu : un contrat public de répartition des frais, des objets de collection avec une vraie utilité (jamais un avantage), et le lancement de $VVAKE sur le mainnet via vibe/vibe après revue juridique.",
         points: [
           "Répartition des frais du launchpad, on-chain",
           "Récompenses de saison pour l'effort",
@@ -1875,8 +1875,8 @@ export const fr: Dictionary = {
     body: "L'équipe détient au plus 3 % de $VVAKE ; sa propre part v2 est de 0 aujourd'hui (le portefeuille de lancement ne détient que les 50 M réservés à la réclamation OG) ; un blocage de 12 mois puis une libération sur 3 ans seront imposés par un contrat avant tout lancement sur le mainnet. L'équipe est payée par les frais. Chaque source a sa propre répartition publique.",
     sources: [
       {
-        name: "VVake Fit Plus",
-        basis: "Revenus nets de Plus",
+        name: "VVake Coach Plus",
+        basis: "Revenus nets de Coach Plus",
         split: [
           {
             label: "Cagnotte de prix",
@@ -1984,7 +1984,7 @@ export const fr: Dictionary = {
         signIn: "Se connecter",
         checking: "Vérification du look…",
         cast: "Du casting : libre pour tout le monde, jamais réservé.",
-        free: "Personne n’a encore ce look : génère-le ou réserve-le dans l’app (Plus) et il est à toi seul.",
+        free: "Personne n’a encore ce look : génère-le ou réserve-le dans l’app (Coach Plus) et il est à toi seul.",
         mine: "Ce look est à toi.",
         taken: "Ce VVaker appartient à quelqu’un d’autre — change un détail pour avoir le tien.",
         tryIt: "Essayer {code}",
@@ -1999,7 +1999,7 @@ export const fr: Dictionary = {
       downloadVVaker: "Télécharger le VVaker",
       downloadBanner: "Télécharger la bannière X",
       generate: "Générer mon VVaker",
-      soon: "Au lancement · 3 rendus offerts, plus avec Plus",
+      soon: "Au lancement · 3 rendus offerts, plus avec Coach Plus",
       animals: {
         cheetah: "Guépard",
         cat: "Chat",
@@ -2346,12 +2346,12 @@ export const fr: Dictionary = {
       },
       {
         q: "Je peux repartir à zéro après une pause ?",
-        a: "Oui. « Repartir à zéro » (dans les réglages, sur le téléphone ou la montre) remet à zéro ton plan et ton programme, ta série, tes habitudes du jour, tes réglages santé perso (zones cardiaques, FC de repos et max), le verrou de concentration et la mémoire du coach : tu recommences au jour 1. Ton VVaker, tes séances, tes scores, points et prix, ton portefeuille, Plus, tes amis et tes données Apple Santé ou Health Connect restent : rien n'y est supprimé. Tu maintiens le bouton pour confirmer, donc ça n'arrive jamais par erreur.",
+        a: "Oui. « Repartir à zéro » (dans les réglages, sur le téléphone ou la montre) remet à zéro ton plan et ton programme, ta série, tes habitudes du jour, tes réglages santé perso (zones cardiaques, FC de repos et max), le verrou de concentration et la mémoire du coach : tu recommences au jour 1. Ton VVaker, tes séances, tes scores, points et prix, ton portefeuille, Coach Plus, tes amis et tes données Apple Santé ou Health Connect restent : rien n'y est supprimé. Tu maintiens le bouton pour confirmer, donc ça n'arrive jamais par erreur.",
       },
       {
         q: "C'est gratuit ? Faut-il un wallet ou des cryptos ?",
-        a: "Gratuit pour commencer, et tu n'as jamais besoin d'un wallet ni de cryptos pour t'entraîner. Un wallet sert seulement à réclamer les prix $VVAKE hebdomadaires facultatifs, sur vvake.com/rewards, jamais dans l'app. Les options comme VVake Fit Plus ne sont jamais nécessaires pour t'entraîner ou participer aux défis et n'y donnent jamais d'avantage ; les prix $VVAKE hebdomadaires sont ouverts avec Plus ou l'inscription gratuite (le même prix, aucun achat requis), avec un portefeuille lié (18 ans et plus).",
-        link: "app/#plus",
+        a: "Gratuit pour commencer, et tu n'as jamais besoin d'un wallet ni de cryptos pour t'entraîner. Un wallet sert seulement à réclamer les prix $VVAKE hebdomadaires facultatifs, sur vvake.com/rewards, jamais dans l'app. Les options comme VVake Coach Plus ne sont jamais nécessaires pour t'entraîner ou participer aux défis et n'y donnent jamais d'avantage ; les prix $VVAKE hebdomadaires sont ouverts avec Coach Plus ou l'inscription gratuite (le même prix, aucun achat requis), avec un portefeuille lié (18 ans et plus).",
+        link: "plans/",
       },
       {
         q: "Que deviennent mes données ?",
@@ -2360,7 +2360,7 @@ export const fr: Dictionary = {
       },
       {
         q: "Il y a un token ? C'est quoi les prix $VVAKE ?",
-        a: "VVake est un service de sport et d'entraînement, pas un produit financier. Chaque semaine, les personnes qui ont assez bougé avec fréquence cardiaque (au moins 3 séances de 10 minutes ou plus, ou 90 minutes actives en mouvement) se partagent des prix $VVAKE selon leur effort. Deux façons d'entrer, le même prix : VVake Fit Plus ou l'inscription gratuite (aucun achat requis), avec un compte, une inscription et un portefeuille lié d'avant la semaine, et une courte question d'habileté chaque semaine. Seules les séances enregistrées avec l'app VVake sur un vrai iPhone ou une vraie Apple Watch comptent, et pendant le pilote, les prix sont plafonnés et vérifiés par une personne chaque semaine. Les prix sont pour les 18 ans et plus, les points comptent jusqu'à 150 par jour, personne ne reçoit plus de 10 % de la cagnotte d'une semaine, et les prix ne dépendent jamais du hasard, de ce que tu paies ni du nombre de tokens que tu détiens. 15 % des revenus nets de VVake Fit Plus alimentent la cagnotte, convertie sur la chaîne selon des règles publiques. Tu réclames tes prix depuis ton propre portefeuille sur vvake.com/rewards ; VVake ne détient jamais tes tokens et ne te demande jamais ta phrase de récupération. Testnet pour l'instant : les tokens n'ont aucune valeur, rien à acheter, et rien ici n'est une offre ni un conseil en placement. Pas offert aux États-Unis ni au Royaume-Uni au lancement, sous réserve d'un examen juridique.",
+        a: "VVake est un service de sport et d'entraînement, pas un produit financier. Chaque semaine, les personnes qui ont assez bougé avec fréquence cardiaque (au moins 3 séances de 10 minutes ou plus, ou 90 minutes actives en mouvement) se partagent des prix $VVAKE selon leur effort. Deux façons d'entrer, le même prix : VVake Coach Plus ou l'inscription gratuite (aucun achat requis), avec un compte, une inscription et un portefeuille lié d'avant la semaine, et une courte question d'habileté chaque semaine. Seules les séances enregistrées avec l'app VVake sur un vrai iPhone ou une vraie Apple Watch comptent, et pendant le pilote, les prix sont plafonnés et vérifiés par une personne chaque semaine. Les prix sont pour les 18 ans et plus, les points comptent jusqu'à 150 par jour, personne ne reçoit plus de 10 % de la cagnotte d'une semaine, et les prix ne dépendent jamais du hasard, de ce que tu paies ni du nombre de tokens que tu détiens. 15 % des revenus nets de VVake Coach Plus alimentent la cagnotte, convertie sur la chaîne selon des règles publiques. Tu réclames tes prix depuis ton propre portefeuille sur vvake.com/rewards ; VVake ne détient jamais tes tokens et ne te demande jamais ta phrase de récupération. Testnet pour l'instant : les tokens n'ont aucune valeur, rien à acheter, et rien ici n'est une offre ni un conseil en placement. Pas offert aux États-Unis ni au Royaume-Uni au lancement, sous réserve d'un examen juridique.",
         link: "rewards/",
       },
     ],
@@ -2399,7 +2399,7 @@ export const fr: Dictionary = {
     privacy: "Confidentialité",
     safety: "Santé et sécurité",
     rewards: "Prix $VVAKE",
-    plus: "VVake Plus",
+    plus: "VVake Coach Plus",
     partners: "Partenaires",
     releases: "Nouveautés",
     roadmap: "Feuille de route",
@@ -2534,7 +2534,7 @@ export const fr: Dictionary = {
             d: "Pour chaque entraînement : le sport, l'heure de début et de fin, le temps actif, la distance, la fréquence cardiaque moyenne et maximale, le temps passé dans chaque zone cardiaque, les pas, la cadence, les calories, le score d'effort, les points et la série, et un relevé aux 10 secondes de la distance, de la fréquence cardiaque et des pas. Pour une séance caméra, les comptes de la séance (mouvements, séries, répétitions, la charge saisie ; voir Séances caméra), jamais une image. Jamais de coordonnées GPS lisibles par nous (la sauvegarde de votre parcours est chiffrée de bout en bout, voir Localisation ; une course sur parcours ajoute seulement quand vous avez commencé et fini le parcours et les mètres couverts dessus). Pourquoi : votre journal, vos statistiques, votre série, votre plan, vos courses contre vos séances passées, les défis et City Clash.",
           },
           {
-            t: "Séances avec le coach en direct (VVake Plus).",
+            t: "Séances avec le coach en direct (VVake Coach Plus).",
             d: "Quand une conversation en direct avec le coach est possible pendant une séance, l'app indique à notre API que la séance est en cours : le sport, son heure de début, son chrono, si elle est à l'intérieur, ses totaux (distance, pas, secondes de mouvement du poignet ou de pédalage) et vos mesures de fréquence cardiaque depuis la dernière mise à jour. Chaque message est signé par l'appareil avec App Attest d'Apple (iPhone, Apple Watch) ou vérifié avec Google Play Integrity (Android, Wear OS), ce qui nous indique qu'il vient de la vraie app VVake. Pourquoi : le coach en direct fonctionne seulement pendant une vraie séance (les minutes de ta formule chaque semaine et d'éventuels packs de minutes, 5 par séance), et ces vérifications empêchent des scripts ou des requêtes copiées de l'utiliser. Nous gardons le relevé de chaque séance 4 jours, les minutes utilisées chaque semaine environ 2 semaines, une empreinte salée de l'appareil (jamais son identifiant) 60 jours, et un indice de confiance avec les éventuels signalements (signalements 60 jours ; l'indice avec votre compte). Votre adresse IP sert seulement sous forme d'empreinte salée, pour limiter le nombre de requêtes. Jamais utilisé pour la publicité ni pour les prix.",
           },
           {
@@ -2668,7 +2668,7 @@ export const fr: Dictionary = {
           },
           {
             t: "Micro et voix, seulement quand tu le demandes.",
-            d: "Parler au coach à la voix utilise la reconnaissance vocale de ton navigateur, qui peut envoyer le son à l’éditeur du navigateur (par exemple Google pour Chrome) pour le transformer en texte ; seul le texte arrive chez VVake. Les annonces de séance jouent la voix enregistrée du coach VVake : les mêmes enregistrements pour tout le monde, sans donnée personnelle, gardés dans le Cache Storage de ton navigateur pour partir tout de suite. Les annonces avec tes propres chiffres (allure, distance, temps) et, avec Plus, les réponses du coach sont lues par la voix du coach (ElevenLabs) via nos serveurs, comme sur le téléphone ; ton navigateur garde cet audio en mémoire seulement, jamais sur le disque. Si l’audio ne peut pas jouer, la voix de ton navigateur lit la phrase, sur ton appareil.",
+            d: "Parler au coach à la voix utilise la reconnaissance vocale de ton navigateur, qui peut envoyer le son à l’éditeur du navigateur (par exemple Google pour Chrome) pour le transformer en texte ; seul le texte arrive chez VVake. Les annonces de séance jouent la voix enregistrée du coach VVake : les mêmes enregistrements pour tout le monde, sans donnée personnelle, gardés dans le Cache Storage de ton navigateur pour partir tout de suite. Les annonces avec tes propres chiffres (allure, distance, temps) et, avec Coach Plus, les réponses du coach sont lues par la voix du coach (ElevenLabs) via nos serveurs, comme sur le téléphone ; ton navigateur garde cet audio en mémoire seulement, jamais sur le disque. Si l’audio ne peut pas jouer, la voix de ton navigateur lit la phrase, sur ton appareil.",
           },
           {
             t: "La caméra, seulement pendant une séance caméra.",
@@ -2801,7 +2801,7 @@ export const fr: Dictionary = {
         h: "Musique",
         p: [
           "Apple Music et Spotify se contrôlent depuis votre iPhone, et depuis votre Apple Watch par l'intermédiaire de votre iPhone. VVake demande à Apple Music (MusicKit) la permission de faire jouer votre musique et d'afficher ce qui joue. Si vous connectez Spotify, la connexion se fait sur votre iPhone, ses jetons restent dans le trousseau de votre iPhone, et votre iPhone communique directement avec Spotify : il lit ce qui joue, vos appareils Spotify, vos listes de lecture et vos titres likés, et envoie les commandes lecture, pause, piste suivante et volume ainsi que les mots de recherche que vous tapez ou dites sur votre montre. Sauf si vous activez Spotify sur ma montre (ci-dessous), rien de votre musique ne se rend à nos serveurs, et rien de vos entraînements ni de votre santé n'est communiqué à Apple Music ou à Spotify.",
-          "Spotify sur votre montre (optionnel, VVake Plus). Si vous activez « Spotify sur ma montre », votre téléphone se connecte une deuxième fois à Spotify pour vos montres et confie cette connexion à VVake. Nous gardons les jetons Spotify chiffrés et nous en servons seulement pour donner à vos propres montres connectées une clé de courte durée, afin qu'elles contrôlent Spotify (lecture, pause, piste suivante, volume, appareils, vos listes de lecture, recherche) sans votre téléphone. Nous n'enregistrons pas ce que vous écoutez. Désactivez-le dans Connexions (ou supprimez votre compte) et nous supprimons les jetons. Vous pouvez aussi l'activer depuis une montre (Toi › Spotify sur cette montre) : nous gardons une demande en attente 15 minutes et envoyons à vos téléphones une notification pour confirmer ; sans téléphone à proximité, la montre affiche une adresse et un code de 8 caractères à saisir sur n'importe quel téléphone ou ordinateur pour vous connecter à Spotify (nous ne gardons qu'une empreinte du code, et supprimons la demande dans la semaine environ). Vous pouvez aussi le connecter depuis vvake.com/account : Spotify vous renvoie vers notre API avec un lien à usage unique valable 10 minutes, et les jetons sont gardés chiffrés comme ci-dessus. Le chemin Spotify choisi pour vos montres (Auto, Par mon téléphone, Montre seule) est gardé avec votre compte, pour que votre téléphone, vos montres et vvake.com affichent le même ; le choix le plus récent l'emporte. Les nouvelles connexions Spotify permettent aussi de lire vos titres écoutés récemment : quand rien ne joue, votre téléphone et votre montre affichent le dernier titre (pochette, titre, artiste) et le relancent d'une touche ; ils le lisent directement chez Spotify, et il n'est pas enregistré sur nos serveurs. « Vérifier Spotify sur cette montre » nous envoie, seulement quand vous touchez Envoyer, des résultats techniques (types d'appareils, codes d'état, type de réseau, versions de l'app et du système), jamais de noms, de chansons ni votre compte ; nous les gardons 90 jours.",
+          "Spotify sur votre montre (optionnel, VVake Coach Plus). Si vous activez « Spotify sur ma montre », votre téléphone se connecte une deuxième fois à Spotify pour vos montres et confie cette connexion à VVake. Nous gardons les jetons Spotify chiffrés et nous en servons seulement pour donner à vos propres montres connectées une clé de courte durée, afin qu'elles contrôlent Spotify (lecture, pause, piste suivante, volume, appareils, vos listes de lecture, recherche) sans votre téléphone. Nous n'enregistrons pas ce que vous écoutez. Désactivez-le dans Connexions (ou supprimez votre compte) et nous supprimons les jetons. Vous pouvez aussi l'activer depuis une montre (Toi › Spotify sur cette montre) : nous gardons une demande en attente 15 minutes et envoyons à vos téléphones une notification pour confirmer ; sans téléphone à proximité, la montre affiche une adresse et un code de 8 caractères à saisir sur n'importe quel téléphone ou ordinateur pour vous connecter à Spotify (nous ne gardons qu'une empreinte du code, et supprimons la demande dans la semaine environ). Vous pouvez aussi le connecter depuis vvake.com/account : Spotify vous renvoie vers notre API avec un lien à usage unique valable 10 minutes, et les jetons sont gardés chiffrés comme ci-dessus. Le chemin Spotify choisi pour vos montres (Auto, Par mon téléphone, Montre seule) est gardé avec votre compte, pour que votre téléphone, vos montres et vvake.com affichent le même ; le choix le plus récent l'emporte. Les nouvelles connexions Spotify permettent aussi de lire vos titres écoutés récemment : quand rien ne joue, votre téléphone et votre montre affichent le dernier titre (pochette, titre, artiste) et le relancent d'une touche ; ils le lisent directement chez Spotify, et il n'est pas enregistré sur nos serveurs. « Vérifier Spotify sur cette montre » nous envoie, seulement quand vous touchez Envoyer, des résultats techniques (types d'appareils, codes d'état, type de réseau, versions de l'app et du système), jamais de noms, de chansons ni votre compte ; nous les gardons 90 jours.",
         ],
         list: [],
       },
@@ -2863,7 +2863,7 @@ export const fr: Dictionary = {
         id: "rewards",
         h: "Prix $VVAKE et votre portefeuille",
         p: [
-          "Les prix $VVAKE sont facultatifs et fonctionnent aujourd'hui sur Robinhood Chain Testnet, où les tokens n'ont aucune valeur. Vous n'avez jamais besoin d'un portefeuille pour utiliser VVake. Dans les applications, vous voyez seulement vos points et des renseignements sur les prix en lecture seule ; lier un portefeuille et réclamer se font sur vvake.com/rewards, depuis votre propre portefeuille. Les prix sont pour les personnes de 18 ans et plus inscrites avec VVake Fit Plus ou l'inscription gratuite (le même prix), qui ont lié un portefeuille avant la semaine, assez bougé avec fréquence cardiaque dans la semaine (au moins 3 séances de 10 minutes ou plus, ou 90 minutes actives en mouvement) et répondu à la question d'habileté de la semaine ; pour le vérifier, nous utilisons le statut de votre abonnement ou votre inscription gratuite, les dates de création de votre compte et du lien de votre portefeuille, vos séances comptées et vos minutes actives, vos réponses à la question d'habileté, et la confirmation 18+ que vous donnez en liant un portefeuille. Base légale : votre consentement, donné en liant un portefeuille.",
+          "Les prix $VVAKE sont facultatifs et fonctionnent aujourd'hui sur Robinhood Chain Testnet, où les tokens n'ont aucune valeur. Vous n'avez jamais besoin d'un portefeuille pour utiliser VVake. Dans les applications, vous voyez seulement vos points et des renseignements sur les prix en lecture seule ; lier un portefeuille et réclamer se font sur vvake.com/rewards, depuis votre propre portefeuille. Les prix sont pour les personnes de 18 ans et plus inscrites avec VVake Coach Plus ou l'inscription gratuite (le même prix), qui ont lié un portefeuille avant la semaine, assez bougé avec fréquence cardiaque dans la semaine (au moins 3 séances de 10 minutes ou plus, ou 90 minutes actives en mouvement) et répondu à la question d'habileté de la semaine ; pour le vérifier, nous utilisons le statut de votre abonnement ou votre inscription gratuite, les dates de création de votre compte et du lien de votre portefeuille, vos séances comptées et vos minutes actives, vos réponses à la question d'habileté, et la confirmation 18+ que vous donnez en liant un portefeuille. Base légale : votre consentement, donné en liant un portefeuille.",
         ],
         list: [
           {
@@ -2876,7 +2876,7 @@ export const fr: Dictionary = {
           },
           {
             t: "Listes hebdomadaires.",
-            d: "Chaque lundi, nous arrêtons la semaine écoulée : le montant de VVAKE de chaque compte admissible (Plus ou inscription gratuite, portefeuille lié, effort suffisant enregistré avec l'app sur un vrai iPhone ou une vraie Apple Watch, question d'habileté, une place dans le pilote), vérifié par une personne avant toute publication. La liste de la semaine (adresses et montants, avec leurs preuves) est publiée pour que chacun puisse la vérifier, et son empreinte (une racine de Merkle) est inscrite sur la blockchain. Les noms, courriels et points ne figurent pas dans la liste, mais un montant indique à peu près l'activité de cette adresse cette semaine-là.",
+            d: "Chaque lundi, nous arrêtons la semaine écoulée : le montant de VVAKE de chaque compte admissible (Coach Plus ou inscription gratuite, portefeuille lié, effort suffisant enregistré avec l'app sur un vrai iPhone ou une vraie Apple Watch, question d'habileté, une place dans le pilote), vérifié par une personne avant toute publication. La liste de la semaine (adresses et montants, avec leurs preuves) est publiée pour que chacun puisse la vérifier, et son empreinte (une racine de Merkle) est inscrite sur la blockchain. Les noms, courriels et points ne figurent pas dans la liste, mais un montant indique à peu près l'activité de cette adresse cette semaine-là.",
           },
           {
             t: "Réclamations.",
@@ -2985,7 +2985,7 @@ export const fr: Dictionary = {
             d: "publiques et permanentes une fois publiées et inscrites sur la blockchain (voir Prix $VVAKE et votre portefeuille). Notre copie garde l'adresse, les points et le montant, sans votre compte une fois celui-ci supprimé.",
           },
           {
-            t: "Appels du coach (Plus, si tu les actives) :",
+            t: "Appels du coach (Coach Plus, si tu les actives) :",
             d: "le texte, l'audio et l'état de chaque appel pendant 90 jours, puis supprimés ; tout de suite avec ton compte.",
           },
           {
@@ -3101,7 +3101,8 @@ export const fr: Dictionary = {
         id: "plus",
         h: "Abonnements et TestFlight",
         p: [
-          "VVake Fit Plus n'est pas encore en vente : rien n'est facturé pendant l'aperçu. À l'ouverture des abonnements, Apple gérera le paiement et nous recevrons seulement l'état de votre abonnement, jamais vos informations de paiement. Dans les versions de développement seulement (ni TestFlight ni l'App Store), Plus peut se payer en $VVAKE de testnet : nous gardons la facture (le montant exact de tokens et le prix de référence utilisé) et, une fois payée, la transaction publique trouvée sur la blockchain ; le reçu est conservé sans votre compte après sa suppression, pour qu'un paiement ne soit jamais compté deux fois. Coach Pro et les packs de minutes de coach en direct ne sont pas encore en vente non plus. Quand ils ouvriront, l'App Store ou Google Play gérera le paiement ; pour un pack de minutes nous gardons l'identifiant de transaction de la boutique, le pack, sa date d'achat et d'expiration (12 mois), et l'historique des minutes utilisées, remboursées ou expirées, avec votre compte. Si vous supprimez votre compte, l'historique part ; l'identifiant de transaction reste sans votre compte pour qu'un même achat ne compte jamais deux fois.",
+          "VVake Coach Plus n'est pas encore en vente : rien n'est facturé pendant l'aperçu. À l'ouverture des abonnements, Apple gérera le paiement et nous recevrons seulement l'état de votre abonnement, jamais vos informations de paiement. Dans les versions de développement seulement (ni TestFlight ni l'App Store), Coach Plus peut se payer en $VVAKE de testnet : nous gardons la facture (le montant exact de tokens et le prix de référence utilisé) et, une fois payée, la transaction publique trouvée sur la blockchain ; le reçu est conservé sans votre compte après sa suppression, pour qu'un paiement ne soit jamais compté deux fois. Coach Premium et les packs de minutes de coach en direct ne sont pas encore en vente non plus. Quand ils ouvriront, l'App Store ou Google Play gérera le paiement ; pour un pack de minutes nous gardons l'identifiant de transaction de la boutique, le pack, sa date d'achat et d'expiration (12 mois), et l'historique des minutes utilisées, remboursées ou expirées, avec votre compte. Si vous supprimez votre compte, l'historique part ; l'identifiant de transaction reste sans votre compte pour qu'un même achat ne compte jamais deux fois.",
+          "Pendant la bêta, les testeurs ont Coach Premium sans frais. Nous enregistrons la date à laquelle votre compte a utilisé une version bêta pour la première fois (testeur pionnier) pour afficher un badge « Testeur pionnier » et pour un éventuel remerciement futur ; elle est conservée avec votre compte et supprimée avec lui.",
           "Si vous testez une version d'essai avec TestFlight, Apple nous transmet les commentaires, captures d'écran et rapports de plantage que vous choisissez d'envoyer, avec des renseignements de base sur l'appareil, selon les conditions de TestFlight.",
         ],
         list: [],
@@ -3210,7 +3211,7 @@ export const fr: Dictionary = {
     copy: "Copier le code",
     copied: "Copié",
     steps: "Installe VVake, puis entre ce code à ton inscription (ou rouvre ce lien sur ton iPhone une fois l'app installée).",
-    bonus: "Termine ta première vraie séance avec fréquence cardiaque dans les 30 jours : 7 jours de VVake Plus offerts à vous deux.",
+    bonus: "Termine ta première vraie séance avec fréquence cardiaque dans les 30 jours : 7 jours de VVake Coach Plus offerts à vous deux.",
     open: "Ouvrir dans l'app",
     noApp:
       "Pas encore l'app ? Les apps iPhone, Apple Watch et Android sont en bêta privée et ouvrent ville par ville. Rejoins l'accès anticipé pour passer en premier.",
@@ -3431,19 +3432,19 @@ export const fr: Dictionary = {
     },
     entry: {
       title: "Deux façons d'entrer, le même prix",
-      lead: "Les prix hebdomadaires sont ouverts avec VVake Fit Plus ou avec l'inscription gratuite. Mêmes règles, mêmes prix, même partage selon l'effort : aucun achat requis.",
+      lead: "Les prix hebdomadaires sont ouverts avec VVake Coach Plus ou avec l'inscription gratuite. Mêmes règles, mêmes prix, même partage selon l'effort : aucun achat requis.",
       plus: {
-        kicker: "Façon 1 · Plus",
-        title: "VVake Fit Plus",
-        body: "Un abonnement Plus actif t'inscrit pour chaque semaine qu'il couvre dès le début (lundi 00 h UTC). Plus ne rend jamais un prix plus gros.",
-        on: "Tu es inscrit avec Plus.",
-        off: "Pas de Plus actif sur ce compte. Plus se gère dans l'app.",
-        beta: "Le Plus de la bêta ne compte pas comme inscription : utilise l'inscription gratuite, c'est le même prix.",
+        kicker: "Façon 1 · Coach Plus",
+        title: "VVake Coach Plus",
+        body: "Un abonnement Coach Plus actif t'inscrit pour chaque semaine qu'il couvre dès le début (lundi 00 h UTC). Coach Plus ne rend jamais un prix plus gros.",
+        on: "Tu es inscrit avec Coach Plus.",
+        off: "Pas de Coach Plus actif sur ce compte. Coach Plus se gère dans l'app.",
+        beta: "Le Coach Plus de la bêta ne compte pas comme inscription : utilise l'inscription gratuite, c'est le même prix.",
       },
       free: {
         kicker: "Façon 2 · Inscription gratuite",
         title: "Inscription gratuite",
-        body: "Aucun achat requis. Un toucher et tu restes inscrit, semaine après semaine, jusqu'à ce que tu te retires. Comme Plus, elle doit exister avant le début de la semaine.",
+        body: "Aucun achat requis. Un toucher et tu restes inscrit, semaine après semaine, jusqu'à ce que tu te retires. Comme Coach Plus, elle doit exister avant le début de la semaine.",
         enter: "M'inscrire gratuitement",
         on: "Tu es inscrit gratuitement.",
         countsFrom: "Compte à partir de la semaine du {date}.",
@@ -3508,11 +3509,11 @@ export const fr: Dictionary = {
       statusCol: "Statut",
       until: "jusqu'au {date}",
       empty:
-        "Pas encore de semaine arrêtée. Une semaine compte quand tu es inscrit (Plus ou l'inscription gratuite), que ton portefeuille était lié avant son début, que tu as assez bougé avec fréquence cardiaque et que tu as répondu à sa question d'habileté.",
+        "Pas encore de semaine arrêtée. Une semaine compte quand tu es inscrit (Coach Plus ou l'inscription gratuite), que ton portefeuille était lié avant son début, que tu as assez bougé avec fréquence cardiaque et que tu as répondu à sa question d'habileté.",
       emptyHint: "Tu attendais des semaines ici ? Vérifie que tu t'es connecté avec le même compte que dans l'app.",
       wallet: "Vers {address}",
       ruleTitle: "Qui reçoit des prix",
-      rule: "Deux façons d'entrer, le même prix : VVake Fit Plus ou l'inscription gratuite. Une semaine compte pour les prix quand tout ceci est vrai :",
+      rule: "Deux façons d'entrer, le même prix : VVake Coach Plus ou l'inscription gratuite. Une semaine compte pour les prix quand tout ceci est vrai :",
       checklist: [
         "Un compte, une inscription et un portefeuille lié, le tout d'avant le début de la semaine (lundi 00 h UTC ; un nouveau portefeuille compte à partir de la semaine suivante)",
         "18 ans ou plus, confirmé en liant ton portefeuille",
@@ -3529,7 +3530,7 @@ export const fr: Dictionary = {
       notEligibleNow: "Cette semaine ne compte pas encore pour les prix :",
       notEligibleWeek: "N'a pas compté : {reasons}",
       missing: {
-        entry: "aucune inscription avant le début de la semaine : Plus ou l'inscription gratuite",
+        entry: "aucune inscription avant le début de la semaine : Coach Plus ou l'inscription gratuite",
         account: "le compte doit exister avant le début de la semaine",
         wallet:
           "un portefeuille doit être lié avant le début de la semaine (un nouveau portefeuille compte à partir de la semaine suivante)",
@@ -3550,7 +3551,7 @@ export const fr: Dictionary = {
       lead: "Tes récompenses vont vers un de tes portefeuilles. Le lier, c'est une signature gratuite : aucune transaction, aucun accès à tes tokens. Ne tape jamais ta phrase de récupération ni ta clé privée sur un site, celui-ci compris.",
       linked: "Portefeuille lié",
       linkedAt: "lié le {date}",
-      none: "Aucun portefeuille lié pour l'instant. Les prix hebdomadaires demandent un portefeuille lié, avec Plus ou l'inscription gratuite.",
+      none: "Aucun portefeuille lié pour l'instant. Les prix hebdomadaires demandent un portefeuille lié, avec Coach Plus ou l'inscription gratuite.",
       countsFrom: "Compte pour les prix à partir de la semaine du {date}.",
       unlink: "Délier",
       unlinkConfirm:
@@ -3696,16 +3697,16 @@ export const fr: Dictionary = {
       title: "De l'effort, des prix",
       items: [
         {
-          h: "Plus alimente la cagnotte",
-          p: "Chaque mois, 15 % des revenus nets des abonnements Plus vont vers un contrat de cagnotte ouvert, avec l'empreinte du rapport du mois sur la chaîne.",
+          h: "Coach Plus alimente la cagnotte",
+          p: "Chaque mois, 15 % des revenus nets des abonnements Coach Plus vont vers un contrat de cagnotte ouvert, avec l'empreinte du rapport du mois sur la chaîne.",
         },
         {
           h: "La cagnotte convertit l'ETH en VVAKE selon des règles",
           p: "N'importe qui peut déclencher l'étape suivante, par petites tranches plafonnées, au plus une fois par intervalle. Les VVAKE vont directement au contrat de récompenses, jamais à une personne.",
         },
         {
-          h: "Plus ou l'inscription gratuite, le même prix",
-          p: "Deux façons d'entrer : VVake Fit Plus ou l'inscription gratuite (aucun achat requis), mêmes règles et mêmes prix. Une semaine compte si ton compte, ton inscription et ton portefeuille lié existaient avant le début de la semaine, que tu as 18 ans ou plus et le droit de recevoir des prix là où tu vis (tu le confirmes en le liant), que tu as bougé avec la fréquence cardiaque d'une montre (au moins 3 séances de 10 minutes ou plus, ou 90 minutes actives en mouvement ; un téléphone sans capteur cardiaque donne 0), que tu as enregistré tes séances avec l'app sur un vrai iPhone ou une vraie Apple Watch, et que tu as répondu à la question d'habileté de la semaine, comme l'exige la loi canadienne pour les prix. Les Move Quests ne comptent jamais pour les prix.",
+          h: "Coach Plus ou l'inscription gratuite, le même prix",
+          p: "Deux façons d'entrer : VVake Coach Plus ou l'inscription gratuite (aucun achat requis), mêmes règles et mêmes prix. Une semaine compte si ton compte, ton inscription et ton portefeuille lié existaient avant le début de la semaine, que tu as 18 ans ou plus et le droit de recevoir des prix là où tu vis (tu le confirmes en le liant), que tu as bougé avec la fréquence cardiaque d'une montre (au moins 3 séances de 10 minutes ou plus, ou 90 minutes actives en mouvement ; un téléphone sans capteur cardiaque donne 0), que tu as enregistré tes séances avec l'app sur un vrai iPhone ou une vraie Apple Watch, et que tu as répondu à la question d'habileté de la semaine, comme l'exige la loi canadienne pour les prix. Les Move Quests ne comptent jamais pour les prix.",
         },
         {
           h: "Seule la vraie app compte",
@@ -3830,13 +3831,14 @@ export const fr: Dictionary = {
     },
   },
   plusPay: {
-    title: "Plus avec $VVAKE",
+    title: "Formules du coach : VVake Coach Plus et Coach Premium",
     description:
-      "Paie un mois de VVake Fit Plus en $VVAKE depuis ton propre portefeuille, avec une réduction. Optionnel : plus d'outils, jamais d'avantage.",
+      "Gratuit, VVake Coach Plus ou Coach Premium : minutes de coach en direct, voix du coach et packs de minutes. Paie un mois de VVake Coach Plus en $VVAKE depuis ton propre portefeuille, avec une réduction. Optionnel : plus d'outils, jamais d'avantage.",
     plans: {
       index: "01",
       kicker: "Formules du coach",
-      title: "Gratuit, Plus ou Coach Pro",
+      title: "Gratuit, VVake Coach Plus ou Coach Premium",
+      beta: "Les testeurs de la bêta ont Coach Premium pendant toute la bêta. Rien n'est facturé.",
       lead: "Tout ce qui compte est gratuit. Les formules ajoutent des minutes de coach en direct et la voix du coach ; les packs de minutes complètent n'importe quelle formule, même gratuite. Prix prévus : rien n'est en vente pour l'instant.",
       soon: "Bientôt",
       perMonth: "{price} par mois",
@@ -3852,7 +3854,7 @@ export const fr: Dictionary = {
           ],
         },
         plus: {
-          name: "Plus",
+          name: "Coach Plus",
           lines: [
             "5 minutes de coach en direct par semaine",
             "Réponses dans la voix du coach, un peu chaque jour",
@@ -3860,11 +3862,11 @@ export const fr: Dictionary = {
             "VVaker sur mesure, plan sur 12 semaines, analyses poussées",
           ],
         },
-        pro: {
-          name: "Coach Pro",
+        premium: {
+          name: "Coach Premium",
           lines: [
             "15 minutes de coach en direct par semaine",
-            "Tout Plus",
+            "Tout Coach Plus",
             "La voix du coach pour tes phrases libres",
             "Appels du coach à leur rythme normal",
           ],
@@ -3874,28 +3876,28 @@ export const fr: Dictionary = {
       packsLead:
         "Pour toutes les formules, même gratuite : des minutes de coach en direct utilisées seulement après celles de la semaine, pendant une vraie séance, valables 12 mois.",
       pack: "+{n} min",
-      fine: "Les minutes en direct comptent ce que toi et le coach dites, pas les silences. Pendant la bêta, les testeurs ont Coach Pro pour tout essayer ; rien n'est facturé.",
+      fine: "Les minutes en direct comptent ce que toi et le coach dites, pas les silences. Pendant la bêta, les testeurs ont Coach Premium pour tout essayer ; rien n'est facturé.",
     },
-    kicker: "VVake Fit Plus · optionnel",
-    heading: "Plus, payé en $VVAKE",
-    lead: "Plus d'outils, jamais d'avantage : énergie, scores, prix et stats sont les mêmes pour tout le monde. Paie un mois de Plus en $VVAKE depuis ton propre portefeuille, moins cher que le prix affiché.",
+    kicker: "VVake Coach Plus · optionnel",
+    heading: "Coach Plus, payé en $VVAKE",
+    lead: "Plus d'outils, jamais d'avantage : énergie, scores, prix et stats sont les mêmes pour tout le monde. Paie un mois de Coach Plus en $VVAKE depuis ton propre portefeuille, moins cher que le prix affiché.",
     appStore:
-      "Dans l'app iPhone, Plus est un abonnement intégré via l'App Store ; tu le gères ou l'annules dans les réglages de l'App Store. Payer en $VVAKE ici, c'est un paiement séparé d'un mois pour le même compte VVake : pas de renouvellement, rien à annuler. Un abonnement par carte ici se renouvelle chaque mois et se gère sur cette page.",
+      "Dans l'app iPhone, Coach Plus est un abonnement intégré via l'App Store ; tu le gères ou l'annules dans les réglages de l'App Store. Payer en $VVAKE ici, c'est un paiement séparé d'un mois pour le même compte VVake : pas de renouvellement, rien à annuler. Un abonnement par carte ici se renouvelle chaque mois et se gère sur cette page.",
     testnet: "Testnet : ces tokens n'ont aucune valeur. Rien sur cette page n'est une offre ni un conseil en placement.",
     safety:
-      "VVake ne te demande jamais ta phrase de récupération, ta clé privée ni une autorisation de token. Tu envoies toi-même un seul transfert, depuis ton propre portefeuille ; cette page ne s'y connecte jamais. Il paie Plus : ce n'est ni un dépôt ni un solde, et VVake ne garde pas de tokens pour toi.",
+      "VVake ne te demande jamais ta phrase de récupération, ta clé privée ni une autorisation de token. Tu envoies toi-même un seul transfert, depuis ton propre portefeuille ; cette page ne s'y connecte jamais. Il paie Coach Plus : ce n'est ni un dépôt ni un solde, et VVake ne garde pas de tokens pour toi.",
     signIn: {
       kicker: "Ton compte",
       title: "Connecte-toi avec ton compte VVake",
-      lead: "Plus va sur le compte avec lequel tu t'entraînes dans l'app, sur tous les appareils où tu es connecté.",
+      lead: "Coach Plus va sur le compte avec lequel tu t'entraînes dans l'app, sur tous les appareils où tu es connecté.",
     },
     account: {
       index: "02",
-      kicker: "Plus",
-      title: "Ton Plus",
+      kicker: "Coach Plus",
+      title: "Ton Coach Plus",
       signedInAs: "Connecté en tant que {name}",
       signOut: "Se déconnecter",
-      active: "Tu as Plus jusqu'au {date}.",
+      active: "Tu as Coach Plus jusqu'au {date}.",
       free: "Formule gratuite : toute l'app, tous les sports, ton journal, l'inscription gratuite aux prix.",
       appleSource: "Abonnement App Store : gère-le dans les réglages de l'App Store.",
       cardSource: "Payé par carte sur vvake.com : gère-le ou annule-le plus bas.",
@@ -3904,7 +3906,7 @@ export const fr: Dictionary = {
       index: "04",
       kicker: "Payer par carte",
       title: "Ou un abonnement mensuel par carte",
-      lead: "Plus chaque mois par carte, sur la page de paiement sécurisée de Stripe. Le prix et les taxes éventuelles y sont affichés avant de payer. Annulable à tout moment : Plus reste jusqu'à la fin du mois payé.",
+      lead: "Coach Plus chaque mois par carte, sur la page de paiement sécurisée de Stripe. Le prix et les taxes éventuelles y sont affichés avant de payer. Annulable à tout moment : Coach Plus reste jusqu'à la fin du mois payé.",
       subscribe: "S'abonner par carte",
       opening: "Ouverture du paiement sécurisé…",
       fine: "Les paiements par carte passent par Stripe ; VVake ne voit jamais ton numéro de carte.",
@@ -3914,15 +3916,15 @@ export const fr: Dictionary = {
       already: "Tu as déjà un abonnement par carte : gère-le ici.",
       unavailable: "Le paiement par carte n'est pas disponible pour le moment.",
       doneTitle: "Merci",
-      done: "Paiement reçu : Plus est actif, dans l'app aussi.",
-      finishing: "Paiement reçu. Plus s'active dans quelques secondes, dans l'app aussi.",
+      done: "Paiement reçu : Coach Plus est actif, dans l'app aussi.",
+      finishing: "Paiement reçu. Coach Plus s'active dans quelques secondes, dans l'app aussi.",
       cancelledTitle: "Paiement annulé",
       cancelled: "Rien n'a été débité. Tu peux réessayer plus bas, ou payer en $VVAKE.",
     },
     pay: {
       index: "03",
       kicker: "Payer en $VVAKE",
-      title: "Un mois de Plus",
+      title: "Un mois de Coach Plus",
       price: "{list} par mois, {usd} en $VVAKE ({pct})",
       amount: "≈ {amount} VVAKE en ce moment (le montant exact est fixé quand tu le demandes)",
       loading: "Calcul du prix…",
@@ -3933,7 +3935,7 @@ export const fr: Dictionary = {
       offline: "Impossible de joindre VVake. Réessaie.",
       signInFirst: "Connecte-toi pour payer en $VVAKE.",
       qrLabel: "Code QR du lien de paiement",
-      exact: "Envoie exactement ce montant depuis ton propre portefeuille. Plus démarre dès que c'est confirmé sur la chaîne.",
+      exact: "Envoie exactement ce montant depuis ton propre portefeuille. Coach Plus démarre dès que c'est confirmé sur la chaîne.",
       to: "À {address}",
       network: "Réseau : {network} (chaîne {chainId})",
       waiting: "En attente de ton paiement…",
@@ -3944,13 +3946,13 @@ export const fr: Dictionary = {
       copyAddress: "Copier l'adresse",
       copied: "Copié",
       newAmount: "Nouveau montant",
-      paid: "✓ Plus actif jusqu'au {date}",
+      paid: "✓ Coach Plus actif jusqu'au {date}",
       receipt: "Voir le reçu",
       howTitle: "Comment ça marche",
       how: [
         "Demande un montant : il est exact au dernier chiffre et réservé 30 minutes.",
         "Envoie exactement ce montant de VVAKE depuis ton propre portefeuille, sur le réseau indiqué. Scanne le code QR ou ouvre le lien dans une app de portefeuille.",
-        "VVake retrouve le transfert sur la chaîne grâce à son montant. Plus est ajouté à ton compte pour 30 jours, en plus du Plus que tu as déjà.",
+        "VVake retrouve le transfert sur la chaîne grâce à son montant. Coach Plus est ajouté à ton compte pour 30 jours, en plus du Coach Plus que tu as déjà.",
       ],
     },
   },
@@ -4040,6 +4042,7 @@ export const fr: Dictionary = {
           "Des points créateur quand d’autres terminent tes séances avec des données cardio, et une part créateurs de la cagnotte hebdomadaire testnet (5 %, testnet, aucune valeur) : dans la bêta pour les testeurs depuis la version 37",
           "La refonte 360 : Aujourd’hui s’ouvre sur S’entraîner, un nouvel accueil, une page Points et une fiche après séance ; des zones cardio et d’allure par sport avec l’effort au ressenti ; les rappels auxquels tu réponds là où ils sonnent ; Où s’entraîner près de moi ; une seule voix de coach partout, montres comprises ; des cartes en 3 formats, des coucous et des résultats de défi, le classement de ville : dans la bêta pour les testeurs depuis la version 38",
           "Les plans de saison : dis à ton coach ce que tu prépares et il planifie les mois à venir en phases (fond, développement, pic, affûtage, course, récupération), donne son avis sur chaque objectif (réaliste, ambitieux ou trop risqué) avec des options plus sûres, montre ta saison sur une frise, règle tes sports, jours et heures de la semaine, modifie la semaine avec toi (tu valides chaque changement, tu peux l’annuler) et s’adapte quand la vie s’en mêle ; la séance du jour, la phase, le compte à rebours et les zones cibles sur les deux montres : dans le navigateur (vvake.com/app) maintenant ; dans les apps iPhone, Android et montres dans la bêta pour les testeurs depuis la version 39",
+          "Les formules du coach : gratuite, VVake Coach Plus et Coach Premium, avec des packs de minutes de coach en direct pour toutes les formules ; les testeurs de la bêta ont Coach Premium pendant toute la bêta, rien n’est facturé ; la vente n’ouvre qu’avec la sortie publique dans les stores",
         ],
       },
       {

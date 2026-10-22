@@ -87,7 +87,7 @@ const en = {
     },
     vvaker: {
       title: "Pick your VVaker",
-      lead: "Your animal athlete, on every screen and on the map while you train. Custom VVakers come with Plus in the app.",
+      lead: "Your animal athlete, on every screen and on the map while you train. Custom VVakers come with Coach Plus in the app.",
     },
     moves: {
       title: "How do you move?",
@@ -223,7 +223,7 @@ const en = {
     hello: "Hi! I'm your coach. Ask me about today's session, your plan, your goals, or how you feel.",
     suggestions: ["What should I do today?", "I'm tired, should I rest?", "How was my week?"],
     proposal: "Plan change proposed",
-    voiceNote: "Coach calls and the hands-free live coach during workouts are in the app (Plus).",
+    voiceNote: "Coach calls and the hands-free live coach during workouts are in the app (Coach Plus).",
   },
   you: {
     title: "You",
@@ -244,7 +244,7 @@ const en = {
     noHistory: "No workouts yet. Start one from Today.",
     loadMore: "Show more",
     settings: "All settings",
-    settingsDetail: "Reminders, coach, plan, connections, Plus, delete: on your account page.",
+    settingsDetail: "Reminders, coach, plan, connections, Coach Plus, delete: on your account page.",
     heart: "Heart-rate sensor",
     voice: "Voice coach",
     voiceDetail: "Cues during workouts in VVake's coach voice, the one in the app (your browser's voice when offline).",
@@ -755,7 +755,7 @@ const fr: WebAppDict = {
     },
     vvaker: {
       title: "Choisis ton VVaker",
-      lead: "Ton athlète animal, sur chaque écran et sur la carte pendant ta séance. Les VVakers sur mesure viennent avec Plus dans l’app.",
+      lead: "Ton athlète animal, sur chaque écran et sur la carte pendant ta séance. Les VVakers sur mesure viennent avec Coach Plus dans l’app.",
     },
     moves: {
       title: "Comment tu bouges ?",
@@ -891,7 +891,7 @@ const fr: WebAppDict = {
     hello: "Salut ! Je suis ton coach. Demande-moi la séance du jour, ton plan, tes objectifs, ou dis-moi comment tu te sens.",
     suggestions: ["Je fais quoi aujourd’hui ?", "Je suis fatigué, je me repose ?", "Comment s’est passée ma semaine ?"],
     proposal: "Changement de plan proposé",
-    voiceNote: "Les appels du coach et le coach vocal mains libres pendant les séances sont dans l’app (Plus).",
+    voiceNote: "Les appels du coach et le coach vocal mains libres pendant les séances sont dans l’app (Coach Plus).",
   },
   you: {
     title: "Toi",
@@ -912,7 +912,7 @@ const fr: WebAppDict = {
     noHistory: "Pas encore de séance. Lance-en une depuis Aujourd’hui.",
     loadMore: "Voir plus",
     settings: "Tous les réglages",
-    settingsDetail: "Rappels, coach, plan, connexions, Plus, suppression : sur ta page compte.",
+    settingsDetail: "Rappels, coach, plan, connexions, Coach Plus, suppression : sur ta page compte.",
     heart: "Capteur cardio",
     voice: "Coach vocal",
     voiceDetail: "Les annonces pendant la séance avec la voix du coach VVake, celle de l’app (la voix du navigateur hors ligne).",

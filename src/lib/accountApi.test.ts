@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { getAccountDict } from "@/i18n/account";
 import {
+  coachTier,
   confirmed,
   connectNotice,
   DEFAULT_CALL_WINDOWS,
@@ -139,5 +140,23 @@ describe("account page helpers", () => {
     }
     expect(getAccountDict("en").data.resetItems[0]).toBe("Your schedule and plan");
     expect(getAccountDict("fr").data.resetItems[0]).toBe("Ton programme et ton plan");
+  });
+});
+
+describe("coachTier", () => {
+  it("reads premium, the legacy pro, plus and the plan fallback", () => {
+    expect(coachTier({ plan: "plus", tier: "premium" })).toBe("premium");
+    expect(coachTier({ plan: "plus", tier: "pro" })).toBe("premium");
+    expect(coachTier({ plan: "plus", tier: "plus" })).toBe("plus");
+    expect(coachTier({ plan: "plus" })).toBe("plus");
+    expect(coachTier({ plan: "free", tier: "free" })).toBe("free");
+    expect(coachTier({})).toBe("free");
+  });
+
+  it("/v1/me carries the tier and the early tester flag", () => {
+    const me = meSchema.parse({ id: "u1", plan: "plus", tier: "premium", earlyTester: true });
+    expect(me.earlyTester).toBe(true);
+    expect(coachTier(me)).toBe("premium");
+    expect(meSchema.parse({ id: "u2" }).earlyTester).toBeUndefined();
   });
 });

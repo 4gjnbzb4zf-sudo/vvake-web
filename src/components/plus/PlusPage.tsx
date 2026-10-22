@@ -10,7 +10,7 @@ import type { Locale } from "@/i18n/config";
 import { getDictionary } from "@/i18n/dictionaries";
 
 /**
- * vvake.com/plus and the two pages Stripe's checkout comes back to (/plus/success/, /plus/cancel/): the same page,
+ * vvake.com/<lang>/plans/ and the pages Stripe's checkout comes back to (/plus/success/, /plus/cancel/): the same page,
  * with a line saying how the checkout ended. Everything live loads in the browser (sign-in, price, invoice, card).
  */
 export function PlusPage({ lang, notice }: { lang: Locale; notice?: "success" | "cancel" }) {

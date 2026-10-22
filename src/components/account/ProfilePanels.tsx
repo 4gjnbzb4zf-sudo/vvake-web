@@ -6,6 +6,7 @@ import { format } from "@/i18n/dictionaries";
 import { DEFAULT_MOVE_AT, fromHhmm, remindersOf, sortedMeals, toHhmm, type Device, type MePatch, type Reminders } from "@/lib/accountApi";
 import { formatDate, formatDateTime } from "@/lib/datetime";
 import { ApiError } from "@/lib/rewardsApi";
+import { PlanPills } from "./ConnectionPanels";
 import { Card, linkButton, Pill, Row, Select, smallButton, smallInput, Toggle, useAction, Value } from "./AccountUi";
 import { sectionIndex, type PanelProps } from "./shared";
 
@@ -58,7 +59,7 @@ export function ProfileSection(p: PanelProps & { onSignOut: () => void }) {
         <button type="button" className={linkButton} onClick={p.onSignOut}>
           {t.profile.signOut}
         </button>
-        <Pill tone={me.plan === "plus" ? "volt" : "muted"}>{me.plan === "plus" ? "Plus" : t.plusSection.free}</Pill>
+        <PlanPills t={t} me={me} />
       </div>
       {me.guest && (
         <p className="mt-4 rounded-xl border border-butter-fg/30 bg-butter/10 px-4 py-3 text-sm text-butter-fg">{t.profile.guest}</p>

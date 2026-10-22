@@ -12,7 +12,7 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
   return { title: getDictionary(lang).plusPay.title, robots: { index: false, follow: false } };
 }
 
-/** Where Stripe's checkout comes back to (closed without paying): vvake.com/plus with a line saying so. Not indexed. */
+/** Where Stripe's checkout comes back to (closed without paying): the plans page (/<lang>/plans/) with a line saying so. Not indexed. */
 export default async function PlusCancel({ params }: { params: Params }) {
   const { lang } = await params;
   if (!isLocale(lang)) notFound();

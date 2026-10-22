@@ -21,11 +21,11 @@ describe("fee splits: one split per source (EN and FR)", () => {
 
   it("the tokenomics list says the same as the open book", () => {
     const items = (d: typeof en) => Object.fromEntries(d.rwa.token.tokenomics.items.map((i) => [i.label, i.value]));
-    expect(items(en)["Prize pool"]).toBe("15% of net Plus revenue");
+    expect(items(en)["Prize pool"]).toBe("15% of net Coach Plus revenue");
     expect(items(en)["Launchpad trading fees"]).toBe(
       "3% per trade: 1.5% team (development, marketing, platforms) · 0.9% season rewards · 0.6% vibe/vibe",
     );
-    expect(items(fr)["Cagnotte de prix"]).toBe("15 % des revenus nets de Plus");
+    expect(items(fr)["Cagnotte de prix"]).toBe("15 % des revenus nets de Coach Plus");
     expect(items(fr)["Frais de trading du launchpad"]).toBe(
       "3 % par transaction : 1,5 % équipe (développement, marketing, plateformes) · 0,9 % récompenses de saison · 0,6 % vibe/vibe",
     );

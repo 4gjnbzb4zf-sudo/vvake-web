@@ -12,7 +12,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "vvaker/",
     "backers/",
     "rewards/",
-    "plus/",
+    "plans/",
     "voice/",
     "privacy/",
     "terms/",
