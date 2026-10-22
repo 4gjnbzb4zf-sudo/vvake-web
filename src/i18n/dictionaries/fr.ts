@@ -381,11 +381,11 @@ export const fr: Dictionary = {
     customTitle: "Pas dans la liste ? Ajoute ton sport",
     customBody:
       "Donne-lui un nom, choisis une icône et la façon de le suivre : fréquence cardiaque seule, ou suivi GPS pour la distance aussi. Les points viennent toujours de ton cœur, les prix gardent les mêmes règles, et ton sport marche à la voix.",
-    trainingsBadge: "Dans le navigateur maintenant · dans les apps à la prochaine version bêta",
+    trainingsBadge: "Dans le navigateur maintenant · dans les apps en bêta (version 37, testeurs)",
     trainingsTitle: "Tes propres mouvements et séances",
     trainingsBody:
       "Apprends un mouvement à toi à VVake : 3 à 5 répétitions devant la caméra, et il compte ce mouvement dès lors, dans tes séries comme dans « Commence simplement à bouger ». Il ne garde que des nombres (angles des articulations et rythme), jamais une vidéo ni une photo. Crée une séance avec les mouvements de VVake et les tiens : des répétitions ou une tenue, une zone cardio visée (ou un effort sur 10 sans capteur) et le repos après chaque série. Partage-la avec un lien, défie tes amis de battre ton score dessus, ou, dans les apps, montre une carte de fierté avec le nombre de personnes qui l’ont faite. Trouve les séances et les coachs des autres dans Découvrir. Quand d’autres personnes terminent vraiment ta séance, avec des données cardio d’une montre ou d’une ceinture, tu gagnes des points créateur.",
-    cameraBadge: "Dans la bêta maintenant (version 36, testeurs)",
+    cameraBadge: "Dans la bêta maintenant (version 37, testeurs)",
     cameraTitle: "Séance caméra (téléphone et web)",
     cameraBody:
       "Pose ton téléphone à 2 ou 3 m : VVake compte tes répétitions et tes maintiens, au poids du corps comme avec des charges (tu saisis la charge), te donne des conseils de posture à voix haute, et ton VVaker bouge avec toi. La vidéo ne quitte jamais ton téléphone et rien n'est enregistré. Sans capteur cardio, de petits points (15 au plus par jour) ; porte ta montre et la montre et la caméra font une seule séance avec les points cardio habituels, ou jumelle une ceinture cardio Bluetooth au téléphone pour des points cardio aussi. Jamais de prix venant de la caméra. Pas de téléphone ? La même séance caméra tourne dans ton navigateur sur vvake.com/app avec la webcam de ton ordinateur : la posture est lue dans l’onglet, la vidéo n’en sort jamais, et ses petits points partagent les mêmes 15 par jour.",
@@ -3677,7 +3677,7 @@ export const fr: Dictionary = {
       index: "05",
       kicker: "Créateurs",
       title: "Une part pour les séances qui font bouger les autres",
-      lead: "Avec la prochaine version bêta, tu peux créer et partager tes propres séances caméra. Quand d’autres personnes les terminent pour de vrai, leur créateur gagne des points et, en testnet, une petite part de la cagnotte hebdomadaire.",
+      lead: "Dans la bêta (version 37), tu peux créer et partager tes propres séances caméra. Quand d’autres personnes les terminent pour de vrai, leur créateur gagne des points et, en testnet, une petite part de la cagnotte hebdomadaire.",
       items: [
         {
           h: "D’abord des points",
@@ -3936,9 +3936,9 @@ export const fr: Dictionary = {
           "Les séances caméra sur iPhone et téléphone Android (répétitions, maintiens et conseils de posture par la caméra, sur le téléphone), dans la bêta pour les testeurs depuis la version 31",
           "Les séances caméra avec ta montre en une seule séance avec les points cardio, et les ceintures cardio Bluetooth jumelées au téléphone, dans la bêta pour les testeurs depuis la version 32",
           "Les séances caméra dans le navigateur avec la webcam de ton ordinateur (vvake.com/app) : mêmes répétitions, maintiens et conseils de posture, la vidéo reste dans l’onglet ; disponible maintenant",
-          "Le cœur en direct pendant les séances caméra (les bpm et leur zone à l’écran, des repos qui le suivent, des points cœur) : dans le navigateur avec une ceinture cardio Bluetooth, disponible maintenant ; sur les téléphones avec la montre ou une ceinture dans la prochaine version bêta",
-          "Les séances perso : apprendre un mouvement à toi à VVake (des nombres seulement, jamais une vidéo), créer des séances avec des zones cardio visées, les partager avec un lien, défier tes amis dessus, Découvrir et les pages de coach : dans le navigateur (vvake.com/app) maintenant ; dans les apps iPhone, Android et montres, avec les cartes de fierté, à la prochaine version bêta",
-          "Des points créateur quand d’autres terminent tes séances avec des données cardio, et une part créateurs de la cagnotte hebdomadaire testnet (5 %, testnet, aucune valeur) : à partir de la prochaine version bêta",
+          "Le cœur en direct pendant les séances caméra (les bpm et leur zone à l’écran, des repos qui le suivent, des points cœur) : dans le navigateur avec une ceinture cardio Bluetooth, disponible maintenant ; sur les téléphones avec la montre ou une ceinture, dans la bêta pour les testeurs depuis la version 36",
+          "Les séances perso : apprendre un mouvement à toi à VVake (des nombres seulement, jamais une vidéo), créer des séances avec des zones cardio visées, les partager avec un lien, défier tes amis dessus, Découvrir et les pages de coach : dans le navigateur (vvake.com/app) maintenant ; dans les apps iPhone, Android et montres, avec les cartes de fierté, dans la bêta pour les testeurs depuis la version 37",
+          "Des points créateur quand d’autres terminent tes séances avec des données cardio, et une part créateurs de la cagnotte hebdomadaire testnet (5 %, testnet, aucune valeur) : dans la bêta pour les testeurs depuis la version 37",
         ],
       },
       {

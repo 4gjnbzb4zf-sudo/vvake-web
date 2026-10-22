@@ -19,6 +19,54 @@ export interface Release {
 
 export const releases: Release[] = [
   {
+    version: "1.0.0 (37)",
+    date: "2026-10-21",
+    channel: "beta",
+    devices: ["iphone", "watch", "android", "wear"],
+    notes: {
+      en: {
+        added: [
+          'Teach VVake a new move. In front of the camera, do it 3 to 5 times (or hold the position a few seconds), then 3 more to check that VVake counts it right. Give it a name and an icon. From then on VVake counts it in your sets and recognises it in "Just start moving". VVake keeps no video and no picture, only numbers about how your joints moved.',
+          "Build your own video training. Pick a move for each set (one from VVake or one you taught), the reps or the hold time, the intensity (a heart-rate zone, or an effort out of 10 without a sensor) and the rest. Add rounds, a name, a description and a level. VVake estimates how long it takes.",
+          "Your trainings run hands-free like the built-in routines: each move's demo plays twice (your own moves show the rep you taught), and the coach says the target zone. During a set the screen shows whether your heart is below, in or above the target, and a calm line reminds you now and then.",
+          "On the watch, during a training, you see the current set, the target and the target zone, with your heart zone against it.",
+          "Share a training with a link. Friends open it in the app or on vvake.com, where it also runs in the browser with the webcam. The moves you taught travel with it.",
+          "Challenge friends to beat your score on your training, for 24 hours, 3 days or a week, with a leaderboard.",
+          "A brag card for your training: how many people trained it, total reps, heart points and your coach score.",
+          "Discover: search trainings and coaches by name, sport, level or city. Join a training to add it to your plan, follow coaches, and see their profile.",
+          "Coach points: when other people finish your training with their heart rate from a watch or strap, you get 5 points each time (100 a day at most). Each person counts once a week per training.",
+          "Public profile, if you want one: a handle, a short bio and your public trainings. It's off until you turn it on.",
+          "Report or block: you can report any training, move or profile, and block its author.",
+        ],
+        improved: [
+          '"Just start moving" now recognises every move the camera can count, plus planks, wall sits and stretches once you\'re still in them. It waits until it\'s sure, so it no longer names a squat "deadlift" when it starts.',
+          "Push-ups need a straight body line and a burpee's plank needs your hands down, so a bent-over row or a sit-up isn't counted as one.",
+        ],
+        fixed: ["Free training's first guess no longer depends on when it starts looking."],
+      },
+      fr: {
+        added: [
+          "Apprenez un nouveau mouvement à VVake. Devant la caméra, faites-le 3 à 5 fois (ou tenez la position quelques secondes), puis 3 fois de plus pour vérifier que VVake le compte bien. Donnez-lui un nom et une icône. Ensuite, VVake le compte dans vos séries et le reconnaît dans « Commence simplement à bouger ». VVake ne garde aucune vidéo ni aucune image, seulement des chiffres sur le mouvement de vos articulations.",
+          "Créez votre propre entraînement vidéo. Pour chaque série, choisissez le mouvement (un de VVake ou un des vôtres), les répétitions ou le temps de maintien, l'intensité (une zone cardiaque, ou un effort sur 10 sans capteur) et le repos. Ajoutez des tours, un nom, une description et un niveau. VVake estime sa durée.",
+          "Vos entraînements se déroulent sans les mains, comme les routines intégrées : la démo de chaque mouvement passe deux fois (vos mouvements montrent la répétition que vous avez apprise à VVake), et le coach annonce la zone visée. Pendant une série, l'écran indique si votre cœur est sous la zone, dedans ou au-dessus, et une phrase calme vous le rappelle de temps en temps.",
+          "Sur la montre, pendant un entraînement, vous voyez la série en cours, l'objectif et la zone visée, avec votre zone cardiaque en face.",
+          "Partagez un entraînement avec un lien. Vos amis l'ouvrent dans l'app ou sur vvake.com, où il se lance aussi dans le navigateur avec la webcam. Les mouvements que vous avez appris l'accompagnent.",
+          "Défiez vos amis de battre votre score sur votre entraînement, pendant 24 heures, 3 jours ou une semaine, avec un classement.",
+          "Une carte à partager pour votre entraînement : le nombre de personnes qui l'ont fait, le total de répétitions, les points cardio et votre score de coach.",
+          "Découvrir : cherchez des entraînements et des coachs par nom, sport, niveau ou ville. Rejoignez un entraînement pour l'ajouter à votre programme, suivez des coachs et voyez leur profil.",
+          "Points de coach : quand d'autres personnes terminent votre entraînement avec leur fréquence cardiaque d'une montre ou d'une ceinture, vous gagnez 5 points à chaque fois (100 par jour au maximum). Chaque personne compte une fois par semaine et par entraînement.",
+          "Un profil public si vous le souhaitez : un pseudo, une courte bio et vos entraînements publics. Il reste désactivé tant que vous ne l'activez pas.",
+          "Signaler ou bloquer : vous pouvez signaler un entraînement, un mouvement ou un profil, et bloquer son auteur.",
+        ],
+        improved: [
+          "« Commence simplement à bouger » reconnaît maintenant tous les mouvements que la caméra sait compter, ainsi que la planche, la chaise et les étirements une fois que vous êtes immobile dans la position. Il attend d'être sûr, donc il n'appelle plus un squat « soulevé de terre » au début.",
+          "Les pompes demandent un corps aligné et la planche du burpee les mains au sol : un rowing buste penché ou un redressement assis ne compte plus comme l'un d'eux.",
+        ],
+        fixed: ["La première proposition de l'entraînement libre ne dépend plus du moment où il commence à regarder."],
+      },
+    },
+  },
+  {
     version: "1.0.0 (36)",
     date: "2026-10-21",
     channel: "beta",

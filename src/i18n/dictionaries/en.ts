@@ -382,11 +382,11 @@ export const en = {
     customTitle: "Not in the list? Add your own sport",
     customBody:
       "Name it, pick an icon, and choose how it's tracked: heart rate only, or GPS tracking for distance too. Points always come from your heart rate, prizes keep the same rules, and your sport works by voice.",
-    trainingsBadge: "In the browser now · in the apps in the next beta build",
+    trainingsBadge: "In the browser now · in the apps in the beta (build 37, testers)",
     trainingsTitle: "Your own moves and trainings",
     trainingsBody:
       "Teach VVake a move of your own: 3 to 5 reps in front of the camera, and it counts that move from then on, in your sets and in Just start moving. It keeps numbers only (joint angles and timing), never a video or a picture. Build a training from VVake's moves and yours: reps or a hold, a target heart zone (or an effort out of 10 without a sensor) and the rest after each set. Share it with a link, challenge friends to beat your score on it, or, in the apps, show off a brag card with how many people trained it. Find other people's trainings and coaches in Discover. When other people complete your training for real, with heart data from a watch or a strap, you earn creator points.",
-    cameraBadge: "In the beta now (build 36, testers)",
+    cameraBadge: "In the beta now (build 37, testers)",
     cameraTitle: "Camera workout (phone and web)",
     cameraBody:
       "Prop your phone 2 to 3 m away: VVake counts your reps and holds for bodyweight and weight training (you enter the load), gives form cues by voice, and your VVaker moves with you. The video never leaves your phone and nothing is recorded. Without a heart sensor it earns small points (at most 15 a day); wear your watch and the watch and the camera make one session with the normal heart points, or pair a Bluetooth heart-rate strap with the phone for heart points too. Never prizes from the camera. No phone? The same camera workout runs in your browser at vvake.com/app with your computer's webcam: the pose is read in the tab, the video never leaves it, and its small points share the same 15 a day.",
@@ -3487,7 +3487,7 @@ export const en = {
       index: "05",
       kicker: "Creators",
       title: "A share for trainings that move other people",
-      lead: "With the next beta build you can build and share your own camera trainings. When other people complete them for real, their creator earns points and, on testnet, a small share of the weekly rewards pool.",
+      lead: "In the beta (build 37) you can build and share your own camera trainings. When other people complete them for real, their creator earns points and, on testnet, a small share of the weekly rewards pool.",
       items: [
         {
           h: "Points first",
@@ -3742,9 +3742,9 @@ export const en = {
           "Camera workouts on the iPhone and Android phone (reps, holds and form cues from the camera, on the phone), in the beta for testers since build 31",
           "Camera workouts with your watch as one session with heart points, and Bluetooth heart-rate straps paired with the phone, in the beta for testers since build 32",
           "Camera workouts in the browser with your computer's webcam (vvake.com/app): the same reps, holds and form cues, the video stays in the tab; live now",
-          "Live heart rate during camera workouts (the bpm and its zone on screen, rests that follow it, heart points): in the browser with a Bluetooth heart-rate strap, live now; on the phones with the watch or a strap in the next beta build",
-          "Custom trainings: teach VVake a move of your own (numbers only, never a video), build trainings with target heart zones, share them with a link, challenge friends on them, Discover and coach pages: in the browser (vvake.com/app) now; in the iPhone, Android and watch apps, with brag cards, in the next beta build",
-          "Creator points when other people complete your trainings with heart data, and a creator share of the weekly testnet rewards pool (5%, testnet, no value): starting with the next beta build",
+          "Live heart rate during camera workouts (the bpm and its zone on screen, rests that follow it, heart points): in the browser with a Bluetooth heart-rate strap, live now; on the phones with the watch or a strap, in the beta for testers since build 36",
+          "Custom trainings: teach VVake a move of your own (numbers only, never a video), build trainings with target heart zones, share them with a link, challenge friends on them, Discover and coach pages: in the browser (vvake.com/app) now; in the iPhone, Android and watch apps, with brag cards, in the beta for testers since build 37",
+          "Creator points when other people complete your trainings with heart data, and a creator share of the weekly testnet rewards pool (5%, testnet, no value): in the beta for testers since build 37",
         ],
       },
       {
