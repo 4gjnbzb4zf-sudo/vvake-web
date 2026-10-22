@@ -13,6 +13,7 @@ import {
   osmUrl,
   parsePlacesAnswer,
   PLACE_SPORTS,
+  placesAppPath,
   placesUrl,
   placeTitle,
   roundForPrivacy,
@@ -99,6 +100,12 @@ describe("names", () => {
       { kind: "track", n: 2 },
       { kind: "park", n: 1 },
     ]);
+  });
+  it("forwards /<lang>/app/places/?sport= to the web app's route", () => {
+    expect(placesAppPath("fr", "swim")).toBe("/fr/app/#/places/swim");
+    expect(placesAppPath("en", "nope")).toBe("/en/app/#/places");
+    expect(placesAppPath("en", "<script>")).toBe("/en/app/#/places");
+    expect(placesAppPath("en", null)).toBe("/en/app/#/places");
   });
   it("only lists sports of the catalog", () => {
     const keys = new Set(sports.sports.map((s) => s.key));

@@ -470,3 +470,7 @@ export async function fetchPlaces(
     return { kind: "error" };
   }
 }
+
+/** The web app's address for a sport's places (unknown sports open the screen on your last pick). */
+export const placesAppPath = (lang: string, sport: string | null | undefined) =>
+  `/${lang}/app/#/places${sport && /^[a-z-]{2,30}$/.test(sport) && hasPlaces(sport) ? `/${sport}` : ""}`;
