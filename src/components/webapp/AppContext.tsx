@@ -25,6 +25,8 @@ import { useNow } from "./useNow";
 
 export type Route =
   | { name: "today" | "plan" | "crew" | "coach" | "you" | "goals" | "rhythm" | "vvaker" | "sensor" | "workout" | "zones" }
+  /** You, scrolled to the VV points card (Today's points pill). */
+  | { name: "points" }
   | { name: "session"; id: string }
   /** The camera workout (CameraScreen.tsx), with the sport whose routine it suggests (#/camera/strength). */
   | { name: "camera"; sport?: string }
@@ -58,7 +60,7 @@ export function parseRoute(hash: string): Route {
   if (name === "creator")
     return arg && /^[a-z0-9_]{3,20}$/i.test(arg) ? { name: "creator", handle: arg.toLowerCase() } : { name: "trainings" };
   if (name === "trainings" || name === "teach" || name === "coach-profile") return { name };
-  const known = ["today", "plan", "crew", "coach", "you", "goals", "rhythm", "vvaker", "sensor", "workout", "zones"] as const;
+  const known = ["today", "plan", "crew", "coach", "you", "points", "goals", "rhythm", "vvaker", "sensor", "workout", "zones"] as const;
   return { name: (known as readonly string[]).includes(name ?? "") ? (name as (typeof known)[number]) : "today" };
 }
 

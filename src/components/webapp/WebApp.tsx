@@ -142,7 +142,7 @@ function Shell() {
 
   if (!onboarded) return <Onboarding onDone={() => setOnboarded(true)} />;
 
-  const tab = (TABS as readonly string[]).includes(route.name) ? route.name : null;
+  const tab = route.name === "points" ? "you" : (TABS as readonly string[]).includes(route.name) ? route.name : null;
   const fullScreen = route.name === "workout" || route.name === "camera" || route.name === "train" || route.name === "teach";
   return (
     <>
@@ -159,6 +159,7 @@ function Shell() {
             {route.name === "crew" && <CrewScreen />}
             {route.name === "coach" && <CoachScreen />}
             {route.name === "you" && <YouScreen />}
+            {route.name === "points" && <YouScreen focus="points" />}
             {route.name === "goals" && <GoalsScreen />}
             {route.name === "rhythm" && <RhythmScreen />}
             {route.name === "vvaker" && <VVakerScreen />}
