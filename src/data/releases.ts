@@ -19,6 +19,60 @@ export interface Release {
 
 export const releases: Release[] = [
   {
+    version: "1.0.0 (36)",
+    date: "2026-10-21",
+    channel: "beta",
+    devices: ["iphone", "android"],
+    notes: {
+      en: {
+        added: [
+          "During a camera workout, your heart rate now shows live on screen when your watch or a Bluetooth heart-rate strap sends it: the beats per minute in big numbers, the zone's colour and name (your own zones when you set them), and whether it comes from the watch or the strap.",
+          'If the heart rate stops arriving for 15 seconds, the screen says "No heart signal" instead of showing an old number.',
+          "Rests now follow your heart: if it's still high when the rest ends, the coach gives you 15 more seconds (45 at most), and in a long rest it starts the next set sooner once your heart has recovered. The interval routine keeps its rests short.",
+          "The summary shows your heart effort: average and maximum heart rate and the time in each zone.",
+        ],
+        improved: [
+          "The summary now says which points the workout earns: heart points when your watch or strap recorded your heart rate, camera points otherwise. They're never added together.",
+          "If the watch can't start its workout, a paired heart-rate strap takes over the heart rate.",
+        ],
+        fixed: [
+          "The rest timer, the hold timer, the rep count and the 3, 2, 1 always fit on one line, also on small phones and with large text.",
+          'Free training now recognises your moves: with "Just start moving", VVake names the move you\'re doing and counts it (it never did on the phone or the web).',
+          "The camera workout's header and its close button no longer sit under the clock, the notch or the Dynamic Island: the ✕ is always easy to tap.",
+          "Every screen now keeps clear of the clock, the notch or the Dynamic Island, the home bar, and Android's status bar, camera cutout and navigation bar, in the same way everywhere.",
+          "Sheets such as VVake Plus and Rewards no longer leave an extra empty band at the top on iPhone.",
+          "The sheets that slide up from the bottom (music, voice commands, ending a workout) stay above the home bar and Android's navigation buttons.",
+          '"Pick a move" in the camera workout and "Add a sport" keep their buttons clear of the system bars on Android.',
+          "Your VVaker no longer disappears from Today, You and the other screens after a camera workout or an app update.",
+          "If your VVaker's picture is missing on the phone, the cast stand-in shows while your own picture downloads again, for free.",
+        ],
+      },
+      fr: {
+        added: [
+          "Pendant une séance caméra, votre fréquence cardiaque s'affiche en direct quand votre montre ou une ceinture cardio Bluetooth l'envoie : les battements par minute en grand, la couleur et le nom de la zone (vos propres zones si vous les avez réglées), et sa source, montre ou ceinture.",
+          "Si la fréquence cardiaque n'arrive plus pendant 15 secondes, l'écran indique « Pas de signal cardiaque » au lieu d'un ancien chiffre.",
+          "Les repos suivent votre cœur : s'il est encore haut à la fin du repos, le coach vous laisse 15 secondes de plus (45 au maximum), et pendant un long repos il lance la série suivante plus tôt une fois votre cœur récupéré. La routine par intervalles garde ses repos courts.",
+          "Le résumé montre votre effort cardiaque : fréquence moyenne et maximale, et le temps passé dans chaque zone.",
+        ],
+        improved: [
+          "Le résumé indique maintenant quels points la séance rapporte : des points cœur quand votre montre ou votre ceinture a enregistré votre cœur, sinon des points caméra. Ils ne s'additionnent jamais.",
+          "Si la montre ne peut pas lancer sa séance, une ceinture cardio appairée prend le relais pour la fréquence cardiaque.",
+        ],
+        fixed: [
+          "Le minuteur de repos, celui des maintiens, le nombre de répétitions et le 3, 2, 1 tiennent toujours sur une seule ligne, aussi sur les petits téléphones et avec le texte agrandi.",
+          "L'entraînement libre reconnaît maintenant vos mouvements : avec « Bouge, je reconnais », VVake nomme le mouvement que vous faites et le compte (ce n'était jamais le cas sur le téléphone ni sur le web).",
+          "L'en-tête de la séance caméra et son bouton de fermeture ne passent plus sous l'heure, l'encoche ou la Dynamic Island : le ✕ se touche toujours facilement.",
+          "Chaque écran reste maintenant à l'écart de l'heure, de l'encoche ou de la Dynamic Island, de la barre d'accueil, et de la barre d'état, de la découpe de la caméra et de la barre de navigation d'Android, de la même façon partout.",
+          "Les fenêtres comme VVake Plus et Récompenses ne laissent plus de bande vide en haut sur iPhone.",
+          "Les fenêtres qui montent du bas (musique, commandes vocales, fin de séance) restent au-dessus de la barre d'accueil et des boutons de navigation d'Android.",
+          "« Choisir un mouvement » dans la séance caméra et « Ajouter un sport » gardent leurs boutons à l'écart des barres du système sur Android.",
+          "Votre VVaker ne disparaît plus d’Aujourd’hui, de Toi et des autres écrans après une séance caméra ou une mise à jour de l'app.",
+          "Si l'image de votre VVaker manque sur le téléphone, le remplaçant du casting s'affiche le temps que la vôtre se télécharge à nouveau, gratuitement.",
+        ],
+      },
+    },
+  },
+  {
     version: "1.0.0 (35)",
     date: "2026-10-21",
     channel: "beta",
