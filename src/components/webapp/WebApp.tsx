@@ -13,6 +13,7 @@ import { CoachScreen } from "./CoachScreen";
 import { CrewScreen } from "./CrewScreen";
 import { GetTheApp } from "./GetTheApp";
 import { GoalsScreen } from "./GoalsScreen";
+import { PlacesScreen } from "./PlacesScreen";
 import { PlanScreen } from "./PlanScreen";
 import { RhythmScreen } from "./RhythmScreen";
 import { SensorScreen } from "./SensorScreen";
@@ -142,7 +143,7 @@ function Shell() {
 
   if (!onboarded) return <Onboarding onDone={() => setOnboarded(true)} />;
 
-  const tab = (TABS as readonly string[]).includes(route.name) ? route.name : null;
+  const tab = route.name === "points" ? "you" : (TABS as readonly string[]).includes(route.name) ? route.name : null;
   const fullScreen = route.name === "workout" || route.name === "camera" || route.name === "train" || route.name === "teach";
   return (
     <>
@@ -159,12 +160,14 @@ function Shell() {
             {route.name === "crew" && <CrewScreen />}
             {route.name === "coach" && <CoachScreen />}
             {route.name === "you" && <YouScreen />}
+            {route.name === "points" && <YouScreen focus="points" />}
             {route.name === "goals" && <GoalsScreen />}
             {route.name === "rhythm" && <RhythmScreen />}
             {route.name === "vvaker" && <VVakerScreen />}
             {route.name === "sensor" && <SensorScreen />}
             {route.name === "zones" && <ZonesScreen />}
             {route.name === "session" && <SessionScreen id={route.id} />}
+            {route.name === "places" && <PlacesScreen sport={route.sport} />}
             {route.name === "trainings" && <TrainingsScreen />}
             {route.name === "training" && <TrainingDetailScreen key={route.ref} refId={route.ref} challenge={route.challenge} />}
             {route.name === "build" && <BuilderScreen key={route.id ?? "new"} id={route.id} />}

@@ -69,6 +69,8 @@ export const appMeSchema = z.object({
       /** ADR-0044: `{ mode, at }` and `{ at, sports }`, checked by workoutPrefs.ts (a bad value reads as none). */
       workoutVoice: z.optional(z.unknown()),
       speedZones: z.optional(z.unknown()),
+      /** Sport zones (ADR-0048): `{ at, rpe?, sports }`, checked by sportHeart.ts; absent until the API keeps it. */
+      heartZones: z.optional(z.unknown()),
     }),
   ),
   consents: opt(z.object({ disclaimer: opt(z.object({ version: z.number(), acceptedAt: z.string() })) })),
@@ -243,6 +245,8 @@ export function webApi(s: RewardsSession) {
       const q = [lang === "fr" ? "lang=fr" : "", imperial ? "units=imperial" : ""].filter(Boolean).join("&");
       return s.call(`/v1/voice/library${q ? `?${q}` : ""}`, GET, voiceSetSchema);
     },
+    /** GET /v1/voice/app: the app's fixed lines (camera, teach a move, check-ins, the preview), for every account. */
+    voiceApp: (lang: string) => s.call(`/v1/voice/app${lang === "fr" ? "?lang=fr" : ""}`, GET, voiceSetSchema),
     voiceLines: (lines: string[], lang: string) =>
       s.call("/v1/voice/lines", send("POST", { lines, lang: lang === "fr" ? "fr" : "en" }), voiceLinesSchema),
     clashes: (status?: "live" | "upcoming" | "recent") => s.call(`/v1/clashes${status ? `?status=${status}` : ""}`, GET, clashesSchema),

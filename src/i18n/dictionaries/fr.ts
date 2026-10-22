@@ -1273,6 +1273,10 @@ export const fr: Dictionary = {
         body: "« Zone 2 · 112–128 bpm » d'après ton profil Santé, avec l'allure ou la vitesse qui devrait t'y mettre, apprise de tes séances. Les jours tranquilles, des blocs de zone à rebours (3 minutes en course, 4 en marche) : tiens ta zone 80 % du bloc et il rapporte 10 % de plus. Règle tes propres zones par sport si tu les connais. Pas de fréquence cardiaque ? Des zones de vitesse que tu règles par sport te guident, toi et les annonces du coach : sur le web, et dans l'app depuis la version 28 pour les testeurs (les points demandent toujours une fréquence cardiaque).",
       },
       {
+        title: "Des zones pour chaque sport",
+        body: "Le cœur monte moins haut à vélo qu'en course, et moins encore dans l'eau ou quand seuls les bras travaillent : chaque sport a donc ses propres zones cardiaques, calculées pour toi. Tu connais ton max pour un sport ? Règle-le, ou règle tes propres zones en bpm ou en pourcentage. L'allure se lit comme le sport : au km ou au mile à pied, en km/h ou mph sur roues, aux 100 m dans l'eau, aux 500 m sur un rameur, et pas du tout là où elle ne veut rien dire. Tu préfères l'effort au ressenti ? Un seul bouton affiche facile, soutenu et difficile au lieu des chiffres, sur tous tes appareils. Règle-le dès maintenant sur le web ou sur la page de ton compte, et dans l'app à partir de la prochaine version bêta. Conseils bien-être, pas un avis médical ; les points et les prix ne changent pas.",
+      },
+      {
         title: "Écouter sur : téléphone ou montre",
         body: "Choisis où jouent Spotify, Apple Music ou un mix VVake : ton iPhone, ton Apple Watch ou une enceinte, et Spotify démarre là, jamais ailleurs. Spotify endormi ? Un geste l'ouvre et revient aussitôt. Rien ne joue ? Ton dernier titre s'affiche, une touche le relance. Un mix VVake passe de la montre au téléphone au même morceau, à la même seconde.",
       },
@@ -2496,7 +2500,7 @@ export const fr: Dictionary = {
     summary: [
       "Aucune publicité, aucune vente de vos données, aucun pistage d'une application ou d'un site à l'autre.",
       "Vos données de santé servent uniquement à vous entraîner. Elles ne sont jamais vendues, jamais utilisées pour la publicité et jamais montrées aux autres.",
-      "Votre tracé GPS reste sur votre iPhone ou votre Apple Watch et dans l'app Santé. Nos serveurs ne reçoivent jamais votre position sous une forme lisible par nous : vos parcours sont sauvegardés dans votre compte, chiffrés de bout en bout avec une clé gardée uniquement sur vos appareils, et VVake ne peut pas les lire. Le seul parcours lisible que nous recevons est celui que vous choisissez de partager pour un défi : rogné aux deux bouts, gardé seulement le temps de ce défi, puis supprimé.",
+      "Votre tracé GPS reste sur votre iPhone ou votre Apple Watch et dans l'app Santé. Nos serveurs ne reçoivent jamais votre position sous une forme lisible par nous : vos parcours sont sauvegardés dans votre compte, chiffrés de bout en bout avec une clé gardée uniquement sur vos appareils, et VVake ne peut pas les lire. Le seul parcours lisible que nous recevons est celui que vous choisissez de partager pour un défi : rogné aux deux bouts, gardé seulement le temps de ce défi, puis supprimé. Quand vous cherchez où vous entraîner près de vous, nous recevons un point arrondi à environ 1 km, que nous ne gardons pas.",
       "Vous pouvez utiliser VVake sans vous connecter, et supprimer votre compte avec tout ce qu'il contient.",
       "Notre base de données et nos fichiers sont conservés dans l'Union européenne.",
       "Les prix $VVAKE sont facultatifs. Si vous liez un portefeuille, son adresse et vos montants hebdomadaires deviennent publics sur une blockchain, qui ne peut pas être effacée.",
@@ -2614,7 +2618,7 @@ export const fr: Dictionary = {
         p: [],
         list: [
           {
-            t: "Pendant les séances extérieures seulement.",
+            t: "Pendant les séances extérieures.",
             d: "VVake utilise votre position pendant que vous utilisez l'application lors d'une séance extérieure, pour tracer votre parcours et mesurer la distance. Quand vous demandez à battre votre record, elle consulte aussi la dernière position connue de votre appareil, sur l'appareil lui-même, pour proposer un parcours qui part près de vous. La carte en direct garde seulement votre dernière position, sur votre téléphone lui-même et sans jamais l'envoyer, pour que la carte suivante s'ouvre tout de suite sur vous. Le tracé reste sur votre iPhone ou votre Apple Watch et dans l'app Santé ; votre Apple Watch transmet aussi les tracés qu'elle enregistre, et pendant une séance votre position (pour que la carte de votre iPhone la reflète), directement à votre propre iPhone, jamais par nos serveurs. Il n'est jamais envoyé à nos serveurs sous une forme lisible par nous (sauf si vous partagez un parcours pour un défi, voir plus bas) : nous recevons seulement des totaux comme la distance et l'allure, et la sauvegarde chiffrée de bout en bout décrite ci-dessous. Les cartes sont affichées par Plans d'Apple.",
           },
           {
@@ -2637,6 +2641,10 @@ export const fr: Dictionary = {
             t: "Des totaux publics seulement.",
             d: "City Clash et la carte en direct affichent des totaux par ville (seulement à partir de 10 personnes en mouvement, et arrondis), jamais la position, le parcours ou le nom d'une personne.",
           },
+          {
+            t: "Les lieux où s'entraîner près de vous, quand vous les demandez.",
+            d: "Quand vous cherchez où pratiquer un sport près de vous (sur le téléphone, sur la montre par le téléphone, ou sur vvake.com/app), votre appareil lit votre position une fois, pendant que vous utilisez l'application, et n'envoie à nos serveurs que cette position arrondie à environ 1 km (deux décimales) et le sport. Nos serveurs demandent au service Overpass d'OpenStreetMap les lieux de ce sport par tuiles de carte entières, d'environ 5 à 40 km autour du point arrondi : ni nous ni OpenStreetMap ne recevons jamais votre position exacte. Nous gardons ces tuiles (des données cartographiques publiques) jusqu'à 60 jours, jamais votre position, la recherche ni qui l'a faite. Les distances et les directions sont calculées sur votre appareil ; la liste envoyée à votre montre reste sur vos appareils. Les lieux que vous gardez en favoris restent sur votre téléphone. Toucher Itinéraire transmet le lieu (pas votre position) à Plans d'Apple ou Google Maps, selon leur propre politique. Données des lieux © les contributeurs d'OpenStreetMap, sous licence Open Database License (ODbL).",
+          },
         ],
       },
       {
@@ -2647,8 +2655,8 @@ export const fr: Dictionary = {
         ],
         list: [
           {
-            t: "La localisation, seulement pendant une séance.",
-            d: "Quand tu lances une séance en extérieur, ton navigateur te demande si vvake.com peut utiliser ta position. Elle n’est lue que pendant cette séance, page ouverte à l’écran (un navigateur arrête le suivi quand le téléphone se verrouille ou que la page est cachée), pour tracer ton parcours et mesurer distance, allure et dénivelé. Le tracé reste dans ton navigateur : nous recevons seulement les totaux et une distance toutes les 10 secondes, jamais une position. Les tuiles de la carte viennent d’OpenFreeMap, qui voit la zone demandée par ton navigateur, comme sur tout site de cartes.",
+            t: "La localisation, seulement pendant une séance ou une recherche de lieux.",
+            d: "Quand tu lances une séance en extérieur, ton navigateur te demande si vvake.com peut utiliser ta position. Elle n’est lue que pendant cette séance, page ouverte à l’écran (un navigateur arrête le suivi quand le téléphone se verrouille ou que la page est cachée), pour tracer ton parcours et mesurer distance, allure et dénivelé. Le tracé reste dans ton navigateur : nous recevons seulement les totaux et une distance toutes les 10 secondes, jamais une position. Les tuiles de la carte viennent d’OpenFreeMap, qui voit la zone demandée par ton navigateur, comme sur tout site de cartes. Lieux près de moi lit ta position une fois, quand tu touches Utiliser ma position, et n’envoie qu’un point arrondi à environ 1 km (voir Localisation).",
           },
           {
             t: "La fréquence cardiaque Bluetooth, lue dans ton navigateur.",
@@ -2656,7 +2664,7 @@ export const fr: Dictionary = {
           },
           {
             t: "Gardé dans ton navigateur.",
-            d: "La séance en cours est enregistrée dans ton navigateur (IndexedDB) toutes les quelques secondes, pour qu’un rechargement ou un onglet fermé puisse la reprendre ; les séances terminées y attendent leur envoi, puis sont effacées. Tes objectifs, ton rythme du jour, tes réglages de voix et ta connexion (24 heures au plus) sont aussi gardés dans le stockage de ton navigateur. Te déconnecter ou effacer les données du site les supprime. Ton choix de voix pendant les séances (voix activée, l’essentiel seulement ou voix coupée) et tes zones de vitesse par sport (des nombres seulement) sont aussi gardés avec ton compte, pour que tes autres appareils utilisent les mêmes.",
+            d: "La séance en cours est enregistrée dans ton navigateur (IndexedDB) toutes les quelques secondes, pour qu’un rechargement ou un onglet fermé puisse la reprendre ; les séances terminées y attendent leur envoi, puis sont effacées. Tes objectifs, ton rythme du jour, tes réglages de voix et ta connexion (24 heures au plus) sont aussi gardés dans le stockage de ton navigateur. Te déconnecter ou effacer les données du site les supprime. Ton choix de voix pendant les séances (voix activée, l’essentiel seulement ou voix coupée) et tes zones cardiaques et de vitesse par sport et ton réglage d’effort au ressenti (des nombres seulement) sont aussi gardés avec ton compte, pour que tes autres appareils utilisent les mêmes.",
           },
           {
             t: "Micro et voix, seulement quand tu le demandes.",
@@ -2929,6 +2937,10 @@ export const fr: Dictionary = {
             d: "Notre API lit le prix public ETH/USD chez Coinbase. Aucune donnée vous concernant n'est transmise.",
           },
           { t: "GitHub (États-Unis).", d: "Héberge ce site. Comme tout hébergeur Web, il voit l'adresse IP des visiteurs." },
+          {
+            t: "Le service Overpass d'OpenStreetMap (FOSSGIS e.V., Allemagne).",
+            d: "Répond aux recherches de lieux d'entraînement de nos serveurs : il reçoit la zone de carte et le type de lieu demandés, jamais votre position, votre nom ni votre adresse IP.",
+          },
         ],
         after: [
           "Les autres utilisateurs de VVake voient seulement votre nom d'affichage et votre VVaker (dans les invitations à un défi ou à une quête d'équipe, sur les liens de défi que vous envoyez à qui que ce soit et dans la liste des personnes affrontées), les résultats des défis et votre fiche contre eux, vos résultats de quête d'équipe pour les membres qui la rejoignent, et les totaux de votre ville. Jamais vos données de santé, vos séances ni votre position, sauf un parcours que vous choisissez de partager pour un défi, visible seulement par les personnes qui l'affrontent (voir Localisation).",

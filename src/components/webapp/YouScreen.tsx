@@ -1,14 +1,22 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState, type ReactNode } from "react";
 import type { ApiSession } from "@/lib/webapp/api";
 import { clock, dayLabel, distance } from "@/lib/webapp/format";
+import { previewVoice, unlockAudio } from "@/lib/webapp/coachAudio";
 import { WORKOUT_VOICE_MODES } from "@/lib/webapp/speedZones";
-import { sportLabel } from "@/lib/webapp/workout";
+import { weekPoints } from "@/lib/webapp/points";
+import { sportLabel, streakMultiplier } from "@/lib/webapp/workout";
 import { useApp } from "./AppContext";
 import { GetTheApp } from "./GetTheApp";
 import { VVakerImg } from "./MyVVaker";
 import { Btn, Card, Field, H1, H2, inputCls, Kicker, List, Row, Segmented, Small } from "./ui";
+import { useNow } from "./useNow";
+
+/** The section index at the top of You (the phone's You index), in page order. */
+const SECTIONS = ["profile", "progress", "devices", "sports", "habits", "points", "app", "privacy"] as const;
+type Section = (typeof SECTIONS)[number];
+const sectionId = (k: Section) => `you-${k}`;
 
 interface InstallPrompt extends Event {
   prompt(): Promise<void>;
@@ -17,14 +25,42 @@ interface InstallPrompt extends Event {
 /**
  * You (apps/mobile app/(tabs)/you.tsx): your VVaker and profile, your numbers, history, the heart-rate sensor, the
  * voice coach and units on this browser, every other setting on the account page, add to home screen, what only the
- * app can do, sign out.
+ * app can do, sign out. A section index on top; VV points explained (#/points opens You on that card).
  */
-export function YouScreen() {
-  const { t, lang, me, setMe, api, stats, sessions, prefs, setPrefs, go, signOut, sensorState, bpm, fmt, workoutVoice, setWorkoutVoice } =
-    useApp();
+export function YouScreen({ focus }: { focus?: Section } = {}) {
+  const {
+    t,
+    lang,
+    me,
+    setMe,
+    api,
+    stats,
+    streak,
+    sessions,
+    prefs,
+    setPrefs,
+    go,
+    signOut,
+    sensorState,
+    bpm,
+    fmt,
+    workoutVoice,
+    setWorkoutVoice,
+  } = useApp();
+  const now = useNow();
+  const vv = useMemo(() => weekPoints(sessions, now), [sessions, now]);
+  const days = streak?.days ?? stats?.streakDays ?? 0;
+  const mult = streak?.multiplier ?? streakMultiplier(days);
+  const jump = (k: Section) => document.getElementById(sectionId(k))?.scrollIntoView({ behavior: "smooth", block: "start" });
+  useEffect(() => {
+    if (!focus) return;
+    const id = window.setTimeout(() => document.getElementById(sectionId(focus))?.scrollIntoView({ block: "start" }), 0);
+    return () => window.clearTimeout(id);
+  }, [focus]);
   const [name, setName] = useState(me.name ?? "");
   const [city, setCity] = useState(me.city ?? "");
   const [saved, setSaved] = useState<"idle" | "saving" | "saved" | "error">("idle");
+  const [hearing, setHearing] = useState<"coach" | "device" | null>(null);
   const [more, setMore] = useState<ApiSession[]>([]);
   const [nextLoaded, setNext] = useState<string | null | undefined>(undefined);
   const next = nextLoaded !== undefined ? nextLoaded : sessions.length >= 30 ? sessions[sessions.length - 1]!.startedAt : null;
@@ -75,7 +111,23 @@ export function YouScreen() {
 
   return (
     <div className="space-y-5">
-      <div className="flex items-center gap-4">
+      <nav aria-label={t.you.index}>
+        <ul className="flex flex-wrap gap-2">
+          {SECTIONS.map((k) => (
+            <li key={k}>
+              <button
+                type="button"
+                onClick={() => jump(k)}
+                className="inline-flex min-h-9 items-center rounded-full border border-line bg-surface-2 px-3 py-1 text-xs font-semibold text-text hover:border-muted/60"
+              >
+                {t.you.sections[k]}
+              </button>
+            </li>
+          ))}
+        </ul>
+      </nav>
+
+      <div id={sectionId("profile")} className="flex items-center gap-4">
         <button type="button" onClick={() => go({ name: "vvaker" })} aria-label={t.today.vvakerRow}>
           <VVakerImg alt="" className="h-24 w-16" />
         </button>
@@ -104,6 +156,7 @@ export function YouScreen() {
         </div>
       </Card>
 
+      <SectionTitle id={sectionId("progress")}>{t.you.sections.progress}</SectionTitle>
       {stats && (
         <Card>
           <H2>{t.you.stats}</H2>
@@ -154,6 +207,7 @@ export function YouScreen() {
         )}
       </section>
 
+      <SectionTitle id={sectionId("devices")}>{t.you.sections.devices}</SectionTitle>
       <List>
         <Row
           tone="mint"
@@ -168,11 +222,38 @@ export function YouScreen() {
           }
           onClick={() => go({ name: "sensor" })}
         />
+      </List>
+
+      <SectionTitle id={sectionId("sports")}>{t.you.sections.sports}</SectionTitle>
+      <List>
         <Row tone="sky" icon="⏲" title={t.you.speedZones} detail={t.you.speedZonesDetail} onClick={() => go({ name: "zones" })} />
         <Row tone="volt" icon="◎" title={t.goals.title} onClick={() => go({ name: "goals" })} />
+      </List>
+
+      <SectionTitle id={sectionId("habits")}>{t.you.sections.habits}</SectionTitle>
+      <List>
         <Row tone="sky" icon="💧" title={t.rhythm.title} onClick={() => go({ name: "rhythm" })} />
       </List>
 
+      {/* VV points explained: this week's from the loaded history, the streak bonus, how points work. Points only. */}
+      <SectionTitle id={sectionId("points")}>{t.you.sections.points}</SectionTitle>
+      <Card>
+        <Kicker tone="mint">{t.you.pointsTitle}</Kicker>
+        <p className="mt-2 font-display text-xl font-bold">{vv.points > 0 ? fmt(t.you.pointsWeek, { n: vv.points }) : t.you.pointsNone}</p>
+        {vv.points > 0 && <Small className="mt-1">{fmt(t.you.pointsWeekFrom, { n: vv.counted, bonus: vv.bonus })}</Small>}
+        <p className="mt-3 text-sm">{days > 0 ? fmt(t.you.pointsStreak, { n: days, m: mult }) : t.you.pointsStreakNone}</p>
+        <h3 className="mt-4 text-sm font-semibold">{t.you.pointsHowTitle}</h3>
+        <ul className="mt-2 list-disc space-y-1 pl-5 text-sm">
+          {t.you.pointsHow.map((x) => (
+            <li key={x}>{x}</li>
+          ))}
+        </ul>
+        <a className="mt-3 inline-flex min-h-11 items-center text-sm font-semibold text-sky-fg underline" href={`/${lang}/rewards/`}>
+          {t.you.pointsPrizes}
+        </a>
+      </Card>
+
+      <SectionTitle id={sectionId("app")}>{t.you.sections.app}</SectionTitle>
       <Card>
         <H2>{t.you.voice}</H2>
         <Small>{t.you.voiceDetail}</Small>
@@ -194,6 +275,22 @@ export function YouScreen() {
             options={(["quiet", "normal", "chatty"] as const).map((k) => ({ value: k, label: t.you.chattiness[k] }))}
             onChange={(v) => setPrefs({ chattiness: v })}
           />
+        </div>
+        <div className="mt-4">
+          <Btn
+            variant="ghost"
+            onClick={() => {
+              // The tap unlocks the page's audio (Safari), then the preview plays in the voice every line uses.
+              unlockAudio();
+              setHearing(null);
+              previewVoice(setHearing);
+            }}
+          >
+            {t.you.hearCoach}
+          </Btn>
+          <Small className="mt-1">
+            {hearing === "coach" ? t.you.hearingCoach : hearing === "device" ? t.you.hearingDevice : t.you.hearCoachDetail}
+          </Small>
         </div>
         <div className="mt-4">
           <p className="mb-1 text-sm font-medium">{t.you.units}</p>
@@ -220,6 +317,10 @@ export function YouScreen() {
             onClick={install ? () => void install.prompt().then(() => setInstall(null)) : undefined}
           />
         )}
+      </List>
+
+      <SectionTitle id={sectionId("privacy")}>{t.you.sections.privacy}</SectionTitle>
+      <List>
         <Row tone="faint" icon="🔒" title={t.you.privacy} href={`/${lang}/privacy/#web-app`} />
       </List>
 
@@ -237,6 +338,14 @@ export function YouScreen() {
       <Btn variant="danger" className="w-full" onClick={signOut}>
         {t.you.signOut}
       </Btn>
+    </div>
+  );
+}
+
+function SectionTitle({ id, children }: { id: string; children: ReactNode }) {
+  return (
+    <div id={id} className="pt-2">
+      <H2>{children}</H2>
     </div>
   );
 }

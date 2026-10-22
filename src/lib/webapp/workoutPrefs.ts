@@ -1,3 +1,4 @@
+import { cleanHeartZones, type HeartZonesPrefs } from "./sportHeart";
 import { cleanSpeedSetting, SPEED_SPORTS_MAX, WORKOUT_VOICE_MODES, type SpeedZonesPrefs, type WorkoutVoicePref } from "./speedZones";
 
 /**
@@ -10,6 +11,7 @@ import { cleanSpeedSetting, SPEED_SPORTS_MAX, WORKOUT_VOICE_MODES, type SpeedZon
 
 export const voiceKey = (userId: string) => `vvake-app-workout-voice:${userId}`;
 export const zonesKey = (userId: string) => `vvake-app-speed-zones:${userId}`;
+export const heartKey = (userId: string) => `vvake-app-heart-zones:${userId}`;
 
 const validAt = (at: unknown): at is string => typeof at === "string" && Number.isFinite(Date.parse(at));
 
@@ -31,6 +33,11 @@ export function parseSpeedZones(x: unknown): SpeedZonesPrefs | null {
     if (c) sports[k] = c;
   }
   return { at: v.at, sports };
+}
+
+/** Heart zones per sport as stored or received (sportHeart.ts cleanHeartZones), or null (absent on an older API). */
+export function parseHeartZones(x: unknown): HeartZonesPrefs | null {
+  return cleanHeartZones(x) ?? null;
 }
 
 /**

@@ -1,0 +1,1972 @@
+{
+  "families": {
+    "run": {
+      "family": "run",
+      "offset": 0
+    },
+    "walk": {
+      "family": "run",
+      "offset": 0
+    },
+    "ride": {
+      "family": "cycle",
+      "offset": -6
+    },
+    "hike": {
+      "family": "run",
+      "offset": 0
+    },
+    "strength": {
+      "family": "strength",
+      "offset": 0
+    },
+    "dance": {
+      "family": "run",
+      "offset": 0
+    },
+    "boxing": {
+      "family": "run",
+      "offset": 0
+    },
+    "yoga": {
+      "family": "mind",
+      "offset": 0
+    },
+    "swim": {
+      "family": "water",
+      "offset": -12
+    },
+    "skate": {
+      "family": "cycle",
+      "offset": -6
+    },
+    "track-field": {
+      "family": "run",
+      "offset": 0
+    },
+    "swim-bike-run": {
+      "family": "run",
+      "offset": 0
+    },
+    "transition": {
+      "family": "run",
+      "offset": 0
+    },
+    "wheelchair-walk": {
+      "family": "arms",
+      "offset": -15
+    },
+    "wheelchair-run": {
+      "family": "arms",
+      "offset": -15
+    },
+    "hand-cycling": {
+      "family": "arms",
+      "offset": -15
+    },
+    "elliptical": {
+      "family": "cycle",
+      "offset": -6
+    },
+    "rowing": {
+      "family": "run",
+      "offset": 0
+    },
+    "stair-stepper": {
+      "family": "run",
+      "offset": 0
+    },
+    "stairs": {
+      "family": "run",
+      "offset": 0
+    },
+    "hiit": {
+      "family": "run",
+      "offset": 0
+    },
+    "mixed-cardio": {
+      "family": "run",
+      "offset": 0
+    },
+    "cross-training": {
+      "family": "run",
+      "offset": 0
+    },
+    "step-training": {
+      "family": "run",
+      "offset": 0
+    },
+    "jump-rope": {
+      "family": "run",
+      "offset": 0
+    },
+    "fitness-gaming": {
+      "family": "run",
+      "offset": 0
+    },
+    "functional-strength": {
+      "family": "strength",
+      "offset": 0
+    },
+    "core": {
+      "family": "strength",
+      "offset": 0
+    },
+    "gymnastics": {
+      "family": "strength",
+      "offset": 0
+    },
+    "pilates": {
+      "family": "mind",
+      "offset": 0
+    },
+    "barre": {
+      "family": "mind",
+      "offset": 0
+    },
+    "tai-chi": {
+      "family": "mind",
+      "offset": 0
+    },
+    "mind-body": {
+      "family": "mind",
+      "offset": 0
+    },
+    "flexibility": {
+      "family": "mind",
+      "offset": 0
+    },
+    "cooldown": {
+      "family": "mind",
+      "offset": 0
+    },
+    "recovery": {
+      "family": "mind",
+      "offset": 0
+    },
+    "cardio-dance": {
+      "family": "run",
+      "offset": 0
+    },
+    "kickboxing": {
+      "family": "run",
+      "offset": 0
+    },
+    "martial-arts": {
+      "family": "run",
+      "offset": 0
+    },
+    "wrestling": {
+      "family": "run",
+      "offset": 0
+    },
+    "fencing": {
+      "family": "run",
+      "offset": 0
+    },
+    "tennis": {
+      "family": "run",
+      "offset": 0
+    },
+    "badminton": {
+      "family": "run",
+      "offset": 0
+    },
+    "table-tennis": {
+      "family": "run",
+      "offset": 0
+    },
+    "pickleball": {
+      "family": "run",
+      "offset": 0
+    },
+    "squash": {
+      "family": "run",
+      "offset": 0
+    },
+    "racquetball": {
+      "family": "run",
+      "offset": 0
+    },
+    "soccer": {
+      "family": "run",
+      "offset": 0
+    },
+    "basketball": {
+      "family": "run",
+      "offset": 0
+    },
+    "volleyball": {
+      "family": "run",
+      "offset": 0
+    },
+    "hockey": {
+      "family": "run",
+      "offset": 0
+    },
+    "rugby": {
+      "family": "run",
+      "offset": 0
+    },
+    "american-football": {
+      "family": "run",
+      "offset": 0
+    },
+    "australian-football": {
+      "family": "run",
+      "offset": 0
+    },
+    "baseball": {
+      "family": "run",
+      "offset": 0
+    },
+    "softball": {
+      "family": "run",
+      "offset": 0
+    },
+    "cricket": {
+      "family": "run",
+      "offset": 0
+    },
+    "lacrosse": {
+      "family": "run",
+      "offset": 0
+    },
+    "handball": {
+      "family": "run",
+      "offset": 0
+    },
+    "disc-sports": {
+      "family": "run",
+      "offset": 0
+    },
+    "water-polo": {
+      "family": "water",
+      "offset": -12
+    },
+    "open-water": {
+      "family": "water",
+      "offset": -12
+    },
+    "surf": {
+      "family": "water",
+      "offset": -12
+    },
+    "paddle": {
+      "family": "arms",
+      "offset": -15
+    },
+    "sailing": {
+      "family": "arms",
+      "offset": -15
+    },
+    "water-sports": {
+      "family": "water",
+      "offset": -12
+    },
+    "water-fitness": {
+      "family": "water",
+      "offset": -12
+    },
+    "downhill-ski": {
+      "family": "cycle",
+      "offset": -6
+    },
+    "cross-country-ski": {
+      "family": "run",
+      "offset": 0
+    },
+    "snowboard": {
+      "family": "cycle",
+      "offset": -6
+    },
+    "snow-sports": {
+      "family": "run",
+      "offset": 0
+    },
+    "curling": {
+      "family": "cycle",
+      "offset": -6
+    },
+    "climbing": {
+      "family": "strength",
+      "offset": 0
+    },
+    "equestrian": {
+      "family": "run",
+      "offset": 0
+    },
+    "golf": {
+      "family": "run",
+      "offset": 0
+    },
+    "archery": {
+      "family": "run",
+      "offset": 0
+    },
+    "fishing": {
+      "family": "run",
+      "offset": 0
+    },
+    "hunting": {
+      "family": "run",
+      "offset": 0
+    },
+    "bowling": {
+      "family": "run",
+      "offset": 0
+    },
+    "play": {
+      "family": "run",
+      "offset": 0
+    },
+    "other": {
+      "family": "run",
+      "offset": 0
+    }
+  },
+  "cases": [
+    {
+      "profile": {
+        "age": 40,
+        "restingHr": 60
+      },
+      "prefs": null,
+      "sport": "run",
+      "maxHr": 180,
+      "thresholds": [120, 132, 144, 156, 168]
+    },
+    {
+      "profile": {
+        "age": 40,
+        "restingHr": 60
+      },
+      "prefs": null,
+      "sport": "walk",
+      "maxHr": 180,
+      "thresholds": [120, 132, 144, 156, 168]
+    },
+    {
+      "profile": {
+        "age": 40,
+        "restingHr": 60
+      },
+      "prefs": null,
+      "sport": "ride",
+      "maxHr": 174,
+      "thresholds": [117, 129, 140, 152, 163]
+    },
+    {
+      "profile": {
+        "age": 40,
+        "restingHr": 60
+      },
+      "prefs": null,
+      "sport": "swim",
+      "maxHr": 168,
+      "thresholds": [114, 125, 136, 147, 158]
+    },
+    {
+      "profile": {
+        "age": 40,
+        "restingHr": 60
+      },
+      "prefs": null,
+      "sport": "hand-cycling",
+      "maxHr": 165,
+      "thresholds": [113, 123, 134, 144, 155]
+    },
+    {
+      "profile": {
+        "age": 40,
+        "restingHr": 60
+      },
+      "prefs": null,
+      "sport": "strength",
+      "maxHr": 180,
+      "thresholds": [120, 132, 144, 156, 168]
+    },
+    {
+      "profile": {
+        "age": 40,
+        "restingHr": 60
+      },
+      "prefs": null,
+      "sport": "yoga",
+      "maxHr": 180,
+      "thresholds": [120, 132, 144, 156, 168]
+    },
+    {
+      "profile": {
+        "age": 40,
+        "restingHr": 60
+      },
+      "prefs": null,
+      "sport": "rowing",
+      "maxHr": 180,
+      "thresholds": [120, 132, 144, 156, 168]
+    },
+    {
+      "profile": {
+        "age": 40,
+        "restingHr": 60
+      },
+      "prefs": null,
+      "sport": "elliptical",
+      "maxHr": 174,
+      "thresholds": [117, 129, 140, 152, 163]
+    },
+    {
+      "profile": {
+        "age": 40,
+        "restingHr": 60
+      },
+      "prefs": {
+        "at": "2026-10-21T00:00:00.000Z",
+        "sports": {
+          "swim": {
+            "maxHr": 172
+          },
+          "walk": {
+            "zones": [90, 100, 110, 120, 130]
+          }
+        }
+      },
+      "sport": "run",
+      "maxHr": 180,
+      "thresholds": [120, 132, 144, 156, 168]
+    },
+    {
+      "profile": {
+        "age": 40,
+        "restingHr": 60
+      },
+      "prefs": {
+        "at": "2026-10-21T00:00:00.000Z",
+        "sports": {
+          "swim": {
+            "maxHr": 172
+          },
+          "walk": {
+            "zones": [90, 100, 110, 120, 130]
+          }
+        }
+      },
+      "sport": "walk",
+      "maxHr": 180,
+      "thresholds": [90, 100, 110, 120, 130]
+    },
+    {
+      "profile": {
+        "age": 40,
+        "restingHr": 60
+      },
+      "prefs": {
+        "at": "2026-10-21T00:00:00.000Z",
+        "sports": {
+          "swim": {
+            "maxHr": 172
+          },
+          "walk": {
+            "zones": [90, 100, 110, 120, 130]
+          }
+        }
+      },
+      "sport": "ride",
+      "maxHr": 174,
+      "thresholds": [117, 129, 140, 152, 163]
+    },
+    {
+      "profile": {
+        "age": 40,
+        "restingHr": 60
+      },
+      "prefs": {
+        "at": "2026-10-21T00:00:00.000Z",
+        "sports": {
+          "swim": {
+            "maxHr": 172
+          },
+          "walk": {
+            "zones": [90, 100, 110, 120, 130]
+          }
+        }
+      },
+      "sport": "swim",
+      "maxHr": 172,
+      "thresholds": [116, 128, 139, 150, 161]
+    },
+    {
+      "profile": {
+        "age": 40,
+        "restingHr": 60
+      },
+      "prefs": {
+        "at": "2026-10-21T00:00:00.000Z",
+        "sports": {
+          "swim": {
+            "maxHr": 172
+          },
+          "walk": {
+            "zones": [90, 100, 110, 120, 130]
+          }
+        }
+      },
+      "sport": "hand-cycling",
+      "maxHr": 165,
+      "thresholds": [113, 123, 134, 144, 155]
+    },
+    {
+      "profile": {
+        "age": 40,
+        "restingHr": 60
+      },
+      "prefs": {
+        "at": "2026-10-21T00:00:00.000Z",
+        "sports": {
+          "swim": {
+            "maxHr": 172
+          },
+          "walk": {
+            "zones": [90, 100, 110, 120, 130]
+          }
+        }
+      },
+      "sport": "strength",
+      "maxHr": 180,
+      "thresholds": [120, 132, 144, 156, 168]
+    },
+    {
+      "profile": {
+        "age": 40,
+        "restingHr": 60
+      },
+      "prefs": {
+        "at": "2026-10-21T00:00:00.000Z",
+        "sports": {
+          "swim": {
+            "maxHr": 172
+          },
+          "walk": {
+            "zones": [90, 100, 110, 120, 130]
+          }
+        }
+      },
+      "sport": "yoga",
+      "maxHr": 180,
+      "thresholds": [120, 132, 144, 156, 168]
+    },
+    {
+      "profile": {
+        "age": 40,
+        "restingHr": 60
+      },
+      "prefs": {
+        "at": "2026-10-21T00:00:00.000Z",
+        "sports": {
+          "swim": {
+            "maxHr": 172
+          },
+          "walk": {
+            "zones": [90, 100, 110, 120, 130]
+          }
+        }
+      },
+      "sport": "rowing",
+      "maxHr": 180,
+      "thresholds": [120, 132, 144, 156, 168]
+    },
+    {
+      "profile": {
+        "age": 40,
+        "restingHr": 60
+      },
+      "prefs": {
+        "at": "2026-10-21T00:00:00.000Z",
+        "sports": {
+          "swim": {
+            "maxHr": 172
+          },
+          "walk": {
+            "zones": [90, 100, 110, 120, 130]
+          }
+        }
+      },
+      "sport": "elliptical",
+      "maxHr": 174,
+      "thresholds": [117, 129, 140, 152, 163]
+    },
+    {
+      "profile": {
+        "age": 25,
+        "restingHr": 52,
+        "female": true
+      },
+      "prefs": null,
+      "sport": "run",
+      "maxHr": 184,
+      "thresholds": [118, 132, 145, 158, 171]
+    },
+    {
+      "profile": {
+        "age": 25,
+        "restingHr": 52,
+        "female": true
+      },
+      "prefs": null,
+      "sport": "walk",
+      "maxHr": 184,
+      "thresholds": [118, 132, 145, 158, 171]
+    },
+    {
+      "profile": {
+        "age": 25,
+        "restingHr": 52,
+        "female": true
+      },
+      "prefs": null,
+      "sport": "ride",
+      "maxHr": 178,
+      "thresholds": [115, 128, 141, 153, 166]
+    },
+    {
+      "profile": {
+        "age": 25,
+        "restingHr": 52,
+        "female": true
+      },
+      "prefs": null,
+      "sport": "swim",
+      "maxHr": 172,
+      "thresholds": [112, 124, 136, 148, 160]
+    },
+    {
+      "profile": {
+        "age": 25,
+        "restingHr": 52,
+        "female": true
+      },
+      "prefs": null,
+      "sport": "hand-cycling",
+      "maxHr": 169,
+      "thresholds": [111, 123, 134, 146, 158]
+    },
+    {
+      "profile": {
+        "age": 25,
+        "restingHr": 52,
+        "female": true
+      },
+      "prefs": null,
+      "sport": "strength",
+      "maxHr": 184,
+      "thresholds": [118, 132, 145, 158, 171]
+    },
+    {
+      "profile": {
+        "age": 25,
+        "restingHr": 52,
+        "female": true
+      },
+      "prefs": null,
+      "sport": "yoga",
+      "maxHr": 184,
+      "thresholds": [118, 132, 145, 158, 171]
+    },
+    {
+      "profile": {
+        "age": 25,
+        "restingHr": 52,
+        "female": true
+      },
+      "prefs": null,
+      "sport": "rowing",
+      "maxHr": 184,
+      "thresholds": [118, 132, 145, 158, 171]
+    },
+    {
+      "profile": {
+        "age": 25,
+        "restingHr": 52,
+        "female": true
+      },
+      "prefs": null,
+      "sport": "elliptical",
+      "maxHr": 178,
+      "thresholds": [115, 128, 141, 153, 166]
+    },
+    {
+      "profile": {
+        "age": 25,
+        "restingHr": 52,
+        "female": true
+      },
+      "prefs": {
+        "at": "2026-10-21T00:00:00.000Z",
+        "sports": {
+          "swim": {
+            "maxHr": 172
+          },
+          "walk": {
+            "zones": [90, 100, 110, 120, 130]
+          }
+        }
+      },
+      "sport": "run",
+      "maxHr": 184,
+      "thresholds": [118, 132, 145, 158, 171]
+    },
+    {
+      "profile": {
+        "age": 25,
+        "restingHr": 52,
+        "female": true
+      },
+      "prefs": {
+        "at": "2026-10-21T00:00:00.000Z",
+        "sports": {
+          "swim": {
+            "maxHr": 172
+          },
+          "walk": {
+            "zones": [90, 100, 110, 120, 130]
+          }
+        }
+      },
+      "sport": "walk",
+      "maxHr": 184,
+      "thresholds": [90, 100, 110, 120, 130]
+    },
+    {
+      "profile": {
+        "age": 25,
+        "restingHr": 52,
+        "female": true
+      },
+      "prefs": {
+        "at": "2026-10-21T00:00:00.000Z",
+        "sports": {
+          "swim": {
+            "maxHr": 172
+          },
+          "walk": {
+            "zones": [90, 100, 110, 120, 130]
+          }
+        }
+      },
+      "sport": "ride",
+      "maxHr": 178,
+      "thresholds": [115, 128, 141, 153, 166]
+    },
+    {
+      "profile": {
+        "age": 25,
+        "restingHr": 52,
+        "female": true
+      },
+      "prefs": {
+        "at": "2026-10-21T00:00:00.000Z",
+        "sports": {
+          "swim": {
+            "maxHr": 172
+          },
+          "walk": {
+            "zones": [90, 100, 110, 120, 130]
+          }
+        }
+      },
+      "sport": "swim",
+      "maxHr": 172,
+      "thresholds": [112, 124, 136, 148, 160]
+    },
+    {
+      "profile": {
+        "age": 25,
+        "restingHr": 52,
+        "female": true
+      },
+      "prefs": {
+        "at": "2026-10-21T00:00:00.000Z",
+        "sports": {
+          "swim": {
+            "maxHr": 172
+          },
+          "walk": {
+            "zones": [90, 100, 110, 120, 130]
+          }
+        }
+      },
+      "sport": "hand-cycling",
+      "maxHr": 169,
+      "thresholds": [111, 123, 134, 146, 158]
+    },
+    {
+      "profile": {
+        "age": 25,
+        "restingHr": 52,
+        "female": true
+      },
+      "prefs": {
+        "at": "2026-10-21T00:00:00.000Z",
+        "sports": {
+          "swim": {
+            "maxHr": 172
+          },
+          "walk": {
+            "zones": [90, 100, 110, 120, 130]
+          }
+        }
+      },
+      "sport": "strength",
+      "maxHr": 184,
+      "thresholds": [118, 132, 145, 158, 171]
+    },
+    {
+      "profile": {
+        "age": 25,
+        "restingHr": 52,
+        "female": true
+      },
+      "prefs": {
+        "at": "2026-10-21T00:00:00.000Z",
+        "sports": {
+          "swim": {
+            "maxHr": 172
+          },
+          "walk": {
+            "zones": [90, 100, 110, 120, 130]
+          }
+        }
+      },
+      "sport": "yoga",
+      "maxHr": 184,
+      "thresholds": [118, 132, 145, 158, 171]
+    },
+    {
+      "profile": {
+        "age": 25,
+        "restingHr": 52,
+        "female": true
+      },
+      "prefs": {
+        "at": "2026-10-21T00:00:00.000Z",
+        "sports": {
+          "swim": {
+            "maxHr": 172
+          },
+          "walk": {
+            "zones": [90, 100, 110, 120, 130]
+          }
+        }
+      },
+      "sport": "rowing",
+      "maxHr": 184,
+      "thresholds": [118, 132, 145, 158, 171]
+    },
+    {
+      "profile": {
+        "age": 25,
+        "restingHr": 52,
+        "female": true
+      },
+      "prefs": {
+        "at": "2026-10-21T00:00:00.000Z",
+        "sports": {
+          "swim": {
+            "maxHr": 172
+          },
+          "walk": {
+            "zones": [90, 100, 110, 120, 130]
+          }
+        }
+      },
+      "sport": "elliptical",
+      "maxHr": 178,
+      "thresholds": [115, 128, 141, 153, 166]
+    },
+    {
+      "profile": {
+        "age": 55,
+        "restingHr": 70,
+        "maxHr": 175
+      },
+      "prefs": null,
+      "sport": "run",
+      "maxHr": 175,
+      "thresholds": [123, 133, 144, 154, 165]
+    },
+    {
+      "profile": {
+        "age": 55,
+        "restingHr": 70,
+        "maxHr": 175
+      },
+      "prefs": null,
+      "sport": "walk",
+      "maxHr": 175,
+      "thresholds": [123, 133, 144, 154, 165]
+    },
+    {
+      "profile": {
+        "age": 55,
+        "restingHr": 70,
+        "maxHr": 175
+      },
+      "prefs": null,
+      "sport": "ride",
+      "maxHr": 169,
+      "thresholds": [120, 130, 140, 150, 160]
+    },
+    {
+      "profile": {
+        "age": 55,
+        "restingHr": 70,
+        "maxHr": 175
+      },
+      "prefs": null,
+      "sport": "swim",
+      "maxHr": 163,
+      "thresholds": [117, 126, 136, 145, 154]
+    },
+    {
+      "profile": {
+        "age": 55,
+        "restingHr": 70,
+        "maxHr": 175
+      },
+      "prefs": null,
+      "sport": "hand-cycling",
+      "maxHr": 160,
+      "thresholds": [115, 124, 133, 142, 151]
+    },
+    {
+      "profile": {
+        "age": 55,
+        "restingHr": 70,
+        "maxHr": 175
+      },
+      "prefs": null,
+      "sport": "strength",
+      "maxHr": 175,
+      "thresholds": [123, 133, 144, 154, 165]
+    },
+    {
+      "profile": {
+        "age": 55,
+        "restingHr": 70,
+        "maxHr": 175
+      },
+      "prefs": null,
+      "sport": "yoga",
+      "maxHr": 175,
+      "thresholds": [123, 133, 144, 154, 165]
+    },
+    {
+      "profile": {
+        "age": 55,
+        "restingHr": 70,
+        "maxHr": 175
+      },
+      "prefs": null,
+      "sport": "rowing",
+      "maxHr": 175,
+      "thresholds": [123, 133, 144, 154, 165]
+    },
+    {
+      "profile": {
+        "age": 55,
+        "restingHr": 70,
+        "maxHr": 175
+      },
+      "prefs": null,
+      "sport": "elliptical",
+      "maxHr": 169,
+      "thresholds": [120, 130, 140, 150, 160]
+    },
+    {
+      "profile": {
+        "age": 55,
+        "restingHr": 70,
+        "maxHr": 175
+      },
+      "prefs": {
+        "at": "2026-10-21T00:00:00.000Z",
+        "sports": {
+          "swim": {
+            "maxHr": 172
+          },
+          "walk": {
+            "zones": [90, 100, 110, 120, 130]
+          }
+        }
+      },
+      "sport": "run",
+      "maxHr": 175,
+      "thresholds": [123, 133, 144, 154, 165]
+    },
+    {
+      "profile": {
+        "age": 55,
+        "restingHr": 70,
+        "maxHr": 175
+      },
+      "prefs": {
+        "at": "2026-10-21T00:00:00.000Z",
+        "sports": {
+          "swim": {
+            "maxHr": 172
+          },
+          "walk": {
+            "zones": [90, 100, 110, 120, 130]
+          }
+        }
+      },
+      "sport": "walk",
+      "maxHr": 175,
+      "thresholds": [90, 100, 110, 120, 130]
+    },
+    {
+      "profile": {
+        "age": 55,
+        "restingHr": 70,
+        "maxHr": 175
+      },
+      "prefs": {
+        "at": "2026-10-21T00:00:00.000Z",
+        "sports": {
+          "swim": {
+            "maxHr": 172
+          },
+          "walk": {
+            "zones": [90, 100, 110, 120, 130]
+          }
+        }
+      },
+      "sport": "ride",
+      "maxHr": 169,
+      "thresholds": [120, 130, 140, 150, 160]
+    },
+    {
+      "profile": {
+        "age": 55,
+        "restingHr": 70,
+        "maxHr": 175
+      },
+      "prefs": {
+        "at": "2026-10-21T00:00:00.000Z",
+        "sports": {
+          "swim": {
+            "maxHr": 172
+          },
+          "walk": {
+            "zones": [90, 100, 110, 120, 130]
+          }
+        }
+      },
+      "sport": "swim",
+      "maxHr": 172,
+      "thresholds": [121, 132, 142, 152, 162]
+    },
+    {
+      "profile": {
+        "age": 55,
+        "restingHr": 70,
+        "maxHr": 175
+      },
+      "prefs": {
+        "at": "2026-10-21T00:00:00.000Z",
+        "sports": {
+          "swim": {
+            "maxHr": 172
+          },
+          "walk": {
+            "zones": [90, 100, 110, 120, 130]
+          }
+        }
+      },
+      "sport": "hand-cycling",
+      "maxHr": 160,
+      "thresholds": [115, 124, 133, 142, 151]
+    },
+    {
+      "profile": {
+        "age": 55,
+        "restingHr": 70,
+        "maxHr": 175
+      },
+      "prefs": {
+        "at": "2026-10-21T00:00:00.000Z",
+        "sports": {
+          "swim": {
+            "maxHr": 172
+          },
+          "walk": {
+            "zones": [90, 100, 110, 120, 130]
+          }
+        }
+      },
+      "sport": "strength",
+      "maxHr": 175,
+      "thresholds": [123, 133, 144, 154, 165]
+    },
+    {
+      "profile": {
+        "age": 55,
+        "restingHr": 70,
+        "maxHr": 175
+      },
+      "prefs": {
+        "at": "2026-10-21T00:00:00.000Z",
+        "sports": {
+          "swim": {
+            "maxHr": 172
+          },
+          "walk": {
+            "zones": [90, 100, 110, 120, 130]
+          }
+        }
+      },
+      "sport": "yoga",
+      "maxHr": 175,
+      "thresholds": [123, 133, 144, 154, 165]
+    },
+    {
+      "profile": {
+        "age": 55,
+        "restingHr": 70,
+        "maxHr": 175
+      },
+      "prefs": {
+        "at": "2026-10-21T00:00:00.000Z",
+        "sports": {
+          "swim": {
+            "maxHr": 172
+          },
+          "walk": {
+            "zones": [90, 100, 110, 120, 130]
+          }
+        }
+      },
+      "sport": "rowing",
+      "maxHr": 175,
+      "thresholds": [123, 133, 144, 154, 165]
+    },
+    {
+      "profile": {
+        "age": 55,
+        "restingHr": 70,
+        "maxHr": 175
+      },
+      "prefs": {
+        "at": "2026-10-21T00:00:00.000Z",
+        "sports": {
+          "swim": {
+            "maxHr": 172
+          },
+          "walk": {
+            "zones": [90, 100, 110, 120, 130]
+          }
+        }
+      },
+      "sport": "elliptical",
+      "maxHr": 169,
+      "thresholds": [120, 130, 140, 150, 160]
+    },
+    {
+      "profile": {
+        "age": 90,
+        "restingHr": 120
+      },
+      "prefs": null,
+      "sport": "run",
+      "maxHr": 145,
+      "thresholds": [133, 135, 138, 140, 143]
+    },
+    {
+      "profile": {
+        "age": 90,
+        "restingHr": 120
+      },
+      "prefs": null,
+      "sport": "walk",
+      "maxHr": 145,
+      "thresholds": [133, 135, 138, 140, 143]
+    },
+    {
+      "profile": {
+        "age": 90,
+        "restingHr": 120
+      },
+      "prefs": null,
+      "sport": "ride",
+      "maxHr": 140,
+      "thresholds": [130, 132, 134, 136, 138]
+    },
+    {
+      "profile": {
+        "age": 90,
+        "restingHr": 120
+      },
+      "prefs": null,
+      "sport": "swim",
+      "maxHr": 140,
+      "thresholds": [130, 132, 134, 136, 138]
+    },
+    {
+      "profile": {
+        "age": 90,
+        "restingHr": 120
+      },
+      "prefs": null,
+      "sport": "hand-cycling",
+      "maxHr": 140,
+      "thresholds": [130, 132, 134, 136, 138]
+    },
+    {
+      "profile": {
+        "age": 90,
+        "restingHr": 120
+      },
+      "prefs": null,
+      "sport": "strength",
+      "maxHr": 145,
+      "thresholds": [133, 135, 138, 140, 143]
+    },
+    {
+      "profile": {
+        "age": 90,
+        "restingHr": 120
+      },
+      "prefs": null,
+      "sport": "yoga",
+      "maxHr": 145,
+      "thresholds": [133, 135, 138, 140, 143]
+    },
+    {
+      "profile": {
+        "age": 90,
+        "restingHr": 120
+      },
+      "prefs": null,
+      "sport": "rowing",
+      "maxHr": 145,
+      "thresholds": [133, 135, 138, 140, 143]
+    },
+    {
+      "profile": {
+        "age": 90,
+        "restingHr": 120
+      },
+      "prefs": null,
+      "sport": "elliptical",
+      "maxHr": 140,
+      "thresholds": [130, 132, 134, 136, 138]
+    },
+    {
+      "profile": {
+        "age": 90,
+        "restingHr": 120
+      },
+      "prefs": {
+        "at": "2026-10-21T00:00:00.000Z",
+        "sports": {
+          "swim": {
+            "maxHr": 172
+          },
+          "walk": {
+            "zones": [90, 100, 110, 120, 130]
+          }
+        }
+      },
+      "sport": "run",
+      "maxHr": 145,
+      "thresholds": [133, 135, 138, 140, 143]
+    },
+    {
+      "profile": {
+        "age": 90,
+        "restingHr": 120
+      },
+      "prefs": {
+        "at": "2026-10-21T00:00:00.000Z",
+        "sports": {
+          "swim": {
+            "maxHr": 172
+          },
+          "walk": {
+            "zones": [90, 100, 110, 120, 130]
+          }
+        }
+      },
+      "sport": "walk",
+      "maxHr": 145,
+      "thresholds": [90, 100, 110, 120, 130]
+    },
+    {
+      "profile": {
+        "age": 90,
+        "restingHr": 120
+      },
+      "prefs": {
+        "at": "2026-10-21T00:00:00.000Z",
+        "sports": {
+          "swim": {
+            "maxHr": 172
+          },
+          "walk": {
+            "zones": [90, 100, 110, 120, 130]
+          }
+        }
+      },
+      "sport": "ride",
+      "maxHr": 140,
+      "thresholds": [130, 132, 134, 136, 138]
+    },
+    {
+      "profile": {
+        "age": 90,
+        "restingHr": 120
+      },
+      "prefs": {
+        "at": "2026-10-21T00:00:00.000Z",
+        "sports": {
+          "swim": {
+            "maxHr": 172
+          },
+          "walk": {
+            "zones": [90, 100, 110, 120, 130]
+          }
+        }
+      },
+      "sport": "swim",
+      "maxHr": 172,
+      "thresholds": [146, 152, 157, 162, 167]
+    },
+    {
+      "profile": {
+        "age": 90,
+        "restingHr": 120
+      },
+      "prefs": {
+        "at": "2026-10-21T00:00:00.000Z",
+        "sports": {
+          "swim": {
+            "maxHr": 172
+          },
+          "walk": {
+            "zones": [90, 100, 110, 120, 130]
+          }
+        }
+      },
+      "sport": "hand-cycling",
+      "maxHr": 140,
+      "thresholds": [130, 132, 134, 136, 138]
+    },
+    {
+      "profile": {
+        "age": 90,
+        "restingHr": 120
+      },
+      "prefs": {
+        "at": "2026-10-21T00:00:00.000Z",
+        "sports": {
+          "swim": {
+            "maxHr": 172
+          },
+          "walk": {
+            "zones": [90, 100, 110, 120, 130]
+          }
+        }
+      },
+      "sport": "strength",
+      "maxHr": 145,
+      "thresholds": [133, 135, 138, 140, 143]
+    },
+    {
+      "profile": {
+        "age": 90,
+        "restingHr": 120
+      },
+      "prefs": {
+        "at": "2026-10-21T00:00:00.000Z",
+        "sports": {
+          "swim": {
+            "maxHr": 172
+          },
+          "walk": {
+            "zones": [90, 100, 110, 120, 130]
+          }
+        }
+      },
+      "sport": "yoga",
+      "maxHr": 145,
+      "thresholds": [133, 135, 138, 140, 143]
+    },
+    {
+      "profile": {
+        "age": 90,
+        "restingHr": 120
+      },
+      "prefs": {
+        "at": "2026-10-21T00:00:00.000Z",
+        "sports": {
+          "swim": {
+            "maxHr": 172
+          },
+          "walk": {
+            "zones": [90, 100, 110, 120, 130]
+          }
+        }
+      },
+      "sport": "rowing",
+      "maxHr": 145,
+      "thresholds": [133, 135, 138, 140, 143]
+    },
+    {
+      "profile": {
+        "age": 90,
+        "restingHr": 120
+      },
+      "prefs": {
+        "at": "2026-10-21T00:00:00.000Z",
+        "sports": {
+          "swim": {
+            "maxHr": 172
+          },
+          "walk": {
+            "zones": [90, 100, 110, 120, 130]
+          }
+        }
+      },
+      "sport": "elliptical",
+      "maxHr": 140,
+      "thresholds": [130, 132, 134, 136, 138]
+    }
+  ],
+  "rpe": {
+    "1": {
+      "rpe": [2, 3],
+      "en": "Very easy",
+      "fr": "Très facile",
+      "talkEn": "You could sing",
+      "talkFr": "Tu pourrais chanter"
+    },
+    "2": {
+      "rpe": [3, 4],
+      "en": "Easy",
+      "fr": "Facile",
+      "talkEn": "You can chat in full sentences",
+      "talkFr": "Tu parles en phrases complètes"
+    },
+    "3": {
+      "rpe": [5, 6],
+      "en": "Steady",
+      "fr": "Soutenu",
+      "talkEn": "Short sentences only",
+      "talkFr": "Phrases courtes seulement"
+    },
+    "4": {
+      "rpe": [7, 8],
+      "en": "Hard",
+      "fr": "Difficile",
+      "talkEn": "A few words at a time",
+      "talkFr": "Quelques mots à la fois"
+    },
+    "5": {
+      "rpe": [9, 10],
+      "en": "Very hard",
+      "fr": "Très difficile",
+      "talkEn": "No talking",
+      "talkFr": "Impossible de parler"
+    }
+  },
+  "cleaned": [
+    {
+      "input": {
+        "at": "2026-10-21T00:00:00.000Z",
+        "rpe": true,
+        "sports": {
+          "run": {
+            "maxHr": 181.4
+          },
+          "BAD KEY": {
+            "maxHr": 170
+          },
+          "ride": {
+            "zones": [1, 2, 3, 4, 5]
+          }
+        }
+      },
+      "out": {
+        "at": "2026-10-21T00:00:00.000Z",
+        "rpe": true,
+        "sports": {
+          "run": {
+            "maxHr": 181
+          }
+        }
+      }
+    },
+    {
+      "input": {
+        "at": "nope",
+        "sports": {}
+      },
+      "out": null
+    }
+  ],
+  "learn": [
+    {
+      "sport": "swim",
+      "sessions": [
+        {
+          "sport": "swim",
+          "maxBpm": 175,
+          "activeS": 1800
+        },
+        {
+          "sport": "swim",
+          "maxBpm": 174,
+          "activeS": 1800
+        },
+        {
+          "sport": "swim",
+          "maxBpm": 160,
+          "activeS": 1800
+        }
+      ],
+      "profile": {
+        "age": 40,
+        "restingHr": 60
+      },
+      "out": 174
+    },
+    {
+      "sport": "swim",
+      "sessions": [
+        {
+          "sport": "swim",
+          "maxBpm": 200,
+          "activeS": 1800
+        },
+        {
+          "sport": "swim",
+          "maxBpm": 165,
+          "activeS": 1800
+        },
+        {
+          "sport": "swim",
+          "maxBpm": 160,
+          "activeS": 1800
+        }
+      ],
+      "profile": {
+        "age": 40,
+        "restingHr": 60
+      },
+      "out": null
+    },
+    {
+      "sport": "run",
+      "sessions": [
+        {
+          "sport": "run",
+          "maxBpm": 220,
+          "activeS": 1800
+        },
+        {
+          "sport": "run",
+          "maxBpm": 220,
+          "activeS": 1800
+        },
+        {
+          "sport": "run",
+          "maxBpm": 220,
+          "activeS": 1800
+        }
+      ],
+      "profile": {
+        "age": 40,
+        "restingHr": 60
+      },
+      "out": null
+    }
+  ],
+  "paces": [
+    {
+      "kind": "pace",
+      "units": "metric",
+      "kmh": 2.4,
+      "text": "25:00 /km"
+    },
+    {
+      "kind": "pace",
+      "units": "metric",
+      "kmh": 9,
+      "text": "6:40 /km"
+    },
+    {
+      "kind": "pace",
+      "units": "metric",
+      "kmh": 12,
+      "text": "5:00 /km"
+    },
+    {
+      "kind": "pace",
+      "units": "metric",
+      "kmh": 18,
+      "text": "3:20 /km"
+    },
+    {
+      "kind": "pace",
+      "units": "imperial",
+      "kmh": 2.4,
+      "text": "40:14 /mi"
+    },
+    {
+      "kind": "pace",
+      "units": "imperial",
+      "kmh": 9,
+      "text": "10:44 /mi"
+    },
+    {
+      "kind": "pace",
+      "units": "imperial",
+      "kmh": 12,
+      "text": "8:03 /mi"
+    },
+    {
+      "kind": "pace",
+      "units": "imperial",
+      "kmh": 18,
+      "text": "5:22 /mi"
+    },
+    {
+      "kind": "speed",
+      "units": "metric",
+      "kmh": 2.4,
+      "text": "2.4 km/h"
+    },
+    {
+      "kind": "speed",
+      "units": "metric",
+      "kmh": 9,
+      "text": "9 km/h"
+    },
+    {
+      "kind": "speed",
+      "units": "metric",
+      "kmh": 12,
+      "text": "12 km/h"
+    },
+    {
+      "kind": "speed",
+      "units": "metric",
+      "kmh": 18,
+      "text": "18 km/h"
+    },
+    {
+      "kind": "speed",
+      "units": "imperial",
+      "kmh": 2.4,
+      "text": "1.5 mph"
+    },
+    {
+      "kind": "speed",
+      "units": "imperial",
+      "kmh": 9,
+      "text": "5.6 mph"
+    },
+    {
+      "kind": "speed",
+      "units": "imperial",
+      "kmh": 12,
+      "text": "7.5 mph"
+    },
+    {
+      "kind": "speed",
+      "units": "imperial",
+      "kmh": 18,
+      "text": "11.2 mph"
+    },
+    {
+      "kind": "swim",
+      "units": "metric",
+      "kmh": 2.4,
+      "text": "2:30 /100 m"
+    },
+    {
+      "kind": "swim",
+      "units": "metric",
+      "kmh": 9,
+      "text": "0:40 /100 m"
+    },
+    {
+      "kind": "swim",
+      "units": "metric",
+      "kmh": 12,
+      "text": "0:30 /100 m"
+    },
+    {
+      "kind": "swim",
+      "units": "metric",
+      "kmh": 18,
+      "text": "0:20 /100 m"
+    },
+    {
+      "kind": "swim",
+      "units": "imperial",
+      "kmh": 2.4,
+      "text": "2:17 /100 yd"
+    },
+    {
+      "kind": "swim",
+      "units": "imperial",
+      "kmh": 9,
+      "text": "0:37 /100 yd"
+    },
+    {
+      "kind": "swim",
+      "units": "imperial",
+      "kmh": 12,
+      "text": "0:27 /100 yd"
+    },
+    {
+      "kind": "swim",
+      "units": "imperial",
+      "kmh": 18,
+      "text": "0:18 /100 yd"
+    },
+    {
+      "kind": "row",
+      "units": "metric",
+      "kmh": 2.4,
+      "text": "12:30 /500 m"
+    },
+    {
+      "kind": "row",
+      "units": "metric",
+      "kmh": 9,
+      "text": "3:20 /500 m"
+    },
+    {
+      "kind": "row",
+      "units": "metric",
+      "kmh": 12,
+      "text": "2:30 /500 m"
+    },
+    {
+      "kind": "row",
+      "units": "metric",
+      "kmh": 18,
+      "text": "1:40 /500 m"
+    },
+    {
+      "kind": "row",
+      "units": "imperial",
+      "kmh": 2.4,
+      "text": "12:30 /500 m"
+    },
+    {
+      "kind": "row",
+      "units": "imperial",
+      "kmh": 9,
+      "text": "3:20 /500 m"
+    },
+    {
+      "kind": "row",
+      "units": "imperial",
+      "kmh": 12,
+      "text": "2:30 /500 m"
+    },
+    {
+      "kind": "row",
+      "units": "imperial",
+      "kmh": 18,
+      "text": "1:40 /500 m"
+    },
+    {
+      "kind": "none",
+      "units": "metric",
+      "kmh": 2.4,
+      "text": ""
+    },
+    {
+      "kind": "none",
+      "units": "metric",
+      "kmh": 9,
+      "text": ""
+    },
+    {
+      "kind": "none",
+      "units": "metric",
+      "kmh": 12,
+      "text": ""
+    },
+    {
+      "kind": "none",
+      "units": "metric",
+      "kmh": 18,
+      "text": ""
+    },
+    {
+      "kind": "none",
+      "units": "imperial",
+      "kmh": 2.4,
+      "text": ""
+    },
+    {
+      "kind": "none",
+      "units": "imperial",
+      "kmh": 9,
+      "text": ""
+    },
+    {
+      "kind": "none",
+      "units": "imperial",
+      "kmh": 12,
+      "text": ""
+    },
+    {
+      "kind": "none",
+      "units": "imperial",
+      "kmh": 18,
+      "text": ""
+    }
+  ],
+  "inverse": [
+    {
+      "kind": "pace",
+      "seconds": 150,
+      "kmh": 24
+    },
+    {
+      "kind": "speed",
+      "seconds": 150,
+      "kmh": null
+    },
+    {
+      "kind": "swim",
+      "seconds": 150,
+      "kmh": 2.4
+    },
+    {
+      "kind": "row",
+      "seconds": 150,
+      "kmh": 12
+    },
+    {
+      "kind": "none",
+      "seconds": 150,
+      "kmh": null
+    },
+    {
+      "kind": "pace",
+      "seconds": 400,
+      "kmh": 9
+    },
+    {
+      "kind": "speed",
+      "seconds": 400,
+      "kmh": null
+    },
+    {
+      "kind": "swim",
+      "seconds": 400,
+      "kmh": 0.9
+    },
+    {
+      "kind": "row",
+      "seconds": 400,
+      "kmh": 4.5
+    },
+    {
+      "kind": "none",
+      "seconds": 400,
+      "kmh": null
+    }
+  ],
+  "sportKinds": {
+    "run": "pace",
+    "walk": "pace",
+    "ride": "speed",
+    "hike": "pace",
+    "strength": "none",
+    "dance": "none",
+    "boxing": "none",
+    "yoga": "none",
+    "swim": "swim",
+    "skate": "speed",
+    "track-field": "none",
+    "swim-bike-run": "speed",
+    "transition": "none",
+    "wheelchair-walk": "pace",
+    "wheelchair-run": "pace",
+    "hand-cycling": "speed",
+    "elliptical": "none",
+    "rowing": "row",
+    "stair-stepper": "none",
+    "stairs": "none",
+    "hiit": "none",
+    "mixed-cardio": "none",
+    "cross-training": "none",
+    "step-training": "none",
+    "jump-rope": "none",
+    "fitness-gaming": "none",
+    "functional-strength": "none",
+    "core": "none",
+    "gymnastics": "none",
+    "pilates": "none",
+    "barre": "none",
+    "tai-chi": "none",
+    "mind-body": "none",
+    "flexibility": "none",
+    "cooldown": "none",
+    "recovery": "none",
+    "cardio-dance": "none",
+    "kickboxing": "none",
+    "martial-arts": "none",
+    "wrestling": "none",
+    "fencing": "none",
+    "tennis": "none",
+    "badminton": "none",
+    "table-tennis": "none",
+    "pickleball": "none",
+    "squash": "none",
+    "racquetball": "none",
+    "soccer": "none",
+    "basketball": "none",
+    "volleyball": "none",
+    "hockey": "none",
+    "rugby": "none",
+    "american-football": "none",
+    "australian-football": "none",
+    "baseball": "none",
+    "softball": "none",
+    "cricket": "none",
+    "lacrosse": "none",
+    "handball": "none",
+    "disc-sports": "none",
+    "water-polo": "none",
+    "open-water": "swim",
+    "surf": "speed",
+    "paddle": "pace",
+    "sailing": "speed",
+    "water-sports": "speed",
+    "water-fitness": "none",
+    "downhill-ski": "speed",
+    "cross-country-ski": "speed",
+    "snowboard": "speed",
+    "snow-sports": "speed",
+    "curling": "none",
+    "climbing": "none",
+    "equestrian": "speed",
+    "golf": "none",
+    "archery": "none",
+    "fishing": "none",
+    "hunting": "none",
+    "bowling": "none",
+    "play": "none",
+    "other": "none"
+  }
+}

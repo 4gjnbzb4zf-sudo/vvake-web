@@ -5,9 +5,11 @@ import { useCallback, useEffect, useMemo, useRef, useState, type ReactNode } fro
 import { cn } from "@/lib/cn";
 import type { Locale } from "@/i18n/config";
 import { localTz, type UploadReply } from "@/lib/webapp/api";
-import { playCue, playQuick, hush, unlockAudio, warmVoice } from "@/lib/webapp/coachAudio";
+import { playQuick, hush, sayLine, unlockAudio, warmCamera, warmVoice } from "@/lib/webapp/coachAudio";
+import { flowSpeech, type CoachSpeech } from "@/lib/webapp/appVoice";
 import { bleSupport } from "@/lib/webapp/ble";
-import { heartProfileOf, zoneOf } from "@/lib/webapp/heart";
+import { zoneOf } from "@/lib/webapp/heart";
+import { heartForSport } from "@/lib/webapp/sportHeart";
 import { enqueue } from "@/lib/webapp/store";
 import { SAMPLE_EVERY_S, spend, uuid, type Sample, type WebSession } from "@/lib/webapp/workout";
 import {
@@ -666,6 +668,7 @@ function Setup({
           // The Start tap unlocks the page's audio (Safari) and warms the coach's recorded voice.
           unlockAudio();
           void warmVoice();
+          void warmCamera();
           onStart();
         }}
       >
@@ -997,7 +1000,7 @@ function Live({
   setOutlineOn: (v: boolean) => void;
   onDone: (r: LiveResult) => void;
 }) {
-  const { t, lang, fmt, prefs, workoutVoice, sensor, sensorState, athlete } = useApp();
+  const { t, lang, fmt, prefs, workoutVoice, sensor, sensorState, athlete, heartZones } = useApp();
   const c = t.camera;
   const units = prefs.units;
   const now = useTick(250);
@@ -1034,8 +1037,9 @@ function Live({
   // (cameraHeart.ts: the bpm now, its zone from your zones for the sport, "no heart signal" after 15 s, the effort).
   const strap = useRef<Sample[]>([]);
   const lastBpm = useRef<{ v: number; at: number } | null>(null);
-  const zonesRef = useRef(heartProfileOf(athlete?.health ?? null, e.sport()));
-  zonesRef.current = heartProfileOf(athlete?.health ?? null, e.sport());
+  // The sport's zones (yours, else automatic with its family's max: ADR-0048).
+  const zonesRef = useRef(heartForSport(athlete?.health, e.sport(), heartZones));
+  zonesRef.current = heartForSport(athlete?.health, e.sport(), heartZones);
   const heartRef = useRef<CameraHeart | null>(null);
   if (!heartRef.current) heartRef.current = new CameraHeart((b) => zoneOf(b, zonesRef.current));
   const heart = heartRef.current;
@@ -1053,11 +1057,12 @@ function Live({
 
   const voiceRef = useRef(workoutVoice);
   voiceRef.current = workoutVoice;
-  const speak = useCallback((text: string | null, essential = false) => {
-    if (!text) return;
+  // Every line in the coach's one voice (coachAudio.sayLine): recorded, else the browser voice for the whole line.
+  const speak = useCallback((line: string | CoachSpeech | null, essential = false) => {
+    if (!line) return;
     const m = voiceRef.current;
     if (m === "off" || (!essential && m !== "on")) return;
-    playCue({ text });
+    sayLine(typeof line === "string" ? { text: line } : line);
   }, []);
 
   const finish = useCallback(() => {
@@ -1154,7 +1159,8 @@ function Live({
             window.setTimeout(finish, 1800);
             break;
           default:
-            speak(flowLine(x, lang), true);
+            // The demo and the rest say short recorded parts ("Squat." "15 reps." / "Rest 60 seconds." "Next: Squat.").
+            speak(flowSpeech(x, lang), true);
         }
       }
     },
@@ -1767,7 +1773,7 @@ function Summary({ result, training }: { result: LiveResult; training?: Training
         ? {
             strap: {
               samples: result.strap,
-              heart: heartProfileOf(athlete?.health ?? null, result.sport),
+              heart: heartForSport(athlete?.health, result.sport, app.heartZones),
               energyAtStart: Math.floor(energy.current),
             },
           }

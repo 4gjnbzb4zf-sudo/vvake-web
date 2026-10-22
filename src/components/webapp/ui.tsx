@@ -200,6 +200,38 @@ export function Row({
   return <div className={cls}>{inner}</div>;
 }
 
+/** A quick door on Today (the phone's 2×2 intent grid): an icon, a title, one detail line; grows with larger text. */
+export function Door({
+  title,
+  detail,
+  icon,
+  tone = "sky",
+  onClick,
+}: {
+  title: string;
+  detail: string;
+  icon: ReactNode;
+  tone?: Tone;
+  onClick: () => void;
+}) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      aria-label={`${title}, ${detail}`}
+      className="flex min-h-24 w-full flex-col items-start gap-2 rounded-2xl border border-line bg-surface p-3 text-left transition-colors hover:bg-surface-2/60"
+    >
+      <span aria-hidden className={cn("flex h-9 w-9 items-center justify-center rounded-xl bg-surface-2 text-base", TEXT[tone])}>
+        {icon}
+      </span>
+      <span className="block min-w-0">
+        <span className="block text-[15px] leading-snug font-semibold">{title}</span>
+        <span className="mt-0.5 block text-xs leading-4 break-words text-muted">{detail}</span>
+      </span>
+    </button>
+  );
+}
+
 export function List({ children }: { children: ReactNode }) {
   return <div className="divide-y divide-line overflow-hidden rounded-2xl border border-line bg-surface">{children}</div>;
 }

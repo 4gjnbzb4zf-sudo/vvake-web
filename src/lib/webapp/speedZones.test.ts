@@ -87,11 +87,12 @@ describe("speed zones", () => {
   });
 
   it("shows speed on the live screen exactly where the editor shows speed", () => {
-    for (const sport of Object.keys(speedZonesTable())) expect(showsSpeed(sport), sport).toBe(!speedShownAsPace(sport));
+    for (const [sport, row] of Object.entries(speedZonesTable())) expect(showsSpeed(sport), sport).toBe(row.kind === "speed");
     expect(showsSpeed("ride")).toBe(true);
     expect(showsSpeed("run")).toBe(false);
     expect(showsSpeed("paddle")).toBe(false);
-    expect(showsSpeed("rowing")).toBe(true); // not a GPS-zone sport: the older list
+    expect(showsSpeed("rowing")).toBe(false); // a pace per 500 m now (sport zones)
+    expect(showsSpeed("swim")).toBe(false); // a pace per 100 m
   });
 
   it("lists walk, run, hike, ride first, then every other GPS sport once", () => {

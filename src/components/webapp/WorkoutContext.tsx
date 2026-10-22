@@ -9,7 +9,8 @@ import { enqueue, WORKOUT_KEY } from "@/lib/webapp/store";
 import { hush, playCue, prefetchLines, unlockAudio, warmVoice } from "@/lib/webapp/coachAudio";
 import { cueAllowed, cueSpoken, spokenClock } from "@/lib/webapp/voice";
 import { splitLines, type Spoken } from "@/lib/webapp/voicePick";
-import { speedThresholdsFor, windowSpeedKmh, workoutChattiness, zoneOfSpeed } from "@/lib/webapp/speedZones";
+import { heartForSport, hrIsRoughGuide } from "@/lib/webapp/sportHeart";
+import { paceKind, speedThresholdsFor, windowSpeedKmh, workoutChattiness, zoneOfSpeed, type PaceKind } from "@/lib/webapp/speedZones";
 import {
   afterReload,
   buildSession,
@@ -69,6 +70,15 @@ interface WorkoutApi {
   zone: number;
   /** Where the zone comes from: the heart rate, speed (no heart rate, GPS sport with speed zones), or nothing. */
   zoneSource: "heart" | "speed" | null;
+  /** The speed over the last 30 s (km/h) while the zone comes from speed, else null. */
+  speedKmh: number | null;
+  /** How this sport's speed reads (per km/mi, km/h, /100 m, /500 m, or none). */
+  paceKind: PaceKind;
+  /** Effort by feel (prefs.heartZones.rpe): zones show as effort words, no bpm targets. */
+  rpe: boolean;
+  /** Heart rate is only a rough guide in this sport (strength, mind & body). */
+  roughGuide: boolean;
+  /** The session's heart: your base numbers and the sport's thresholds (ADR-0048). */
   heart: HeartProfile;
   wakeLock: boolean | null;
   gap: boolean;
@@ -99,7 +109,7 @@ interface WakeLockSentinelLike {
 export function WorkoutProvider({ children }: { children: ReactNode }) {
   const app = useApp();
   const { lang, me, prefs, kv, athlete, energy, setEnergy, bpm, sensorState, api, deviceKey, queue, setQueue, refresh } = app;
-  const { workoutVoice, speedZones } = app;
+  const { workoutVoice, speedZones, heartZones } = app;
   const [w, setW] = useState<WorkoutSnapshot | null>(null);
   const wRef = useRef<WorkoutSnapshot | null>(null);
   const [restored, setRestored] = useState(false);
@@ -119,14 +129,25 @@ export function WorkoutProvider({ children }: { children: ReactNode }) {
     setW(next);
   }, []);
 
-  const heart = useMemo(() => heartProfileOf(athlete?.health ?? null, w?.sport), [athlete, w?.sport]);
+  // The sport's thresholds (yours, else automatic with the sport family's max), with your base max: the live zone, the
+  // time in zones and the uploaded hrProfile agree, and the server keeps them plausible (ADR-0048).
+  const wSport = w?.sport;
+  const heart = useMemo(
+    () => (wSport ? heartForSport(athlete?.health, wSport, heartZones) : heartProfileOf(athlete?.health ?? null)),
+    [athlete, wSport, heartZones],
+  );
+  const level = useMemo(
+    () => (wSport ? (athlete?.survey?.sports?.find((s) => s.sport === wSport)?.experience ?? null) : null),
+    [athlete, wSport],
+  );
   const sport = w ? sportOf(w.sport) : null;
   const gpsOn = !!sport && usesGps(sport);
   // Speed zones (ADR-0044): only while no heart rate is streaming, for a GPS sport that has them.
   const sportKey = w?.sport;
-  const thresholds = useMemo(() => (sportKey ? speedThresholdsFor(sportKey, speedZones) : undefined), [sportKey, speedZones]);
+  const thresholds = useMemo(() => (sportKey ? speedThresholdsFor(sportKey, speedZones, level) : undefined), [sportKey, speedZones, level]);
   const speedOn = bpm === null && gpsOn && !!thresholds;
   const [speedZone, setSpeedZone] = useState(0);
+  const [speedKmh, setSpeedKmh] = useState(0);
   /** [elapsed s, metres] over the last minute, for the speed over the last 30 s. */
   const distRef = useRef<[number, number][]>([]);
   const zone = bpm !== null ? zoneOf(bpm, heart) : speedOn ? speedZone : 0;
@@ -197,8 +218,10 @@ export function WorkoutProvider({ children }: { children: ReactNode }) {
       const d = distRef.current;
       if (!d.length || d[d.length - 1]![0] < s) d.push([s, cur.track.metres]);
       while (d.length && d[0]![0] < s - 60) d.shift();
-      const sz = speedOn && thresholds ? zoneOfSpeed(windowSpeedKmh(d), thresholds) : 0;
+      const kmh = speedOn ? windowSpeedKmh(d) : 0;
+      const sz = speedOn && thresholds ? zoneOfSpeed(kmh, thresholds) : 0;
       if (sz !== speedZone) setSpeedZone(sz);
+      setSpeedKmh((x) => (Math.abs(x - kmh) < 0.05 ? x : kmh));
       const z = zoneRef.current;
       const level = workoutChattiness(workoutVoice, prefs.chattiness) ?? "quiet";
       // A zone settled for 15 s is said once.
@@ -327,6 +350,7 @@ export function WorkoutProvider({ children }: { children: ReactNode }) {
       zoneRef.current = { zone: -1, since: 0, spoken: -1 };
       distRef.current = [];
       setSpeedZone(0);
+      setSpeedKmh(0);
       splitCount.current = 0;
       splitAt.current = 0;
       energyCueSaid.current = false;
@@ -426,6 +450,10 @@ export function WorkoutProvider({ children }: { children: ReactNode }) {
     bars: gpsBars(w?.track.accuracy ?? null),
     zone,
     zoneSource,
+    speedKmh: zoneSource === "speed" && speedKmh > 0 ? speedKmh : null,
+    paceKind: paceKind(w?.sport ?? ""),
+    rpe: !!heartZones?.rpe,
+    roughGuide: !!w && hrIsRoughGuide(w.sport),
     heart,
     wakeLock,
     gap,
