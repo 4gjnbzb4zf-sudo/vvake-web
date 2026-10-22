@@ -57,7 +57,7 @@ const CUES = {
     done: "Séance terminée : {minutes} minutes. Beau travail, à la prochaine !",
     paused: "En pause.",
     resumed: "C'est reparti !",
-    noSensor: "Sans capteur cardio, cette séance ne rapporte pas de points.",
+    noSensor: "Sans capteur de fréquence cardiaque, cette séance ne te rapporte pas de points.",
     points: "{total} points.",
     sensorLost: "Capteur cardio perdu. Je tente de le reconnecter.",
     sensorBack: "Capteur cardio de retour.",

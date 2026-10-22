@@ -13,6 +13,7 @@ import {
   type SpeechKind,
 } from "./speechQueue";
 import { bestBrowserVoice, splitLines, type Spoken, type VoiceMode } from "./voicePick";
+import { PREVIEW_LINE, type CoachSpeech } from "./appVoice";
 
 /**
  * The coach's voice in the browser (vvake.com/<lang>/app), the phone's voice (monorepo apps/mobile/src/lib/voice.ts):
@@ -20,8 +21,10 @@ import { bestBrowserVoice, splitLines, type Spoken, type VoiceMode } from "./voi
  * - workout cues: the recorded voice-pack and cheer-library lines (`GET /v1/voice/pack`, `/v1/voice/library`, the same
  *   recordings for every account), fetched with the session's token and kept in Cache Storage (`vvake-voice-v1`, the
  *   pack is fetched ahead when a workout screen opens) so a cue plays at once, offline included;
- * - lines with exact numbers ("10 minutes in, zone 2"): registered with `POST /v1/voice/lines` (Plus records them
- *   within its daily quota; anyone gets a line once it is recorded), else the browser voice;
+ * - the app's fixed lines (`GET /v1/voice/app`: the camera workout's counts, cues, set ends and rests, teach a move,
+ *   the check-ins, the preview; recorded once for every account, free included), looked up by their exact words;
+ * - any other line ("3 kilometres. Time 15:20."): `POST /v1/voice/lines`, for every account (Plus records it within
+ *   its daily quota; anyone gets a line once it is recorded), else the browser voice, a whole line at a time;
  * - coach replies: the reply's own audio when the API gave one (Plus), kept in memory only, never on disk;
  * - one speech queue (speechQueue.ts): one line at a time, the newest cue wins, barge-in silences all; the browser
  *   voice (the best installed one for the language: voicePick.ts) only when the recording doesn't come in time, and
@@ -49,6 +52,7 @@ export function configureVoice(c: VoiceConfig) {
   if (changed) {
     sets.clear();
     lineUrls.clear();
+    appIndex = null;
     warmed = false;
   }
   if (c.mode === "off") hush();
@@ -119,7 +123,7 @@ async function pruneCache() {
 
 // ── The recorded sets: voice pack, cheer library (id → audio path) ────────────────────────────────────────────
 
-type SetKind = "pack" | "lib";
+type SetKind = "pack" | "lib" | "app";
 const sets = new Map<string, Promise<Map<string, string> | null>>();
 
 function voiceSet(kind: SetKind): Promise<Map<string, string> | null> {
@@ -141,11 +145,21 @@ function voiceSet(kind: SetKind): Promise<Map<string, string> | null> {
 async function loadSet(c: VoiceConfig, kind: SetKind, name: string): Promise<Map<string, string> | null> {
   const key = `${c.apiUrl}/v1/voice/__set/${name}.json`;
   const cache = await voiceCache();
-  const toMap = (items: { id: string; url?: string | null }[]) => new Map(items.filter((i) => i.url).map((i) => [i.id, i.url!] as const));
+  // The app's fixed lines are looked up by their words (the phone's and the web's screens say the same).
+  const toMap = (items: { id: string; url?: string | null }[]) => {
+    const m = new Map(items.filter((i) => i.url).map((i) => [i.id, i.url!] as const));
+    if (kind === "app") appIndex = m;
+    return m;
+  };
   try {
-    const set = kind === "pack" ? await c.api.voicePack(c.lang) : await c.api.voiceLibrary(c.lang, c.imperial);
+    const set =
+      kind === "pack"
+        ? await c.api.voicePack(c.lang)
+        : kind === "lib"
+          ? await c.api.voiceLibrary(c.lang, c.imperial)
+          : await c.api.voiceApp(c.lang);
     if (set.voice === "device") return null;
-    const items = set.items.map((i) => ({ id: i.id, url: i.url ?? null }));
+    const items = set.items.map((i) => ({ id: kind === "app" ? i.text : i.id, url: i.url ?? null }));
     if (cache)
       void cache.put(key, new Response(JSON.stringify(items), { headers: { "content-type": "application/json" } })).catch(() => undefined);
     return toMap(items);
@@ -157,6 +171,15 @@ async function loadSet(c: VoiceConfig, kind: SetKind, name: string): Promise<Map
       return null;
     }
   }
+}
+
+/** The app's fixed lines once loaded (text → audio path): a rep count can play at once from it. */
+let appIndex: Map<string, string> | null = null;
+
+/** A line's recording: the app's fixed lines first, else `POST /v1/voice/lines` (null: the browser voice says it). */
+async function textPath(text: string): Promise<string | null> {
+  const app = await voiceSet("app");
+  return app?.get(text) ?? (await linePath(text));
 }
 
 /** Lines with numbers registered this visit: text → audio path (or null: the browser voice says it). */
@@ -403,20 +426,76 @@ export function playCue(s: Spoken) {
     kind: "cue",
     startMs: LINE_START_MS,
     playCloud: playPaths(async () => {
-      const p = await linePath(s.text);
+      const p = await textPath(s.text);
       return p ? [p] : null;
     }, true),
   });
 }
 
 /**
- * A short line said at once by the browser voice, through the same queue (newest wins, barge-in silences it): a camera
- * workout's rep count, which can't wait for a recording.
+ * Any coach line (the one way to speak besides cues and replies): its parts one after the other in the coach's voice
+ * when every part has a recording, else its words by the browser voice (a whole line in one voice, never mixed).
+ * `onVoice` says which voice took it (the preview shows it).
+ */
+export function sayLine(sp: CoachSpeech, o: { kind?: SpeechKind; onVoice?: (v: "coach" | "device") => void } = {}) {
+  const c = cfg;
+  if (!c || c.mode === "off" || !sp.text) return;
+  const parts = sp.parts?.length ? sp.parts : [sp.text];
+  let told = false;
+  const tell = (v: "coach" | "device") => {
+    if (told) return;
+    told = true;
+    o.onVoice?.(v);
+  };
+  queueLine({
+    text: sp.text,
+    kind: o.kind ?? "cue",
+    startMs: LINE_START_MS,
+    playCloud:
+      c.mode === "device"
+        ? null
+        : (ev) =>
+            playPaths(async () => {
+              const paths = await Promise.all(parts.map((p) => textPath(p)));
+              return paths.every(Boolean) ? (paths as string[]) : null;
+            }, true)({ ...ev, playing: () => (tell("coach"), ev.playing()) }),
+    onFallback: () => tell("device"),
+  });
+}
+
+/** You → Coach voice: "Hear my coach" (the app's preview line in the voice this account hears). */
+export function previewVoice(onVoice: (v: "coach" | "device") => void) {
+  const c = cfg;
+  if (!c) return;
+  queue.bargeIn();
+  sayLine({ text: PREVIEW_LINE[c.lang] }, { kind: "talk", onVoice });
+}
+
+/** How long a rep count waits for its recording (already fetched: it plays in a few ms) before the browser says it. */
+export const QUICK_START_MS = 450;
+
+/**
+ * A short line that can't wait (a camera workout's rep count, the countdown), through the same queue (newest wins,
+ * barge-in silences it): its recording when the app's fixed lines are loaded (prefetched by `warmCamera`), else the
+ * browser voice at once.
  */
 export function playQuick(text: string) {
   const c = cfg;
   if (!c || c.mode === "off" || !text) return;
-  queueLine({ text, kind: "cue", startMs: 0, playCloud: null });
+  const path = c.mode === "coach" ? appIndex?.get(text) : undefined;
+  queueLine({ text, kind: "cue", startMs: path ? QUICK_START_MS : 0, playCloud: path ? playPaths(async () => [path], true) : null });
+}
+
+/** Ahead of a camera workout or teaching a move: the counts 1–30 and the countdown's recordings into Cache Storage. */
+export async function warmCamera(): Promise<void> {
+  const c = cfg;
+  if (!c || c.mode !== "coach" || !online()) return;
+  const app = await voiceSet("app");
+  if (!app) return;
+  for (let n = 1; n <= 30; n++) {
+    const p = app.get(String(n));
+    if (p) await clipUrl(p, true).catch(() => null);
+  }
 }
 
 /**
@@ -457,6 +536,8 @@ export async function warmVoice(): Promise<void> {
   warmed = true;
   const pack = await voiceSet("pack");
   for (const path of pack?.values() ?? []) await clipUrl(path, true);
+  // The app's fixed lines: the list only (each recording is fetched the first time it's said, then kept).
+  await voiceSet("app");
   await prefetchLines([...splitLines(1, null, c.imperial), ...splitLines(2, null, c.imperial)]);
   void pruneCache();
 }
