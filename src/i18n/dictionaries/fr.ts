@@ -1273,6 +1273,10 @@ export const fr: Dictionary = {
         body: "« Zone 2 · 112–128 bpm » d'après ton profil Santé, avec l'allure ou la vitesse qui devrait t'y mettre, apprise de tes séances. Les jours tranquilles, des blocs de zone à rebours (3 minutes en course, 4 en marche) : tiens ta zone 80 % du bloc et il rapporte 10 % de plus. Règle tes propres zones par sport si tu les connais. Pas de fréquence cardiaque ? Des zones de vitesse que tu règles par sport te guident, toi et les annonces du coach : sur le web, et dans l'app depuis la version 28 pour les testeurs (les points demandent toujours une fréquence cardiaque).",
       },
       {
+        title: "Des zones pour chaque sport",
+        body: "Le cœur monte moins haut à vélo qu'en course, et moins encore dans l'eau ou quand seuls les bras travaillent : chaque sport a donc ses propres zones cardiaques, calculées pour toi. Tu connais ton max pour un sport ? Règle-le, ou règle tes propres zones en bpm ou en pourcentage. L'allure se lit comme le sport : au km ou au mile à pied, en km/h ou mph sur roues, aux 100 m dans l'eau, aux 500 m sur un rameur, et pas du tout là où elle ne veut rien dire. Tu préfères l'effort au ressenti ? Un seul bouton affiche facile, soutenu et difficile au lieu des chiffres, sur tous tes appareils. Règle-le dès maintenant sur le web ou sur la page de ton compte, et dans l'app à partir de la prochaine version bêta. Conseils bien-être, pas un avis médical ; les points et les prix ne changent pas.",
+      },
+      {
         title: "Écouter sur : téléphone ou montre",
         body: "Choisis où jouent Spotify, Apple Music ou un mix VVake : ton iPhone, ton Apple Watch ou une enceinte, et Spotify démarre là, jamais ailleurs. Spotify endormi ? Un geste l'ouvre et revient aussitôt. Rien ne joue ? Ton dernier titre s'affiche, une touche le relance. Un mix VVake passe de la montre au téléphone au même morceau, à la même seconde.",
       },
@@ -2660,7 +2664,7 @@ export const fr: Dictionary = {
           },
           {
             t: "Gardé dans ton navigateur.",
-            d: "La séance en cours est enregistrée dans ton navigateur (IndexedDB) toutes les quelques secondes, pour qu’un rechargement ou un onglet fermé puisse la reprendre ; les séances terminées y attendent leur envoi, puis sont effacées. Tes objectifs, ton rythme du jour, tes réglages de voix et ta connexion (24 heures au plus) sont aussi gardés dans le stockage de ton navigateur. Te déconnecter ou effacer les données du site les supprime. Ton choix de voix pendant les séances (voix activée, l’essentiel seulement ou voix coupée) et tes zones de vitesse par sport (des nombres seulement) sont aussi gardés avec ton compte, pour que tes autres appareils utilisent les mêmes.",
+            d: "La séance en cours est enregistrée dans ton navigateur (IndexedDB) toutes les quelques secondes, pour qu’un rechargement ou un onglet fermé puisse la reprendre ; les séances terminées y attendent leur envoi, puis sont effacées. Tes objectifs, ton rythme du jour, tes réglages de voix et ta connexion (24 heures au plus) sont aussi gardés dans le stockage de ton navigateur. Te déconnecter ou effacer les données du site les supprime. Ton choix de voix pendant les séances (voix activée, l’essentiel seulement ou voix coupée) et tes zones cardiaques et de vitesse par sport et ton réglage d’effort au ressenti (des nombres seulement) sont aussi gardés avec ton compte, pour que tes autres appareils utilisent les mêmes.",
           },
           {
             t: "Micro et voix, seulement quand tu le demandes.",

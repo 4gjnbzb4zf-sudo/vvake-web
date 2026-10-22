@@ -40,6 +40,8 @@ describe("the web app on the site", () => {
     expect(parseRoute("#coach")).toEqual({ name: "coach" });
     expect(parseRoute("")).toEqual({ name: "today" });
     expect(parseRoute("#/nope")).toEqual({ name: "today" });
+    expect(parseRoute("#/points")).toEqual({ name: "points" });
+    expect(routeHash({ name: "points" })).toBe("#/points");
     expect(routeHash({ name: "session", id: "a b" })).toBe("#/session/a%20b");
     expect(parseRoute("#/places/swim")).toEqual({ name: "places", sport: "swim" });
     expect(parseRoute("#/places")).toEqual({ name: "places" });

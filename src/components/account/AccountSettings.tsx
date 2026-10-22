@@ -16,6 +16,7 @@ import { AppSection, ProfileSection, RemindersSection } from "./ProfilePanels";
 import { CoachSection, HealthSection, GoalsSection, PlanSection } from "./CoachPanels";
 import { ConnectionsSection, DataSection, PlusSection, PulseSection } from "./ConnectionPanels";
 import { ACCOUNT_SECTIONS, sectionIndex, type PanelProps } from "./shared";
+import { ZonesSection } from "./ZonesPanel";
 
 /**
  * vvake.com/account: sign in (the rewards page's e-mail code or app link code), then every setting the account keeps.
@@ -159,6 +160,7 @@ export function AccountSettings({ dict, t, lang, apiUrl }: { dict: Dictionary["r
       <PlanSection {...p} />
       <CoachSection {...p} />
       <HealthSection {...p} />
+      <ZonesSection {...p} />
       <GoalsSection {...p} />
       <ConnectionsSection {...p} />
       <PulseSection {...p} />

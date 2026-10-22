@@ -6,7 +6,9 @@ import { cn } from "@/lib/cn";
 import { bleSupport } from "@/lib/webapp/ble";
 import { clock, distanceNumber, distanceUnit, elevation, pace, speed } from "@/lib/webapp/format";
 import { paceOf } from "@/lib/webapp/geo";
-import { showsSpeed, toggleWorkoutVoice, WORKOUT_VOICE_MODES } from "@/lib/webapp/speedZones";
+import { getSportZonesDict } from "@/i18n/sportZones";
+import { RPE_ZONES } from "@/lib/webapp/sportHeart";
+import { kindValue, paceKindText, paceKindUnit, showsSpeed, toggleWorkoutVoice, WORKOUT_VOICE_MODES } from "@/lib/webapp/speedZones";
 import { elapsedS, isPaused, QUICK_SPORTS, sportLabel, sportOf, usesGps, WEB_SPORTS } from "@/lib/webapp/workout";
 import { sports as catalog } from "@/lib/sports";
 import {
@@ -335,7 +337,15 @@ function LiveView() {
             {gps && (
               <Metric
                 label={useSpeed ? t.workout.speed : t.workout.pace}
-                value={useSpeed ? speed(p, prefs.units, lang) : pace(p, prefs.units)}
+                // Swimming reads per 100 m (or yd), rowing per 500 m; the rest per km / mile or as a speed.
+                value={
+                  (wk.paceKind === "swim" || wk.paceKind === "row") && p
+                    ? kindValue(3600 / p, wk.paceKind, prefs.units, lang)
+                    : useSpeed
+                      ? speed(p, prefs.units, lang)
+                      : pace(p, prefs.units)
+                }
+                unit={(wk.paceKind === "swim" || wk.paceKind === "row") && p ? paceKindUnit(wk.paceKind, prefs.units) : undefined}
               />
             )}
             {gps && w.track.gainM > 0 && <Metric label={t.workout.elevation} value={elevation(w.track.gainM, prefs.units, lang)} />}
@@ -343,20 +353,24 @@ function LiveView() {
               // No heart rate: the zone from speed (your speed zones for the sport), marked as such.
               <Metric
                 label={`⏲ ${t.workout.speedZone}`}
-                value={wk.zone > 0 ? fmt(t.workout.zoneSpeed, { n: wk.zone }) : t.workout.noZone}
+                value={wk.zone > 0 ? (wk.rpe ? zoneWord(wk.zone, lang) : fmt(t.workout.zoneSpeed, { n: wk.zone })) : t.workout.noZone}
+                // The speed it comes from, in the sport's unit (6:40 /km, 2:30 /100 m, 2:10 /500 m, 18 km/h).
+                unit={wk.speedKmh ? paceKindText(wk.speedKmh, wk.paceKind, prefs.units) : undefined}
                 small={wk.zone === 0}
               />
             ) : (
               <Metric
                 label={t.workout.heart}
                 value={bpm ? String(bpm) : "–"}
-                unit={bpm ? (wk.zone > 0 ? fmt(t.workout.zone, { n: wk.zone }) : "bpm") : undefined}
+                // Effort by feel: the zone as an effort word, never a bpm target.
+                unit={bpm ? (wk.zone > 0 ? (wk.rpe ? zoneWord(wk.zone, lang) : fmt(t.workout.zone, { n: wk.zone })) : "bpm") : undefined}
                 tone={bpm ? "pulse" : undefined}
               />
             )}
           </dl>
           {gps ? <Small className="mt-2">{gpsLine}</Small> : <Small className="mt-2">{t.workout.noGpsIndoor}</Small>}
           {wk.zoneSource === "speed" && <Small className="mt-1">{t.zones.disclaimer}</Small>}
+          {wk.roughGuide && bpm !== null && <Small className="mt-1">{getSportZonesDict(lang).roughGuide}</Small>}
 
           {!confirmEnd ? (
             <div className="mt-3 flex gap-3">
@@ -506,6 +520,12 @@ function VoiceSwitch() {
     </div>
   );
 }
+
+/** A zone as effort by feel ("Easy", "Steady"…), for effort-by-feel mode. */
+const zoneWord = (zone: number, lang: "en" | "fr") => {
+  const r = RPE_ZONES[Math.min(5, Math.max(1, zone)) as 1 | 2 | 3 | 4 | 5];
+  return lang === "fr" ? r.fr : r.en;
+};
 
 function Metric({ label, value, unit, tone, small }: { label: string; value: string; unit?: string; tone?: "pulse"; small?: boolean }) {
   return (

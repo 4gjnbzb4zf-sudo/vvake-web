@@ -12,7 +12,18 @@ import { afterUpload, openKV, QUEUE_KEY, type KV, type Queued } from "@/lib/weba
 import { configureVoice, hush, warmVoice } from "@/lib/webapp/coachAudio";
 import type { Chattiness } from "@/lib/webapp/voice";
 import type { SportSpeedSetting, SpeedZonesPrefs, WorkoutVoiceMode, WorkoutVoicePref } from "@/lib/webapp/speedZones";
-import { parseSpeedZones, parseWorkoutVoice, readStored, reconcile, voiceKey, writeStored, zonesKey } from "@/lib/webapp/workoutPrefs";
+import type { HeartZonesPrefs } from "@/lib/webapp/sportHeart";
+import {
+  heartKey,
+  parseHeartZones,
+  parseSpeedZones,
+  parseWorkoutVoice,
+  readStored,
+  reconcile,
+  voiceKey,
+  writeStored,
+  zonesKey,
+} from "@/lib/webapp/workoutPrefs";
 import { voiceMode } from "@/lib/webapp/voicePick";
 import { maxEnergy, refill, type EnergyState, type WebSession } from "@/lib/webapp/workout";
 import { useNow } from "./useNow";
@@ -25,6 +36,8 @@ import { useNow } from "./useNow";
 
 export type Route =
   | { name: "today" | "plan" | "crew" | "coach" | "you" | "goals" | "rhythm" | "vvaker" | "sensor" | "workout" | "zones" }
+  /** You, scrolled to the VV points card (Today's points pill). */
+  | { name: "points" }
   | { name: "session"; id: string }
   /** The camera workout (CameraScreen.tsx), with the sport whose routine it suggests (#/camera/strength). */
   | { name: "camera"; sport?: string }
@@ -61,7 +74,7 @@ export function parseRoute(hash: string): Route {
   if (name === "creator")
     return arg && /^[a-z0-9_]{3,20}$/i.test(arg) ? { name: "creator", handle: arg.toLowerCase() } : { name: "trainings" };
   if (name === "trainings" || name === "teach" || name === "coach-profile") return { name };
-  const known = ["today", "plan", "crew", "coach", "you", "goals", "rhythm", "vvaker", "sensor", "workout", "zones"] as const;
+  const known = ["today", "plan", "crew", "coach", "you", "points", "goals", "rhythm", "vvaker", "sensor", "workout", "zones"] as const;
   return { name: (known as readonly string[]).includes(name ?? "") ? (name as (typeof known)[number]) : "today" };
 }
 
@@ -135,6 +148,10 @@ export interface AppState {
   /** Speed zones per sport (ADR-0044), null until set on any device. */
   speedZones: SpeedZonesPrefs | null;
   setSpeedZones: (sports: Record<string, SportSpeedSetting>) => void;
+  /** Heart zones per sport and effort by feel (ADR-0048), null until set on any device. */
+  heartZones: HeartZonesPrefs | null;
+  /** Saves the whole object (stamp it with withSportHeart / withRpe): kept here and sent to the account. */
+  setHeartZones: (p: HeartZonesPrefs) => void;
   goals: WebGoal[];
   setGoals: (g: WebGoal[]) => void;
   energy: EnergyState;
@@ -254,10 +271,14 @@ export function AppProvider({
   const [legacyOff] = useState(legacyVoiceOff);
   const workoutVoice: WorkoutVoiceMode = voicePref?.mode ?? (legacyOff ? "off" : "on");
   const [speedZones, setSpeedZonesState] = useState<SpeedZonesPrefs | null>(() => readStored(zonesKey(me.id), parseSpeedZones));
+  const [heartZones, setHeartZonesState] = useState<HeartZonesPrefs | null>(() => readStored(heartKey(me.id), parseHeartZones));
   const voiceRef = useRef(voicePref);
   const zonesRef = useRef(speedZones);
+  const heartRef = useRef(heartZones);
+  /** The heart zones last sent: an API that doesn't keep them yet never answers with them, so each is sent once a visit. */
+  const heartSentAt = useRef<string | null>(null);
   const pushPrefs = useCallback(
-    (p: { workoutVoice?: WorkoutVoicePref; speedZones?: SpeedZonesPrefs }) =>
+    (p: { workoutVoice?: WorkoutVoicePref; speedZones?: SpeedZonesPrefs; heartZones?: HeartZonesPrefs }) =>
       void api
         .patchMe({ prefs: p })
         .then(setMe)
@@ -282,6 +303,22 @@ export function AppProvider({
     },
     [me.id],
   );
+  const adoptHeart = useCallback(
+    (p: HeartZonesPrefs) => {
+      heartRef.current = p;
+      setHeartZonesState(p);
+      writeStored(heartKey(me.id), p);
+    },
+    [me.id],
+  );
+  const setHeartZones = useCallback(
+    (p: HeartZonesPrefs) => {
+      adoptHeart(p);
+      heartSentAt.current = p.at;
+      pushPrefs({ heartZones: p });
+    },
+    [adoptHeart, pushPrefs],
+  );
   const setWorkoutVoice = useCallback(
     (mode: WorkoutVoiceMode) => {
       const p = { mode, at: new Date().toISOString() };
@@ -300,16 +337,26 @@ export function AppProvider({
   );
   const accountVoiceRaw = me.prefs?.workoutVoice;
   const accountZonesRaw = me.prefs?.speedZones;
+  const accountHeartRaw = me.prefs?.heartZones;
   useEffect(() => {
     const v = reconcile(voiceRef.current, parseWorkoutVoice(accountVoiceRaw));
     const z = reconcile(zonesRef.current, parseSpeedZones(accountZonesRaw));
+    const h = reconcile(heartRef.current, parseHeartZones(accountHeartRaw));
     const id = window.setTimeout(() => {
       if (v.adopt) adoptVoice(v.adopt);
       if (z.adopt) adoptZones(z.adopt);
+      if (h.adopt) adoptHeart(h.adopt);
     }, 0);
-    if (v.push || z.push) pushPrefs({ ...(v.push ? { workoutVoice: v.push } : {}), ...(z.push ? { speedZones: z.push } : {}) });
+    const heartPush = h.push && h.push.at !== heartSentAt.current ? h.push : undefined;
+    if (heartPush) heartSentAt.current = heartPush.at;
+    if (v.push || z.push || heartPush)
+      pushPrefs({
+        ...(v.push ? { workoutVoice: v.push } : {}),
+        ...(z.push ? { speedZones: z.push } : {}),
+        ...(heartPush ? { heartZones: heartPush } : {}),
+      });
     return () => window.clearTimeout(id);
-  }, [accountVoiceRaw, accountZonesRaw, adoptVoice, adoptZones, pushPrefs]);
+  }, [accountVoiceRaw, accountZonesRaw, accountHeartRaw, adoptVoice, adoptZones, adoptHeart, pushPrefs]);
 
   const tz = useMemo(() => localTz(), []);
   const refresh = useCallback(async () => {
@@ -445,6 +492,8 @@ export function AppProvider({
     setWorkoutVoice,
     speedZones,
     setSpeedZones,
+    heartZones,
+    setHeartZones,
     goals,
     setGoals,
     energy,
