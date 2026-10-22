@@ -3118,7 +3118,7 @@ export const fr: Dictionary = {
     lead: "Ouvre l'invitation dans l'app VVake pour l'accepter. Juste par principe : compté sur l'effort de ton cœur, pas sur la vitesse.",
     open: "Ouvrir dans l'app",
     noApp:
-      "Pas encore l'app ? Les apps iPhone et Apple Watch sont en bêta privée et ouvrent ville par ville. Rejoins l'accès anticipé pour passer en premier.",
+      "Pas encore l'app ? Les apps iPhone, Apple Watch et Android sont en bêta privée et ouvrent ville par ville. Rejoins l'accès anticipé pour passer en premier.",
     join: "Rejoindre l'accès anticipé",
     code: "Code d'invitation",
     loading: "Recherche de l'invitation…",
@@ -3153,8 +3153,19 @@ export const fr: Dictionary = {
       done: "Ce défi est terminé.",
       declined: "Ce défi a été refusé.",
     },
+    lifecycle: {
+      label: "Comment se passe un défi",
+      now: "Tu es ici",
+      steps: [
+        { t: "Invitation", d: "Un ami t'envoie une marque à battre." },
+        { t: "Accepter dans l'app", d: "Ton chrono ne démarre que quand tu touches Accepter." },
+        { t: "En direct", d: "Bouge quand ça t'arrange. Ta montre note l'effort pour ton propre cœur." },
+        { t: "Résultat", d: "Battue ou pas, l'effort compte pour ta semaine." },
+        { t: "Revanche", d: "Un geste pour remettre ça, quoi qu'il arrive." },
+      ],
+    },
     steps: "Comment ça marche",
-    step1: "Installe VVake sur ton iPhone (avec une Apple Watch pour la fréquence cardiaque).",
+    step1: "Installe VVake sur ton iPhone ou ton téléphone Android (avec une montre ou une ceinture pour la fréquence cardiaque).",
     step2:
       "Ouvre ce lien à nouveau, ou touche Ouvrir dans VVake. Ou tape le code {code} dans l'app : Équipe → Bats ma marque en 24 h → Tu as un code de défi ?",
     step3: "Touche Accepter : tes 24 heures démarrent. Bouge !",
@@ -3190,7 +3201,7 @@ export const fr: Dictionary = {
     bonus: "Termine ta première vraie séance avec fréquence cardiaque dans les 30 jours : 7 jours de VVake Plus offerts à vous deux.",
     open: "Ouvrir dans l'app",
     noApp:
-      "Pas encore l'app ? Les apps iPhone et Apple Watch sont en bêta privée et ouvrent ville par ville. Rejoins l'accès anticipé pour passer en premier.",
+      "Pas encore l'app ? Les apps iPhone, Apple Watch et Android sont en bêta privée et ouvrent ville par ville. Rejoins l'accès anticipé pour passer en premier.",
     join: "Rejoindre l'accès anticipé",
     invalid: "Ce lien d'invitation semble incomplet. Demande à ton ami de te le renvoyer.",
     shareX: "Partager sur X",
@@ -3204,7 +3215,20 @@ export const fr: Dictionary = {
   },
   moments: {
     about:
-      "VVake est un coach sportif pour iPhone et Apple Watch. Ta montre mesure ton vrai effort, un coach prévoit une semaine qui te ressemble, et ton VVaker et ton fantôme rendent tout plus fun.",
+      "VVake est un coach sportif sur ton téléphone, ta montre et le web : il mesure ton vrai effort pour ton cœur, prévoit une semaine qui te ressemble, et ton VVaker bouge quand tu bouges.",
+    page: {
+      facts: [
+        "L'effort pour ton propre cœur, pas la vitesse",
+        "Un coach qui prévoit une semaine qui te ressemble",
+        "Ton VVaker et ton fantôme rendent tout plus fun",
+      ],
+      fair: "Juste par nature : chacun est noté sur l'effort pour son propre cœur. Les jours de repos font partie du plan.",
+      tryWeb: "Essayer dans ton navigateur",
+      open: "Ouvrir dans l'app",
+      join: "Rejoindre l'accès anticipé",
+      cityRank: "{rank} à {city} cette semaine",
+      shared: "Partagé depuis VVake",
+    },
     kinds: {
       move: {
         title: "Un ami vient de finir une séance sur VVake",
@@ -3255,6 +3279,26 @@ export const fr: Dictionary = {
         ogAlt: "La semaine d'un ami sur VVake : tu crois faire mieux ?",
         ogKicker: "🔥 Ma semaine",
         ogLine: "Tu crois faire mieux ?",
+      },
+      challenge: {
+        title: "Un ami te lance un défi sur VVake",
+        headline: "Tu crois pouvoir me battre ? ⚡",
+        sub: "Ton ami vient de relever un défi et attend le suivant. Accepte-le dans l'app, donne tout, et demande une revanche quoi qu'il arrive.",
+        ogTitle: "Tu crois pouvoir me battre ? ⚡",
+        ogDescription: "Je viens de relever un défi sur VVake. À toi : accepte, bouge, et on verra. Revanche quand tu veux.",
+        ogAlt: "Un défi sur VVake : tu crois pouvoir me battre ?",
+        ogKicker: "⚡ Défi relevé",
+        ogLine: "À toi de jouer",
+      },
+      city: {
+        title: "Un ami grimpe au classement de sa ville sur VVake",
+        headline: "En haut du classement de la ville 🏙️",
+        sub: "Sur VVake, chaque séance compte pour ta ville cette semaine. Ton ami vient de grimper dans la sienne. Viens faire monter la tienne.",
+        ogTitle: "Je grimpe dans ma ville 🏙️",
+        ogDescription: "Chaque séance compte pour ta ville sur VVake. Tu crois que ta ville peut suivre la mienne ?",
+        ogAlt: "Un ami grimpe au classement hebdo de sa ville sur VVake",
+        ogKicker: "🏙️ Classement de la ville",
+        ogLine: "Ta ville est la prochaine ?",
       },
     },
   },

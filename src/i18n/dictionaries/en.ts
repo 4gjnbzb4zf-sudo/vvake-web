@@ -2940,7 +2940,8 @@ export const en = {
     metrics: { effort: "effort for your heart", minutes: "active minutes", "active-days": "active days", distance: "distance" },
     lead: "Open the invite in the VVake app to accept it. Fair by design: scored on effort for your heart, not speed.",
     open: "Open in the app",
-    noApp: "No app yet? The iPhone and Apple Watch apps are in a private beta and open city by city. Join early access to get in first.",
+    noApp:
+      "No app yet? The iPhone, Apple Watch and Android apps are in a private beta and open city by city. Join early access to get in first.",
     join: "Join early access",
     code: "Invite code",
     loading: "Looking up the invite…",
@@ -2975,8 +2976,19 @@ export const en = {
       done: "This challenge is over.",
       declined: "This challenge was declined.",
     },
+    lifecycle: {
+      label: "How a challenge goes",
+      now: "You are here",
+      steps: [
+        { t: "Invite", d: "A friend sends you a mark to beat." },
+        { t: "Accept in the app", d: "Your clock starts only when you tap Accept." },
+        { t: "Live", d: "Move when it suits you. Your watch scores effort for your own heart." },
+        { t: "Result", d: "Beat it or not, the effort counts toward your week." },
+        { t: "Rematch", d: "One tap to go again, either way." },
+      ],
+    },
     steps: "How it works",
-    step1: "Get VVake on your iPhone (with an Apple Watch for heart rate).",
+    step1: "Get VVake on your iPhone or Android phone (with a watch or a strap for heart rate).",
     step2:
       "Open this link again, or tap Open in VVake. Or type the code {code} in the app: Crew → Beat my mark in 24 h → Got a challenge code?",
     step3: "Tap Accept: your 24 hours start. Move!",
@@ -3010,7 +3022,8 @@ export const en = {
     steps: "Install VVake, then enter this code when you sign up (or open this link again on your iPhone once installed).",
     bonus: "When you finish your first real workout with heart rate within 30 days, you and your friend both get 7 days of VVake Plus.",
     open: "Open in the app",
-    noApp: "No app yet? The iPhone and Apple Watch apps are in a private beta and open city by city. Join early access to get in first.",
+    noApp:
+      "No app yet? The iPhone, Apple Watch and Android apps are in a private beta and open city by city. Join early access to get in first.",
     join: "Join early access",
     invalid: "This invite link looks incomplete. Ask your friend to send it again.",
     shareX: "Share on X",
@@ -3023,9 +3036,18 @@ export const en = {
     ogLine: "Think you can beat my ghost?",
   },
   moments: {
-    /** Shown above the invite block on every moment page. */
+    /** What VVake is, in one line, under the hero of every moment page. */
     about:
-      "VVake is a fitness coach for iPhone and Apple Watch. Your watch measures real effort, a coach plans a week that fits, and your VVaker and your ghost keep it fun.",
+      "VVake is a fitness coach on your phone, your watch and the web: it measures real effort for your heart, plans a week that fits, and your VVaker moves when you move.",
+    page: {
+      facts: ["Effort for your own heart, not speed", "A coach that plans a week that fits", "Your VVaker and your ghost keep it fun"],
+      fair: "Fair by design: everyone is scored on effort for their own heart. Rest days count as part of the plan.",
+      tryWeb: "Try it in your browser",
+      open: "Open in the app",
+      join: "Join early access",
+      cityRank: "{rank} in {city} this week",
+      shared: "Shared from VVake",
+    },
     kinds: {
       move: {
         title: "A friend just finished a session on VVake",
@@ -3076,6 +3098,26 @@ export const en = {
         ogAlt: "A friend's week on VVake: think you can top it?",
         ogKicker: "🔥 My week",
         ogLine: "Think you can top that?",
+      },
+      challenge: {
+        title: "A friend dares you on VVake",
+        headline: "Think you can beat me? ⚡",
+        sub: "Your friend just took on a challenge and wants the next one. Accept it in the app, give it your best, and ask for a rematch either way.",
+        ogTitle: "Think you can beat me? ⚡",
+        ogDescription: "I just took on a challenge on VVake. Your turn: accept, move, and we'll see. Rematch any time.",
+        ogAlt: "A dare on VVake: think you can beat me?",
+        ogKicker: "⚡ Challenge taken",
+        ogLine: "Your move",
+      },
+      city: {
+        title: "A friend is climbing their city's board on VVake",
+        headline: "Up the city board 🏙️",
+        sub: "On VVake every workout counts for your city this week. Your friend just moved up theirs. Come and lift yours.",
+        ogTitle: "Climbing my city's board 🏙️",
+        ogDescription: "Every workout counts for your city on VVake. Think your city can keep up with mine?",
+        ogAlt: "A friend is climbing their city's weekly board on VVake",
+        ogKicker: "🏙️ City board",
+        ogLine: "Is your city next?",
       },
     },
   },

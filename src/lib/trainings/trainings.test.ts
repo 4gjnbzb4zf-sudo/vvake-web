@@ -13,7 +13,19 @@ import {
   trainingShareUrl,
   trainingWebRunUrl,
 } from "./link";
-import { readBoard, readCard, readCreatorPage, readDiscover, readProfile, readRun, readShared, setRows, trainingFacts } from "./data";
+import {
+  challengeProgress,
+  challengeStage,
+  readBoard,
+  readCard,
+  readCreatorPage,
+  readDiscover,
+  readProfile,
+  readRun,
+  readShared,
+  setRows,
+  trainingFacts,
+} from "./data";
 import { builderMoves, checkDraft, draftBody, draftOf, emptyDraft, moveNameProblem, moveSet, newMoveBody, newSet } from "./builder";
 import { query } from "./api";
 
@@ -129,12 +141,30 @@ describe("reading the API", () => {
     expect(d.trainings).toHaveLength(1);
     expect(d.creators.map((c) => c.handle)).toEqual(["sam"]);
     expect(d.next).toBe("abc");
-    expect(readDiscover(null)).toEqual({ trainings: [], creators: [], next: null });
+    expect(d.highlights).toEqual([]);
+    expect(readDiscover(null)).toEqual({ trainings: [], creators: [], highlights: [], next: null });
+    expect(
+      readDiscover({
+        highlights: [
+          { handle: "Sam", name: "Sam", athletes: 12.4 },
+          { handle: "sam", name: "dupe", athletes: 1 },
+          { handle: "!!", name: "bad" },
+          { handle: "lea_fit", athletes: -3 },
+        ],
+      }).highlights,
+    ).toEqual([
+      { handle: "sam", name: "Sam", athletes: 12 },
+      { handle: "lea_fit", name: "lea_fit", athletes: 0 },
+    ]);
     const p = readCreatorPage({
       creator: { name: "Sam", handle: "Sam", bio: "Hi", followers: 2, joins: 5, coachScore: 120 },
       trainings: [card],
     });
     expect(p?.creator).toMatchObject({ handle: "sam", followers: 2, joins: 5, coachScore: 120, city: null });
+    expect(p?.weekAthletes).toBeNull();
+    expect(readCreatorPage({ creator: { handle: "sam" }, weekAthletes: 23 })?.weekAthletes).toBe(23);
+    expect(readCreatorPage({ creator: { handle: "sam", weekAthletes: 7 } })?.weekAthletes).toBe(7);
+    expect(readCreatorPage({ creator: { handle: "sam" }, weekAthletes: "lots" })?.weekAthletes).toBeNull();
     expect(readCreatorPage({ creator: { handle: "!" } })).toBeNull();
   });
 
@@ -153,6 +183,7 @@ describe("reading the API", () => {
       { name: null, score: 500 },
     ]);
     expect(b.training.code).toBe("ABCD2345");
+    expect(b).toMatchObject({ startsAt: null, windowHours: null, stage: null });
     expect(readRun({ run: { score: 640, completion: 0.9, inZone: null, completed: true, qualifying: false } })).toEqual({
       score: 640,
       completion: 0.9,
@@ -167,6 +198,28 @@ describe("reading the API", () => {
       bio: "x",
       showCity: false,
     });
+  });
+
+  it("a challenge is live, in its last hours, then over, on the clock or the API's word", () => {
+    const end = Date.parse("2026-10-22T10:00:00Z");
+    const h = 3_600_000;
+    const b = readBoard({ endsAt: "2026-10-22T10:00:00Z", startsAt: "2026-10-21T10:00:00Z", windowHours: 24, stage: "weird" })!;
+    expect(b).toMatchObject({ windowHours: 24, stage: null, startsAt: "2026-10-21T10:00:00Z" });
+    expect(challengeStage(b, end - 10 * h)).toBe("live");
+    expect(challengeStage(b, end - 5 * h)).toBe("closing");
+    expect(challengeStage(b, end + 1)).toBe("ended");
+    expect(challengeStage({ ...b, stage: "closing" }, end - 20 * h)).toBe("closing");
+    // The clock ends it even when the API still said live (a page left open).
+    expect(challengeStage({ ...b, stage: "live" }, end + 1000)).toBe("ended");
+    expect(challengeStage({ ...b, stage: "ended" }, end - 20 * h)).toBe("ended");
+    // No window known: the last 3 hours.
+    const bare = readBoard({ endsAt: "2026-10-22T10:00:00Z" })!;
+    expect(challengeStage(bare, end - 4 * h)).toBe("live");
+    expect(challengeStage(bare, end - 2 * h)).toBe("closing");
+    expect(challengeProgress(bare, end - h)).toBeNull();
+    expect(challengeProgress(b, end - 6 * h)).toBeCloseTo(0.75);
+    expect(challengeProgress({ ...b, startsAt: null }, end - 12 * h)).toBeCloseTo(0.5);
+    expect(readBoard({ endsAt: "not a date", windowHours: 99999 })).toMatchObject({ endsAt: null, windowHours: null });
   });
 
   it("query strings leave empty values out", () => {

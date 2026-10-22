@@ -19,7 +19,15 @@ import {
   type Draft,
   type DraftSet,
 } from "@/lib/trainings/builder";
-import { type CreatorCard, type CreatorStats, type MyProfile, type SharedTraining, type TrainingCard } from "@/lib/trainings/data";
+import {
+  count,
+  type CreatorCard,
+  type CreatorStats,
+  type DiscoverResult,
+  type MyProfile,
+  type SharedTraining,
+  type TrainingCard,
+} from "@/lib/trainings/data";
 import { CREATOR_HANDLE, trainingShareUrl } from "@/lib/trainings/link";
 import { cleanCustomMove, type CustomMove } from "@/lib/webapp/camera/cameraCustom";
 import {
@@ -71,14 +79,16 @@ const errorText = (e: unknown, d: TrainingsDict["app"]["builder"]) =>
 // ── The tab ─────────────────────────────────────────────────────────────────────────────────────────────────────
 
 export function TrainingsScreen() {
-  const { lang, go } = useApp();
+  const { lang, go, fmt } = useApp();
   const { api, d } = useTrainings();
   const a = d.app;
   const [tab, setTab] = useState<"discover" | "mine" | "joined">("discover");
   const [q, setQ] = useState("");
   const [level, setLevel] = useState<TrainingLevel | "">("");
-  const [sort, setSort] = useState<"popular" | "new" | "coach">("popular");
-  const [found, setFound] = useState<{ trainings: TrainingCard[]; creators: CreatorCard[]; next: string | null } | null>(null);
+  const [sort, setSort] = useState<"trending" | "popular" | "new" | "coach">("popular");
+  // The order the shown results were asked in (the select may have changed since).
+  const [shownSort, setShownSort] = useState<typeof sort>("popular");
+  const [found, setFound] = useState<DiscoverResult | null>(null);
   const [mine, setMine] = useState<{ mine: TrainingCard[]; joined: TrainingCard[] } | null>(null);
   const [error, setError] = useState(false);
   const { moves, reload } = useMyMoves(api);
@@ -88,7 +98,10 @@ export function TrainingsScreen() {
       setError(false);
       try {
         const r = await api.discover({ q: q.trim() || undefined, level: level || undefined, sort, cursor });
-        setFound((old) => (cursor && old ? { ...r, trainings: [...old.trainings, ...r.trainings], creators: old.creators } : r));
+        setFound((old) =>
+          cursor && old ? { ...r, trainings: [...old.trainings, ...r.trainings], creators: old.creators, highlights: old.highlights } : r,
+        );
+        if (!cursor) setShownSort(sort);
       } catch {
         setError(true);
       }
@@ -193,10 +206,10 @@ export function TrainingsScreen() {
               <select
                 className="h-11 rounded-xl border border-line bg-night px-3 text-sm"
                 value={sort}
-                aria-label="Sort"
+                aria-label={a.sortLabel}
                 onChange={(e) => setSort(e.target.value as typeof sort)}
               >
-                {(["popular", "new", "coach"] as const).map((s) => (
+                {(["trending", "popular", "new", "coach"] as const).map((s) => (
                   <option key={s} value={s}>
                     {a.sort[s]}
                   </option>
@@ -206,6 +219,21 @@ export function TrainingsScreen() {
           </form>
           {error && <Note tone="butter">{a.loadError}</Note>}
           {!found && !error && <p className="text-muted">{d.share.loading}</p>}
+          {found && found.highlights.length > 0 && (
+            <section className="space-y-2">
+              <Kicker tone="sky">{a.weekCoaches}</Kicker>
+              <List>
+                {found.highlights.map((h) => (
+                  <Row
+                    key={h.handle}
+                    title={h.name}
+                    detail={`@${h.handle}${h.athletes > 0 ? ` · ${fmt(a.weekCoach, { n: count(h.athletes, lang) })}` : ""}`}
+                    onClick={() => go({ name: "creator", handle: h.handle })}
+                  />
+                ))}
+              </List>
+            </section>
+          )}
           {found && found.creators.length > 0 && (
             <section className="space-y-2">
               <Kicker tone="sky">{a.coaches}</Kicker>
@@ -222,6 +250,7 @@ export function TrainingsScreen() {
               </List>
             </section>
           )}
+          {found && shownSort === "trending" && found.trainings.length > 0 && <Kicker tone="sky">{a.trending}</Kicker>}
           {found && list(found.trainings, a.noResults)}
           {found?.next && (
             <Btn variant="ghost" className="w-full" onClick={() => void search(found.next!)}>

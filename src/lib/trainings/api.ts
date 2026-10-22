@@ -73,7 +73,8 @@ export interface DiscoverQuery {
   sport?: string;
   level?: string;
   city?: string;
-  sort?: "popular" | "new" | "coach";
+  /** "trending" needs the newer API (an older one falls back to its default order). */
+  sort?: "trending" | "popular" | "new" | "coach";
   cursor?: string;
 }
 

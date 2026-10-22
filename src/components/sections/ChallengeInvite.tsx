@@ -81,6 +81,8 @@ export function ChallengeInvite({
   const date = (iso: string) =>
     new Intl.DateTimeFormat(lang === "fr" ? "fr-FR" : "en-GB", { dateStyle: "medium", timeStyle: "short" }).format(new Date(iso));
   const statusText = { won: dict.statusWon, accepted: dict.statusRacing, lost: dict.statusLost };
+  // Where this link stands in invite → accept → live → result → rematch (none for an expired, closed or declined one).
+  const stage = !p || open ? 0 : p.status === "accepted" ? 2 : p.status === "done" ? 3 : -1;
 
   return (
     <div className="rounded-3xl border border-line bg-surface/60 p-6 text-center sm:p-10">
@@ -198,6 +200,40 @@ export function ChallengeInvite({
             {dict.shareX}
           </a>
         )}
+      </div>
+
+      <div className="mx-auto mt-8 max-w-md text-left">
+        <p className="font-mono text-xs tracking-[0.16em] text-faint uppercase">{dict.lifecycle.label}</p>
+        <ol className="mt-3 space-y-0">
+          {dict.lifecycle.steps.map((s, i) => {
+            const here = state.kind === "ready" && i === stage;
+            const done = state.kind === "ready" && stage > i;
+            return (
+              <li key={s.t} className="relative flex gap-3 pb-4 last:pb-0">
+                {i < dict.lifecycle.steps.length - 1 && (
+                  <span aria-hidden className={`absolute top-6 left-[11px] h-[calc(100%-1.25rem)] w-px ${done ? "bg-volt" : "bg-line"}`} />
+                )}
+                <span
+                  aria-hidden
+                  className={`relative mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full border font-mono text-xs ${
+                    here ? "border-volt-fg bg-volt text-ink" : done ? "border-volt-fg/60 text-volt-fg" : "border-line text-faint"
+                  }`}
+                >
+                  {done ? "✓" : i + 1}
+                </span>
+                <span className="min-w-0">
+                  <span className={`block text-sm font-semibold ${here ? "text-text" : "text-muted"}`}>
+                    {s.t}
+                    {here && (
+                      <span className="ml-2 font-mono text-[11px] tracking-[0.12em] text-volt-fg uppercase">{dict.lifecycle.now}</span>
+                    )}
+                  </span>
+                  <span className="block text-sm text-muted">{s.d}</span>
+                </span>
+              </li>
+            );
+          })}
+        </ol>
       </div>
 
       {code && open && (

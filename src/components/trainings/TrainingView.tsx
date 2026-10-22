@@ -113,7 +113,7 @@ export function TrainingView({
   );
 }
 
-/** A training in a list: name, time and level, who made it, how many trained it. */
+/** A training in a list: name, time and level, who made it, how many trained it (a pill), an arrow to open it. */
 export function TrainingCardRow({
   name,
   minutes,
@@ -137,15 +137,25 @@ export function TrainingCardRow({
 }) {
   const body = (
     <>
-      <span className="block font-semibold break-words">{name}</span>
-      <span className="block text-sm text-muted">
-        {minutes ? fmt(d.app.card, { min: minutes, level: d.share.level[level] }) : d.share.level[level]}
-        {creator ? ` · ${creator}` : ""}
-        {athletes > 0 ? ` · ${fmt(d.app.athletes, { n: count(athletes, lang) })}` : ""}
+      <span className="min-w-0 flex-1">
+        <span className="block font-semibold break-words">{name}</span>
+        <span className="block text-sm text-muted">
+          {minutes ? fmt(d.app.card, { min: minutes, level: d.share.level[level] }) : d.share.level[level]}
+          {creator ? ` · ${creator}` : ""}
+        </span>
+      </span>
+      {athletes > 0 && (
+        <span className="shrink-0 rounded-full bg-volt/15 px-2.5 py-1 text-xs font-semibold text-volt-fg tabular-nums">
+          {fmt(d.creator.trained, { n: count(athletes, lang) })}
+        </span>
+      )}
+      <span aria-hidden className="shrink-0 text-faint">
+        →
       </span>
     </>
   );
-  const cls = "block w-full rounded-2xl border border-line bg-surface px-4 py-3 text-left hover:border-pulse/60";
+  const cls =
+    "flex w-full items-center gap-3 rounded-2xl border border-line bg-surface px-4 py-3 text-left transition-colors hover:border-pulse/60";
   return href ? (
     <a href={href} className={cls}>
       {body}

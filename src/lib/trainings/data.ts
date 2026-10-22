@@ -189,19 +189,59 @@ export function readCreatorCard(x: unknown): CreatorCard | null {
 }
 
 /** GET /v1/creators/:handle. */
-export function readCreatorPage(json: unknown): { creator: CreatorCard; trainings: TrainingCard[] } | null {
+export interface CreatorPageData {
+  creator: CreatorCard;
+  trainings: TrainingCard[];
+  /** People who trained with them in the last 7 days (newer API; null when not sent). */
+  weekAthletes: number | null;
+}
+const countOrNull = (x: unknown) => (typeof x === "number" && Number.isFinite(x) && x >= 0 ? Math.round(x) : null);
+export function readCreatorPage(json: unknown): CreatorPageData | null {
   if (!json || typeof json !== "object") return null;
-  const o = json as { creator?: unknown; trainings?: unknown };
+  const o = json as { creator?: unknown; trainings?: unknown; weekAthletes?: unknown };
   const creator = readCreatorCard(o.creator);
-  return creator ? { creator, trainings: readCards(o.trainings) } : null;
+  const inner = o.creator && typeof o.creator === "object" ? (o.creator as { weekAthletes?: unknown }).weekAthletes : undefined;
+  return creator ? { creator, trainings: readCards(o.trainings), weekAthletes: countOrNull(o.weekAthletes ?? inner) } : null;
+}
+
+/** "This week's coaches" in Discover (newer API, optional). */
+export interface CoachHighlight {
+  handle: string;
+  name: string;
+  athletes: number;
+}
+export function readHighlights(x: unknown): CoachHighlight[] {
+  if (!Array.isArray(x)) return [];
+  const out: CoachHighlight[] = [];
+  for (const h of x) {
+    if (!h || typeof h !== "object") continue;
+    const o = h as { handle?: unknown; name?: unknown; athletes?: unknown };
+    const handle = parseHandle(typeof o.handle === "string" ? o.handle : null);
+    if (!handle || out.some((c) => c.handle === handle)) continue;
+    const name = typeof o.name === "string" && o.name.trim() ? o.name.trim().slice(0, 60) : handle;
+    out.push({ handle, name, athletes: countOrNull(o.athletes) ?? 0 });
+  }
+  return out.slice(0, 10);
 }
 
 /** GET /v1/discover. */
-export function readDiscover(json: unknown): { trainings: TrainingCard[]; creators: CreatorCard[]; next: string | null } {
-  const o = (json && typeof json === "object" ? json : {}) as { trainings?: unknown; creators?: unknown; next?: unknown };
+export interface DiscoverResult {
+  trainings: TrainingCard[];
+  creators: CreatorCard[];
+  highlights: CoachHighlight[];
+  next: string | null;
+}
+export function readDiscover(json: unknown): DiscoverResult {
+  const o = (json && typeof json === "object" ? json : {}) as {
+    trainings?: unknown;
+    creators?: unknown;
+    highlights?: unknown;
+    next?: unknown;
+  };
   return {
     trainings: readCards(o.trainings),
     creators: Array.isArray(o.creators) ? o.creators.map(readCreatorCard).filter((c): c is CreatorCard => !!c) : [],
+    highlights: readHighlights(o.highlights),
     next: typeof o.next === "string" && o.next ? o.next : null,
   };
 }
@@ -212,30 +252,72 @@ export function readMyTrainings(json: unknown): { mine: TrainingCard[]; joined: 
   return { mine: readCards(o.mine), joined: readCards(o.joined) };
 }
 
-/** GET /v1/training-challenges/:code. */
+/** GET /v1/training-challenges/:code. `startsAt`, `windowHours` and `stage` are optional (newer API). */
+export type ChallengeStage = "live" | "closing" | "ended";
 export interface ChallengeBoard {
   training: { code: string | null; name: string };
   endsAt: string | null;
+  startsAt: string | null;
+  windowHours: number | null;
+  /** The API's own stage, when it sends one. */
+  stage: ChallengeStage | null;
   members: number;
   leaderboard: { name: string | null; score: number }[];
 }
+const STAGES: readonly ChallengeStage[] = ["live", "closing", "ended"];
 const boardSchema = z.object({
   training: opt(z.object({ code: str, name: str })),
   endsAt: str,
+  startsAt: str,
+  windowHours: num,
+  stage: str,
   members: num,
   leaderboard: opt(z.array(z.object({ name: str, score: num }))),
 });
+const isoOrNull = (s: string | null | undefined) => (s && Number.isFinite(Date.parse(s)) ? s : null);
 export function readBoard(json: unknown): ChallengeBoard | null {
   const p = boardSchema.safeParse(json);
   if (!p.success) return null;
+  const hours = p.data.windowHours;
   return {
-    training: { code: parseTrainingCode(p.data.training?.code), name: p.data.training?.name ?? "" },
-    endsAt: p.data.endsAt ?? null,
-    members: Math.round(p.data.members ?? 0),
+    training: { code: parseTrainingCode(p.data.training?.code), name: (p.data.training?.name ?? "").slice(0, 48) },
+    endsAt: isoOrNull(p.data.endsAt),
+    startsAt: isoOrNull(p.data.startsAt),
+    windowHours: hours && hours > 0 && hours <= 24 * 31 ? Math.round(hours) : null,
+    stage: STAGES.includes(p.data.stage as ChallengeStage) ? (p.data.stage as ChallengeStage) : null,
+    members: Math.max(0, Math.round(p.data.members ?? 0)),
     leaderboard: (p.data.leaderboard ?? [])
       .map((r) => ({ name: r.name ? r.name.slice(0, 40) : null, score: Math.max(0, Math.min(1000, Math.round(r.score ?? 0))) }))
       .sort((a, b) => b.score - a.score),
   };
+}
+
+/** The last hours of a challenge: the final quarter of its window, at most 6 h (3 h when the window isn't known). */
+export function closingMs(b: Pick<ChallengeBoard, "startsAt" | "endsAt" | "windowHours">): number {
+  const span =
+    b.windowHours !== null ? b.windowHours * 3_600_000 : b.startsAt && b.endsAt ? Date.parse(b.endsAt) - Date.parse(b.startsAt) : null;
+  return span && span > 0 ? Math.min(6 * 3_600_000, span / 4) : 3 * 3_600_000;
+}
+
+/**
+ * Where a challenge stands now: the clock wins over the API's stage once the end has passed (a page left open ends on
+ * time), otherwise the API's stage, otherwise the time left against the last hours.
+ */
+export function challengeStage(b: Pick<ChallengeBoard, "startsAt" | "endsAt" | "windowHours" | "stage">, nowMs: number): ChallengeStage {
+  const end = b.endsAt ? Date.parse(b.endsAt) : null;
+  if (end !== null && nowMs > 0 && end <= nowMs) return "ended";
+  if (b.stage) return b.stage;
+  if (end === null || nowMs <= 0) return "live";
+  return end - nowMs <= closingMs(b) ? "closing" : "live";
+}
+
+/** How far through its window the challenge is, 0..1, or null when the start isn't known. */
+export function challengeProgress(b: Pick<ChallengeBoard, "startsAt" | "endsAt" | "windowHours">, nowMs: number): number | null {
+  if (!b.endsAt || nowMs <= 0) return null;
+  const end = Date.parse(b.endsAt);
+  const start = b.startsAt ? Date.parse(b.startsAt) : b.windowHours !== null ? end - b.windowHours * 3_600_000 : null;
+  if (start === null || !(end > start)) return null;
+  return Math.max(0, Math.min(1, (nowMs - start) / (end - start)));
 }
 
 /** GET/PATCH /v1/me/profile. */
