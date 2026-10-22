@@ -243,6 +243,8 @@ export function webApi(s: RewardsSession) {
       const q = [lang === "fr" ? "lang=fr" : "", imperial ? "units=imperial" : ""].filter(Boolean).join("&");
       return s.call(`/v1/voice/library${q ? `?${q}` : ""}`, GET, voiceSetSchema);
     },
+    /** GET /v1/voice/app: the app's fixed lines (camera, teach a move, check-ins, the preview), for every account. */
+    voiceApp: (lang: string) => s.call(`/v1/voice/app${lang === "fr" ? "?lang=fr" : ""}`, GET, voiceSetSchema),
     voiceLines: (lines: string[], lang: string) =>
       s.call("/v1/voice/lines", send("POST", { lines, lang: lang === "fr" ? "fr" : "en" }), voiceLinesSchema),
     clashes: (status?: "live" | "upcoming" | "recent") => s.call(`/v1/clashes${status ? `?status=${status}` : ""}`, GET, clashesSchema),

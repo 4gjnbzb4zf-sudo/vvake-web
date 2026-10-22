@@ -19,7 +19,7 @@ import {
   type TeachError,
 } from "@/lib/webapp/camera/cameraTemplate";
 import { ugcProblemText } from "@/lib/webapp/camera/ugc";
-import { playQuick, unlockAudio } from "@/lib/webapp/coachAudio";
+import { playQuick, unlockAudio, warmCamera } from "@/lib/webapp/coachAudio";
 import { useApp } from "./AppContext";
 import type { Webcam } from "./CameraScreen";
 import { Btn, Card, Field, inputCls, Kicker, Note, Segmented, Small } from "./ui";
@@ -153,6 +153,7 @@ export function TeachMove({
 
   const start = () => {
     unlockAudio();
+    void warmCamera();
     t0.current = Date.now();
     setNow(Date.now());
     setStep({ kind: "countdown", until: Date.now() + 3000 });

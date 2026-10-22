@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useState, type ReactNode } from "react";
 import type { ApiSession } from "@/lib/webapp/api";
 import { clock, dayLabel, distance } from "@/lib/webapp/format";
+import { previewVoice, unlockAudio } from "@/lib/webapp/coachAudio";
 import { WORKOUT_VOICE_MODES } from "@/lib/webapp/speedZones";
 import { weekPoints } from "@/lib/webapp/points";
 import { sportLabel, streakMultiplier } from "@/lib/webapp/workout";
@@ -59,6 +60,7 @@ export function YouScreen({ focus }: { focus?: Section } = {}) {
   const [name, setName] = useState(me.name ?? "");
   const [city, setCity] = useState(me.city ?? "");
   const [saved, setSaved] = useState<"idle" | "saving" | "saved" | "error">("idle");
+  const [hearing, setHearing] = useState<"coach" | "device" | null>(null);
   const [more, setMore] = useState<ApiSession[]>([]);
   const [nextLoaded, setNext] = useState<string | null | undefined>(undefined);
   const next = nextLoaded !== undefined ? nextLoaded : sessions.length >= 30 ? sessions[sessions.length - 1]!.startedAt : null;
@@ -273,6 +275,22 @@ export function YouScreen({ focus }: { focus?: Section } = {}) {
             options={(["quiet", "normal", "chatty"] as const).map((k) => ({ value: k, label: t.you.chattiness[k] }))}
             onChange={(v) => setPrefs({ chattiness: v })}
           />
+        </div>
+        <div className="mt-4">
+          <Btn
+            variant="ghost"
+            onClick={() => {
+              // The tap unlocks the page's audio (Safari), then the preview plays in the voice every line uses.
+              unlockAudio();
+              setHearing(null);
+              previewVoice(setHearing);
+            }}
+          >
+            {t.you.hearCoach}
+          </Btn>
+          <Small className="mt-1">
+            {hearing === "coach" ? t.you.hearingCoach : hearing === "device" ? t.you.hearingDevice : t.you.hearCoachDetail}
+          </Small>
         </div>
         <div className="mt-4">
           <p className="mb-1 text-sm font-medium">{t.you.units}</p>
