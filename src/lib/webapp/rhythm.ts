@@ -63,6 +63,10 @@ export const withDay = (days: readonly RhythmDay[], d: RhythmDay): RhythmDay[] =
 
 export const glassesToday = (userId: string, now = Date.now()) => dayOf(readDays(userId), now).glasses;
 
+/** Today's logged rhythm day in this browser, or null (Today's Habits door). */
+export const rhythmToday = (userId: string, now = Date.now()): RhythmDay | null =>
+  readDays(userId).find((d) => d.day === habitDay(now)) ?? null;
+
 const minuteOf = (ms: number) => {
   const d = new Date(ms);
   return d.getHours() * 60 + d.getMinutes();

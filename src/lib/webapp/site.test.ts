@@ -40,6 +40,8 @@ describe("the web app on the site", () => {
     expect(parseRoute("#coach")).toEqual({ name: "coach" });
     expect(parseRoute("")).toEqual({ name: "today" });
     expect(parseRoute("#/nope")).toEqual({ name: "today" });
+    expect(parseRoute("#/points")).toEqual({ name: "points" });
+    expect(routeHash({ name: "points" })).toBe("#/points");
     expect(routeHash({ name: "session", id: "a b" })).toBe("#/session/a%20b");
   });
   it("custom training routes (ADR-0047): run, page, builder, teach, creator", () => {

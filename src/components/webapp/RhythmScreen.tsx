@@ -14,7 +14,7 @@ import { useNow } from "./useNow";
  * day ends at 5 am. Reminders stay in the app (a closed browser can't ring).
  */
 
-export { glassesToday, habitSend, RHYTHM_TARGETS, type RhythmDay } from "@/lib/webapp/rhythm";
+export { glassesToday, habitSend, rhythmToday, RHYTHM_TARGETS, type RhythmDay } from "@/lib/webapp/rhythm";
 
 export function RhythmScreen() {
   const { t, lang, me, api, fmt } = useApp();

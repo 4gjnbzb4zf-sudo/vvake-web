@@ -9,17 +9,19 @@ import { sportLabel, streakMultiplier, MINUTES_PER_ENERGY } from "@/lib/webapp/w
 import { useApp } from "./AppContext";
 import { goalTitle } from "./GoalsScreen";
 import { VVakerImg } from "./MyVVaker";
-import { glassesToday } from "./RhythmScreen";
+import { rhythmToday } from "./RhythmScreen";
 import { HabitsToday } from "./HabitsToday";
 import { useWorkout } from "./WorkoutContext";
 import { EntryChoice } from "./WorkoutScreen";
 import { cameraSport } from "@/lib/webapp/camera/webSetup";
-import { Bar, Btn, Card, Kicker, List, Pill, Row, Small } from "./ui";
+import { habitsDoor, weekPoints } from "@/lib/webapp/points";
+import { Bar, Btn, Card, Door, Kicker, List, Pill, Row, Small } from "./ui";
 import { useNow } from "./useNow";
 
 /**
- * Today (apps/mobile app/(tabs)/index.tsx): train now first (today's planned session with one Start, another sport),
- * then the plan, the goals, and the rest of the day as rows. Streak and energy stay small in the header.
+ * Today (apps/mobile app/(tabs)/index.tsx), the intent hub: train now first (today's planned session with one Start,
+ * another sport, the camera), then four quick doors (Challenge, Week plan, Coach, Habits), the goals and the week.
+ * Streak, energy and this week's VV points stay small in the header (the points pill opens You → VV points).
  */
 export function TodayScreen() {
   const { t, lang, me, streak, energy, energyMax, go, goals, sessions, stats, api, queue, flush, fmt } = useApp();
@@ -45,14 +47,15 @@ export function TodayScreen() {
   const running = views.filter((v) => v.p.status === "active");
   const days = streak?.days ?? stats?.streakDays ?? 0;
   const mult = streak?.multiplier ?? streakMultiplier(days);
-  const glasses = glassesToday(me.id);
+  const habits = habitsDoor(rhythmToday(me.id));
+  const vv = useMemo(() => weekPoints(sessions, now), [sessions, now]);
   const pending = queue.filter((q) => q.userId === me.id).length;
 
   return (
     <div className="space-y-4">
       <header className="flex items-center justify-between gap-2 pt-1">
         <span className="font-display text-xl font-bold tracking-tight">VVake</span>
-        <div className="flex items-center gap-2">
+        <div className="flex flex-wrap items-center justify-end gap-2">
           <Pill tone="pulse" label={fmt(t.today.streak, { n: days })}>
             <span aria-hidden>🔥</span>
             {days}
@@ -67,6 +70,12 @@ export function TodayScreen() {
             <Pill tone="volt">
               <span aria-hidden>⚡</span>
               {Math.floor(energy.current)}/{energyMax}
+            </Pill>
+          </button>
+          <button type="button" onClick={() => go({ name: "points" })} aria-label={fmt(t.today.pointsPill, { n: vv.points })}>
+            <Pill tone="mint">
+              <span aria-hidden>✦</span>
+              {`VV ${vv.points}`}
             </Pill>
           </button>
         </div>
@@ -134,7 +143,7 @@ export function TodayScreen() {
                   go({ name: "workout" });
                 }}
               >
-                {`${t.plan.start} · ${sportLabel(planned.sport, lang)}`}
+                {`${t.today.trainNow} · ${sportLabel(planned.sport, lang)}`}
               </Btn>
               <Btn big variant="ghost" onClick={() => go({ name: "workout" })} disabled={!!wk.w}>
                 {t.today.another}
@@ -142,7 +151,7 @@ export function TodayScreen() {
             </>
           ) : (
             <Btn big className="flex-1" onClick={() => go({ name: "workout" })} disabled={!!wk.w}>
-              {t.today.startNow}
+              {t.today.trainNow}
             </Btn>
           )}
         </div>
@@ -175,19 +184,43 @@ export function TodayScreen() {
         </Card>
       )}
 
-      <List>
-        <Row
+      {/* The quick doors: one tap to each intent, the same four as the phone. */}
+      <nav aria-label={t.today.doors} className="grid grid-cols-2 gap-3">
+        <Door
+          tone="pulse"
+          icon="⚑"
+          title={t.today.doorChallenge}
+          detail={t.today.doorChallengeDetail}
+          onClick={() => go({ name: "crew" })}
+        />
+        <Door
           tone="sky"
           icon="▦"
-          title={t.today.planRow}
+          title={t.today.doorPlan}
           detail={
             nextPlanned
               ? `${dayLabel(nextPlanned.start, lang)} · ${sportLabel(nextPlanned.sport, lang)} · ${fmt(t.common.minutes, { n: nextPlanned.minutes })}`
-              : t.today.noPlan
+              : t.today.doorPlanEmpty
           }
           onClick={() => go({ name: "plan" })}
         />
-      </List>
+        <Door tone="lilac" icon="◉" title={t.today.doorCoach} detail={t.today.doorCoachDetail} onClick={() => go({ name: "coach" })} />
+        <Door
+          tone="mint"
+          icon="💧"
+          title={t.today.doorHabits}
+          detail={
+            habits.kind === "both"
+              ? fmt(t.today.doorHabitsBoth, { glasses: habits.glasses, meals: habits.meals })
+              : habits.kind === "water"
+                ? fmt(t.today.doorHabitsWater, { n: habits.glasses })
+                : habits.kind === "meals"
+                  ? fmt(t.today.doorHabitsMeals, { n: habits.meals })
+                  : t.today.doorHabitsDetail
+          }
+          onClick={() => go({ name: "rhythm" })}
+        />
+      </nav>
 
       {/* Goals at a glance. */}
       <button type="button" className="block w-full text-left" onClick={() => go({ name: "goals" })}>
@@ -235,16 +268,8 @@ export function TodayScreen() {
 
       <h2 className="pt-2 font-display text-[17px] font-semibold">{t.today.moreToday}</h2>
       <List>
-        <Row tone="lilac" icon="◉" title={t.today.coachRow} detail={t.today.coachDetail} onClick={() => go({ name: "coach" })} />
-        <Row
-          tone="sky"
-          icon="💧"
-          title={t.today.rhythmRow}
-          detail={fmt(t.today.rhythmDetail, { n: glasses })}
-          onClick={() => go({ name: "rhythm" })}
-        />
-        <Row tone="pulse" icon="⚑" title={t.today.clashRow} value={me.city ?? undefined} onClick={() => go({ name: "crew" })} />
         <Row tone="mint" icon="♥" title={t.sensor.title} onClick={() => go({ name: "sensor" })} />
+        <Row tone="volt" icon="✦" title={t.you.pointsTitle} value={vv.points} onClick={() => go({ name: "points" })} />
       </List>
     </div>
   );
