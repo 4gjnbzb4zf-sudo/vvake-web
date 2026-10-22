@@ -2773,7 +2773,7 @@ export const en = {
           { t: "Coinbase (United States).", d: "Our API reads the public ETH/USD price from Coinbase. No data about you is sent." },
           { t: "GitHub (United States).", d: "Hosts this website. Like any web host, it sees visitors' IP addresses." },
           {
-            t: "OpenStreetMap's Overpass service (FOSSGIS e.V., Germany).",
+            t: "OpenStreetMap's Overpass service (FOSSGIS e.V., Germany; when it is unavailable, OpenStreetMap France, France).",
             d: "Answers our servers' searches for places to train: it receives the map area and the kind of place asked for, never your position, your name or your IP address.",
           },
         ],

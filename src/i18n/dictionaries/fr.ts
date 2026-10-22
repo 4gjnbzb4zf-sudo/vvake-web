@@ -2938,7 +2938,7 @@ export const fr: Dictionary = {
           },
           { t: "GitHub (États-Unis).", d: "Héberge ce site. Comme tout hébergeur Web, il voit l'adresse IP des visiteurs." },
           {
-            t: "Le service Overpass d'OpenStreetMap (FOSSGIS e.V., Allemagne).",
+            t: "Le service Overpass d'OpenStreetMap (FOSSGIS e.V., Allemagne ; quand il est indisponible, OpenStreetMap France, France).",
             d: "Répond aux recherches de lieux d'entraînement de nos serveurs : il reçoit la zone de carte et le type de lieu demandés, jamais votre position, votre nom ni votre adresse IP.",
           },
         ],
