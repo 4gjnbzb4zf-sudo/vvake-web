@@ -1,0 +1,893 @@
+{
+  "state": {
+    "goals": [
+      {
+        "id": "sgtesthalf1",
+        "type": "event",
+        "priority": "B",
+        "sport": "run",
+        "event": {
+          "kind": "half",
+          "distanceM": 21097
+        },
+        "date": "2027-02-14",
+        "start": "2026-10-22",
+        "updatedAt": "2026-10-22T11:08:19.329Z"
+      },
+      {
+        "id": "sgtestmar1",
+        "type": "event",
+        "priority": "A",
+        "sport": "run",
+        "event": {
+          "kind": "marathon",
+          "distanceM": 42195
+        },
+        "date": "2027-04-11",
+        "start": "2026-10-22",
+        "updatedAt": "2026-10-22T11:08:19.329Z"
+      }
+    ],
+    "prefs": {
+      "sports": [
+        {
+          "sport": "run",
+          "perWeek": 4
+        },
+        {
+          "sport": "strength",
+          "perWeek": 1
+        }
+      ],
+      "days": [0, 1, 3, 5, 6],
+      "hoursPerWeek": 5
+    },
+    "edits": [],
+    "start": "2026-10-19",
+    "updatedAt": "2026-10-22T11:08:19.219Z"
+  },
+  "health": {},
+  "notMedical": "Wellness guidance, not medical advice.",
+  "plan": {
+    "start": "2026-10-19",
+    "end": "2027-05-09",
+    "current": 0,
+    "free": false,
+    "level": 1,
+    "deloadEvery": 4,
+    "mainGoalId": "sgtestmar1",
+    "sports": [
+      {
+        "sport": "run",
+        "perWeek": 4
+      },
+      {
+        "sport": "strength",
+        "perWeek": 1
+      }
+    ],
+    "phases": [
+      {
+        "phase": "base",
+        "startWeek": 0,
+        "endWeek": 9,
+        "goalId": "sgtestmar1",
+        "label": "Base"
+      },
+      {
+        "phase": "build",
+        "startWeek": 10,
+        "endWeek": 18,
+        "goalId": "sgtestmar1",
+        "label": "Build"
+      },
+      {
+        "phase": "peak",
+        "startWeek": 19,
+        "endWeek": 21,
+        "goalId": "sgtestmar1",
+        "label": "Peak"
+      },
+      {
+        "phase": "taper",
+        "startWeek": 22,
+        "endWeek": 23,
+        "goalId": "sgtestmar1",
+        "label": "Taper"
+      },
+      {
+        "phase": "race",
+        "startWeek": 24,
+        "endWeek": 24,
+        "goalId": "sgtestmar1",
+        "label": "Race week"
+      },
+      {
+        "phase": "recovery",
+        "startWeek": 25,
+        "endWeek": 28,
+        "goalId": "sgtestmar1",
+        "label": "Recovery"
+      }
+    ],
+    "weeks": [
+      {
+        "index": 0,
+        "start": "2026-10-19",
+        "phase": "base",
+        "weekInPhase": 1,
+        "phaseWeeks": 10,
+        "block": 1,
+        "deload": false,
+        "targetMin": 45,
+        "longMin": 20,
+        "hard": 0,
+        "goalId": "sgtestmar1",
+        "races": [],
+        "benchmark": false,
+        "focus": "endurance"
+      },
+      {
+        "index": 1,
+        "start": "2026-10-26",
+        "phase": "base",
+        "weekInPhase": 2,
+        "phaseWeeks": 10,
+        "block": 1,
+        "deload": false,
+        "targetMin": 55,
+        "longMin": 20,
+        "hard": 0,
+        "goalId": "sgtestmar1",
+        "races": [],
+        "benchmark": false,
+        "focus": "endurance"
+      },
+      {
+        "index": 2,
+        "start": "2026-11-02",
+        "phase": "base",
+        "weekInPhase": 3,
+        "phaseWeeks": 10,
+        "block": 1,
+        "deload": false,
+        "targetMin": 65,
+        "longMin": 25,
+        "hard": 0,
+        "goalId": "sgtestmar1",
+        "races": [],
+        "benchmark": false,
+        "focus": "endurance"
+      },
+      {
+        "index": 3,
+        "start": "2026-11-09",
+        "phase": "base",
+        "weekInPhase": 4,
+        "phaseWeeks": 10,
+        "block": 2,
+        "deload": true,
+        "targetMin": 50,
+        "longMin": 20,
+        "hard": 0,
+        "goalId": "sgtestmar1",
+        "races": [],
+        "benchmark": true,
+        "focus": "endurance"
+      },
+      {
+        "index": 4,
+        "start": "2026-11-16",
+        "phase": "base",
+        "weekInPhase": 5,
+        "phaseWeeks": 10,
+        "block": 2,
+        "deload": false,
+        "targetMin": 75,
+        "longMin": 30,
+        "hard": 0,
+        "goalId": "sgtestmar1",
+        "races": [],
+        "benchmark": false,
+        "focus": "endurance"
+      },
+      {
+        "index": 5,
+        "start": "2026-11-23",
+        "phase": "base",
+        "weekInPhase": 6,
+        "phaseWeeks": 10,
+        "block": 2,
+        "deload": false,
+        "targetMin": 85,
+        "longMin": 35,
+        "hard": 0,
+        "goalId": "sgtestmar1",
+        "races": [],
+        "benchmark": false,
+        "focus": "endurance"
+      },
+      {
+        "index": 6,
+        "start": "2026-11-30",
+        "phase": "base",
+        "weekInPhase": 7,
+        "phaseWeeks": 10,
+        "block": 2,
+        "deload": false,
+        "targetMin": 95,
+        "longMin": 40,
+        "hard": 0,
+        "goalId": "sgtestmar1",
+        "races": [],
+        "benchmark": false,
+        "focus": "endurance"
+      },
+      {
+        "index": 7,
+        "start": "2026-12-07",
+        "phase": "base",
+        "weekInPhase": 8,
+        "phaseWeeks": 10,
+        "block": 3,
+        "deload": true,
+        "targetMin": 70,
+        "longMin": 30,
+        "hard": 0,
+        "goalId": "sgtestmar1",
+        "races": [],
+        "benchmark": true,
+        "focus": "endurance"
+      },
+      {
+        "index": 8,
+        "start": "2026-12-14",
+        "phase": "base",
+        "weekInPhase": 9,
+        "phaseWeeks": 10,
+        "block": 3,
+        "deload": false,
+        "targetMin": 105,
+        "longMin": 40,
+        "hard": 0,
+        "goalId": "sgtestmar1",
+        "races": [],
+        "benchmark": false,
+        "focus": "endurance"
+      },
+      {
+        "index": 9,
+        "start": "2026-12-21",
+        "phase": "base",
+        "weekInPhase": 10,
+        "phaseWeeks": 10,
+        "block": 3,
+        "deload": false,
+        "targetMin": 115,
+        "longMin": 45,
+        "hard": 0,
+        "goalId": "sgtestmar1",
+        "races": [],
+        "benchmark": false,
+        "focus": "endurance"
+      },
+      {
+        "index": 10,
+        "start": "2026-12-28",
+        "phase": "build",
+        "weekInPhase": 1,
+        "phaseWeeks": 9,
+        "block": 3,
+        "deload": false,
+        "targetMin": 125,
+        "longMin": 50,
+        "hard": 1,
+        "goalId": "sgtestmar1",
+        "races": [],
+        "benchmark": false,
+        "focus": "speed"
+      },
+      {
+        "index": 11,
+        "start": "2027-01-04",
+        "phase": "build",
+        "weekInPhase": 2,
+        "phaseWeeks": 9,
+        "block": 4,
+        "deload": true,
+        "targetMin": 95,
+        "longMin": 40,
+        "hard": 0,
+        "goalId": "sgtestmar1",
+        "races": [],
+        "benchmark": true,
+        "focus": "speed"
+      },
+      {
+        "index": 12,
+        "start": "2027-01-11",
+        "phase": "build",
+        "weekInPhase": 3,
+        "phaseWeeks": 9,
+        "block": 4,
+        "deload": false,
+        "targetMin": 140,
+        "longMin": 55,
+        "hard": 1,
+        "goalId": "sgtestmar1",
+        "races": [],
+        "benchmark": false,
+        "focus": "speed"
+      },
+      {
+        "index": 13,
+        "start": "2027-01-18",
+        "phase": "build",
+        "weekInPhase": 4,
+        "phaseWeeks": 9,
+        "block": 4,
+        "deload": false,
+        "targetMin": 155,
+        "longMin": 60,
+        "hard": 1,
+        "goalId": "sgtestmar1",
+        "races": [],
+        "benchmark": false,
+        "focus": "speed"
+      },
+      {
+        "index": 14,
+        "start": "2027-01-25",
+        "phase": "build",
+        "weekInPhase": 5,
+        "phaseWeeks": 9,
+        "block": 4,
+        "deload": false,
+        "targetMin": 170,
+        "longMin": 70,
+        "hard": 1,
+        "goalId": "sgtestmar1",
+        "races": [],
+        "benchmark": false,
+        "focus": "speed"
+      },
+      {
+        "index": 15,
+        "start": "2027-02-01",
+        "phase": "build",
+        "weekInPhase": 6,
+        "phaseWeeks": 9,
+        "block": 5,
+        "deload": true,
+        "targetMin": 125,
+        "longMin": 50,
+        "hard": 0,
+        "goalId": "sgtestmar1",
+        "races": [],
+        "benchmark": true,
+        "focus": "speed"
+      },
+      {
+        "index": 16,
+        "start": "2027-02-08",
+        "phase": "build",
+        "weekInPhase": 7,
+        "phaseWeeks": 9,
+        "block": 5,
+        "deload": false,
+        "targetMin": 160,
+        "longMin": 65,
+        "hard": 1,
+        "goalId": "sgtestmar1",
+        "races": [
+          {
+            "goalId": "sgtesthalf1",
+            "date": "2027-02-14",
+            "priority": "B"
+          }
+        ],
+        "benchmark": false,
+        "focus": "speed"
+      },
+      {
+        "index": 17,
+        "start": "2027-02-15",
+        "phase": "build",
+        "weekInPhase": 8,
+        "phaseWeeks": 9,
+        "block": 6,
+        "deload": true,
+        "targetMin": 140,
+        "longMin": 55,
+        "hard": 0,
+        "goalId": "sgtestmar1",
+        "races": [],
+        "benchmark": false,
+        "focus": "speed"
+      },
+      {
+        "index": 18,
+        "start": "2027-02-22",
+        "phase": "build",
+        "weekInPhase": 9,
+        "phaseWeeks": 9,
+        "block": 6,
+        "deload": false,
+        "targetMin": 205,
+        "longMin": 80,
+        "hard": 1,
+        "goalId": "sgtestmar1",
+        "races": [],
+        "benchmark": false,
+        "focus": "speed"
+      },
+      {
+        "index": 19,
+        "start": "2027-03-01",
+        "phase": "peak",
+        "weekInPhase": 1,
+        "phaseWeeks": 3,
+        "block": 6,
+        "deload": false,
+        "targetMin": 225,
+        "longMin": 90,
+        "hard": 1,
+        "goalId": "sgtestmar1",
+        "races": [],
+        "benchmark": false,
+        "focus": "speed"
+      },
+      {
+        "index": 20,
+        "start": "2027-03-08",
+        "phase": "peak",
+        "weekInPhase": 2,
+        "phaseWeeks": 3,
+        "block": 6,
+        "deload": false,
+        "targetMin": 250,
+        "longMin": 100,
+        "hard": 1,
+        "goalId": "sgtestmar1",
+        "races": [],
+        "benchmark": false,
+        "focus": "speed"
+      },
+      {
+        "index": 21,
+        "start": "2027-03-15",
+        "phase": "peak",
+        "weekInPhase": 3,
+        "phaseWeeks": 3,
+        "block": 6,
+        "deload": false,
+        "targetMin": 270,
+        "longMin": 110,
+        "hard": 1,
+        "goalId": "sgtestmar1",
+        "races": [],
+        "benchmark": false,
+        "focus": "speed"
+      },
+      {
+        "index": 22,
+        "start": "2027-03-22",
+        "phase": "taper",
+        "weekInPhase": 1,
+        "phaseWeeks": 2,
+        "block": 6,
+        "deload": false,
+        "targetMin": 220,
+        "longMin": 90,
+        "hard": 0,
+        "goalId": "sgtestmar1",
+        "races": [],
+        "benchmark": false,
+        "focus": "mixed"
+      },
+      {
+        "index": 23,
+        "start": "2027-03-29",
+        "phase": "taper",
+        "weekInPhase": 2,
+        "phaseWeeks": 2,
+        "block": 6,
+        "deload": false,
+        "targetMin": 175,
+        "longMin": 70,
+        "hard": 0,
+        "goalId": "sgtestmar1",
+        "races": [],
+        "benchmark": false,
+        "focus": "mixed"
+      },
+      {
+        "index": 24,
+        "start": "2027-04-05",
+        "phase": "race",
+        "weekInPhase": 1,
+        "phaseWeeks": 1,
+        "block": 6,
+        "deload": false,
+        "targetMin": 125,
+        "longMin": 0,
+        "hard": 0,
+        "goalId": "sgtestmar1",
+        "races": [
+          {
+            "goalId": "sgtestmar1",
+            "date": "2027-04-11",
+            "priority": "A"
+          }
+        ],
+        "benchmark": false,
+        "focus": "mixed"
+      },
+      {
+        "index": 25,
+        "start": "2027-04-12",
+        "phase": "recovery",
+        "weekInPhase": 1,
+        "phaseWeeks": 4,
+        "block": 7,
+        "deload": false,
+        "targetMin": 70,
+        "longMin": 30,
+        "hard": 0,
+        "goalId": "sgtestmar1",
+        "races": [],
+        "benchmark": false,
+        "focus": "mixed"
+      },
+      {
+        "index": 26,
+        "start": "2027-04-19",
+        "phase": "recovery",
+        "weekInPhase": 2,
+        "phaseWeeks": 4,
+        "block": 7,
+        "deload": false,
+        "targetMin": 125,
+        "longMin": 50,
+        "hard": 0,
+        "goalId": "sgtestmar1",
+        "races": [],
+        "benchmark": false,
+        "focus": "mixed"
+      },
+      {
+        "index": 27,
+        "start": "2027-04-26",
+        "phase": "recovery",
+        "weekInPhase": 3,
+        "phaseWeeks": 4,
+        "block": 7,
+        "deload": false,
+        "targetMin": 165,
+        "longMin": 60,
+        "hard": 0,
+        "goalId": "sgtestmar1",
+        "races": [],
+        "benchmark": false,
+        "focus": "mixed"
+      },
+      {
+        "index": 28,
+        "start": "2027-05-03",
+        "phase": "recovery",
+        "weekInPhase": 4,
+        "phaseWeeks": 4,
+        "block": 7,
+        "deload": false,
+        "targetMin": 190,
+        "longMin": 60,
+        "hard": 0,
+        "goalId": "sgtestmar1",
+        "races": [],
+        "benchmark": false,
+        "focus": "mixed"
+      }
+    ]
+  },
+  "feasibility": [
+    {
+      "goalId": "sgtesthalf1",
+      "verdict": "too-risky",
+      "weeksAvailable": 16.4,
+      "weeksNeeded": 24,
+      "weeksMinimum": 18,
+      "reasoning": {
+        "currentWeeklyMin": 0,
+        "peakWeeklyMin": 210,
+        "weeklyHoursNeeded": 3.5,
+        "currentLongMin": 0,
+        "peakLongMin": 110,
+        "rampPct": 15,
+        "maxRampPct": 10,
+        "deloadEvery": 4,
+        "taperDays": 10,
+        "recoveryDays": 14,
+        "hoursAvailable": 5
+      },
+      "reasons": ["time-short", "long-gap"],
+      "alternatives": [
+        {
+          "kind": "later-date",
+          "date": "2027-04-08"
+        },
+        {
+          "kind": "shorter",
+          "event": "10k"
+        },
+        {
+          "kind": "intermediate",
+          "event": "10k",
+          "date": "2027-01-28"
+        }
+      ],
+      "safety": [],
+      "readiness": 0,
+      "text": {
+        "headline": "Too risky as it is: 16 weeks, at least 18 needed.",
+        "reasoning": [
+          "At the peak: about 3.5 h a week (now 0 h).",
+          "Longest session at the peak: 110 min (now 0 min).",
+          "Build: +15% a loading week on average (10% at most), a lighter week every 4.",
+          "Taper: 10 days. Recovery after: 14 days."
+        ],
+        "reasons": ["Not enough weeks for a safe build from where you are.", "Your longest session is far from what race day asks."],
+        "alternatives": [
+          "Aim later: from 8 April 2027.",
+          "Same date, shorter distance: a 10K.",
+          "First a 10K around 28 January 2027, then the goal."
+        ],
+        "safety": []
+      }
+    },
+    {
+      "goalId": "sgtestmar1",
+      "verdict": "too-risky",
+      "weeksAvailable": 24.4,
+      "weeksNeeded": 40,
+      "weeksMinimum": 30,
+      "reasoning": {
+        "currentWeeklyMin": 0,
+        "peakWeeklyMin": 300,
+        "weeklyHoursNeeded": 5,
+        "currentLongMin": 0,
+        "peakLongMin": 165,
+        "rampPct": 12.6,
+        "maxRampPct": 10,
+        "deloadEvery": 4,
+        "taperDays": 21,
+        "recoveryDays": 28,
+        "hoursAvailable": 5
+      },
+      "reasons": ["time-short", "long-gap", "first-time-distance"],
+      "alternatives": [
+        {
+          "kind": "later-date",
+          "date": "2027-07-29"
+        },
+        {
+          "kind": "shorter",
+          "event": "half"
+        },
+        {
+          "kind": "intermediate",
+          "event": "half",
+          "date": "2027-04-08"
+        }
+      ],
+      "safety": [],
+      "readiness": 0,
+      "text": {
+        "headline": "Too risky as it is: 24 weeks, at least 30 needed.",
+        "reasoning": [
+          "At the peak: about 5 h a week (now 0 h).",
+          "Longest session at the peak: 165 min (now 0 min).",
+          "Build: +12.6% a loading week on average (10% at most), a lighter week every 4.",
+          "Taper: 21 days. Recovery after: 28 days."
+        ],
+        "reasons": [
+          "Not enough weeks for a safe build from where you are.",
+          "Your longest session is far from what race day asks.",
+          "A first at this distance: a shorter race on the way makes it safer."
+        ],
+        "alternatives": [
+          "Aim later: from 29 July 2027.",
+          "Same date, shorter distance: a half marathon.",
+          "First a half marathon around 8 April 2027, then the goal."
+        ],
+        "safety": []
+      }
+    }
+  ],
+  "week": {
+    "index": 0,
+    "start": "2026-10-19",
+    "phase": "base",
+    "weekInPhase": 1,
+    "phaseWeeks": 10,
+    "block": 1,
+    "deload": false,
+    "targetMin": 45,
+    "longMin": 20,
+    "hard": 0,
+    "goalId": "sgtestmar1",
+    "races": [],
+    "benchmark": false,
+    "focus": "endurance",
+    "label": "Base · week 1/10",
+    "why": "Easy volume builds the engine: heart, lungs, tendons. Technique and strength too.",
+    "sessions": [
+      {
+        "id": "2026-10-19#0",
+        "date": "2026-10-19",
+        "day": 0,
+        "sport": "run",
+        "minutes": 20,
+        "intensity": "easy",
+        "purpose": "aerobic",
+        "zone": 2,
+        "phase": "base",
+        "week": 0,
+        "goalId": "sgtestmar1",
+        "title": "Aerobic run · 20 min",
+        "line": "Base week 1 · aerobic run · builds the engine for your April marathon",
+        "recipe": "Walk-run: 1–2 min easy running, 2 min walking, repeat. Add running time as it feels easy."
+      },
+      {
+        "id": "2026-10-20#0",
+        "date": "2026-10-20",
+        "day": 1,
+        "sport": "run",
+        "minutes": 20,
+        "intensity": "easy",
+        "purpose": "aerobic",
+        "zone": 2,
+        "phase": "base",
+        "week": 0,
+        "goalId": "sgtestmar1",
+        "title": "Aerobic run · 20 min",
+        "line": "Base week 1 · aerobic run · builds the engine for your April marathon",
+        "recipe": "Walk-run: 1–2 min easy running, 2 min walking, repeat. Add running time as it feels easy."
+      },
+      {
+        "id": "2026-10-22#0",
+        "date": "2026-10-22",
+        "day": 3,
+        "sport": "run",
+        "minutes": 20,
+        "intensity": "easy",
+        "purpose": "aerobic",
+        "zone": 2,
+        "phase": "base",
+        "week": 0,
+        "goalId": "sgtestmar1",
+        "title": "Aerobic run · 20 min",
+        "line": "Base week 1 · aerobic run · builds the engine for your April marathon",
+        "recipe": "Walk-run: 1–2 min easy running, 2 min walking, repeat. Add running time as it feels easy."
+      },
+      {
+        "id": "2026-10-24#0",
+        "date": "2026-10-24",
+        "day": 5,
+        "sport": "run",
+        "minutes": 20,
+        "intensity": "easy",
+        "purpose": "long",
+        "zone": 2,
+        "key": true,
+        "phase": "base",
+        "week": 0,
+        "goalId": "sgtestmar1",
+        "title": "Long run · 20 min",
+        "line": "Base week 1 · long run · builds the endurance race day needs for your April marathon",
+        "recipe": "Walk-run: 1–2 min easy running, 2 min walking, repeat. Add running time as it feels easy."
+      },
+      {
+        "id": "2026-10-25#0",
+        "date": "2026-10-25",
+        "day": 6,
+        "sport": "strength",
+        "minutes": 15,
+        "intensity": "moderate",
+        "purpose": "strength",
+        "phase": "base",
+        "week": 0,
+        "goalId": "sgtestmar1",
+        "title": "Strength strength · 15 min",
+        "line": "Base week 1 · strength strength · protects joints and tendons for your April marathon",
+        "recipe": "Squats, lunges, glute bridge, plank, calf raises: 2–3 sets, breathing steady."
+      }
+    ]
+  },
+  "today": [
+    {
+      "id": "2026-10-22#0",
+      "date": "2026-10-22",
+      "day": 3,
+      "sport": "run",
+      "minutes": 20,
+      "intensity": "easy",
+      "purpose": "aerobic",
+      "zone": 2,
+      "phase": "base",
+      "week": 0,
+      "goalId": "sgtestmar1",
+      "title": "Aerobic run · 20 min",
+      "line": "Base week 1 · aerobic run · builds the engine for your April marathon",
+      "recipe": "Walk-run: 1–2 min easy running, 2 min walking, repeat. Add running time as it feels easy."
+    }
+  ],
+  "goals": [
+    {
+      "goalId": "sgtesthalf1",
+      "name": "Half marathon",
+      "days": 115,
+      "readiness": 0,
+      "verdict": "too-risky",
+      "onTrack": false
+    },
+    {
+      "goalId": "sgtestmar1",
+      "name": "Marathon",
+      "days": 171,
+      "phase": "base",
+      "phaseLabel": "Base · week 1/10",
+      "readiness": 0,
+      "verdict": "too-risky",
+      "onTrack": false
+    }
+  ],
+  "completion": 0,
+  "card": {
+    "title": "Marathon",
+    "subtitle": "11 April 2027",
+    "countdown": 171,
+    "phases": [
+      {
+        "phase": "base",
+        "label": "Base",
+        "weeks": 10,
+        "current": true
+      },
+      {
+        "phase": "build",
+        "label": "Build",
+        "weeks": 9,
+        "current": false
+      },
+      {
+        "phase": "peak",
+        "label": "Peak",
+        "weeks": 3,
+        "current": false
+      },
+      {
+        "phase": "taper",
+        "label": "Taper",
+        "weeks": 2,
+        "current": false
+      },
+      {
+        "phase": "race",
+        "label": "Race week",
+        "weeks": 1,
+        "current": false
+      },
+      {
+        "phase": "recovery",
+        "label": "Recovery",
+        "weeks": 4,
+        "current": false
+      }
+    ],
+    "progress": 0.019704433497536946,
+    "readiness": 0,
+    "verdict": "Too risky as it is",
+    "lines": ["Base · week 1/10", "This week: 1 h 35 min planned"]
+  },
+  "recap": "Marathon · 25 weeks to go · readiness 0/100"
+}

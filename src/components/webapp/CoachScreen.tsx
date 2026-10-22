@@ -9,6 +9,7 @@ import { createConversationVoice } from "@/lib/webapp/speechQueue";
 import { canListen, listen } from "@/lib/webapp/voice";
 import { useApp } from "./AppContext";
 import { GetTheApp } from "./GetTheApp";
+import { COACH_DRAFT_KEY } from "./SeasonWeek";
 import { goalTitle } from "./GoalsScreen";
 import { Btn, H1, Kicker, Note, Small, Toggle } from "./ui";
 import { useNow } from "./useNow";
@@ -38,7 +39,16 @@ export function CoachScreen() {
       return [];
     }
   });
-  const [text, setText] = useState("");
+  // A plain request the week editor couldn't read itself waits here, ready to send (SeasonWeek COACH_DRAFT_KEY).
+  const [text, setText] = useState(() => {
+    try {
+      const d = sessionStorage.getItem(COACH_DRAFT_KEY) ?? "";
+      sessionStorage.removeItem(COACH_DRAFT_KEY);
+      return d.slice(0, 300);
+    } catch {
+      return "";
+    }
+  });
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState(false);
   const [listening, setListening] = useState(false);
