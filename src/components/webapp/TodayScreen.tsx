@@ -10,6 +10,7 @@ import { useApp } from "./AppContext";
 import { goalTitle } from "./GoalsScreen";
 import { VVakerImg } from "./MyVVaker";
 import { glassesToday } from "./RhythmScreen";
+import { HabitsToday } from "./HabitsToday";
 import { useWorkout } from "./WorkoutContext";
 import { EntryChoice } from "./WorkoutScreen";
 import { cameraSport } from "@/lib/webapp/camera/webSetup";
@@ -228,6 +229,9 @@ export function TodayScreen() {
           </p>
         </Card>
       )}
+
+      {/* Today's habits, one tap each (water, meals, bedtime). */}
+      <HabitsToday />
 
       <h2 className="pt-2 font-display text-[17px] font-semibold">{t.today.moreToday}</h2>
       <List>

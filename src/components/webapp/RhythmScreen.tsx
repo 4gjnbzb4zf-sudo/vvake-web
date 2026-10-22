@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { localTz, type Habits } from "@/lib/webapp/api";
 import { habitDay, minutesLabel } from "@/lib/webapp/format";
+import { dayOf, habitSend, readDays, RHYTHM_EVENT, RHYTHM_TARGETS, withDay, writeDays, type RhythmDay } from "@/lib/webapp/rhythm";
 import { useApp } from "./AppContext";
 import { Btn, Card, H1, Kicker, Note, Small, Toggle } from "./ui";
 import { useNow } from "./useNow";
@@ -13,68 +14,30 @@ import { useNow } from "./useNow";
  * day ends at 5 am. Reminders stay in the app (a closed browser can't ring).
  */
 
-export interface RhythmDay {
-  day: string;
-  on: { water: boolean; meals: boolean; sleep: boolean };
-  glasses: number;
-  meals: number;
-  bedAt?: number;
-  sent?: boolean;
-}
-
-/** The apps' defaults: 8 glasses, 3 meals, in bed by 23:00 (8 hours before a 7:00 wake-up). */
-export const RHYTHM_TARGETS = { water: 8, meals: 3, bed: 23 * 60 } as const;
-
-const key = (userId: string) => `vvake-app-rhythm:${userId}`;
-
-function readDays(userId: string): RhythmDay[] {
-  try {
-    const v: unknown = JSON.parse(localStorage.getItem(key(userId)) ?? "[]");
-    return Array.isArray(v) ? (v as RhythmDay[]).filter((d) => d && typeof d.day === "string").slice(-10) : [];
-  } catch {
-    return [];
-  }
-}
-function writeDays(userId: string, days: RhythmDay[]) {
-  try {
-    localStorage.setItem(key(userId), JSON.stringify(days.slice(-10)));
-  } catch {
-    // kept for this visit only
-  }
-}
-
-export const glassesToday = (userId: string) => readDays(userId).find((d) => d.day === habitDay(Date.now()))?.glasses ?? 0;
-
-/** The API's habit day from a logged day (only the habits that were on). */
-export function habitSend(d: RhythmDay) {
-  return {
-    day: d.day,
-    ...(d.on.water ? { water: { glasses: Math.min(24, d.glasses), target: RHYTHM_TARGETS.water } } : {}),
-    ...(d.on.meals ? { meals: { done: Math.min(6, d.meals), target: RHYTHM_TARGETS.meals } } : {}),
-    ...(d.on.sleep ? { sleep: { ...(d.bedAt !== undefined ? { bedAt: d.bedAt } : {}), target: RHYTHM_TARGETS.bed } } : {}),
-  };
-}
+export { glassesToday, habitSend, RHYTHM_TARGETS, type RhythmDay } from "@/lib/webapp/rhythm";
 
 export function RhythmScreen() {
   const { t, lang, me, api, fmt } = useApp();
-  const today = habitDay(useNow());
+  const now = useNow();
+  const today = habitDay(now);
   const [days, setDays] = useState<RhythmDay[]>(() => readDays(me.id));
   const [habits, setHabits] = useState<Habits | null>(null);
   const [sentNote, setSentNote] = useState<string | null>(null);
-  const day: RhythmDay = days.find((d) => d.day === today) ?? {
-    day: today,
-    on: days.at(-1)?.on ?? { water: true, meals: true, sleep: false },
-    glasses: 0,
-    meals: 0,
-  };
+  const day: RhythmDay = days.find((d) => d.day === today) ?? { ...dayOf(days, now), day: today };
   const save = useCallback(
     (d: RhythmDay) => {
-      const next = [...days.filter((x) => x.day !== d.day), d].sort((a, b) => a.day.localeCompare(b.day));
+      const next = withDay(readDays(me.id), d);
       setDays(next);
       writeDays(me.id, next);
     },
-    [days, me.id],
+    [me.id],
   );
+  // Checked off on Today's habits: the same day here.
+  useEffect(() => {
+    const f = () => setDays(readDays(me.id));
+    window.addEventListener(RHYTHM_EVENT, f);
+    return () => window.removeEventListener(RHYTHM_EVENT, f);
+  }, [me.id]);
 
   // Finished days logged here and not sent yet go to the account (once; the first device to send a day counts it).
   useEffect(() => {
