@@ -16,6 +16,7 @@ import { GoalsScreen } from "./GoalsScreen";
 import { PlacesScreen } from "./PlacesScreen";
 import { PlanScreen } from "./PlanScreen";
 import { RhythmScreen } from "./RhythmScreen";
+import { SeasonGoalScreen, SeasonHealthScreen, SeasonHistoryScreen, SeasonScreen, SeasonSportsScreen } from "./SeasonScreen";
 import { SensorScreen } from "./SensorScreen";
 import { SessionScreen } from "./SessionScreen";
 import { TodayScreen } from "./TodayScreen";
@@ -143,7 +144,14 @@ function Shell() {
 
   if (!onboarded) return <Onboarding onDone={() => setOnboarded(true)} />;
 
-  const tab = route.name === "points" ? "you" : (TABS as readonly string[]).includes(route.name) ? route.name : null;
+  const tab =
+    route.name === "points"
+      ? "you"
+      : route.name.startsWith("season")
+        ? "plan"
+        : (TABS as readonly string[]).includes(route.name)
+          ? route.name
+          : null;
   const fullScreen = route.name === "workout" || route.name === "camera" || route.name === "train" || route.name === "teach";
   return (
     <>
@@ -162,6 +170,11 @@ function Shell() {
             {route.name === "you" && <YouScreen />}
             {route.name === "points" && <YouScreen focus="points" />}
             {route.name === "goals" && <GoalsScreen />}
+            {route.name === "season" && <SeasonScreen />}
+            {route.name === "season-goal" && <SeasonGoalScreen key={route.id ?? "new"} id={route.id} />}
+            {route.name === "season-sports" && <SeasonSportsScreen />}
+            {route.name === "season-health" && <SeasonHealthScreen />}
+            {route.name === "season-history" && <SeasonHistoryScreen />}
             {route.name === "rhythm" && <RhythmScreen />}
             {route.name === "vvaker" && <VVakerScreen />}
             {route.name === "sensor" && <SensorScreen />}

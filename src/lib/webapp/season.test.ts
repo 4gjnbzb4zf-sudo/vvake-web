@@ -17,10 +17,14 @@ import {
   mondayOf,
   newGoalId,
   parseSeason,
+  parseTime,
+  passedRaces,
   shareText,
   storedGoals,
+  fitScale,
   timeline,
   todaySchema,
+  windowPlan,
   weekdayOf,
   type SeasonGoal,
 } from "./season";
@@ -303,6 +307,67 @@ describe("the timeline", () => {
     expect(t.bars.length).toBe(29);
     expect(Math.max(...t.bars.map((b) => b.value))).toBe(1);
     expect(t.bars.filter((b) => b.current).map((b) => b.index)).toEqual([0]);
+  });
+});
+
+describe("race results", () => {
+  it("reads a typed time", () => {
+    expect(parseTime("1:52:30")).toBe(6750);
+    expect(parseTime("52:30")).toBe(3150);
+    expect(parseTime("3h45")).toBe(13500);
+    expect(parseTime(" ")).toBeNull();
+    expect(parseTime("1:75")).toBeNull();
+    expect(parseTime("abc")).toBeNull();
+  });
+  it("asks how it went only for a race whose day has passed", () => {
+    const base = { priority: "A" as const, start: "2026-01-01", sport: "run", event: { kind: "10k" as const, distanceM: 10_000 } };
+    const goals: SeasonGoal[] = [
+      { ...base, id: "sgpast01", type: "event", date: "2026-10-18" },
+      { ...base, id: "sgdone01", type: "event", date: "2026-10-11", doneAt: "2026-10-12" },
+      { ...base, id: "sgsoon01", type: "event", date: "2026-11-01" },
+      { id: "sgfree01", type: "free", priority: "B", start: "2026-08-01", date: "2026-10-01" },
+    ];
+    expect(passedRaces(goals, TODAY).map((g) => g.id)).toEqual(["sgpast01"]);
+  });
+  it("keeps a race's result when goals go back to the API", () => {
+    const raw = structuredClone(fixture) as unknown as { state: { goals: Record<string, unknown>[] } };
+    raw.state.goals[0]!.doneAt = "2026-10-20";
+    raw.state.goals[0]!.result = { timeS: 6750, feel: 4 };
+    expect(storedGoals(parseSeason(raw)!)[0]!.result).toEqual({ timeS: 6750, feel: 4 });
+  });
+});
+
+describe("zooming the plan", () => {
+  const s = parseSeason(fixture)!;
+  const plan = s.plan!;
+  it("picks the smallest scale the whole plan fits in", () => {
+    expect(fitScale(4)).toBe("month");
+    expect(fitScale(13)).toBe("quarter");
+    expect(fitScale(29)).toBe("year");
+    expect(fitScale(60)).toBe("year");
+  });
+  it("a month or a quarter starts this week, cut and renumbered; a year shows it all", () => {
+    const m = windowPlan(plan, 5);
+    expect(m.weeks.length).toBe(5);
+    expect(m.offset).toBe(0);
+    expect(m.weeks[0]!.index).toBe(0);
+    expect(m.phases).toHaveLength(1);
+    expect(m.phases[0]).toMatchObject({ phase: "base", startWeek: 0, endWeek: 4 });
+    const t = timeline(m, TODAY);
+    expect(t.weeks).toBe(5);
+    expect(t.segments.at(-1)!.left + t.segments.at(-1)!.width).toBeCloseTo(1);
+    expect(windowPlan(plan, 52)).toMatchObject({ offset: 0, weeks: plan.weeks });
+  });
+  it("later in the plan, the window keeps the week before and never runs past the end", () => {
+    const later = { ...plan, current: 20 };
+    const q = windowPlan(later, 13);
+    expect(q.offset).toBe(16);
+    expect(q.current).toBe(4);
+    expect(q.weeks.length).toBe(13);
+    expect(q.start).toBe(addDays(plan.start, 16 * 7));
+    const phases = q.phases;
+    expect(phases[0]!.startWeek).toBe(0);
+    expect(phases.at(-1)!.endWeek).toBe(12);
   });
 });
 

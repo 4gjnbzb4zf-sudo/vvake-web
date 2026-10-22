@@ -103,6 +103,8 @@ export interface SeasonGoal {
   start: string;
   updatedAt?: string;
   doneAt?: string;
+  /** The race's result once done (its time, how it felt 1–5). */
+  result?: { timeS?: number; feel?: number };
 }
 
 export interface SeasonPrefs {
@@ -139,6 +141,7 @@ const goalSchema = z.object({
   start: z.string(),
   updatedAt: str,
   doneAt: str,
+  result: opt(z.object({ timeS: num, feel: num })),
 });
 
 const prefsSchema = z.object({
@@ -346,6 +349,8 @@ export function storedGoals(a: SeasonAnswer): SeasonGoal[] {
     if (g.health) out.health = g.health;
     if (g.updatedAt) out.updatedAt = g.updatedAt;
     if (g.doneAt) out.doneAt = g.doneAt;
+    if (g.result && (g.result.timeS || g.result.feel))
+      out.result = { ...(g.result.timeS ? { timeS: g.result.timeS } : {}), ...(g.result.feel ? { feel: g.result.feel } : {}) };
     return out;
   });
 }
@@ -724,4 +729,60 @@ export function shareText(card: SeasonCard, words: { daysToGo: string; readiness
   if (now) parts.push(now.label);
   if (typeof card.readiness === "number") parts.push(words.readiness.replace("{n}", String(card.readiness)));
   return `${parts.join(" · ")}\n${url}`;
+}
+
+// ── Zoom: a month, a quarter, half a year or a year of the plan ─────────────────────────────────────────────────────
+
+export type Scale = "month" | "quarter" | "half" | "year";
+export const SCALES: readonly Scale[] = ["month", "quarter", "half", "year"];
+export const SCALE_WEEKS: Record<Scale, number> = { month: 5, quarter: 13, half: 26, year: 52 };
+
+/** The scale that shows the whole plan (the smallest one it fits in). */
+export function fitScale(weeks: number): Scale {
+  return SCALES.find((s) => SCALE_WEEKS[s] >= weeks) ?? "year";
+}
+
+/**
+ * The plan seen through a window of `weeks` weeks: from the week before this one (so the past shows a little), moved
+ * back when the window would run past the plan's end. Weeks and phases are cut to the window and numbered from it; the
+ * whole plan when it fits.
+ */
+export function windowPlan(plan: SeasonPlan, weeks: number): SeasonPlan & { offset: number } {
+  const n = plan.weeks.length;
+  if (n <= weeks) return { ...plan, offset: 0 };
+  const from = Math.max(0, Math.min(n - weeks, plan.current - 1));
+  const to = from + weeks - 1;
+  const inside = plan.weeks.filter((w) => w.index >= from && w.index <= to).map((w) => ({ ...w, index: w.index - from }));
+  const phases = plan.phases
+    .filter((p) => p.endWeek >= from && p.startWeek <= to)
+    .map((p) => ({ ...p, startWeek: Math.max(p.startWeek, from) - from, endWeek: Math.min(p.endWeek, to) - from }));
+  return {
+    ...plan,
+    start: addDays(plan.start, from * 7),
+    end: addDays(plan.start, (to + 1) * 7 - 1),
+    current: plan.current - from,
+    weeks: inside,
+    phases,
+    offset: from,
+  };
+}
+
+/** "1:52:30", "52:30" or "3h45" → seconds (null when it isn't a time). */
+export function parseTime(text: string): number | null {
+  const t = text.trim().toLowerCase().replace(/\s+/g, "");
+  if (!t) return null;
+  const h = /^(\d{1,2})h(\d{1,2})?$/.exec(t);
+  if (h) return Number(h[1]) * 3600 + Number(h[2] ?? 0) * 60 || null;
+  const parts = t.split(":");
+  if (parts.length < 2 || parts.length > 3 || parts.some((p) => !/^\d{1,2}$/.test(p))) return null;
+  const n = parts.map(Number);
+  const [a, b, c] = n.length === 3 ? n : [0, n[0]!, n[1]!];
+  if (b! > 59 || c! > 59) return null;
+  const sec = a! * 3600 + b! * 60 + c!;
+  return sec >= 1 && sec <= 72 * 3600 ? sec : null;
+}
+
+/** The goals whose race day has passed and that aren't marked done yet (the "how did it go?" card). */
+export function passedRaces(goals: readonly SeasonGoal[], today: string): SeasonGoal[] {
+  return goals.filter((g) => !g.doneAt && g.event && (g.type === "event" || g.type === "performance") && dayNum(g.date) < dayNum(today));
 }

@@ -13,7 +13,8 @@ import { useApp } from "./AppContext";
 let last: { userId: string; lang: string; week: number | undefined; answer: SeasonAnswer } | null = null;
 const listeners = new Set<(a: SeasonAnswer) => void>();
 
-export function useSeason(week?: number) {
+/** `enabled` false: no request (a second week view that isn't shown). */
+export function useSeason(week?: number, enabled = true) {
   const { api, lang, me } = useApp();
   const cached = last && last.userId === me.id && last.lang === lang && last.week === week ? last.answer : null;
   const [season, setSeason] = useState<SeasonAnswer | null>(cached);
@@ -38,9 +39,10 @@ export function useSeason(week?: number) {
   }, [api, lang, week, adopt]);
 
   useEffect(() => {
+    if (!enabled) return;
     const id = window.setTimeout(() => void load(), 0);
     return () => window.clearTimeout(id);
-  }, [load]);
+  }, [load, enabled]);
 
   // Another screen changed this week's season: follow it.
   useEffect(() => {

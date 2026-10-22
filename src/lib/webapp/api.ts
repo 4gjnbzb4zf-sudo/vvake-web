@@ -279,6 +279,17 @@ export function webApi(s: RewardsSession) {
         send("POST", { text, lang: lang === "fr" ? "fr" : "en" }),
         z.object({ understood: z.boolean(), intent: str, proposal: opt(planChangeSchema) }),
       ),
+    /** Does the plan want to change (sick, hurt, tired, missed sessions)? A proposal to approve, never applied by itself. */
+    seasonAdapt: (signals: { sick?: boolean; injured?: boolean; sleepHours?: number } | undefined, lang: string) =>
+      s.call(
+        "/v1/season/adapt",
+        send("POST", { ...(signals ? { signals } : {}), lang: lang === "fr" ? "fr" : "en" }),
+        z.object({
+          proposal: opt(planChangeSchema),
+          waiting: opt(z.boolean()),
+          raceDone: opt(z.object({ goalId: z.string(), summary: str })),
+        }),
+      ),
     coachTalk: (b: {
       message: string;
       history?: { role: "user" | "coach"; text: string }[];

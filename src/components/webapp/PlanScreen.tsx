@@ -4,18 +4,55 @@ import { useCallback, useEffect, useState } from "react";
 import { localTz, type PlanChange, type Week } from "@/lib/webapp/api";
 import { dayLabel, localDay, timeLabel } from "@/lib/webapp/format";
 import { sportLabel } from "@/lib/webapp/workout";
+import { getSeasonDict } from "@/i18n/season";
 import { useApp } from "./AppContext";
+import { SeasonWeekEditor } from "./SeasonWeek";
+import { useSeason } from "./useSeason";
 import { useWorkout } from "./WorkoutContext";
-import { Btn, Card, H1, Kicker, Note, Small } from "./ui";
+import { Btn, Card, H1, Kicker, List, Note, Row, Small } from "./ui";
 import { useNow } from "./useNow";
 
 /**
- * Plan (apps/mobile app/(tabs)/plan.tsx): the next 7 days from the account's plan (GET /v1/plan/week: the survey, the
+ * Plan (apps/mobile app/(tabs)/plan.tsx). With a season plan (ADR-0050): the coach's week toward your goals, edited
+ * with the coach (SeasonWeek), and the season a tap away. Without one: an invitation to plan a season, then the week
+ * as before.
+ */
+export function PlanScreen() {
+  const { lang, go, t } = useApp();
+  const s = getSeasonDict(lang);
+  const { season, state } = useSeason();
+  if (season?.plan)
+    return (
+      <div className="space-y-4">
+        <H1>{t.plan.title}</H1>
+        <List>
+          <Row
+            tone="volt"
+            icon="⚑"
+            title={s.title}
+            detail={season.goals[0] ? `${season.goals[0].name}${season.week?.label ? ` · ${season.week.label}` : ""}` : s.lead}
+            onClick={() => go({ name: "season" })}
+          />
+        </List>
+        <SeasonWeekEditor />
+        <List>
+          <Row tone="sky" icon="▦" title={s.sportsRow} onClick={() => go({ name: "season-sports" })} />
+          <Row tone="mint" icon="♥" title={s.healthRow} onClick={() => go({ name: "season-health" })} />
+        </List>
+        <Small>{season.notMedical || s.notMedical}</Small>
+      </div>
+    );
+  return <WeekPlan seasonInvite={state !== "loading" || !!season} />;
+}
+
+/**
+ * The week without a season (apps/mobile app/(tabs)/plan.tsx): the next 7 days from the account's plan (GET /v1/plan/week: the survey, the
  * coach's approved changes, Google Calendar's busy times when connected), today's session with Start, and the coach's
  * pending proposals to accept or turn down (the same ones the phone and the watch show).
  */
-export function PlanScreen() {
+function WeekPlan({ seasonInvite }: { seasonInvite: boolean }) {
   const { t, lang, api, go } = useApp();
+  const se = getSeasonDict(lang);
   const wk = useWorkout();
   const [week, setWeek] = useState<Week | null>(null);
   const [changes, setChanges] = useState<PlanChange[]>([]);
@@ -53,6 +90,21 @@ export function PlanScreen() {
     <div className="space-y-4">
       <H1>{t.plan.title}</H1>
       <Small>{t.plan.lead}</Small>
+      {seasonInvite && (
+        <Card tone="volt">
+          <Kicker tone="volt">{se.kicker}</Kicker>
+          <p className="mt-2 font-display text-[17px] font-semibold">{se.emptyTitle}</p>
+          <Small className="mt-1">{se.todayCard.planDetail}</Small>
+          <div className="mt-3 flex flex-wrap gap-2">
+            <Btn variant="volt" onClick={() => go({ name: "season-goal" })}>
+              {se.setGoal}
+            </Btn>
+            <Btn variant="ghost" onClick={() => go({ name: "season-sports" })}>
+              {se.pickSports}
+            </Btn>
+          </div>
+        </Card>
+      )}
       {note && <Note tone="mint">{note}</Note>}
       {changes.map((c) => (
         <Card key={c.id} tone="butter">

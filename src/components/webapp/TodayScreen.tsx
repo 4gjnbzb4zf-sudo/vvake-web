@@ -6,7 +6,11 @@ import { localTz } from "@/lib/webapp/api";
 import { dayLabel, greetingKey, localDay, timeLabel } from "@/lib/webapp/format";
 import { goalProgress } from "@/lib/webapp/goals";
 import { sportLabel, streakMultiplier, MINUTES_PER_ENERGY } from "@/lib/webapp/workout";
+import { getSeasonDict } from "@/i18n/season";
+import { countdown } from "@/lib/webapp/season";
 import { useApp } from "./AppContext";
+import { Chip, ReadinessRing } from "./SeasonParts";
+import { useSeason } from "./useSeason";
 import { goalTitle } from "./GoalsScreen";
 import { VVakerImg } from "./MyVVaker";
 import { rhythmToday } from "./RhythmScreen";
@@ -51,6 +55,11 @@ export function TodayScreen() {
   const habits = habitsDoor(rhythmToday(me.id));
   const vv = useMemo(() => weekPoints(sessions, now), [sessions, now]);
   const pending = queue.filter((q) => q.userId === me.id).length;
+  // The season (ADR-0050): today's session purpose and phase, the goals the coach works toward.
+  const { season } = useSeason();
+  const ss = getSeasonDict(lang);
+  const seasonToday = season?.today.find((x) => x.key) ?? season?.today[0] ?? null;
+  const seasonGoals = season?.plan ? season.goals : [];
 
   return (
     <div className="space-y-4">
@@ -130,6 +139,16 @@ export function TodayScreen() {
               ? t.today.rest
               : t.today.noPlan}
         </p>
+        {season?.plan && (season.week?.label || seasonToday?.line) && (
+          <div className="mt-2 space-y-1.5">
+            <div className="flex flex-wrap gap-1.5">
+              {season.week?.label && <Chip tone="sky">{season.week.label}</Chip>}
+              {seasonToday?.key && <Chip tone="pulse">{ss.week.key}</Chip>}
+              {seasonToday?.zone ? <Chip tone="faint">{fmt(ss.week.zone, { n: seasonToday.zone })}</Chip> : null}
+            </div>
+            {seasonToday?.line && <p className="text-sm">{seasonToday.line}</p>}
+          </div>
+        )}
         <div className="mt-4 flex flex-wrap gap-2">
           {planned ? (
             <>
@@ -223,37 +242,77 @@ export function TodayScreen() {
         />
       </nav>
 
-      {/* Goals at a glance. */}
-      <button type="button" className="block w-full text-left" onClick={() => go({ name: "goals" })}>
-        <Card>
-          <div className="flex items-center justify-between">
-            <Kicker tone={views.length ? "volt" : "faint"}>
-              {views.length
-                ? `${t.today.goalsKicker} · ${!running[0] || running[0].p.onTrack ? t.today.onTrack : t.today.push}`
-                : t.today.setGoal}
-            </Kicker>
-            <span aria-hidden className="text-faint">
-              ›
-            </span>
-          </div>
-          {views.length === 0 && <p className="mt-2 text-sm">{t.today.goalHint}</p>}
-          <div className="mt-2 space-y-3">
-            {views.slice(0, 3).map(({ g, p }) => (
-              <div key={g.id} className="space-y-1.5">
-                <div className="flex items-start justify-between gap-2">
-                  <span className="text-[15px] font-medium">{goalTitle(g, t, lang)}</span>
-                  <Small>{`${p.done} / ${p.target}`}</Small>
+      {/* The season's goals: the coach toward one or several of them; or an invitation to plan one. */}
+      {seasonGoals.length > 0 ? (
+        <button type="button" className="block w-full text-left" onClick={() => go({ name: "season" })}>
+          <Card tone="volt">
+            <div className="flex items-center justify-between">
+              <Kicker tone="volt">{seasonGoals.length === 1 ? ss.coachFor.one : fmt(ss.coachFor.many, { n: seasonGoals.length })}</Kicker>
+              <span aria-hidden className="text-faint">
+                ›
+              </span>
+            </div>
+            <ul className="mt-2 space-y-3">
+              {seasonGoals.slice(0, 3).map((g) => (
+                <li key={g.goalId} className="flex items-center gap-3">
+                  <ReadinessRing value={g.readiness ?? 0} size={40} label={ss.readiness} />
+                  <span className="min-w-0 flex-1">
+                    <span className="block text-[15px] font-semibold">{g.name}</span>
+                    <span className="mt-0.5 flex flex-wrap gap-1.5">
+                      <Chip tone="volt">{fmt(ss.goalDays, { days: countdown(g.days, lang) })}</Chip>
+                      {g.phaseLabel && <Chip tone="sky">{g.phaseLabel}</Chip>}
+                      {g.onTrack === false && <Chip tone="butter">{ss.behind}</Chip>}
+                    </span>
+                  </span>
+                </li>
+              ))}
+            </ul>
+            <Small className="mt-2">{ss.todayCard.open} ›</Small>
+          </Card>
+        </button>
+      ) : season?.plan ? (
+        <List>
+          <Row tone="volt" icon="⚑" title={ss.todayCard.open} detail={ss.coachFor.free} onClick={() => go({ name: "season" })} />
+        </List>
+      ) : (
+        <List>
+          <Row tone="volt" icon="⚑" title={ss.todayCard.plan} detail={ss.todayCard.planDetail} onClick={() => go({ name: "season" })} />
+        </List>
+      )}
+
+      {/* Goals at a glance (this browser's simple goals). */}
+      {(views.length > 0 || seasonGoals.length === 0) && (
+        <button type="button" className="block w-full text-left" onClick={() => go({ name: "goals" })}>
+          <Card>
+            <div className="flex items-center justify-between">
+              <Kicker tone={views.length ? "volt" : "faint"}>
+                {views.length
+                  ? `${t.today.goalsKicker} · ${!running[0] || running[0].p.onTrack ? t.today.onTrack : t.today.push}`
+                  : t.today.setGoal}
+              </Kicker>
+              <span aria-hidden className="text-faint">
+                ›
+              </span>
+            </div>
+            {views.length === 0 && <p className="mt-2 text-sm">{t.today.goalHint}</p>}
+            <div className="mt-2 space-y-3">
+              {views.slice(0, 3).map(({ g, p }) => (
+                <div key={g.id} className="space-y-1.5">
+                  <div className="flex items-start justify-between gap-2">
+                    <span className="text-[15px] font-medium">{goalTitle(g, t, lang)}</span>
+                    <Small>{`${p.done} / ${p.target}`}</Small>
+                  </div>
+                  <Bar
+                    fraction={p.fraction}
+                    tone={p.status === "reached" ? "mint" : p.status === "ended" || !p.onTrack ? "butter" : "volt"}
+                  />
                 </div>
-                <Bar
-                  fraction={p.fraction}
-                  tone={p.status === "reached" ? "mint" : p.status === "ended" || !p.onTrack ? "butter" : "volt"}
-                />
-              </div>
-            ))}
-          </div>
-          {running[0] && <Small className="mt-2">{fmt(t.today.daysLeft, { n: running[0].p.daysLeft })}</Small>}
-        </Card>
-      </button>
+              ))}
+            </div>
+            {running[0] && <Small className="mt-2">{fmt(t.today.daysLeft, { n: running[0].p.daysLeft })}</Small>}
+          </Card>
+        </button>
+      )}
 
       {stats && (
         <Card>
