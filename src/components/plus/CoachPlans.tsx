@@ -1,10 +1,17 @@
 import { Container } from "@/components/ui/Section";
-import { COACH_PLAN_PRICES, COACH_PACKS } from "@/data/coachPlans";
+import { COACH_PLAN_LIMITS, COACH_PLAN_PRICES, COACH_PACKS } from "@/data/coachPlans";
 import type { Dictionary } from "@/i18n/dictionaries/en";
 
 const format = (s: string, v: Record<string, string | number>) => s.replace(/\{(\w+)\}/g, (_, k: string) => String(v[k] ?? `{${k}}`));
 const usd = (n: number, lang: string) =>
   new Intl.NumberFormat(lang === "fr" ? "fr-FR" : "en-US", { style: "currency", currency: "USD" }).format(n);
+
+/** A plan's line with its numbers ({live} minutes a week, {chars} voice characters a day, {calls} coach calls). */
+export function planLine(line: string, tier: keyof typeof COACH_PLAN_LIMITS, lang: string): string {
+  const x = COACH_PLAN_LIMITS[tier];
+  const n = (v: number) => new Intl.NumberFormat(lang === "fr" ? "fr-FR" : "en-US").format(v);
+  return format(line, { live: x.liveMinutesWeek, chars: n(x.voiceCharsDay), calls: x.calls });
+}
 
 /**
  * vvake.com/<lang>/plans/: Free / VVake Coach Plus / Coach Premium side by side and the minute packs (ADR-0051). Static: the planned prices,
@@ -45,12 +52,15 @@ export function CoachPlans({ t, lang }: { t: Dictionary["plusPay"]["plans"]; lan
                 {x.id !== "free" && <span className="ml-2 rounded-full border border-line px-2 py-0.5 text-xs text-faint">{t.soon}</span>}
               </p>
               <ul className="mt-4 space-y-2 text-sm">
-                {t.tiers[x.id].lines.map((l) => (
-                  <li key={l} className="flex gap-2">
-                    <span aria-hidden="true">✓</span>
-                    <span>{l}</span>
-                  </li>
-                ))}
+                {t.tiers[x.id].lines.map((line) => {
+                  const l = x.id === "free" ? line : planLine(line, x.id, lang);
+                  return (
+                    <li key={l} className="flex gap-2">
+                      <span aria-hidden="true">✓</span>
+                      <span>{l}</span>
+                    </li>
+                  );
+                })}
               </ul>
             </div>
           ))}

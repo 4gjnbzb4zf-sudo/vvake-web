@@ -47,9 +47,10 @@ keys or funds because of a VVake page.
 - VVake never custodies tokens and never holds funds for anyone: no in-app balance, no deposit address, no
   withdrawals, no "send us tokens". Prizes go from the contract straight to the address in the weekly list.
 
-**Plan names** (2026-10-22): the paid plan is **VVake Coach Plus** (short: "Coach Plus" in pills, badges,
-buttons); the higher tier is **Coach Premium** (it was "Coach Pro"; the API's tier key is `premium`, legacy `pro` still
-read as Premium). Never "VVake Plus", "VVake Fit Plus" or "Coach Pro" in user-facing text (src/i18n/planNames.test.ts).
+**Plan names** (2026-10-22): the paid plan is **VVake Coach Plus** and the higher tier **VVake Coach Premium** (it
+was "Coach Pro"; the API's tier key is `premium`, legacy `pro` still read as Premium). Full names wherever space allows
+(sentences, headings, titles, plan cards); "Coach Plus" / "Coach Premium" only in tight spots (pills, chips, badges,
+the meter). Never "VVake Plus", "VVake Fit Plus" or "Coach Pro" in user-facing text (src/i18n/planNames.test.ts).
 In French only the plan name changes: "plus tard", "de plus" stay ordinary words. The logo's "+" stays.
 
 **What prizes are**

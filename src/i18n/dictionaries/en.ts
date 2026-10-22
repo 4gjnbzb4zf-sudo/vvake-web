@@ -91,7 +91,7 @@ export const en = {
         icon: "📱",
         kicker: "The app",
         title: "Everything it does for you",
-        body: "Coach, plan, challenges, crews, city clashes and Coach Plus.",
+        body: "Coach, plan, challenges, crews, city clashes and VVake Coach Plus.",
         cta: "Explore the app",
         page: "tour/",
       },
@@ -752,7 +752,7 @@ export const en = {
         icon: "💵",
         when: 1,
         title: "Weekly prizes for moving",
-        body: "Coach Plus funds a monthly prize pool, turned into $VVAKE by public rules and handed out each week for effort. Two ways in, same prize: Coach Plus or the free entry (no purchase necessary), with a linked wallet (18+). You claim from your own wallet on vvake.com/rewards. Testnet today: no value.",
+        body: "VVake Coach Plus funds a monthly prize pool, turned into $VVAKE by public rules and handed out each week for effort. Two ways in, same prize: VVake Coach Plus or the free entry (no purchase necessary), with a linked wallet (18+). You claim from your own wallet on vvake.com/rewards. Testnet today: no value.",
       },
       {
         icon: "📈",
@@ -859,7 +859,7 @@ export const en = {
   plus: {
     kicker: "VVake Coach Plus · optional",
     title: "More tools. Never an edge.",
-    body: "The free plan is complete. Coach Plus is for people who want deeper coaching, bigger crews and a few treats.",
+    body: "The free plan is complete. VVake Coach Plus is for people who want deeper coaching, bigger crews and a few treats.",
     name: "VVake Coach Plus",
     price: "{money}",
     per: "/ month",
@@ -867,10 +867,10 @@ export const en = {
     trial: "7-day free trial · cancel anytime",
     lifetime: {
       tag: "Founding offer · launch season only",
-      title: "Coach Plus for life",
+      title: "VVake Coach Plus for life",
       price: "{money}",
       per: "once",
-      body: "All Coach Plus tools, forever, for about 30 months of the monthly price. Same rule: never an edge. Counted as Coach Plus revenue spread over 36 months, so it funds VVake for years.",
+      body: "All VVake Coach Plus tools, forever, for about 30 months of the monthly price. Same rule: never an edge. Counted as VVake Coach Plus revenue spread over 36 months, so it funds VVake for years.",
     },
     cta: "Get notified at launch",
     perks: [
@@ -883,7 +883,7 @@ export const en = {
       {
         icon: "🎙️",
         title: "Live voice coach",
-        body: "Talk hands-free with your coach during your workouts: 5 minutes a week with Coach Plus, 15 with Coach Premium (up to 5 per workout), and minute packs for anyone (coming soon).",
+        body: "Talk hands-free with your coach during your workouts: 5 minutes a week with VVake Coach Plus, 15 with VVake Coach Premium (up to 5 per workout), and minute packs for anyone (coming soon).",
       },
       {
         icon: "🎧",
@@ -899,9 +899,9 @@ export const en = {
       { icon: "✨", title: "Monthly finish", body: "A new cosmetic finish for your VVaker every month." },
     ],
     invest: {
-      kicker: "Coach Plus + Invest",
+      kicker: "VVake Coach Plus + Invest",
       title: "Subscribe and invest, in one setup.",
-      body: "Start Coach Plus and a monthly invest plan together. Your plan uses your own money at your licensed broker (Robinhood planned) and follows your rules:",
+      body: "Start VVake Coach Plus and a monthly invest plan together. Your plan uses your own money at your licensed broker (Robinhood planned) and follows your rules:",
       rules: [
         {
           icon: "🎯",
@@ -915,9 +915,9 @@ export const en = {
       example: "Example month · budget {budget} · goal 12 sessions, done 12 · city won",
       cash: "Kept as your cash: {money}",
       why: { pairs: "sport pair", side: "side pocket", home: "home tilt" },
-      note: "Coach Plus is a subscription for app features; it never buys shares. Investing is separate, with your own money and account at a licensed broker, where available. Your results change how your own plan runs, never a prize. Investments can go down as well as up; not financial advice.",
+      note: "VVake Coach Plus is a subscription for app features; it never buys shares. Investing is separate, with your own money and account at a licensed broker, where available. Your results change how your own plan runs, never a prize. Investments can go down as well as up; not financial advice.",
     },
-    neverTitle: "Never in Coach Plus",
+    neverTitle: "Never in VVake Coach Plus",
     never: [
       "More energy or points",
       "Higher rankings or stats",
@@ -925,8 +925,8 @@ export const en = {
       "Your data: your full journal and exports stay free",
     ],
     split:
-      "15% of net Coach Plus revenue (what the stores pay us after their commission and taxes, minus refunds) goes to the prize pool, handed out each week for effort.",
-    note: "In the iPhone app (and the Android app when it comes), Coach Plus is an in-app subscription through the store; manage or cancel it in your store settings. Prices vary by country and include taxes where required.",
+      "15% of net VVake Coach Plus revenue (what the stores pay us after their commission and taxes, minus refunds) goes to the prize pool, handed out each week for effort.",
+    note: "In the iPhone app (and the Android app when it comes), VVake Coach Plus is an in-app subscription through the store; manage or cancel it in your store settings. Prices vary by country and include taxes where required.",
   },
   coach: {
     kicker: "Your VVaker, your coach",
@@ -1431,7 +1431,7 @@ export const en = {
     token: {
       kicker: "$VVAKE · testnet · Robinhood Chain",
       title: "What $VVAKE is for.",
-      body: "$VVAKE is a community key, not a scoreboard. Holding it gives you a voice in the community, looks to show off and doors to open with other movers. It works on its own, and does a bit more with Coach Plus. Everything that counts in your challenges stays earned by moving.",
+      body: "$VVAKE is a community key, not a scoreboard. Holding it gives you a voice in the community, looks to show off and doors to open with other movers. It works on its own, and does a bit more with VVake Coach Plus. Everything that counts in your challenges stays earned by moving.",
       tiers: [
         {
           icon: "🏃",
@@ -1441,12 +1441,12 @@ export const en = {
             "Everything free: plan, crews, challenges, city unlocks",
             "Stats, levels and rankings earned by moving",
             "VV points, streaks, quests and the coach",
-            "The free entry to the weekly $VVAKE prizes: same prizes as Coach Plus (linked wallet, 18+, testnet today)",
+            "The free entry to the weekly $VVAKE prizes: same prizes as VVake Coach Plus (linked wallet, 18+, testnet today)",
           ],
         },
         {
           icon: "⭐",
-          name: "Coach Plus",
+          name: "VVake Coach Plus",
           who: "Subscription, no token",
           perks: [
             "Deeper coaching and your voice coach",
@@ -1468,7 +1468,7 @@ export const en = {
         },
         {
           icon: "🔥",
-          name: "Holder + Coach Plus",
+          name: "Holder + VVake Coach Plus",
           who: "Token and subscription",
           perks: [
             "Everything on both sides",
@@ -1540,13 +1540,13 @@ export const en = {
             value: "3% per trade: 1.5% team (development, marketing, platforms) · 0.9% season rewards · 0.6% vibe/vibe",
           },
           { label: "Opening buy", value: "5% of supply (50M), only for the one-time claim by old-token pool buyers" },
-          { label: "Prize pool", value: "15% of net Coach Plus revenue" },
+          { label: "Prize pool", value: "15% of net VVake Coach Plus revenue" },
           { label: "Conversions", value: "By rule on chain: capped daily, anyone can trigger" },
           { label: "Where converted $VVAKE goes", value: "Only to the rewards contract" },
           {
             label: "Who gets prizes",
             value:
-              "Coach Plus members or free entrants (same prize) with a linked wallet (18+), all from before the week, who moved with heart rate, recorded with the app on a real iPhone or Apple Watch, and answered the skill question",
+              "VVake Coach Plus members or free entrants (same prize) with a linked wallet (18+), all from before the week, who moved with heart rate, recorded with the app on a real iPhone or Apple Watch, and answered the skill question",
           },
           {
             label: "Pilot",
@@ -1558,21 +1558,21 @@ export const en = {
         ],
       },
       prizePool: {
-        title: "🏆 Coach Plus funds a monthly prize pool",
+        title: "🏆 VVake Coach Plus funds a monthly prize pool",
         body: "Each month 15% of net VVake Coach Plus revenue (store proceeds after Apple's or Google's commission and withheld taxes, minus refunds) goes to the prize pool, a public contract (VVakePrizePool), with a hash of that month's report on chain. The pool turns it into $VVAKE by rule, never by anyone's choice.",
         steps: [
           "Conversions run in small capped chunks, at most once a day, and anyone can trigger the next one",
           "The $VVAKE goes only to the rewards contract (VVakeRewards), never to a person or a team wallet",
-          "Each week, prizes for effort. Two ways in, same prize: Coach Plus or the free entry (no purchase necessary), with an account, an entry and a linked wallet (18+) from before the week, at least 3 heart-rate sessions or 90 active minutes recorded with the app on a real iPhone or Apple Watch, and the week's skill question. Never by holdings, never by draw",
+          "Each week, prizes for effort. Two ways in, same prize: VVake Coach Plus or the free entry (no purchase necessary), with an account, an entry and a linked wallet (18+) from before the week, at least 3 heart-rate sessions or 90 active minutes recorded with the app on a real iPhone or Apple Watch, and the week's skill question. Never by holdings, never by draw",
           "The week's pot is 1/8 (12.5%) of the $VVAKE the rewards contract holds and hasn't promised yet, at most 1,000,000. It's shared by effort points (at most 150 a day), nobody gets more than 10%, and what isn't handed out stays in the pool for later weeks. You claim from your own wallet on vvake.com/rewards",
           "During the pilot: at most 1,000 VVAKE per person and 20,000 VVAKE in all each week, for the first 200 eligible people; others join a waiting list. What a cap leaves stays in the pool for later weeks. A person reviews every week, and nothing is posted until that review is done.",
         ],
-        note: "Testnet today: the tokens have no value. Nothing is burned and nothing goes to holders. Legal review and an external audit of the contracts come before any mainnet value. Paying Coach Plus with testnet $VVAKE exists only in development builds of the app, to test the flow (the tokens go to the VVake treasury); it isn't offered in TestFlight or the App Store.",
+        note: "Testnet today: the tokens have no value. Nothing is burned and nothing goes to holders. Legal review and an external audit of the contracts come before any mainnet value. Paying VVake Coach Plus with testnet $VVAKE exists only in development builds of the app, to test the flow (the tokens go to the VVake treasury); it isn't offered in TestFlight or the App Store.",
         cta: "See the prizes and the pool",
       },
       equal: {
         title: "Same for everyone, token or not",
-        body: "Stats, levels, rankings and matchmaking are the same for everyone. Weekly prizes are open with Coach Plus or the free entry, same prize, and follow effort only: never holding $VVAKE, never chance, never how much you pay.",
+        body: "Stats, levels, rankings and matchmaking are the same for everyone. Weekly prizes are open with VVake Coach Plus or the free entry, same prize, and follow effort only: never holding $VVAKE, never chance, never how much you pay.",
       },
       never: {
         title: "What $VVAKE never does",
@@ -1604,7 +1604,7 @@ export const en = {
       {
         tag: "On-chain (planned)",
         title: "Robinhood Chain keeps it open",
-        body: "The chain where tokenized stocks (RWA) already live. On testnet today: weekly $VVAKE prizes for effort, funded by Coach Plus and claimed from your own wallet. Planned: a public fee-split contract, collectibles with real utility (never an edge), and the $VVAKE mainnet launch on vibe/vibe after legal review.",
+        body: "The chain where tokenized stocks (RWA) already live. On testnet today: weekly $VVAKE prizes for effort, funded by VVake Coach Plus and claimed from your own wallet. Planned: a public fee-split contract, collectibles with real utility (never an edge), and the $VVAKE mainnet launch on vibe/vibe after legal review.",
         points: ["Launchpad fee split, on-chain", "Weekly prizes for effort", "Web portal only · 18+ · not in every country"],
       },
     ],
@@ -1793,7 +1793,7 @@ export const en = {
     sources: [
       {
         name: "VVake Coach Plus",
-        basis: "Net Coach Plus revenue",
+        basis: "Net VVake Coach Plus revenue",
         split: [
           { label: "Prize pool", note: "Turned into $VVAKE by rule and handed out each week for effort, never for holding", value: 30 },
         ],
@@ -1889,7 +1889,7 @@ export const en = {
         signIn: "Sign in",
         checking: "Checking this look…",
         cast: "From the cast: free for everyone, never owned.",
-        free: "Nobody owns this look yet: render or claim it in the app (Coach Plus) and it's yours alone.",
+        free: "Nobody owns this look yet: render or claim it in the app (VVake Coach Plus) and it's yours alone.",
         mine: "This look is yours.",
         taken: "This VVaker belongs to someone else — change one detail to make yours.",
         tryIt: "Try {code}",
@@ -1904,7 +1904,7 @@ export const en = {
       downloadVVaker: "Download VVaker",
       downloadBanner: "Download X banner",
       generate: "Render my VVaker",
-      soon: "At launch · 3 free renders, more with Coach Plus",
+      soon: "At launch · 3 free renders, more with VVake Coach Plus",
       animals: {
         cheetah: "Cheetah",
         cat: "Cat",
@@ -2187,11 +2187,11 @@ export const en = {
       },
       {
         q: "Can I start over after a break?",
-        a: "Yes. Fresh start (Settings, on the phone or the watch) resets your plan and schedule, your streak, your daily habits, your custom health settings (heart zones, resting and max heart rate), focus lock and the coach's memory, so you begin again at day 1. Your VVaker, your sessions, your scores, points and prizes, your wallet, Coach Plus, your friends and your Apple Health or Health Connect data all stay: nothing is deleted from them. You hold the button to confirm, so it never happens by accident.",
+        a: "Yes. Fresh start (Settings, on the phone or the watch) resets your plan and schedule, your streak, your daily habits, your custom health settings (heart zones, resting and max heart rate), focus lock and the coach's memory, so you begin again at day 1. Your VVaker, your sessions, your scores, points and prizes, your wallet, VVake Coach Plus, your friends and your Apple Health or Health Connect data all stay: nothing is deleted from them. You hold the button to confirm, so it never happens by accident.",
       },
       {
         q: "Is it free? Do I need a wallet or crypto?",
-        a: "Free to start, and you never need a wallet or crypto to train. A wallet is only for claiming the optional weekly $VVAKE prizes, on vvake.com/rewards, never in the app. Optional extras like VVake Coach Plus are never required to train or take part in challenges and never give an edge in them; the weekly $VVAKE prizes are open with Coach Plus or the free entry (same prize, no purchase necessary), with a linked wallet (18+).",
+        a: "Free to start, and you never need a wallet or crypto to train. A wallet is only for claiming the optional weekly $VVAKE prizes, on vvake.com/rewards, never in the app. Optional extras like VVake Coach Plus are never required to train or take part in challenges and never give an edge in them; the weekly $VVAKE prizes are open with VVake Coach Plus or the free entry (same prize, no purchase necessary), with a linked wallet (18+).",
         link: "plans/",
       },
       {
@@ -2509,7 +2509,7 @@ export const en = {
           },
           {
             t: "Microphone and voice, only when you ask.",
-            d: "Talking to the coach by voice uses your browser's speech recognition, which may send the sound to your browser's maker (for example Google for Chrome) to turn it into text; only the text reaches VVake. Workout cues play VVake's recorded coach voice: the same recordings for everyone, with no personal data, kept in your browser's Cache Storage so they play at once. Cues with your own numbers (pace, distance, time) and, with Coach Plus, the coach's replies are spoken by the coach's voice (ElevenLabs) through our servers, as on the phone; your browser keeps that audio in memory only, never on disk. If the audio can't play, your browser's own voice reads the line, on your device.",
+            d: "Talking to the coach by voice uses your browser's speech recognition, which may send the sound to your browser's maker (for example Google for Chrome) to turn it into text; only the text reaches VVake. Workout cues play VVake's recorded coach voice: the same recordings for everyone, with no personal data, kept in your browser's Cache Storage so they play at once. Cues with your own numbers (pace, distance, time) and, with VVake Coach Plus, the coach's replies are spoken by the coach's voice (ElevenLabs) through our servers, as on the phone; your browser keeps that audio in memory only, never on disk. If the audio can't play, your browser's own voice reads the line, on your device.",
           },
           {
             t: "The camera, only during a camera workout.",
@@ -2717,7 +2717,7 @@ export const en = {
           },
           {
             t: "Weekly lists.",
-            d: "Every Monday we settle the past week: the VVAKE amount for each eligible account (Coach Plus or free entry, linked wallet, enough effort recorded with the app on a real iPhone or Apple Watch, skill question, a seat in the pilot), checked by a person before anything is posted. The week's list (addresses and amounts, with their proofs) is published so anyone can check it, and its fingerprint (a Merkle root) is written to the blockchain. Names, e-mails and points are not in the list, but an amount says roughly how active that address was that week.",
+            d: "Every Monday we settle the past week: the VVAKE amount for each eligible account (VVake Coach Plus or free entry, linked wallet, enough effort recorded with the app on a real iPhone or Apple Watch, skill question, a seat in the pilot), checked by a person before anything is posted. The week's list (addresses and amounts, with their proofs) is published so anyone can check it, and its fingerprint (a Merkle root) is written to the blockchain. Names, e-mails and points are not in the list, but an amount says roughly how active that address was that week.",
           },
           {
             t: "Claims.",
@@ -2817,7 +2817,7 @@ export const en = {
             d: "public and permanent once published and on chain (see $VVAKE prizes and your wallet). Our copy keeps the address, points and amount, without your account once you delete it.",
           },
           {
-            t: "Coach calls (Coach Plus, if you turn them on):",
+            t: "Coach calls (VVake Coach Plus, if you turn them on):",
             d: "each call's script, audio and status for 90 days, then deleted; with your account at once.",
           },
           {
@@ -2924,8 +2924,8 @@ export const en = {
         id: "plus",
         h: "Subscriptions and TestFlight",
         p: [
-          "VVake Coach Plus is not on sale yet: nothing is charged during the preview. When subscriptions open, Apple will handle payment and we will receive only the status of your subscription, never your payment details. In development builds only (not TestFlight or the App Store), Coach Plus can be paid with testnet $VVAKE: we keep the invoice (the exact token amount and the reference price used) and, once paid, the public transaction found on chain; the receipt stays without your account after deletion so a payment can never be counted twice. Coach Premium and live-coach minute packs are not on sale yet either. When they open, the App Store or Google Play handles payment; for a minute pack we keep the store's transaction id, which pack, when it was bought and when it expires (12 months), and a history of the minutes used, refunded or expired, with your account. If you delete your account the history goes; the transaction id stays without your account so the same purchase can never be counted twice.",
-          'During the beta, testers get Coach Premium at no charge. We store the date your account first used a beta build (early tester) to show an "Early tester" badge and for a possible future thank-you; it is kept with your account and deleted with it.',
+          "VVake Coach Plus is not on sale yet: nothing is charged during the preview. When subscriptions open, Apple will handle payment and we will receive only the status of your subscription, never your payment details. In development builds only (not TestFlight or the App Store), VVake Coach Plus can be paid with testnet $VVAKE: we keep the invoice (the exact token amount and the reference price used) and, once paid, the public transaction found on chain; the receipt stays without your account after deletion so a payment can never be counted twice. VVake Coach Premium and live-coach minute packs are not on sale yet either. When they open, the App Store or Google Play handles payment; for a minute pack we keep the store's transaction id, which pack, when it was bought and when it expires (12 months), and a history of the minutes used, refunded or expired, with your account. If you delete your account the history goes; the transaction id stays without your account so the same purchase can never be counted twice.",
+          'During the beta, testers get VVake Coach Premium at no charge. We store the date your account first used a beta build (early tester) to show an "Early tester" badge and for a possible future thank-you; it is kept with your account and deleted with it.',
           "If you test a preview through TestFlight, Apple shares with us the feedback, screenshots and crash reports you choose to send, with basic device information, under Apple's TestFlight terms.",
         ],
         list: [],
@@ -3251,17 +3251,17 @@ export const en = {
       title: "Two ways in, same prize",
       lead: "Weekly prizes are open with VVake Coach Plus or with the free entry. Same rules, same prizes, same share by effort: no purchase necessary.",
       plus: {
-        kicker: "Way 1 · Coach Plus",
+        kicker: "Way 1 · VVake Coach Plus",
         title: "VVake Coach Plus",
-        body: "An active Coach Plus subscription enters you for every week it covers from the start (Monday 00:00 UTC). Coach Plus never makes a prize bigger.",
-        on: "You're in with Coach Plus.",
-        off: "No active Coach Plus on this account. Coach Plus is managed in the app.",
-        beta: "Beta Coach Plus doesn't count as an entry: use the free entry, it's the same prize.",
+        body: "An active VVake Coach Plus subscription enters you for every week it covers from the start (Monday 00:00 UTC). VVake Coach Plus never makes a prize bigger.",
+        on: "You're in with VVake Coach Plus.",
+        off: "No active VVake Coach Plus on this account. VVake Coach Plus is managed in the app.",
+        beta: "Beta VVake Coach Premium doesn't count as an entry: use the free entry, it's the same prize.",
       },
       free: {
         kicker: "Way 2 · Free entry",
         title: "Free entry",
-        body: "No purchase necessary. One tap and you stay entered, week after week, until you withdraw. Like Coach Plus, it has to exist before the week starts.",
+        body: "No purchase necessary. One tap and you stay entered, week after week, until you withdraw. Like VVake Coach Plus, it has to exist before the week starts.",
         enter: "Enter for free",
         on: "You're entered for free.",
         countsFrom: "Counts from the week of {date}.",
@@ -3325,7 +3325,7 @@ export const en = {
       statusCol: "Status",
       until: "until {date}",
       empty:
-        "No settled weeks yet. A week counts when you're entered (Coach Plus or the free entry), your wallet was linked before it started, you moved enough with heart-rate data and you answered its skill question.",
+        "No settled weeks yet. A week counts when you're entered (VVake Coach Plus or the free entry), your wallet was linked before it started, you moved enough with heart-rate data and you answered its skill question.",
       emptyHint: "Expected some weeks here? Check that you signed in with the same account as in the app.",
       wallet: "To {address}",
       ruleTitle: "Who gets prizes",
@@ -3346,7 +3346,7 @@ export const en = {
       notEligibleNow: "This week doesn't count for prizes yet:",
       notEligibleWeek: "Didn't count: {reasons}",
       missing: {
-        entry: "no entry before the week started: Coach Plus or the free entry needed",
+        entry: "no entry before the week started: VVake Coach Plus or the free entry needed",
         account: "the account must exist before the week starts",
         wallet: "a wallet must be linked before the week starts (a new wallet counts from the next week)",
         walletFrom: "your wallet counts from the week of {date} (a new wallet counts from the next week)",
@@ -3365,7 +3365,7 @@ export const en = {
       lead: "Your rewards go to one wallet of yours. Linking it is a free signature: no transaction, no access to your tokens. Never type a recovery phrase or a private key on any website, this one included.",
       linked: "Linked wallet",
       linkedAt: "linked {date}",
-      none: "No wallet linked yet. Weekly prizes need a linked wallet, with Coach Plus or the free entry.",
+      none: "No wallet linked yet. Weekly prizes need a linked wallet, with VVake Coach Plus or the free entry.",
       countsFrom: "Counts for prizes from the week of {date}.",
       unlink: "Unlink",
       unlinkConfirm: "Unlink this wallet? Future weeks won't count until you link one again; settled weeks stay claimable by this address.",
@@ -3506,15 +3506,15 @@ export const en = {
       title: "Effort in, prizes out",
       items: [
         {
-          h: "Coach Plus funds the pool",
-          p: "Each month 15% of net Coach Plus subscription revenue goes to an open prize pool contract, with a hash of that month's report on chain.",
+          h: "VVake Coach Plus funds the pool",
+          p: "Each month 15% of net VVake Coach Plus subscription revenue goes to an open prize pool contract, with a hash of that month's report on chain.",
         },
         {
           h: "The pool turns ETH into VVAKE by rule",
           p: "Anyone can trigger the next step, in small capped chunks, at most once per interval. The VVAKE goes straight to the rewards contract, never to a person.",
         },
         {
-          h: "Coach Plus or the free entry, same prize",
+          h: "VVake Coach Plus or the free entry, same prize",
           p: "Two ways in: VVake Coach Plus or the free entry (no purchase necessary), same rules and same prizes. A week counts if your account, your entry and your linked wallet existed before the week started, you're 18 or older and allowed to receive prizes where you live (you confirm it when linking), you recorded your sessions with the app on a real iPhone or Apple Watch, you moved with heart-rate data from a watch (at least 3 sessions of 10+ minutes or 90 active minutes, with movement; a phone without a heart-rate sensor scores 0), and you answered the week's skill question, as Canadian law requires for prizes. Move Quests never count toward prizes.",
         },
         {
@@ -3638,14 +3638,14 @@ export const en = {
     },
   },
   plusPay: {
-    title: "Coach plans: VVake Coach Plus and Coach Premium",
+    title: "Coach plans: VVake Coach Plus and VVake Coach Premium",
     description:
-      "Free, VVake Coach Plus or Coach Premium: live coach minutes, the coach's voice and minute packs. Pay a month of Coach Plus with $VVAKE from your own wallet, at a discount. Optional: more tools, never an edge.",
+      "Free, VVake Coach Plus or VVake Coach Premium: live coach minutes, the coach's voice and minute packs. Pay a month of VVake Coach Plus with $VVAKE from your own wallet, at a discount. Optional: more tools, never an edge.",
     plans: {
       index: "01",
       kicker: "Coach plans",
-      title: "Free, VVake Coach Plus or Coach Premium",
-      beta: "Beta testers have Coach Premium for the whole beta. Nothing is charged.",
+      title: "Free, VVake Coach Plus or VVake Coach Premium",
+      beta: "Beta testers have VVake Coach Premium for the whole beta. Nothing is charged.",
       lead: "Everything that counts is free. Plans add live coach minutes and the coach's voice; minute packs top up any plan, free included. Prices are planned: nothing is on sale yet.",
       soon: "Coming soon",
       perMonth: "{price} a month",
@@ -3657,49 +3657,49 @@ export const en = {
           lines: ["Every workout, sport, point and prize entry", "Coach chat and workout cues", "Live coach with minute packs"],
         },
         plus: {
-          name: "Coach Plus",
+          name: "VVake Coach Plus",
           lines: [
-            "5 live coach minutes a week",
-            "Coach replies in the coach's voice, a short share each day",
-            "Coach calls, up to 3 a week",
+            "{live} live coach minutes a week",
+            "Coach replies in the coach's voice: {chars} new characters a day",
+            "Coach calls, up to {calls} a week",
             "Custom VVaker, 12-week plan, deeper insights",
           ],
         },
         premium: {
-          name: "Coach Premium",
+          name: "VVake Coach Premium",
           lines: [
-            "15 live coach minutes a week",
-            "Everything in Coach Plus",
-            "The coach's voice for your freely worded lines",
-            "Coach calls at their normal pace",
+            "{live} live coach minutes a week",
+            "Everything in VVake Coach Plus",
+            "The coach's voice: {chars} new characters a day, your freely worded lines too",
+            "Coach calls, up to {calls} a day",
           ],
         },
       },
       packsTitle: "Minute packs",
       packsLead: "For any plan, free too: live coach minutes used only after your weekly ones, during a real workout, valid 12 months.",
       pack: "+{n} min",
-      fine: "Live minutes count what you and the coach say, not the silences. In the beta, testers get Coach Premium to try everything; nothing is charged.",
+      fine: "Live minutes count what you and the coach say, not the silences. In the beta, testers get VVake Coach Premium to try everything; nothing is charged.",
     },
     kicker: "VVake Coach Plus · optional",
-    heading: "Coach Plus, paid with $VVAKE",
-    lead: "More tools, never an edge: energy, scores, prizes and stats are the same for everyone. Pay a month of Coach Plus with $VVAKE from your own wallet, for less than the list price.",
+    heading: "VVake Coach Plus, paid with $VVAKE",
+    lead: "More tools, never an edge: energy, scores, prizes and stats are the same for everyone. Pay a month of VVake Coach Plus with $VVAKE from your own wallet, for less than the list price.",
     appStore:
-      "In the iPhone app, Coach Plus is an in-app subscription through the App Store; manage or cancel it in your App Store settings. Paying with $VVAKE here is a separate, one-month payment for the same VVake account: no renewal, nothing to cancel. A card subscription here renews monthly and is managed on this page.",
+      "In the iPhone app, VVake Coach Plus is an in-app subscription through the App Store; manage or cancel it in your App Store settings. Paying with $VVAKE here is a separate, one-month payment for the same VVake account: no renewal, nothing to cancel. A card subscription here renews monthly and is managed on this page.",
     testnet: "Testnet: these tokens have no value. Nothing on this page is an offer or investment advice.",
     safety:
-      "VVake never asks for a seed phrase, a private key or a token approval. You send one transfer yourself, from your own wallet; this page never connects to it. It pays for Coach Plus: it isn't a deposit or a balance, and VVake doesn't hold tokens for you.",
+      "VVake never asks for a seed phrase, a private key or a token approval. You send one transfer yourself, from your own wallet; this page never connects to it. It pays for VVake Coach Plus: it isn't a deposit or a balance, and VVake doesn't hold tokens for you.",
     signIn: {
       kicker: "Your account",
       title: "Sign in with your VVake account",
-      lead: "Coach Plus goes to the account you train with in the app, on every device you sign in to.",
+      lead: "VVake Coach Plus goes to the account you train with in the app, on every device you sign in to.",
     },
     account: {
       index: "02",
-      kicker: "Coach Plus",
-      title: "Your Coach Plus",
+      kicker: "VVake Coach Plus",
+      title: "Your VVake Coach Plus",
       signedInAs: "Signed in as {name}",
       signOut: "Sign out",
-      active: "You have Coach Plus until {date}.",
+      active: "You have VVake Coach Plus until {date}.",
       free: "Free plan: the full app, every sport, your journal, the free entry to the prizes.",
       appleSource: "Subscribed in the App Store: manage it in your App Store settings.",
       cardSource: "Paid by card on vvake.com: manage or cancel it below.",
@@ -3708,7 +3708,7 @@ export const en = {
       index: "04",
       kicker: "Pay by card",
       title: "Or a monthly subscription by card",
-      lead: "Coach Plus every month by card, on Stripe's secure checkout. The price and any tax are shown there before you pay. Cancel any time: Coach Plus stays until the end of the month you paid.",
+      lead: "VVake Coach Plus every month by card, on Stripe's secure checkout. The price and any tax are shown there before you pay. Cancel any time: VVake Coach Plus stays until the end of the month you paid.",
       subscribe: "Subscribe by card",
       opening: "Opening the secure checkout…",
       fine: "Card payments are handled by Stripe; VVake never sees your card number.",
@@ -3718,15 +3718,15 @@ export const en = {
       already: "You already have a card subscription: manage it here.",
       unavailable: "Paying by card isn't available right now.",
       doneTitle: "Thank you",
-      done: "Payment received: Coach Plus is on, in the app too.",
-      finishing: "Payment received. Coach Plus turns on in a few seconds, in the app too.",
+      done: "Payment received: VVake Coach Plus is on, in the app too.",
+      finishing: "Payment received. VVake Coach Plus turns on in a few seconds, in the app too.",
       cancelledTitle: "Checkout cancelled",
       cancelled: "Nothing was charged. You can try again below, or pay with $VVAKE.",
     },
     pay: {
       index: "03",
       kicker: "Pay with $VVAKE",
-      title: "A month of Coach Plus",
+      title: "A month of VVake Coach Plus",
       price: "{list} a month, {usd} with $VVAKE ({pct})",
       amount: "≈ {amount} VVAKE right now (the exact amount is set when you ask for it)",
       loading: "Getting the price…",
@@ -3737,7 +3737,7 @@ export const en = {
       offline: "Couldn't reach VVake. Try again.",
       signInFirst: "Sign in to pay with $VVAKE.",
       qrLabel: "QR code of the payment link",
-      exact: "Send exactly this amount from your own wallet. Coach Plus starts as soon as it's confirmed on chain.",
+      exact: "Send exactly this amount from your own wallet. VVake Coach Plus starts as soon as it's confirmed on chain.",
       to: "To {address}",
       network: "Network: {network} (chain {chainId})",
       waiting: "Waiting for your payment…",
@@ -3748,13 +3748,13 @@ export const en = {
       copyAddress: "Copy address",
       copied: "Copied",
       newAmount: "New amount",
-      paid: "✓ Coach Plus active until {date}",
+      paid: "✓ VVake Coach Plus active until {date}",
       receipt: "See the receipt",
       howTitle: "How it works",
       how: [
         "Ask for an amount: it is exact to the last digit and kept for 30 minutes.",
         "Send that exact amount of VVAKE from your own wallet, on the network shown. Scan the QR code or open the link in a wallet app.",
-        "VVake finds the transfer on chain by its amount. Coach Plus is added to your account for 30 days, on top of any Coach Plus you have.",
+        "VVake finds the transfer on chain by its amount. VVake Coach Plus is added to your account for 30 days, on top of any VVake Coach Plus you have.",
       ],
     },
   },
@@ -3843,7 +3843,7 @@ export const en = {
           "Creator points when other people complete your trainings with heart data, and a creator share of the weekly testnet rewards pool (5%, testnet, no value): in the beta for testers since build 37",
           "The 360 overhaul: Today opens on Train now, a new onboarding, a Points page and a post-workout card; heart and pace zones per sport with Effort by feel; reminders answered where they ring; Where to train near me; one coach voice everywhere, watches included; brag cards in 3 formats, pokes and challenge results, city rank: in the beta for testers since build 38",
           "Season plans: tell your coach what you train for and it plans the months ahead in phases (base, build, peak, taper, race, recovery), reviews every goal (realistic, a stretch or too risky) with safer options, shows your season on a timeline, sets your weekly sports, days and hours, edits the week with you (you approve every change, can undo it) and adapts when life happens; today's session, phase, countdown and target zones on both watches: in the browser (vvake.com/app) now; in the iPhone, Android and watch apps in the beta for testers since build 39",
-          "Coach plans: free, VVake Coach Plus and Coach Premium, with live coach minute packs for any plan; beta testers have Coach Premium for the whole beta, nothing charged; sales open only with the public store release",
+          "Coach plans: free, VVake Coach Plus and VVake Coach Premium, with live coach minute packs for any plan; beta testers have VVake Coach Premium for the whole beta, nothing charged; sales open only with the public store release",
         ],
       },
       {
