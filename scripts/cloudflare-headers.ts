@@ -1,7 +1,7 @@
 /**
  * Writes out/_headers for the Cloudflare deploy (docs/cloudflare-hosting.md): real security headers, each page's CSP
  * with frame-ancestors 'none', and the app-site-association content type (src/lib/cloudflareHeaders.ts). Run after
- * `npm run build` (which writes the meta CSPs); `npm run deploy:cloudflare` does both. GitHub Pages ignores the file.
+ * `pnpm run build` (which writes the meta CSPs); `pnpm run deploy:cloudflare` does both. GitHub Pages ignores the file.
  */
 import { readdirSync, readFileSync, statSync, writeFileSync } from "node:fs";
 import { join, relative } from "node:path";
@@ -19,7 +19,7 @@ function htmlFiles(dir: string): string[] {
 
 const pages = htmlFiles(OUT).map((p) => ({ file: relative(OUT, p), html: readFileSync(p, "utf8") }));
 if (!pages.length) {
-  console.error("cloudflare-headers: no HTML files in out/ (run npm run build first)");
+  console.error("cloudflare-headers: no HTML files in out/ (run pnpm run build first)");
   process.exit(1);
 }
 const text = buildHeaders(pages);

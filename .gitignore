@@ -57,3 +57,6 @@ next-env.d.ts
 /public/maplibre/
 # MediaPipe's WebAssembly runtime, copied from node_modules by scripts/copy-mediapipe.ts
 /public/mediapipe/
+
+# pnpm only (VVFit ADR-0052): an accidental `npm install` must not commit an npm lockfile
+package-lock.json
