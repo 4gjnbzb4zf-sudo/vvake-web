@@ -50,7 +50,10 @@ export type Route =
   | { name: "trainings" | "teach" | "coach-profile" }
   | { name: "train" | "training"; ref: string; challenge?: string }
   | { name: "build"; id?: string }
-  | { name: "creator"; handle: string };
+  | { name: "creator"; handle: string }
+  /** Season plans (ADR-0050): the season, a goal (new without id), the weekly sports, the health context, the history. */
+  | { name: "season" | "season-sports" | "season-health" | "season-history" }
+  | { name: "season-goal"; id?: string };
 
 export const TABS = ["today", "plan", "trainings", "crew", "coach", "you"] as const;
 
@@ -74,6 +77,8 @@ export function parseRoute(hash: string): Route {
   if (name === "creator")
     return arg && /^[a-z0-9_]{3,20}$/i.test(arg) ? { name: "creator", handle: arg.toLowerCase() } : { name: "trainings" };
   if (name === "trainings" || name === "teach" || name === "coach-profile") return { name };
+  if (name === "season-goal") return arg && /^sg[a-z0-9]{4,24}$/.test(arg) ? { name, id: arg } : { name };
+  if (name === "season" || name === "season-sports" || name === "season-health" || name === "season-history") return { name };
   const known = ["today", "plan", "crew", "coach", "you", "points", "goals", "rhythm", "vvaker", "sensor", "workout", "zones"] as const;
   return { name: (known as readonly string[]).includes(name ?? "") ? (name as (typeof known)[number]) : "today" };
 }
@@ -89,7 +94,9 @@ export const routeHash = (r: Route) =>
           ? `#/build${r.id ? `/${r.id}` : ""}`
           : r.name === "creator"
             ? `#/creator/${r.handle}`
-            : `#/${r.name}`;
+            : r.name === "season-goal"
+              ? `#/season-goal${r.id ? `/${r.id}` : ""}`
+              : `#/${r.name}`;
 
 export interface Prefs {
   units: Units;

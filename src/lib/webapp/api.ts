@@ -1,6 +1,18 @@
 import * as z from "zod/mini";
 import type { RewardsSession } from "@/lib/rewardsApi";
 import type { WebSession } from "./workout";
+import {
+  auditSchema,
+  editReplySchema,
+  feasibilityReplySchema,
+  reviewReplySchema,
+  seasonSchema,
+  todaySchema,
+  type EditDraft,
+  type HealthFlags,
+  type SeasonGoal,
+  type SeasonPrefs,
+} from "./season";
 
 /**
  * The web app's API calls (vvake.com/app): the same endpoints the phone uses (monorepo docs/05-tech/api-v1.md), on the
@@ -133,7 +145,15 @@ const weekSchema = z.object({
 });
 export type Week = z.infer<typeof weekSchema>;
 
-const planChangeSchema = z.object({ id: z.string(), status: z.string(), summary: str, day: str });
+const planChangeSchema = z.object({
+  id: z.string(),
+  status: z.string(),
+  summary: str,
+  day: str,
+  source: str,
+  /** A season change (ADR-0050): its edits, and one plain line per edit to show under the summary. */
+  season: opt(z.object({ lines: opt(z.array(z.string())), reason: str })),
+});
 export type PlanChange = z.infer<typeof planChangeSchema>;
 
 const coachReplySchema = z.object({
@@ -229,7 +249,36 @@ export function webApi(s: RewardsSession) {
       s.call("/v1/athlete", send("PUT", b), athleteSchemaForApp),
     week: (tz: string, lang: string) => s.call(`/v1/plan/week?${tzQ(tz)}&lang=${lang}`, GET, weekSchema),
     planChanges: async () => (await s.call("/v1/plan/changes", GET, z.object({ changes: z.array(planChangeSchema) }))).changes,
-    decidePlan: (id: string, decision: "accept" | "reject") => s.call(`/v1/plan/changes/${id}`, send("POST", { decision }), null),
+    decidePlan: (id: string, decision: "accept" | "reject") =>
+      s.call(`/v1/plan/changes/${id}?device=web`, send("POST", { decision }), null),
+    /** An approved season change taken back (within 30 days): all its edits stop applying. */
+    undoPlanChange: (id: string) => s.call(`/v1/plan/changes/${id}/undo?device=web`, send("POST", {}), null),
+    /** POST /v1/plan/today: today's session, with the season's purpose, phase and goal when there is a season. */
+    planToday: (tz: string, lang: string) => s.call("/v1/plan/today", send("POST", { tz, lang: lang === "fr" ? "fr" : "en" }), todaySchema),
+    // Season plans (ADR-0050): every answer is the whole season (GET /v1/season's shape).
+    season: (tz: string, lang: string, week?: number) =>
+      s.call(`/v1/season?${tzQ(tz)}&lang=${lang}${week !== undefined ? `&week=${week}` : ""}`, GET, seasonSchema),
+    putSeason: (b: { goals?: SeasonGoal[]; deleted?: string[]; prefs?: SeasonPrefs; health?: HealthFlags }, tz: string, lang: string) =>
+      s.call(`/v1/season?${tzQ(tz)}&lang=${lang}`, send("PUT", { ...b, device: "web" }), seasonSchema),
+    deleteSeasonGoal: (id: string, tz: string, lang: string) =>
+      s.call(`/v1/season/goals/${encodeURIComponent(id)}?${tzQ(tz)}&lang=${lang}`, send("DELETE"), seasonSchema),
+    /** The what-if: a goal's verdict for another date or other weekly hours; nothing is stored. */
+    feasibility: (b: { goal: SeasonGoal; date?: string; hoursPerWeek?: number; health?: HealthFlags }, tz: string, lang: string) =>
+      s.call(`/v1/season/feasibility?${tzQ(tz)}`, send("POST", { ...b, lang: lang === "fr" ? "fr" : "en" }), feasibilityReplySchema),
+    reviewGoal: (id: string, tz: string, lang: string) =>
+      s.call(`/v1/season/goals/${encodeURIComponent(id)}/review?${tzQ(tz)}&lang=${lang}`, send("POST", {}), reviewReplySchema),
+    seasonEdit: (edit: EditDraft, tz: string, lang: string) =>
+      s.call(`/v1/season/edits?${tzQ(tz)}&lang=${lang}`, send("POST", { edit, device: "web" }), editReplySchema),
+    undoSeasonEdit: (id: string, tz: string, lang: string) =>
+      s.call(`/v1/season/edits/${encodeURIComponent(id)}?${tzQ(tz)}&lang=${lang}&device=web`, send("DELETE"), seasonSchema),
+    seasonAudit: () => s.call("/v1/season/audit", GET, auditSchema),
+    /** A plain request about the week: understood → a proposal to approve; else the app sends it to the coach chat. */
+    seasonAsk: (text: string, tz: string, lang: string) =>
+      s.call(
+        `/v1/season/ask?${tzQ(tz)}`,
+        send("POST", { text, lang: lang === "fr" ? "fr" : "en" }),
+        z.object({ understood: z.boolean(), intent: str, proposal: opt(planChangeSchema) }),
+      ),
     coachTalk: (b: {
       message: string;
       history?: { role: "user" | "coach"; text: string }[];
