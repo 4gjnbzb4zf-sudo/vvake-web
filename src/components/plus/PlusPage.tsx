@@ -1,3 +1,4 @@
+import { CoachPlans } from "@/components/plus/CoachPlans";
 import { PlusCheckout } from "@/components/plus/PlusCheckout";
 import { Footer } from "@/components/sections/Extras";
 import { Header } from "@/components/sections/Header";
@@ -23,6 +24,7 @@ export function PlusPage({ lang, notice }: { lang: Locale; notice?: "success" | 
         <Container>
           <p className="my-8 max-w-3xl rounded-xl border border-line bg-surface/60 px-4 py-3 text-sm text-muted">{t.appStore}</p>
         </Container>
+        <CoachPlans t={t.plans} lang={lang} />
         <PlusCheckout dict={t} rewards={dict.rewards} lang={lang} apiUrl={siteConfig.apiUrl} notice={notice} />
       </main>
       <Footer locale={lang} dict={dict.footer} />

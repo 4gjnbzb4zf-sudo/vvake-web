@@ -903,7 +903,7 @@ export const fr: Dictionary = {
       {
         icon: "🎙️",
         title: "Coach vocal en direct",
-        body: "Parle à ton coach sans les mains : 15 minutes par semaine pendant tes séances (jusqu'à 5 par séance).",
+        body: "Parle à ton coach sans les mains pendant tes séances : 5 minutes par semaine avec Plus, 15 avec Coach Pro (jusqu'à 5 par séance), et des packs de minutes pour tout le monde (bientôt).",
       },
       {
         icon: "🎧",
@@ -2488,7 +2488,7 @@ export const fr: Dictionary = {
     title: "Politique de confidentialité",
     description:
       "Ce que les applications VVake pour iPhone et Apple Watch et le site vvake.com recueillent, pourquoi, qui y a accès, combien de temps nous le gardons et vos droits.",
-    updated: "Dernière mise à jour : 2026-10-21",
+    updated: "Dernière mise à jour : 2026-10-22",
     draft: "Version provisoire pour l'aperçu TestFlight. Cette politique sera revue par un avocat avant le lancement public.",
     intro: [
       "VVake (aussi appelée VVake Fit) est une application d'entraînement pour iPhone et Apple Watch, accompagnée du site vvake.com. Cette politique explique simplement quels renseignements nous recueillons, pourquoi, qui d'autre y a accès, combien de temps nous les gardons et ce que vous pouvez faire. Elle couvre les applications (y compris les versions d'essai TestFlight), l'API VVake avec laquelle elles communiquent, le compagnon de bureau pour Mac, le module VVake pour Claude Code et ce site, y compris vvake.com/rewards.",
@@ -2535,7 +2535,7 @@ export const fr: Dictionary = {
           },
           {
             t: "Séances avec le coach en direct (VVake Plus).",
-            d: "Quand une conversation en direct avec le coach est possible pendant une séance, l'app indique à notre API que la séance est en cours : le sport, son heure de début, son chrono, si elle est à l'intérieur, ses totaux (distance, pas, secondes de mouvement du poignet ou de pédalage) et vos mesures de fréquence cardiaque depuis la dernière mise à jour. Chaque message est signé par l'appareil avec App Attest d'Apple (iPhone, Apple Watch) ou vérifié avec Google Play Integrity (Android, Wear OS), ce qui nous indique qu'il vient de la vraie app VVake. Pourquoi : le coach en direct fonctionne seulement pendant une vraie séance (15 minutes par semaine, 5 par séance), et ces vérifications empêchent des scripts ou des requêtes copiées de l'utiliser. Nous gardons le relevé de chaque séance 4 jours, les minutes utilisées chaque semaine environ 2 semaines, une empreinte salée de l'appareil (jamais son identifiant) 60 jours, et un indice de confiance avec les éventuels signalements (signalements 60 jours ; l'indice avec votre compte). Votre adresse IP sert seulement sous forme d'empreinte salée, pour limiter le nombre de requêtes. Jamais utilisé pour la publicité ni pour les prix.",
+            d: "Quand une conversation en direct avec le coach est possible pendant une séance, l'app indique à notre API que la séance est en cours : le sport, son heure de début, son chrono, si elle est à l'intérieur, ses totaux (distance, pas, secondes de mouvement du poignet ou de pédalage) et vos mesures de fréquence cardiaque depuis la dernière mise à jour. Chaque message est signé par l'appareil avec App Attest d'Apple (iPhone, Apple Watch) ou vérifié avec Google Play Integrity (Android, Wear OS), ce qui nous indique qu'il vient de la vraie app VVake. Pourquoi : le coach en direct fonctionne seulement pendant une vraie séance (les minutes de ta formule chaque semaine et d'éventuels packs de minutes, 5 par séance), et ces vérifications empêchent des scripts ou des requêtes copiées de l'utiliser. Nous gardons le relevé de chaque séance 4 jours, les minutes utilisées chaque semaine environ 2 semaines, une empreinte salée de l'appareil (jamais son identifiant) 60 jours, et un indice de confiance avec les éventuels signalements (signalements 60 jours ; l'indice avec votre compte). Votre adresse IP sert seulement sous forme d'empreinte salée, pour limiter le nombre de requêtes. Jamais utilisé pour la publicité ni pour les prix.",
           },
           {
             t: "Ce que le coach retient, et les réglages qu'il change.",
@@ -3101,7 +3101,7 @@ export const fr: Dictionary = {
         id: "plus",
         h: "Abonnements et TestFlight",
         p: [
-          "VVake Fit Plus n'est pas encore en vente : rien n'est facturé pendant l'aperçu. À l'ouverture des abonnements, Apple gérera le paiement et nous recevrons seulement l'état de votre abonnement, jamais vos informations de paiement. Dans les versions de développement seulement (ni TestFlight ni l'App Store), Plus peut se payer en $VVAKE de testnet : nous gardons la facture (le montant exact de tokens et le prix de référence utilisé) et, une fois payée, la transaction publique trouvée sur la blockchain ; le reçu est conservé sans votre compte après sa suppression, pour qu'un paiement ne soit jamais compté deux fois.",
+          "VVake Fit Plus n'est pas encore en vente : rien n'est facturé pendant l'aperçu. À l'ouverture des abonnements, Apple gérera le paiement et nous recevrons seulement l'état de votre abonnement, jamais vos informations de paiement. Dans les versions de développement seulement (ni TestFlight ni l'App Store), Plus peut se payer en $VVAKE de testnet : nous gardons la facture (le montant exact de tokens et le prix de référence utilisé) et, une fois payée, la transaction publique trouvée sur la blockchain ; le reçu est conservé sans votre compte après sa suppression, pour qu'un paiement ne soit jamais compté deux fois. Coach Pro et les packs de minutes de coach en direct ne sont pas encore en vente non plus. Quand ils ouvriront, l'App Store ou Google Play gérera le paiement ; pour un pack de minutes nous gardons l'identifiant de transaction de la boutique, le pack, sa date d'achat et d'expiration (12 mois), et l'historique des minutes utilisées, remboursées ou expirées, avec votre compte. Si vous supprimez votre compte, l'historique part ; l'identifiant de transaction reste sans votre compte pour qu'un même achat ne compte jamais deux fois.",
           "Si vous testez une version d'essai avec TestFlight, Apple nous transmet les commentaires, captures d'écran et rapports de plantage que vous choisissez d'envoyer, avec des renseignements de base sur l'appareil, selon les conditions de TestFlight.",
         ],
         list: [],
@@ -3833,6 +3833,49 @@ export const fr: Dictionary = {
     title: "Plus avec $VVAKE",
     description:
       "Paie un mois de VVake Fit Plus en $VVAKE depuis ton propre portefeuille, avec une réduction. Optionnel : plus d'outils, jamais d'avantage.",
+    plans: {
+      index: "01",
+      kicker: "Formules du coach",
+      title: "Gratuit, Plus ou Coach Pro",
+      lead: "Tout ce qui compte est gratuit. Les formules ajoutent des minutes de coach en direct et la voix du coach ; les packs de minutes complètent n'importe quelle formule, même gratuite. Prix prévus : rien n'est en vente pour l'instant.",
+      soon: "Bientôt",
+      perMonth: "{price} par mois",
+      free: "Gratuit",
+      current: "Gratuit pour tout le monde",
+      tiers: {
+        free: {
+          name: "Gratuit",
+          lines: [
+            "Toutes les séances, les sports, les points et l'entrée aux prix",
+            "Chat du coach et annonces en séance",
+            "Coach en direct avec des packs de minutes",
+          ],
+        },
+        plus: {
+          name: "Plus",
+          lines: [
+            "5 minutes de coach en direct par semaine",
+            "Réponses dans la voix du coach, un peu chaque jour",
+            "Appels du coach, jusqu'à 3 par semaine",
+            "VVaker sur mesure, plan sur 12 semaines, analyses poussées",
+          ],
+        },
+        pro: {
+          name: "Coach Pro",
+          lines: [
+            "15 minutes de coach en direct par semaine",
+            "Tout Plus",
+            "La voix du coach pour tes phrases libres",
+            "Appels du coach à leur rythme normal",
+          ],
+        },
+      },
+      packsTitle: "Packs de minutes",
+      packsLead:
+        "Pour toutes les formules, même gratuite : des minutes de coach en direct utilisées seulement après celles de la semaine, pendant une vraie séance, valables 12 mois.",
+      pack: "+{n} min",
+      fine: "Les minutes en direct comptent ce que toi et le coach dites, pas les silences. Pendant la bêta, les testeurs ont Coach Pro pour tout essayer ; rien n'est facturé.",
+    },
     kicker: "VVake Fit Plus · optionnel",
     heading: "Plus, payé en $VVAKE",
     lead: "Plus d'outils, jamais d'avantage : énergie, scores, prix et stats sont les mêmes pour tout le monde. Paie un mois de Plus en $VVAKE depuis ton propre portefeuille, moins cher que le prix affiché.",

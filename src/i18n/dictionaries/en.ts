@@ -883,7 +883,7 @@ export const en = {
       {
         icon: "🎙️",
         title: "Live voice coach",
-        body: "Talk hands-free with your coach: 15 minutes a week during your workouts (up to 5 per workout).",
+        body: "Talk hands-free with your coach during your workouts: 5 minutes a week with Plus, 15 with Coach Pro (up to 5 per workout), and minute packs for anyone (coming soon).",
       },
       {
         icon: "🎧",
@@ -2329,7 +2329,7 @@ export const en = {
     title: "Privacy policy",
     description:
       "What the VVake iPhone and Apple Watch apps and vvake.com collect, why, who else sees it, how long we keep it and your rights.",
-    updated: "Last updated: 2026-10-21",
+    updated: "Last updated: 2026-10-22",
     draft: "Draft for the TestFlight preview. This policy will be reviewed by a lawyer before the public launch.",
     intro: [
       "VVake (also called VVake Fit) is a fitness coaching app for iPhone and Apple Watch, with this website, vvake.com. This policy explains in plain words what we collect, why, who else sees it, how long we keep it and what you can do about it. It covers the apps (TestFlight previews included), the VVake API they talk to, the desk companion for Mac, the VVake plugin for Claude Code and this website, including vvake.com/rewards.",
@@ -2376,7 +2376,7 @@ export const en = {
           },
           {
             t: "Live coach workouts (VVake Plus).",
-            d: "While a live conversation with the coach is possible during a workout, the app tells our API that the workout is running: the sport, when it started, its clock, whether it is indoors, its running totals (distance, steps, seconds of wrist movement or pedalling) and your heart-rate samples since the last update. Each message is signed by the device with Apple's App Attest (iPhone, Apple Watch) or checked with Google Play Integrity (Android, Wear OS), which tells us it comes from the genuine VVake app. Why: the live coach works only during a real workout (15 minutes a week, 5 per workout), and these checks stop scripts and copied requests from using it. We keep each workout's record 4 days, the minutes you used each week about 2 weeks, a salted hash of the device (never its ID) 60 days, and a trust score with any warning flags (flags 60 days; the score with your account). Your IP address is used only salted-hashed, for rate limits. Never used for ads or prizes.",
+            d: "While a live conversation with the coach is possible during a workout, the app tells our API that the workout is running: the sport, when it started, its clock, whether it is indoors, its running totals (distance, steps, seconds of wrist movement or pedalling) and your heart-rate samples since the last update. Each message is signed by the device with Apple's App Attest (iPhone, Apple Watch) or checked with Google Play Integrity (Android, Wear OS), which tells us it comes from the genuine VVake app. Why: the live coach works only during a real workout (your plan's minutes a week and any minute packs, 5 per workout), and these checks stop scripts and copied requests from using it. We keep each workout's record 4 days, the minutes you used each week about 2 weeks, a salted hash of the device (never its ID) 60 days, and a trust score with any warning flags (flags 60 days; the score with your account). Your IP address is used only salted-hashed, for rate limits. Never used for ads or prizes.",
           },
           {
             t: "What the coach remembers, and settings it changes.",
@@ -2924,7 +2924,7 @@ export const en = {
         id: "plus",
         h: "Subscriptions and TestFlight",
         p: [
-          "VVake Fit Plus is not on sale yet: nothing is charged during the preview. When subscriptions open, Apple will handle payment and we will receive only the status of your subscription, never your payment details. In development builds only (not TestFlight or the App Store), Plus can be paid with testnet $VVAKE: we keep the invoice (the exact token amount and the reference price used) and, once paid, the public transaction found on chain; the receipt stays without your account after deletion so a payment can never be counted twice.",
+          "VVake Fit Plus is not on sale yet: nothing is charged during the preview. When subscriptions open, Apple will handle payment and we will receive only the status of your subscription, never your payment details. In development builds only (not TestFlight or the App Store), Plus can be paid with testnet $VVAKE: we keep the invoice (the exact token amount and the reference price used) and, once paid, the public transaction found on chain; the receipt stays without your account after deletion so a payment can never be counted twice. Coach Pro and live-coach minute packs are not on sale yet either. When they open, the App Store or Google Play handles payment; for a minute pack we keep the store's transaction id, which pack, when it was bought and when it expires (12 months), and a history of the minutes used, refunded or expired, with your account. If you delete your account the history goes; the transaction id stays without your account so the same purchase can never be counted twice.",
           "If you test a preview through TestFlight, Apple shares with us the feedback, screenshots and crash reports you choose to send, with basic device information, under Apple's TestFlight terms.",
         ],
         list: [],
@@ -3638,6 +3638,44 @@ export const en = {
   plusPay: {
     title: "Plus with $VVAKE",
     description: "Pay a month of VVake Fit Plus with $VVAKE from your own wallet, at a discount. Optional: more tools, never an edge.",
+    plans: {
+      index: "01",
+      kicker: "Coach plans",
+      title: "Free, Plus or Coach Pro",
+      lead: "Everything that counts is free. Plans add live coach minutes and the coach's voice; minute packs top up any plan, free included. Prices are planned: nothing is on sale yet.",
+      soon: "Coming soon",
+      perMonth: "{price} a month",
+      free: "Free",
+      current: "Free for everyone",
+      tiers: {
+        free: {
+          name: "Free",
+          lines: ["Every workout, sport, point and prize entry", "Coach chat and workout cues", "Live coach with minute packs"],
+        },
+        plus: {
+          name: "Plus",
+          lines: [
+            "5 live coach minutes a week",
+            "Coach replies in the coach's voice, a short share each day",
+            "Coach calls, up to 3 a week",
+            "Custom VVaker, 12-week plan, deeper insights",
+          ],
+        },
+        pro: {
+          name: "Coach Pro",
+          lines: [
+            "15 live coach minutes a week",
+            "Everything in Plus",
+            "The coach's voice for your freely worded lines",
+            "Coach calls at their normal pace",
+          ],
+        },
+      },
+      packsTitle: "Minute packs",
+      packsLead: "For any plan, free too: live coach minutes used only after your weekly ones, during a real workout, valid 12 months.",
+      pack: "+{n} min",
+      fine: "Live minutes count what you and the coach say, not the silences. In the beta, testers get Coach Pro to try everything; nothing is charged.",
+    },
     kicker: "VVake Fit Plus · optional",
     heading: "Plus, paid with $VVAKE",
     lead: "More tools, never an edge: energy, scores, prizes and stats are the same for everyone. Pay a month of Plus with $VVAKE from your own wallet, for less than the list price.",

@@ -107,6 +107,10 @@ const liveSchema = z.object({
   usedS: num,
   remainingS: num,
   resetsAt: str,
+  // ADR-0051: the tier, the week's remainder and pack minutes (`remainingS` = both).
+  tier: str,
+  weekRemainingS: num,
+  packS: num,
 });
 export type LiveStatus = z.infer<typeof liveSchema>;
 
@@ -360,11 +364,21 @@ export function withoutConnectParams(href: string): string {
   return u.toString();
 }
 
-/** Live coach minutes, rounded down for what's left (never shows more than there is). */
-export function liveMinutes(l: LiveStatus | null | undefined): { left: number; limit: number } | null {
-  if (!l || typeof l.limitS !== "number" || l.limitS <= 0) return null;
-  const left = typeof l.remainingS === "number" ? l.remainingS : Math.max(0, l.limitS - (l.usedS ?? 0));
-  return { left: Math.max(0, Math.floor(left / 60)), limit: Math.round(l.limitS / 60) };
+/**
+ * Live coach minutes, rounded down for what's left (never shows more than there is): the week's ("12 of 15 min this
+ * week") and pack minutes ("10 pack min", ADR-0051). Null with neither.
+ */
+export function liveMinutes(l: LiveStatus | null | undefined): { left: number; limit: number; pack: number } | null {
+  if (!l || typeof l.limitS !== "number") return null;
+  const packS = typeof l.packS === "number" ? Math.max(0, l.packS) : 0;
+  if (l.limitS <= 0 && packS <= 0) return null;
+  const week =
+    typeof l.weekRemainingS === "number"
+      ? l.weekRemainingS
+      : typeof l.remainingS === "number"
+        ? l.remainingS - packS
+        : l.limitS - (l.usedS ?? 0);
+  return { left: Math.max(0, Math.floor(week / 60)), limit: Math.round(l.limitS / 60), pack: Math.floor(packS / 60) };
 }
 
 /** A watchlist without one pick; the Brand Team goes with its stock. */

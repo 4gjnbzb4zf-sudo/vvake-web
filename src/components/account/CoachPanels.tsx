@@ -392,9 +392,19 @@ export function CoachSection(p: PanelProps) {
             <>
               {lm && (
                 <p className="mt-4 font-display text-2xl font-semibold tabular-nums">
-                  {format(t.coach.liveLeft, { left: lm.left, limit: lm.limit })}
+                  {[
+                    lm.limit > 0 ? format(t.coach.liveLeft, { left: lm.left, limit: lm.limit }) : null,
+                    lm.pack > 0 ? format(t.coach.livePack, { n: lm.pack }) : null,
+                  ]
+                    .filter(Boolean)
+                    .join(" · ")}
                 </p>
               )}
+              <p className="mt-1 text-xs">
+                <a className="underline" href={`/${lang}/plus/#plans`}>
+                  {t.coach.livePlans}
+                </a>
+              </p>
               {live.resetsAt && (
                 <p className="mt-1 text-xs text-faint">
                   {format(t.coach.liveResets, { date: formatDateTime(live.resetsAt, dates, "short") })}

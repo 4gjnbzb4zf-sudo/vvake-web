@@ -169,6 +169,8 @@ const en = {
     live: "Live coach",
     liveLead: "A hands-free conversation during your workouts.",
     liveLeft: "{left} of {limit} min left this week",
+    livePack: "{n} pack min",
+    livePlans: "Plans and minute packs (coming soon)",
     liveResets: "Resets {date}",
     liveReasons: {
       plus: "Comes with VVake Plus.",
@@ -516,6 +518,8 @@ const fr: AccountDict = {
     live: "Coach en direct",
     liveLead: "Une conversation mains libres pendant tes séances.",
     liveLeft: "{left} min sur {limit} restantes cette semaine",
+    livePack: "{n} min de pack",
+    livePlans: "Formules et packs de minutes (bientôt)",
     liveResets: "Remise à zéro le {date}",
     liveReasons: {
       plus: "Inclus avec VVake Plus.",

@@ -90,9 +90,16 @@ describe("account page helpers", () => {
   });
 
   it("live coach minutes: what's left rounded down", () => {
-    expect(liveMinutes({ limitS: 900, usedS: 100, remainingS: 800 })).toEqual({ left: 13, limit: 15 });
-    expect(liveMinutes({ limitS: 900, usedS: 950 })).toEqual({ left: 0, limit: 15 });
+    expect(liveMinutes({ limitS: 900, usedS: 100, remainingS: 800 })).toEqual({ left: 13, limit: 15, pack: 0 });
+    expect(liveMinutes({ limitS: 900, usedS: 950 })).toEqual({ left: 0, limit: 15, pack: 0 });
     expect(liveMinutes({ limitS: 0 })).toBeNull();
+    // ADR-0051: pack minutes after the week's, free accounts with a pack too.
+    expect(liveMinutes({ limitS: 900, usedS: 180, remainingS: 1320, weekRemainingS: 720, packS: 600 })).toEqual({
+      left: 12,
+      limit: 15,
+      pack: 10,
+    });
+    expect(liveMinutes({ limitS: 0, remainingS: 300, weekRemainingS: 0, packS: 300 })).toEqual({ left: 0, limit: 0, pack: 5 });
     expect(liveMinutes(null)).toBeNull();
   });
 
