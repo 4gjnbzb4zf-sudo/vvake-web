@@ -381,11 +381,11 @@ export const fr: Dictionary = {
     customTitle: "Pas dans la liste ? Ajoute ton sport",
     customBody:
       "Donne-lui un nom, choisis une icône et la façon de le suivre : fréquence cardiaque seule, ou suivi GPS pour la distance aussi. Les points viennent toujours de ton cœur, les prix gardent les mêmes règles, et ton sport marche à la voix.",
-    trainingsBadge: "Dans le navigateur maintenant · dans les apps en bêta (version 40, testeurs)",
+    trainingsBadge: "Dans le navigateur maintenant · dans les apps en bêta (version 41, testeurs)",
     trainingsTitle: "Tes propres mouvements et séances",
     trainingsBody:
       "Apprends un mouvement à toi à VVake : 3 à 5 répétitions devant la caméra, et il compte ce mouvement dès lors, dans tes séries comme dans « Commence simplement à bouger ». Il ne garde que des nombres (angles des articulations et rythme), jamais une vidéo ni une photo. Crée une séance avec les mouvements de VVake et les tiens : des répétitions ou une tenue, une zone cardio visée (ou un effort sur 10 sans capteur) et le repos après chaque série. Partage-la avec un lien, défie tes amis de battre ton score dessus, ou, dans les apps, montre une carte de fierté avec le nombre de personnes qui l’ont faite. Trouve les séances et les coachs des autres dans Découvrir. Quand d’autres personnes terminent vraiment ta séance, avec des données cardio d’une montre ou d’une ceinture, tu gagnes des points créateur.",
-    cameraBadge: "Dans la bêta maintenant (version 40, testeurs)",
+    cameraBadge: "Dans la bêta maintenant (version 41, testeurs)",
     cameraTitle: "Séance caméra (téléphone et web)",
     cameraBody:
       "Pose ton téléphone à 2 ou 3 m : VVake compte tes répétitions et tes maintiens, au poids du corps comme avec des charges (tu saisis la charge), te donne des conseils de posture à voix haute, et ton VVaker bouge avec toi. La vidéo ne quitte jamais ton téléphone et rien n'est enregistré. Sans capteur cardio, de petits points (15 au plus par jour) ; porte ta montre et la montre et la caméra font une seule séance avec les points cardio habituels, ou jumelle une ceinture cardio Bluetooth au téléphone pour des points cardio aussi. Jamais de prix venant de la caméra. Pas de téléphone ? La même séance caméra tourne dans ton navigateur sur vvake.com/app avec la webcam de ton ordinateur : la posture est lue dans l’onglet, la vidéo n’en sort jamais, et ses petits points partagent les mêmes 15 par jour.",
@@ -3849,7 +3849,7 @@ export const fr: Dictionary = {
           name: "Gratuit",
           lines: [
             "Toutes les séances, les sports, les points et l'entrée aux prix",
-            "Chat du coach et annonces en séance",
+            "Chat du coach et annonces en séance avec la voix du coach, même hors ligne",
             "Coach en direct avec des packs de minutes",
           ],
         },
@@ -4044,6 +4044,7 @@ export const fr: Dictionary = {
           "Les plans de saison : dis à ton coach ce que tu prépares et il planifie les mois à venir en phases (fond, développement, pic, affûtage, course, récupération), donne son avis sur chaque objectif (réaliste, ambitieux ou trop risqué) avec des options plus sûres, montre ta saison sur une frise, règle tes sports, jours et heures de la semaine, modifie la semaine avec toi (tu valides chaque changement, tu peux l’annuler) et s’adapte quand la vie s’en mêle ; la séance du jour, la phase, le compte à rebours et les zones cibles sur les deux montres : dans le navigateur (vvake.com/app) maintenant ; dans les apps iPhone, Android et montres dans la bêta pour les testeurs depuis la version 39",
           "Modifier ta semaine toi-même : une séance sautée reçoit une seule question bienveillante (demain, choisir un jour avec ce que ça change, plus courte aujourd’hui ou la laisser, le repos si tu n’es pas en forme, Annuler), un seul écran modifie n’importe quelle séance (sport, durée, distance, type, zone ou effort sur 10, jour, heure, note, verrouiller, dupliquer, retirer, ajouter) et le coach propose un rééquilibrage en un geste ; un changement rapide de la séance du jour sur les deux montres : dans le navigateur (vvake.com/app) maintenant ; dans les apps iPhone, Android et montres dans la bêta pour les testeurs depuis la version 40",
           "Les formules du coach : gratuite, VVake Coach Plus et VVake Coach Premium, avec des packs de minutes de coach en direct pour toutes les formules : les formules et les packs sont visibles dans les apps en bêta depuis la version 40, prix bientôt ; les testeurs de la bêta ont VVake Coach Premium pendant toute la bêta, rien n’est facturé ; la vente n’ouvre qu’avec la sortie publique dans les stores",
+          "La voix enregistrée du coach pour tes temps au kilomètre, tes temps, tes allures, tes distances, tes points, ton pouls et tes comptes, pour tous les comptes et hors ligne : dans le navigateur (vvake.com/app) maintenant ; dans les apps iPhone, Android et montre dans la bêta pour les testeurs depuis la version 41",
         ],
       },
       {

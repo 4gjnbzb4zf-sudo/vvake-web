@@ -19,6 +19,34 @@ export interface Release {
 
 export const releases: Release[] = [
   {
+    version: "1.0.0 (41)",
+    date: "2026-10-22",
+    channel: "beta",
+    devices: ["iphone", "watch", "android", "wear"],
+    notes: {
+      en: {
+        added: [
+          "Your coach now says your splits, times, paces, distances, points, heart rate and counts in her own recorded voice, on every account and offline, instead of the robot voice.",
+          "The same recorded voice reads these lines on the Apple Watch, on Wear OS and in the web app at vvake.com.",
+          "Get a better voice: in Coach › voice settings, how to install a better system voice for anything the coach hasn't recorded, with one tap to the voice settings on Android, and a one-time tip after a workout where the phone's voice had to step in.",
+        ],
+        improved: [
+          "The coach's voice for these lines downloads once (a few MB, on Wi-Fi) and plays from your phone, so it starts at once even with no signal.",
+        ],
+      },
+      fr: {
+        added: [
+          "Ton coach dit maintenant tes temps au kilomètre, tes temps, tes allures, tes distances, tes points, ton pouls et tes comptes avec sa propre voix enregistrée, pour tous les comptes et hors ligne, au lieu de la voix robotique.",
+          "La même voix enregistrée lit ces lignes sur l'Apple Watch, sur Wear OS et dans l'appli web sur vvake.com.",
+          "Obtenir une meilleure voix : dans Coach › réglages de la voix, comment installer une meilleure voix système pour ce que le coach n'a pas enregistré, avec un accès en un geste aux réglages de voix sur Android, et un conseil unique après une séance où la voix du téléphone a pris le relais.",
+        ],
+        improved: [
+          "La voix du coach pour ces lignes se télécharge une fois (quelques Mo, en Wi-Fi) et se joue depuis ton téléphone : elle démarre tout de suite, même sans réseau.",
+        ],
+      },
+    },
+  },
+  {
     version: "1.0.0 (40)",
     date: "2026-10-22",
     channel: "beta",

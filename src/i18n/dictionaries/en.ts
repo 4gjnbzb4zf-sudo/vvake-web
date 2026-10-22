@@ -382,11 +382,11 @@ export const en = {
     customTitle: "Not in the list? Add your own sport",
     customBody:
       "Name it, pick an icon, and choose how it's tracked: heart rate only, or GPS tracking for distance too. Points always come from your heart rate, prizes keep the same rules, and your sport works by voice.",
-    trainingsBadge: "In the browser now · in the apps in the beta (build 40, testers)",
+    trainingsBadge: "In the browser now · in the apps in the beta (build 41, testers)",
     trainingsTitle: "Your own moves and trainings",
     trainingsBody:
       "Teach VVake a move of your own: 3 to 5 reps in front of the camera, and it counts that move from then on, in your sets and in Just start moving. It keeps numbers only (joint angles and timing), never a video or a picture. Build a training from VVake's moves and yours: reps or a hold, a target heart zone (or an effort out of 10 without a sensor) and the rest after each set. Share it with a link, challenge friends to beat your score on it, or, in the apps, show off a brag card with how many people trained it. Find other people's trainings and coaches in Discover. When other people complete your training for real, with heart data from a watch or a strap, you earn creator points.",
-    cameraBadge: "In the beta now (build 40, testers)",
+    cameraBadge: "In the beta now (build 41, testers)",
     cameraTitle: "Camera workout (phone and web)",
     cameraBody:
       "Prop your phone 2 to 3 m away: VVake counts your reps and holds for bodyweight and weight training (you enter the load), gives form cues by voice, and your VVaker moves with you. The video never leaves your phone and nothing is recorded. Without a heart sensor it earns small points (at most 15 a day); wear your watch and the watch and the camera make one session with the normal heart points, or pair a Bluetooth heart-rate strap with the phone for heart points too. Never prizes from the camera. No phone? The same camera workout runs in your browser at vvake.com/app with your computer's webcam: the pose is read in the tab, the video never leaves it, and its small points share the same 15 a day.",
@@ -3654,7 +3654,11 @@ export const en = {
       tiers: {
         free: {
           name: "Free",
-          lines: ["Every workout, sport, point and prize entry", "Coach chat and workout cues", "Live coach with minute packs"],
+          lines: [
+            "Every workout, sport, point and prize entry",
+            "Coach chat and workout cues in the coach's own voice, offline too",
+            "Live coach with minute packs",
+          ],
         },
         plus: {
           name: "VVake Coach Plus",
@@ -3845,6 +3849,7 @@ export const en = {
           "Season plans: tell your coach what you train for and it plans the months ahead in phases (base, build, peak, taper, race, recovery), reviews every goal (realistic, a stretch or too risky) with safer options, shows your season on a timeline, sets your weekly sports, days and hours, edits the week with you (you approve every change, can undo it) and adapts when life happens; today's session, phase, countdown and target zones on both watches: in the browser (vvake.com/app) now; in the iPhone, Android and watch apps in the beta for testers since build 39",
           "Edit your week by hand: a skipped session gets one kind question (tomorrow, pick a day with the trade-offs, shorter today or skip it, rest when unwell, Undo), one sheet edits any session (sport, minutes, distance, type, zone or effort out of 10, day, time, note, lock, duplicate, remove, add) and the coach offers a one-tap rebalance; a quick change of today's session on both watches: in the browser (vvake.com/app) now; in the iPhone, Android and watch apps in the beta for testers since build 40",
           "Coach plans: free, VVake Coach Plus and VVake Coach Premium, with live coach minute packs for any plan: the plans and packs are shown in the apps in the beta since build 40, prices coming soon; beta testers have VVake Coach Premium for the whole beta, nothing charged; sales open only with the public store release",
+          "The coach's own recorded voice for your splits, times, paces, distances, points, heart rate and counts, on every account and offline: in the browser (vvake.com/app) now; in the iPhone, Android and watch apps in the beta for testers since build 41",
         ],
       },
       {
