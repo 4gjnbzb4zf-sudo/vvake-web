@@ -6,6 +6,7 @@ import { dayLabel, localDay, timeLabel } from "@/lib/webapp/format";
 import { sportLabel } from "@/lib/webapp/workout";
 import { getSeasonDict } from "@/i18n/season";
 import { useApp } from "./AppContext";
+import { SkippedCard } from "./PlanEdit";
 import { SeasonWeekEditor } from "./SeasonWeek";
 import { useSeason } from "./useSeason";
 import { useWorkout } from "./WorkoutContext";
@@ -25,6 +26,7 @@ export function PlanScreen() {
     return (
       <div className="space-y-4">
         <H1>{t.plan.title}</H1>
+        <SkippedCard />
         <List>
           <Row
             tone="volt"
@@ -43,15 +45,17 @@ export function PlanScreen() {
       </div>
     );
   if (!season && state === "loading") return <p className="text-muted">{t.common.loading}</p>;
-  return <WeekPlan seasonInvite={!!season} />;
+  return <WeekPlan seasonInvite={!!season} basic={!!season?.week?.basic} />;
 }
 
 /**
  * The week without a season (apps/mobile app/(tabs)/plan.tsx): the next 7 days from the account's plan (GET /v1/plan/week: the survey, the
  * coach's approved changes, Google Calendar's busy times when connected), today's session with Start, and the coach's
- * pending proposals to accept or turn down (the same ones the phone and the watch show).
+ * pending proposals to accept or turn down (the same ones the phone and the watch show). With a newer API the plain
+ * week comes editable too (GET /v1/season `week.basic`, ADR-0052): the skipped-session card and the same edit sheet as
+ * a season's week, below the invitation to plan a season.
  */
-function WeekPlan({ seasonInvite }: { seasonInvite: boolean }) {
+function WeekPlan({ seasonInvite, basic }: { seasonInvite: boolean; basic: boolean }) {
   const { t, lang, api, go } = useApp();
   const se = getSeasonDict(lang);
   const wk = useWorkout();
@@ -91,6 +95,7 @@ function WeekPlan({ seasonInvite }: { seasonInvite: boolean }) {
     <div className="space-y-4">
       <H1>{t.plan.title}</H1>
       <Small>{t.plan.lead}</Small>
+      {basic && <SkippedCard />}
       {seasonInvite && (
         <Card tone="volt">
           <Kicker tone="volt">{se.kicker}</Kicker>
@@ -121,8 +126,9 @@ function WeekPlan({ seasonInvite }: { seasonInvite: boolean }) {
           </div>
         </Card>
       ))}
-      {state === "loading" && <p className="text-muted">{t.common.loading}</p>}
-      {state === "error" && (
+      {basic && <SeasonWeekEditor />}
+      {!basic && state === "loading" && <p className="text-muted">{t.common.loading}</p>}
+      {!basic && state === "error" && (
         <div className="space-y-2">
           <p className="text-muted">{t.common.error}</p>
           <Btn
@@ -136,7 +142,7 @@ function WeekPlan({ seasonInvite }: { seasonInvite: boolean }) {
           </Btn>
         </div>
       )}
-      {state === "ok" && week && week.days.length === 0 && (
+      {!basic && state === "ok" && week && week.days.length === 0 && (
         <Card>
           <p className="text-[15px]">{t.plan.empty}</p>
           <Btn variant="ghost" className="mt-3" onClick={() => go({ name: "coach" })}>
@@ -144,31 +150,32 @@ function WeekPlan({ seasonInvite }: { seasonInvite: boolean }) {
           </Btn>
         </Card>
       )}
-      {week?.days.map((d) => {
-        const isToday = d.date === today;
-        return (
-          <Card key={`${d.date}-${d.start}`} tone={isToday ? "pulse" : undefined}>
-            <div className="flex items-center justify-between gap-3">
-              <div>
-                <Kicker tone={isToday ? "pulse" : "faint"}>{isToday ? t.plan.today : dayLabel(d.date + "T12:00:00", lang)}</Kicker>
-                <p className="mt-1 font-display text-[17px] font-semibold">{sportLabel(d.sport, lang)}</p>
-                <Small>{`${timeLabel(d.start, lang)} · ${t.common.minutes.replace("{n}", String(d.minutes))}`}</Small>
+      {!basic &&
+        week?.days.map((d) => {
+          const isToday = d.date === today;
+          return (
+            <Card key={`${d.date}-${d.start}`} tone={isToday ? "pulse" : undefined}>
+              <div className="flex items-center justify-between gap-3">
+                <div>
+                  <Kicker tone={isToday ? "pulse" : "faint"}>{isToday ? t.plan.today : dayLabel(d.date + "T12:00:00", lang)}</Kicker>
+                  <p className="mt-1 font-display text-[17px] font-semibold">{sportLabel(d.sport, lang)}</p>
+                  <Small>{`${timeLabel(d.start, lang)} · ${t.common.minutes.replace("{n}", String(d.minutes))}`}</Small>
+                </div>
+                {isToday && (
+                  <Btn
+                    disabled={!!wk.w}
+                    onClick={() => {
+                      wk.start(d.sport);
+                      go({ name: "workout" });
+                    }}
+                  >
+                    {t.plan.start}
+                  </Btn>
+                )}
               </div>
-              {isToday && (
-                <Btn
-                  disabled={!!wk.w}
-                  onClick={() => {
-                    wk.start(d.sport);
-                    go({ name: "workout" });
-                  }}
-                >
-                  {t.plan.start}
-                </Btn>
-              )}
-            </div>
-          </Card>
-        );
-      })}
+            </Card>
+          );
+        })}
       <Note>{t.plan.calendarNote}</Note>
     </div>
   );

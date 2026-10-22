@@ -174,15 +174,29 @@ const sessionSchema = z.object({
   title: str,
   line: str,
   recipe: str,
-  edited: bool,
+  /** What changed it (true from an older API; "move", "change", "postpone", "skip"… from a newer one). */
+  edited: opt(z.union([z.boolean(), z.string()])),
   note: str,
+  // The edit sheet's fields (ADR-0052; absent from an older API).
+  locked: bool,
+  skipped: bool,
+  slot: str,
+  rpe: num,
+  distanceKm: num,
+  memo: str,
+  /** Where a postponed session came from (YYYY-MM-DD). */
+  from: str,
+  /** "Ride · Easy · 60 min · 25 km · Zone 2 · Effort 4/10 · Sat 9:00" (the API's game-core sessionSummary). */
+  summary: str,
+  /** easy | long | tempo | intervals | recovery | strength. */
+  type: str,
 });
 export type SeasonSessionView = z.infer<typeof sessionSchema>;
 
 const weekSchema = z.object({
-  index: z.number(),
+  index: z.catch(z.number(), 0),
   start: z.string(),
-  phase: z.string(),
+  phase: z.catch(z.string(), ""),
   weekInPhase: z.catch(z.number(), 1),
   phaseWeeks: z.catch(z.number(), 1),
   deload: z.catch(z.boolean(), false),
@@ -255,6 +269,49 @@ const cardSchema = z.object({
 });
 export type SeasonCard = z.infer<typeof cardSchema>;
 
+/** An edit the API built (a postpone choice, a rebalance): sent back as it came, never built by hand. */
+const serverEditSchema = z.looseObject({ kind: z.string() });
+export type ServerEdit = z.infer<typeof serverEditSchema>;
+
+/** The coach's gentle note after an edit ("3 hard days in a row: want me to rebalance?") and its one-tap rebalance. */
+const warningSchema = z.object({
+  kind: z.catch(z.string(), ""),
+  dates: strings,
+  text: z.string(),
+  rebalance: list(serverEditSchema),
+  lines: strings,
+});
+export type PlanWarningView = z.infer<typeof warningSchema>;
+
+/** One place a skipped session can go (tomorrow, a picked day, shorter today). */
+const choiceSchema = z.object({
+  to: z.string(),
+  ok: z.catch(z.boolean(), false),
+  label: z.catch(z.string(), ""),
+  lines: strings,
+  usual: bool,
+  why: str,
+  whyText: str,
+  edit: opt(serverEditSchema),
+  easier: bool,
+  minutes: num,
+});
+export type PostponeChoiceView = z.infer<typeof choiceSchema>;
+
+const missedSchema = z.object({
+  session: sessionSchema,
+  title: z.string(),
+  body: z.catch(z.string(), ""),
+  unwell: z.catch(z.boolean(), false),
+  quick: opt(choiceSchema),
+  tomorrow: opt(choiceSchema),
+  today: opt(choiceSchema),
+  days: list(choiceSchema),
+  best: opt(choiceSchema),
+  skip: opt(serverEditSchema),
+});
+export type MissedView = z.infer<typeof missedSchema>;
+
 export const seasonSchema = z.object({
   state: z.object({
     goals: list(goalSchema),
@@ -271,8 +328,11 @@ export const seasonSchema = z.object({
   pendingChangeId: str,
   plan: opt(planSchema),
   feasibility: list(z.extend(feasibilitySchema, { text: opt(feasibilityTextSchema) })),
-  week: opt(z.extend(weekSchema, { label: str, why: str, sessions: list(sessionSchema) })),
+  /** The season's week, or without a season the plain weekly plan (`basic: true`, ADR-0052). */
+  week: opt(z.extend(weekSchema, { label: str, why: str, sessions: list(sessionSchema), basic: bool, warnings: list(warningSchema) })),
   today: list(sessionSchema),
+  /** The skipped session to ask about (ADR-0052): postpone it, shorter today, or skip it. */
+  missed: opt(missedSchema),
   goals: list(
     z.object({
       goalId: z.string(),
@@ -294,7 +354,7 @@ export type SeasonAnswer = z.infer<typeof seasonSchema>;
 export type GoalStatus = SeasonAnswer["goals"][number];
 export type SeasonWeekView = NonNullable<SeasonAnswer["week"]>;
 
-export const editReplySchema = z.extend(seasonSchema, { editId: str, line: str });
+export const editReplySchema = z.extend(seasonSchema, { editId: str, editIds: strings, line: str });
 export const feasibilityReplySchema = z.object({ feasibility: feasibilitySchema, text: feasibilityTextSchema, notMedical: str });
 export const reviewReplySchema = z.object({
   feasibility: feasibilitySchema,
@@ -632,9 +692,44 @@ export type EditDraft =
   | { kind: "swap"; a: string; b: string }
   | { kind: "off"; date: string; reason?: "travel" | "busy" | "rest" }
   | { kind: "easier"; week: string }
-  | { kind: "add"; date: string; sport: string; minutes: number; intensity?: Intensity }
+  | {
+      kind: "add";
+      date: string;
+      sport: string;
+      minutes: number;
+      intensity?: Intensity;
+      trainingId?: string;
+      title?: string;
+      purpose?: SessionType;
+      zone?: number;
+      rpe?: number;
+      distanceKm?: number;
+      slot?: string;
+      memo?: string;
+      locked?: boolean;
+    }
   | { kind: "remove"; session: string }
-  | { kind: "change"; session: string; sport?: string; minutes?: number; intensity?: Intensity };
+  | {
+      kind: "change";
+      session: string;
+      sport?: string;
+      minutes?: number;
+      intensity?: Intensity;
+      purpose?: SessionType;
+      zone?: number | null;
+      rpe?: number | null;
+      distanceKm?: number | null;
+      slot?: string | null;
+      memo?: string | null;
+      to?: string;
+      title?: string | null;
+      trainingId?: string | null;
+      locked?: boolean;
+    }
+  | { kind: "skip"; session: string };
+
+/** The session types the edit sheet offers (game-core seasonWeek SessionType). */
+export type SessionType = "easy" | "long" | "tempo" | "intervals" | "recovery" | "strength";
 
 /** Can this day still be changed? (today and later; the API refuses days over a week old). */
 export const editable = (date: string, today: string) => dayNum(date) >= dayNum(today);

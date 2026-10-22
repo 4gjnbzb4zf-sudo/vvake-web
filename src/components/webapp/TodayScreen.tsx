@@ -10,6 +10,7 @@ import { getSeasonDict } from "@/i18n/season";
 import { countdown } from "@/lib/webapp/season";
 import { useApp } from "./AppContext";
 import { Chip, ReadinessRing } from "./SeasonParts";
+import { SkippedCard } from "./PlanEdit";
 import { useSeason } from "./useSeason";
 import { goalTitle } from "./GoalsScreen";
 import { VVakerImg } from "./MyVVaker";
@@ -99,6 +100,7 @@ export function TodayScreen() {
           <Small className="mt-2">{fmt(t.today.energyInfo, { n: Math.floor(energy.current * MINUTES_PER_ENERGY) })}</Small>
         </Card>
       )}
+      <SkippedCard />
 
       <div className="flex items-center gap-3">
         <div className="min-w-0 flex-1">

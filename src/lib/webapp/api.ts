@@ -12,7 +12,9 @@ import {
   type HealthFlags,
   type SeasonGoal,
   type SeasonPrefs,
+  type ServerEdit,
 } from "./season";
+import { editBody, editsBody } from "./planEdit";
 
 /**
  * The web app's API calls (vvake.com/app): the same endpoints the phone uses (monorepo docs/05-tech/api-v1.md), on the
@@ -267,8 +269,11 @@ export function webApi(s: RewardsSession) {
       s.call(`/v1/season/feasibility?${tzQ(tz)}`, send("POST", { ...b, lang: lang === "fr" ? "fr" : "en" }), feasibilityReplySchema),
     reviewGoal: (id: string, tz: string, lang: string) =>
       s.call(`/v1/season/goals/${encodeURIComponent(id)}/review?${tzQ(tz)}&lang=${lang}`, send("POST", {}), reviewReplySchema),
-    seasonEdit: (edit: EditDraft, tz: string, lang: string) =>
-      s.call(`/v1/season/edits?${tzQ(tz)}&lang=${lang}`, send("POST", { edit, device: "web" }), editReplySchema),
+    seasonEdit: (edit: EditDraft | ServerEdit, tz: string, lang: string) =>
+      s.call(`/v1/season/edits?${tzQ(tz)}&lang=${lang}`, send("POST", editBody(edit)), editReplySchema),
+    /** Several edits at once (the coach note's one-tap rebalance), undone together. */
+    seasonEdits: (edits: readonly (EditDraft | ServerEdit)[], tz: string, lang: string) =>
+      s.call(`/v1/season/edits?${tzQ(tz)}&lang=${lang}`, send("POST", editsBody(edits)), editReplySchema),
     undoSeasonEdit: (id: string, tz: string, lang: string) =>
       s.call(`/v1/season/edits/${encodeURIComponent(id)}?${tzQ(tz)}&lang=${lang}&device=web`, send("DELETE"), seasonSchema),
     seasonAudit: () => s.call("/v1/season/audit", GET, auditSchema),
