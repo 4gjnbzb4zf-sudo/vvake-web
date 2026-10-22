@@ -89,8 +89,28 @@ export function voiceRank(v: BrowserVoice, online: boolean): number {
 }
 
 /**
- * The best voice for `locale` ("fr-FR"): the highest rank, the exact locale before another region of the language.
- * Undefined when the browser has none for the language (the browser then picks).
+ * The coach's recorded voice is a woman's (US English, French read as French: appVoice.ts COACH_VOICE_PROFILE), so the
+ * browser voice standing in is a woman's too when one is there. Names as browsers list them (Apple, Google, Microsoft,
+ * Android); a name not listed is neither.
+ */
+const FEMALE =
+  /\b(samantha|ava|allison|susan|zoe|zoé|karen|moira|tessa|fiona|victoria|serena|nicky|kate|stephanie|joelle|evelyn|noelle|siri female|aria|jenny|michelle|emma|ana|sonia|libby|natasha|clara|amélie|amelie|audrey|aurélie|aurelie|marie|julie|hortense|denise|eloise|élise|elise|brigitte|celine|céline|chantal|sylvie|vivienne|female|femme)\b/i;
+const MALE =
+  /\b(alex|daniel|fred|tom|aaron|arthur|evan|nathan|oliver|gordon|rishi|lee|ralph|junior|guy|david|mark|james|ryan|eric|christopher|roger|brian|andrew|steffan|thomas|jacques|paul|henri|claude|nicolas|antoine|yves|alain|gérard|gerard|remy|rémy|male|homme)\b/i;
+
+/** 2 a woman's voice, 1 unknown, 0 a man's ("Google US English" and "Google français" are women's voices). */
+export function voiceGenderScore(v: Pick<BrowserVoice, "name">, want: "female" | "male" = "female"): number {
+  const n = v.name;
+  const female = FEMALE.test(n) || /^google (us english|français|francais)$/i.test(n.trim());
+  const male = !female && MALE.test(n);
+  if (want === "male") return male ? 2 : female ? 0 : 1;
+  return female ? 2 : male ? 0 : 1;
+}
+
+/**
+ * The best voice for `locale` ("fr-FR"): the highest rank (quality first), then a woman's voice like the coach's, then
+ * the exact locale before another region of the language. Undefined when the browser has none for the language (the
+ * browser then picks).
  */
 export function bestBrowserVoice<V extends BrowserVoice>(voices: readonly V[], locale: string, online = true): V | undefined {
   const lang = locale.slice(0, 2).toLowerCase();
@@ -101,7 +121,7 @@ export function bestBrowserVoice<V extends BrowserVoice>(voices: readonly V[], l
     if (!norm(v.lang).startsWith(lang)) continue;
     const r = voiceRank(v, online);
     if (r < 0) continue;
-    const score = r * 10 + (norm(v.lang) === locale.toLowerCase() ? 2 : 0) + (v.default ? 1 : 0);
+    const score = r * 100 + voiceGenderScore(v) * 10 + (norm(v.lang) === locale.toLowerCase() ? 2 : 0) + (v.default ? 1 : 0);
     if (score > bestScore) {
       best = v;
       bestScore = score;

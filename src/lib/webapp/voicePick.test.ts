@@ -2,7 +2,7 @@ import { describe, expect, it } from "vitest";
 import { buildCsp, cspProblems, injectCsp, parseCsp, webAppMedia } from "@/lib/csp";
 import { VOICE_PATH } from "@/lib/rewardsApi";
 import { cueSpoken } from "./voice";
-import { bestBrowserVoice, paceBucket, splitLines, voiceMode, voiceRank, zonePack, type BrowserVoice } from "./voicePick";
+import { bestBrowserVoice, paceBucket, splitLines, voiceGenderScore, voiceMode, voiceRank, zonePack, type BrowserVoice } from "./voicePick";
 
 const v = (name: string, lang: string, localService = true, isDefault = false): BrowserVoice => ({
   name,
@@ -84,9 +84,35 @@ describe("the browser voice, the fallback", () => {
   });
   it("the language first: another region of it before nothing", () => {
     expect(bestBrowserVoice(mac, "fr-FR")?.name).toBe("Amélie (Enhanced)");
-    expect(bestBrowserVoice([v("Thomas", "fr-FR"), v("Amélie", "fr-CA")], "fr-FR")?.name).toBe("Thomas");
+    // Same quality: a woman's voice like the coach's, before the exact region.
+    expect(bestBrowserVoice([v("Thomas", "fr-FR"), v("Amélie", "fr-CA")], "fr-FR")?.name).toBe("Amélie");
+    expect(bestBrowserVoice([v("Thomas", "fr-FR"), v("Jacques", "fr-CA")], "fr-FR")?.name).toBe("Thomas");
     expect(bestBrowserVoice([v("Daniel", "en_GB")], "en-US")?.name).toBe("Daniel");
     expect(bestBrowserVoice([v("Daniel", "en-GB")], "fr-FR")).toBeUndefined();
+  });
+});
+
+describe("the browser voice sounds like the coach (a woman's voice, voice-one)", () => {
+  it("a woman's voice of the same quality before a man's, but never a worse one", () => {
+    expect(bestBrowserVoice([v("Daniel (Enhanced)", "en-US"), v("Zoe (Enhanced)", "en-US")], "en-US")?.name).toBe("Zoe (Enhanced)");
+    expect(bestBrowserVoice([v("Evan (Premium)", "en-US"), v("Samantha", "en-US")], "en-US")?.name).toBe("Evan (Premium)");
+    expect(bestBrowserVoice([v("Thomas (Enhanced)", "fr-FR"), v("Audrey (Enhanced)", "fr-FR")], "fr-FR")?.name).toBe("Audrey (Enhanced)");
+    expect(
+      bestBrowserVoice(
+        [
+          v("Microsoft Guy Online (Natural) - English (United States)", "en-US", false),
+          v("Microsoft Jenny Online (Natural) - English (United States)", "en-US", false),
+        ],
+        "en-US",
+      )?.name,
+    ).toMatch(/Jenny/);
+  });
+  it("Google's US English and French voices count as women's", () => {
+    expect(voiceGenderScore({ name: "Google US English" })).toBe(2);
+    expect(voiceGenderScore({ name: "Google français" })).toBe(2);
+    expect(voiceGenderScore({ name: "Google UK English Male" })).toBe(0);
+    expect(voiceGenderScore({ name: "Thomas" })).toBe(0);
+    expect(voiceGenderScore({ name: "Unknown voice" })).toBe(1);
   });
 });
 

@@ -5,7 +5,8 @@ import { useCallback, useEffect, useMemo, useRef, useState, type ReactNode } fro
 import { cn } from "@/lib/cn";
 import type { Locale } from "@/i18n/config";
 import { localTz, type UploadReply } from "@/lib/webapp/api";
-import { playCue, playQuick, hush, unlockAudio, warmVoice } from "@/lib/webapp/coachAudio";
+import { playQuick, hush, sayLine, unlockAudio, warmCamera, warmVoice } from "@/lib/webapp/coachAudio";
+import { flowSpeech, type CoachSpeech } from "@/lib/webapp/appVoice";
 import { bleSupport } from "@/lib/webapp/ble";
 import { heartProfileOf, zoneOf } from "@/lib/webapp/heart";
 import { enqueue } from "@/lib/webapp/store";
@@ -666,6 +667,7 @@ function Setup({
           // The Start tap unlocks the page's audio (Safari) and warms the coach's recorded voice.
           unlockAudio();
           void warmVoice();
+          void warmCamera();
           onStart();
         }}
       >
@@ -1053,11 +1055,12 @@ function Live({
 
   const voiceRef = useRef(workoutVoice);
   voiceRef.current = workoutVoice;
-  const speak = useCallback((text: string | null, essential = false) => {
-    if (!text) return;
+  // Every line in the coach's one voice (coachAudio.sayLine): recorded, else the browser voice for the whole line.
+  const speak = useCallback((line: string | CoachSpeech | null, essential = false) => {
+    if (!line) return;
     const m = voiceRef.current;
     if (m === "off" || (!essential && m !== "on")) return;
-    playCue({ text });
+    sayLine(typeof line === "string" ? { text: line } : line);
   }, []);
 
   const finish = useCallback(() => {
@@ -1154,7 +1157,8 @@ function Live({
             window.setTimeout(finish, 1800);
             break;
           default:
-            speak(flowLine(x, lang), true);
+            // The demo and the rest say short recorded parts ("Squat." "15 reps." / "Rest 60 seconds." "Next: Squat.").
+            speak(flowSpeech(x, lang), true);
         }
       }
     },
