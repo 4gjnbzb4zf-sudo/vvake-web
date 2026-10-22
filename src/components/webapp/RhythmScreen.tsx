@@ -44,6 +44,8 @@ function writeDays(userId: string, days: RhythmDay[]) {
 }
 
 export const glassesToday = (userId: string) => readDays(userId).find((d) => d.day === habitDay(Date.now()))?.glasses ?? 0;
+/** Today's logged rhythm day in this browser, or null (Today's Habits door). */
+export const rhythmToday = (userId: string): RhythmDay | null => readDays(userId).find((d) => d.day === habitDay(Date.now())) ?? null;
 
 /** The API's habit day from a logged day (only the habits that were on). */
 export function habitSend(d: RhythmDay) {
