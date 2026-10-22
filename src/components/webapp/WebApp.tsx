@@ -27,6 +27,7 @@ import { BuilderScreen, CoachProfileScreen, CreatorScreen, TrainingDetailScreen,
 import { getTrainingsDict } from "@/i18n/trainings";
 import { WorkoutPill } from "./WorkoutPill";
 import { YouScreen } from "./YouScreen";
+import { VoiceTipToast } from "./VoiceTip";
 import { WorkoutProvider } from "./WorkoutContext";
 import { Btn, Field, inputCls, Kicker, Small } from "./ui";
 
@@ -194,6 +195,7 @@ function Shell() {
       {route.name === "train" && <TrainingRun key={route.ref} refId={route.ref} challenge={route.challenge} />}
       {route.name === "teach" && <CameraScreen teach />}
       {!fullScreen && <WorkoutPill />}
+      <VoiceTipToast />
       {!fullScreen && (
         <nav
           aria-label="VVake"

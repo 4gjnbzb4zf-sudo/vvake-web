@@ -12,6 +12,7 @@ import { GetTheApp } from "./GetTheApp";
 import { VVakerImg } from "./MyVVaker";
 import { Btn, Card, Field, H1, H2, inputCls, Kicker, List, Row, Segmented, Small } from "./ui";
 import { useNow } from "./useNow";
+import { BetterVoice } from "./VoiceTip";
 
 /** The section index at the top of You (the phone's You index), in page order. */
 const SECTIONS = ["profile", "progress", "devices", "sports", "habits", "points", "app", "privacy"] as const;
@@ -292,6 +293,7 @@ export function YouScreen({ focus }: { focus?: Section } = {}) {
             {hearing === "coach" ? t.you.hearingCoach : hearing === "device" ? t.you.hearingDevice : t.you.hearCoachDetail}
           </Small>
         </div>
+        <BetterVoice />
         <div className="mt-4">
           <p className="mb-1 text-sm font-medium">{t.you.units}</p>
           <Segmented

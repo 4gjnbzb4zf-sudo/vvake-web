@@ -14,6 +14,9 @@ import {
 } from "./speechQueue";
 import { bestBrowserVoice, splitLines, type Spoken, type VoiceMode } from "./voicePick";
 import { PREVIEW_LINE, type CoachSpeech } from "./appVoice";
+import { playFirst, recordedBudget, type LinePlayer, type VoiceSource } from "./lineRoute";
+import { RETRY_MS, loadPack, sameVoice, stitchIds, type KeptPack, type PackDeps, type StitchInfo } from "./stitch/stitchPack";
+import { stitchedWav, type Pack } from "./stitch/voiceAudio";
 
 /**
  * The coach's voice in the browser (vvake.com/<lang>/app), the phone's voice (monorepo apps/mobile/src/lib/voice.ts):
@@ -29,6 +32,9 @@ import { PREVIEW_LINE, type CoachSpeech } from "./appVoice";
  * - one speech queue (speechQueue.ts): one line at a time, the newest cue wins, barge-in silences all; the browser
  *   voice (the best installed one for the language: voicePick.ts) only when the recording doesn't come in time, and
  *   then never both;
+ * - the stitched coach voice (VVFit ADR-0054): when a line has no recording (offline, not registered, no quota), the
+ *   coach's own clips from the full pack kept in this browser (`GET /v1/voice/stitch`, Cache Storage `vvake-stitch-v1`)
+ *   joined into one line here, before the browser voice: recording → stitched → browser voice (lineRoute.ts);
  * - Safari/iOS autoplay: one audio element, unlocked by `unlockAudio()` on the Start tap (and the other workout and
  *   coach taps), plays every later line; the browser voice is primed on the same tap.
  */
@@ -54,7 +60,9 @@ export function configureVoice(c: VoiceConfig) {
     lineUrls.clear();
     appIndex = null;
     warmed = false;
+    coachTag = null;
   }
+  if (!stitch || stitch.lang !== c.lang || stitch.apiUrl !== c.apiUrl) resetStitch(c);
   if (c.mode === "off") hush();
 }
 
@@ -159,6 +167,7 @@ async function loadSet(c: VoiceConfig, kind: SetKind, name: string): Promise<Map
           ? await c.api.voiceLibrary(c.lang, c.imperial)
           : await c.api.voiceApp(c.lang);
     if (set.voice === "device") return null;
+    if (set.voiceTag) coachTag = set.voiceTag;
     const items = set.items.map((i) => ({ id: kind === "app" ? i.text : i.id, url: i.url ?? null }));
     if (cache)
       void cache.put(key, new Response(JSON.stringify(items), { headers: { "content-type": "application/json" } })).catch(() => undefined);
@@ -175,6 +184,8 @@ async function loadSet(c: VoiceConfig, kind: SetKind, name: string): Promise<Map
 
 /** The app's fixed lines once loaded (text → audio path): a rep count can play at once from it. */
 let appIndex: Map<string, string> | null = null;
+/** The voice the recorded sets are in (the API's voiceTag): the stitched pack must be in the same one. */
+let coachTag: string | null = null;
 
 /** A line's recording: the app's fixed lines first, else `POST /v1/voice/lines` (null: the browser voice says it). */
 async function textPath(text: string): Promise<string | null> {
@@ -271,48 +282,36 @@ export function unlockAudio() {
   }
 }
 
-/** Plays the paths `resolve` finds, in order, on the one element: the cloud half of `cloudThenDevice`. */
-function playPaths(resolve: () => Promise<string[] | null>, keep: boolean) {
-  return (ev: CloudEvents) => {
+/** The one element plays a line's audio (object URLs) in order: what every source of a line plays through. */
+const elementPlayer: LinePlayer = {
+  play(urls, ev) {
     const my = ++gen;
     let stopped = false;
     const mine = () => !stopped && gen === my;
-    void (async () => {
-      const paths = await resolve().catch(() => null);
+    const a = audioEl();
+    let told = false;
+    const fail = () => {
       if (!mine()) return;
-      if (!paths?.length) return ev.failed();
-      const urls: string[] = [];
-      for (const p of paths) {
-        const u = await clipUrl(p, keep).catch(() => null);
-        if (!mine()) return;
-        if (!u) return ev.failed();
-        urls.push(u);
-      }
-      const a = audioEl();
-      let told = false;
-      const fail = () => {
-        if (!mine()) return;
-        if (told) ev.ended();
-        else ev.failed();
+      if (told) ev.ended();
+      else ev.failed();
+    };
+    const at = (i: number) => {
+      if (!mine()) return;
+      a.onplaying = () => {
+        if (!mine() || told) return;
+        told = true;
+        ev.playing();
       };
-      const at = (i: number) => {
+      a.onended = () => {
         if (!mine()) return;
-        a.onplaying = () => {
-          if (!mine() || told) return;
-          told = true;
-          ev.playing();
-        };
-        a.onended = () => {
-          if (!mine()) return;
-          if (i + 1 < urls.length) at(i + 1);
-          else ev.ended();
-        };
-        a.onerror = fail;
-        a.src = urls[i]!;
-        a.play().catch(fail);
+        if (i + 1 < urls.length) at(i + 1);
+        else ev.ended();
       };
-      at(0);
-    })();
+      a.onerror = fail;
+      a.src = urls[i]!;
+      a.play().catch(fail);
+    };
+    at(0);
     return {
       stop() {
         if (stopped) return;
@@ -327,7 +326,39 @@ function playPaths(resolve: () => Promise<string[] | null>, keep: boolean) {
         }
       },
     };
+  },
+};
+
+/** The recording of a line: the paths `resolve` finds, fetched (or read from the cache) into object URLs. */
+function recorded(resolve: () => Promise<string[] | null>, keep: boolean): VoiceSource {
+  return {
+    name: "recorded",
+    async resolve() {
+      const paths = await resolve().catch(() => null);
+      if (!paths?.length) return null;
+      const urls: string[] = [];
+      for (const p of paths) {
+        const u = await clipUrl(p, keep).catch(() => null);
+        if (!u) return null;
+        urls.push(u);
+      }
+      return urls;
+    },
   };
+}
+
+/**
+ * A line's audio in the coach's voice: `rec` (its recording, if it may have one), then the stitched line when the
+ * pack kept in this browser has every clip for these words (the recording then gets until shortly before `startMs`,
+ * so the stitched line still starts in time). Null: nothing in the coach's voice, the browser voice says it.
+ */
+function coachVoice(text: string, rec: VoiceSource | null, startMs: number) {
+  const st = stitched(text);
+  if (rec && st) rec.budgetMs = recordedBudget(startMs);
+  return playFirst(
+    [rec, st].filter((x): x is VoiceSource => !!x),
+    elementPlayer,
+  );
 }
 
 // ── The browser voice (the fallback) ──────────────────────────────────────────────────────────────────────────
@@ -345,6 +376,7 @@ function speakDevice(text: string, lang: Locale, done: () => void): { stop(): vo
     ended = true;
     done();
   };
+  if (text.trim()) for (const l of browserVoiceListeners) l();
   try {
     const synth = window.speechSynthesis;
     // The queue has one line at a time: anything still in the browser's own queue is stale.
@@ -370,6 +402,13 @@ function speakDevice(text: string, lang: Locale, done: () => void): { stop(): vo
       end();
     },
   };
+}
+
+/** Called each time the browser voice says a line (the "get a better voice" tip listens). */
+const browserVoiceListeners = new Set<() => void>();
+export function onBrowserVoice(fn: () => void): () => void {
+  browserVoiceListeners.add(fn);
+  return () => browserVoiceListeners.delete(fn);
 }
 
 // ── Speaking ──────────────────────────────────────────────────────────────────────────────────────────────────
@@ -413,11 +452,15 @@ export function playCue(s: Spoken) {
       text: s.text,
       kind: "cue",
       startMs: CUE_START_MS,
-      playCloud: playPaths(async () => {
-        const m = await voiceSet(s.pack ? "pack" : "lib");
-        const paths = ids.map((id) => m?.get(id));
-        return paths.every(Boolean) ? (paths as string[]) : null;
-      }, true),
+      playCloud: coachVoice(
+        s.text,
+        recorded(async () => {
+          const m = await voiceSet(s.pack ? "pack" : "lib");
+          const paths = ids.map((id) => m?.get(id));
+          return paths.every(Boolean) ? (paths as string[]) : null;
+        }, true),
+        CUE_START_MS,
+      ),
     });
     return;
   }
@@ -425,16 +468,21 @@ export function playCue(s: Spoken) {
     text: s.text,
     kind: "cue",
     startMs: LINE_START_MS,
-    playCloud: playPaths(async () => {
-      const p = await textPath(s.text);
-      return p ? [p] : null;
-    }, true),
+    playCloud: coachVoice(
+      s.text,
+      recorded(async () => {
+        const p = await textPath(s.text);
+        return p ? [p] : null;
+      }, true),
+      LINE_START_MS,
+    ),
   });
 }
 
 /**
  * Any coach line (the one way to speak besides cues and replies): its parts one after the other in the coach's voice
- * when every part has a recording, else its words by the browser voice (a whole line in one voice, never mixed).
+ * when every part has a recording, else the whole line stitched from the coach's clips, else its words by the browser
+ * voice (a whole line in one voice, never mixed).
  * `onVoice` says which voice took it (the preview shows it).
  */
 export function sayLine(sp: CoachSpeech, o: { kind?: SpeechKind; onVoice?: (v: "coach" | "device") => void } = {}) {
@@ -447,18 +495,22 @@ export function sayLine(sp: CoachSpeech, o: { kind?: SpeechKind; onVoice?: (v: "
     told = true;
     o.onVoice?.(v);
   };
+  const cloud =
+    c.mode === "device"
+      ? null
+      : coachVoice(
+          sp.text,
+          recorded(async () => {
+            const paths = await Promise.all(parts.map((p) => textPath(p)));
+            return paths.every(Boolean) ? (paths as string[]) : null;
+          }, true),
+          LINE_START_MS,
+        );
   queueLine({
     text: sp.text,
     kind: o.kind ?? "cue",
     startMs: LINE_START_MS,
-    playCloud:
-      c.mode === "device"
-        ? null
-        : (ev) =>
-            playPaths(async () => {
-              const paths = await Promise.all(parts.map((p) => textPath(p)));
-              return paths.every(Boolean) ? (paths as string[]) : null;
-            }, true)({ ...ev, playing: () => (tell("coach"), ev.playing()) }),
+    playCloud: cloud ? (ev) => cloud({ ...ev, playing: () => (tell("coach"), ev.playing()) }) : null,
     onFallback: () => tell("device"),
   });
 }
@@ -477,13 +529,14 @@ export const QUICK_START_MS = 450;
 /**
  * A short line that can't wait (a camera workout's rep count, the countdown), through the same queue (newest wins,
  * barge-in silences it): its recording when the app's fixed lines are loaded (prefetched by `warmCamera`), else the
- * browser voice at once.
+ * stitched line, else the browser voice at once.
  */
 export function playQuick(text: string) {
   const c = cfg;
   if (!c || c.mode === "off" || !text) return;
   const path = c.mode === "coach" ? appIndex?.get(text) : undefined;
-  queueLine({ text, kind: "cue", startMs: path ? QUICK_START_MS : 0, playCloud: path ? playPaths(async () => [path], true) : null });
+  const cloud = c.mode === "coach" ? coachVoice(text, path ? recorded(async () => [path], true) : null, QUICK_START_MS) : null;
+  queueLine({ text, kind: "cue", startMs: cloud ? QUICK_START_MS : 0, playCloud: cloud });
 }
 
 /** Ahead of a camera workout or teaching a move: the counts 1–30 and the countdown's recordings into Cache Storage. */
@@ -510,7 +563,7 @@ export function speakReply(text: string, voice: { url: string; tag?: string | nu
     text,
     kind: "talk",
     startMs: cloud ? REPLY_START_MS : 0,
-    playCloud: cloud ? playPaths(async () => [voice.url], false) : null,
+    playCloud: cloud ? playFirst([recorded(async () => [voice.url], false)], elementPlayer) : null,
     onFallback: () => conv.fellBack(),
   });
 }
@@ -532,7 +585,9 @@ let warmed = false;
 /** Fetches the voice pack (and the first splits) into Cache Storage ahead of a workout, once per visit. */
 export async function warmVoice(): Promise<void> {
   const c = cfg;
-  if (!c || c.mode !== "coach" || warmed || !online()) return;
+  if (!c || c.mode !== "coach") return;
+  void warmStitch();
+  if (warmed || !online()) return;
   warmed = true;
   const pack = await voiceSet("pack");
   for (const path of pack?.values() ?? []) await clipUrl(path, true);
@@ -551,4 +606,165 @@ export async function prefetchLines(ids: readonly string[]): Promise<void> {
     const p = lib?.get(id);
     if (p) await clipUrl(p, true);
   }
+}
+
+// ── The stitched coach voice (ADR-0054): the full pack of clips for the app's language ──────────────────────────
+
+/** Its own cache (the recordings' cache is pruned by count; this one holds one pack per language). */
+export const STITCH_CACHE = "vvake-stitch-v1";
+
+export type VoicePackState = "ready" | "loading" | "pending" | "off";
+
+let stitch: {
+  lang: Locale;
+  apiUrl: string;
+  pack: Pack | null;
+  loading: Promise<Pack | null> | null;
+  triedAt: number;
+} | null = null;
+/** Stitched lines this visit: text → WAV object URL. */
+const stitchedUrls = new Map<string, string>();
+const STITCHED_MAX = 60;
+const packListeners = new Set<() => void>();
+
+function resetStitch(c: VoiceConfig) {
+  stitch = { lang: c.lang, apiUrl: c.apiUrl, pack: null, loading: null, triedAt: 0 };
+  for (const u of stitchedUrls.values()) URL.revokeObjectURL(u);
+  stitchedUrls.clear();
+  tellPack();
+}
+
+function tellPack() {
+  for (const l of packListeners) l();
+}
+
+/** You → Voice coach: whether the coach's voice pack is in this browser (and listens for changes). */
+export function voicePackState(): VoicePackState {
+  if (!cfg || cfg.mode !== "coach" || !stitch) return "off";
+  return stitch.pack ? "ready" : stitch.loading ? "loading" : "pending";
+}
+export function onVoicePack(fn: () => void): () => void {
+  packListeners.add(fn);
+  return () => packListeners.delete(fn);
+}
+
+const stitchLang = (l: Locale) => (l === "fr" ? "fr" : "en");
+const metaKey = (apiUrl: string, lang: string) => `${apiUrl}/v1/voice/__stitch/${lang}.json`;
+
+function packDeps(apiUrl: string): PackDeps {
+  const open = async () => {
+    try {
+      return browser() && "caches" in window ? await caches.open(STITCH_CACHE) : null;
+    } catch {
+      return null;
+    }
+  };
+  return {
+    apiUrl,
+    online,
+    async info(lang) {
+      const ctl = new AbortController();
+      const t = setTimeout(() => ctl.abort(), 8_000);
+      try {
+        const r = await fetch(`${apiUrl}/v1/voice/stitch?lang=${lang}`, { signal: ctl.signal });
+        return r.ok ? ((await r.json()) as StitchInfo) : null;
+      } catch {
+        return null;
+      } finally {
+        clearTimeout(t);
+      }
+    },
+    async download(url) {
+      try {
+        const r = await fetch(url);
+        return r.ok ? new Uint8Array(await r.arrayBuffer()) : null;
+      } catch {
+        return null;
+      }
+    },
+    store: {
+      async kept(lang) {
+        const r = await (await open())?.match(metaKey(apiUrl, lang));
+        return r ? ((await r.json()) as KeptPack) : null;
+      },
+      async bytes(url) {
+        const r = await (await open())?.match(url);
+        return r ? new Uint8Array(await r.arrayBuffer()) : null;
+      },
+      async keep(meta, bytes, old) {
+        const cache = await open();
+        if (!cache) return;
+        await cache.put(meta.url, new Response(bytes as BlobPart, { headers: { "content-type": "application/octet-stream" } }));
+        await cache.put(
+          metaKey(apiUrl, meta.lang),
+          new Response(JSON.stringify(meta), { headers: { "content-type": "application/json" } }),
+        );
+        if (old && old.url !== meta.url) await cache.delete(old.url);
+      },
+      async forget(meta) {
+        const cache = await open();
+        await cache?.delete(meta.url);
+        await cache?.delete(metaKey(apiUrl, meta.lang));
+      },
+    },
+  };
+}
+
+/**
+ * Loads the pack once per visit (Cache Storage first; the network only when the API has another version), ahead of a
+ * workout and a few seconds after the app opens. A failed or not yet rendered pack is tried again after a while.
+ */
+export function warmStitch(): Promise<Pack | null> {
+  const c = cfg;
+  const s = stitch;
+  if (!c || !s || c.mode !== "coach") return Promise.resolve(null);
+  if (s.pack) return Promise.resolve(s.pack);
+  if (s.loading) return s.loading;
+  if (s.triedAt && Date.now() - s.triedAt < RETRY_MS) return Promise.resolve(null);
+  s.triedAt = Date.now();
+  const p = loadPack(stitchLang(s.lang), packDeps(s.apiUrl.replace(/\/+$/, "")))
+    .catch(() => null)
+    .then((pack) => {
+      if (stitch === s) {
+        s.pack = pack;
+        s.loading = null;
+        tellPack();
+      }
+      return pack;
+    });
+  s.loading = p;
+  tellPack();
+  return p;
+}
+
+/** The stitched source for a line, when the pack is loaded, in the recorded lines' voice and has every clip. */
+function stitched(text: string): VoiceSource | null {
+  const c = cfg;
+  const s = stitch;
+  if (!c || c.mode !== "coach" || !s) return null;
+  const pack = s.pack;
+  if (!pack) {
+    void warmStitch();
+    return null;
+  }
+  if (!sameVoice(pack, coachTag)) return null;
+  const ids = stitchIds(pack, text);
+  if (!ids) return null;
+  return {
+    name: "stitched",
+    async resolve() {
+      const hit = stitchedUrls.get(text);
+      if (hit) return [hit];
+      const wav = stitchedWav(pack, ids);
+      if (!wav) return null;
+      const url = URL.createObjectURL(new Blob([wav as BlobPart], { type: "audio/wav" }));
+      stitchedUrls.set(text, url);
+      if (stitchedUrls.size > STITCHED_MAX) {
+        const [oldest, u] = stitchedUrls.entries().next().value as [string, string];
+        stitchedUrls.delete(oldest);
+        URL.revokeObjectURL(u);
+      }
+      return [url];
+    },
+  };
 }

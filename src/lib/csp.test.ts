@@ -87,6 +87,8 @@ describe("VV-12 Content-Security-Policy", () => {
       "src/components/clashes/LiveClashes.tsx": (c) => c.apiUrl,
       // Custom training share and creator pages: the public GET /v1/t/:code, /v1/creators/:handle (ADR-0047).
       "src/lib/trainings/api.ts": (c) => c.apiUrl,
+      // The stitched coach voice (ADR-0054): the public GET /v1/voice/stitch and its pack, relative to the API base.
+      "src/lib/webapp/coachAudio.ts": (c) => c.apiUrl,
       "src/lib/chain.ts": (c) => c.rpcUrl,
       "src/lib/waitlist.ts": (c) => c.waitlistEndpoint || null,
       "src/components/sections/LiveMap.tsx": (c) => c.liveEndpoint || null,

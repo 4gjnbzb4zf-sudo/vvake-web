@@ -668,6 +668,26 @@ const en = {
     more: "Read the privacy policy",
   },
   update: { ready: "A new version is ready.", reload: "Reload" },
+  voiceTip: {
+    title: "Get a better voice",
+    lead: "That was your device's own voice. Install a better one (it's free), then reload this page:",
+    steps: {
+      ios: "iPhone or iPad: Settings › Accessibility › Spoken Content › Voices, pick your language, then download an Enhanced or Premium voice.",
+      mac: "Mac: System Settings › Accessibility › Spoken Content › System voice › Manage voices, then download an Enhanced or Premium voice.",
+      windows: "Windows: Settings › Time & language › Speech › Manage voices › Add voices.",
+      android: "Android: Settings › Accessibility › Text-to-speech, then install or update the voice data for your language.",
+      other: "In your device's settings, look for Text-to-speech or Spoken Content and install a better voice for your language.",
+    },
+    pack: "Your coach's own recorded voice says your workout lines (distances, times, paces, counts) once her voice pack is downloaded to this browser. It downloads by itself when you're online.",
+    dismiss: "Got it",
+    allDevices: "Steps for every device",
+    rowTitle: "A better voice on this device",
+    rowDetail:
+      "When your coach's recording can't play, your browser speaks with your device's voice. Install a better one, then reload this page:",
+    packReady: "Coach voice pack: in this browser. Workout lines play in your coach's voice, offline too.",
+    packLoading: "Coach voice pack: downloading…",
+    packPending: "Coach voice pack: downloads by itself when you're online.",
+  },
 };
 
 export type WebAppDict = typeof en;
@@ -1340,6 +1360,26 @@ const fr: WebAppDict = {
     more: "Lire la politique de confidentialité",
   },
   update: { ready: "Une nouvelle version est prête.", reload: "Recharger" },
+  voiceTip: {
+    title: "Une meilleure voix",
+    lead: "C’était la voix de ton appareil. Installe une meilleure voix (c’est gratuit), puis recharge cette page :",
+    steps: {
+      ios: "iPhone ou iPad : Réglages › Accessibilité › Contenu énoncé › Voix, choisis ta langue, puis télécharge une voix Améliorée ou Premium.",
+      mac: "Mac : Réglages Système › Accessibilité › Contenu énoncé › Voix du système › Gérer les voix, puis télécharge une voix Améliorée ou Premium.",
+      windows: "Windows : Paramètres › Heure et langue › Voix › Gérer les voix › Ajouter des voix.",
+      android: "Android : Paramètres › Accessibilité › Synthèse vocale, puis installe ou mets à jour les données vocales de ta langue.",
+      other: "Dans les réglages de ton appareil, cherche Synthèse vocale ou Contenu énoncé et installe une meilleure voix pour ta langue.",
+    },
+    pack: "La voix enregistrée de ton coach dit les annonces de séance (distances, temps, allures, comptes) une fois son pack vocal téléchargé dans ce navigateur. Il se télécharge tout seul quand tu es en ligne.",
+    dismiss: "Compris",
+    allDevices: "Les étapes pour chaque appareil",
+    rowTitle: "Une meilleure voix sur cet appareil",
+    rowDetail:
+      "Quand l’enregistrement de ton coach ne peut pas être joué, ton navigateur parle avec la voix de ton appareil. Installe une meilleure voix, puis recharge cette page :",
+    packReady: "Pack vocal du coach : dans ce navigateur. Les annonces de séance passent avec la voix de ton coach, hors ligne aussi.",
+    packLoading: "Pack vocal du coach : téléchargement…",
+    packPending: "Pack vocal du coach : il se télécharge tout seul quand tu es en ligne.",
+  },
 };
 
 const dicts: Record<Locale, WebAppDict> = { en, fr };

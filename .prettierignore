@@ -18,3 +18,5 @@ src/lib/webapp/fixtures/speed-zone-fixtures.json
 src/lib/webapp/fixtures/camera-fixtures.json
 # MediaPipe runtime copied from node_modules (scripts/copy-mediapipe.ts)
 public/mediapipe
+# Copied byte for byte from the VVFit monorepo (packages/game-core/test/fixtures/stitch-golden.json) by scripts/sync-stitch-core.ts
+src/lib/webapp/fixtures/stitch-golden.json

@@ -1,0 +1,2177 @@
+{
+ "source": "VVFit packages/game-core stitchVoice.ts + voiceAudio.ts",
+ "lines": {
+  "en": [
+   {
+    "text": "3 kilometres. Time 15:32. Keep moving.",
+    "ids": [
+     "n.3.m",
+     "t.kilometres-time.2367",
+     "n.15.m",
+     "n.32.f",
+     ".",
+     "t.keep-moving.3357"
+    ]
+   },
+   {
+    "text": "1 kilometre. Time 5:05. Keep moving.",
+    "ids": [
+     "n.1.m",
+     "t.kilometre-time.1c6f",
+     "n.5.m",
+     "oh",
+     "n.5.f",
+     ".",
+     "t.keep-moving.3357"
+    ]
+   },
+   {
+    "text": "12 miles. Time 1:45:01. Keep moving.",
+    "ids": [
+     "n.12.m",
+     "t.miles-time.97f4",
+     "n.1.m",
+     "u.hour.m",
+     "n.45.m",
+     "u.minutes.m",
+     "n.1.m",
+     "u.second.f",
+     ".",
+     "t.keep-moving.3357"
+    ]
+   },
+   {
+    "text": "3 kilometres. Time 15 minutes 32 seconds. Keep moving.",
+    "ids": [
+     "n.3.m",
+     "t.kilometres-time.2367",
+     "n.15.m",
+     "u.minutes.m",
+     "n.32.m",
+     "t.seconds-keep-moving.992e"
+    ]
+   },
+   {
+    "text": "1 mile. Time 9 minutes 0 seconds. Keep moving.",
+    "ids": [
+     "n.1.m",
+     "t.mile-time.d7cf",
+     "n.9.m",
+     "u.minutes.m",
+     "n.0.m",
+     "t.seconds-keep-moving.992e"
+    ]
+   },
+   {
+    "text": "45 minutes in, zone 3. Nice work.",
+    "ids": [
+     "n.45.m",
+     "t.minutes-in-zone.5c96",
+     "n.3.f",
+     ".",
+     "t.nice-work.19cf"
+    ]
+   },
+   {
+    "text": "Session done: 121 minutes. Nice work, see you next time!",
+    "ids": [
+     "t.session-done.7caf",
+     ",",
+     "h.1.m",
+     "n.21.m",
+     "t.minutes-nice-work-see-you-next-t.f230"
+    ]
+   },
+   {
+    "text": "120 points, plus 20 percent for your 12-day streak.",
+    "ids": [
+     "h.1.m",
+     "n.20.m",
+     "t.points-plus.11ce",
+     "n.20.m",
+     "t.percent-for-your.4686",
+     "n.12.m",
+     "t.day-streak.1268"
+    ]
+   },
+   {
+    "text": "About 1,250 points.",
+    "ids": [
+     "t.about.af03",
+     "n.1.m",
+     "k.m",
+     "h.2.m",
+     "n.50.m",
+     "u.points.f"
+    ]
+   },
+   {
+    "text": "15 seconds ahead of your best. Keep it smooth.",
+    "ids": [
+     "n.15.m",
+     "t.seconds-ahead-of-your-best-keep-.5deb"
+    ]
+   },
+   {
+    "text": "394 feet behind your best. Reel it in.",
+    "ids": [
+     "h.3.m",
+     "n.94.m",
+     "t.feet-behind-your-best-reel-it-in.3b84"
+    ]
+   },
+   {
+    "text": "Kilometre 7 in 4:59.",
+    "ids": [
+     "u.kilometre.m",
+     "n.7.m",
+     "t.in.bb73",
+     "n.4.m",
+     "n.59.f"
+    ]
+   },
+   {
+    "text": "Heart rate 151.",
+    "ids": [
+     "t.heart-rate.ee51",
+     "h.1.m",
+     "n.51.f"
+    ]
+   },
+   {
+    "text": "Pace 8:05 per mile.",
+    "ids": [
+     "t.pace.3589",
+     "n.8.m",
+     "oh",
+     "n.5.m",
+     "u.per-mile.f"
+    ]
+   },
+   {
+    "text": "Distance 5.25 kilometres.",
+    "ids": [
+     "t.distance.bec8",
+     "n.5.m",
+     "pt",
+     "n.2.m",
+     "n.5.m",
+     "u.kilometres.f"
+    ]
+   },
+   {
+    "text": "3, 2, 1, go!",
+    "ids": [
+     "n.3.m",
+     ",",
+     "n.2.m",
+     ",",
+     "n.1.m",
+     ",",
+     "t.go.4e6d"
+    ]
+   },
+   {
+    "text": "150 bpm.",
+    "ids": [
+     "h.1.m",
+     "n.50.m",
+     "u.beats-per-minute.f"
+    ]
+   },
+   {
+    "text": "12 km/h.",
+    "ids": [
+     "n.12.m",
+     "u.kilometres-per-hour.f"
+    ]
+   },
+   {
+    "text": "Paused.",
+    "ids": [
+     "t.paused.a4d4"
+    ]
+   },
+   {
+    "text": "Let's go Simon!",
+    "ids": null
+   },
+   {
+    "text": "Time 5:75.",
+    "ids": null
+   },
+   {
+    "text": "Kilometre 3 in 5:32.",
+    "ids": [
+     "u.kilometre.m",
+     "n.3.m",
+     "t.in.bb73",
+     "n.5.m",
+     "n.32.f"
+    ]
+   },
+   {
+    "text": "Lap 21 in 1:35.",
+    "ids": [
+     "u.lap.m",
+     "n.21.m",
+     "t.in.bb73",
+     "n.1.m",
+     "n.35.f"
+    ]
+   },
+   {
+    "text": "31 minutes in, zone 4. Nice work.",
+    "ids": [
+     "n.31.m",
+     "t.minutes-in-zone.5c96",
+     "n.4.f",
+     ".",
+     "t.nice-work.19cf"
+    ]
+   },
+   {
+    "text": "Session done: 1 minutes. Nice work, see you next time!",
+    "ids": [
+     "t.session-done.7caf",
+     ",",
+     "n.1.m",
+     "t.minutes-nice-work-see-you-next-t.f230"
+    ]
+   },
+   {
+    "text": "Rest 45 seconds.",
+    "ids": [
+     "t.rest.ef88",
+     "n.45.m",
+     "u.seconds.f"
+    ]
+   }
+  ],
+  "fr": [
+   {
+    "text": "21 kilomètres. Temps : 1:45:01. Continue.",
+    "ids": [
+     "n.21.m",
+     "t.kilometres-temps.b920",
+     ",",
+     "hr.1.m",
+     "n.45.m",
+     "u.minutes.m",
+     "n.1.m.fem",
+     "u.seconde.f",
+     ".",
+     "t.continue.97f6"
+    ]
+   },
+   {
+    "text": "1 kilomètre. Temps : 5:31. Continue.",
+    "ids": [
+     "n.1.m",
+     "t.kilometre-temps.0f7e",
+     ",",
+     "n.5.m",
+     "u.minutes.m",
+     "n.31.f.fem",
+     ".",
+     "t.continue.97f6"
+    ]
+   },
+   {
+    "text": "2 kilomètres. Temps : 9:00:00. Continue.",
+    "ids": [
+     "n.2.m",
+     "t.kilometres-temps.b920",
+     ",",
+     "hr.9.f",
+     ".",
+     "t.continue.97f6"
+    ]
+   },
+   {
+    "text": "3 kilomètres. Temps : 15 minutes 21 secondes. Continue.",
+    "ids": [
+     "n.3.m",
+     "t.kilometres-temps.b920",
+     ",",
+     "n.15.m",
+     "u.minutes.m",
+     "n.21.m.fem",
+     "t.secondes-continue.f166"
+    ]
+   },
+   {
+    "text": "81 minutes de faites, zone 2. Beau travail.",
+    "ids": [
+     "n.81.m.fem",
+     "t.minutes-de-faites-zone.9058",
+     "n.2.f",
+     ".",
+     "t.beau-travail.9bca"
+    ]
+   },
+   {
+    "text": "Séance terminée : 21 minutes. Beau travail, à la prochaine !",
+    "ids": [
+     "t.seance-terminee.c171",
+     ",",
+     "n.21.m.fem",
+     "t.minutes-beau-travail-a-la-procha.cac8"
+    ]
+   },
+   {
+    "text": "Environ 281 points, plus 20 pour cent pour ta série de 71 jours.",
+    "ids": [
+     "t.environ.a29d",
+     "hx.2",
+     "n.81.m",
+     "t.points-plus.11ce",
+     "n.20.m",
+     "t.pour-cent-pour-ta-serie-de.7155",
+     "n.71.m",
+     "u.jours.f"
+    ]
+   },
+   {
+    "text": "200 points.",
+    "ids": [
+     "h.2.m",
+     "u.points.f"
+    ]
+   },
+   {
+    "text": "1 secondes d'avance sur ton record. Reste fluide.",
+    "ids": [
+     "n.1.m.fem",
+     "t.secondes-d-avance-sur-ton-record.a9d5"
+    ]
+   },
+   {
+    "text": "1 250 pieds d'avance sur ton record.",
+    "ids": [
+     "k.m",
+     "hx.2",
+     "n.50.m",
+     "t.pieds-d-avance-sur-ton-record.3695"
+    ]
+   },
+   {
+    "text": "Kilomètre 7 en 4:59.",
+    "ids": [
+     "u.kilometre.m",
+     "n.7.m",
+     "t.en.1e33",
+     "n.4.m",
+     "u.minutes.m",
+     "n.59.f"
+    ]
+   },
+   {
+    "text": "Fréquence cardiaque : 151.",
+    "ids": [
+     "t.frequence-cardiaque.898e",
+     ",",
+     "h.1.m",
+     "n.51.f"
+    ]
+   },
+   {
+    "text": "Allure : 5:01 par kilomètre.",
+    "ids": [
+     "t.allure.4694",
+     ",",
+     "n.5.m",
+     "u.minutes.m",
+     "n.1.m.fem",
+     "u.par-kilometre.f"
+    ]
+   },
+   {
+    "text": "Distance : 5,05 kilomètres.",
+    "ids": [
+     "t.distance.d0d0",
+     ",",
+     "n.5.m",
+     "pt",
+     "n.0.m",
+     "n.5.m",
+     "u.kilometres.f"
+    ]
+   },
+   {
+    "text": "3, 2, 1, partez !",
+    "ids": [
+     "n.3.m",
+     ",",
+     "n.2.m",
+     ",",
+     "n.1.m",
+     ",",
+     "t.partez.331e"
+    ]
+   },
+   {
+    "text": "2 h.",
+    "ids": [
+     "hr.2.f"
+    ]
+   },
+   {
+    "text": "25%.",
+    "ids": [
+     "n.25.m",
+     "u.pour-cent.f"
+    ]
+   },
+   {
+    "text": "En pause.",
+    "ids": [
+     "t.en-pause.caf8"
+    ]
+   },
+   {
+    "text": "C’est parti Simon !",
+    "ids": null
+   },
+   {
+    "text": "Kilomètre 3 en 5:32.",
+    "ids": [
+     "u.kilometre.m",
+     "n.3.m",
+     "t.en.1e33",
+     "n.5.m",
+     "u.minutes.m",
+     "n.32.f"
+    ]
+   },
+   {
+    "text": "Tour 21 en 1:35.",
+    "ids": [
+     "u.tour.m",
+     "n.21.m",
+     "t.en.1e33",
+     "n.1.m.fem",
+     "u.minute.m",
+     "n.35.f"
+    ]
+   },
+   {
+    "text": "31 minutes de faites, zone 4. Beau travail.",
+    "ids": [
+     "n.31.m.fem",
+     "t.minutes-de-faites-zone.9058",
+     "n.4.f",
+     ".",
+     "t.beau-travail.9bca"
+    ]
+   },
+   {
+    "text": "Séance terminée : 1 minutes. Beau travail, à la prochaine !",
+    "ids": [
+     "t.seance-terminee.c171",
+     ",",
+     "n.1.m.fem",
+     "t.minutes-beau-travail-a-la-procha.cac8"
+    ]
+   },
+   {
+    "text": "Repos 45 secondes.",
+    "ids": [
+     "t.repos.8d93",
+     "n.45.m",
+     "u.secondes.f"
+    ]
+   }
+  ]
+ },
+ "numbers": {
+  "en": [
+   {
+    "n": 0,
+    "final": false,
+    "fem": false,
+    "ids": [
+     "n.0.m"
+    ]
+   },
+   {
+    "n": 0,
+    "final": true,
+    "fem": true,
+    "ids": [
+     "n.0.f"
+    ]
+   },
+   {
+    "n": 1,
+    "final": false,
+    "fem": false,
+    "ids": [
+     "n.1.m"
+    ]
+   },
+   {
+    "n": 1,
+    "final": true,
+    "fem": true,
+    "ids": [
+     "n.1.f"
+    ]
+   },
+   {
+    "n": 7,
+    "final": false,
+    "fem": false,
+    "ids": [
+     "n.7.m"
+    ]
+   },
+   {
+    "n": 7,
+    "final": true,
+    "fem": true,
+    "ids": [
+     "n.7.f"
+    ]
+   },
+   {
+    "n": 21,
+    "final": false,
+    "fem": false,
+    "ids": [
+     "n.21.m"
+    ]
+   },
+   {
+    "n": 21,
+    "final": true,
+    "fem": true,
+    "ids": [
+     "n.21.f"
+    ]
+   },
+   {
+    "n": 71,
+    "final": false,
+    "fem": false,
+    "ids": [
+     "n.71.m"
+    ]
+   },
+   {
+    "n": 71,
+    "final": true,
+    "fem": true,
+    "ids": [
+     "n.71.f"
+    ]
+   },
+   {
+    "n": 80,
+    "final": false,
+    "fem": false,
+    "ids": [
+     "n.80.m"
+    ]
+   },
+   {
+    "n": 80,
+    "final": true,
+    "fem": true,
+    "ids": [
+     "n.80.f"
+    ]
+   },
+   {
+    "n": 81,
+    "final": false,
+    "fem": false,
+    "ids": [
+     "n.81.m"
+    ]
+   },
+   {
+    "n": 81,
+    "final": true,
+    "fem": true,
+    "ids": [
+     "n.81.f"
+    ]
+   },
+   {
+    "n": 91,
+    "final": false,
+    "fem": false,
+    "ids": [
+     "n.91.m"
+    ]
+   },
+   {
+    "n": 91,
+    "final": true,
+    "fem": true,
+    "ids": [
+     "n.91.f"
+    ]
+   },
+   {
+    "n": 100,
+    "final": false,
+    "fem": false,
+    "ids": [
+     "h.1.m"
+    ]
+   },
+   {
+    "n": 100,
+    "final": true,
+    "fem": true,
+    "ids": [
+     "h.1.f"
+    ]
+   },
+   {
+    "n": 101,
+    "final": false,
+    "fem": false,
+    "ids": [
+     "h.1.m",
+     "n.1.m"
+    ]
+   },
+   {
+    "n": 101,
+    "final": true,
+    "fem": true,
+    "ids": [
+     "h.1.m",
+     "n.1.f"
+    ]
+   },
+   {
+    "n": 180,
+    "final": false,
+    "fem": false,
+    "ids": [
+     "h.1.m",
+     "n.80.m"
+    ]
+   },
+   {
+    "n": 180,
+    "final": true,
+    "fem": true,
+    "ids": [
+     "h.1.m",
+     "n.80.f"
+    ]
+   },
+   {
+    "n": 200,
+    "final": false,
+    "fem": false,
+    "ids": [
+     "h.2.m"
+    ]
+   },
+   {
+    "n": 200,
+    "final": true,
+    "fem": true,
+    "ids": [
+     "h.2.f"
+    ]
+   },
+   {
+    "n": 203,
+    "final": false,
+    "fem": false,
+    "ids": [
+     "h.2.m",
+     "n.3.m"
+    ]
+   },
+   {
+    "n": 203,
+    "final": true,
+    "fem": true,
+    "ids": [
+     "h.2.m",
+     "n.3.f"
+    ]
+   },
+   {
+    "n": 999,
+    "final": false,
+    "fem": false,
+    "ids": [
+     "h.9.m",
+     "n.99.m"
+    ]
+   },
+   {
+    "n": 999,
+    "final": true,
+    "fem": true,
+    "ids": [
+     "h.9.m",
+     "n.99.f"
+    ]
+   },
+   {
+    "n": 1000,
+    "final": false,
+    "fem": false,
+    "ids": [
+     "n.1.m",
+     "k.m"
+    ]
+   },
+   {
+    "n": 1000,
+    "final": true,
+    "fem": true,
+    "ids": [
+     "n.1.m",
+     "k.f"
+    ]
+   },
+   {
+    "n": 1001,
+    "final": false,
+    "fem": false,
+    "ids": [
+     "n.1.m",
+     "k.m",
+     "n.1.m"
+    ]
+   },
+   {
+    "n": 1001,
+    "final": true,
+    "fem": true,
+    "ids": [
+     "n.1.m",
+     "k.m",
+     "n.1.f"
+    ]
+   },
+   {
+    "n": 2000,
+    "final": false,
+    "fem": false,
+    "ids": [
+     "n.2.m",
+     "k.m"
+    ]
+   },
+   {
+    "n": 2000,
+    "final": true,
+    "fem": true,
+    "ids": [
+     "n.2.m",
+     "k.f"
+    ]
+   },
+   {
+    "n": 21000,
+    "final": false,
+    "fem": false,
+    "ids": [
+     "n.21.m",
+     "k.m"
+    ]
+   },
+   {
+    "n": 21000,
+    "final": true,
+    "fem": true,
+    "ids": [
+     "n.21.m",
+     "k.f"
+    ]
+   },
+   {
+    "n": 80000,
+    "final": false,
+    "fem": false,
+    "ids": [
+     "n.80.m",
+     "k.m"
+    ]
+   },
+   {
+    "n": 80000,
+    "final": true,
+    "fem": true,
+    "ids": [
+     "n.80.m",
+     "k.f"
+    ]
+   },
+   {
+    "n": 200000,
+    "final": false,
+    "fem": false,
+    "ids": [
+     "h.2.m",
+     "k.m"
+    ]
+   },
+   {
+    "n": 200000,
+    "final": true,
+    "fem": true,
+    "ids": [
+     "h.2.m",
+     "k.f"
+    ]
+   },
+   {
+    "n": 999999,
+    "final": false,
+    "fem": false,
+    "ids": [
+     "h.9.m",
+     "n.99.m",
+     "k.m",
+     "h.9.m",
+     "n.99.m"
+    ]
+   },
+   {
+    "n": 999999,
+    "final": true,
+    "fem": true,
+    "ids": [
+     "h.9.m",
+     "n.99.m",
+     "k.m",
+     "h.9.m",
+     "n.99.f"
+    ]
+   }
+  ],
+  "fr": [
+   {
+    "n": 0,
+    "final": false,
+    "fem": false,
+    "ids": [
+     "n.0.m"
+    ]
+   },
+   {
+    "n": 0,
+    "final": true,
+    "fem": true,
+    "ids": [
+     "n.0.f"
+    ]
+   },
+   {
+    "n": 1,
+    "final": false,
+    "fem": false,
+    "ids": [
+     "n.1.m"
+    ]
+   },
+   {
+    "n": 1,
+    "final": true,
+    "fem": true,
+    "ids": [
+     "n.1.f.fem"
+    ]
+   },
+   {
+    "n": 7,
+    "final": false,
+    "fem": false,
+    "ids": [
+     "n.7.m"
+    ]
+   },
+   {
+    "n": 7,
+    "final": true,
+    "fem": true,
+    "ids": [
+     "n.7.f"
+    ]
+   },
+   {
+    "n": 21,
+    "final": false,
+    "fem": false,
+    "ids": [
+     "n.21.m"
+    ]
+   },
+   {
+    "n": 21,
+    "final": true,
+    "fem": true,
+    "ids": [
+     "n.21.f.fem"
+    ]
+   },
+   {
+    "n": 71,
+    "final": false,
+    "fem": false,
+    "ids": [
+     "n.71.m"
+    ]
+   },
+   {
+    "n": 71,
+    "final": true,
+    "fem": true,
+    "ids": [
+     "n.71.f"
+    ]
+   },
+   {
+    "n": 80,
+    "final": false,
+    "fem": false,
+    "ids": [
+     "n.80.m"
+    ]
+   },
+   {
+    "n": 80,
+    "final": true,
+    "fem": true,
+    "ids": [
+     "n.80.f"
+    ]
+   },
+   {
+    "n": 81,
+    "final": false,
+    "fem": false,
+    "ids": [
+     "n.81.m"
+    ]
+   },
+   {
+    "n": 81,
+    "final": true,
+    "fem": true,
+    "ids": [
+     "n.81.f.fem"
+    ]
+   },
+   {
+    "n": 91,
+    "final": false,
+    "fem": false,
+    "ids": [
+     "n.91.m"
+    ]
+   },
+   {
+    "n": 91,
+    "final": true,
+    "fem": true,
+    "ids": [
+     "n.91.f"
+    ]
+   },
+   {
+    "n": 100,
+    "final": false,
+    "fem": false,
+    "ids": [
+     "h.1.m"
+    ]
+   },
+   {
+    "n": 100,
+    "final": true,
+    "fem": true,
+    "ids": [
+     "h.1.f"
+    ]
+   },
+   {
+    "n": 101,
+    "final": false,
+    "fem": false,
+    "ids": [
+     "h.1.m",
+     "n.1.m"
+    ]
+   },
+   {
+    "n": 101,
+    "final": true,
+    "fem": true,
+    "ids": [
+     "h.1.m",
+     "n.1.f.fem"
+    ]
+   },
+   {
+    "n": 180,
+    "final": false,
+    "fem": false,
+    "ids": [
+     "h.1.m",
+     "n.80.m"
+    ]
+   },
+   {
+    "n": 180,
+    "final": true,
+    "fem": true,
+    "ids": [
+     "h.1.m",
+     "n.80.f"
+    ]
+   },
+   {
+    "n": 200,
+    "final": false,
+    "fem": false,
+    "ids": [
+     "h.2.m"
+    ]
+   },
+   {
+    "n": 200,
+    "final": true,
+    "fem": true,
+    "ids": [
+     "h.2.f"
+    ]
+   },
+   {
+    "n": 203,
+    "final": false,
+    "fem": false,
+    "ids": [
+     "hx.2",
+     "n.3.m"
+    ]
+   },
+   {
+    "n": 203,
+    "final": true,
+    "fem": true,
+    "ids": [
+     "hx.2",
+     "n.3.f"
+    ]
+   },
+   {
+    "n": 999,
+    "final": false,
+    "fem": false,
+    "ids": [
+     "hx.9",
+     "n.99.m"
+    ]
+   },
+   {
+    "n": 999,
+    "final": true,
+    "fem": true,
+    "ids": [
+     "hx.9",
+     "n.99.f"
+    ]
+   },
+   {
+    "n": 1000,
+    "final": false,
+    "fem": false,
+    "ids": [
+     "k.m"
+    ]
+   },
+   {
+    "n": 1000,
+    "final": true,
+    "fem": true,
+    "ids": [
+     "k.f"
+    ]
+   },
+   {
+    "n": 1001,
+    "final": false,
+    "fem": false,
+    "ids": [
+     "k.m",
+     "n.1.m"
+    ]
+   },
+   {
+    "n": 1001,
+    "final": true,
+    "fem": true,
+    "ids": [
+     "k.m",
+     "n.1.f.fem"
+    ]
+   },
+   {
+    "n": 2000,
+    "final": false,
+    "fem": false,
+    "ids": [
+     "n.2.m",
+     "k.m"
+    ]
+   },
+   {
+    "n": 2000,
+    "final": true,
+    "fem": true,
+    "ids": [
+     "n.2.m",
+     "k.f"
+    ]
+   },
+   {
+    "n": 21000,
+    "final": false,
+    "fem": false,
+    "ids": [
+     "n.21.m",
+     "k.m"
+    ]
+   },
+   {
+    "n": 21000,
+    "final": true,
+    "fem": true,
+    "ids": [
+     "n.21.m",
+     "k.f"
+    ]
+   },
+   {
+    "n": 80000,
+    "final": false,
+    "fem": false,
+    "ids": [
+     "n.80x",
+     "k.m"
+    ]
+   },
+   {
+    "n": 80000,
+    "final": true,
+    "fem": true,
+    "ids": [
+     "n.80x",
+     "k.f"
+    ]
+   },
+   {
+    "n": 200000,
+    "final": false,
+    "fem": false,
+    "ids": [
+     "hx.2",
+     "k.m"
+    ]
+   },
+   {
+    "n": 200000,
+    "final": true,
+    "fem": true,
+    "ids": [
+     "hx.2",
+     "k.f"
+    ]
+   },
+   {
+    "n": 999999,
+    "final": false,
+    "fem": false,
+    "ids": [
+     "hx.9",
+     "n.99.m",
+     "k.m",
+     "hx.9",
+     "n.99.m"
+    ]
+   },
+   {
+    "n": 999999,
+    "final": true,
+    "fem": true,
+    "ids": [
+     "hx.9",
+     "n.99.m",
+     "k.m",
+     "hx.9",
+     "n.99.f"
+    ]
+   }
+  ]
+ },
+ "tables": {
+  "en": {
+   "phrases": {
+    "kilometre": "u.kilometre.m",
+    "kilometre .": "u.kilometre.f",
+    "kilometres": "u.kilometres.m",
+    "kilometres .": "u.kilometres.f",
+    "metre": "u.metre.m",
+    "metre .": "u.metre.f",
+    "metres": "u.metres.m",
+    "metres .": "u.metres.f",
+    "mile": "u.mile.m",
+    "mile .": "u.mile.f",
+    "miles": "u.miles.m",
+    "miles .": "u.miles.f",
+    "foot": "u.foot.m",
+    "foot .": "u.foot.f",
+    "feet": "u.feet.m",
+    "feet .": "u.feet.f",
+    "minute": "u.minute.m",
+    "minute .": "u.minute.f",
+    "minutes": "u.minutes.m",
+    "minutes .": "u.minutes.f",
+    "second": "u.second.m",
+    "second .": "u.second.f",
+    "seconds": "u.seconds.m",
+    "seconds .": "u.seconds.f",
+    "hour": "u.hour.m",
+    "hour .": "u.hour.f",
+    "hours": "u.hours.m",
+    "hours .": "u.hours.f",
+    "point": "u.point.m",
+    "point .": "u.point.f",
+    "points": "u.points.m",
+    "points .": "u.points.f",
+    "step": "u.step.m",
+    "step .": "u.step.f",
+    "steps": "u.steps.m",
+    "steps .": "u.steps.f",
+    "rep": "u.rep.m",
+    "rep .": "u.rep.f",
+    "reps": "u.reps.m",
+    "reps .": "u.reps.f",
+    "set": "u.set.m",
+    "set .": "u.set.f",
+    "sets": "u.sets.m",
+    "sets .": "u.sets.f",
+    "lap": "u.lap.m",
+    "lap .": "u.lap.f",
+    "laps": "u.laps.m",
+    "laps .": "u.laps.f",
+    "calorie": "u.calorie.m",
+    "calorie .": "u.calorie.f",
+    "calories": "u.calories.m",
+    "calories .": "u.calories.f",
+    "beat per minute": "u.beat-per-minute.m",
+    "beat per minute .": "u.beat-per-minute.f",
+    "beats per minute": "u.beats-per-minute.m",
+    "beats per minute .": "u.beats-per-minute.f",
+    "kilometre per hour": "u.kilometre-per-hour.m",
+    "kilometre per hour .": "u.kilometre-per-hour.f",
+    "kilometres per hour": "u.kilometres-per-hour.m",
+    "kilometres per hour .": "u.kilometres-per-hour.f",
+    "mile per hour": "u.mile-per-hour.m",
+    "mile per hour .": "u.mile-per-hour.f",
+    "miles per hour": "u.miles-per-hour.m",
+    "miles per hour .": "u.miles-per-hour.f",
+    "percent": "u.percent.m",
+    "percent .": "u.percent.f",
+    "per kilometre": "u.per-kilometre.m",
+    "per kilometre .": "u.per-kilometre.f",
+    "per mile": "u.per-mile.m",
+    "per mile .": "u.per-mile.f",
+    "kilometres . time": "t.kilometres-time.2367",
+    "keep moving .": "t.keep-moving.3357",
+    "kilometre . time": "t.kilometre-time.1c6f",
+    "miles . time": "t.miles-time.97f4",
+    "mile . time": "t.mile-time.d7cf",
+    "seconds . keep moving .": "t.seconds-keep-moving.992e",
+    "minutes in , zone": "t.minutes-in-zone.5c96",
+    "nice work .": "t.nice-work.19cf",
+    "session done ,": "t.session-done.7caf",
+    "minutes . nice work , see you next time .": "t.minutes-nice-work-see-you-next-t.f230",
+    "let's go .": "t.let-s-go.9daa",
+    "warm up easy for the first few minutes .": "t.warm-up-easy-for-the-first-few-m.142c",
+    "paused .": "t.paused.a4d4",
+    "back at it .": "t.back-at-it.8a3d",
+    "points , plus": "t.points-plus.11ce",
+    "percent for your": "t.percent-for-your.4686",
+    "day streak .": "t.day-streak.1268",
+    "about": "t.about.af03",
+    "seconds ahead of your best . keep it smooth .": "t.seconds-ahead-of-your-best-keep-.5deb",
+    "seconds behind your best . you've got this .": "t.seconds-behind-your-best-you-ve-.2ea0",
+    "metres ahead of your best .": "t.metres-ahead-of-your-best.f5e6",
+    "metres behind your best . reel it in .": "t.metres-behind-your-best-reel-it-.6039",
+    "feet ahead of your best .": "t.feet-ahead-of-your-best.657c",
+    "feet behind your best . reel it in .": "t.feet-behind-your-best-reel-it-in.3b84",
+    "you're": "t.you-re.4502",
+    "metres ahead of your best . keep it smooth .": "t.metres-ahead-of-your-best-keep-i.99b4",
+    "feet ahead of your best . keep it smooth .": "t.feet-ahead-of-your-best-keep-it-.639a",
+    "in": "t.in.bb73",
+    "done , that one in": "t.done-that-one-in.d96a",
+    "split": "t.split.8e3e",
+    "pace": "t.pace.3589",
+    "distance": "t.distance.bec8",
+    "heart rate": "t.heart-rate.ee51",
+    "zone": "t.zone.b2dc",
+    "of": "t.of.a1f0",
+    "go .": "t.go.4e6d",
+    "rest": "t.rest.ef88"
+   },
+   "maxLen": 10,
+   "abbr": {
+    "km": "km",
+    "kms": "km",
+    "m": "m",
+    "mi": "mi",
+    "ft": "ft",
+    "min": "min",
+    "mins": "min",
+    "s": "s",
+    "sec": "s",
+    "secs": "s",
+    "h": "h",
+    "hr": "h",
+    "hrs": "h",
+    "pts": "pt",
+    "pt": "pt",
+    "bpm": "bpm",
+    "kcal": "kcal",
+    "cal": "kcal",
+    "km/h": "km/h",
+    "kmh": "km/h",
+    "mph": "mph",
+    "%": "%"
+   },
+   "per": {
+    "/km": "/km",
+    "min/km": "/km",
+    "/mi": "/mi",
+    "min/mi": "/mi"
+   },
+   "units": {
+    "km": [
+     "kilometre",
+     "kilometres"
+    ],
+    "m": [
+     "metre",
+     "metres"
+    ],
+    "mi": [
+     "mile",
+     "miles"
+    ],
+    "ft": [
+     "foot",
+     "feet"
+    ],
+    "min": [
+     "minute",
+     "minutes"
+    ],
+    "s": [
+     "second",
+     "seconds"
+    ],
+    "h": [
+     "hour",
+     "hours"
+    ],
+    "pt": [
+     "point",
+     "points"
+    ],
+    "steps": [
+     "step",
+     "steps"
+    ],
+    "reps": [
+     "rep",
+     "reps"
+    ],
+    "sets": [
+     "set",
+     "sets"
+    ],
+    "laps": [
+     "lap",
+     "laps"
+    ],
+    "days": [
+     "day",
+     "days"
+    ],
+    "kcal": [
+     "calorie",
+     "calories"
+    ],
+    "bpm": [
+     "beat per minute",
+     "beats per minute"
+    ],
+    "km/h": [
+     "kilometre per hour",
+     "kilometres per hour"
+    ],
+    "mph": [
+     "mile per hour",
+     "miles per hour"
+    ],
+    "%": [
+     "percent",
+     "percent"
+    ],
+    "x": [
+     "time",
+     "times"
+    ],
+    "/km": [
+     "per kilometre",
+     "per kilometre"
+    ],
+    "/mi": [
+     "per mile",
+     "per mile"
+    ]
+   },
+   "fem": [
+    "minute",
+    "minutes",
+    "seconde",
+    "secondes",
+    "heure",
+    "heures",
+    "répétition",
+    "répétitions",
+    "série",
+    "séries",
+    "calorie",
+    "calories",
+    "fois",
+    "foulée",
+    "foulées",
+    "semaine",
+    "semaines"
+   ]
+  },
+  "fr": {
+   "phrases": {
+    "kilomètre": "u.kilometre.m",
+    "kilomètre .": "u.kilometre.f",
+    "kilomètres": "u.kilometres.m",
+    "kilomètres .": "u.kilometres.f",
+    "mètre": "u.metre.m",
+    "mètre .": "u.metre.f",
+    "mètres": "u.metres.m",
+    "mètres .": "u.metres.f",
+    "mile": "u.mile.m",
+    "mile .": "u.mile.f",
+    "miles": "u.miles.m",
+    "miles .": "u.miles.f",
+    "pied": "u.pied.m",
+    "pied .": "u.pied.f",
+    "pieds": "u.pieds.m",
+    "pieds .": "u.pieds.f",
+    "minute": "u.minute.m",
+    "minute .": "u.minute.f",
+    "minutes": "u.minutes.m",
+    "minutes .": "u.minutes.f",
+    "seconde": "u.seconde.m",
+    "seconde .": "u.seconde.f",
+    "secondes": "u.secondes.m",
+    "secondes .": "u.secondes.f",
+    "heure": "u.heure.m",
+    "heure .": "u.heure.f",
+    "heures": "u.heures.m",
+    "heures .": "u.heures.f",
+    "point": "u.point.m",
+    "point .": "u.point.f",
+    "points": "u.points.m",
+    "points .": "u.points.f",
+    "pas": "u.pas.m",
+    "pas .": "u.pas.f",
+    "répétition": "u.repetition.m",
+    "répétition .": "u.repetition.f",
+    "répétitions": "u.repetitions.m",
+    "répétitions .": "u.repetitions.f",
+    "série": "u.serie.m",
+    "série .": "u.serie.f",
+    "séries": "u.series.m",
+    "séries .": "u.series.f",
+    "tour": "u.tour.m",
+    "tour .": "u.tour.f",
+    "tours": "u.tours.m",
+    "tours .": "u.tours.f",
+    "calorie": "u.calorie.m",
+    "calorie .": "u.calorie.f",
+    "calories": "u.calories.m",
+    "calories .": "u.calories.f",
+    "battement par minute": "u.battement-par-minute.m",
+    "battement par minute .": "u.battement-par-minute.f",
+    "battements par minute": "u.battements-par-minute.m",
+    "battements par minute .": "u.battements-par-minute.f",
+    "kilomètre à l'heure": "u.kilometre-a-l-heure.m",
+    "kilomètre à l'heure .": "u.kilometre-a-l-heure.f",
+    "kilomètres à l'heure": "u.kilometres-a-l-heure.m",
+    "kilomètres à l'heure .": "u.kilometres-a-l-heure.f",
+    "mile à l'heure": "u.mile-a-l-heure.m",
+    "mile à l'heure .": "u.mile-a-l-heure.f",
+    "miles à l'heure": "u.miles-a-l-heure.m",
+    "miles à l'heure .": "u.miles-a-l-heure.f",
+    "pour cent": "u.pour-cent.m",
+    "pour cent .": "u.pour-cent.f",
+    "par kilomètre": "u.par-kilometre.m",
+    "par kilomètre .": "u.par-kilometre.f",
+    "par mile": "u.par-mile.m",
+    "par mile .": "u.par-mile.f",
+    "kilomètres . temps ,": "t.kilometres-temps.b920",
+    "continue .": "t.continue.97f6",
+    "kilomètre . temps ,": "t.kilometre-temps.0f7e",
+    "miles . temps ,": "t.miles-temps.e5d1",
+    "mile . temps ,": "t.mile-temps.683e",
+    "secondes . continue .": "t.secondes-continue.f166",
+    "minutes de faites , zone": "t.minutes-de-faites-zone.9058",
+    "beau travail .": "t.beau-travail.9bca",
+    "séance terminée ,": "t.seance-terminee.c171",
+    "minutes . beau travail , à la prochaine .": "t.minutes-beau-travail-a-la-procha.cac8",
+    "c'est parti .": "t.c-est-parti.8b49",
+    "échauffe-toi tranquillement les premières minutes .": "t.echauffe-toi-tranquillement-les-.d864",
+    "en pause .": "t.en-pause.caf8",
+    "c'est reparti .": "t.c-est-reparti.638f",
+    "points , plus": "t.points-plus.11ce",
+    "pour cent pour ta série de": "t.pour-cent-pour-ta-serie-de.7155",
+    "environ": "t.environ.a29d",
+    "secondes d'avance sur ton record . reste fluide .": "t.secondes-d-avance-sur-ton-record.a9d5",
+    "secondes derrière ton record . tu peux le faire .": "t.secondes-derriere-ton-record-tu-.1c8a",
+    "mètres d'avance sur ton record .": "t.metres-d-avance-sur-ton-record.0337",
+    "mètres derrière ton record . va le chercher .": "t.metres-derriere-ton-record-va-le.517f",
+    "pieds d'avance sur ton record .": "t.pieds-d-avance-sur-ton-record.3695",
+    "pieds derrière ton record . va le chercher .": "t.pieds-derriere-ton-record-va-le-.c44f",
+    "tu as": "t.tu-as.30a2",
+    "mètres d'avance sur ton record . reste fluide .": "t.metres-d-avance-sur-ton-record-r.5fcd",
+    "pieds d'avance sur ton record . reste fluide .": "t.pieds-d-avance-sur-ton-record-re.720a",
+    "en": "t.en.1e33",
+    "de faits , celui-là en": "t.de-faits-celui-la-en.72db",
+    "intermédiaire": "t.intermediaire.3fd5",
+    "allure ,": "t.allure.4694",
+    "distance ,": "t.distance.d0d0",
+    "temps ,": "t.temps.f343",
+    "fréquence cardiaque ,": "t.frequence-cardiaque.898e",
+    "zone": "t.zone.b2dc",
+    "sur": "t.sur.1075",
+    "partez .": "t.partez.331e",
+    "repos": "t.repos.8d93"
+   },
+   "maxLen": 10,
+   "abbr": {
+    "km": "km",
+    "kms": "km",
+    "m": "m",
+    "mi": "mi",
+    "ft": "ft",
+    "min": "min",
+    "mn": "min",
+    "s": "s",
+    "sec": "s",
+    "h": "h",
+    "pts": "pt",
+    "pt": "pt",
+    "bpm": "bpm",
+    "kcal": "kcal",
+    "cal": "kcal",
+    "km/h": "km/h",
+    "kmh": "km/h",
+    "mph": "mph",
+    "%": "%"
+   },
+   "per": {
+    "/km": "/km",
+    "min/km": "/km",
+    "/mi": "/mi",
+    "min/mi": "/mi"
+   },
+   "units": {
+    "km": [
+     "kilomètre",
+     "kilomètres"
+    ],
+    "m": [
+     "mètre",
+     "mètres"
+    ],
+    "mi": [
+     "mile",
+     "miles"
+    ],
+    "ft": [
+     "pied",
+     "pieds"
+    ],
+    "min": [
+     "minute",
+     "minutes"
+    ],
+    "s": [
+     "seconde",
+     "secondes"
+    ],
+    "h": [
+     "heure",
+     "heures"
+    ],
+    "pt": [
+     "point",
+     "points"
+    ],
+    "steps": [
+     "pas",
+     "pas"
+    ],
+    "reps": [
+     "répétition",
+     "répétitions"
+    ],
+    "sets": [
+     "série",
+     "séries"
+    ],
+    "laps": [
+     "tour",
+     "tours"
+    ],
+    "days": [
+     "jour",
+     "jours"
+    ],
+    "kcal": [
+     "calorie",
+     "calories"
+    ],
+    "bpm": [
+     "battement par minute",
+     "battements par minute"
+    ],
+    "km/h": [
+     "kilomètre à l'heure",
+     "kilomètres à l'heure"
+    ],
+    "mph": [
+     "mile à l'heure",
+     "miles à l'heure"
+    ],
+    "%": [
+     "pour cent",
+     "pour cent"
+    ],
+    "x": [
+     "fois",
+     "fois"
+    ],
+    "/km": [
+     "par kilomètre",
+     "par kilomètre"
+    ],
+    "/mi": [
+     "par mile",
+     "par mile"
+    ]
+   },
+   "fem": [
+    "minute",
+    "minutes",
+    "seconde",
+    "secondes",
+    "heure",
+    "heures",
+    "répétition",
+    "répétitions",
+    "série",
+    "séries",
+    "calorie",
+    "calories",
+    "fois",
+    "foulée",
+    "foulées",
+    "semaine",
+    "semaines"
+   ]
+  }
+ },
+ "adpcm": {
+  "samples": 400,
+  "bytes": "AAAAAHVHREQ0NDVDQzM0QiITEoG43MzMvMzLy8u7vLvLuokYIUQ1RENDQzM0IzMjEYC6zb3My8u7y7qaihhBU0RDQzMkMiEAqdvMvLzLuqqZADNGUzNDMyIBmczMy8u6qokQU0RDMzMjALrO27vLmokhY0MkMyKBuc28vLqZEFJEMyQSgLrNvKubGVFTQyMSkMq9vKuKMEQ1MyKQy827qwlBREMjAam9vbqJIUVDIgG5zburCFI0NAKQvL27iUFEMxOQ3MuqCUE0JAIJ",
+  "decoded": [
+   0,
+   8,
+   27,
+   68,
+   124,
+   191,
+   273,
+   372,
+   492,
+   638,
+   774,
+   934,
+   1084,
+   1299,
+   1499,
+   1681,
+   1894,
+   2094,
+   2329,
+   2549,
+   2749,
+   2984,
+   3204,
+   3347,
+   3582,
+   3739,
+   3882,
+   4064,
+   4134,
+   4241,
+   4299,
+   4351,
+   4335,
+   4321,
+   4229,
+   4120,
+   3959,
+   3765,
+   3530,
+   3246,
+   2901,
+   2484,
+   2092,
+   1633,
+   1078,
+   556,
+   -56,
+   -631,
+   -1303,
+   -1936,
+   -2676,
+   -3372,
+   -4005,
+   -4745,
+   -5441,
+   -6074,
+   -6649,
+   -7171,
+   -7783,
+   -8194,
+   -8716,
+   -8920,
+   -8981,
+   -9037,
+   -8884,
+   -8746,
+   -8536,
+   -8191,
+   -7774,
+   -7157,
+   -6582,
+   -5910,
+   -5096,
+   -4330,
+   -3435,
+   -2594,
+   -1609,
+   -682,
+   401,
+   1420,
+   2347,
+   3430,
+   4449,
+   5376,
+   5977,
+   6743,
+   7439,
+   8072,
+   8483,
+   8706,
+   8910,
+   8971,
+   8915,
+   8660,
+   8337,
+   7874,
+   7319,
+   6498,
+   5732,
+   4837,
+   3754,
+   2735,
+   1543,
+   422,
+   -889,
+   -2122,
+   -3243,
+   -4262,
+   -5454,
+   -6255,
+   -7274,
+   -7936,
+   -8296,
+   -8843,
+   -8942,
+   -9032,
+   -8786,
+   -8563,
+   -7951,
+   -7376,
+   -6555,
+   -5570,
+   -4378,
+   -3257,
+   -1946,
+   -713,
+   729,
+   2087,
+   3320,
+   4762,
+   5732,
+   6613,
+   7734,
+   8170,
+   8832,
+   8952,
+   9061,
+   8763,
+   8311,
+   7736,
+   6915,
+   5930,
+   4738,
+   3296,
+   1938,
+   351,
+   -1141,
+   -2499,
+   -4086,
+   -5152,
+   -6510,
+   -7391,
+   -8192,
+   -8628,
+   -9025,
+   -8905,
+   -8796,
+   -8100,
+   -7467,
+   -6398,
+   -5087,
+   -3854,
+   -2092,
+   -450,
+   1042,
+   2400,
+   3987,
+   5479,
+   6837,
+   7718,
+   8519,
+   8955,
+   9087,
+   8727,
+   8399,
+   7504,
+   6421,
+   5110,
+   3523,
+   2031,
+   285,
+   -1357,
+   -3277,
+   -4568,
+   -6210,
+   -7276,
+   -8246,
+   -8774,
+   -8934,
+   -8789,
+   -8392,
+   -7551,
+   -6347,
+   -4905,
+   -3159,
+   -1517,
+   403,
+   2210,
+   3852,
+   5344,
+   6702,
+   7935,
+   8736,
+   8881,
+   9013,
+   8412,
+   7646,
+   6353,
+   4766,
+   3274,
+   1140,
+   -848,
+   -2655,
+   -4297,
+   -6217,
+   -7508,
+   -8211,
+   -8850,
+   -9044,
+   -8516,
+   -7715,
+   -6696,
+   -4974,
+   -3332,
+   -1412,
+   912,
+   2473,
+   4461,
+   6268,
+   7441,
+   8507,
+   9089,
+   8913,
+   8433,
+   7414,
+   5957,
+   4211,
+   2099,
+   111,
+   -2213,
+   -4398,
+   -5818,
+   -7625,
+   -8328,
+   -8967,
+   -8773,
+   -8245,
+   -7444,
+   -5842,
+   -3922,
+   -1598,
+   587,
+   2575,
+   4899,
+   6460,
+   7880,
+   8654,
+   8888,
+   8675,
+   7705,
+   6472,
+   4710,
+   2598,
+   42,
+   -2362,
+   -4547,
+   -5967,
+   -7774,
+   -8477,
+   -9116,
+   -8534,
+   -8006,
+   -6244,
+   -4602,
+   -2256,
+   -71,
+   2485,
+   4889,
+   6450,
+   7870,
+   8644,
+   8878,
+   8239,
+   7269,
+   5682,
+   3336,
+   1151,
+   -1405,
+   -3809,
+   -5994,
+   -7414,
+   -8705,
+   -8939,
+   -8726,
+   -7368,
+   -5781,
+   -3861,
+   -1021,
+   1625,
+   4029,
+   6214,
+   7634,
+   8925,
+   9159,
+   8520,
+   7162,
+   5575,
+   3229,
+   418,
+   -2228,
+   -4632,
+   -6817,
+   -8237,
+   -9011,
+   -8777,
+   -8138,
+   -6392,
+   -4280,
+   -1724,
+   680,
+   3491,
+   6137,
+   7854,
+   8790,
+   9074,
+   8300,
+   7127,
+   4781,
+   2596,
+   -528,
+   -3437,
+   -5327,
+   -7731,
+   -8667,
+   -8951,
+   -8177,
+   -7004,
+   -4658,
+   -1847,
+   799,
+   3891,
+   5969,
+   7859,
+   8889,
+   9201,
+   8349,
+   6542,
+   3961,
+   869,
+   -2040,
+   -4686,
+   -7090,
+   -8651,
+   -8935,
+   -8677,
+   -7504,
+   -5158,
+   -2347,
+   299,
+   3391,
+   6300,
+   8190,
+   8533,
+   8845,
+   7993,
+   5669,
+   3484,
+   360,
+   -2549,
+   -5195,
+   -7599,
+   -8535,
+   -8819,
+   -8045,
+   -5933,
+   -3377,
+   -285,
+   2624,
+   5270,
+   7674,
+   8610,
+   8894,
+   8120,
+   6008,
+   2884,
+   -25,
+   -3427,
+   -5714,
+   -7792,
+   -8926,
+   -8583,
+   -7647,
+   -5091,
+   -1999,
+   910,
+   4312,
+   6599,
+   8677,
+   9055,
+   8025
+  ]
+ },
+ "join": {
+  "rate": 22050,
+  "parts": [
+   "0-200",
+   "200-400",
+   ".",
+   "0-100"
+  ],
+  "length": 6057,
+  "head": [
+   2813,
+   -42,
+   -2721,
+   -5184,
+   -7448,
+   -8337,
+   -8611,
+   -7871,
+   -5822,
+   -3328,
+   -285,
+   2624,
+   5270,
+   7674,
+   8610,
+   8894,
+   8120,
+   6008,
+   2884,
+   -25,
+   -3427,
+   -5714,
+   -7792,
+   -8926,
+   -8583
+  ],
+  "tail": [
+   2347,
+   3430,
+   4449,
+   5376,
+   5977,
+   6743,
+   7439,
+   8072,
+   8483,
+   8706,
+   8910,
+   8971,
+   8915,
+   8660,
+   8337,
+   7874,
+   7319,
+   6498,
+   5732,
+   4837
+  ]
+ }
+}
