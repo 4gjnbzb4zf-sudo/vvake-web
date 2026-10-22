@@ -28,6 +28,8 @@ export type Route =
   | { name: "session"; id: string }
   /** The camera workout (CameraScreen.tsx), with the sport whose routine it suggests (#/camera/strength). */
   | { name: "camera"; sport?: string }
+  /** Where to train near me (PlacesScreen.tsx), for a sport (#/places/swim). */
+  | { name: "places"; sport?: string }
   /**
    * Custom trainings (ADR-0047, TrainingsScreen.tsx). `ref` is a share code (8 letters) or a training id (t_…):
    * #/train/<ref>(/<challenge>) runs it with the webcam, #/training/<ref>(/<challenge>) shows it.
@@ -47,6 +49,7 @@ export function parseRoute(hash: string): Route {
   const [name, arg] = h.split("/");
   if (name === "session" && arg) return { name: "session", id: decodeURIComponent(arg) };
   if (name === "camera") return arg && /^[a-z-]{2,30}$/.test(arg) ? { name: "camera", sport: arg } : { name: "camera" };
+  if (name === "places") return arg && /^[a-z-]{2,30}$/.test(arg) ? { name: "places", sport: arg } : { name: "places" };
   if (name === "train" || name === "training") {
     const parts = h.split("/");
     const ref = /^t_/i.test(parts[1] ?? "") ? (parts[1] ?? "").toLowerCase() : (parts[1] ?? "").toUpperCase();
@@ -65,8 +68,8 @@ export function parseRoute(hash: string): Route {
 export const routeHash = (r: Route) =>
   r.name === "session"
     ? `#/session/${encodeURIComponent(r.id)}`
-    : r.name === "camera"
-      ? `#/camera${r.sport ? `/${r.sport}` : ""}`
+    : r.name === "camera" || r.name === "places"
+      ? `#/${r.name}${r.sport ? `/${r.sport}` : ""}`
       : r.name === "train" || r.name === "training"
         ? `#/${r.name}/${r.ref}${r.challenge ? `/${r.challenge}` : ""}`
         : r.name === "build"

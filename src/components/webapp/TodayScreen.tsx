@@ -13,6 +13,7 @@ import { glassesToday } from "./RhythmScreen";
 import { useWorkout } from "./WorkoutContext";
 import { EntryChoice } from "./WorkoutScreen";
 import { cameraSport } from "@/lib/webapp/camera/webSetup";
+import { hasPlaces } from "@/lib/webapp/places";
 import { Bar, Btn, Card, Kicker, List, Pill, Row, Small } from "./ui";
 import { useNow } from "./useNow";
 
@@ -240,6 +241,13 @@ export function TodayScreen() {
           onClick={() => go({ name: "rhythm" })}
         />
         <Row tone="pulse" icon="⚑" title={t.today.clashRow} value={me.city ?? undefined} onClick={() => go({ name: "crew" })} />
+        <Row
+          tone="mint"
+          icon="⌖"
+          title={t.places.entry}
+          detail={t.places.entryDetail}
+          onClick={() => go(planned && hasPlaces(planned.sport) ? { name: "places", sport: planned.sport } : { name: "places" })}
+        />
         <Row tone="mint" icon="♥" title={t.sensor.title} onClick={() => go({ name: "sensor" })} />
       </List>
     </div>

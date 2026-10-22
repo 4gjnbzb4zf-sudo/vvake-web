@@ -13,6 +13,7 @@ import { CoachScreen } from "./CoachScreen";
 import { CrewScreen } from "./CrewScreen";
 import { GetTheApp } from "./GetTheApp";
 import { GoalsScreen } from "./GoalsScreen";
+import { PlacesScreen } from "./PlacesScreen";
 import { PlanScreen } from "./PlanScreen";
 import { RhythmScreen } from "./RhythmScreen";
 import { SensorScreen } from "./SensorScreen";
@@ -165,6 +166,7 @@ function Shell() {
             {route.name === "sensor" && <SensorScreen />}
             {route.name === "zones" && <ZonesScreen />}
             {route.name === "session" && <SessionScreen id={route.id} />}
+            {route.name === "places" && <PlacesScreen sport={route.sport} />}
             {route.name === "trainings" && <TrainingsScreen />}
             {route.name === "training" && <TrainingDetailScreen key={route.ref} refId={route.ref} challenge={route.challenge} />}
             {route.name === "build" && <BuilderScreen key={route.id ?? "new"} id={route.id} />}

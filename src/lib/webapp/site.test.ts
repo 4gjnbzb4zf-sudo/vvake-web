@@ -41,6 +41,10 @@ describe("the web app on the site", () => {
     expect(parseRoute("")).toEqual({ name: "today" });
     expect(parseRoute("#/nope")).toEqual({ name: "today" });
     expect(routeHash({ name: "session", id: "a b" })).toBe("#/session/a%20b");
+    expect(parseRoute("#/places/swim")).toEqual({ name: "places", sport: "swim" });
+    expect(parseRoute("#/places")).toEqual({ name: "places" });
+    expect(parseRoute("#/places/<x>")).toEqual({ name: "places" });
+    expect(routeHash({ name: "places", sport: "track-field" })).toBe("#/places/track-field");
   });
   it("custom training routes (ADR-0047): run, page, builder, teach, creator", () => {
     expect(parseRoute("#/train/abcd2345")).toEqual({ name: "train", ref: "ABCD2345" });

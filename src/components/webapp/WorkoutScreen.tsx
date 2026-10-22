@@ -148,6 +148,22 @@ function PickView() {
           ›
         </span>
       </button>
+      <button
+        type="button"
+        onClick={() => go({ name: "places" })}
+        className="mt-2 flex min-h-14 w-full items-center gap-3 rounded-2xl border border-line bg-surface px-4 text-left hover:border-mint-fg"
+      >
+        <span aria-hidden className="text-xl text-mint-fg">
+          ⌖
+        </span>
+        <span className="flex-1">
+          <span className="block font-display font-semibold">{t.places.entry}</span>
+          <span className="block text-sm text-muted">{t.places.entryDetail}</span>
+        </span>
+        <span aria-hidden className="text-muted">
+          ›
+        </span>
+      </button>
       <Kicker className="mt-5">{t.workout.quick}</Kicker>
       <div className="mt-2 grid grid-cols-2 gap-2">
         {QUICK_SPORTS.map((k) => (
