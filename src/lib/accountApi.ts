@@ -68,6 +68,10 @@ export const meSchema = z.object({
   plan: str,
   plusUntil: str,
   plusSource: str,
+  /** Free / Plus / Premium (ADR-0051): "premium", or "pro" from APIs before the rename (read with coachTier). */
+  tier: str,
+  /** An early (beta) tester: Coach Premium for the beta, nothing charged. */
+  earlyTester: bool,
   freshStartAt: str,
   coach: opt(coachSchema),
   prefs: opt(prefsSchema),
@@ -235,6 +239,19 @@ export const MAX_WATCHLIST = 8;
 // ── Plus ────────────────────────────────────────────────────────────────────────────────────────────────────────
 
 const previewSchema = z.object({ plan: str, plusUntil: str, plusSource: str });
+
+export type CoachTier = "free" | "plus" | "premium";
+
+/**
+ * The account's coach plan: VVake Coach Plus or Coach Premium. The API's tier key is "premium" ("pro" before the
+ * rename, still read as Premium); an older API without `tier` falls back to the plan ("plus" = Coach Plus).
+ */
+export function coachTier(me: { plan?: string | null; tier?: string | null }): CoachTier {
+  const t = (me.tier ?? "").toLowerCase();
+  if (t === "premium" || t === "pro") return "premium";
+  if (t === "plus" || me.plan === "plus") return "plus";
+  return "free";
+}
 
 const freshSchema = z.object({ freshStartAt: z.string() });
 

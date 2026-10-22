@@ -299,7 +299,7 @@ export function CoachSection(p: PanelProps) {
           </Row>
         </Card>
 
-        <Card title={t.coach.calls} lead={t.coach.callsHint} badge={!plus && <Pill tone="volt">Plus</Pill>}>
+        <Card title={t.coach.calls} lead={t.coach.callsHint} badge={!plus && <Pill tone="volt">{t.plusSection.tierPlus}</Pill>}>
           {!plus && <p className="mt-3 text-sm text-faint">{t.plusNeeded}</p>}
           <Row label={t.coach.callsOn}>
             <Toggle label={t.coach.callsOn} checked={callsOn} disabled={!plus || me.guest === true} onChange={setCallsOn} />
@@ -401,7 +401,7 @@ export function CoachSection(p: PanelProps) {
                 </p>
               )}
               <p className="mt-1 text-xs">
-                <a className="underline" href={`/${lang}/plus/#plans`}>
+                <a className="underline" href={`/${lang}/plans/#plans`}>
                   {t.coach.livePlans}
                 </a>
               </p>

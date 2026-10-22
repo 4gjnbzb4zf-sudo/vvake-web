@@ -12,7 +12,7 @@ type Dict = Dictionary["rewards"];
 const WAY_CARD = "flex flex-col rounded-2xl border border-line bg-surface/60 p-6";
 
 /**
- * "Two ways in, same prize": VVake Fit Plus or the free entry (POST / DELETE /v1/rewards/entry), side by side and
+ * "Two ways in, same prize": VVake Coach Plus or the free entry (POST / DELETE /v1/rewards/entry), side by side and
  * styled alike. Signed out, it shows the rule and asks to sign in; signed in, the free entry is one tap.
  */
 export function EntryChoice({

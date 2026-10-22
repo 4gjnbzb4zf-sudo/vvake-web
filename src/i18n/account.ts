@@ -8,7 +8,7 @@ import type { Locale } from "./config";
  */
 const en = {
   title: "Your account",
-  description: "Your VVake settings and connections on the web: profile, reminders, coach, plan, calendars, music, Plus.",
+  description: "Your VVake settings and connections on the web: profile, reminders, coach, plan, calendars, music, VVake Coach Plus.",
   kicker: "Account",
   heading: "Your settings, on the web",
   lead: "Everything your VVake account keeps on our servers, in one place. Changes reach your phone and watch the next time they sync.",
@@ -31,7 +31,7 @@ const en = {
   appOnly: "In the app",
   appOnlyNote: "Kept on your phone only: change it in the app.",
   readOnly: "Read only here",
-  plusNeeded: "Comes with VVake Plus.",
+  plusNeeded: "Comes with VVake Coach Plus.",
   notSet: "Not set",
   never: "Never",
   minutes: "{n} min",
@@ -46,7 +46,7 @@ const en = {
     goals: "Goals",
     connections: "Connections",
     pulse: "My Pulse",
-    plus: "Plus",
+    plus: "VVake Coach Plus",
     data: "Fresh start and your data",
   },
   profile: {
@@ -173,7 +173,7 @@ const en = {
     livePlans: "Plans and minute packs (coming soon)",
     liveResets: "Resets {date}",
     liveReasons: {
-      plus: "Comes with VVake Plus.",
+      plus: "Comes with VVake Coach Plus.",
       off: "Paused for everyone right now.",
       budget: "Busy today: back tomorrow.",
       new_account: "Opens 24 hours after your account was created.",
@@ -243,7 +243,7 @@ const en = {
     spotifyOff: "Not available right now: your watch goes through your phone.",
     spotifyOk: "Spotify linked for your watch.",
     spotifyError: "Spotify wasn't linked. Try again.",
-    spotifyPlus: "Spotify on the watch comes with VVake Plus.",
+    spotifyPlus: "Spotify on the watch comes with VVake Coach Plus.",
     route: "Route",
     routes: { auto: "Auto", phone: "Through my phone", watch: "Watch on its own" },
     routeApp: "Chosen on the phone (Connections → Spotify on my watch); it syncs to the web once the account keeps it.",
@@ -283,9 +283,13 @@ const en = {
     max: "Up to {n} picks.",
   },
   plusSection: {
-    lead: "Your Plus and how it's paid.",
-    active: "Plus until {date}",
+    lead: "Your VVake Coach Plus and how it's paid.",
+    active: "VVake Coach Plus until {date}",
+    activePremium: "VVake Coach Premium until {date}",
     free: "Free plan",
+    tierPlus: "Coach Plus",
+    tierPremium: "Coach Premium",
+    earlyTester: "Early tester · VVake Coach Premium",
     sources: {
       vvake: "Paid with $VVAKE",
       stripe: "Card (Stripe)",
@@ -297,10 +301,10 @@ const en = {
       admin: "Gift",
       preview_off: "Beta preview off",
     },
-    manage: "Get or renew Plus",
+    manage: "Get or renew VVake Coach Plus",
     portal: "Manage my card subscription",
-    previewOn: "Turn the beta's Plus on",
-    previewOff: "Try the free app (turn the beta's Plus off)",
+    previewOn: "Turn the beta's VVake Coach Premium on",
+    previewOff: "Try the free app (turn the beta's VVake Coach Premium off)",
     store: "Bought in the App Store or Google Play: manage it in the store's subscriptions.",
   },
   data: {
@@ -323,7 +327,7 @@ const en = {
       "Your sessions and history",
       "Scores, points and prizes",
       "Wallets and tokens",
-      "Plus, friends, rivals and your city",
+      "VVake Coach Plus, friends, rivals and your city",
     ],
     freshType: "Type {word} to confirm",
     freshWord: "FRESH",
@@ -335,7 +339,7 @@ const en = {
       "Not available yet: a download of everything VVake keeps about you is planned. Your sessions stay in Apple Health or Health Connect on your phone.",
     delete: "Delete my account",
     deleteNote:
-      "Your sessions, streak, survey, VVaker and everything VVake keeps about you are deleted for good, on our servers. This can't be undone. Plus bought in a store is cancelled in the store.",
+      "Your sessions, streak, survey, VVaker and everything VVake keeps about you are deleted for good, on our servers. This can't be undone. VVake Coach Plus bought in a store is cancelled in the store.",
     deleteType: "Type {word} to confirm",
     deleteWord: "DELETE",
     deleteButton: "Delete my account for good",
@@ -346,7 +350,7 @@ const en = {
     googleError: "Google Calendar wasn't connected.",
     spotifyOk: "Spotify linked for your watch.",
     spotifyError: "Spotify wasn't linked.",
-    spotifyPlus: "Spotify on the watch comes with VVake Plus.",
+    spotifyPlus: "Spotify on the watch comes with VVake Coach Plus.",
   },
 };
 
@@ -354,7 +358,7 @@ export type AccountDict = typeof en;
 
 const fr: AccountDict = {
   title: "Ton compte",
-  description: "Tes réglages et connexions VVake sur le web : profil, rappels, coach, plan, agendas, musique, Plus.",
+  description: "Tes réglages et connexions VVake sur le web : profil, rappels, coach, plan, agendas, musique, VVake Coach Plus.",
   kicker: "Compte",
   heading: "Tes réglages, sur le web",
   lead: "Tout ce que ton compte VVake garde sur nos serveurs, au même endroit. Les changements arrivent sur ton téléphone et ta montre à leur prochaine synchro.",
@@ -377,7 +381,7 @@ const fr: AccountDict = {
   appOnly: "Dans l'app",
   appOnlyNote: "Gardé sur ton téléphone seulement : change-le dans l'app.",
   readOnly: "Lecture seule ici",
-  plusNeeded: "Inclus avec VVake Plus.",
+  plusNeeded: "Inclus avec VVake Coach Plus.",
   notSet: "Non renseigné",
   never: "Jamais",
   minutes: "{n} min",
@@ -392,7 +396,7 @@ const fr: AccountDict = {
     goals: "Objectifs",
     connections: "Connexions",
     pulse: "Mon Pulse",
-    plus: "Plus",
+    plus: "VVake Coach Plus",
     data: "Repartir à zéro et tes données",
   },
   profile: {
@@ -522,7 +526,7 @@ const fr: AccountDict = {
     livePlans: "Formules et packs de minutes (bientôt)",
     liveResets: "Remise à zéro le {date}",
     liveReasons: {
-      plus: "Inclus avec VVake Plus.",
+      plus: "Inclus avec VVake Coach Plus.",
       off: "En pause pour tout le monde en ce moment.",
       budget: "Très demandé aujourd'hui : de retour demain.",
       new_account: "Disponible 24 heures après la création de ton compte.",
@@ -593,7 +597,7 @@ const fr: AccountDict = {
     spotifyOff: "Pas disponible pour le moment : ta montre passe par ton téléphone.",
     spotifyOk: "Spotify lié pour ta montre.",
     spotifyError: "Spotify n'a pas été lié. Réessaie.",
-    spotifyPlus: "Spotify sur la montre est inclus avec VVake Plus.",
+    spotifyPlus: "Spotify sur la montre est inclus avec VVake Coach Plus.",
     route: "Trajet",
     routes: { auto: "Auto", phone: "Par mon téléphone", watch: "Montre seule" },
     routeApp: "Choisi sur le téléphone (Connexions → Spotify sur ma montre) ; il apparaîtra ici quand ton compte le gardera.",
@@ -634,8 +638,12 @@ const fr: AccountDict = {
     max: "Jusqu'à {n} choix.",
   },
   plusSection: {
-    lead: "Ton Plus et comment il est payé.",
-    active: "Plus jusqu'au {date}",
+    lead: "Ton VVake Coach Plus et comment il est payé.",
+    active: "VVake Coach Plus jusqu'au {date}",
+    activePremium: "VVake Coach Premium jusqu'au {date}",
+    tierPlus: "Coach Plus",
+    tierPremium: "Coach Premium",
+    earlyTester: "Testeur pionnier · VVake Coach Premium",
     free: "Formule gratuite",
     sources: {
       vvake: "Payé en $VVAKE",
@@ -648,10 +656,10 @@ const fr: AccountDict = {
       admin: "Cadeau",
       preview_off: "Aperçu bêta désactivé",
     },
-    manage: "Prendre ou renouveler Plus",
+    manage: "Prendre ou renouveler VVake Coach Plus",
     portal: "Gérer mon abonnement par carte",
-    previewOn: "Activer le Plus de la bêta",
-    previewOff: "Essayer l'app gratuite (désactiver le Plus de la bêta)",
+    previewOn: "Activer le VVake Coach Premium de la bêta",
+    previewOff: "Essayer l'app gratuite (désactiver le VVake Coach Premium de la bêta)",
     store: "Acheté dans l'App Store ou Google Play : gère-le dans les abonnements du store.",
   },
   data: {
@@ -674,7 +682,7 @@ const fr: AccountDict = {
       "Tes séances et ton historique",
       "Scores, points et prix",
       "Portefeuilles et jetons",
-      "Plus, amis, rivaux et ta ville",
+      "VVake Coach Plus, amis, rivaux et ta ville",
     ],
     freshType: "Tape {word} pour confirmer",
     freshWord: "ZERO",
@@ -686,7 +694,7 @@ const fr: AccountDict = {
       "Pas encore disponible : un téléchargement de tout ce que VVake garde sur toi est prévu. Tes séances restent dans Apple Santé ou Santé Connect sur ton téléphone.",
     delete: "Supprimer mon compte",
     deleteNote:
-      "Tes séances, ta série, ton questionnaire, ton VVaker et tout ce que VVake garde sur toi sont supprimés pour de bon, sur nos serveurs. C'est définitif. Un Plus acheté dans un store s'annule dans le store.",
+      "Tes séances, ta série, ton questionnaire, ton VVaker et tout ce que VVake garde sur toi sont supprimés pour de bon, sur nos serveurs. C'est définitif. Un VVake Coach Plus acheté dans un store s'annule dans le store.",
     deleteType: "Tape {word} pour confirmer",
     deleteWord: "SUPPRIMER",
     deleteButton: "Supprimer mon compte pour de bon",
@@ -697,7 +705,7 @@ const fr: AccountDict = {
     googleError: "Google Agenda n'a pas été connecté.",
     spotifyOk: "Spotify lié pour ta montre.",
     spotifyError: "Spotify n'a pas été lié.",
-    spotifyPlus: "Spotify sur la montre est inclus avec VVake Plus.",
+    spotifyPlus: "Spotify sur la montre est inclus avec VVake Coach Plus.",
   },
 };
 

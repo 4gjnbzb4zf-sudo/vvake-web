@@ -33,12 +33,12 @@ export function PlusBadge({ className }: { className?: string }) {
 
 /**
  * The wordmark: the hand is the W of WAKE, so the sign and the name read as one word ([hand]AKE). `plus`: the signed-in
- * account has VVake Fit Plus (a small "+" at the top right); never set without it.
+ * account has VVake Coach Plus (a small "+" at the top right); never set without it.
  */
 export function Logo({
   className,
   plus = false,
-  plusLabel = "VVake Plus",
+  plusLabel = "VVake Coach Plus",
 }: {
   className?: string;
   animated?: boolean;

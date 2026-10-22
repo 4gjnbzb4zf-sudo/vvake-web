@@ -47,9 +47,15 @@ keys or funds because of a VVake page.
 - VVake never custodies tokens and never holds funds for anyone: no in-app balance, no deposit address, no
   withdrawals, no "send us tokens". Prizes go from the contract straight to the address in the weekly list.
 
+**Plan names** (2026-10-22): the paid plan is **VVake Coach Plus** and the higher tier **VVake Coach Premium** (it
+was "Coach Pro"; the API's tier key is `premium`, legacy `pro` still read as Premium). Full names wherever space allows
+(sentences, headings, titles, plan cards); "Coach Plus" / "Coach Premium" only in tight spots (pills, chips, badges,
+the meter). Never "VVake Plus", "VVake Fit Plus" or "Coach Pro" in user-facing text (src/i18n/planNames.test.ts).
+In French only the plan name changes: "plus tard", "de plus" stay ordinary words. The logo's "+" stays.
+
 **What prizes are**
 
-- Weekly $VVAKE prizes have **two ways in, same prize** (ADR-0024, revised 2026-10-06): VVake Fit Plus **or the free
+- Weekly $VVAKE prizes have **two ways in, same prize** (ADR-0024, revised 2026-10-06): VVake Coach Plus **or the free
   entry** (no purchase necessary, one tap on vvake.com/rewards, standing until withdrawn). Same rules, same prizes:
   give both equal weight wherever entry is explained. A week counts if all are true: an entry (paid Plus or the free
   entry; beta Plus never counts) made before the week started; an account created before the week; a wallet linked
@@ -69,16 +75,16 @@ keys or funds because of a VVake page.
   vvake.com/rewards asks the visitor to tick "I'm 18 or older and allowed to receive prizes where I live" before the
   link-wallet button works; the link request sends `adult: true` and the API requires it. Say 18+ wherever the prize
   rules are explained.
-- Paying Plus with $VVAKE happens on **vvake.com/plus** (`/[lang]/plus/`): a one-month payment for the VVake account,
+- Paying Plus with $VVAKE happens on the plans page **vvake.com/<lang>/plans/** (`/[lang]/plans/`; the old `/[lang]/plus/` forwards there): a one-month payment for the VVake account,
   at the API's discount (`discountBps`, never hard-coded). The visitor sends one exact transfer from their own wallet
   (QR, EIP-681 link, or copy the amount and address); the page **never connects a wallet** (wallet connection stays
   rewards-only). Say it pays for Plus: never a deposit, a balance or "send us tokens". No USD price per VVAKE, no
   burn-for-price framing, "testnet: no value" next to the amount. In the iOS app Plus is an App Store subscription
-  (3.1.1); the app links to /plus only on the US storefront (and in test builds), and the page says that in the app
+  (3.1.1); the app links to the plans page only on the US storefront (and in test builds), and the page says that in the app
   Plus is managed in the App Store. The same page offers a monthly **card subscription** (Stripe's hosted checkout and
   customer portal, back to `/plus/success/` or `/plus/cancel/`, not indexed) once the API has its Stripe keys; the
   price is shown on Stripe's page, never written on ours. Card details never touch vvake.com.
-- VVake Fit Plus funds a monthly prize pool: a fixed, published share of net Plus revenue (ADR-0023), converted to
+- VVake Coach Plus funds a monthly prize pool: a fixed, published share of net Plus revenue (ADR-0023), converted to
   VVAKE by rule on chain (capped chunks, permissionless trigger), sent straight to the rewards contract, and published
   (monthly report, `Funded` / `Bought` events, weekly lists). Plus never buys anyone a bigger prize.
 - Legal review and an external audit of the contracts come before any mainnet value. Testnet today: no value.

@@ -1,20 +1,27 @@
 import { Container } from "@/components/ui/Section";
-import { COACH_PLAN_PRICES, COACH_PACKS } from "@/data/coachPlans";
+import { COACH_PLAN_LIMITS, COACH_PLAN_PRICES, COACH_PACKS } from "@/data/coachPlans";
 import type { Dictionary } from "@/i18n/dictionaries/en";
 
 const format = (s: string, v: Record<string, string | number>) => s.replace(/\{(\w+)\}/g, (_, k: string) => String(v[k] ?? `{${k}}`));
 const usd = (n: number, lang: string) =>
   new Intl.NumberFormat(lang === "fr" ? "fr-FR" : "en-US", { style: "currency", currency: "USD" }).format(n);
 
+/** A plan's line with its numbers ({live} minutes a week, {chars} voice characters a day, {calls} coach calls). */
+export function planLine(line: string, tier: keyof typeof COACH_PLAN_LIMITS, lang: string): string {
+  const x = COACH_PLAN_LIMITS[tier];
+  const n = (v: number) => new Intl.NumberFormat(lang === "fr" ? "fr-FR" : "en-US").format(v);
+  return format(line, { live: x.liveMinutesWeek, chars: n(x.voiceCharsDay), calls: x.calls });
+}
+
 /**
- * vvake.com/plus: Free / Plus / Coach Pro side by side and the minute packs (ADR-0051). Static: the planned prices,
+ * vvake.com/<lang>/plans/: Free / VVake Coach Plus / Coach Premium side by side and the minute packs (ADR-0051). Static: the planned prices,
  * each marked "Coming soon" (payments stay off until the store products exist). Same numbers as the API's defaults.
  */
 export function CoachPlans({ t, lang }: { t: Dictionary["plusPay"]["plans"]; lang: string }) {
   const tiers = [
     { id: "free" as const, price: t.current },
     { id: "plus" as const, price: format(t.perMonth, { price: usd(COACH_PLAN_PRICES.plus, lang) }) },
-    { id: "pro" as const, price: format(t.perMonth, { price: usd(COACH_PLAN_PRICES.pro, lang) }) },
+    { id: "premium" as const, price: format(t.perMonth, { price: usd(COACH_PLAN_PRICES.premium, lang) }) },
   ];
   return (
     <section
@@ -32,11 +39,12 @@ export function CoachPlans({ t, lang }: { t: Dictionary["plusPay"]["plans"]; lan
           {t.title}
         </h2>
         <p className="mt-3 max-w-3xl text-muted">{t.lead}</p>
+        <p className="mt-3 max-w-3xl text-sm font-medium text-lilac-fg">{t.beta}</p>
         <div className="mt-8 grid gap-4 md:grid-cols-3">
           {tiers.map((x) => (
             <div
               key={x.id}
-              className={`rounded-2xl border p-5 ${x.id === "pro" ? "border-lilac/60 bg-lilac/5" : "border-line bg-surface/60"}`}
+              className={`rounded-2xl border p-5 ${x.id === "premium" ? "border-lilac/60 bg-lilac/5" : "border-line bg-surface/60"}`}
             >
               <h3 className="font-display text-xl font-semibold">{t.tiers[x.id].name}</h3>
               <p className="mt-1 text-sm text-muted">
@@ -44,12 +52,15 @@ export function CoachPlans({ t, lang }: { t: Dictionary["plusPay"]["plans"]; lan
                 {x.id !== "free" && <span className="ml-2 rounded-full border border-line px-2 py-0.5 text-xs text-faint">{t.soon}</span>}
               </p>
               <ul className="mt-4 space-y-2 text-sm">
-                {t.tiers[x.id].lines.map((l) => (
-                  <li key={l} className="flex gap-2">
-                    <span aria-hidden="true">✓</span>
-                    <span>{l}</span>
-                  </li>
-                ))}
+                {t.tiers[x.id].lines.map((line) => {
+                  const l = x.id === "free" ? line : planLine(line, x.id, lang);
+                  return (
+                    <li key={l} className="flex gap-2">
+                      <span aria-hidden="true">✓</span>
+                      <span>{l}</span>
+                    </li>
+                  );
+                })}
               </ul>
             </div>
           ))}

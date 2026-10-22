@@ -34,7 +34,7 @@ function entry(lang: "en" | "fr", over: Partial<Parameters<typeof EntryChoice>[0
 }
 
 describe("two ways in, same prize", () => {
-  it.each(["en", "fr"] as const)("(%s) Plus and the free entry side by side, with the same card style", (lang) => {
+  it.each(["en", "fr"] as const)("(%s) Coach Plus and the free entry side by side, with the same card style", (lang) => {
     const t = dicts[lang].entry;
     const html = entry(lang);
     expect(html).toContain(t.title);
@@ -133,15 +133,15 @@ describe("claims open 48 h after posting", () => {
   });
 });
 
-/** Words that would say prizes are only for Plus, in either language. */
+/** Words that would say prizes are only for VVake Coach Plus (or Coach Premium), in either language. */
 const PLUS_ONLY =
-  /plus[- ]only|only for (?:vvake fit )?plus|prizes are only for|for plus subscribers with|plus subscribers with a linked wallet|réservés aux abonnés|pour les abonnés plus|aux abonnés plus avec|les abonnés plus avec|sans plus, tu gardes|free accounts keep the coach/i;
+  /plus[- ]only|only for (?:vvake (?:fit |coach )?)?(?:coach )?plus|prizes are only for|for (?:coach )?plus subscribers with|plus subscribers with a linked wallet|réservés aux abonnés|pour les abonnés (?:coach )?plus|aux abonnés (?:coach )?plus avec|les abonnés (?:coach )?plus avec|sans (?:coach )?plus, tu gardes|free accounts keep the coach|premium[- ]only|réservés? (?:à|aux abonnés) coach premium/i;
 
-describe("prize copy: Plus or the free entry, everywhere (EN and FR)", () => {
+describe("prize copy: Coach Plus or the free entry, everywhere (EN and FR)", () => {
   it.each([
     ["en", en],
     ["fr", fr],
-  ] as const)("(%s) no Plus-only claim left in any page's copy", (_lang, d) => {
+  ] as const)("(%s) no Plus-only (or Premium-only) claim left in any page's copy", (_lang, d) => {
     expect(JSON.stringify(d)).not.toMatch(PLUS_ONLY);
   });
 
@@ -161,6 +161,14 @@ describe("prize copy: Plus or the free entry, everywhere (EN and FR)", () => {
       "48 heures",
     ])
       expect(howFr).toContain(s);
+  });
+
+  it("the rule names the plan by its name: VVake Coach Plus or the free entry, same prize (ADR-0024)", () => {
+    expect(en.rewards.entry.plus.title).toBe("VVake Coach Plus");
+    expect(fr.rewards.entry.plus.title).toBe("VVake Coach Plus");
+    expect(JSON.stringify(en.rewards)).toContain("Coach Plus or the free entry, same prize");
+    expect(JSON.stringify(fr.rewards)).toContain("Coach Plus ou l'inscription gratuite, le même prix");
+    for (const d of [en, fr]) expect(JSON.stringify(d.rewards)).not.toMatch(/VVake (?:Fit )?Plus|Coach Pro\b/);
   });
 
   it("the backers page, the FAQ and the earn card mention the free entry", () => {

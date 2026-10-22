@@ -49,7 +49,7 @@ export function PlusCheckout({
   rewards: Dictionary["rewards"];
   lang: Locale;
   apiUrl: string;
-  /** Back from Stripe's checkout (/plus/success/, /plus/cancel/): a line at the top, and on success a short wait for Plus. */
+  /** Back from Stripe's checkout (/plus/success/, /plus/cancel/, or /plans/success/, /plans/cancel/): a line at the top, and on success a short wait for Plus. */
   notice?: "success" | "cancel";
 }) {
   const [session] = useState(() => new RewardsSession(apiUrl));
@@ -248,7 +248,7 @@ export function PlusCheckout({
       <Notice notice={notice} dict={dict} plus={plus} />
       <Section id="account" index={dict.account.index} kicker={dict.account.kicker} title={dict.account.title}>
         <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-4 rounded-2xl border border-line bg-surface/60 p-6">
-          <Logo plus={plus} plusLabel="VVake Plus" className="pr-4" />
+          <Logo plus={plus} plusLabel="VVake Coach Plus" className="pr-4" />
           <div className="min-w-0 flex-1">
             <p className="font-display font-semibold">
               {plus && billing?.plusUntil ? format(dict.account.active, { date: date(billing.plusUntil) }) : dict.account.free}

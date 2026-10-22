@@ -1,7 +1,7 @@
 import * as z from "zod/mini";
 
 /**
- * vvake.com/plus: a month of VVake Fit Plus paid with $VVAKE from the visitor's own wallet (contract: monorepo
+ * vvake.com/<lang>/plans/: a month of VVake Coach Plus paid with $VVAKE from the visitor's own wallet (contract: monorepo
  * docs/05-tech/api-v1.md, "Billing: Plus with $VVAKE"). The amounts come from the API as exact strings; nothing here
  * does money math, it only reads and formats. Mirrors the phone's src/lib/vvakePay.ts.
  */
