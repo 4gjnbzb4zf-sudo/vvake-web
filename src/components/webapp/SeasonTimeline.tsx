@@ -61,7 +61,8 @@ export function SeasonTimeline({ plan, compact = false }: { plan: SeasonPlan; co
 
   const detail = week
     ? [
-        fmt(s.weekN, { n: week.index + 1 }),
+        // A zoomed window (windowPlan) numbers its weeks from the plan's start, not the window's.
+        fmt(s.weekN, { n: week.index + 1 + ((plan as { offset?: number }).offset ?? 0) }),
         `${phaseLabel(week.phase)} ${week.weekInPhase}/${week.phaseWeeks}`,
         dateFmt(week.start),
         week.targetMin ? duration(week.targetMin) : null,

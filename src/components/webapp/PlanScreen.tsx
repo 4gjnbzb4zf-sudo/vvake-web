@@ -42,7 +42,8 @@ export function PlanScreen() {
         <Small>{season.notMedical || s.notMedical}</Small>
       </div>
     );
-  return <WeekPlan seasonInvite={state !== "loading" || !!season} />;
+  if (!season && state === "loading") return <p className="text-muted">{t.common.loading}</p>;
+  return <WeekPlan seasonInvite={!!season} />;
 }
 
 /**
