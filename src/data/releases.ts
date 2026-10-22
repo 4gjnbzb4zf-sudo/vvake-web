@@ -19,6 +19,54 @@ export interface Release {
 
 export const releases: Release[] = [
   {
+    version: "1.0.0 (39)",
+    date: "2026-10-22",
+    channel: "beta",
+    devices: ["iphone", "watch", "android", "wear"],
+    notes: {
+      en: {
+        added: [
+          "Your season: tell your coach what you're training for (a 10K in August, a marathon, an Ironman, an ultra trail, getting stronger, or free training) and it plans the months ahead in phases: base, build, peak, taper, race and recovery.",
+          "Several goals at once, each A (the big one), B (on the way) or C (for fun).",
+          "The coach's review of every goal: realistic, a stretch or too risky, with the reasons in plain words, a readiness score, safer options you apply in one tap, and notes for your health. Move the date or your hours a week and the review updates at once.",
+          "A season timeline by month, quarter, 6 months or year, with phases, races, test weeks and today.",
+          "Your week: pick your sports and how often, the days you can train, a time slot per day and your hours a week.",
+          'On the Plan tab, change the week yourself (move, swap, easier, shorter, remove, a day off, add a sport or one of your own trainings), or ask your coach: "easier week", "travelling Tuesday", "add a swim". You approve every change, can undo it, and see the history.',
+          "When life happens (missed sessions, short sleep, sick, a race done), the plan proposes a change and waits for your OK.",
+          'Race-week tips, a fitness test every few weeks that updates your zones, and "How did it go?" after a race with recovery planned.',
+          "Share my season: your goal, the countdown and your phases as a card. No health data.",
+          "On the Apple Watch and Wear OS: today's session with why it matters, the phase, the countdown to your goal and your target zones, plus a Season screen.",
+        ],
+        improved: [
+          "Train now shows why today's session matters, its steps and the phase you're in, even on rest days.",
+          "Today's goal card shows each goal's countdown, phase and readiness; the Week plan door starts with your phase.",
+          "The weekly recap shows your goal's readiness change.",
+          "The coach knows your season in chat, live and on calls.",
+        ],
+      },
+      fr: {
+        added: [
+          "Votre saison : dites à votre coach ce que vous préparez (un 10 km en août, un marathon, un Ironman, un ultra-trail, devenir plus fort ou un entraînement libre) et il planifie les mois à venir en phases : fond, développement, pic, affûtage, course et récupération.",
+          "Plusieurs objectifs à la fois, chacun A (le grand), B (en route) ou C (pour le plaisir).",
+          "L'avis du coach sur chaque objectif : réaliste, ambitieux ou trop risqué, avec les raisons en clair, un score de forme, des options plus sûres à appliquer d'une touche et des notes pour votre santé. Changez la date ou vos heures par semaine et l'avis se met à jour aussitôt.",
+          "Une frise de la saison par mois, trimestre, 6 mois ou année, avec les phases, les courses, les semaines de test et aujourd'hui.",
+          "Votre semaine : choisissez vos sports et leur fréquence, vos jours d'entraînement, un créneau par jour et vos heures par semaine.",
+          "Dans l'onglet Plan, modifiez la semaine vous-même (déplacer, inverser, plus facile, plus courte, retirer, un jour off, ajouter un sport ou un de vos entraînements), ou demandez à votre coach : « semaine plus légère », « en déplacement mardi », « ajoute une natation ». Vous validez chaque changement, pouvez l'annuler et voyez l'historique.",
+          "Quand la vie s'en mêle (séances manquées, peu de sommeil, malade, une course terminée), le plan propose un changement et attend votre accord.",
+          "Des conseils pour la semaine de course, un test de forme toutes les quelques semaines qui met vos zones à jour, et « Comment ça s'est passé ? » après une course, avec la récupération planifiée.",
+          "Partager ma saison : votre objectif, le compte à rebours et vos phases en carte. Aucune donnée de santé.",
+          "Sur l'Apple Watch et Wear OS : la séance du jour et pourquoi elle compte, la phase, le compte à rebours jusqu'à votre objectif et vos zones cibles, plus un écran Saison.",
+        ],
+        improved: [
+          "S'entraîner montre pourquoi la séance du jour compte, ses étapes et votre phase, même les jours de repos.",
+          "La carte des objectifs d'Aujourd'hui affiche le compte à rebours, la phase et la forme de chaque objectif ; la porte Semaine commence par votre phase.",
+          "Le bilan de la semaine montre l'évolution de la forme pour votre objectif.",
+          "Le coach connaît votre saison dans le chat, en direct et pendant les appels.",
+        ],
+      },
+    },
+  },
+  {
     version: "1.0.0 (38)",
     date: "2026-10-22",
     channel: "beta",
