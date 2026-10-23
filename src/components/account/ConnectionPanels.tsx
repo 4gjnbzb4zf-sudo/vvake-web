@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { coachPlusActive } from "@/lib/coachPlus";
 import { Section } from "@/components/ui/Section";
 import { format } from "@/i18n/dictionaries";
 import {
@@ -99,7 +100,7 @@ export function ConnectionsSection(p: PanelProps) {
     }, t.saved);
 
   const spotifyAvailable = spotify?.direct === true;
-  const plus = me.plan === "plus";
+  const plus = coachPlusActive(me);
   const syncRoute = SPOTIFY_ROUTE_SYNC;
 
   return (
@@ -468,7 +469,7 @@ export function PulseSection(p: PanelProps) {
 export function PlusSection(p: PanelProps) {
   const { t, me, api, session, setMe, lang, dates, errorMsg } = p;
   const a = useAction(errorMsg);
-  const plus = me.plan === "plus";
+  const plus = coachPlusActive(me);
   const premium = coachTier(me) === "premium";
   const src = me.plusSource ?? "";
   const srcLabel = (t.plusSection.sources as Record<string, string>)[src];

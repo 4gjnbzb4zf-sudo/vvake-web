@@ -1,7 +1,9 @@
 "use client";
 
 import { useEffect, useState, useSyncExternalStore } from "react";
-import { onBrowserVoice, onVoicePack, voicePackState } from "@/lib/webapp/coachAudio";
+import { onBrowserVoice, onVoicePack, voicePackState, voiceSources } from "@/lib/webapp/coachAudio";
+import { coachPlusActive } from "@/lib/coachPlus";
+import type { LineSource } from "@/lib/webapp/voiceGuarantee";
 import { takeVoiceTip, voicePlatform, type VoicePlatform } from "@/lib/webapp/voiceTip";
 import { useApp } from "./AppContext";
 import { Btn, Small } from "./ui";
@@ -74,6 +76,30 @@ export function VoiceTipToast() {
     </div>
   );
 }
+
+/**
+ * You → Voice coach: which voice said the last coach lines in this browser (voiceGuarantee.ts source log): recorded,
+ * made for you (POST /v1/voice/lines), stitched, this browser's voice (with the last reason) or not said.
+ */
+export function VoiceSources() {
+  const { t, me, fmt } = useApp();
+  const log = voiceSources();
+  const counts = useSyncExternalStore(log.subscribe, log.counts, () => EMPTY);
+  const last = log.lastFallback();
+  const plus = coachPlusActive(me);
+  const shown = (Object.keys(counts) as LineSource[]).filter((k) => counts[k] > 0);
+  return (
+    <div className="mt-4">
+      <p className="mb-1 text-sm font-medium">{t.you.sourcesTitle}</p>
+      <Small>{shown.length ? shown.map((k) => fmt(t.you.sources[k], { n: counts[k] })).join(" · ") : t.you.sourcesNone}</Small>
+      {last?.source === "device" && last.reason && (
+        <Small className="mt-1">{fmt(t.you.sourcesWhy, { why: t.you.reasons[last.reason] })}</Small>
+      )}
+      {plus && <Small className="mt-1">{t.you.sourcesPlus}</Small>}
+    </div>
+  );
+}
+const EMPTY: Record<LineSource, number> = { recorded: 0, synth: 0, stitched: 0, device: 0, skipped: 0 };
 
 /** You → Voice coach: the coach's voice pack in this browser and how to get a better device voice. */
 export function BetterVoice() {

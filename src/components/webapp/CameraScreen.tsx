@@ -5,7 +5,8 @@ import { useCallback, useEffect, useMemo, useRef, useState, type ReactNode } fro
 import { cn } from "@/lib/cn";
 import type { Locale } from "@/i18n/config";
 import { localTz, type UploadReply } from "@/lib/webapp/api";
-import { playQuick, hush, sayLine, unlockAudio, warmCamera, warmVoice } from "@/lib/webapp/coachAudio";
+import { playQuick, hush, prefetchSpeech, sayLine, unlockAudio, warmCamera, warmVoice } from "@/lib/webapp/coachAudio";
+import { cameraLikelyLines } from "@/lib/webapp/voiceLikely";
 import { flowSpeech, type CoachSpeech } from "@/lib/webapp/appVoice";
 import { bleSupport } from "@/lib/webapp/ble";
 import { zoneOf } from "@/lib/webapp/heart";
@@ -28,7 +29,15 @@ import { LIVENESS_TEXT, type LivenessKind } from "@/lib/webapp/camera/cameraLive
 import { lookalikes } from "@/lib/webapp/camera/cameraDetect";
 import { CAMERA_MOVES, cameraMove, EQUIPMENT_NAMES, FAMILY_NAMES, type MoveDef, type MoveFamily } from "@/lib/webapp/camera/cameraMoves";
 import { demoFrameAt, demoLoop, moveTip, targetText, type DemoLoop } from "@/lib/webapp/camera/cameraDemo";
-import { applyLoads, flowLine, HandsFreeWorkout, manualSetMs, weightedMoves, type FlowEvent } from "@/lib/webapp/camera/cameraFlow";
+import {
+  applyLoads,
+  flowLine,
+  flowPlan,
+  HandsFreeWorkout,
+  manualSetMs,
+  weightedMoves,
+  type FlowEvent,
+} from "@/lib/webapp/camera/cameraFlow";
 import { cameraTotals, cameraVolumeKg, type CameraSummary } from "@/lib/webapp/camera/cameraPoints";
 import { CameraHeart, clockText, heartSourceLabel, heartZoneLabel, holdText, type CameraHeartStats } from "@/lib/webapp/camera/cameraHeart";
 import {
@@ -669,6 +678,8 @@ function Setup({
           unlockAudio();
           void warmVoice();
           void warmCamera();
+          // Plus: the session's demos and rests made in the coach's voice before the first one is said.
+          void prefetchSpeech(cameraLikelyLines(flowPlan(plan), lang));
           onStart();
         }}
       >

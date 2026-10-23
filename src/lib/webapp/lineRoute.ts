@@ -13,6 +13,8 @@ import { realTimers, type CloudEvents, type Timers } from "./speechQueue";
  */
 export interface VoiceSource {
   name: "recorded" | "stitched";
+  /** A recorded source whose audio was made for this line by POST /v1/voice/lines (the source log says "synth"). */
+  synth?: boolean;
   /** The audio to play, in order (object URLs), or null when this source has none for the line. */
   resolve(): Promise<string[] | null>;
   /** The most this source may take to start playing (ms) before the next one plays instead. */

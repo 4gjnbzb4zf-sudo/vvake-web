@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
+import { coachPlusActive } from "@/lib/coachPlus";
 import { COACH_VOICE_GENDERS, coachVoiceGender, previewPath, type CoachVoiceGender, type CoachVoices } from "@/lib/coachVoices";
 import { Section } from "@/components/ui/Section";
 import { format } from "@/i18n/dictionaries";
@@ -314,7 +315,7 @@ function VoiceGenderRow({ t, me, api, setMe, lang, session, errorMsg }: PanelPro
 export function CoachSection(p: PanelProps) {
   const { t, me, api, setMe, lang, dates, errorMsg } = p;
   const coach = me.coach ?? {};
-  const plus = me.plan === "plus";
+  const plus = coachPlusActive(me);
   const [callsOn, setCallsOn] = useState(!!coach.callsOn);
   const [windows, setWindows] = useState<[number, number][]>(() =>
     coach.callWindows?.length ? coach.callWindows.map(([a, b]) => [a, b]) : DEFAULT_CALL_WINDOWS.map(([a, b]) => [a, b]),

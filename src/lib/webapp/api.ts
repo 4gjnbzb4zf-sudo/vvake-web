@@ -76,6 +76,9 @@ export const appMeSchema = z.object({
   vvakerCode: str,
   plan: str,
   plusUntil: str,
+  /** Free / Plus / Premium (ADR-0051; "pro" before the rename) and early testers (Premium): coachPlus.ts. */
+  tier: str,
+  earlyTester: bool,
   coach: opt(
     z.object({ on: bool, chattiness: str, voice: str, units: str, /** ADR-0056: "woman" | "man" (absent: woman). */ voiceGender: str }),
   ),

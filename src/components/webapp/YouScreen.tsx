@@ -12,7 +12,7 @@ import { GetTheApp } from "./GetTheApp";
 import { VVakerImg } from "./MyVVaker";
 import { Btn, Card, Field, H1, H2, inputCls, Kicker, List, Row, Segmented, Small } from "./ui";
 import { useNow } from "./useNow";
-import { BetterVoice } from "./VoiceTip";
+import { BetterVoice, VoiceSources } from "./VoiceTip";
 import { CoachVoicePicker } from "./CoachVoicePicker";
 
 /** The section index at the top of You (the phone's You index), in page order. */
@@ -300,6 +300,7 @@ export function YouScreen({ focus }: { focus?: Section } = {}) {
             onChange={(v) => setPrefs({ chattiness: v })}
           />
         </div>
+        <VoiceSources />
         <BetterVoice />
         <div className="mt-4">
           <p className="mb-1 text-sm font-medium">{t.you.units}</p>

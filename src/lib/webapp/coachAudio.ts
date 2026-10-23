@@ -25,6 +25,17 @@ import {
 import { playFirst, recordedBudget, type LinePlayer, type VoiceSource } from "./lineRoute";
 import { RETRY_MS, loadPack, sameVoice, stitchIds, type KeptPack, type PackDeps, type StitchInfo } from "./stitch/stitchPack";
 import { stitchedWav, type Pack } from "./stitch/voiceAudio";
+import {
+  createSourceLog,
+  currentReason,
+  deviceAllowed,
+  failureReason,
+  lineChunks,
+  type LineSource,
+  type SourceLog,
+  type VoiceReason,
+} from "./voiceGuarantee";
+import { workoutLikelyLines } from "./voiceLikely";
 
 /**
  * The coach's voice in the browser (vvake.com/<lang>/app), the phone's voice (monorepo apps/mobile/src/lib/voice.ts):
@@ -47,6 +58,10 @@ import { stitchedWav, type Pack } from "./stitch/voiceAudio";
  *   fetch names it (`voice=`), what is kept in this browser is kept per voice (the recordings' keys, the lists, the
  *   stitched pack: one per slot "fr-man"), so a switch never mixes two voices; the browser voice standing in is of the
  *   same gender when the browser has one;
+ * - VVake Coach Plus / Premium (early testers included): every coach line in the coach's own voice (voiceGuarantee.ts):
+ *   a "device voice" choice is ignored, a line with no recording is made for it (`POST /v1/voice/lines`, kept), a
+ *   workout's likely lines are fetched before it starts, and the browser voice says a line only offline or with the
+ *   API out of quota or failing, when nothing recorded, stitched or kept can; each line's source is logged (You);
  * - Safari/iOS autoplay: one audio element, unlocked by `unlockAudio()` on the Start tap (and the other workout and
  *   coach taps), plays every later line; the browser voice is primed on the same tap.
  */
@@ -60,6 +75,8 @@ interface VoiceConfig {
   mode: VoiceMode;
   /** The coach voice chosen (`/v1/me` coach.voiceGender; absent: woman). */
   gender?: CoachVoiceGender;
+  /** VVake Coach Plus or Premium (coachPlus.ts): the coach-voice guarantee applies. */
+  plus?: boolean;
 }
 
 const genderOf = (c: VoiceConfig | null): CoachVoiceGender => coachVoiceGender(c?.gender);
@@ -84,6 +101,30 @@ export function configureVoice(c: VoiceConfig) {
 }
 
 const browser = () => typeof window !== "undefined";
+
+// ── The guarantee: why a line wasn't in the coach's voice, and which voice said each line ──────────────────────
+
+let lastFailure: { reason: VoiceReason; at: number } | null = null;
+function noteFailure(e: unknown) {
+  lastFailure = { reason: failureReason(e, online()), at: Date.now() };
+}
+/** Why the coach's voice can't say a line right now (offline, quota, 5xx, else nothing recorded). */
+const reasonNow = (): VoiceReason => (cfg?.mode === "device" ? "device" : currentReason(online(), lastFailure, Date.now()));
+
+const localStore = () => {
+  try {
+    return browser() ? window.localStorage : null;
+  } catch {
+    return null;
+  }
+};
+let log: SourceLog | null = null;
+/** The last lines' sources (recorded, synth, stitched, device, skipped) kept in this browser: You → Voice coach. */
+export function voiceSources(): SourceLog {
+  log ??= createSourceLog(localStore());
+  return log;
+}
+const note = (source: LineSource, reason?: VoiceReason) => voiceSources().note(source, reason);
 const online = () => !browser() || navigator.onLine !== false;
 const locale = (l: Locale) => (l === "fr" ? "fr-FR" : "en-US");
 
@@ -132,7 +173,10 @@ async function clipUrl(path: string, keep: boolean): Promise<string | null> {
     // unreadable entry: fetched again
   }
   const blob = await c.session.voiceAudio(path);
-  if (!blob) return null;
+  if (!blob) {
+    if (!online()) lastFailure = { reason: "offline", at: Date.now() };
+    return null;
+  }
   if (cache) void cache.put(key, new Response(blob, { headers: { "content-type": blob.type || "audio/mpeg" } })).catch(() => undefined);
   return remember(id, blob);
 }
@@ -194,7 +238,8 @@ async function loadSet(c: VoiceConfig, kind: SetKind, name: string): Promise<Map
     if (cache)
       void cache.put(key, new Response(JSON.stringify(items), { headers: { "content-type": "application/json" } })).catch(() => undefined);
     return toMap(items);
-  } catch {
+  } catch (e) {
+    noteFailure(e);
     try {
       const r = await cache?.match(key);
       return r ? toMap((await r.json()) as { id: string; url: string | null }[]) : null;
@@ -210,25 +255,81 @@ let appIndex: Map<string, string> | null = null;
 let coachTag: string | null = null;
 
 /** A line's recording: the app's fixed lines first, else `POST /v1/voice/lines` (null: the browser voice says it). */
-async function textPath(text: string): Promise<string | null> {
+async function textPath(text: string, src?: VoiceSource): Promise<string | null> {
   const app = await voiceSet("app");
-  return app?.get(text) ?? (await linePath(text));
+  const fixed = app?.get(text);
+  if (fixed) return fixed;
+  const made = await linePath(text);
+  if (made && src) src.synth = true;
+  return made;
 }
 
 /** Lines with numbers registered this visit: text → audio path (or null: the browser voice says it). */
 const lineUrls = new Map<string, string | null>();
 
 async function linePath(text: string): Promise<string | null> {
+  return (await linePaths([text]))[0] ?? null;
+}
+
+/**
+ * Several lines at once (one request): their audio paths, null for a line with none. Plus records each within its
+ * quota (a null then means the quota is spent); a found path is kept in this browser per voice, so the line plays
+ * again offline once its audio is in Cache Storage.
+ */
+async function linePaths(texts: readonly string[]): Promise<(string | null)[]> {
   const c = cfg;
-  if (!c) return null;
-  if (lineUrls.has(text)) return lineUrls.get(text)!;
-  try {
-    const r = await c.api.voiceLines([text.slice(0, 200)], c.lang, genderOf(c));
-    const url = r.items[0]?.url ?? null;
-    lineUrls.set(text, url);
+  if (!c) return texts.map(() => null);
+  const kept = keptLines(c);
+  const want = [...new Set(texts.map((t) => t.slice(0, 200)).filter((t) => !lineUrls.has(t) && !kept[t]))];
+  for (let i = 0; i < want.length; i += 20) {
+    const batch = want.slice(i, i + 20);
+    try {
+      const r = await c.api.voiceLines(batch, c.lang, genderOf(c));
+      batch.forEach((t, j) => {
+        const url = (r.items.find((x) => x.text === t) ?? r.items[j])?.url ?? null;
+        lineUrls.set(t, url);
+        if (url) kept[t] = url;
+      });
+      keepLines(c, kept);
+    } catch (e) {
+      noteFailure(e);
+      break;
+    }
+  }
+  return texts.map((t) => {
+    const k = t.slice(0, 200);
+    const url = kept[k] ?? lineUrls.get(k) ?? null;
+    // Plus got no audio for a line it may record: its quota is spent (the browser voice may stand in).
+    if (!url && c.plus && lineUrls.has(k)) lastFailure = { reason: "quota", at: Date.now() };
     return url;
+  });
+}
+
+/** Lines made for this browser's voice (text → audio path), kept across visits (localStorage, per voice slot). */
+const LINES_KEY = (c: VoiceConfig) => `vvake-voice-lines-v1:${slotOf(c)}`;
+const LINES_MAX = 400;
+let linesCache: { key: string; map: Record<string, string> } | null = null;
+function keptLines(c: VoiceConfig): Record<string, string> {
+  const key = LINES_KEY(c);
+  if (linesCache?.key === key) return linesCache.map;
+  let map: Record<string, string> = {};
+  try {
+    const raw = localStore()?.getItem(key);
+    const parsed = raw ? (JSON.parse(raw) as unknown) : null;
+    if (parsed && typeof parsed === "object") map = parsed as Record<string, string>;
   } catch {
-    return null;
+    map = {};
+  }
+  linesCache = { key, map };
+  return map;
+}
+function keepLines(c: VoiceConfig, map: Record<string, string>) {
+  const keys = Object.keys(map);
+  if (keys.length > LINES_MAX) for (const k of keys.slice(0, keys.length - LINES_MAX)) delete map[k];
+  try {
+    localStore()?.setItem(LINES_KEY(c), JSON.stringify(map));
+  } catch {
+    // storage full or blocked: this visit only
   }
 }
 
@@ -352,11 +453,11 @@ const elementPlayer: LinePlayer = {
 };
 
 /** The recording of a line: the paths `resolve` finds, fetched (or read from the cache) into object URLs. */
-function recorded(resolve: () => Promise<string[] | null>, keep: boolean): VoiceSource {
-  return {
+function recorded(resolve: (self: VoiceSource) => Promise<string[] | null>, keep: boolean): VoiceSource {
+  const self: VoiceSource = {
     name: "recorded",
     async resolve() {
-      const paths = await resolve().catch(() => null);
+      const paths = await resolve(self).catch(() => null);
       if (!paths?.length) return null;
       const urls: string[] = [];
       for (const p of paths) {
@@ -367,6 +468,7 @@ function recorded(resolve: () => Promise<string[] | null>, keep: boolean): Voice
       return urls;
     },
   };
+  return self;
 }
 
 /**
@@ -380,6 +482,7 @@ function coachVoice(text: string, rec: VoiceSource | null, startMs: number) {
   return playFirst(
     [rec, st].filter((x): x is VoiceSource => !!x),
     elementPlayer,
+    { onSource: (name) => note(name === "recorded" && rec?.synth ? "synth" : name) },
   );
 }
 
@@ -443,10 +546,13 @@ function queueLine(o: {
   onFallback?: () => void;
   /** The browser voice's gender when it stands in (a "Hear it" of the other voice); else the chosen one. */
   gender?: CoachVoiceGender;
+  /** A "Hear it" preview: not a coach line (not logged, the browser voice may always stand in). */
+  preview?: boolean;
 }) {
   const c = cfg;
   if (!c || !o.text) return;
   let handle: { stop(): void } | null = null;
+  const guarded = !!c.plus && !o.preview;
   queue.speak({
     kind: o.kind,
     maxMs: lineMaxMs(o.text) + o.startMs,
@@ -456,7 +562,11 @@ function queueLine(o: {
           playCloud: o.playCloud,
           speakDevice: (d) => speakDevice(o.text, c.lang, o.gender ?? genderOf(c), d),
           startMs: o.startMs,
-          ...(o.onFallback ? { onFallback: o.onFallback } : {}),
+          onFallback: () => {
+            if (!o.preview) note("device", reasonNow());
+            o.onFallback?.();
+          },
+          ...(guarded ? { mayFallback: () => deviceAllowed(true, reasonNow()), onSkip: () => note("skipped", reasonNow()) } : {}),
         },
         done,
       );
@@ -494,8 +604,8 @@ export function playCue(s: Spoken) {
     startMs: LINE_START_MS,
     playCloud: coachVoice(
       s.text,
-      recorded(async () => {
-        const p = await textPath(s.text);
+      recorded(async (self) => {
+        const p = await textPath(s.text, self);
         return p ? [p] : null;
       }, true),
       LINE_START_MS,
@@ -524,8 +634,8 @@ export function sayLine(sp: CoachSpeech, o: { kind?: SpeechKind; onVoice?: (v: "
       ? null
       : coachVoice(
           sp.text,
-          recorded(async () => {
-            const paths = await Promise.all(parts.map((p) => textPath(p)));
+          recorded(async (self) => {
+            const paths = await Promise.all(parts.map((p) => textPath(p, self)));
             return paths.every(Boolean) ? (paths as string[]) : null;
           }, true),
           LINE_START_MS,
@@ -590,6 +700,7 @@ export function previewVoiceOf(
     playCloud: cloud ? (ev) => cloud({ ...ev, playing: () => (tell("coach"), ev.playing()) }) : null,
     onFallback: () => tell("device"),
     gender,
+    preview: true,
   });
 }
 
@@ -605,7 +716,16 @@ export function playQuick(text: string) {
   const c = cfg;
   if (!c || c.mode === "off" || !text) return;
   const path = c.mode === "coach" ? appIndex?.get(text) : undefined;
-  const cloud = c.mode === "coach" ? coachVoice(text, path ? recorded(async () => [path], true) : null, QUICK_START_MS) : null;
+  // Plus: a count not in the loaded list is fetched (or made) rather than said by the browser.
+  const rec = path
+    ? recorded(async () => [path], true)
+    : c.plus
+      ? recorded(async (self) => {
+          const p = await textPath(text, self);
+          return p ? [p] : null;
+        }, true)
+      : null;
+  const cloud = c.mode === "coach" ? coachVoice(text, rec, QUICK_START_MS) : null;
   queueLine({ text, kind: "cue", startMs: cloud ? QUICK_START_MS : 0, playCloud: cloud });
 }
 
@@ -628,12 +748,28 @@ export async function warmCamera(): Promise<void> {
 export function speakReply(text: string, voice: { url: string; tag?: string | null } | null | undefined, conv: ConversationVoice) {
   const c = cfg;
   if (!c || c.mode === "off") return;
-  const cloud = c.mode === "coach" && !!voice && conv.cloud && conv.accepts(voice.tag);
+  // Plus: always the coach's voice (the conversation never stays on the browser voice after an offline moment).
+  const tryCloud = c.mode === "coach" && (c.plus || conv.cloud);
+  const own = tryCloud && !!voice && conv.accepts(voice.tag);
+  let cloud: ((ev: CloudEvents) => { stop(): void }) | null = null;
+  if (own) {
+    cloud = playFirst([recorded(async () => [voice.url], false)], elementPlayer, { onSource: () => note("synth") });
+  } else if (tryCloud && c.plus) {
+    // No reply audio (not asked, or not in time): the reply made in the coach's voice, a sentence group at a time.
+    const parts = lineChunks(text);
+    const rec = recorded(async (self) => {
+      const paths = await linePaths(parts);
+      if (!paths.every(Boolean)) return null;
+      self.synth = true;
+      return paths as string[];
+    }, true);
+    cloud = coachVoice(text, rec, REPLY_START_MS);
+  }
   queueLine({
     text,
     kind: "talk",
     startMs: cloud ? REPLY_START_MS : 0,
-    playCloud: cloud ? playFirst([recorded(async () => [voice.url], false)], elementPlayer) : null,
+    playCloud: cloud,
     onFallback: () => conv.fellBack(),
   });
 }
@@ -664,7 +800,25 @@ export async function warmVoice(): Promise<void> {
   // The app's fixed lines: the list only (each recording is fetched the first time it's said, then kept).
   await voiceSet("app");
   await prefetchLines([...splitLines(1, null, c.imperial), ...splitLines(2, null, c.imperial)]);
+  // Plus: the workout's other likely lines (minutes, the sensor, no points) made and kept before it starts.
+  if (c.plus) await prefetchSpeech(workoutLikelyLines(c.lang).map((text) => ({ text })));
   void pruneCache();
+}
+
+/**
+ * Lines about to be said (a camera session's demos and rests, a workout's minutes): each part's recording found, or
+ * made (Plus), and its audio fetched into Cache Storage, so it plays at once and offline. Plus only (a free account's
+ * lines are said by the browser voice when they have no recording).
+ */
+export async function prefetchSpeech(lines: readonly CoachSpeech[]): Promise<void> {
+  const c = cfg;
+  if (!c || c.mode !== "coach" || !c.plus || !online()) return;
+  const app = await voiceSet("app");
+  const parts = [...new Set(lines.flatMap((l) => (l.parts?.length ? l.parts : [l.text])).filter(Boolean))];
+  const missing = parts.filter((p) => !app?.get(p));
+  const made = await linePaths(missing);
+  const paths = [...parts.map((p) => app?.get(p)).filter((p): p is string => !!p), ...made.filter((p): p is string => !!p)];
+  for (const p of paths) await clipUrl(p, true).catch(() => null);
 }
 
 /** Fetches library lines about to be said (the next split) into Cache Storage. */

@@ -155,6 +155,14 @@ export function cloudThenDevice(
     timers?: Timers;
     /** The browser voice took the line. */
     onFallback?: () => void;
+    /**
+     * Whether the browser voice may take the line now (VVake Coach Plus / Premium: only offline, or the API out of
+     * quota or failing, ADR-0057). False: a slow recording is waited for (up to the queue's guard) and a line with no
+     * audio is skipped (`onSkip`), never said by the browser. Absent: always.
+     */
+    mayFallback?: () => boolean;
+    /** The line was not said: no coach audio and the browser voice not allowed. */
+    onSkip?: () => void;
   },
   done: () => void,
 ): { stop(): void } {
@@ -170,8 +178,14 @@ export function cloudThenDevice(
     timers.clear(timer);
     done();
   };
+  const allowed = () => !o.mayFallback || o.mayFallback();
   const fallback = () => {
     if (phase !== "cloud") return;
+    if (!allowed()) {
+      cloud?.stop();
+      o.onSkip?.();
+      return over();
+    }
     phase = "device";
     timers.clear(timer);
     cloud?.stop();
@@ -184,7 +198,8 @@ export function cloudThenDevice(
     fallback();
   } else {
     timer = timers.set(() => {
-      if (!started) fallback();
+      // Slow, not failed: the coach's voice is waited for when the browser voice may not stand in.
+      if (!started && allowed()) fallback();
     }, o.startMs);
     cloud = o.playCloud({
       playing: () => {

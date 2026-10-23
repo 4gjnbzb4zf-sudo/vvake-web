@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState, type FormEvent } from "react";
+import { coachPlusActive } from "@/lib/coachPlus";
 import { cn } from "@/lib/cn";
 import type { CoachContext } from "@/lib/webapp/api";
 import { goalProgress } from "@/lib/webapp/goals";
@@ -57,7 +58,8 @@ export function CoachScreen() {
   const [micOk] = useState(() => canListen());
   const now = useNow();
   const conv = useMemo(() => createConversationVoice(), []);
-  const cloudVoice = me.coach?.voice !== "device";
+  // Plus / Premium: always the coach's voice, whatever the device-voice choice (voiceGuarantee.ts).
+  const cloudVoice = coachPlusActive(me) || me.coach?.voice !== "device";
 
   useEffect(() => {
     try {
