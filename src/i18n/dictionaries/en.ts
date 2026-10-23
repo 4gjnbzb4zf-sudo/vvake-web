@@ -2329,7 +2329,7 @@ export const en = {
     title: "Privacy policy",
     description:
       "What the VVake iPhone and Apple Watch apps and vvake.com collect, why, who else sees it, how long we keep it and your rights.",
-    updated: "Last updated: 2026-10-22",
+    updated: "Last updated: 2026-10-23",
     draft: "Draft for the TestFlight preview. This policy will be reviewed by a lawyer before the public launch.",
     intro: [
       "VVake (also called VVake Fit) is a fitness coaching app for iPhone and Apple Watch, with this website, vvake.com. This policy explains in plain words what we collect, why, who else sees it, how long we keep it and what you can do about it. It covers the apps (TestFlight previews included), the VVake API they talk to, the desk companion for Mac, the VVake plugin for Claude Code and this website, including vvake.com/rewards.",
@@ -2647,6 +2647,7 @@ export const en = {
         p: [
           "Apple Music and Spotify are controlled from your iPhone, and from your Apple Watch through your iPhone. VVake asks Apple Music (MusicKit) for permission to play your music and show what is playing. If you connect Spotify, sign-in happens on your iPhone, its tokens stay in your iPhone's Keychain, and your iPhone talks to Spotify directly: it reads what is playing, your Spotify devices, your playlists and Liked Songs, and sends play, pause, skip and volume commands and the search words you type or say on your watch. Unless you turn on Spotify on my watch (below), nothing about your music reaches our servers, and nothing about your workouts or health is sent to Apple Music or Spotify.",
           'Spotify on your watch (optional, VVake Coach Plus). If you turn on "Spotify on my watch", your phone signs in to Spotify a second time for your watches and gives that sign-in to VVake. We keep the Spotify tokens encrypted and use them only to give your own signed-in watches a short-lived key, so they can control Spotify (play, pause, skip, volume, devices, your playlists, search) without your phone. We don\'t store what you listen to. Turn it off in Connections (or delete your account) and we delete the tokens. You can also turn it on from a watch (You › Spotify on this watch): we keep a pending request for 15 minutes and send your phones a notification to confirm; with no phone near, the watch shows an address and an 8-character code you can enter on any phone or computer to sign in to Spotify there (we keep only a hash of the code, and delete the request within about a week). You can also connect it from vvake.com/account: Spotify sends you back to our API with a single-use link valid 10 minutes, and the tokens are kept encrypted as above. The Spotify route you pick for your watches (Auto, Through my phone, Watch on its own) is kept with your account so your phone, your watches and vvake.com show the same; the newest choice wins. New Spotify sign-ins also allow reading your recently played songs, so when nothing plays your phone and watch show the last song (cover, title, artist) and can play it in one tap: they read it straight from Spotify, and it is not stored on our servers. "Check Spotify on this watch" sends us, only when you tap Send, technical results (device types, status codes, step timings, the route the request took, the audio output type such as speaker or headphones and its recent changes, the phone link state (reachable, seconds since last seen), network type, app and OS version), never names, songs or your account; we keep them 90 days.',
+          "Detailed music log (optional, off by default). If music doesn't play where you asked, you can turn on Detailed music log in the music settings of your phone or watch. While it is on, the app keeps in that device, at most the last 600 steps of what it does with Spotify: your taps on the music controls, the route it took (straight to Spotify or through your phone), each Spotify request with its status code and time, the watch-to-phone link state, device types in your Spotify list with their ids scrambled (a short code that can't be turned back into the id), whether something plays, the audio output type, the network type, and app and OS version. It never records your Spotify account, e-mail, sign-in tokens, device names, or any song, artist, album or playlist. Nothing leaves the device until you tap Send music log: then we receive that log, with a 6-character code shown on screen so we can find it, and no account id. If your phone and watch are connected, the other one sends its own log with the same code. We keep it 14 days. The switch turns itself off after 7 days, and the log stops when you turn it off.",
         ],
         list: [],
       },
@@ -2840,6 +2841,10 @@ export const en = {
           {
             t: "Spotify on my watch:",
             d: "the encrypted tokens and your route choice until you turn it off or delete your account; requests from a watch 15 minutes (deleted within about a week); Check Spotify reports 90 days, without your account.",
+          },
+          {
+            t: "Detailed music log:",
+            d: "14 days after you tap Send music log, without your account; on the device, the last 600 steps while the switch is on (it turns itself off after 7 days).",
           },
           { t: "Claude Code pairing codes:", d: "10 minutes." },
           { t: "Guest accounts:", d: "deleted automatically after 90 days without use." },
