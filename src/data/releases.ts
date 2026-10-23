@@ -19,6 +19,30 @@ export interface Release {
 
 export const releases: Release[] = [
   {
+    version: "1.0.0 (45)",
+    date: "2026-10-23",
+    channel: "beta",
+    devices: ["watch", "wear"],
+    notes: {
+      en: {
+        fixed: [
+          'Play on › This watch no longer seems to retry forever. While VVake waits for Spotify on the watch, it says so: "Waiting for Spotify on this watch… Open Spotify on the watch and press play there; VVake takes over." A countdown shows the time left, with Cancel and Send Spotify report on the same screen.',
+          "The wait now lasts one minute at most. If Spotify doesn't show up on the watch, VVake stops and says \"Spotify didn't appear on this watch\", with Try again, Play on the phone instead and Send Spotify report.",
+          "If Spotify already plays on the watch, VVake takes over right away, without waiting.",
+          "The Spotify report now says how long VVake waited, how many times it checked, and whether the wait ran out.",
+        ],
+      },
+      fr: {
+        fixed: [
+          "Lire sur › Cette montre ne semble plus réessayer sans fin. Pendant que VVake attend Spotify sur la montre, il le dit : « En attente de Spotify sur cette montre… Ouvre Spotify sur la montre et lance la lecture : VVake prend le relais. » Un compte à rebours montre le temps restant, avec Annuler et Envoyer un rapport Spotify sur le même écran.",
+          "L'attente dure maintenant une minute au plus. Si Spotify n'apparaît pas sur la montre, VVake s'arrête et indique « Spotify n'est pas apparu sur cette montre », avec Réessayer, Plutôt sur le téléphone et Envoyer un rapport Spotify.",
+          "Si Spotify joue déjà sur la montre, VVake prend la main tout de suite, sans attendre.",
+          "Le rapport Spotify indique maintenant combien de temps VVake a attendu, combien de fois il a vérifié et si l'attente a expiré.",
+        ],
+      },
+    },
+  },
+  {
     version: "1.0.0 (44)",
     date: "2026-10-23",
     channel: "beta",
