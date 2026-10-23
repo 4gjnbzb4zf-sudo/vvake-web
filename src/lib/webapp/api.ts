@@ -15,6 +15,7 @@ import {
   type ServerEdit,
 } from "./season";
 import { editBody, editsBody } from "./planEdit";
+import { coachVoiceGender, coachVoicesSchema, type CoachVoiceGender } from "@/lib/coachVoices";
 
 /**
  * The web app's API calls (vvake.com/app): the same endpoints the phone uses (monorepo docs/05-tech/api-v1.md), on the
@@ -26,6 +27,8 @@ const opt = <T extends z.ZodMiniType>(t: T) => z.optional(z.catch(z.nullable(t),
 const str = opt(z.string());
 const num = opt(z.number());
 const bool = opt(z.boolean());
+/** `lang=en&voice=woman`: a voice endpoint's query (the language and the coach voice, always both). */
+export const voiceQ = (lang: string, voice: unknown) => `lang=${lang === "fr" ? "fr" : "en"}&voice=${coachVoiceGender(voice)}`;
 
 export const athleteSchemaForApp = z.object({
   survey: opt(
@@ -73,7 +76,9 @@ export const appMeSchema = z.object({
   vvakerCode: str,
   plan: str,
   plusUntil: str,
-  coach: opt(z.object({ on: bool, chattiness: str, voice: str, units: str })),
+  coach: opt(
+    z.object({ on: bool, chattiness: str, voice: str, units: str, /** ADR-0056: "woman" | "man" (absent: woman). */ voiceGender: str }),
+  ),
   prefs: opt(
     z.object({
       lang: str,
@@ -305,15 +310,20 @@ export function webApi(s: RewardsSession) {
       /** The reply in the coach's voice (Plus; counted in the API's daily voice quota). */
       voice?: boolean;
     }) => s.call("/v1/coach/talk", send("POST", { ...b, voice: b.voice === true }), coachReplySchema),
-    voicePack: (lang: string) => s.call(`/v1/voice/pack${lang === "fr" ? "?lang=fr" : ""}`, GET, voiceSetSchema),
-    voiceLibrary: (lang: string, imperial: boolean) => {
-      const q = [lang === "fr" ? "lang=fr" : "", imperial ? "units=imperial" : ""].filter(Boolean).join("&");
-      return s.call(`/v1/voice/library${q ? `?${q}` : ""}`, GET, voiceSetSchema);
-    },
+    // Every voice fetch names the coach voice (ADR-0056: `voice=woman|man`), never left to the account's setting.
+    voicePack: (lang: string, voice: CoachVoiceGender) => s.call(`/v1/voice/pack?${voiceQ(lang, voice)}`, GET, voiceSetSchema),
+    voiceLibrary: (lang: string, imperial: boolean, voice: CoachVoiceGender) =>
+      s.call(`/v1/voice/library?${voiceQ(lang, voice)}${imperial ? "&units=imperial" : ""}`, GET, voiceSetSchema),
     /** GET /v1/voice/app: the app's fixed lines (camera, teach a move, check-ins, the preview), for every account. */
-    voiceApp: (lang: string) => s.call(`/v1/voice/app${lang === "fr" ? "?lang=fr" : ""}`, GET, voiceSetSchema),
-    voiceLines: (lines: string[], lang: string) =>
-      s.call("/v1/voice/lines", send("POST", { lines, lang: lang === "fr" ? "fr" : "en" }), voiceLinesSchema),
+    voiceApp: (lang: string, voice: CoachVoiceGender) => s.call(`/v1/voice/app?${voiceQ(lang, voice)}`, GET, voiceSetSchema),
+    voiceLines: (lines: string[], lang: string, voice: CoachVoiceGender) =>
+      s.call(
+        "/v1/voice/lines",
+        send("POST", { lines, lang: lang === "fr" ? "fr" : "en", voice: coachVoiceGender(voice) }),
+        voiceLinesSchema,
+      ),
+    /** GET /v1/voice/voices (public): the language's two coach voices and their "Hear it" line. */
+    coachVoices: (lang: string) => s.call(`/v1/voice/voices?lang=${lang === "fr" ? "fr" : "en"}`, GET, coachVoicesSchema),
     clashes: (status?: "live" | "upcoming" | "recent") => s.call(`/v1/clashes${status ? `?status=${status}` : ""}`, GET, clashesSchema),
     habits: (tz: string) => s.call(`/v1/habits?${tzQ(tz)}`, GET, habitsSchema),
     sendHabitDay: (d: HabitDaySend, tz: string) => s.call(`/v1/habits/days?${tzQ(tz)}`, send("POST", d), habitsSchema),

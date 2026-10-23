@@ -11,7 +11,10 @@ import { readPack, stitchedWav, type Pack } from "./voiceAudio";
  * The decisions are pure (stitchPack.test.ts); the loader takes its fetch and cache so the tests can drive it.
  */
 
-/** GET /v1/voice/stitch?lang= (public): the packs of the language, null while they are being rendered. */
+/**
+ * GET /v1/voice/stitch?lang=&voice= (public): the packs of the language in the chosen coach voice (ADR-0056: urls
+ * /v1/voice/stitch/<lang>-<gender>/<version>.vvs, never built here), null while they are being rendered.
+ */
 export interface StitchInfo {
   lang: StitchLang;
   ready: boolean;
@@ -95,7 +98,7 @@ export function stitchLine(pack: Pack, text: string): Uint8Array | null {
 // ── The loader ──────────────────────────────────────────────────────────────────────────────────────────────────
 
 export interface PackStore {
-  /** The kept pack's description for `lang`, or null. */
+  /** The kept pack's description for `lang` in the chosen voice (kept per voice slot), or null. */
   kept(lang: StitchLang): Promise<KeptPack | null>;
   /** The kept pack's bytes (by its URL), or null. */
   bytes(url: string): Promise<Uint8Array | null>;
@@ -107,7 +110,7 @@ export interface PackStore {
 
 export interface PackDeps {
   apiUrl: string;
-  /** GET /v1/voice/stitch?lang= or null (offline, error). */
+  /** GET /v1/voice/stitch?lang=&voice= (the chosen voice) or null (offline, error). */
   info(lang: StitchLang): Promise<StitchInfo | null>;
   /** The pack's bytes from the network, or null. */
   download(url: string): Promise<Uint8Array | null>;

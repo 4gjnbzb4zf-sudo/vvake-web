@@ -48,6 +48,12 @@ export const webAppHtml = (html: string) => /<link rel="canonical" href="[^"]*\/
 
 export const webAppFile = (file: string) => /^[a-z]{2}\/app\/index\.html$/.test(file.replace(/\\/g, "/"));
 
+/**
+ * The account page (vvake.com/<lang>/account/): Coach voice "Hear it" plays the voice's recorded preview, fetched from
+ * the API with the token and played from a blob: URL, so it gets the web app's media-src (nothing else of the app's).
+ */
+export const accountFile = (file: string) => /^[a-z]{2}\/account\/index\.html$/.test(file.replace(/\\/g, "/"));
+
 const origin = (url: string) => {
   try {
     return new URL(url).origin;

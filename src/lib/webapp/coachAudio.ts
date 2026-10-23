@@ -14,6 +14,14 @@ import {
 } from "./speechQueue";
 import { bestBrowserVoice, splitLines, type Spoken, type VoiceMode } from "./voicePick";
 import { PREVIEW_LINE, type CoachSpeech } from "./appVoice";
+import {
+  COACH_VOICE_SLOTS,
+  coachVoiceGender,
+  coachVoiceProfile,
+  coachVoiceSlot,
+  type CoachVoiceGender,
+  type CoachVoiceSlot,
+} from "@/lib/coachVoices";
 import { playFirst, recordedBudget, type LinePlayer, type VoiceSource } from "./lineRoute";
 import { RETRY_MS, loadPack, sameVoice, stitchIds, type KeptPack, type PackDeps, type StitchInfo } from "./stitch/stitchPack";
 import { stitchedWav, type Pack } from "./stitch/voiceAudio";
@@ -35,6 +43,10 @@ import { stitchedWav, type Pack } from "./stitch/voiceAudio";
  * - the stitched coach voice (VVFit ADR-0054): when a line has no recording (offline, not registered, no quota), the
  *   coach's own clips from the full pack kept in this browser (`GET /v1/voice/stitch`, Cache Storage `vvake-stitch-v1`)
  *   joined into one line here, before the browser voice: recording → stitched → browser voice (lineRoute.ts);
+ * - the coach voice the athlete chose (ADR-0056, woman or man; the language picks the voice of that pair): every
+ *   fetch names it (`voice=`), what is kept in this browser is kept per voice (the recordings' keys, the lists, the
+ *   stitched pack: one per slot "fr-man"), so a switch never mixes two voices; the browser voice standing in is of the
+ *   same gender when the browser has one;
  * - Safari/iOS autoplay: one audio element, unlocked by `unlockAudio()` on the Start tap (and the other workout and
  *   coach taps), plays every later line; the browser voice is primed on the same tap.
  */
@@ -46,14 +58,19 @@ interface VoiceConfig {
   lang: Locale;
   imperial: boolean;
   mode: VoiceMode;
+  /** The coach voice chosen (`/v1/me` coach.voiceGender; absent: woman). */
+  gender?: CoachVoiceGender;
 }
+
+const genderOf = (c: VoiceConfig | null): CoachVoiceGender => coachVoiceGender(c?.gender);
+const slotOf = (c: VoiceConfig): CoachVoiceSlot => coachVoiceSlot(c.lang, c.gender);
 
 let cfg: VoiceConfig | null = null;
 const queue = createSpeechQueue();
 
 /** The account, language, units and voice this page speaks with (AppContext keeps it current). */
 export function configureVoice(c: VoiceConfig) {
-  const changed = !cfg || cfg.session !== c.session || cfg.lang !== c.lang || cfg.imperial !== c.imperial;
+  const changed = !cfg || cfg.session !== c.session || cfg.lang !== c.lang || cfg.imperial !== c.imperial || genderOf(cfg) !== genderOf(c);
   cfg = c;
   if (changed) {
     sets.clear();
@@ -62,7 +79,7 @@ export function configureVoice(c: VoiceConfig) {
     warmed = false;
     coachTag = null;
   }
-  if (!stitch || stitch.lang !== c.lang || stitch.apiUrl !== c.apiUrl) resetStitch(c);
+  if (!stitch || stitch.slot !== slotOf(c) || stitch.apiUrl !== c.apiUrl) resetStitch(c);
   if (c.mode === "off") hush();
 }
 
@@ -84,7 +101,7 @@ async function voiceCache(): Promise<Cache | null> {
   }
 }
 
-/** Audio already in memory this visit: path → object URL. */
+/** Audio already in memory this visit: "<slot> <path>" → object URL. */
 const mem = new Map<string, string>();
 const MEM_MAX = 120;
 function remember(path: string, blob: Blob): string {
@@ -100,23 +117,28 @@ function remember(path: string, blob: Blob): string {
 
 /** A line's audio as an object URL: memory, then Cache Storage, then the API (kept when `keep`). */
 async function clipUrl(path: string, keep: boolean): Promise<string | null> {
-  const hit = mem.get(path);
-  if (hit) return hit;
   const c = cfg;
   if (!c) return null;
-  const key = `${c.apiUrl}${path}`;
+  // Kept per voice: a path the API gives for one voice is never played as another's.
+  const id = `${slotOf(c)} ${path}`;
+  const hit = mem.get(id);
+  if (hit) return hit;
+  const key = clipKey(c.apiUrl, slotOf(c), path);
   const cache = keep ? await voiceCache() : null;
   try {
     const r = await cache?.match(key);
-    if (r) return remember(path, await r.blob());
+    if (r) return remember(id, await r.blob());
   } catch {
     // unreadable entry: fetched again
   }
   const blob = await c.session.voiceAudio(path);
   if (!blob) return null;
   if (cache) void cache.put(key, new Response(blob, { headers: { "content-type": blob.type || "audio/mpeg" } })).catch(() => undefined);
-  return remember(path, blob);
+  return remember(id, blob);
 }
+
+/** A recording's Cache Storage key: under its voice's slot. */
+export const clipKey = (apiUrl: string, slot: CoachVoiceSlot, path: string) => `${apiUrl}/v1/voice/__clip/${slot}${path}`;
 
 async function pruneCache() {
   const cache = await voiceCache();
@@ -137,7 +159,7 @@ const sets = new Map<string, Promise<Map<string, string> | null>>();
 function voiceSet(kind: SetKind): Promise<Map<string, string> | null> {
   const c = cfg;
   if (!c) return Promise.resolve(null);
-  const name = `${kind}-${c.lang}-${kind === "lib" && c.imperial ? "imperial" : "metric"}`;
+  const name = `${kind}-${slotOf(c)}-${kind === "lib" && c.imperial ? "imperial" : "metric"}`;
   let p = sets.get(name);
   if (!p) {
     p = loadSet(c, kind, name);
@@ -162,10 +184,10 @@ async function loadSet(c: VoiceConfig, kind: SetKind, name: string): Promise<Map
   try {
     const set =
       kind === "pack"
-        ? await c.api.voicePack(c.lang)
+        ? await c.api.voicePack(c.lang, genderOf(c))
         : kind === "lib"
-          ? await c.api.voiceLibrary(c.lang, c.imperial)
-          : await c.api.voiceApp(c.lang);
+          ? await c.api.voiceLibrary(c.lang, c.imperial, genderOf(c))
+          : await c.api.voiceApp(c.lang, genderOf(c));
     if (set.voice === "device") return null;
     if (set.voiceTag) coachTag = set.voiceTag;
     const items = set.items.map((i) => ({ id: kind === "app" ? i.text : i.id, url: i.url ?? null }));
@@ -201,7 +223,7 @@ async function linePath(text: string): Promise<string | null> {
   if (!c) return null;
   if (lineUrls.has(text)) return lineUrls.get(text)!;
   try {
-    const r = await c.api.voiceLines([text.slice(0, 200)], c.lang);
+    const r = await c.api.voiceLines([text.slice(0, 200)], c.lang, genderOf(c));
     const url = r.items[0]?.url ?? null;
     lineUrls.set(text, url);
     return url;
@@ -365,7 +387,7 @@ function coachVoice(text: string, rec: VoiceSource | null, startMs: number) {
 
 export const canSpeak = () => browser() && "speechSynthesis" in window && typeof SpeechSynthesisUtterance !== "undefined";
 
-function speakDevice(text: string, lang: Locale, done: () => void): { stop(): void } {
+function speakDevice(text: string, lang: Locale, gender: CoachVoiceGender, done: () => void): { stop(): void } {
   if (!canSpeak()) {
     const t = setTimeout(done, 0);
     return { stop: () => clearTimeout(t) };
@@ -383,7 +405,7 @@ function speakDevice(text: string, lang: Locale, done: () => void): { stop(): vo
     synth.cancel();
     const u = new SpeechSynthesisUtterance(text);
     u.lang = locale(lang);
-    const v = bestBrowserVoice(synth.getVoices(), locale(lang), online());
+    const v = bestBrowserVoice(synth.getVoices(), locale(lang), online(), coachVoiceProfile(gender).gender);
     if (v) u.voice = v;
     u.rate = 1.02;
     u.onend = end;
@@ -419,6 +441,8 @@ function queueLine(o: {
   startMs: number;
   playCloud: ((ev: CloudEvents) => { stop(): void }) | null;
   onFallback?: () => void;
+  /** The browser voice's gender when it stands in (a "Hear it" of the other voice); else the chosen one. */
+  gender?: CoachVoiceGender;
 }) {
   const c = cfg;
   if (!c || !o.text) return;
@@ -430,7 +454,7 @@ function queueLine(o: {
       handle = cloudThenDevice(
         {
           playCloud: o.playCloud,
-          speakDevice: (d) => speakDevice(o.text, c.lang, d),
+          speakDevice: (d) => speakDevice(o.text, c.lang, o.gender ?? genderOf(c), d),
           startMs: o.startMs,
           ...(o.onFallback ? { onFallback: o.onFallback } : {}),
         },
@@ -521,6 +545,52 @@ export function previewVoice(onVoice: (v: "coach" | "device") => void) {
   if (!c) return;
   queue.bargeIn();
   sayLine({ text: PREVIEW_LINE[c.lang] }, { kind: "talk", onVoice });
+}
+
+/**
+ * You → Coach voice and onboarding: "Hear it" for one of the two voices (woman, man), chosen or not yet. `path` is that
+ * voice's recorded preview (GET /v1/voice/voices preview.url: free for everyone); through the one speech queue
+ * (barge-in first), else the browser voice of that gender says the same words. Never kept on disk (only the chosen
+ * voice's recordings are).
+ */
+export function previewVoiceOf(
+  gender: CoachVoiceGender,
+  path: string | null,
+  onVoice: (v: "coach" | "device") => void,
+  text?: string | null,
+) {
+  const c = cfg;
+  if (!c) return;
+  queue.bargeIn();
+  const words = text?.trim() || PREVIEW_LINE[c.lang];
+  let told = false;
+  const tell = (v: "coach" | "device") => {
+    if (told) return;
+    told = true;
+    onVoice(v);
+  };
+  const cloud = path
+    ? playFirst(
+        [
+          {
+            name: "recorded",
+            async resolve() {
+              const blob = await c.session.voiceAudio(path).catch(() => null);
+              return blob ? [URL.createObjectURL(blob)] : null;
+            },
+          },
+        ],
+        elementPlayer,
+      )
+    : null;
+  queueLine({
+    text: words,
+    kind: "talk",
+    startMs: cloud ? LINE_START_MS : 0,
+    playCloud: cloud ? (ev) => cloud({ ...ev, playing: () => (tell("coach"), ev.playing()) }) : null,
+    onFallback: () => tell("device"),
+    gender,
+  });
 }
 
 /** How long a rep count waits for its recording (already fetched: it plays in a few ms) before the browser says it. */
@@ -617,6 +687,8 @@ export type VoicePackState = "ready" | "loading" | "pending" | "off";
 
 let stitch: {
   lang: Locale;
+  gender: CoachVoiceGender;
+  slot: CoachVoiceSlot;
   apiUrl: string;
   pack: Pack | null;
   loading: Promise<Pack | null> | null;
@@ -628,7 +700,7 @@ const STITCHED_MAX = 60;
 const packListeners = new Set<() => void>();
 
 function resetStitch(c: VoiceConfig) {
-  stitch = { lang: c.lang, apiUrl: c.apiUrl, pack: null, loading: null, triedAt: 0 };
+  stitch = { lang: c.lang, gender: genderOf(c), slot: slotOf(c), apiUrl: c.apiUrl, pack: null, loading: null, triedAt: 0 };
   for (const u of stitchedUrls.values()) URL.revokeObjectURL(u);
   stitchedUrls.clear();
   tellPack();
@@ -649,9 +721,11 @@ export function onVoicePack(fn: () => void): () => void {
 }
 
 const stitchLang = (l: Locale) => (l === "fr" ? "fr" : "en");
-const metaKey = (apiUrl: string, lang: string) => `${apiUrl}/v1/voice/__stitch/${lang}.json`;
+/** The kept pack's description: one per voice slot ("fr-man"); before ADR-0056 one per language ("fr"). */
+export const metaKey = (apiUrl: string, slot: string) => `${apiUrl}/v1/voice/__stitch/${slot}.json`;
 
-function packDeps(apiUrl: string): PackDeps {
+function packDeps(apiUrl: string, gender: CoachVoiceGender): PackDeps {
+  const slot = (lang: string) => coachVoiceSlot(lang, gender);
   const open = async () => {
     try {
       return browser() && "caches" in window ? await caches.open(STITCH_CACHE) : null;
@@ -666,7 +740,7 @@ function packDeps(apiUrl: string): PackDeps {
       const ctl = new AbortController();
       const t = setTimeout(() => ctl.abort(), 8_000);
       try {
-        const r = await fetch(`${apiUrl}/v1/voice/stitch?lang=${lang}`, { signal: ctl.signal });
+        const r = await fetch(`${apiUrl}/v1/voice/stitch?lang=${lang}&voice=${gender}`, { signal: ctl.signal });
         return r.ok ? ((await r.json()) as StitchInfo) : null;
       } catch {
         return null;
@@ -684,7 +758,7 @@ function packDeps(apiUrl: string): PackDeps {
     },
     store: {
       async kept(lang) {
-        const r = await (await open())?.match(metaKey(apiUrl, lang));
+        const r = await (await open())?.match(metaKey(apiUrl, slot(lang)));
         return r ? ((await r.json()) as KeptPack) : null;
       },
       async bytes(url) {
@@ -696,7 +770,7 @@ function packDeps(apiUrl: string): PackDeps {
         if (!cache) return;
         await cache.put(meta.url, new Response(bytes as BlobPart, { headers: { "content-type": "application/octet-stream" } }));
         await cache.put(
-          metaKey(apiUrl, meta.lang),
+          metaKey(apiUrl, slot(meta.lang)),
           new Response(JSON.stringify(meta), { headers: { "content-type": "application/json" } }),
         );
         if (old && old.url !== meta.url) await cache.delete(old.url);
@@ -704,7 +778,7 @@ function packDeps(apiUrl: string): PackDeps {
       async forget(meta) {
         const cache = await open();
         await cache?.delete(meta.url);
-        await cache?.delete(metaKey(apiUrl, meta.lang));
+        await cache?.delete(metaKey(apiUrl, slot(meta.lang)));
       },
     },
   };
@@ -722,9 +796,12 @@ export function warmStitch(): Promise<Pack | null> {
   if (s.loading) return s.loading;
   if (s.triedAt && Date.now() - s.triedAt < RETRY_MS) return Promise.resolve(null);
   s.triedAt = Date.now();
-  const p = loadPack(stitchLang(s.lang), packDeps(s.apiUrl.replace(/\/+$/, "")))
+  const base = s.apiUrl.replace(/\/+$/, "");
+  const p = loadPack(stitchLang(s.lang), packDeps(base, s.gender))
     .catch(() => null)
     .then((pack) => {
+      // The new voice's pack is in: the other voice's packs (and the one kept before packs were per voice) go.
+      if (pack) void dropOtherSlots(base, s.slot);
       if (stitch === s) {
         s.pack = pack;
         s.loading = null;
@@ -735,6 +812,26 @@ export function warmStitch(): Promise<Pack | null> {
   s.loading = p;
   tellPack();
   return p;
+}
+
+/** Forgets every kept pack but `keep`'s (another voice's, or a pack kept per language before ADR-0056). */
+async function dropOtherSlots(apiUrl: string, keep: CoachVoiceSlot): Promise<void> {
+  try {
+    if (!browser() || !("caches" in window)) return;
+    const cache = await caches.open(STITCH_CACHE);
+    const keepGender = keep.split("-")[1];
+    const others = [...COACH_VOICE_SLOTS.filter((x) => x.split("-")[1] !== keepGender), "en", "fr"];
+    for (const slot of others) {
+      const key = metaKey(apiUrl, slot);
+      const r = await cache.match(key);
+      if (!r) continue;
+      const meta = (await r.json().catch(() => null)) as { url?: string } | null;
+      if (meta?.url) await cache.delete(meta.url);
+      await cache.delete(key);
+    }
+  } catch {
+    // best effort: dropped next time
+  }
 }
 
 /** The stitched source for a line, when the pack is loaded, in the recorded lines' voice and has every clip. */

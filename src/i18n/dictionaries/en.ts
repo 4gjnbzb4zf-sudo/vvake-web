@@ -2383,6 +2383,10 @@ export const en = {
             d: 'Up to 20 short lines you agreed on or told the coach (like "prefers morning runs"), never the name of a health condition: you see and delete them in Coach › What the coach remembers, and Fresh start clears them. When the coach proposes a settings change (heart zones, resting or maximum heart rate, reminders, focus lock, goals, how chatty it is), we keep the proposal and your answer, and for each change applied a record of the values before and after, which device or voice approved it and when, so you can undo it for 30 days. We also keep how your last 10 sessions felt (your one-tap feedback). Kept with your account and deleted with it; Fresh start clears the memory, feelings and proposals.',
           },
           {
+            t: "Coach calls and your coach voice (VVake Coach Plus or Premium).",
+            d: "If you turn coach calls on, the app sends us a short summary so your next call is about you: this week's plan against what you did (sessions planned and done, and up to 3 you missed) and, only when you share them from Apple Health or Health Connect, your recent sleep, resting heart rate and heart-rate variability (HRV), with how they compare to your usual. Only what your phone really has; nothing is guessed. We keep this summary at most 2 days and use it only to write your next coach call (see AI features). We also keep the coach voice you chose, a woman's or a man's: the coach speaks to you in that voice in workouts, calls and replies, on all your devices.",
+          },
+          {
             t: "Your account page on vvake.com.",
             d: "Once you sign in on vvake.com/account, the page shows and changes the same settings the apps keep, through our API; it collects nothing new. Your 7-day agenda there is worked out each time you open it, from your plan, your approved coach changes and your usual times, and is not stored.",
           },
@@ -2528,7 +2532,7 @@ export const en = {
           "The microphone is used only while you speak to VVake: a voice command after you press the mic, or a question or conversation with the coach while it's open (one tap starts it; it stops listening when you say bye, tap End, pause or end the session, or your minutes run out).",
           "On the phone, your speech is turned into text by the phone's own speech recognition (Apple's on iPhone, Google's on Android), on the device when it supports it (otherwise on Apple's or Google's servers, under their privacy policies). Only the text is sent to us, never the audio.",
           "On the Apple Watch and Wear OS watches, which can't do that themselves, the recording of what you say to the coach is sent to our API and to ElevenLabs (speech-to-text) to be turned into text. We don't store the recording: only the text goes on to the coach.",
-          "Coach replies are spoken with a synthetic voice made by ElevenLabs, or by your device's own voice if you choose it. The coach is an AI, not a person, and not a doctor.",
+          "Coach replies are spoken with a synthetic voice made by ElevenLabs, in the coach voice you choose (a woman's or a man's), or by your device's own voice if you choose it. The coach is an AI, not a person, and not a doctor.",
         ],
         list: [],
       },
@@ -2820,6 +2824,11 @@ export const en = {
             t: "Coach calls (VVake Coach Plus, if you turn them on):",
             d: "each call's script, audio and status for 90 days, then deleted; with your account at once.",
           },
+          {
+            t: "The summary for your next coach call (this week's plan and what you did, sleep, resting heart rate, HRV):",
+            d: "at most 2 days, then deleted; replaced each time the app sends a new one.",
+          },
+          { t: "Your coach voice (woman or man):", d: "with your account, until you change it or delete your account." },
           {
             t: "Live coach workouts:",
             d: "4 days; the weekly minutes about 2 weeks; device hashes and warning flags 60 days; the trust score with your account.",

@@ -59,6 +59,17 @@ describe("which pack to use", () => {
     expect(planPack(info({ ready: false, full: null, voiceTag: "tagB" }), kept(), API)).toEqual({ kind: "none" });
     expect(planPack(info({ voiceTag: "tagB" }), kept(), API).kind).toBe("fetch");
   });
+  it("per-voice packs (ADR-0056): the API's full.url for the slot, a same-version pack of another voice is fetched", () => {
+    const man = info({ voiceTag: "tagM", full: { url: "/v1/voice/stitch/fr-man/v2.vvs", bytes: 1 } });
+    expect(planPack(man, null, API)).toEqual({
+      kind: "fetch",
+      url: `${API}/v1/voice/stitch/fr-man/v2.vvs`,
+      version: "v2",
+      voiceTag: "tagM",
+    });
+    expect(planPack(man, kept(), API).kind).toBe("fetch");
+    expect(planPack(man, kept({ voiceTag: "tagM", url: `${API}/v1/voice/stitch/fr-man/v2.vvs` }), API)).toEqual({ kind: "kept" });
+  });
   it("absolute URLs", () => {
     expect(absolute("/v1/x", `${API}/`)).toBe(`${API}/v1/x`);
     expect(absolute("https://cdn.example/x", API)).toBe("https://cdn.example/x");

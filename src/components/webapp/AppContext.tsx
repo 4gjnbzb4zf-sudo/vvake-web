@@ -10,6 +10,7 @@ import type { Units } from "@/lib/webapp/format";
 import { parseGoals, type WebGoal } from "@/lib/webapp/goals";
 import { afterUpload, openKV, QUEUE_KEY, type KV, type Queued } from "@/lib/webapp/store";
 import { configureVoice, hush, warmVoice } from "@/lib/webapp/coachAudio";
+import { coachVoiceGender } from "@/lib/coachVoices";
 import type { Chattiness } from "@/lib/webapp/voice";
 import type { SportSpeedSetting, SpeedZonesPrefs, WorkoutVoiceMode, WorkoutVoicePref } from "@/lib/webapp/speedZones";
 import type { HeartZonesPrefs } from "@/lib/webapp/sportHeart";
@@ -459,12 +460,22 @@ export function AppProvider({
   // The coach's voice: the account's choice (the app's Coach voice), language and units (the workout's voice toggle
   // and "Read replies aloud" decide what is said: WorkoutContext, CoachScreen).
   // The voice pack is fetched into this browser a few seconds after the app opens, so the first cue plays at once.
+  // The coach voice chosen (woman / man, ADR-0056): every recording is fetched and kept in that voice.
   const accountVoice = me.coach?.voice;
+  const voiceGender = coachVoiceGender(me.coach?.voiceGender);
   useEffect(() => {
-    configureVoice({ api, session, apiUrl, lang, imperial: prefs.units === "imperial", mode: voiceMode(true, accountVoice) });
+    configureVoice({
+      api,
+      session,
+      apiUrl,
+      lang,
+      imperial: prefs.units === "imperial",
+      mode: voiceMode(true, accountVoice),
+      gender: voiceGender,
+    });
     const id = window.setTimeout(() => void warmVoice(), 4000);
     return () => window.clearTimeout(id);
-  }, [api, session, apiUrl, lang, prefs.units, accountVoice]);
+  }, [api, session, apiUrl, lang, prefs.units, accountVoice, voiceGender]);
 
   // The sensor paired on an earlier visit, without the picker where the browser allows it.
   useEffect(() => {

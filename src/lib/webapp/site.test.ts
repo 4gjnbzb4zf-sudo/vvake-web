@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { getWebAppDict } from "@/i18n/webapp";
 import { buildHeaders, headersProblems, WEB_APP_PERMISSIONS } from "@/lib/cloudflareHeaders";
-import { buildCsp, MAP_ORIGIN, parseCsp, webAppFile } from "@/lib/csp";
+import { accountFile, buildCsp, MAP_ORIGIN, parseCsp, webAppFile } from "@/lib/csp";
 import { TOUR_SECTIONS } from "@/lib/routes";
 import { parseRoute, routeHash } from "@/components/webapp/AppContext";
 import { cueAllowed, cueText } from "./voice";
@@ -13,6 +13,8 @@ describe("the web app on the site", () => {
     expect(webAppFile("en/app/index.html")).toBe(true);
     expect(webAppFile("fr/app/index.html")).toBe(true);
     expect(webAppFile("en/tour/index.html")).toBe(false);
+    expect(accountFile("fr/account/index.html")).toBe(true);
+    expect(accountFile("en/app/index.html")).toBe(false);
     const app = parseCsp(buildCsp([], cfg, [MAP_ORIGIN]));
     const other = parseCsp(buildCsp([], cfg));
     expect(app["connect-src"]).toContain(MAP_ORIGIN);

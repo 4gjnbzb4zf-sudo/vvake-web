@@ -133,3 +133,31 @@ describe("the voice's audio on the web app's pages", () => {
     expect(VOICE_PATH.test("https://evil.example/v1/voice/0123456789abcdef0123456789abcdef.mp3")).toBe(false);
   });
 });
+
+describe("the browser voice is of the chosen coach's gender (ADR-0056)", () => {
+  const en = [v("Zoe (Enhanced)", "en-US"), v("Daniel (Enhanced)", "en-GB"), v("Evan (Enhanced)", "en-US"), v("Samantha", "en-US")];
+  const fr = [v("Audrey (Enhanced)", "fr-FR"), v("Thomas (Enhanced)", "fr-FR"), v("Amélie", "fr-CA")];
+  it("a man's voice for the man's coach voice, a woman's for the woman's (the default)", () => {
+    expect(bestBrowserVoice(en, "en-US", true, "male")?.name).toBe("Evan (Enhanced)");
+    expect(bestBrowserVoice(en, "en-US", true, "female")?.name).toBe("Zoe (Enhanced)");
+    expect(bestBrowserVoice(en, "en-US")?.name).toBe("Zoe (Enhanced)");
+    expect(bestBrowserVoice(fr, "fr-FR", true, "male")?.name).toBe("Thomas (Enhanced)");
+    expect(bestBrowserVoice(fr, "fr-FR", true, "female")?.name).toBe("Audrey (Enhanced)");
+  });
+  it("quality still comes first, and the same voices always give the same pick", () => {
+    expect(bestBrowserVoice([v("Samantha (Premium)", "en-US"), v("Alex", "en-US")], "en-US", true, "male")?.name).toBe(
+      "Samantha (Premium)",
+    );
+    const ties = [v("Unknown A", "en-US"), v("Unknown B", "en-US")];
+    expect(bestBrowserVoice(ties, "en-US", true, "male")?.name).toBe("Unknown A");
+    expect(bestBrowserVoice([...ties].reverse(), "en-US", true, "male")?.name).toBe("Unknown B");
+    expect(
+      bestBrowserVoice([v("Google UK English Male", "en-GB"), v("Google UK English Female", "en-GB")], "en-US", true, "male")?.name,
+    ).toBe("Google UK English Male");
+  });
+  it("scores a name for the wanted gender", () => {
+    expect(voiceGenderScore({ name: "Thomas" }, "male")).toBe(2);
+    expect(voiceGenderScore({ name: "Google français" }, "male")).toBe(0);
+    expect(voiceGenderScore({ name: "Unknown voice" }, "male")).toBe(1);
+  });
+});

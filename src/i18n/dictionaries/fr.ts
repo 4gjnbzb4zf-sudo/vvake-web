@@ -2542,6 +2542,10 @@ export const fr: Dictionary = {
             d: "Jusqu'à 20 courtes lignes que vous avez convenues ou dites au coach (par exemple « préfère courir le matin »), jamais le nom d'un problème de santé : vous les voyez et les supprimez dans Coach › Ce que le coach retient, et Repartir à zéro les efface. Quand le coach propose un changement de réglage (zones cardiaques, fréquence cardiaque au repos ou maximale, rappels, verrou de concentration, objectifs, à quel point il parle), nous gardons la proposition et votre réponse, et pour chaque changement appliqué un relevé des valeurs avant et après, de l'appareil ou de la voix qui l'a approuvé et du moment, pour que vous puissiez l'annuler pendant 30 jours. Nous gardons aussi le ressenti de vos 10 dernières séances (votre avis en une touche). Conservé avec votre compte et supprimé avec lui ; Repartir à zéro efface la mémoire, les ressentis et les propositions.",
           },
           {
+            t: "Appels du coach et voix du coach (VVake Coach Plus ou Premium).",
+            d: "Si vous activez les appels du coach, l'application nous envoie un court résumé pour que votre prochain appel parle de vous : le plan de la semaine face à ce que vous avez fait (séances prévues et faites, et jusqu'à 3 séances manquées) et, seulement si vous les partagez depuis Apple Santé ou Health Connect, votre sommeil récent, votre fréquence cardiaque au repos et votre variabilité de la fréquence cardiaque (VFC, ou HRV), avec leur écart par rapport à d'habitude. Seulement ce que votre téléphone a vraiment ; rien n'est deviné. Nous gardons ce résumé 2 jours au plus et ne l'utilisons que pour écrire votre prochain appel du coach (voir Fonctions d'IA). Nous gardons aussi la voix du coach que vous avez choisie, une voix de femme ou d'homme : le coach vous parle avec cette voix pendant les séances, les appels et les réponses, sur tous vos appareils.",
+          },
+          {
             t: "Votre page compte sur vvake.com.",
             d: "Une fois connecté sur vvake.com/account, la page affiche et modifie les mêmes réglages que les applications, via notre API ; elle ne collecte rien de plus. Votre agenda des 7 jours y est calculé à chaque ouverture, à partir de votre plan, des changements du coach que vous avez acceptés et de vos horaires habituels, et n'est pas enregistré.",
           },
@@ -2687,7 +2691,7 @@ export const fr: Dictionary = {
           "Le microphone n'est utilisé que lorsque vous parlez à VVake : une commande vocale après avoir touché le micro, ou une question ou une conversation avec le coach tant qu'elle est ouverte (une touche la lance ; l'écoute s'arrête quand vous dites au revoir, l'arrêtez d'une touche, mettez en pause ou terminez la séance, ou quand vos minutes sont épuisées).",
           "Sur le téléphone, vos paroles sont transformées en texte par la reconnaissance vocale du téléphone (celle d'Apple sur iPhone, celle de Google sur Android), sur l'appareil quand il le permet (sinon sur les serveurs d'Apple ou de Google, selon leur politique de confidentialité). Seul le texte nous est envoyé, jamais l'audio.",
           "Sur l'Apple Watch et les montres Wear OS, qui ne peuvent pas le faire elles-mêmes, l'enregistrement de ce que vous dites au coach est envoyé à notre API et à ElevenLabs (transcription de la parole) pour être transformé en texte. Nous ne conservons pas l'enregistrement : seul le texte est transmis au coach.",
-          "Les réponses du coach sont lues par une voix de synthèse créée par ElevenLabs, ou par la voix de votre appareil si vous la choisissez. Le coach est une IA, pas une personne, et pas un médecin.",
+          "Les réponses du coach sont lues par une voix de synthèse créée par ElevenLabs, avec la voix du coach que vous choisissez (une voix de femme ou d'homme), ou par la voix de votre appareil si vous la choisissez. Le coach est une IA, pas une personne, et pas un médecin.",
         ],
         list: [],
       },
@@ -2987,6 +2991,14 @@ export const fr: Dictionary = {
           {
             t: "Appels du coach (VVake Coach Plus, si tu les actives) :",
             d: "le texte, l'audio et l'état de chaque appel pendant 90 jours, puis supprimés ; tout de suite avec ton compte.",
+          },
+          {
+            t: "Le résumé pour votre prochain appel du coach (plan de la semaine et ce que vous avez fait, sommeil, fréquence cardiaque au repos, VFC) :",
+            d: "2 jours au plus, puis supprimé ; remplacé chaque fois que l'application en envoie un nouveau.",
+          },
+          {
+            t: "Votre voix du coach (femme ou homme) :",
+            d: "avec votre compte, jusqu'à ce que vous la changiez ou supprimiez votre compte.",
           },
           {
             t: "Séances avec le coach en direct :",

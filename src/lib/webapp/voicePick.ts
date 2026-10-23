@@ -89,16 +89,17 @@ export function voiceRank(v: BrowserVoice, online: boolean): number {
 }
 
 /**
- * The coach's recorded voice is a woman's (US English, French read as French: appVoice.ts COACH_VOICE_PROFILE), so the
- * browser voice standing in is a woman's too when one is there. Names as browsers list them (Apple, Google, Microsoft,
- * Android); a name not listed is neither.
+ * The coach's recorded voice is the one the athlete chose, a woman's or a man's (ADR-0056, coachVoices.ts
+ * coachVoiceProfile), so the browser voice standing in is of the same gender when the browser has one. Browsers don't
+ * say a voice's gender: it is read from the names they list (Apple, Google, Microsoft, Android); a name not listed is
+ * neither.
  */
 const FEMALE =
   /\b(samantha|ava|allison|susan|zoe|zoé|karen|moira|tessa|fiona|victoria|serena|nicky|kate|stephanie|joelle|evelyn|noelle|siri female|aria|jenny|michelle|emma|ana|sonia|libby|natasha|clara|amélie|amelie|audrey|aurélie|aurelie|marie|julie|hortense|denise|eloise|élise|elise|brigitte|celine|céline|chantal|sylvie|vivienne|female|femme)\b/i;
 const MALE =
   /\b(alex|daniel|fred|tom|aaron|arthur|evan|nathan|oliver|gordon|rishi|lee|ralph|junior|guy|david|mark|james|ryan|eric|christopher|roger|brian|andrew|steffan|thomas|jacques|paul|henri|claude|nicolas|antoine|yves|alain|gérard|gerard|remy|rémy|male|homme)\b/i;
 
-/** 2 a woman's voice, 1 unknown, 0 a man's ("Google US English" and "Google français" are women's voices). */
+/** 2 the wanted gender, 1 unknown, 0 the other ("Google US English" and "Google français" are women's voices). */
 export function voiceGenderScore(v: Pick<BrowserVoice, "name">, want: "female" | "male" = "female"): number {
   const n = v.name;
   const female = FEMALE.test(n) || /^google (us english|français|francais)$/i.test(n.trim());
@@ -108,11 +109,17 @@ export function voiceGenderScore(v: Pick<BrowserVoice, "name">, want: "female" |
 }
 
 /**
- * The best voice for `locale` ("fr-FR"): the highest rank (quality first), then a woman's voice like the coach's, then
- * the exact locale before another region of the language. Undefined when the browser has none for the language (the
- * browser then picks).
+ * The best voice for `locale` ("fr-FR"): the highest rank (quality first), then the coach's gender (`want`: the chosen
+ * voice's, a woman's by default), then the exact locale before another region of the language, then the browser's
+ * default, then the list's order (the same voices always give the same pick). Undefined when the browser has none for
+ * the language (the browser then picks).
  */
-export function bestBrowserVoice<V extends BrowserVoice>(voices: readonly V[], locale: string, online = true): V | undefined {
+export function bestBrowserVoice<V extends BrowserVoice>(
+  voices: readonly V[],
+  locale: string,
+  online = true,
+  want: "female" | "male" = "female",
+): V | undefined {
   const lang = locale.slice(0, 2).toLowerCase();
   const norm = (s: string) => s.replace("_", "-").toLowerCase();
   let best: V | undefined;
@@ -121,7 +128,7 @@ export function bestBrowserVoice<V extends BrowserVoice>(voices: readonly V[], l
     if (!norm(v.lang).startsWith(lang)) continue;
     const r = voiceRank(v, online);
     if (r < 0) continue;
-    const score = r * 100 + voiceGenderScore(v) * 10 + (norm(v.lang) === locale.toLowerCase() ? 2 : 0) + (v.default ? 1 : 0);
+    const score = r * 100 + voiceGenderScore(v, want) * 10 + (norm(v.lang) === locale.toLowerCase() ? 2 : 0) + (v.default ? 1 : 0);
     if (score > bestScore) {
       best = v;
       bestScore = score;

@@ -1,4 +1,5 @@
 import * as z from "zod/mini";
+import { coachVoicesSchema, type CoachVoiceGender } from "@/lib/coachVoices";
 import type { RewardsSession } from "./rewardsApi";
 import type { HeartZonesPrefs } from "@/lib/webapp/sportHeart";
 import type { SpeedZonesPrefs } from "@/lib/webapp/speedZones";
@@ -55,6 +56,8 @@ const coachSchema = z.object({
   callsOn: bool,
   callWindows: opt(z.array(z.tuple([z.number(), z.number()]))),
   ringWatch: bool,
+  /** ADR-0056: "woman" | "man" (absent: woman). */
+  voiceGender: str,
 });
 export type CoachSettings = z.infer<typeof coachSchema>;
 
@@ -93,7 +96,7 @@ export interface MePatch {
     speedZones?: SpeedZonesPrefs;
     heartZones?: HeartZonesPrefs;
   };
-  coach?: { callsOn?: boolean; callWindows?: [number, number][]; ringWatch?: boolean };
+  coach?: { callsOn?: boolean; callWindows?: [number, number][]; ringWatch?: boolean; voiceGender?: CoachVoiceGender };
 }
 
 const devicesSchema = z.object({
@@ -278,6 +281,8 @@ export function accountApi(s: RewardsSession) {
       s.call(`/v1/coach/settings/changes/${id}`, send("POST", { decision, by: "phone" }), null),
     undoSettings: (id: string) => s.call(`/v1/coach/settings/changes/${id}/undo`, send("POST"), null),
     callNow: () => s.call("/v1/coach/calls/test", send("POST"), null),
+    /** GET /v1/voice/voices (public): the language's two coach voices and their "Hear it" line. */
+    coachVoices: (lang: string) => s.call(`/v1/voice/voices?lang=${lang === "fr" ? "fr" : "en"}`, GET, coachVoicesSchema),
 
     planChanges: async () => (await s.call("/v1/plan/changes", GET, planChangesSchema)).changes,
     decidePlan: (id: string, decision: "accept" | "reject") => s.call(`/v1/plan/changes/${id}`, send("POST", { decision }), null),

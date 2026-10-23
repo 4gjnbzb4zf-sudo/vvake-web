@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useState, type ReactNode } from "react";
 import type { ApiSession } from "@/lib/webapp/api";
 import { clock, dayLabel, distance } from "@/lib/webapp/format";
-import { previewVoice, unlockAudio } from "@/lib/webapp/coachAudio";
+import { coachVoiceGender, type CoachVoiceGender } from "@/lib/coachVoices";
 import { WORKOUT_VOICE_MODES } from "@/lib/webapp/speedZones";
 import { weekPoints } from "@/lib/webapp/points";
 import { sportLabel, streakMultiplier } from "@/lib/webapp/workout";
@@ -13,6 +13,7 @@ import { VVakerImg } from "./MyVVaker";
 import { Btn, Card, Field, H1, H2, inputCls, Kicker, List, Row, Segmented, Small } from "./ui";
 import { useNow } from "./useNow";
 import { BetterVoice } from "./VoiceTip";
+import { CoachVoicePicker } from "./CoachVoicePicker";
 
 /** The section index at the top of You (the phone's You index), in page order. */
 const SECTIONS = ["profile", "progress", "devices", "sports", "habits", "points", "app", "privacy"] as const;
@@ -61,7 +62,21 @@ export function YouScreen({ focus }: { focus?: Section } = {}) {
   const [name, setName] = useState(me.name ?? "");
   const [city, setCity] = useState(me.city ?? "");
   const [saved, setSaved] = useState<"idle" | "saving" | "saved" | "error">("idle");
-  const [hearing, setHearing] = useState<"coach" | "device" | null>(null);
+  const voiceGender = coachVoiceGender(me.coach?.voiceGender);
+  const [voiceError, setVoiceError] = useState(false);
+  /** Coach voice: shown at once, saved on the account (the phone and the watches read it from there). */
+  const saveVoiceGender = async (g: CoachVoiceGender) => {
+    if (g === voiceGender) return;
+    const before = me;
+    setVoiceError(false);
+    setMe({ ...me, coach: { ...me.coach, voiceGender: g } });
+    try {
+      setMe(await api.patchMe({ coach: { voiceGender: g } }));
+    } catch {
+      setMe(before);
+      setVoiceError(true);
+    }
+  };
   const [more, setMore] = useState<ApiSession[]>([]);
   const [nextLoaded, setNext] = useState<string | null | undefined>(undefined);
   const next = nextLoaded !== undefined ? nextLoaded : sessions.length >= 30 ? sessions[sessions.length - 1]!.startedAt : null;
@@ -259,6 +274,14 @@ export function YouScreen({ focus }: { focus?: Section } = {}) {
         <H2>{t.you.voice}</H2>
         <Small>{t.you.voiceDetail}</Small>
         <div className="mt-3">
+          <CoachVoicePicker value={voiceGender} onChange={(g) => void saveVoiceGender(g)} />
+          {voiceError && (
+            <p role="alert" className="mt-1 text-xs text-down-fg">
+              {t.you.coachVoiceError}
+            </p>
+          )}
+        </div>
+        <div className="mt-4">
           <p className="mb-1 text-sm font-medium">{t.you.duringWorkouts}</p>
           <Segmented
             label={t.you.duringWorkouts}
@@ -276,22 +299,6 @@ export function YouScreen({ focus }: { focus?: Section } = {}) {
             options={(["quiet", "normal", "chatty"] as const).map((k) => ({ value: k, label: t.you.chattiness[k] }))}
             onChange={(v) => setPrefs({ chattiness: v })}
           />
-        </div>
-        <div className="mt-4">
-          <Btn
-            variant="ghost"
-            onClick={() => {
-              // The tap unlocks the page's audio (Safari), then the preview plays in the voice every line uses.
-              unlockAudio();
-              setHearing(null);
-              previewVoice(setHearing);
-            }}
-          >
-            {t.you.hearCoach}
-          </Btn>
-          <Small className="mt-1">
-            {hearing === "coach" ? t.you.hearingCoach : hearing === "device" ? t.you.hearingDevice : t.you.hearCoachDetail}
-          </Small>
         </div>
         <BetterVoice />
         <div className="mt-4">

@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
+import { COACH_VOICE_GENDERS, coachVoiceGender, previewPath, type CoachVoiceGender, type CoachVoices } from "@/lib/coachVoices";
 import { Section } from "@/components/ui/Section";
 import { format } from "@/i18n/dictionaries";
 import {
@@ -227,6 +228,89 @@ export function PlanSection(p: PanelProps) {
   );
 }
 
+/** The account page's one audio element: a "Hear it" preview at a time (this page speaks nothing else). */
+let previewEl: HTMLAudioElement | null = null;
+function stopPreview() {
+  previewEl?.pause();
+}
+async function playPreview(blob: Blob): Promise<boolean> {
+  try {
+    const a = previewEl ?? new Audio();
+    previewEl = a;
+    if (a.src.startsWith("blob:")) URL.revokeObjectURL(a.src);
+    a.src = URL.createObjectURL(blob);
+    await a.play();
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+/**
+ * Coach voice: Woman / Man (ADR-0056), saved on the account (PATCH /v1/me coach.voiceGender; the phone, the watches and
+ * the web app read it), each with "Hear it": the voice's recorded preview line (GET /v1/voice/voices).
+ */
+function VoiceGenderRow({ t, me, api, setMe, lang, session, errorMsg }: PanelProps) {
+  const value = coachVoiceGender(me.coach?.voiceGender);
+  const save = useAction(errorMsg);
+  const [list, setList] = useState<CoachVoices | null>(null);
+  const [failed, setFailed] = useState(false);
+  useEffect(() => {
+    let live = true;
+    api
+      .coachVoices(lang)
+      .then((l) => live && setList(l))
+      .catch(() => live && setList(null));
+    return () => {
+      live = false;
+      stopPreview();
+    };
+  }, [api, lang]);
+  const pick = (g: CoachVoiceGender) => {
+    if (g === value) return;
+    void save.run(async () => setMe(await api.patchMe({ coach: { voiceGender: g } })), t.saved);
+  };
+  const hear = async (g: CoachVoiceGender) => {
+    setFailed(false);
+    stopPreview();
+    const path = previewPath(list, g);
+    const blob = path ? await session.voiceAudio(path).catch(() => null) : null;
+    if (!blob || !(await playPreview(blob))) setFailed(true);
+  };
+  return (
+    <Row label={t.coach.voiceGender} hint={t.coach.voiceGenderHint}>
+      <div className="flex flex-col gap-2 sm:items-end">
+        <div role="radiogroup" aria-label={t.coach.voiceGender} className="flex flex-wrap gap-2">
+          {COACH_VOICE_GENDERS.map((g) => (
+            <span key={g} className="flex items-center gap-1">
+              <button
+                type="button"
+                role="radio"
+                aria-checked={value === g}
+                disabled={save.busy}
+                className={smallButton(value === g ? "primary" : "ghost")}
+                onClick={() => pick(g)}
+              >
+                {t.coach.voiceGenders[g]}
+              </button>
+              <button
+                type="button"
+                className={smallButton("ghost")}
+                aria-label={`${t.coach.hearIt}: ${t.coach.voiceGenders[g]}`}
+                onClick={() => void hear(g)}
+              >
+                ▶ {t.coach.hearIt}
+              </button>
+            </span>
+          ))}
+        </div>
+        {failed && <p className="text-xs text-faint">{t.coach.hearFailed}</p>}
+        {save.status}
+      </div>
+    </Row>
+  );
+}
+
 export function CoachSection(p: PanelProps) {
   const { t, me, api, setMe, lang, dates, errorMsg } = p;
   const coach = me.coach ?? {};
@@ -294,6 +378,7 @@ export function CoachSection(p: PanelProps) {
           <Row label={t.coach.voiceKind}>
             <Value>{coach.voice === "device" ? t.coach.voices.device : t.coach.voices.coach}</Value>
           </Row>
+          <VoiceGenderRow {...p} />
           <Row label={t.coach.vibrate}>
             <Value>{coach.vibrateWithMusic ? t.on : t.off}</Value>
           </Row>

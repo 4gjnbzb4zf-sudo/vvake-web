@@ -7,6 +7,8 @@ import { DISCLAIMER_SHORT, DISCLAIMER_VERSION } from "@/lib/webapp/disclaimer";
 import { QUICK_SPORTS, sportLabel, uuid } from "@/lib/webapp/workout";
 import { useApp } from "./AppContext";
 import { CAST_IDS, castSrc, resetVVakerCache } from "./MyVVaker";
+import { CoachVoicePicker } from "./CoachVoicePicker";
+import { coachVoiceGender, type CoachVoiceGender } from "@/lib/coachVoices";
 import { GoalForm } from "./GoalsScreen";
 import { Btn, Field, inputCls, Kicker, Segmented, Small } from "./ui";
 
@@ -19,18 +21,20 @@ import { Btn, Field, inputCls, Kicker, Segmented, Small } from "./ui";
 /** A new account (no name yet) or one that never accepted this version of the disclaimer. */
 export const needsOnboarding = (me: AppMe) => !me.name?.trim() || (me.consents?.disclaimer?.version ?? 0) < DISCLAIMER_VERSION;
 
-type Step = "welcome" | "name" | "vvaker" | "moves" | "heart" | "safety" | "goal";
+type Step = "welcome" | "name" | "vvaker" | "voice" | "moves" | "heart" | "safety" | "goal";
 
 export function Onboarding({ onDone }: { onDone: () => void }) {
   const { t, lang, me, setMe, api, athlete, setAthlete, goals, setGoals, fmt } = useApp();
   const o = t.onboarding;
   const hasSurvey = !!athlete?.survey?.sports?.length;
-  const steps: Step[] = ["welcome", "name", "vvaker", ...(hasSurvey ? [] : (["moves", "heart"] as Step[])), "safety", "goal"];
+  const steps: Step[] = ["welcome", "name", "vvaker", "voice", ...(hasSurvey ? [] : (["moves", "heart"] as Step[])), "safety", "goal"];
   const [i, setI] = useState(0);
   const step = steps[i]!;
   const [name, setName] = useState(me.name ?? "");
   const [city, setCity] = useState(me.city ?? "");
   const [cast, setCast] = useState<string>(me.castId && (CAST_IDS as readonly string[]).includes(me.castId) ? me.castId : "runner");
+  // The coach's voice (ADR-0056): a light choice, Next keeps the one shown (a woman's unless chosen before).
+  const [voiceGender, setVoiceGender] = useState<CoachVoiceGender>(coachVoiceGender(me.coach?.voiceGender));
   const [sports, setSports] = useState<string[]>(["run"]);
   const [days, setDays] = useState(3);
   const [minutes, setMinutes] = useState(30);
@@ -57,6 +61,8 @@ export function Onboarding({ onDone }: { onDone: () => void }) {
         city: city.trim() ? city.trim().slice(0, 80) : null,
         consents: { disclaimer: { version: DISCLAIMER_VERSION, acceptedAt: now } },
       };
+      // Absent is a woman's voice: only a change is sent.
+      if (voiceGender !== coachVoiceGender(me.coach?.voiceGender)) Object.assign(patch, { coach: { voiceGender } });
       if (cast !== me.castId) Object.assign(patch, { castId: cast, vvakerUpdatedAt: now });
       const m = await api.patchMe(patch);
       setMe(m);
@@ -139,6 +145,14 @@ export function Onboarding({ onDone }: { onDone: () => void }) {
           <h1 className="font-display text-2xl font-bold">{o.vvaker.title}</h1>
           <p className="mt-2 text-sm text-muted">{o.vvaker.lead}</p>
           <CastGrid value={cast} onChange={setCast} />
+        </div>
+      )}
+
+      {step === "voice" && (
+        <div className="mt-6 space-y-4">
+          <h1 className="font-display text-2xl font-bold">{o.voice.title}</h1>
+          <p className="text-sm text-muted">{o.voice.lead}</p>
+          <CoachVoicePicker value={voiceGender} onChange={setVoiceGender} />
         </div>
       )}
 
