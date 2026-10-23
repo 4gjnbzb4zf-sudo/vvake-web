@@ -19,6 +19,44 @@ export interface Release {
 
 export const releases: Release[] = [
   {
+    version: "1.0.0 (43)",
+    date: "2026-10-22",
+    channel: "beta",
+    devices: ["iphone", "watch", "android", "wear"],
+    notes: {
+      en: {
+        added: [
+          'Headphones connecting to your phone or watch while Spotify plays elsewhere: "Headphones connected. Play here?" in one tap. Say Switch once and it follows your headphones by itself next time.',
+        ],
+        improved: [
+          "The watch and the phone find each other as soon as VVake opens on either one: with both open, within a few seconds. Once linked, they keep checking now and then (more often during a workout), without draining the battery.",
+          "Connections on the phone says whether the watch is reachable now or when it was last seen, or that you should open VVake on the watch to link it.",
+          "A heart-rate strap you paired before connects as soon as the workout start screen shows. On the web app, a paired sensor that drops keeps being tried every 30 seconds while the page is open.",
+          "Send Spotify report now includes the link state and recent headphone changes (still no names, devices or songs).",
+        ],
+        fixed: [
+          "The watch's Spotify page always shows where the music plays again, with Play on one tap away: also while Spotify plays on the watch itself, when Spotify isn't open anywhere yet, and when the phone is away. Play on always lists the phone, this watch, the watch's headphones or speaker and every device Spotify sees, and your pick is ticked.",
+          "A watch picked for Spotify on an earlier day no longer makes Play wait for it: after 30 minutes, the device Spotify has open is the default again. A pick you just made still wins: pick the watch and it plays on the watch, pick the phone and it plays on the phone.",
+        ],
+      },
+      fr: {
+        added: [
+          "Des écouteurs qui se connectent à votre téléphone ou à votre montre pendant que Spotify joue ailleurs : « Écouteurs connectés. Jouer ici ? » en un appui. Dites Basculer une fois, et la musique suit vos écouteurs d'elle-même la fois suivante.",
+        ],
+        improved: [
+          "La montre et le téléphone se retrouvent dès que VVake s'ouvre sur l'un ou l'autre : tous les deux ouverts, en quelques secondes. Une fois liés, ils vérifient le lien de temps en temps (plus souvent pendant une séance), sans vider la batterie.",
+          "Connexions sur le téléphone dit si la montre est joignable maintenant ou quand elle a été vue pour la dernière fois, ou qu'il faut ouvrir VVake sur la montre pour la lier.",
+          "Une ceinture cardio déjà jumelée se connecte dès l'écran de départ de la séance. Dans l'app web, un capteur jumelé qui décroche est réessayé toutes les 30 secondes tant que la page est ouverte.",
+          "Envoyer le rapport Spotify inclut maintenant l'état du lien et les derniers changements d'écouteurs (toujours sans noms, appareils ni chansons).",
+        ],
+        fixed: [
+          "La page Spotify de la montre montre de nouveau toujours où joue la musique, avec Lire sur à un appui : aussi quand Spotify joue sur la montre elle-même, quand Spotify n'est encore ouvert nulle part, et quand le téléphone est loin. Lire sur propose toujours le téléphone, cette montre, les écouteurs ou le haut-parleur de la montre et chaque appareil que voit Spotify, et votre choix est coché.",
+          "Une montre choisie pour Spotify un autre jour ne fait plus attendre Lecture : après 30 minutes, l'appareil ouvert dans Spotify redevient le choix par défaut. Un choix que vous venez de faire l'emporte toujours : choisissez la montre et ça joue sur la montre, le téléphone et ça joue sur le téléphone.",
+        ],
+      },
+    },
+  },
+  {
     version: "1.0.0 (42)",
     date: "2026-10-22",
     channel: "beta",
