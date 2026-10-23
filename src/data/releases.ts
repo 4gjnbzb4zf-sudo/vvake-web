@@ -19,6 +19,38 @@ export interface Release {
 
 export const releases: Release[] = [
   {
+    version: "1.0.0 (42)",
+    date: "2026-10-22",
+    channel: "beta",
+    devices: ["iphone", "watch", "android", "wear"],
+    notes: {
+      en: {
+        improved: [
+          "The watch finds itself in Spotify faster: while it waits, it checks Spotify's device list every second (every 2 seconds after 30 s) and starts the music as soon as the watch shows up.",
+          "A watch that has just appeared in Spotify sometimes refuses the first play. VVake now tries again up to 3 times, with short pauses.",
+          "Send Spotify report now includes timings, how long the watch waited, its audio output (speaker or headphones) and the route the request really took, so we can fix the next problem faster. Still no names, devices or songs.",
+        ],
+        fixed: [
+          'Picking "this watch" for Spotify no longer fails silently. VVake used to send the music to the watch\'s old Spotify id, which Spotify refused. It now waits until Spotify really lists the watch, then starts the music there.',
+          "When Spotify doesn't list the watch, the watch now says exactly what to do: in Spotify on the watch, pick Apple Watch (or this watch) as the device. Next to Try again you get Play on iPhone instead and Now Playing. VVake never switches to another device without asking.",
+          'A first Play that went through a sleeping iPhone could end with "Your iPhone didn\'t answer". VVake now asks a second time on its own.',
+        ],
+      },
+      fr: {
+        improved: [
+          "La montre se trouve plus vite dans Spotify : pendant l'attente, elle consulte la liste des appareils Spotify chaque seconde (toutes les 2 secondes après 30 s) et lance la musique dès que la montre y apparaît.",
+          "Une montre qui vient d'apparaître dans Spotify refuse parfois la première lecture. VVake réessaie maintenant jusqu'à 3 fois, avec de courtes pauses.",
+          "Envoyer un rapport Spotify inclut maintenant les temps de réponse, la durée d'attente de la montre, sa sortie audio (haut-parleur ou écouteurs) et le chemin réellement pris, pour corriger plus vite le prochain problème. Toujours sans nom, appareil ni morceau.",
+        ],
+        fixed: [
+          "Choisir « cette montre » pour Spotify n'échoue plus en silence. VVake envoyait la musique à l'ancien identifiant Spotify de la montre, que Spotify refusait. Il attend maintenant que Spotify affiche vraiment la montre, puis y lance la musique.",
+          "Quand Spotify n'affiche pas la montre, la montre dit exactement quoi faire : dans Spotify sur la montre, choisissez Apple Watch (ou cette montre) comme appareil. À côté de Réessayer, vous avez Plutôt sur l'iPhone et À l'écoute. VVake ne passe jamais sur un autre appareil sans vous demander.",
+          "Une première Lecture passée par un iPhone en veille pouvait finir sur « Ton iPhone n'a pas répondu ». VVake redemande maintenant tout seul.",
+        ],
+      },
+    },
+  },
+  {
     version: "1.0.0 (41)",
     date: "2026-10-22",
     channel: "beta",
