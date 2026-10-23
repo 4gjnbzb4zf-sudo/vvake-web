@@ -86,6 +86,17 @@ export interface SensorEvents {
 
 /** Retries after a drop: 1 s, 2 s, 4 s … up to this many before saying it's lost (a button reconnects). */
 const MAX_RETRIES = 6;
+/** Once lost, a known sensor is still tried now and then while the page is visible (ADR-0055 in the app repo). */
+export const LOST_RETRY_MS = 30_000;
+
+/**
+ * The wait before the next reconnect try (pure): 1, 2, 4 … 32 s, then every 30 s while the page is visible (a strap
+ * put back on mid-workout comes back by itself); null: none (the page is hidden, the browser would throttle it).
+ */
+export function reconnectDelayMs(attempt: number, visible = true): number | null {
+  if (!visible) return null;
+  return attempt < MAX_RETRIES ? 1000 * 2 ** attempt : LOST_RETRY_MS;
+}
 
 export class HeartSensor {
   private device: BtDevice | null = null;
@@ -131,11 +142,23 @@ export class HeartSensor {
 
   private retry() {
     if (this.closed || !this.device) return;
-    if (this.retries >= MAX_RETRIES) return this.set("lost");
-    this.set("reconnecting");
-    const wait = 1000 * 2 ** this.retries++;
+    if (this.timer) clearTimeout(this.timer);
+    const visible = typeof document === "undefined" || document.visibilityState !== "hidden";
+    const wait = reconnectDelayMs(this.retries, visible);
+    // Lost after the quick tries: said so (with the reconnect button), but still tried every 30 s while visible.
+    this.set(this.retries >= MAX_RETRIES ? "lost" : "reconnecting");
+    this.retries++;
+    if (wait === null) return;
     this.timer = setTimeout(() => void this.attach().catch(() => this.retry()), wait);
   }
+
+  /** The page came back in view: a sensor that dropped meanwhile is tried at once. */
+  private onVisible = () => {
+    if (document.visibilityState !== "visible" || this.closed || !this.device || this.state === "connected" || this.state === "connecting")
+      return;
+    this.retries = 0;
+    this.retry();
+  };
 
   private async attach() {
     const d = this.device;
@@ -160,6 +183,10 @@ export class HeartSensor {
 
   private use(d: BtDevice) {
     this.device?.removeEventListener("gattserverdisconnected", this.onDisconnect);
+    if (typeof document !== "undefined") {
+      document.removeEventListener("visibilitychange", this.onVisible);
+      document.addEventListener("visibilitychange", this.onVisible);
+    }
     this.device = d;
     this.name = d.name ?? "";
     d.addEventListener("gattserverdisconnected", this.onDisconnect);
@@ -228,6 +255,7 @@ export class HeartSensor {
   disconnect() {
     this.closed = true;
     if (this.timer) clearTimeout(this.timer);
+    if (typeof document !== "undefined") document.removeEventListener("visibilitychange", this.onVisible);
     try {
       this.device?.gatt?.disconnect();
     } catch {
