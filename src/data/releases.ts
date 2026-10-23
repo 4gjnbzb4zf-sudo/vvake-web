@@ -19,6 +19,34 @@ export interface Release {
 
 export const releases: Release[] = [
   {
+    version: "1.0.0 (47)",
+    date: "2026-10-23",
+    channel: "beta",
+    devices: ["iphone", "watch", "android"],
+    notes: {
+      en: {
+        improved: [
+          "Walks and runs with the phone alone now earn a few points for your steps: 1 point for every 5 minutes your steps back, from 10 minutes, up to 10 points a day. Wear your watch or a heart-rate strap for full points.",
+          'Music moved from the watch to the iPhone, and you want it back on the watch: VVake now says the one way that works, "In Spotify on the watch, tap the device button and pick Apple Watch". Spotify only offers the watch as a place to play while it plays there, so no app can send it back on its own.',
+        ],
+        fixed: [
+          "iPhone: a walk or run recorded with the phone alone keeps its route and distance with the phone locked in a pocket. Before, it stopped until you opened VVake again. The blue location indicator shows while it records.",
+          'The watch no longer shows "Try opening Spotify here": watchOS doesn\'t let VVake open Spotify on the watch.',
+        ],
+      },
+      fr: {
+        improved: [
+          "La marche et la course avec le téléphone seul rapportent maintenant quelques points pour tes pas : 1 point toutes les 5 minutes appuyées par tes pas, dès 10 minutes, jusqu'à 10 points par jour. Porte ta montre ou une ceinture cardio pour tous les points.",
+          "La musique est passée de la montre à l'iPhone et tu veux la remettre sur la montre : VVake indique maintenant la seule façon qui marche, « Dans Spotify sur la montre, touche le bouton des appareils et choisis Apple Watch ». Spotify ne propose la montre comme appareil que pendant qu'elle y joue : aucune app ne peut l'y renvoyer seule.",
+        ],
+        fixed: [
+          "iPhone : une marche ou une course avec le téléphone seul garde son tracé et sa distance téléphone verrouillé dans la poche. Avant, elle s'arrêtait jusqu'à ce que tu rouvres VVake. L'indicateur bleu de localisation s'affiche pendant l'enregistrement.",
+          "La montre n'affiche plus « Essayer d'ouvrir Spotify ici » : watchOS ne laisse pas VVake ouvrir Spotify sur la montre.",
+        ],
+      },
+    },
+  },
+  {
     version: "1.0.0 (46)",
     date: "2026-10-23",
     channel: "beta",
