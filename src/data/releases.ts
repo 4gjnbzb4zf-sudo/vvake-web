@@ -19,6 +19,50 @@ export interface Release {
 
 export const releases: Release[] = [
   {
+    version: "1.0.0 (46)",
+    date: "2026-10-23",
+    channel: "beta",
+    devices: ["iphone", "watch", "android", "wear"],
+    notes: {
+      en: {
+        added: [
+          "Detailed music log: a switch in Connections › Spotify on the phone and in the watch's Spotify settings (off by default, off by itself after 7 days). While it's on, VVake records each music step, without your account or song names. Send music log gives you a short code, and the phone and the watch send theirs together, so a problem can be found and fixed.",
+          "Play on now says in one line how each choice plays: on this watch, on your phone, or on another device, and what to do if it needs you.",
+        ],
+        improved: [
+          "The watch talks to Spotify itself whenever it's online (its Wi-Fi, its cellular, or through your phone), instead of waiting for the phone app. Playing, the device list and the checks are back to fast.",
+          "Play on › This watch starts at once when Spotify already plays on the watch or was there a few minutes ago. The one-minute wait shows only when Spotify really isn't on the watch.",
+          "VVake checks that the music started within half a second, and counts music playing on the watch as started.",
+          "From the phone, Play on › your watch: on a Wear OS watch VVake opens Spotify there itself; on an Apple Watch it tells you the one step to take (open Spotify, pick a playlist, press play).",
+        ],
+        fixed: [
+          "From the watch, playing on the phone no longer waits for the phone app before starting.",
+          'A play the phone was still starting no longer ended with "Your iPhone is busy" after 6 seconds.',
+          "When Spotify is asleep on the iPhone, VVake opens it and says the one thing to do: pick a playlist and press play there, and VVake controls it from then on. Music already playing moves at once.",
+          "With the watch on its charger, Spotify can't play on it: VVake now says so at once, with Play on iPhone instead, instead of waiting.",
+        ],
+      },
+      fr: {
+        added: [
+          "Journal musique détaillé : un interrupteur dans Connexions › Spotify sur le téléphone et dans les réglages Spotify de la montre (coupé par défaut, se coupe tout seul après 7 jours). Tant qu'il est activé, VVake note chaque étape musique, sans ton compte ni les titres. Envoyer le journal musique te donne un code court, et le téléphone et la montre envoient le leur ensemble, pour trouver et corriger un problème.",
+          "Lire sur indique maintenant en une ligne comment joue chaque choix : sur cette montre, sur ton téléphone ou sur un autre appareil, et quoi faire s'il a besoin de toi.",
+        ],
+        improved: [
+          "La montre parle elle-même à Spotify dès qu'elle est en ligne (son Wi-Fi, son réseau mobile ou via ton téléphone), au lieu d'attendre l'app du téléphone. La lecture, la liste des appareils et les vérifications redeviennent rapides.",
+          "Lire sur › Cette montre démarre aussitôt quand Spotify joue déjà sur la montre ou y était il y a quelques minutes. L'attente d'une minute ne s'affiche que si Spotify n'est vraiment pas sur la montre.",
+          "VVake vérifie en une demi-seconde que la musique a démarré, et compte la musique qui joue sur la montre comme démarrée.",
+          "Depuis le téléphone, Lire sur › ta montre : sur une montre Wear OS, VVake y ouvre Spotify lui-même ; sur une Apple Watch, il t'indique le seul geste à faire (ouvrir Spotify, choisir une playlist, lancer la lecture).",
+        ],
+        fixed: [
+          "Depuis la montre, lire sur le téléphone n'attend plus l'app du téléphone avant de démarrer.",
+          "Une lecture que le téléphone était encore en train de lancer ne finit plus par « Ton iPhone est occupé » au bout de 6 secondes.",
+          "Quand Spotify dort sur l'iPhone, VVake l'ouvre et dit la seule chose à faire : choisir une playlist et appuyer sur lecture, puis VVake le pilote. La musique qui joue déjà passe aussitôt.",
+          "Montre sur son chargeur, Spotify ne peut pas y jouer : VVake le dit tout de suite, avec Plutôt sur l'iPhone, au lieu d'attendre.",
+        ],
+      },
+    },
+  },
+  {
     version: "1.0.0 (45)",
     date: "2026-10-23",
     channel: "beta",
