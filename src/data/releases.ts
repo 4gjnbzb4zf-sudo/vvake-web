@@ -19,6 +19,68 @@ export interface Release {
 
 export const releases: Release[] = [
   {
+    version: "1.0.0 (48)",
+    date: "2026-10-26",
+    channel: "beta",
+    devices: ["iphone", "android"],
+    notes: {
+      en: {
+        added: [
+          'Before every exercise of a camera workout, VVake shows where to put the phone (facing it or side-on, how far, how high) and checks that it can see what it needs. It tells you what to change, like "Move back", "Turn sideways so I can track you" or "Your legs are out of frame", and counts down only once you\'re ready. A Start button is there if you want to go anyway.',
+          "During the rest, the next exercise is previewed: its name and target, its demo on a loop, the camera angle and one or two form tips. In the last seconds, VVake asks you to get into position.",
+          "Rest controls that are never covered: +15 s, +30 s, a rest length you can change for the rest of the workout, Replay demo, Skip preview, Skip rest, and Easier when the move has an easier version (knee push-ups for push-ups, chair squats for squats).",
+          'Voice controls on the mic button: "pause", "more rest", "skip", "I\'m ready", "replay the demo" and "easier". Siri\'s "Wake pause" works on the camera workout too.',
+          "New camera moves: chair squat, wall or incline push-up, march in place, standing knee raise and arm circles. The starter routines use them.",
+          "Four starter routines: Beginner full body, Low impact (no jumps), Morning activation (7 minutes, also offered under Wake up in your daily rhythm) and Intermediate full body.",
+          "The summary has a Tracking card that says honestly when VVake lost sight of you, when a hold was timed by you, when shorter reps weren't counted, and when the form wasn't judged from that angle.",
+        ],
+        improved: [
+          'The coach says your progress, like "10 of 15 done", "3 more" and "Last one", with a word of encouragement now and then, instead of every single rep.',
+          "When VVake loses sight of you during a set, the screen and the voice say so and what to change, instead of going quiet.",
+          "The camera screen says plainly that your pose is read on the phone and nothing is recorded or sent.",
+          "Camera workouts count push-ups side-on or facing the phone, with the phone on the floor.",
+          "Camera workouts count lunges facing the phone too, even when your feet are out of the picture.",
+          "When your range is limited but steady, your reps count after the first few.",
+        ],
+        fixed: [
+          "iPhone: lying down (plank, push-ups seen from the side on the floor), the camera now keeps finding you: when it loses a body lying flat, it looks again with the picture turned a quarter turn.",
+          "A plank's timer no longer starts before you're in the plank: VVake waits for the position, counts down, and times only the plank.",
+          'A tracking loss of a second or two no longer pauses a hold. A real break pauses it and says so, and "Start the timer myself" times it by hand when the camera can\'t see you well.',
+          "A row, a curl or high knees no longer count as push-ups or lunges.",
+          "Tapping a coach call's notification right away no longer says \"This call isn't available any more\" when the phone simply wasn't online yet. VVake tries again by itself, and offers Try again if the connection stays down.",
+          "After switching the coach's voice (Woman / Man), the new voice downloads as soon as the phone is online, on any network, instead of waiting for Wi-Fi.",
+        ],
+      },
+      fr: {
+        added: [
+          "Avant chaque exercice d'une séance caméra, VVake montre où poser le téléphone (de face ou de profil, à quelle distance, à quelle hauteur) et vérifie qu'il voit ce qu'il faut. Il dit quoi changer, comme « Recule un peu », « Mets-toi de profil pour que je te suive » ou « Tes jambes sont hors du cadre », et ne lance le décompte qu'une fois que tu es prêt. Un bouton Démarrer est là si tu veux y aller quand même.",
+          "Pendant le repos, l'exercice suivant est présenté : son nom et son objectif, sa démo en boucle, l'angle de la caméra et un ou deux conseils de posture. Dans les dernières secondes, VVake te demande de te mettre en position.",
+          "Des commandes de repos jamais masquées : +15 s, +30 s, une durée de repos à changer pour le reste de la séance, Revoir la démo, Passer l'aperçu, Passer le repos, et Plus facile quand le mouvement a une version plus facile (pompes sur les genoux au lieu des pompes, squats sur chaise au lieu des squats).",
+          "Des commandes vocales sur le bouton micro : « pause », « plus de repos », « on passe », « je suis prêt », « rejoue la démo » et « plus facile ». « Wake pause » avec Siri marche aussi pendant la séance caméra.",
+          "Nouveaux mouvements caméra : squat sur chaise, pompe au mur ou inclinée, marche sur place, montée de genou debout et moulinets de bras. Les routines pour commencer les utilisent.",
+          "Quatre routines pour commencer : Corps complet débutant, Sans impact (sans saut), Réveil musculaire (7 minutes, aussi proposé sous Réveil dans ton rythme du jour) et Corps complet intermédiaire.",
+          "Le résumé a une carte Suivi qui dit honnêtement quand VVake ne t'a plus vu, quand un gainage a été chronométré par toi, quand des répétitions plus courtes n'ont pas été comptées et quand la posture n'a pas été jugée depuis cet angle.",
+        ],
+        improved: [
+          "Le coach annonce ta progression, comme « 10 sur 15 », « Plus que 3 » et « Encore une », avec un encouragement de temps en temps, au lieu de chaque répétition.",
+          "Quand VVake ne te voit plus pendant une série, l'écran et la voix le disent et indiquent quoi changer, au lieu de se taire.",
+          "L'écran caméra dit clairement que ta posture est lue sur le téléphone et que rien n'est enregistré ni envoyé.",
+          "Les séances caméra comptent les pompes de profil ou face au téléphone, posé au sol.",
+          "Les séances caméra comptent aussi les fentes face au téléphone, même quand tes pieds sont hors du cadre.",
+          "Quand ton amplitude est limitée mais régulière, tes répétitions comptent après les premières.",
+        ],
+        fixed: [
+          "iPhone : allongé (gainage, pompes vues de côté au sol), la caméra continue de te trouver : quand elle perd un corps à l'horizontale, elle regarde à nouveau avec l'image tournée d'un quart de tour.",
+          "Le chrono de la planche ne démarre plus avant que tu sois en planche : VVake attend la position, lance le décompte et ne chronomètre que la planche.",
+          "Une perte de suivi d'une ou deux secondes ne met plus un gainage en pause. Une vraie pause le met en pause et le dit, et « Lancer le chrono moi-même » le chronomètre à la main quand la caméra te voit mal.",
+          "Un rowing, un curl ou des montées de genoux ne comptent plus comme des pompes ou des fentes.",
+          "Toucher tout de suite la notification d'un appel du coach n'affiche plus « Cet appel n'est plus disponible » quand le téléphone n'était simplement pas encore en ligne. VVake réessaie tout seul, et propose Réessayer si la connexion reste coupée.",
+          "Après avoir changé la voix du coach (Femme / Homme), la nouvelle voix se télécharge dès que le téléphone est en ligne, sur n'importe quel réseau, au lieu d'attendre le Wi-Fi.",
+        ],
+      },
+    },
+  },
+  {
     version: "1.0.0 (47)",
     date: "2026-10-23",
     channel: "beta",
