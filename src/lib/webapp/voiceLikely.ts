@@ -31,7 +31,7 @@ export function cameraLikelyLines(sets: readonly PlannedSet[] | null, lang: Voic
     const next = sets[i + 1];
     if (next) {
       const restS = set.restS ?? defaultRestS(cameraMove(set.move) ?? null);
-      const rest = flowSpeech({ type: "rest", untilMs: 0, restS, next }, lang);
+      const rest = flowSpeech({ type: "rest", untilMs: 0, restS, next, newMove: next.move !== set.move }, lang);
       if (rest) out.push(rest);
     }
   });

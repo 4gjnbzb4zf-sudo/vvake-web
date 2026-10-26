@@ -1,4 +1,4 @@
-// Copied from VVFit packages/game-core/src/cameraDetect.ts (322f91e 2026-10-21) by scripts/sync-camera-core.ts. Do not edit: re-sync.
+// Copied from VVFit packages/game-core/src/cameraDetect.ts (e628403d 2026-10-26) by scripts/sync-camera-core.ts. Do not edit: re-sync.
 /**
  * Camera workouts (ADR-0046): "just start moving". Replays the last seconds of pose through the counters of every
  * move the camera can count, and names the move when one clearly counted reps (two or more, more than any other),
@@ -10,6 +10,7 @@
  */
 import { CAMERA_MOVES, type MoveDef } from "./cameraMoves";
 import { HoldTimer, RepCounter } from "./cameraReps";
+import { MoveCounter } from "./cameraReady";
 import type { PoseFrame } from "./cameraPose";
 import { registeredCustomMoves, type CustomMoveDef } from "./cameraCustom";
 import { CHANNELS, features, TemplateCounter, TemplateHold, TorsoRef } from "./cameraTemplate";
@@ -54,7 +55,7 @@ export const DETECT_ORDER: readonly string[] = [
  * Holds that look like standing or resting (a farmer carry is standing with the arms down; arms overhead is also a
  * liveness check): never recognised on their own, only when the routine names them.
  */
-const NO_DETECT_HOLDS = new Set(["farmer-carry", "overhead-reach", "side-bend"]);
+const NO_DETECT_HOLDS = new Set(["farmer-carry", "overhead-reach", "side-bend", "arm-circles"]);
 
 export interface Detected {
   move: MoveDef;
@@ -68,7 +69,7 @@ const rankOf = (id: string) => {
   return i < 0 ? DETECT_ORDER.length + CAMERA_MOVES.findIndex((m) => m.id === id) : i;
 };
 const sigKey = (m: MoveDef) => JSON.stringify([m.kind, m.sig, m.rep ?? m.hold, m.guards ?? []]);
-const isAlt = (m: MoveDef) => !!m.sig && m.sig.k !== "tilt" && m.sig.side === "alt";
+const isAlt = (m: MoveDef) => !!m.sig && "side" in m.sig && m.sig.side === "alt";
 
 /** One move per signal: the best ranked (lookalikes count the same; the app offers the switch). */
 function dedupe(ms: MoveDef[]): MoveDef[] {
@@ -101,7 +102,8 @@ function countReps(m: MoveDef, frames: readonly PoseFrame[]): number {
     for (const f of frames) n += c.push(f).reps.length;
     return n;
   }
-  const rc = new RepCounter(m.sig!, m.rep!, m.guards ?? []);
+  // Every angle the move is counted from (no cues: detection only counts).
+  const rc = m.alts?.length ? new MoveCounter({ ...m, cues: [] }) : new RepCounter(m.sig!, m.rep!, m.guards ?? []);
   let n = 0;
   for (const f of frames) n += rc.push(f).reps.length;
   // An alternating move counts both sides: one cycle of each is one rep of the others' kind.

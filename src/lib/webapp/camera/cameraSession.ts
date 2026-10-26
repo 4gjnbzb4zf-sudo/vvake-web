@@ -1,4 +1,4 @@
-// Copied from VVFit packages/game-core/src/cameraSession.ts (322f91e 2026-10-21) by scripts/sync-camera-core.ts. Do not edit: re-sync.
+// Copied from VVFit packages/game-core/src/cameraSession.ts (e628403d 2026-10-26) by scripts/sync-camera-core.ts. Do not edit: re-sync.
 /**
  * Camera workouts (ADR-0046): one session in front of the camera. Sets of a move (picked, planned, or detected), reps
  * or a hold counted from the pose, the load you typed, a rest timer between sets, liveness checks during rest, and
@@ -7,8 +7,9 @@
  */
 import { CAMERA_POINTS, type CameraJudge, type CameraMoveLog, type CameraSet, type CameraSummary } from "./cameraPoints";
 import { cameraMove, cameraSessionSport, moveNeeds, type MoveDef } from "./cameraMoves";
-import { HoldTimer, RepCounter, type CueId, type RepEvent, type SignalSpec } from "./cameraReps";
+import { HoldTimer, type HoldStatus, type RepQuality, type CueId, type RepEvent, type SignalSpec } from "./cameraReps";
 import { TemplateCounter, TemplateHold } from "./cameraTemplate";
+import { countViews, moveCounter } from "./cameraReady";
 import type { CustomMoveDef } from "./cameraCustom";
 import {
   DETECT_AREAS,
@@ -23,7 +24,8 @@ import { LivenessChecker, type LivenessKind, type LivenessResult } from "./camer
 import { detectMove, DETECT } from "./cameraDetect";
 
 export type CameraEvent =
-  | { type: "rep"; n: number; side?: "l" | "r"; cues: CueId[] }
+  /** `quality`: complete, limited (your own consistent range) or uncertain (seen unsurely: labelled, no cue). */
+  | { type: "rep"; n: number; side?: "l" | "r"; cues: CueId[]; quality?: RepQuality }
   | { type: "partial" }
   | { type: "hold"; s: number }
   | { type: "holdCue"; cues: CueId[] }
@@ -52,6 +54,9 @@ export interface CurrentSet {
   cues: Set<CueId>;
   /** Taps that corrected the count (+1 / −1): the set is logged as `count`, never `camera`, when used. */
   adjusted: boolean;
+  /** Of the counted reps: in your own (limited) range, and seen unsurely (the summary can label them). */
+  limited: number;
+  uncertain: number;
 }
 
 /** A framing change shows once it held this long (ms). */
@@ -68,6 +73,8 @@ export interface PlannedSet {
   /** Custom trainings (ADR-0047): the target heart zone 1–5, and the effort out of 10 without a sensor. */
   zone?: number;
   rpe?: number;
+  /** Done the easier way (cameraReady.ts easierOf: a chair behind you, hands on a wall): the screens say how. */
+  easier?: boolean;
 }
 
 export class CameraWorkoutEngine {
@@ -77,7 +84,7 @@ export class CameraWorkoutEngine {
   readonly log: CameraMoveLog[] = [];
   restUntilMs = 0;
   private counter: { push(f: PoseFrame): { reps: RepEvent[]; partials?: unknown[] }; sig?: SignalSpec } | null = null;
-  private timer: { push(f: PoseFrame): CueId[] | []; heldS: number } | null = null;
+  private timer: { push(f: PoseFrame): CueId[] | []; heldS: number; status?: () => HoldStatus } | null = null;
   private trackedS = 0;
   private workS = 0;
   private lastFrameMs = 0;
@@ -135,6 +142,8 @@ export class CameraWorkoutEngine {
       tempos: [],
       cues: new Set(),
       adjusted: false,
+      limited: 0,
+      uncertain: 0,
     };
     this.frames = [];
     this.arm(move);
@@ -184,7 +193,8 @@ export class CameraWorkoutEngine {
       return;
     }
     if (!move || move.judge === "manual" || !move.sig) return;
-    if (move.kind === "reps" && move.rep) this.counter = new RepCounter(move.sig, move.rep, move.guards ?? [], move.cues ?? []);
+    // Every angle the move is counted from (cameraReady.ts MoveCounter: a push-up side-on or facing the phone).
+    if (move.kind === "reps" && move.rep) this.counter = moveCounter(move);
     if (move.kind === "hold" && move.hold) this.timer = new HoldTimer(move.sig, move.hold, move.guards ?? [], move.cues ?? []);
   }
 
@@ -311,9 +321,11 @@ export class CameraWorkoutEngine {
         s.roms.push(r.romPct);
         s.tempos.push(r.durS);
         r.cues.forEach((c) => s.cues.add(c));
+        if (r.quality === "limited") s.limited++;
+        if (r.quality === "uncertain") s.uncertain++;
         const sig = this.counter.sig;
-        const side = sig && sig.k !== "tilt" && sig.side === "alt" ? (r.ch === 0 ? "l" : "r") : undefined;
-        out.push({ type: "rep", n: s.reps, ...(side ? { side } : {}), cues: r.cues });
+        const side = sig && "side" in sig && sig.side === "alt" ? (r.ch === 0 ? "l" : "r") : undefined;
+        out.push({ type: "rep", n: s.reps, ...(side ? { side } : {}), cues: r.cues, ...(r.quality ? { quality: r.quality } : {}) });
       }
       if (partials.length) {
         s.cues.add("depth");
@@ -330,10 +342,19 @@ export class CameraWorkoutEngine {
     return out;
   }
 
+  /**
+   * The hold's timer now (a hold set counted by the camera): waiting for the position, settling in, holding, a
+   * wobble, tracking lost, broken. Null outside a camera-timed hold.
+   */
+  holdStatus(): HoldStatus | null {
+    return this.timer?.status ? this.timer.status() : null;
+  }
+
   /** The framing guide for the set's move (its parts of the body), or the whole body but head and feet. */
   framingNow(f: PoseFrame | null): FramingReport {
     const m = this.set?.move ?? null;
-    return framingReport(f, m ? { need: moveNeeds(m), view: m.view } : { need: DETECT_AREAS });
+    // A move counted from more than one angle (cameraReady.ts countViews) doesn't get a "turn side-on" tip.
+    return framingReport(f, m ? { need: moveNeeds(m), view: countViews(m).length > 1 ? "either" : m.view } : { need: DETECT_AREAS });
   }
 
   /** The summary to upload (ends a set still open first). */
@@ -375,12 +396,94 @@ export interface CameraRoutine {
   sets: PlannedSet[];
   /** How its rests may follow the heart (cameraHeart.ts): "flex" (default) or "fixed" (intervals: never shortened). */
   rest?: "flex" | "fixed";
+  /** Who it's for (the starter routines say it; the picker shows it). */
+  level?: "beginner" | "intermediate" | "advanced";
+  /** No jumping (kind to joints and neighbours); a short wake-up routine (the daily rhythm links it). */
+  tags?: readonly ("low-impact" | "morning")[];
+  /** One line under its name. */
+  about?: { en: string; fr: string };
 }
 
-const rx = (move: string, n: number, sets: number, restS: number, hold = false): PlannedSet[] =>
-  Array.from({ length: sets }, () => ({ move, ...(hold ? { holdS: n } : { reps: n }), restS }));
+const rx = (move: string, n: number, sets: number, restS: number, hold = false, easier = false): PlannedSet[] =>
+  Array.from({ length: sets }, () => ({ move, ...(hold ? { holdS: n } : { reps: n }), restS, ...(easier ? { easier: true } : {}) }));
 
 export const CAMERA_ROUTINES: readonly CameraRoutine[] = [
+  // Starter routines (tester report 2026-10-26), with the starter moves (chair squat, wall push-up, march, knee raise,
+  // arm circles); a march counts each knee lift.
+  {
+    id: "beginner-full-body",
+    name: { en: "Beginner full body", fr: "Corps complet débutant" },
+    about: {
+      en: "Chair squats, incline push-ups, reverse lunges, a short plank, marching.",
+      fr: "Squats sur chaise, pompes inclinées, fentes arrière, courte planche, marche sur place.",
+    },
+    minutes: 14,
+    equipment: "none",
+    level: "beginner",
+    sets: [
+      ...rx("chair-squat", 10, 2, 45),
+      ...rx("incline-push-up", 8, 2, 45),
+      ...rx("reverse-lunge", 16, 2, 45),
+      ...rx("plank", 20, 2, 30, true),
+      ...rx("march", 40, 2, 30),
+    ],
+  },
+  {
+    id: "low-impact",
+    name: { en: "Low impact, beginner", fr: "Sans impact, débutant" },
+    about: {
+      en: "No jumps: chair squats, wall push-ups, knee raises, calf raises, stretches.",
+      fr: "Sans saut : squats sur chaise, pompes au mur, montées de genou, mollets, étirements.",
+    },
+    minutes: 13,
+    equipment: "none",
+    level: "beginner",
+    tags: ["low-impact"],
+    sets: [
+      ...rx("chair-squat", 10, 2, 45),
+      ...rx("incline-push-up", 8, 2, 45),
+      ...rx("standing-knee-raise", 10, 2, 30),
+      ...rx("calf-raise", 15, 2, 30),
+      ...rx("hamstring-stretch", 30, 1, 15, true),
+      ...rx("overhead-reach", 30, 1, 15, true),
+    ],
+  },
+  {
+    id: "morning-activation",
+    name: { en: "Morning activation", fr: "Réveil musculaire" },
+    about: { en: "Seven easy minutes to wake the body up.", fr: "Sept minutes tranquilles pour réveiller le corps." },
+    minutes: 7,
+    equipment: "none",
+    level: "beginner",
+    tags: ["morning", "low-impact"],
+    sets: [
+      ...rx("march", 60, 1, 10),
+      ...rx("squat", 10, 1, 20),
+      ...rx("arm-circles", 30, 1, 10, true),
+      ...rx("reverse-lunge", 10, 1, 20),
+      ...rx("calf-raise", 15, 1, 15),
+      ...rx("hamstring-stretch", 30, 1, 10, true),
+      ...rx("overhead-reach", 30, 1, 10, true),
+    ],
+  },
+  {
+    id: "intermediate-full-body",
+    name: { en: "Intermediate full body", fr: "Corps complet intermédiaire" },
+    about: {
+      en: "Squats, push-ups, lunges, mountain climbers, plank: 3 rounds.",
+      fr: "Squats, pompes, fentes, mountain climbers, planche : 3 séries.",
+    },
+    minutes: 25,
+    equipment: "none",
+    level: "intermediate",
+    sets: [
+      ...rx("squat", 15, 3, 45),
+      ...rx("push-up", 10, 3, 60),
+      ...rx("reverse-lunge", 20, 3, 45),
+      ...rx("mountain-climber", 30, 3, 30),
+      ...rx("plank", 40, 3, 30, true),
+    ],
+  },
   {
     id: "full-body-bw",
     name: { en: "Full body, no equipment", fr: "Corps complet, sans matériel" },

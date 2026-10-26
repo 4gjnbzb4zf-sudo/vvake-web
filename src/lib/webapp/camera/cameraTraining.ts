@@ -1,4 +1,4 @@
-// Copied from VVFit packages/game-core/src/cameraTraining.ts (322f91e 2026-10-21) by scripts/sync-camera-core.ts. Do not edit: re-sync.
+// Copied from VVFit packages/game-core/src/cameraTraining.ts (e628403d 2026-10-26) by scripts/sync-camera-core.ts. Do not edit: re-sync.
 /**
  * Custom trainings (ADR-0047): a video training series you build and share. A list of sets (a catalogue move or one
  * you taught, reps or a hold time, an intensity: a target heart zone, or an effort out of 10 when there's no

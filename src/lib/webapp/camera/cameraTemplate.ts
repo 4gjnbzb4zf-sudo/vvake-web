@@ -1,4 +1,4 @@
-// Copied from VVFit packages/game-core/src/cameraTemplate.ts (322f91e 2026-10-21) by scripts/sync-camera-core.ts. Do not edit: re-sync.
+// Copied from VVFit packages/game-core/src/cameraTemplate.ts (e628403d 2026-10-26) by scripts/sync-camera-core.ts. Do not edit: re-sync.
 /**
  * Custom moves (ADR-0047): "teach VVake a new move". You do 3 to 5 reps (or hold the position a few seconds) in front
  * of the camera; VVake keeps a template made of numbers only (joint-angle curves of the joints that moved, the rep's

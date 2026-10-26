@@ -1,4 +1,4 @@
-// Copied from VVFit packages/game-core/src/ugc.ts (322f91e 2026-10-21) by scripts/sync-camera-core.ts. Do not edit: re-sync.
+// Copied from VVFit packages/game-core/src/ugc.ts (e628403d 2026-10-26) by scripts/sync-camera-core.ts. Do not edit: re-sync.
 /**
  * User-generated text (ADR-0047: custom move names, training names and descriptions, tags, public names): the
  * store rules (App Store 1.2, Google Play UGC policy) ask for a filter, reporting, blocking and takedown. This is the

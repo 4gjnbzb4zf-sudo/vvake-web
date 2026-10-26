@@ -20,6 +20,11 @@ mkdirSync(out, { recursive: true });
 
 // The camera files, and the public text filter they use (ugc.ts: custom move and training names, ADR-0047).
 const EXTRA = ["ugc.ts"];
+// Single pure helpers taken out of bigger game-core files (whose other imports the web doesn't carry): the function
+// and the constants it uses are cut verbatim into one small file per source.
+const EXTRACTS: Record<string, { file: string; out: string; names: string[] }> = {
+  "voiceCommands.js": { file: "voiceCommands.ts", out: "voiceNormalize", names: ["COMBINING", "normalizeVoice"] },
+};
 const copied = (f: string) => /^camera[A-Z]\w*\.ts$/.test(f) || EXTRA.includes(f);
 const files = readdirSync(join(core, "src")).filter(copied);
 if (!files.includes("cameraPose.ts")) throw new Error(`no game-core camera files in ${core}/src`);
@@ -34,11 +39,28 @@ const rev = (() => {
 for (const f of files) {
   const src = readFileSync(join(core, "src", f), "utf8");
   for (const m of src.matchAll(/from '\.\/([\w.]+)'/g))
-    if (!copied(m[1]!.replace(/\.js$/, ".ts"))) throw new Error(`${f} imports ./${m[1]}: only camera files can be copied`);
-  const body = src.replace(/from '\.\/(camera\w+|ugc)\.js'/g, "from './$1'");
+    if (!copied(m[1]!.replace(/\.js$/, ".ts")) && !EXTRACTS[m[1]!])
+      throw new Error(`${f} imports ./${m[1]}: only camera files can be copied`);
+  let body = src.replace(/from '\.\/(camera\w+|ugc)\.js'/g, "from './$1'");
+  for (const [from, x] of Object.entries(EXTRACTS)) body = body.split(`from './${from}'`).join(`from './${x.out}'`);
   writeFileSync(
     join(out, f),
     `// Copied from VVFit packages/game-core/src/${f} (${rev}) by scripts/sync-camera-core.ts. Do not edit: re-sync.\n${body}`,
+  );
+}
+for (const x of Object.values(EXTRACTS)) {
+  const src = readFileSync(join(core, "src", x.file), "utf8");
+  const lines = src.split("\n");
+  const parts = x.names.map((n) => {
+    const start = lines.findIndex((l) => new RegExp(`^(export )?(const|function) ${n}\\b`).test(l));
+    if (start < 0) throw new Error(`${n} not found in ${x.file}`);
+    // A one-line constant, or a block up to its closing brace at column 0.
+    const end = lines[start]!.trimEnd().endsWith(";") ? start : lines.findIndex((l, i) => i > start && l === "}");
+    return lines.slice(start, end + 1).join("\n");
+  });
+  writeFileSync(
+    join(out, `${x.out}.ts`),
+    `// Cut from VVFit packages/game-core/src/${x.file} (${rev}) by scripts/sync-camera-core.ts. Do not edit: re-sync.\n${parts.join("\n\n")}\n`,
   );
 }
 console.log(`camera: ${files.length} game-core files copied (${rev})`);

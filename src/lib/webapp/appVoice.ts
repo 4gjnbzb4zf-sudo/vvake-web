@@ -1,5 +1,6 @@
 import { cameraMove } from "./camera/cameraMoves";
 import { flowLine, type FlowEvent } from "./camera/cameraFlow";
+import { viewAsk } from "./camera/cameraPrep";
 
 /**
  * One coach voice everywhere (voice-one): the parts of the monorepo's game-core appVoice.ts the web needs, word for
@@ -57,6 +58,11 @@ export function flowSpeech(e: FlowEvent, lang: VoiceLang): CoachSpeech | null {
           : part.free(lang);
     return { text, parts: [part.move(e.move, lang), target, ...(t?.zone ? [part.zone(t.zone)] : [])] };
   }
-  if (e.type === "rest" && e.next) return { text, parts: [part.rest(e.restS, lang), part.next(e.next.move, lang)] };
+  if (e.type === "rest" && e.next) {
+    // A new move: its camera angle too ("Turn sideways so I can track you."), a fixed line of its own.
+    const m = e.newMove ? cameraMove(e.next.move) : null;
+    const ask = m ? viewAsk(m, lang) : null;
+    return { text, parts: [part.rest(e.restS, lang), part.next(e.next.move, lang), ...(ask ? [ask] : [])] };
+  }
   return { text };
 }
