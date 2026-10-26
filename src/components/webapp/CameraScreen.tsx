@@ -8,13 +8,16 @@ import { localTz, type UploadReply } from "@/lib/webapp/api";
 import { playQuick, hush, prefetchSpeech, sayLine, unlockAudio, warmCamera, warmVoice } from "@/lib/webapp/coachAudio";
 import { cameraLikelyLines } from "@/lib/webapp/voiceLikely";
 import { flowSpeech, type CoachSpeech } from "@/lib/webapp/appVoice";
+import { canListen, listen } from "@/lib/webapp/voice";
 import { bleSupport } from "@/lib/webapp/ble";
 import { zoneOf } from "@/lib/webapp/heart";
 import { heartForSport } from "@/lib/webapp/sportHeart";
 import { enqueue } from "@/lib/webapp/store";
 import { SAMPLE_EVERY_S, spend, uuid, type Sample, type WebSession } from "@/lib/webapp/workout";
 import {
+  betterLine,
   cueLine,
+  FormCoach,
   FRAMING_NOTE,
   FRAMING_TEXT,
   FRAMING_TIP_TEXT,
@@ -23,7 +26,6 @@ import {
   framingLine,
   CuePacer,
   sayCues,
-  sayRep,
 } from "@/lib/webapp/camera/cameraCues";
 import { LIVENESS_TEXT, type LivenessKind } from "@/lib/webapp/camera/cameraLiveness";
 import { lookalikes } from "@/lib/webapp/camera/cameraDetect";
@@ -31,13 +33,22 @@ import { CAMERA_MOVES, cameraMove, EQUIPMENT_NAMES, FAMILY_NAMES, type MoveDef, 
 import { demoFrameAt, demoLoop, moveTip, targetText, type DemoLoop } from "@/lib/webapp/camera/cameraDemo";
 import {
   applyLoads,
+  CAMERA_VOICE_HELP,
+  cameraVoiceAction,
   flowLine,
   flowPlan,
   HandsFreeWorkout,
   manualSetMs,
+  PromptVoice,
+  repLine,
+  trackingNotes,
   weightedMoves,
+  type CameraVoiceAction,
   type FlowEvent,
+  type SetNote,
 } from "@/lib/webapp/camera/cameraFlow";
+import { easierOf, moveTips, positionLine, promptLine } from "@/lib/webapp/camera/cameraPrep";
+import { moveSetup, setupLine, type ReadyPrompt, type ReadyReport } from "@/lib/webapp/camera/cameraReady";
 import { cameraTotals, cameraVolumeKg, type CameraSummary } from "@/lib/webapp/camera/cameraPoints";
 import { CameraHeart, clockText, heartSourceLabel, heartZoneLabel, holdText, type CameraHeartStats } from "@/lib/webapp/camera/cameraHeart";
 import {
@@ -374,6 +385,8 @@ interface LiveResult {
   heart: CameraHeartStats | null;
   /** The loads used per move (the last ones remembered in this browser, editable on the summary). */
   loads: Record<string, number>;
+  /** How each set was tracked (cameraFlow.ts SetNote): the summary's Tracking card. */
+  notes: SetNote[];
 }
 
 /** A custom training run from its page or a share link (ADR-0047): its sets, its custom moves, the challenge if any. */
@@ -699,8 +712,13 @@ function Setup({
   );
 }
 
-const placement = (m: Pick<MoveDef, "view">, c: { placeSide: string; placeFront: string; placeEither: string }) =>
-  m.view === "side" ? c.placeSide : m.view === "front" ? c.placeFront : c.placeEither;
+/** Where the camera goes: the angles the move is counted from (cameraReady.ts moveSetup; push-ups and lunges count
+ * facing the camera too), else the move's own view. */
+const placement = (m: MoveDef, c: { placeSide: string; placeFront: string; placeEither: string }) => {
+  const v = moveSetup(m).views;
+  const view = v.length > 1 ? "either" : (v[0] ?? m.view);
+  return view === "side" ? c.placeSide : view === "front" ? c.placeFront : c.placeEither;
+};
 
 function Choice({ on, title, detail, onClick }: { on: boolean; title: string; detail: string; onClick: () => void }) {
   return (
@@ -1041,6 +1059,14 @@ function Live({
   const flow = flowRef.current;
   const e = flow.engine;
   const pacer = useRef(new CuePacer());
+  // Form cues after a rep, conservatively (cameraCues.ts FormCoach: only from reps seen surely, a fault on 2 of the
+  // last 3, at most twice a set, and "Good depth now." once it's fixed).
+  const formCoach = useRef(new FormCoach());
+  // The get-ready and lost-tracking lines, said calmly (the screen always shows them).
+  const promptVoice = useRef(new PromptVoice());
+  // The rest's preview of the next move: replayed from here; hidden by "Skip preview".
+  const [previewAt, setPreviewAt] = useState(0);
+  const [hidePreview, setHidePreview] = useState(false);
   const framingVoice = useRef(new FramingVoice());
   const framingState = useRef<Framing>("none");
   const finished = useRef(false);
@@ -1096,12 +1122,18 @@ function Live({
       strap: strap.current,
       heart: heart.stats(),
       loads: { ...flow.allLoads },
+      notes: [...flow.notes],
     });
   }, [flow, e, onDone, heart]);
 
-  /** What the flow said: the screen and the coach voice follow. */
+  /** What the flow said: the screen and the coach voice follow (`quiet`: a voice control already answers aloud). */
   const handle = useCallback(
-    (evs: FlowEvent[], at: number) => {
+    (evs: FlowEvent[], at: number, quiet = false) => {
+      const say = (line: string | CoachSpeech | null, essential = false) => {
+        if (!quiet) speak(line, essential);
+      };
+      // A prompt about the camera, said with "the camera" for "the phone" (the screen says the same).
+      const sayPrompt = (line: string | null) => say(line ? forCamera(line, lang) : null, true);
       for (const x of evs) {
         switch (x.type) {
           case "framing":
@@ -1110,12 +1142,20 @@ function Live({
             setFraming({ framing: x.framing, missing: x.missing, tips: x.tips });
             break;
           case "rep": {
-            const c1 = sayCues(voiceRef.current) ? pacer.current.pick(at, x.cues) : null;
+            const c1 = sayCues(voiceRef.current)
+              ? formCoach.current.rep(at, { cues: x.cues, ...(x.quality ? { quality: x.quality } : {}) })
+              : null;
             if (c1) {
-              const line = cueLine(c1, e.set?.move ?? undefined, lang);
+              const line = c1.kind === "cue" ? cueLine(c1.id, e.set?.move ?? undefined, lang) : betterLine(c1.id, lang);
               setCue(line);
-              speak(line);
-            } else if (sayRep(x.n, voiceRef.current)) playQuick(String(x.n));
+              say(line);
+            } else {
+              // Progress, not every rep: "10 of 15 done.", "Last one.", a cheer at halfway (tester report 2026-10-26).
+              const line = repLine(x.n, flow.plan ? flow.target?.reps : undefined, voiceRef.current, lang, flow.idx);
+              if (line && /^\d+$/.test(line)) {
+                if (!quiet) playQuick(line);
+              } else say(line, true);
+            }
             break;
           }
           case "partial": {
@@ -1123,60 +1163,102 @@ function Live({
             if (c2) {
               const line = cueLine("depth", e.set?.move ?? undefined, lang);
               setCue(line);
-              speak(line);
+              say(line);
             }
             break;
           }
           case "hold":
-            if (x.s > 0 && x.s % 10 === 0) speak(fmt(c.say.seconds, { n: x.s }), true);
+            if (x.s > 0 && x.s % 10 === 0) say(fmt(c.say.seconds, { n: x.s }), true);
             break;
           case "holdCue": {
             const c3 = sayCues(voiceRef.current) ? pacer.current.pick(at, x.cues) : null;
             if (c3) {
               const line = cueLine(c3, e.set?.move ?? undefined, lang);
               setCue(line);
-              speak(line);
+              say(line);
             }
             break;
           }
           case "liveness":
             setCheck({ kind: x.kind, at });
-            speak(LIVENESS_TEXT[x.kind][lang], true);
+            say(LIVENESS_TEXT[x.kind][lang], true);
             break;
           case "livenessResult":
             setCheck(null);
-            speak(x.result.ok ? c.say.thanks : c.say.missed, true);
+            say(x.result.ok ? c.say.thanks : c.say.missed, true);
+            break;
+          case "setup":
+            promptVoice.current.newExercise();
+            if (x.prompt && x.prompt !== "ready" && promptVoice.current.allow(x.prompt, at)) sayPrompt(flowLine(x, lang));
+            break;
+          case "readyPrompt":
+            if (x.prompt && x.prompt !== "ready" && promptVoice.current.allow(x.prompt, at)) sayPrompt(flowLine(x, lang));
+            break;
+          case "ready":
+          case "found":
+            break;
+          case "getReady":
+            promptVoice.current.newExercise();
+            sayPrompt(flowLine(x, lang));
+            break;
+          case "holdState":
+            if (x.state === "paused") say(flowLine(x, lang), true);
+            break;
+          case "lost":
+            if (promptVoice.current.allow(`lost:${x.prompt ?? ""}`, at)) sayPrompt(flowLine(x, lang));
+            break;
+          case "restChanged":
+          case "swapped":
+            say(flowLine(x, lang), true);
+            break;
+          case "rest":
+            promptVoice.current.newExercise();
+            setPreviewAt(at);
+            setHidePreview(false);
+            say(flowSpeech(x, lang), true);
             break;
           case "countdown":
-            if (voiceRef.current !== "off") playQuick(String(x.n));
+            if (voiceRef.current !== "off" && !quiet) playQuick(String(x.n));
             break;
           case "go":
-          case "setEnd":
+            promptVoice.current.newExercise();
             pacer.current = new CuePacer();
+            formCoach.current.newSet();
             zonePacer.current = new ZoneCuePacer(); // a new set: the next line can be said again
             setCue(null);
-            speak(flowLine(x, lang), true);
+            say(flowSpeech(x, lang), true);
+            break;
+          case "setEnd":
+            setCue(null);
+            say(flowSpeech(x, lang), true);
             break;
           case "restHeart": {
             // The rest follows the heart: said (in the voice mode) and shown under the rest timer for a few seconds.
             const line = flowLine(x, lang);
             if (line) setHeartLine({ text: line, at });
-            speak(line, true);
+            say(line, true);
             break;
           }
           case "done":
-            speak(flowLine(x, lang), true);
+            say(flowLine(x, lang), true);
             // The summary follows on its own (the voice says the last line first).
             window.setTimeout(finish, 1800);
             break;
           default:
-            // The demo and the rest say short recorded parts ("Squat." "15 reps." / "Rest 60 seconds." "Next: Squat.").
-            speak(flowSpeech(x, lang), true);
+            // The demo says short recorded parts ("Squat." "15 reps.").
+            say(flowSpeech(x, lang), true);
         }
       }
     },
-    [e, lang, speak, fmt, c, finish],
+    [e, flow, lang, speak, fmt, c, finish, setPreviewAt, setHidePreview],
   );
+
+  /** A control (tap or voice): what the flow did, shown and said. */
+  const act = (evs: FlowEvent[], quiet = false) => {
+    unlockAudio();
+    handle(evs, Date.now(), quiet);
+    bump();
+  };
 
   // The one click was Start: from here the workout runs on its own. The one positioning line; audio off at the end.
   useEffect(() => {
@@ -1244,13 +1326,91 @@ function Live({
     return () => cam.setListener(null);
   }, [cam, onPose]);
 
-  const togglePause = () => {
+  const togglePause = (quiet = false) => {
     unlockAudio();
     if (paused) flow.resume(Date.now());
     else flow.pause(Date.now());
     cam.setPaused(!paused);
     setPaused(!paused);
-    speak(paused ? t.workout.resumed : t.workout.paused, true);
+    if (!quiet) speak(paused ? t.workout.resumed : t.workout.paused, true);
+  };
+
+  // Voice controls ("pause", "more rest", "skip", "I'm ready", "replay the demo", "easier"), where the browser can
+  // listen (cameraFlow.ts cameraVoiceAction, the phone's words): one sentence per click on Voice, answered aloud.
+  const [micOk] = useState(() => canListen());
+  const [listening, setListening] = useState(false);
+  const [heard, setHeard] = useState<{ text: string; at: number } | null>(null);
+  const mic = useRef<{ stop(): void } | null>(null);
+  useEffect(() => () => mic.current?.stop(), []);
+  const voiceAction = (a: CameraVoiceAction): string => {
+    const at = Date.now();
+    const r = c.voiceReply;
+    switch (a) {
+      case "pause":
+        if (!paused) togglePause(true);
+        return r.paused;
+      case "resume":
+        if (paused) togglePause(true);
+        return r.back;
+      case "more_rest": {
+        const ev = flow.extendRest(15, at);
+        act(ev, true);
+        return (ev.length && flowLine(ev[0]!, lang)) || r.notResting;
+      }
+      case "skip": {
+        const ev = flow.skip(at);
+        act(ev, true);
+        return ev.length || flow.phase !== "done" ? r.skipping : r.nothingToSkip;
+      }
+      case "start": {
+        const ev = flow.startNow(at);
+        act(ev, true);
+        return ev.length ? r.go : r.going;
+      }
+      case "replay":
+        if (flow.phase === "rest") {
+          setPreviewAt(at);
+          setHidePreview(false);
+          return r.watch;
+        }
+        act(flow.replayDemo(at), true);
+        return r.watch;
+      case "easier": {
+        const tg = flow.target;
+        const ez = tg ? easierOf(tg.move, lang) : null;
+        const ev = flow.swapEasier(at, lang);
+        act(ev, true);
+        if (ev.length) return flowLine(ev[0]!, lang) ?? r.watch;
+        return ez ? ez.tip : r.noEasier;
+      }
+    }
+  };
+  const toggleListening = () => {
+    unlockAudio();
+    if (mic.current) {
+      mic.current.stop();
+      return;
+    }
+    let said = "";
+    const h = listen(
+      lang,
+      (text, final) => {
+        if (final) said = text;
+      },
+      () => {
+        mic.current = null;
+        setListening(false);
+        if (!said) return;
+        const a = cameraVoiceAction(said);
+        const reply = a ? voiceAction(a) : `${c.voiceReply.unknown} ${CAMERA_VOICE_HELP[lang]}`;
+        setHeard({ text: reply, at: Date.now() });
+        speak(reply, true);
+      },
+    );
+    if (h) {
+      mic.current = h;
+      setListening(true);
+    }
   };
 
   const set = e.set;
@@ -1287,6 +1447,13 @@ function Live({
   const demoLoopNo = Math.min(2, 1 + Math.floor((now - flow.phaseStartMs) / (flow.demo?.loopMs ?? 3000)));
   // The big number also fits the middle's height (between the controls and the heart tile), with room for its lines.
   const fit = (reserved: number) => middleFitPx(middleH, reserved);
+  const ready = flow.readiness;
+  // A planned hold the camera times: waiting for the position, holding, or paused by a real break.
+  const hold = phase === "set" && move?.kind === "hold" && move.judge !== "manual" && !flow.free;
+  const holdWaitS = hold && flow.holdState === "waiting" ? (now - flow.phaseStartMs) / 1000 : 0;
+  const lost = phase === "set" && flow.lost?.shown ? flow.lost : null;
+  const panel = phase === "setup" || phase === "rest";
+  const heardShown = heard && now - heard.at < 5000 ? heard.text : null;
 
   if (nothing)
     return (
@@ -1302,26 +1469,31 @@ function Live({
       <Preview cam={cam} frame={frame} outlineVisible={outlineVisible && phase !== "demo"} className="min-h-0 flex-1">
         {/* The move's demo, full screen, played twice: watch, then it's your turn. */}
         {phase === "demo" && targetDef && (
-          <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 bg-night px-4 pt-[calc(max(env(safe-area-inset-top),0.75rem)+4rem)] pb-6 text-center">
+          <div className="absolute inset-0 flex flex-col items-center justify-center-safe gap-2 overflow-y-auto bg-night px-4 pt-[calc(max(env(safe-area-inset-top),0.75rem)+4rem)] pb-6 text-center">
             <p className="text-sm font-semibold tracking-widest text-sky-fg uppercase">{fmt(c.watch, { n: demoLoopNo })}</p>
-            <DemoFigure loop={flow.demo} startedAt={flow.phaseStartMs} className="h-[42vh] max-h-[460px] w-full max-w-md" />
+            <DemoFigure loop={flow.demo} startedAt={flow.phaseStartMs} className="h-[36vh] max-h-[420px] w-full max-w-md" />
             <p className="font-display text-4xl leading-tight font-bold text-white sm:text-6xl">{targetDef.name[lang]}</p>
             <p className="font-display text-2xl font-bold text-volt sm:text-4xl">{targetText(target, targetDef, lang)}</p>
             <ZoneTarget target={target} zoneNow={null} lang={lang} />
             {so.of > 1 && <p className="text-lg text-white">{fmt(c.setOf, { n: so.n, of: so.of })}</p>}
             <p className="max-w-xl text-lg text-white/85 sm:text-2xl">{moveTip(targetDef, lang)}</p>
+            <CameraAngle move={targetDef} compact />
           </div>
         )}
 
         {/* The HUD in one column, so nothing overlaps at 320 px wide or on a short screen: the controls at the top
-            (clear of the notch / Dynamic Island), the middle taking what's left, the heart tile and the next move's
-            preview in the bottom row. */}
+            (clear of the notch / Dynamic Island), the middle taking what's left, the heart tile in the bottom row. */}
         <div className="pointer-events-none absolute inset-0 flex flex-col pr-[env(safe-area-inset-right)] pl-[env(safe-area-inset-left)]">
           {/* Top: the controls, the clock, the strap's heart rate. */}
           <div className="pointer-events-auto shrink-0 space-y-2 p-3 pt-[max(env(safe-area-inset-top),0.75rem)]">
             <div className="flex flex-wrap items-center gap-2">
               <TopBtn onClick={() => setConfirmEnd(true)}>■ {c.end}</TopBtn>
-              <TopBtn onClick={togglePause}>{paused ? `▶ ${c.resume}` : `❚❚ ${c.pause}`}</TopBtn>
+              <TopBtn onClick={() => togglePause()}>{paused ? `▶ ${c.resume}` : `❚❚ ${c.pause}`}</TopBtn>
+              {micOk && (
+                <TopBtn onClick={toggleListening} pressed={listening}>
+                  {listening ? `● ${c.listening}` : c.voice}
+                </TopBtn>
+              )}
               {/* Not during the demo (no outline there): one row of controls at 320 px, clear of the demo's lines. */}
               {phase !== "demo" && (
                 <TopBtn onClick={() => setOutlineOn(!outlineOn)} pressed={outlineOn}>
@@ -1334,19 +1506,52 @@ function Live({
                 {clockText(sessionS * 1000)}
               </span>
             </div>
-            {framingNow.framing !== "ok" && phase !== "demo" ? (
+            {heardShown && (
+              <p role="status" className="rounded-xl bg-black/80 px-3 py-2 text-center text-sm text-white">
+                {heardShown}
+              </p>
+            )}
+            {listening && !heardShown && (
+              <p className="rounded-xl bg-black/80 px-3 py-2 text-center text-sm text-white">{CAMERA_VOICE_HELP[lang]}</p>
+            )}
+            {/* During a set: what VVake lost sight of (and what to change); else the framing guide. */}
+            {lost ? (
+              <p role="status" className="rounded-xl bg-pulse/90 px-3 py-2 text-center font-semibold text-ink">
+                {forCamera(flowLine({ type: "lost", prompt: lost.prompt }, lang) ?? "", lang)}
+              </p>
+            ) : framingNow.framing !== "ok" && (phase === "set" || phase === "ready" || phase === "countdown") ? (
               <FramingTips shown={framingNow} compact={phase === "set"} lang={lang} />
             ) : null}
             {paused && <p className="rounded-xl bg-butter/90 px-3 py-2 text-center font-semibold text-ink">{c.paused}</p>}
             {cam.slow && <p className="rounded-xl bg-black/70 px-3 py-1 text-center text-xs text-white">{c.slow}</p>}
           </div>
 
-          {/* The middle: big enough to read from 2–3 m. */}
+          {/* The middle: big enough to read from 2–3 m. The setup and the rest scroll on a short screen. */}
           {phase !== "demo" && (
             <div
               ref={middle}
-              className="flex min-h-0 flex-1 flex-col items-center justify-center-safe overflow-hidden px-3 text-center [text-shadow:0_2px_8px_#000]"
+              className={cn(
+                "flex min-h-0 flex-1 flex-col items-center justify-center-safe px-3 text-center [text-shadow:0_2px_8px_#000]",
+                panel ? "pointer-events-auto overflow-y-auto" : "overflow-hidden",
+              )}
             >
+              {/* Before each set: where to put the camera, what VVake still needs, then it counts down on its own. */}
+              {phase === "setup" && targetDef && (
+                <div className="flex w-full max-w-xl flex-col items-stretch gap-2 rounded-2xl bg-black/50 p-3 [text-shadow:none]">
+                  <p className="text-sm font-semibold tracking-widest text-sky-fg uppercase">{c.getReady}</p>
+                  <p className="font-display text-3xl leading-tight font-bold text-white sm:text-5xl">{targetDef.name[lang]}</p>
+                  <p className="text-lg text-white">
+                    {[targetText(target, targetDef, lang), so.of > 1 ? fmt(c.setOf, { n: so.n, of: so.of }) : ""]
+                      .filter(Boolean)
+                      .join(" · ")}
+                  </p>
+                  <ReadyBanner ready={ready} move={targetDef} />
+                  <ReadyChecks ready={ready} move={targetDef} />
+                  <CameraAngle move={targetDef} />
+                  {target?.easier ? <EasierLine id={targetDef.id} /> : null}
+                  <p className="text-sm text-white/80">{c.posePrivacy}</p>
+                </div>
+              )}
               {phase === "countdown" && (
                 <>
                   <p className="font-display text-4xl font-bold text-white sm:text-5xl">{targetDef ? targetDef.name[lang] : ""}</p>
@@ -1371,14 +1576,26 @@ function Live({
                           : String(set?.reps ?? 0)
                     }
                     small={144}
-                    fit={fit(cue ? 180 : 130)}
+                    fit={fit(cue || hold ? 180 : 130)}
                     large={192}
+                    dim={hold && flow.holdState !== "holding"}
                   />
                   {target && (
                     <p className="text-2xl font-semibold text-white">
                       {target.reps ? fmt(c.of, { n: target.reps }) : target.holdS ? fmt(c.ofS, { n: target.holdS }) : ""}
                     </p>
                   )}
+                  {hold && flow.holdState === "waiting" && move && (
+                    <p role="status" className="mt-1 max-w-xl rounded-xl bg-black/70 px-4 py-1 text-lg font-semibold text-white">
+                      {`${positionLine(move, lang)} ${c.holdWaiting}`}
+                    </p>
+                  )}
+                  {hold && flow.holdState === "paused" && (
+                    <p role="status" className="mt-1 rounded-xl bg-butter/90 px-4 py-1 text-lg font-semibold text-ink [text-shadow:none]">
+                      {c.holdPaused}
+                    </p>
+                  )}
+                  {hold && flow.manualHold && <p className="text-lg text-white">{c.timedByYou}</p>}
                   {so.of > 1 && <p className="text-lg text-white">{fmt(c.setOf, { n: so.n, of: so.of })}</p>}
                   <ZoneTarget target={target} zoneNow={heartNow?.zone ?? null} lang={lang} />
                   {zoneSaid && now - zoneSaid.at < 6000 && (
@@ -1394,20 +1611,33 @@ function Live({
                   {cue && <p className="mt-3 rounded-full bg-pulse/90 px-5 py-2 text-xl font-semibold text-ink">{cue}</p>}
                 </>
               )}
+              {/* The rest: the timer, the next exercise previewed (its controls in the bar below, never covered). */}
               {phase === "rest" && (
                 <>
                   <p className="font-display text-4xl font-bold text-white">{c.rest}</p>
-                  <BigDigits text={clockText(Math.max(0, restLeft))} small={128} large={176} fit={fit(heartLineShown ? 160 : 110)} />
+                  <BigDigits
+                    text={clockText(Math.max(0, restLeft))}
+                    small={112}
+                    large={160}
+                    fit={fit(nextDef && !hidePreview ? 330 : heartLineShown ? 160 : 110)}
+                  />
                   {heartLineShown && (
                     <p role="status" className="mt-1 rounded-full bg-pulse/90 px-5 py-2 text-xl font-semibold text-ink">
                       {heartLineShown}
                     </p>
                   )}
-                  {nextDef ? (
-                    <>
+                  {nextDef && nextSet ? (
+                    hidePreview ? (
                       <p className="font-display text-3xl font-bold text-white">{fmt(c.next, { move: nextDef.name[lang] })}</p>
-                      <p className="text-xl text-white">{targetText(nextSet, nextDef, lang)}</p>
-                    </>
+                    ) : (
+                      <NextPreview
+                        def={nextDef}
+                        next={nextSet}
+                        startedAt={previewAt || flow.phaseStartMs}
+                        prep={flow.inPrep}
+                        ready={ready}
+                      />
+                    )
                   ) : (
                     <p className="text-2xl text-white">{flow.free ? c.restReady : ""}</p>
                   )}
@@ -1425,7 +1655,7 @@ function Live({
 
           {phase === "demo" && <span className="flex-1" />}
 
-          {/* Bottom row: the heart tile and the outline button on the left, the next move's preview on the right. */}
+          {/* Bottom row: the heart tile and the outline button. */}
           <div className="flex shrink-0 items-end justify-between gap-2 p-3">
             <div className="flex min-w-0 flex-col items-start gap-2">
               {/* The strap's heart rate, readable from 2–3 m: bpm, the zone's colour and name, the source. */}
@@ -1438,7 +1668,7 @@ function Live({
                   zoneLabel={heartNow ? heartZoneLabel(heartNow.zone, lang) : null}
                 />
               )}
-              {!outlineVisible && phase !== "demo" && (
+              {!outlineVisible && (phase === "set" || phase === "ready" || phase === "countdown") && (
                 <button
                   type="button"
                   onClick={() => outline.show(Date.now())}
@@ -1448,8 +1678,6 @@ function Live({
                 </button>
               )}
             </div>
-            {/* The next move doing itself during the rest (a small preview). */}
-            {phase === "rest" && nextDef && <RestPreview move={nextDef.id} startedAt={flow.phaseStartMs} label={c.nextPreview} />}
           </div>
         </div>
 
@@ -1462,10 +1690,10 @@ function Live({
         )}
       </Preview>
 
-      {/* Bottom: optional only. The workout runs on its own; ±1 fixes a miscount, a chip names a weighted lookalike. */}
+      {/* Bottom: the controls, never needed. The workout runs on its own; Start now / Skip / more rest / easier when you
+          want them, ±1 fixes a miscount, a chip names a weighted lookalike. */}
       <div className="border-t border-line bg-night-2 pt-3 pr-[max(env(safe-area-inset-right),1rem)] pb-[max(env(safe-area-inset-bottom),0.75rem)] pl-[max(env(safe-area-inset-left),1rem)]">
         <div className="mx-auto max-w-xl space-y-2">
-          <Small>{c.keepOpen}</Small>
           {confirmEnd ? (
             <Card>
               <p className="font-display font-semibold">{c.endTitle}</p>
@@ -1491,6 +1719,66 @@ function Live({
                 )}
               </div>
             </Card>
+          ) : phase === "demo" ? (
+            <ControlRow>
+              <SmallBtn onClick={() => act(flow.skipPreview(Date.now()))}>{c.skipDemo}</SmallBtn>
+            </ControlRow>
+          ) : phase === "setup" && targetDef ? (
+            <>
+              <Btn variant="volt" className="w-full" onClick={() => act(flow.startNow(Date.now()))}>
+                ▶ {c.startNow}
+              </Btn>
+              <ControlRow>
+                <SmallBtn onClick={() => act(flow.replayDemo(Date.now()))}>{c.replayDemo}</SmallBtn>
+                {easierOf(targetDef.id, lang)?.move ? (
+                  <SmallBtn onClick={() => act(flow.swapEasier(Date.now(), lang))}>{c.easier}</SmallBtn>
+                ) : null}
+                <SmallBtn onClick={() => act(flow.skip(Date.now()))}>{c.skipExercise}</SmallBtn>
+              </ControlRow>
+            </>
+          ) : phase === "rest" ? (
+            <>
+              <ControlRow>
+                <SmallBtn onClick={() => act(flow.extendRest(15, Date.now()))}>+15 s</SmallBtn>
+                <SmallBtn onClick={() => act(flow.extendRest(30, Date.now()))}>+30 s</SmallBtn>
+                {!flow.free && (
+                  <span className="flex items-center gap-1">
+                    <SmallBtn label={c.restShorter} onClick={() => act(flow.setRestS(flow.restS - 15, Date.now()))}>
+                      −
+                    </SmallBtn>
+                    <span className="px-1 text-sm whitespace-nowrap tabular-nums">{fmt(c.restLen, { n: flow.restS })}</span>
+                    <SmallBtn label={c.restLonger} onClick={() => act(flow.setRestS(flow.restS + 15, Date.now()))}>
+                      +
+                    </SmallBtn>
+                  </span>
+                )}
+              </ControlRow>
+              {nextDef ? (
+                <ControlRow>
+                  <SmallBtn
+                    onClick={() => {
+                      setPreviewAt(Date.now());
+                      setHidePreview(false);
+                    }}
+                  >
+                    {c.replayDemo}
+                  </SmallBtn>
+                  <SmallBtn
+                    onClick={() => {
+                      if (!hidePreview) flow.skipPreview(Date.now());
+                      else flow.showPreview();
+                      setHidePreview(!hidePreview);
+                    }}
+                  >
+                    {hidePreview ? c.showPreview : c.skipPreview}
+                  </SmallBtn>
+                  {easierOf(nextDef.id, lang)?.move ? (
+                    <SmallBtn onClick={() => act(flow.swapEasier(Date.now(), lang))}>{c.easier}</SmallBtn>
+                  ) : null}
+                  <SmallBtn onClick={() => act(flow.skip(Date.now()))}>{c.skipRest}</SmallBtn>
+                </ControlRow>
+              ) : null}
+            </>
           ) : phase === "set" ? (
             <>
               {switchTo.length > 0 && (
@@ -1511,6 +1799,12 @@ function Live({
                   ))}
                 </div>
               )}
+              {/* The camera struggles with the hold: time it yourself (logged as timed by you). */}
+              {hold && !flow.manualHold && (flow.holdState === "paused" || holdWaitS >= 4) && (
+                <Btn variant="volt" className="w-full" onClick={() => act(flow.startHoldByHand(Date.now()))}>
+                  {flow.holdState === "paused" ? c.resumeTimer : c.startTimer}
+                </Btn>
+              )}
               <div className="flex items-center gap-2">
                 {move?.kind === "reps" && move.judge !== "manual" && (
                   <Btn
@@ -1524,7 +1818,7 @@ function Live({
                     −1
                   </Btn>
                 )}
-                <Small className="flex-1 text-center">{c.handsFreeHint}</Small>
+                <Small className="flex-1 text-center">{hold ? c.handsFreeHold : c.handsFreeHint}</Small>
                 {move?.kind === "reps" && move.judge !== "manual" && (
                   <Btn
                     variant="ghost"
@@ -1537,13 +1831,204 @@ function Live({
                     +1
                   </Btn>
                 )}
+                {flow.plan && <SmallBtn onClick={() => act(flow.skip(Date.now()))}>{c.skip}</SmallBtn>}
               </div>
             </>
           ) : (
             <Small className="text-center">{c.handsFreeHint}</Small>
           )}
+          <Small className="text-center">{c.keepOpen}</Small>
         </div>
       </div>
+    </div>
+  );
+}
+
+/** A row of small controls under the picture: wraps on a narrow screen, never covers the picture. */
+function ControlRow({ children }: { children: ReactNode }) {
+  return <div className="flex flex-wrap items-center justify-center gap-2">{children}</div>;
+}
+
+function SmallBtn({ onClick, children, label }: { onClick: () => void; children: ReactNode; label?: string }) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      aria-label={label}
+      className="min-h-10 min-w-10 rounded-full border border-line bg-surface px-3 text-sm font-semibold whitespace-nowrap hover:border-muted/60"
+    >
+      {children}
+    </button>
+  );
+}
+
+/**
+ * Where to put the camera for a move (tester report 2026-10-26; the phone's CameraAngle), readable from 2–3 m: the
+ * camera low or at waist height, the distance, you facing it or side-on; one line under it (cameraReady.ts setupLine).
+ */
+function CameraAngle({ move, compact }: { move: MoveDef; compact?: boolean }) {
+  const { t, lang } = useApp();
+  const c = t.camera;
+  const st = moveSetup(move);
+  const line = forCamera(setupLine(move, lang), lang);
+  const view = st.views.length > 1 ? "either" : (st.views[0] ?? "either");
+  const icon = compact ? "h-6 w-6" : "h-8 w-8";
+  return (
+    <div className="w-full max-w-md self-center rounded-xl bg-black/70 px-3 py-2 text-white [text-shadow:none]">
+      {st.views.length > 0 && (
+        <div aria-hidden className="flex items-end justify-center gap-2">
+          <span className={cn("flex flex-col items-center", !st.floor && (compact ? "pb-3" : "pb-5"))}>
+            <svg viewBox="0 0 24 24" className={cn(icon, "text-sky-fg")} fill="none" stroke="currentColor" strokeWidth={2}>
+              <rect x="3" y="7" width="18" height="12" rx="2" />
+              <circle cx="12" cy="13" r="3.5" />
+              <path d="M8 7l1.5-2.5h5L16 7" />
+            </svg>
+            <span className="text-[11px] text-white/80">{st.floor ? c.angleFloor : c.angleWaist}</span>
+          </span>
+          <span className={cn("flex max-w-36 flex-1 flex-col items-center", compact ? "pb-3" : "pb-4")}>
+            <span
+              className={cn("font-semibold tabular-nums", compact ? "text-xs" : "text-sm")}
+            >{`${st.distanceM[0]}–${st.distanceM[1]} m`}</span>
+            <span className="w-full border-b-2 border-dashed border-white/60" />
+          </span>
+          <span className="flex flex-col items-center">
+            <svg
+              viewBox="0 0 24 32"
+              className={cn(compact ? "h-8 w-6" : "h-11 w-8", "text-volt")}
+              fill="none"
+              stroke="currentColor"
+              strokeWidth={2.4}
+              strokeLinecap="round"
+            >
+              {view === "side" ? (
+                <>
+                  <circle cx="13" cy="5" r="3" />
+                  <path d="M12 9v11M12 12l4 4M12 20l3 10M12 20l-3 10" />
+                </>
+              ) : (
+                <>
+                  <circle cx="12" cy="5" r="3" />
+                  <path d="M12 9v11M5 13h14M12 20l-4 10M12 20l4 10" />
+                </>
+              )}
+            </svg>
+            <span className="text-[11px] text-white/80">
+              {view === "side" ? c.angleSide : view === "front" ? c.angleFacing : c.angleEither}
+            </span>
+          </span>
+        </div>
+      )}
+      <p className={cn("text-center font-semibold", compact ? "text-[13px]" : "text-[15px]")}>{line}</p>
+    </div>
+  );
+}
+
+type Readiness = (ReadyReport & { shown: ReadyPrompt | null }) | null;
+
+/** What to change before the set ("Turn sideways so I can track you."), or "You're in. Starting…" once VVake sees you. */
+function ReadyBanner({ ready, move }: { ready: Readiness; move: MoveDef }) {
+  const { t, lang } = useApp();
+  const ok = !!ready?.ready;
+  const p = ready?.shown ?? (ready ? null : "step_in");
+  return (
+    <p
+      role="status"
+      aria-live="polite"
+      className={cn(
+        "rounded-xl px-3 py-2 text-center text-lg font-semibold [text-shadow:none] sm:text-xl",
+        ok ? "bg-volt/95 text-ink" : "bg-black/85 text-white",
+      )}
+    >
+      {ok ? t.camera.youreIn : p ? forCamera(promptLine(p, move, lang), lang) : t.camera.holdStill}
+    </p>
+  );
+}
+
+/** In the picture · the right angle · in position (holds and floor moves): each ticked as VVake sees it. */
+function ReadyChecks({ ready, move }: { ready: Readiness; move: MoveDef }) {
+  const c = useApp().t.camera;
+  // In the picture once the only thing left is the angle or the position (cameraReady.ts readiness order).
+  const p = ready?.prompt;
+  const framed = !!ready && (ready.ready || p === "turn_sideways" || p === "face_phone" || p === "get_in_position");
+  const angle = framed && p !== "turn_sideways" && p !== "face_phone";
+  const setup = moveSetup(move);
+  const views = setup.views;
+  const items: [string, boolean][] = [
+    [c.inPicture, framed],
+    [views.length === 1 ? (views[0] === "side" ? c.sideOn : c.facingCamera) : c.anyAngle, angle],
+  ];
+  if (move.kind === "hold" || setup.floor) items.push([c.inPosition, !!ready?.inPosition]);
+  return (
+    <ul className="flex flex-wrap justify-center gap-1.5 [text-shadow:none]">
+      {items.map(([label, on]) => (
+        <li
+          key={label}
+          className={cn("rounded-full px-3 py-1 text-sm font-semibold", on ? "bg-volt/90 text-ink" : "bg-black/75 text-white")}
+        >
+          {`${on ? "✓" : "·"} ${label}`}
+        </li>
+      ))}
+    </ul>
+  );
+}
+
+/** The easier way, said where the plan asks for it (a chair squat in the beginner routine). */
+function EasierLine({ id }: { id: string }) {
+  const { t, lang, fmt } = useApp();
+  const ez = easierOf(id, lang);
+  if (!ez) return null;
+  return <p className="text-base text-butter-fg">{fmt(t.camera.easierWay, { tip: ez.tip })}</p>;
+}
+
+/**
+ * The rest's preview of the next exercise: its name and target, its demo looping, where to put the camera, one or two
+ * form tips; in the last seconds, "get into position" and what VVake still needs.
+ */
+function NextPreview({
+  def,
+  next,
+  startedAt,
+  prep,
+  ready,
+}: {
+  def: MoveDef;
+  next: { reps?: number; holdS?: number; easier?: boolean };
+  startedAt: number;
+  prep: boolean;
+  ready: Readiness;
+}) {
+  const { t, lang } = useApp();
+  const loop = useMemo(() => demoLoop(def.id), [def.id]);
+  const tips = moveTips(def, lang);
+  return (
+    <div
+      className={cn(
+        "mt-2 flex w-full max-w-md flex-col gap-2 rounded-2xl bg-black/70 p-3 text-white [text-shadow:none]",
+        prep && "ring-2 ring-volt",
+      )}
+    >
+      <p className="text-sm font-semibold tracking-widest text-sky-fg uppercase">{prep ? t.camera.getIntoPosition : t.camera.nextUp}</p>
+      <p className="font-display text-2xl font-bold sm:text-3xl">{def.name[lang]}</p>
+      <p className="text-lg">{targetText(next, def, lang)}</p>
+      <div className="flex items-center gap-3 text-left">
+        <DemoFigure
+          loop={loop}
+          startedAt={startedAt}
+          className="h-32 w-24 shrink-0 [@media(min-height:800px)]:h-40 [@media(min-height:800px)]:w-28"
+        />
+        <ul className="flex-1 space-y-1 text-sm">
+          {tips.map((x) => (
+            <li key={x}>{`• ${x}`}</li>
+          ))}
+          {next.easier ? (
+            <li>
+              <EasierLine id={def.id} />
+            </li>
+          ) : null}
+        </ul>
+      </div>
+      <CameraAngle move={def} compact />
+      {prep && <ReadyBanner ready={ready} move={def} />}
     </div>
   );
 }
@@ -1609,22 +2094,6 @@ function DemoFigure({ loop, startedAt, className }: { loop: DemoLoop | null; sta
   );
 }
 
-/** The next move, small, doing itself (the rest screen's preview). */
-function RestPreview({ move, startedAt, label }: { move: string; startedAt: number; label: string }) {
-  const loop = useMemo(() => demoLoop(move), [move]);
-  return (
-    <div className="pointer-events-none flex shrink-0 flex-col items-center rounded-2xl bg-black/70 p-2">
-      {/* Smaller on a short or narrow screen, so the rest's countdown keeps its room. */}
-      <DemoFigure
-        loop={loop}
-        startedAt={startedAt}
-        className="h-28 w-20 [@media(min-height:700px)]:h-40 [@media(min-height:700px)]:w-28 sm:[@media(min-height:800px)]:h-56 sm:[@media(min-height:800px)]:w-40"
-      />
-      <span className="text-sm font-semibold text-white">{label}</span>
-    </div>
-  );
-}
-
 function TopBtn({ onClick, children, pressed }: { onClick: () => void; children: ReactNode; pressed?: boolean }) {
   return (
     <button
@@ -1667,12 +2136,15 @@ function BigDigits({
   small,
   large,
   fit,
+  dim,
   className,
 }: {
   text: string;
   small: number;
   large: number;
   fit?: number | null;
+  /** Greyed (a hold's timer waiting or paused). */
+  dim?: boolean;
   className?: string;
 }) {
   const ref = useRef<HTMLDivElement>(null);
@@ -1701,7 +2173,7 @@ function BigDigits({
   return (
     <div ref={ref} className="w-full overflow-hidden">
       <p
-        className={cn("font-display leading-none font-bold whitespace-nowrap text-volt tabular-nums", className)}
+        className={cn("font-display leading-none font-bold whitespace-nowrap tabular-nums", dim ? "text-white/65" : "text-volt", className)}
         style={{ fontSize: px ? `${px}px` : bigNumberFallback(text, small) }}
       >
         {text}
@@ -1909,6 +2381,7 @@ function Summary({ result, training }: { result: LiveResult; training?: Training
           </div>
         </Card>
       )}
+      <TrackingCard notes={result.notes} summary={summary} />
       {training && <TrainingRunCard training={training.training} summary={summary} heart={result.heart} run={run} />}
       <Card tone="volt">
         <Kicker tone="volt">{strapHeart ? c.heartPointsTitle : c.cameraPointsTitle}</Kicker>
@@ -1957,6 +2430,23 @@ function Summary({ result, training }: { result: LiveResult; training?: Training
         </Btn>
       )}
     </div>
+  );
+}
+
+/** How well the camera tracked the sets, said honestly (lost sight, timed by you, shorter reps, form not judged). */
+function TrackingCard({ notes, summary }: { notes: SetNote[]; summary: CameraSummary }) {
+  const { t, lang } = useApp();
+  const lines = trackingNotes(notes, summary, lang);
+  if (!lines.length) return null;
+  return (
+    <Card>
+      <Kicker tone="butter">{t.camera.tracking}</Kicker>
+      <ul className="mt-2 space-y-1 text-sm">
+        {lines.map((x) => (
+          <li key={x}>{x}</li>
+        ))}
+      </ul>
+    </Card>
   );
 }
 

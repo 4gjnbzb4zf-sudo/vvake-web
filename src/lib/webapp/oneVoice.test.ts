@@ -45,6 +45,10 @@ describe("one voice in the web app", () => {
       text: "Repos 60 secondes. Ensuite : Squat.",
       parts: ["Repos 60 secondes.", "Ensuite : Squat."],
     });
+    // A new move counted from one angle: its camera angle said as a fixed part of its own (tester report 2026-10-26).
+    const plank = flowSpeech({ type: "rest", untilMs: 0, restS: 30, next: { move: "plank" }, newMove: true } as never, "en");
+    expect(plank?.parts).toEqual(["Rest 30 seconds.", "Next: Plank.", "Turn sideways so I can track you."]);
+    expect(plank?.text).toBe("Rest 30 seconds. Next: Plank. Turn sideways so I can track you.");
     expect(flowSpeech({ type: "done" }, "fr")).toEqual({ text: "Séance terminée. Bravo !" });
     expect(PREVIEW_LINE.fr).toMatch(/coach/);
   });
