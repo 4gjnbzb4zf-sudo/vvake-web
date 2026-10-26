@@ -1,4 +1,4 @@
-// Copied from VVFit packages/game-core/src/cameraMoves.ts (322f91e 2026-10-21) by scripts/sync-camera-core.ts. Do not edit: re-sync.
+// Copied from VVFit packages/game-core/src/cameraMoves.ts (e628403d 2026-10-26) by scripts/sync-camera-core.ts. Do not edit: re-sync.
 /**
  * Camera workouts (ADR-0046): the move catalog. Data only: each move names its signal (cameraReps.ts), the rest and
  * worked positions, the body checks that must hold for a rep to count, the form cues that apply, where to put the
@@ -11,7 +11,7 @@
  *
  * The camera never sees the load: weighted moves ask for it per set (kg or lb, lib/units.ts in the app).
  */
-import type { BodyPart, CueCheck, Guard, HoldSpec, RepSpec, SignalSpec } from "./cameraReps";
+import type { BodyPart, CueCheck, Guard, HoldSpec, PathCheck, RepSpec, SignalSpec } from "./cameraReps";
 import type { CameraJudge } from "./cameraPoints";
 import { CORE_AREAS, type BodyArea } from "./cameraPose";
 import { customMove } from "./cameraCustom";
@@ -20,6 +20,17 @@ export type Equipment = "bodyweight" | "dumbbell" | "barbell" | "kettlebell" | "
 export type MoveFamily =
   "squat" | "lunge" | "hinge" | "push" | "pull" | "press" | "arms" | "raise" | "core" | "cardio" | "carry" | "mobility";
 export type CameraPlacement = "front" | "side";
+
+/** A move counted from another angle (MoveDef.alts). */
+export interface AltCount {
+  view: CameraPlacement;
+  sig: SignalSpec;
+  rep: RepSpec;
+  guards?: Guard[];
+  cues?: CueCheck[];
+  /** The starting position from this angle. */
+  start?: Guard[];
+}
 
 export interface MoveDef {
   id: string;
@@ -43,6 +54,17 @@ export interface MoveDef {
   cueText?: Partial<Record<CueCheck["id"], { en: string; fr: string }>>;
   /** Tried by auto-detect (cameraDetect.ts). */
   detect?: boolean;
+  /**
+   * The same move counted from another camera angle, where the main signal can't be read (a push-up seen head-on: no
+   * torso tilt, no elbow angle; a lunge seen from the front: the front thigh points at the phone). Counted together
+   * with the main one by cameraReady.ts MoveCounter (one rep never counts twice).
+   */
+  alts?: AltCount[];
+  /**
+   * The starting position (cameraReady.ts inStartPosition): the set waits for it (on the floor in a plank, at the top
+   * of a push-up). Default: holds, their own position; reps, the signal at rest and the posture guards.
+   */
+  start?: Guard[];
   /** The VVake sport a session of mostly this move is saved as. */
   sport: "strength" | "functional-strength" | "core" | "flexibility" | "hiit";
 }
@@ -80,6 +102,26 @@ const ARMS_DOWN: Guard = { sig: wrists("max"), max: -0.3 };
  * hinged at the hips). Added 2026-10-21 (ADR-0047) so "just start moving" tells them apart.
  */
 const BODY_STRAIGHT: Guard = { sig: bodyHip(), min: 140 };
+/** The body line when the legs are seen; out of the picture (the phone near the head), the other checks decide. */
+const BODY_STRAIGHT_IF_SEEN: Guard = { ...BODY_STRAIGHT, optional: true };
+/**
+ * Up on the hands or forearms: the elbows well below the shoulders (lying flat on the floor, they're level: a plank
+ * timer must not start while you're still lying down, 2026-10-26 tester).
+ */
+const ELBOWS_UNDER: Guard = { sig: { k: "elbowHeight", side: "both" }, max: -0.3 };
+/**
+ * The torso pointing at the phone (on the floor facing it): the shoulders look wider than the torso is long (about
+ * 0.75 standing facing the phone, 1.3–1.5 at the top of a push-up seen head-on, 2 and more on the way down). At the
+ * bottom of a rep it must be clearly so (a bent-over row facing the phone reads about 1.1).
+ */
+const TORSO_AT_PHONE: Guard = { sig: { k: "span" }, min: 1.2 };
+const TORSO_AT_PHONE_LOW: Guard = { sig: { k: "span" }, min: 1.6 };
+/** One knee forward, one back (a lunge; a squat bends both alike). */
+const SPLIT_STANCE: Guard = { sig: { k: "dropGap" }, min: 0.2 };
+/** The same, checked when both knees are seen: a squat isn't a lunge from any angle. */
+const SPLIT_STANCE_IF_SEEN: Guard = { ...SPLIT_STANCE, optional: true };
+/** The hips don't go down (a march or a knee raise; a squat or a lunge lowers them): torso lengths. */
+const HIPS_STAY_UP: PathCheck = { part: "Hip", axis: "down", max: 0.15 };
 /** Hands below the shoulders (a burpee's plank; lying for a sit-up, the hands are at the chest or up). */
 const HANDS_LOW: Guard = { sig: wrists("max"), max: -0.2 };
 /** Elbows by your sides (curls: the wrists come up, the elbows stay down). */
@@ -89,11 +131,65 @@ const ELBOWS_DOWN: Guard = { sig: { k: "elbowHeight", side: "max" }, max: -0.3 }
 /** Squats: the hips drop toward the knees (about 0.8 standing, 0 with the thigh level). */
 const SQUAT: RepSpec = { dir: "down", rest: 0.62, work: 0.35, good: 0.14, minS: 0.6 };
 const PUSHUP: RepSpec = { dir: "down", rest: 150, work: 110, good: 95, lockout: 160, minS: 0.5 };
+/** The hands stay planted through a push-up (a row, a curl or a press moves them): torso lengths. */
+const HANDS_PLANTED: PathCheck = { part: "Wrist", axis: "any", max: 0.35 };
+/**
+ * Push-ups from the side: the bent arm (the smaller elbow angle): side-on, the far arm is behind the body and the
+ * detector guesses it, often straight; the near arm is the one seen (2026-10-26 tester: averaging the two never
+ * reached the bottom). Your own range counts after a few consistent reps; the hands stay put.
+ */
+const PUSHUP_SIDE: RepSpec = { ...PUSHUP, adapt: true, path: [HANDS_PLANTED] };
+/**
+ * Push-ups facing the phone (on the floor in front of you): the shoulders come down to the hands, in shoulder widths
+ * (about 1.5 arms straight, 0.7 chest to the floor, depending on your arms), as a share of your own arms-straight
+ * top: about halfway down counts, three quarters is the ideal (like 110° and 95° at the elbow side-on). The hands
+ * stay planted (in shoulder widths too).
+ */
+const PUSHUP_FRONT: RepSpec = {
+  dir: "down",
+  rest: 0.88,
+  work: 0.74,
+  good: 0.6,
+  minS: 0.5,
+  adapt: true,
+  relTop: true,
+  topWhen: [{ sig: { k: "span" }, min: 1.2 }],
+  path: [{ part: "Wrist", axis: "any", max: 0.4, per: "shoulders" }],
+};
+const PUSHUP_FRONT_ALT: AltCount = {
+  view: "front",
+  sig: { k: "reach", side: "both" },
+  rep: PUSHUP_FRONT,
+  guards: [TORSO_AT_PHONE_LOW],
+  cues: [{ id: "depth" }],
+  start: [TORSO_AT_PHONE, { sig: { k: "reach", side: "both" }, min: 1.15 }],
+};
+/**
+ * Lunges seen from the front: the front thigh comes level (the hip drops toward that knee, like a squat's) while the
+ * back knee goes down: one knee's drop, with the knees at different heights and the hips going down (a march or high
+ * knees lift a knee without lowering the hips).
+ */
+const LUNGE_FRONT_ALT: AltCount = {
+  view: "front",
+  sig: { k: "drop", side: "min" },
+  rep: { dir: "down", rest: 0.62, work: 0.45, good: 0.25, minS: 0.6, adapt: true, path: [{ part: "Hip", axis: "down", min: 0.25 }] },
+  guards: [{ sig: TILT, max: 45 }, SPLIT_STANCE],
+  cues: [{ id: "depth" }],
+};
 const CURL: RepSpec = { dir: "down", rest: 140, work: 75, good: 55, lockout: 155, minS: 0.6 };
 const PRESS_UP: RepSpec = { dir: "up", rest: 110, work: 150, good: 165, minS: 0.5 };
 const RAISE: RepSpec = { dir: "up", rest: 35, work: 65, good: 78, minS: 0.6 };
 const HINGE: RepSpec = { dir: "down", rest: 160, work: 125, good: 105, lockout: 168, minS: 0.7 };
-const LUNGE: RepSpec = { dir: "down", rest: 155, work: 122, good: 100, minS: 0.6 };
+/** Lunges: the knee bends and the hips go down (high knees bend the knee as much, with the hips staying up). */
+const LUNGE: RepSpec = {
+  dir: "down",
+  rest: 155,
+  work: 122,
+  good: 100,
+  minS: 0.6,
+  adapt: true,
+  path: [{ part: "Hip", axis: "down", min: 0.2 }],
+};
 const ROW: RepSpec = { dir: "down", rest: 145, work: 110, good: 95, minS: 0.5 };
 const BRIDGE: RepSpec = { dir: "up", rest: 153, work: 164, good: 171, minS: 0.6 };
 
@@ -177,15 +273,17 @@ export const CAMERA_MOVES: readonly MoveDef[] = [
     view: "side",
     sig: knee("min"),
     rep: LUNGE,
-    guards: [UPRIGHT],
+    guards: [UPRIGHT, SPLIT_STANCE_IF_SEEN],
     cues: [{ id: "depth" }, { id: "upright", v: 25 }],
+    alts: [LUNGE_FRONT_ALT],
   }),
   reps("reverse-lunge", name("Reverse lunge", "Fente arrière"), "lunge", "functional-strength", {
     view: "side",
     sig: knee("min"),
     rep: LUNGE,
-    guards: [UPRIGHT],
+    guards: [UPRIGHT, SPLIT_STANCE_IF_SEEN],
     cues: [{ id: "depth" }, { id: "upright", v: 25 }],
+    alts: [LUNGE_FRONT_ALT],
   }),
   reps("side-lunge", name("Side lunge", "Fente latérale"), "lunge", "functional-strength", {
     view: "front",
@@ -196,18 +294,28 @@ export const CAMERA_MOVES: readonly MoveDef[] = [
   }),
   reps("push-up", name("Push-up", "Pompe"), "push", "functional-strength", {
     view: "side",
-    sig: elbow(),
-    rep: PUSHUP,
-    guards: [HORIZONTAL, BODY_STRAIGHT],
+    sig: elbow("min"),
+    rep: PUSHUP_SIDE,
+    guards: [HORIZONTAL, BODY_STRAIGHT_IF_SEEN],
     cues: PUSH_CUES,
     detect: true,
+    alts: [PUSHUP_FRONT_ALT],
+    start: [
+      { sig: TILT, min: 45 },
+      { sig: elbow("min"), min: 145 },
+    ],
   }),
   reps("knee-push-up", name("Knee push-up", "Pompe sur les genoux"), "push", "functional-strength", {
     view: "side",
-    sig: elbow(),
-    rep: PUSHUP,
-    guards: [{ sig: TILT, min: 45 }, BODY_STRAIGHT],
+    sig: elbow("min"),
+    rep: PUSHUP_SIDE,
+    guards: [{ sig: TILT, min: 45 }, BODY_STRAIGHT_IF_SEEN],
     cues: [{ id: "depth" }, { id: "lockout" }],
+    alts: [PUSHUP_FRONT_ALT],
+    start: [
+      { sig: TILT, min: 45 },
+      { sig: elbow("min"), min: 145 },
+    ],
   }),
   reps("pike-push-up", name("Pike push-up", "Pompe pike"), "push", "functional-strength", {
     view: "side",
@@ -263,7 +371,7 @@ export const CAMERA_MOVES: readonly MoveDef[] = [
     view: "side",
     sig: bodyHip(),
     hold: { lo: 145, hi: 181 },
-    guards: [{ sig: TILT, min: 45 }],
+    guards: [{ sig: TILT, min: 45 }, ELBOWS_UNDER],
     cues: [
       { id: "hips_sag", v: 160 },
       { id: "hips_pike", v: 160 },
@@ -327,6 +435,56 @@ export const CAMERA_MOVES: readonly MoveDef[] = [
     sig: hip("max"),
     rep: { dir: "up", rest: 120, work: 155, minS: 0.8 },
     guards: [HORIZONTAL],
+    judge: "count",
+  }),
+  // Starter moves (2026-10-26 tester report: beginner, morning and low-impact routines).
+  /** Sitting back until you touch a chair behind you: a squat to about thighs level, your own range adapting. */
+  reps("chair-squat", name("Chair squat", "Squat sur chaise"), "squat", "functional-strength", {
+    sig: DROP,
+    rep: { ...SQUAT, work: 0.42, good: 0.3, adapt: true },
+    guards: [UPRIGHT],
+    cues: [{ id: "depth" }, { id: "knee_valgus" }],
+    cueText: { depth: name("Sit back until you touch the chair.", "Descends jusqu’à toucher la chaise.") },
+  }),
+  /**
+   * Hands on a wall, a table or a bench, the body leaning in a straight line: the bent arm side-on (the wall hides
+   * the front view), the hands planted.
+   */
+  reps("incline-push-up", name("Wall or incline push-up", "Pompe au mur ou inclinée"), "push", "functional-strength", {
+    view: "side",
+    sig: elbow("min"),
+    rep: { ...PUSHUP_SIDE, work: 115, good: 100 },
+    guards: [{ sig: TILT, min: 12, max: 70 }, BODY_STRAIGHT_IF_SEEN],
+    cues: [{ id: "depth" }],
+    cueText: { depth: name("Bring the chest closer to the wall.", "Rapproche la poitrine du mur.") },
+    start: [
+      { sig: TILT, min: 12, max: 70 },
+      { sig: elbow("min"), min: 145 },
+    ],
+  }),
+  /** Marching in place: each knee a little up, the hips staying up (each side's lift counts). */
+  reps("march", name("March in place", "Marche sur place"), "cardio", "hiit", {
+    sig: { k: "drop", side: "alt" },
+    rep: { dir: "down", rest: 0.75, work: 0.66, good: 0.5, minS: 0.25, path: [HIPS_STAY_UP] },
+    guards: [STANDING],
+    judge: "count",
+    cues: [],
+  }),
+  /** Standing knee raises: slower and higher than a march, one knee at a time. */
+  reps("standing-knee-raise", name("Standing knee raise", "Montée de genou debout"), "core", "core", {
+    sig: { k: "drop", side: "alt" },
+    rep: { dir: "down", rest: 0.55, work: 0.25, good: 0.1, minS: 0.7, path: [HIPS_STAY_UP] },
+    guards: [STANDING],
+    cues: [{ id: "depth" }],
+    cueText: { depth: name("Knee up to hip height.", "Genou à hauteur de hanche.") },
+    judge: "count",
+  }),
+  /** Arm circles: timed while the arms are out to the sides (the circles themselves are too small to count). */
+  hold("arm-circles", name("Arm circles", "Moulinets de bras"), "mobility", "flexibility", {
+    view: "front",
+    sig: abduct(),
+    hold: { lo: 60, hi: 125 },
+    guards: [STANDING],
     judge: "count",
   }),
   reps("step-up", name("Step-up", "Montée sur marche"), "lunge", "functional-strength", {
@@ -570,16 +728,18 @@ export const CAMERA_MOVES: readonly MoveDef[] = [
     equipment: ["dumbbell", "barbell", "kettlebell"],
     sig: knee("min"),
     rep: LUNGE,
-    guards: [UPRIGHT],
+    guards: [UPRIGHT, SPLIT_STANCE_IF_SEEN],
     cues: [{ id: "depth" }, { id: "upright", v: 25 }],
+    alts: [LUNGE_FRONT_ALT],
   }),
   reps("weighted-reverse-lunge", name("Reverse lunge with weights", "Fente arrière lestée"), "lunge", "strength", {
     view: "side",
     equipment: ["dumbbell", "barbell", "kettlebell"],
     sig: knee("min"),
     rep: LUNGE,
-    guards: [UPRIGHT],
+    guards: [UPRIGHT, SPLIT_STANCE_IF_SEEN],
     cues: [{ id: "depth" }, { id: "upright", v: 25 }],
+    alts: [LUNGE_FRONT_ALT],
   }),
   hold("farmer-carry", name("Farmer carry", "Marche du fermier"), "carry", "strength", {
     equipment: ["dumbbell", "kettlebell"],
@@ -710,14 +870,18 @@ const AREA_OF: Readonly<Record<BodyPart, BodyArea | null>> = {
   nose: null,
 };
 
-function signalAreas(sig: SignalSpec): BodyArea[] {
+/** The parts of the body a signal reads. */
+export function signalAreas(sig: SignalSpec): BodyArea[] {
   switch (sig.k) {
     case "tilt":
+    case "span":
       return ["shoulders", "hips"];
+    case "dropGap":
     case "drop":
       return ["hips", "knees"];
     case "height":
     case "elbowHeight":
+    case "reach":
       return ["shoulders", "arms"];
     case "angle": {
       const c = sig.c === "Ankle" && sig.cOr ? (sig.cOr === "belowKnee" ? "Knee" : sig.cOr) : sig.c;
@@ -746,7 +910,8 @@ export function moveNeeds(m: Pick<MoveDef, "sig" | "guards" | "judge">): BodyAre
       );
   if (m.judge !== "manual") {
     if (m.sig) signalAreas(m.sig).forEach((a) => out.add(a));
-    for (const g of m.guards ?? []) signalAreas(g.sig).forEach((a) => out.add(a));
+    // Optional guards (read when seen) don't need their parts in the picture.
+    for (const g of m.guards ?? []) if (!g.optional) signalAreas(g.sig).forEach((a) => out.add(a));
   }
   return (["shoulders", "arms", "hips", "knees", "feet"] as const).filter((a) => out.has(a));
 }

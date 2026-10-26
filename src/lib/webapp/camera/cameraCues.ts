@@ -1,4 +1,4 @@
-// Copied from VVFit packages/game-core/src/cameraCues.ts (322f91e 2026-10-21) by scripts/sync-camera-core.ts. Do not edit: re-sync.
+// Copied from VVFit packages/game-core/src/cameraCues.ts (e628403d 2026-10-26) by scripts/sync-camera-core.ts. Do not edit: re-sync.
 /**
  * Camera workouts (ADR-0046): what the coach says. Form cues (short, said by the coach voice through the workout voice
  * switch, ADR-0044), the framing guide and the liveness prompts, in English and French. And when a cue may be said:
@@ -181,3 +181,83 @@ export function sayRep(n: number, mode: "on" | "essential" | "off"): boolean {
 
 /** Form cues are coaching: said with the voice on, not on "essential only". */
 export const sayCues = (mode: "on" | "essential" | "off") => mode === "on";
+
+// ── Conservative form coaching (2026-10-26 tester: cues only when sure, never repetitive, say when it got better) ──
+
+/** Said once when a fault you were told about is gone. */
+export const BETTER_TEXT: Readonly<Partial<Record<CueId, Line>>> & { any: Line } = {
+  any: l("Better. That’s it.", "Mieux. C’est ça."),
+  depth: l("Good depth now.", "Bonne amplitude maintenant."),
+  lockout: l("Nice, full reps now.", "Bien, des répétitions complètes maintenant."),
+  knee_valgus: l("Knees tracking well now.", "Les genoux sont bien alignés maintenant."),
+  hips_sag: l("Straight line now. Good.", "Corps bien aligné maintenant. Bien."),
+  hips_pike: l("Straight line now. Good.", "Corps bien aligné maintenant. Bien."),
+};
+
+export const betterLine = (id: CueId, lang: "en" | "fr") => (BETTER_TEXT[id] ?? BETTER_TEXT.any)[lang];
+
+export type CoachSay = { kind: "cue"; id: CueId } | { kind: "better"; id: CueId };
+
+/**
+ * Which form cue to say after a rep, conservatively: only from reps seen surely (an `uncertain` rep says nothing and
+ * isn't counted against you); a fault must show on `minReps` of the last `window` sure reps (not one odd rep); each
+ * cue at most `maxPerCue` times a set; paced by CuePacer (8 s between any two, 25 s for the same one). When a fault
+ * you were told about is gone for `minReps` sure reps in a row, it says so once ("Good depth now.").
+ */
+export class FormCoach {
+  private recent: CueId[][] = [];
+  private said = new Map<CueId, number>();
+  private praised = new Set<CueId>();
+  private clean = new Map<CueId, number>();
+  private readonly pacer: CuePacer;
+  constructor(private readonly o: { minReps?: number; window?: number; maxPerCue?: number; gapMs?: number; sameMs?: number } = {}) {
+    this.pacer = new CuePacer(o.gapMs ?? 8000, o.sameMs ?? 25_000);
+  }
+
+  /** A new set: counts start over (what was said before stays said, for the praise). */
+  newSet() {
+    this.recent = [];
+    this.said.clear();
+    this.clean.clear();
+  }
+
+  /** After each counted rep (`t` ms): what to say, or null. */
+  rep(t: number, ev: { cues: readonly CueId[]; quality?: "complete" | "limited" | "uncertain" }): CoachSay | null {
+    if (ev.quality === "uncertain") return null;
+    const need = this.o.minReps ?? 2;
+    this.recent.push([...ev.cues]);
+    if (this.recent.length > (this.o.window ?? 3)) this.recent.shift();
+    // Praise first: a fault told about, now absent for `need` sure reps.
+    for (const [id, n] of this.said) {
+      if (n <= 0 || this.praised.has(id)) continue;
+      const c = ev.cues.includes(id) ? 0 : (this.clean.get(id) ?? 0) + 1;
+      this.clean.set(id, c);
+      if (c >= need && this.pacer.pick(t, [id])) {
+        this.praised.add(id);
+        return { kind: "better", id };
+      }
+    }
+    const steady = ev.cues.filter(
+      (id) => this.recent.filter((r) => r.includes(id)).length >= need && (this.said.get(id) ?? 0) < (this.o.maxPerCue ?? 2),
+    );
+    const id = this.pacer.pick(t, steady);
+    if (!id) return null;
+    this.said.set(id, (this.said.get(id) ?? 0) + 1);
+    this.clean.set(id, 0);
+    this.praised.delete(id);
+    return { kind: "cue", id };
+  }
+}
+
+/**
+ * The progress said during a set ("10 of 15 done."): every 5 reps on a target of 10 or more, and "Last one." /
+ * "3 more."; null when nothing is worth saying (the count itself is said by sayRep).
+ */
+export function progressLine(n: number, target: number | undefined, lang: "en" | "fr"): string | null {
+  if (!target || n <= 0 || n >= target) return null;
+  const left = target - n;
+  if (left === 1) return lang === "fr" ? "Encore une." : "Last one.";
+  if (left === 3 && target >= 8) return lang === "fr" ? "Plus que 3." : "3 more.";
+  if (target >= 10 && n % 5 === 0) return lang === "fr" ? `${n} sur ${target}.` : `${n} of ${target} done.`;
+  return null;
+}

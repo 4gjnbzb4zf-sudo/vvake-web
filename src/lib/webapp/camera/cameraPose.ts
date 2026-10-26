@@ -1,4 +1,4 @@
-// Copied from VVFit packages/game-core/src/cameraPose.ts (322f91e 2026-10-21) by scripts/sync-camera-core.ts. Do not edit: re-sync.
+// Copied from VVFit packages/game-core/src/cameraPose.ts (e628403d 2026-10-26) by scripts/sync-camera-core.ts. Do not edit: re-sync.
 /**
  * Camera workouts (ADR-0046): one body pose as the phone's on-device detector gives it (Apple Vision on iOS, MediaPipe
  * Pose Landmarker on Android), in one shared shape, and the geometry the rep counters and form cues read from it.
@@ -194,6 +194,54 @@ export function viewOf(f: PoseFrame): "front" | "side" | null {
   if (!ls || !rs || !seen(f, "lShoulder") || !seen(f, "rShoulder") || !torso) return null;
   const w = Math.hypot((ls.x - rs.x) * (f.w / f.h), ls.y - rs.y) / torso;
   return w > 0.45 ? "front" : w < 0.3 ? "side" : null;
+}
+
+/** Shoulder to shoulder in the image (pixel-proportional, 0…1 of the image height); null unless both are seen. */
+export function shoulderWidth(f: PoseFrame): number | null {
+  if (!ok(f, "lShoulder", "rShoulder")) return null;
+  const ls = f.joints.lShoulder!;
+  const rs = f.joints.rShoulder!;
+  return Math.hypot((ls.x - rs.x) * (f.w / f.h), ls.y - rs.y);
+}
+
+/**
+ * How wide the shoulders look against the torso: about 0.75 standing and facing the phone, under 0.3 side-on, and
+ * well over 1 when the torso points at the phone (on the floor facing it in a push-up or plank: the torso is seen end
+ * on and looks short). Null without both shoulders and a hip.
+ */
+export function shoulderSpan(f: PoseFrame): number | null {
+  const w = shoulderWidth(f);
+  const t = torsoLength(f);
+  if (w === null || !t) return null;
+  return w / Math.max(t, 0.01);
+}
+
+const LIMB: readonly ("Shoulder" | "Elbow" | "Wrist" | "Hip" | "Knee")[] = ["Shoulder", "Elbow", "Wrist", "Hip", "Knee"];
+
+/** How surely one side of the body is seen: the mean confidence of its shoulder, elbow, wrist, hip and knee (missing = 0). */
+export function sideConfidence(f: PoseFrame, s: "l" | "r"): number {
+  let sum = 0;
+  for (const p of LIMB) sum += f.joints[`${s}${p}` as Joint]?.c ?? 0;
+  return sum / LIMB.length;
+}
+
+/**
+ * The side of the body facing the phone, when one clearly is (side-on: the far arm and leg are behind the body, and
+ * detectors guess them, often straight): seen more surely by at least `margin`. Null when both sides look alike
+ * (facing the phone) or neither is seen.
+ */
+export function nearSide(f: PoseFrame, margin = 0.12): "l" | "r" | null {
+  const l = sideConfidence(f, "l");
+  const r = sideConfidence(f, "r");
+  if (l - r >= margin) return "l";
+  if (r - l >= margin) return "r";
+  return null;
+}
+
+/** The mean confidence of these joints (missing = 0). */
+export function meanConfidence(f: PoseFrame, js: readonly Joint[]): number {
+  if (!js.length) return 0;
+  return js.reduce((a, j) => a + (f.joints[j]?.c ?? 0), 0) / js.length;
 }
 
 /** Parts of the body, as the screen names them. Head and feet are never required (see OPTIONAL_JOINTS). */

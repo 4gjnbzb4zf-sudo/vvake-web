@@ -1,4 +1,4 @@
-// Copied from VVFit packages/game-core/src/cameraDemo.ts (322f91e 2026-10-21) by scripts/sync-camera-core.ts. Do not edit: re-sync.
+// Copied from VVFit packages/game-core/src/cameraDemo.ts (e628403d 2026-10-26) by scripts/sync-camera-core.ts. Do not edit: re-sync.
 /**
  * Camera workouts, hands-free (ADR-0046 amendment 2026-10-21): the demo of each move, shown full screen before its
  * first set and played twice. A stick body (adult proportions, metres) posed per move and projected the way the phone
@@ -480,6 +480,20 @@ function swing(k: number): Body3 {
   return hinge(k, { reach: 0.74, lean: 70 }, both({ pitch: lerp(85, 10, k), elbow: 172 }));
 }
 
+/** Hands on a wall at chest height, the body leaning in one line from the feet: k = 0 arms straight, 1 chest near the wall. */
+function inclinePushUp(k: number): Body3 {
+  const a = rad(lerp(35, 50, k));
+  const along: V3 = [0, Math.cos(a), Math.sin(a)];
+  const pelvis = add([0, BODY.footY, 0], mul(along, BODY.thigh + BODY.shin));
+  const b = pose({ pelvis, torsoPitch: lerp(35, 50, k), legs: planted(), arms: hang() });
+  return armTo(armTo(b, "l", [0.2, 1.05, 1.33], [0.3, -1, -0.2]), "r", [-0.2, 1.05, 1.33], [-0.3, -1, -0.2]);
+}
+/** Arms out to the sides drawing small circles. */
+function armCircles(k: number): Body3 {
+  const c = 8 * Math.sin(2 * Math.PI * 3 * k);
+  return standing(both({ pitch: lerp(0, c, k), roll: lerp(10, 88, Math.min(1, k * 3)), elbow: 172 }));
+}
+
 /** 0 → 1 → 0 smoothly over x in [0, 1]. */
 const bell = (x: number) => 0.5 - 0.5 * Math.cos(2 * Math.PI * Math.max(0, Math.min(1, x)));
 const ease = (x: number) => 0.5 - 0.5 * Math.cos(Math.PI * Math.max(0, Math.min(1, x)));
@@ -576,6 +590,11 @@ const DEMOS: Readonly<Record<string, Demo>> = {
   pigeon: hold(childsPose, "side"),
   butterfly: hold(butterfly, "front"),
   "shoulder-stretch": hold(shoulderStretch, "front"),
+  "chair-squat": rep((k) => squat(k * 0.8), "front"),
+  "incline-push-up": rep(inclinePushUp, "side"),
+  march: { kind: "alt", at: (k, side) => highKnee(k * 0.7, side), view: "front" },
+  "standing-knee-raise": { kind: "alt", at: highKnee, view: "front", ms: 3600 },
+  "arm-circles": hold(armCircles, "front"),
 };
 
 /** Moves with a demo of their own (the rest stand and breathe: never a blank screen). */
@@ -720,6 +739,23 @@ const TIPS: Readonly<Record<string, { en: string; fr: string }>> = {
   "kettlebell-swing": { en: "Hinge at the hips and snap them forward.", fr: "Plie aux hanches puis ouvre-les d’un coup." },
   "farmer-carry": { en: "Weights at your sides, stand tall, walk slowly.", fr: "Charges le long du corps, grandis-toi, marche lentement." },
   "bird-dog": { en: "On all fours, reach one arm and the opposite leg.", fr: "À quatre pattes, tends un bras et la jambe opposée." },
+  "chair-squat": {
+    en: "A chair behind you: sit back until you touch it, then stand tall.",
+    fr: "Une chaise derrière toi : descends jusqu’à la toucher, puis redresse-toi.",
+  },
+  "incline-push-up": {
+    en: "Hands on a wall or a table, body straight, chest toward your hands. Side-on to the phone.",
+    fr: "Mains sur un mur ou une table, corps droit, poitrine vers les mains. De profil au téléphone.",
+  },
+  march: { en: "March in place, knees a little up, arms swinging.", fr: "Marche sur place, genoux un peu levés, bras qui balancent." },
+  "standing-knee-raise": {
+    en: "Stand tall, bring one knee up to hip height, then the other.",
+    fr: "Grandis-toi, monte un genou à hauteur de hanche, puis l’autre.",
+  },
+  "arm-circles": {
+    en: "Arms out to the sides, small circles, shoulders relaxed.",
+    fr: "Bras tendus sur les côtés, petits cercles, épaules relâchées.",
+  },
 };
 
 /** The one-line key tip under the move's name: its own tip, else its first form cue, else where to stand. */
