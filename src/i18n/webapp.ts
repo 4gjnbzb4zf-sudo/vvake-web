@@ -87,7 +87,7 @@ const en = {
     },
     vvaker: {
       title: "Pick your VVaker",
-      lead: "Your animal athlete, on every screen and on the map while you train. Custom VVakers come with VVake Coach Plus in the app.",
+      lead: "Your animal athlete, on every screen and on the map while you train. Custom VVakers come with {plan} in the app.",
     },
     voice: {
       title: "Your coach's voice",
@@ -227,7 +227,7 @@ const en = {
     hello: "Hi! I'm your coach. Ask me about today's session, your plan, your goals, or how you feel.",
     suggestions: ["What should I do today?", "I'm tired, should I rest?", "How was my week?"],
     proposal: "Plan change proposed",
-    voiceNote: "Coach calls and the hands-free live coach during workouts are in the app (VVake Coach Plus).",
+    voiceNote: "Coach calls and the hands-free live coach during workouts are in the app ({plan}).",
   },
   you: {
     title: "You",
@@ -248,7 +248,7 @@ const en = {
     noHistory: "No workouts yet. Start one from Today.",
     loadMore: "Show more",
     settings: "All settings",
-    settingsDetail: "Reminders, coach, plan, connections, VVake Coach Plus, delete: on your account page.",
+    settingsDetail: "Reminders, coach, plan, connections, {plan}, delete: on your account page.",
     heart: "Heart-rate sensor",
     voice: "Voice coach",
     voiceDetail: "Cues during workouts in VVake's coach voice, the one in the app (your browser's voice when offline).",
@@ -269,7 +269,7 @@ const en = {
       skipped: "{n} not said",
     },
     sourcesPlus:
-      "With VVake Coach Plus every line is in your coach's voice; this browser's voice only stands in offline or when the voice service is busy.",
+      "With {plan} every line is in your coach's voice; this browser's voice only stands in offline or when the voice service is busy.",
     sourcesWhy: "Last time this browser's voice spoke: {why}.",
     reasons: {
       offline: "offline",
@@ -876,7 +876,7 @@ const fr: WebAppDict = {
     },
     vvaker: {
       title: "Choisis ton VVaker",
-      lead: "Ton athlète animal, sur chaque écran et sur la carte pendant ta séance. Les VVakers sur mesure viennent avec VVake Coach Plus dans l’app.",
+      lead: "Ton athlète animal, sur chaque écran et sur la carte pendant ta séance. Les VVakers sur mesure viennent avec {plan} dans l’app.",
     },
     voice: {
       title: "La voix de ton coach",
@@ -1016,7 +1016,7 @@ const fr: WebAppDict = {
     hello: "Salut ! Je suis ton coach. Demande-moi la séance du jour, ton plan, tes objectifs, ou dis-moi comment tu te sens.",
     suggestions: ["Je fais quoi aujourd’hui ?", "Je suis fatigué, je me repose ?", "Comment s’est passée ma semaine ?"],
     proposal: "Changement de plan proposé",
-    voiceNote: "Les appels du coach et le coach vocal mains libres pendant les séances sont dans l’app (VVake Coach Plus).",
+    voiceNote: "Les appels du coach et le coach vocal mains libres pendant les séances sont dans l’app ({plan}).",
   },
   you: {
     title: "Toi",
@@ -1037,7 +1037,7 @@ const fr: WebAppDict = {
     noHistory: "Pas encore de séance. Lance-en une depuis Aujourd’hui.",
     loadMore: "Voir plus",
     settings: "Tous les réglages",
-    settingsDetail: "Rappels, coach, plan, connexions, VVake Coach Plus, suppression : sur ta page compte.",
+    settingsDetail: "Rappels, coach, plan, connexions, {plan}, suppression : sur ta page compte.",
     heart: "Capteur cardio",
     voice: "Coach vocal",
     voiceDetail: "Les annonces pendant la séance avec la voix du coach VVake, celle de l’app (la voix du navigateur hors ligne).",
@@ -1058,7 +1058,7 @@ const fr: WebAppDict = {
       skipped: "{n} non dites",
     },
     sourcesPlus:
-      "Avec VVake Coach Plus, chaque phrase est dite par la voix de ton coach ; la voix de ce navigateur ne la remplace que hors ligne ou quand le service de voix est saturé.",
+      "Avec {plan}, chaque phrase est dite par la voix de ton coach ; la voix de ce navigateur ne la remplace que hors ligne ou quand le service de voix est saturé.",
     sourcesWhy: "La dernière fois que la voix de ce navigateur a parlé : {why}.",
     reasons: {
       offline: "hors ligne",

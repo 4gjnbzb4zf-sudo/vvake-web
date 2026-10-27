@@ -151,6 +151,7 @@ describe("coachTier", () => {
     expect(coachTier({ plan: "plus" })).toBe("plus");
     expect(coachTier({ plan: "free", tier: "free" })).toBe("free");
     expect(coachTier({})).toBe("free");
+    expect(coachTier({ plan: "plus", earlyTester: true })).toBe("premium");
   });
 
   it("/v1/me carries the tier and the early tester flag", () => {

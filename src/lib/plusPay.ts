@@ -48,6 +48,10 @@ const planFields = {
   plan: z.optional(z.string()),
   plusUntil: z.optional(z.nullable(z.string())),
   plusSource: z.optional(z.nullable(z.string())),
+  /** Free / Plus / Premium ("pro" before the rename), when the API sends it: names the plan on the plans page. */
+  tier: z.optional(z.nullable(z.string())),
+  /** An early tester: Coach Premium for the beta. */
+  earlyTester: z.optional(z.nullable(z.boolean())),
 };
 
 export const billingSchema = z.object({
@@ -141,6 +145,7 @@ export const isHttpsUrl = (url: string | undefined) => !!url && /^https:\/\/[^\s
 // ── The signed-in account's Plus, for the logo's "+" badge in this tab ─────────────────────────────────────────────
 
 const PLUS_KEY = "vvake-plus-until";
+const TIER_KEY = "vvake-plus-tier";
 export const PLUS_EVENT = "vvake-plus";
 
 function session(): Storage | null {
@@ -153,16 +158,28 @@ function session(): Storage | null {
 
 /**
  * Remember (or forget, with null) the signed-in account's plusUntil for this tab, and tell the logos on the page.
- * Kept with the session (sessionStorage), so signing out or closing the tab drops it.
+ * `tier` ("plus" | "premium"), when the caller knows it, names the badge (Coach Premium for Premium); left out, the
+ * tier remembered before stays. Kept with the session (sessionStorage), so signing out or closing the tab drops it.
  */
-export function rememberPlus(plusUntil: string | null | undefined) {
+export function rememberPlus(plusUntil: string | null | undefined, tier?: string | null) {
   try {
     if (plusUntil) session()?.setItem(PLUS_KEY, plusUntil);
     else session()?.removeItem(PLUS_KEY);
+    if (!plusUntil || tier === null) session()?.removeItem(TIER_KEY);
+    else if (tier) session()?.setItem(TIER_KEY, tier);
   } catch {
     // storage unavailable: the badge shows on this page only
   }
   if (typeof window !== "undefined") window.dispatchEvent(new CustomEvent(PLUS_EVENT, { detail: plusUntil ?? null }));
+}
+
+/** The remembered tier ("plus" | "premium"), if any. */
+export function storedPlusTier(): string | null {
+  try {
+    return session()?.getItem(TIER_KEY) ?? null;
+  } catch {
+    return null;
+  }
 }
 
 /** The remembered plusUntil, if any. */

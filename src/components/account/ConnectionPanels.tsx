@@ -1,11 +1,10 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { coachPlusActive } from "@/lib/coachPlus";
+import { accountTier, coachPlusActive, ownPlanName } from "@/lib/coachPlus";
 import { Section } from "@/components/ui/Section";
 import { format } from "@/i18n/dictionaries";
 import {
-  coachTier,
   confirmed,
   MAX_WATCHLIST,
   SPOTIFY_ROUTE_SYNC,
@@ -31,7 +30,7 @@ import { mins, pageUrl, sectionIndex, type PanelProps } from "./shared";
  * early tester, the "Early tester · Coach Premium" badge. On the profile line and the plan card.
  */
 export function PlanPills({ t, me }: { t: PanelProps["t"]; me: Me }) {
-  const tier = coachTier(me);
+  const tier = accountTier(me);
   const s = t.plusSection;
   return (
     <>
@@ -470,15 +469,17 @@ export function PlusSection(p: PanelProps) {
   const { t, me, api, session, setMe, lang, dates, errorMsg } = p;
   const a = useAction(errorMsg);
   const plus = coachPlusActive(me);
-  const premium = coachTier(me) === "premium";
+  const premium = accountTier(me) === "premium";
+  // The section names the plan the account has (Premium for Premium and testers, else Plus).
+  const plan = ownPlanName(me);
   const src = me.plusSource ?? "";
   const srcLabel = (t.plusSection.sources as Record<string, string>)[src];
 
   return (
-    <Section id="plus" index={sectionIndex("plus")} kicker={t.sections.plus} title={t.sections.plus} lead={t.plusSection.lead}>
+    <Section id="plus" index={sectionIndex("plus")} kicker={plan} title={plan} lead={format(t.plusSection.lead, { plan })}>
       <div className="mt-8 max-w-3xl">
         <Card
-          title={t.sections.plus}
+          title={plan}
           badge={
             <span className="flex flex-wrap justify-end gap-1.5">
               <PlanPills t={t} me={me} />
@@ -488,13 +489,15 @@ export function PlusSection(p: PanelProps) {
           <p className="mt-4 font-display text-2xl font-semibold">
             {plus && me.plusUntil
               ? format(premium ? t.plusSection.activePremium : t.plusSection.active, { date: formatDate(me.plusUntil, dates, "medium") })
-              : t.plusSection.free}
+              : plus
+                ? plan
+                : t.plusSection.free}
           </p>
           {srcLabel && <p className="mt-1 text-sm text-muted">{srcLabel}</p>}
           {(src === "apple" || src === "google") && <p className="mt-2 text-sm text-faint">{t.plusSection.store}</p>}
           <div className="mt-4 flex flex-wrap gap-2">
             <a href={`/${lang}/plans/`} className={smallButton("primary")}>
-              {t.plusSection.manage}
+              {format(t.plusSection.manage, { plan })}
             </a>
             {src === "stripe" && (
               <button
@@ -535,7 +538,8 @@ export function PlusSection(p: PanelProps) {
 }
 
 export function DataSection(p: PanelProps & { onDeleted: () => void }) {
-  const { t, api, setMe, errorMsg } = p;
+  const { t, api, me, setMe, errorMsg } = p;
+  const plan = ownPlanName(me);
   const [freshTyped, setFreshTyped] = useState("");
   const [deleteTyped, setDeleteTyped] = useState("");
   const fresh = useAction((e) => (e instanceof ApiError && e.status === 429 ? t.data.freshLimit : errorMsg(e)));
@@ -558,7 +562,7 @@ export function DataSection(p: PanelProps & { onDeleted: () => void }) {
               <p className="text-sm font-semibold text-text">{t.data.stays}</p>
               <ul className="mt-2 list-disc space-y-1 pl-5 text-sm text-muted">
                 {t.data.stayItems.map((x) => (
-                  <li key={x}>{x}</li>
+                  <li key={x}>{format(x, { plan })}</li>
                 ))}
               </ul>
             </div>
@@ -594,7 +598,7 @@ export function DataSection(p: PanelProps & { onDeleted: () => void }) {
 
         <Card title={t.data.export} lead={t.data.exportNote} badge={<Pill>{t.appOnly}</Pill>} />
 
-        <Card title={t.data.delete} lead={t.data.deleteNote} className="border-down-fg/40">
+        <Card title={t.data.delete} lead={format(t.data.deleteNote, { plan })} className="border-down-fg/40">
           <label htmlFor="acct-delete" className="mt-4 block text-sm text-muted">
             {format(t.data.deleteType, { word: t.data.deleteWord })}
           </label>

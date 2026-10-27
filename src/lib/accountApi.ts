@@ -252,11 +252,12 @@ export type CoachTier = "free" | "plus" | "premium";
 
 /**
  * The account's coach plan: VVake Coach Plus or Coach Premium. The API's tier key is "premium" ("pro" before the
- * rename, still read as Premium); an older API without `tier` falls back to the plan ("plus" = Coach Plus).
+ * rename, still read as Premium); an early tester is Premium (beta); an older API without `tier` falls back to the plan
+ * ("plus" = Coach Plus).
  */
-export function coachTier(me: { plan?: string | null; tier?: string | null }): CoachTier {
+export function coachTier(me: { plan?: string | null; tier?: string | null; earlyTester?: boolean | null }): CoachTier {
   const t = (me.tier ?? "").toLowerCase();
-  if (t === "premium" || t === "pro") return "premium";
+  if (t === "premium" || t === "pro" || me.earlyTester === true) return "premium";
   if (t === "plus" || me.plan === "plus") return "plus";
   return "free";
 }
