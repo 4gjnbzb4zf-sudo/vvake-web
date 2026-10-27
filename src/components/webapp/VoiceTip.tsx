@@ -2,7 +2,7 @@
 
 import { useEffect, useState, useSyncExternalStore } from "react";
 import { onBrowserVoice, onVoicePack, voicePackState, voiceSources } from "@/lib/webapp/coachAudio";
-import { coachPlusActive } from "@/lib/coachPlus";
+import { coachPlusActive, ownPlanName } from "@/lib/coachPlus";
 import type { LineSource } from "@/lib/webapp/voiceGuarantee";
 import { takeVoiceTip, voicePlatform, type VoicePlatform } from "@/lib/webapp/voiceTip";
 import { useApp } from "./AppContext";
@@ -95,7 +95,7 @@ export function VoiceSources() {
       {last?.source === "device" && last.reason && (
         <Small className="mt-1">{fmt(t.you.sourcesWhy, { why: t.you.reasons[last.reason] })}</Small>
       )}
-      {plus && <Small className="mt-1">{t.you.sourcesPlus}</Small>}
+      {plus && <Small className="mt-1">{fmt(t.you.sourcesPlus, { plan: ownPlanName(me) })}</Small>}
     </div>
   );
 }

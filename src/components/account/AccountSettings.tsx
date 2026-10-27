@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useState, type ReactNode } from "react";
-import { coachPlusActive } from "@/lib/coachPlus";
+import { accountTier, coachPlusActive } from "@/lib/coachPlus";
 import { SignIn } from "@/components/rewards/RewardsAccount";
 import { buttonClass } from "@/components/ui/Button";
 import { Section } from "@/components/ui/Section";
@@ -66,7 +66,7 @@ export function AccountSettings({ dict, t, lang, apiUrl }: { dict: Dictionary["r
     try {
       const m = await api.me();
       setMe(m);
-      rememberPlus(coachPlusActive(m) ? (m.plusUntil ?? null) : null);
+      rememberPlus(coachPlusActive(m) ? (m.plusUntil ?? null) : null, accountTier(m));
       setAuth("in");
     } catch (e) {
       if (e instanceof ApiError && e.status === 401) {

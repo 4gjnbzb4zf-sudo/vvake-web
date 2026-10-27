@@ -7,6 +7,7 @@ import { coachVoiceGender, type CoachVoiceGender } from "@/lib/coachVoices";
 import { WORKOUT_VOICE_MODES } from "@/lib/webapp/speedZones";
 import { weekPoints } from "@/lib/webapp/points";
 import { sportLabel, streakMultiplier } from "@/lib/webapp/workout";
+import { ownPlanName } from "@/lib/coachPlus";
 import { useApp } from "./AppContext";
 import { GetTheApp } from "./GetTheApp";
 import { VVakerImg } from "./MyVVaker";
@@ -324,7 +325,13 @@ export function YouScreen({ focus }: { focus?: Section } = {}) {
 
   const accountRows = (
     <List>
-      <Row tone="sky" icon="⚙" title={t.you.settings} detail={t.you.settingsDetail} href={`/${lang}/account/`} />
+      <Row
+        tone="sky"
+        icon="⚙"
+        title={t.you.settings}
+        detail={fmt(t.you.settingsDetail, { plan: ownPlanName(me) })}
+        href={`/${lang}/account/`}
+      />
       {!standalone && (install || ios) && (
         <Row
           tone="volt"

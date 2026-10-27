@@ -5,6 +5,7 @@ import { cn } from "@/lib/cn";
 import type { AppMe, SurveyPut } from "@/lib/webapp/api";
 import { DISCLAIMER_SHORT, DISCLAIMER_VERSION } from "@/lib/webapp/disclaimer";
 import { QUICK_SPORTS, sportLabel, uuid } from "@/lib/webapp/workout";
+import { ownPlanName } from "@/lib/coachPlus";
 import { useApp } from "./AppContext";
 import { CAST_IDS, castSrc, resetVVakerCache } from "./MyVVaker";
 import { CoachVoicePicker } from "./CoachVoicePicker";
@@ -143,7 +144,7 @@ export function Onboarding({ onDone }: { onDone: () => void }) {
       {step === "vvaker" && (
         <div className="mt-6">
           <h1 className="font-display text-2xl font-bold">{o.vvaker.title}</h1>
-          <p className="mt-2 text-sm text-muted">{o.vvaker.lead}</p>
+          <p className="mt-2 text-sm text-muted">{fmt(o.vvaker.lead, { plan: ownPlanName(me) })}</p>
           <CastGrid value={cast} onChange={setCast} />
         </div>
       )}

@@ -8,6 +8,7 @@ import { Section } from "@/components/ui/Section";
 import type { Locale } from "@/i18n/config";
 import { format, type Dictionary } from "@/i18n/dictionaries";
 import { cn } from "@/lib/cn";
+import { coachTierName, ownPlanTier } from "@/lib/coachPlus";
 import { visitorDatePrefs } from "@/lib/dates";
 import { formatDate } from "@/lib/datetime";
 import {
@@ -21,6 +22,7 @@ import {
   POLL_MS,
   rememberPlus,
   shortAddress,
+  storedPlusTier,
   tokensText,
   usdText,
   type Billing,
@@ -81,7 +83,7 @@ export function PlusCheckout({
     try {
       const b = await session.billing();
       setBilling(b);
-      rememberPlus(b.plusUntil);
+      rememberPlus(b.plusUntil, b.tier ?? (b.earlyTester ? "premium" : undefined));
       setWho(session.user?.email || session.user?.name || "VVake");
       setNow(Date.now());
       setAuth("in");
@@ -237,6 +239,10 @@ export function PlusCheckout({
     );
 
   const plus = plusActive(billing?.plusUntil, now);
+  // The account's own plan (Coach Premium for Premium and testers, else Coach Plus): from /v1/billing's tier when the
+  // API sends it, else the tier the account page remembered for this tab.
+  const tier = billing?.tier ?? (billing?.earlyTester ? "premium" : storedPlusTier());
+  const plan = coachTierName(ownPlanTier(tier));
   const network = invoice?.network ?? quote?.network ?? billing?.vvakePay?.network;
   const testnet = network !== "mainnet";
 
@@ -246,12 +252,17 @@ export function PlusCheckout({
   return (
     <>
       <Notice notice={notice} dict={dict} plus={plus} />
-      <Section id="account" index={dict.account.index} kicker={dict.account.kicker} title={dict.account.title}>
+      <Section
+        id="account"
+        index={dict.account.index}
+        kicker={format(dict.account.kicker, { plan })}
+        title={format(dict.account.title, { plan })}
+      >
         <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-4 rounded-2xl border border-line bg-surface/60 p-6">
-          <Logo plus={plus} plusLabel="VVake Coach Plus" className="pr-4" />
+          <Logo plus={plus} plusLabel={plan} className="pr-4" />
           <div className="min-w-0 flex-1">
             <p className="font-display font-semibold">
-              {plus && billing?.plusUntil ? format(dict.account.active, { date: date(billing.plusUntil) }) : dict.account.free}
+              {plus && billing?.plusUntil ? format(dict.account.active, { plan, date: date(billing.plusUntil) }) : dict.account.free}
             </p>
             {plus && billing?.plusSource === "apple" && <p className="mt-1 text-sm text-muted">{dict.account.appleSource}</p>}
             {plus && paidByCard(billing?.plusSource) && <p className="mt-1 text-sm text-muted">{dict.account.cardSource}</p>}
