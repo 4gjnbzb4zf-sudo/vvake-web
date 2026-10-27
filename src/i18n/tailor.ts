@@ -8,8 +8,8 @@ import type { Locale } from "./config";
 const en = {
   dev: {
     title: "Developer",
-    lead: "Your VVake: the tailored app, for testers. Off, VVake looks as it does today.",
-    toggle: "Your VVake (preview)",
+    lead: "Tailor my app: VVake shaped to you, for testers. Off, VVake looks as it does today.",
+    toggle: "Tailor my app (preview)",
     survey: "Take the survey",
   },
   you: {
@@ -52,7 +52,7 @@ const en = {
     saving: "Saving…",
     error: "That didn't work. Check your connection and try again.",
     unchanged: "Nothing changes.",
-    summaryLead: "Turn anything on or off. Change it any time in You › Your VVake.",
+    summaryLead: "Turn anything on or off. Change it any time in You › Tailor my app.",
     sportsHint: "Main sport first",
     sportsMax: "Up to {n}",
     noSport: "No sport found",
@@ -82,8 +82,8 @@ export type TailorDict = typeof en;
 const fr: TailorDict = {
   dev: {
     title: "Développeur",
-    lead: "Ton VVake : l’app sur mesure, pour les testeurs. Désactivé, VVake reste comme aujourd’hui.",
-    toggle: "Ton VVake (aperçu)",
+    lead: "Personnaliser mon app : VVake à ta mesure, pour les testeurs. Désactivé, VVake reste comme aujourd’hui.",
+    toggle: "Personnaliser mon app (aperçu)",
     survey: "Répondre au questionnaire",
   },
   you: {
@@ -126,7 +126,7 @@ const fr: TailorDict = {
     saving: "Enregistrement…",
     error: "Ça n’a pas marché. Vérifie ta connexion et réessaie.",
     unchanged: "Rien ne change.",
-    summaryLead: "Active ou désactive ce que tu veux. Modifiable à tout moment dans Toi › Ton VVake.",
+    summaryLead: "Active ou désactive ce que tu veux. Modifiable à tout moment dans Toi › Personnaliser mon app.",
     sportsHint: "Ton sport principal d’abord",
     sportsMax: "Jusqu’à {n}",
     noSport: "Aucun sport trouvé",

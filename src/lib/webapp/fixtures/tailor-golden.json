@@ -85,7 +85,8 @@
       "daily_move",
       "account",
       "device_link",
-      "coach_call_update"
+      "coach_call_update",
+      "asked_reminder"
      ],
      "quiet": [
       1290,
@@ -197,7 +198,8 @@
       "daily_move",
       "account",
       "device_link",
-      "coach_call_update"
+      "coach_call_update",
+      "asked_reminder"
      ],
      "quiet": [
       1290,
@@ -304,7 +306,8 @@
      "kinds": [
       "account",
       "device_link",
-      "coach_call_update"
+      "coach_call_update",
+      "asked_reminder"
      ],
      "quiet": [
       1290,
@@ -417,7 +420,8 @@
       "plan_session",
       "account",
       "device_link",
-      "coach_call_update"
+      "coach_call_update",
+      "asked_reminder"
      ],
      "quiet": [
       1290,
@@ -528,7 +532,8 @@
       "coach_call",
       "account",
       "device_link",
-      "coach_call_update"
+      "coach_call_update",
+      "asked_reminder"
      ],
      "quiet": [
       1290,
@@ -640,7 +645,8 @@
       "daily_move",
       "account",
       "device_link",
-      "coach_call_update"
+      "coach_call_update",
+      "asked_reminder"
      ],
      "quiet": [
       1290,
@@ -750,7 +756,8 @@
       "challenge_result",
       "account",
       "device_link",
-      "coach_call_update"
+      "coach_call_update",
+      "asked_reminder"
      ],
      "quiet": [
       1290,
@@ -859,7 +866,8 @@
       "challenge_result",
       "account",
       "device_link",
-      "coach_call_update"
+      "coach_call_update",
+      "asked_reminder"
      ],
      "quiet": [
       1290,
@@ -977,7 +985,8 @@
       "plan_session",
       "account",
       "device_link",
-      "coach_call_update"
+      "coach_call_update",
+      "asked_reminder"
      ],
      "quiet": [
       1290,
@@ -1114,7 +1123,8 @@
       "referral",
       "account",
       "device_link",
-      "coach_call_update"
+      "coach_call_update",
+      "asked_reminder"
      ],
      "quiet": [
       1290,
@@ -1236,7 +1246,8 @@
       "daily_move",
       "account",
       "device_link",
-      "coach_call_update"
+      "coach_call_update",
+      "asked_reminder"
      ],
      "quiet": [
       1290,
@@ -1348,7 +1359,8 @@
       "coach_call",
       "account",
       "device_link",
-      "coach_call_update"
+      "coach_call_update",
+      "asked_reminder"
      ],
      "quiet": [
       1290,
@@ -1454,7 +1466,8 @@
       "coach_call",
       "account",
       "device_link",
-      "coach_call_update"
+      "coach_call_update",
+      "asked_reminder"
      ],
      "quiet": [
       1290,
@@ -1563,7 +1576,8 @@
       "coach_call",
       "account",
       "device_link",
-      "coach_call_update"
+      "coach_call_update",
+      "asked_reminder"
      ],
      "quiet": [
       1290,
@@ -1676,7 +1690,8 @@
       "daily_move",
       "account",
       "device_link",
-      "coach_call_update"
+      "coach_call_update",
+      "asked_reminder"
      ],
      "quiet": [
       1290,
@@ -1790,7 +1805,8 @@
       "challenge_result",
       "account",
       "device_link",
-      "coach_call_update"
+      "coach_call_update",
+      "asked_reminder"
      ],
      "quiet": [
       1290,
@@ -1896,7 +1912,8 @@
       "coach_call",
       "account",
       "device_link",
-      "coach_call_update"
+      "coach_call_update",
+      "asked_reminder"
      ],
      "quiet": [
       1290,
@@ -2018,7 +2035,8 @@
       "referral",
       "account",
       "device_link",
-      "coach_call_update"
+      "coach_call_update",
+      "asked_reminder"
      ],
      "quiet": [
       1290,
@@ -2134,7 +2152,8 @@
       "daily_move",
       "account",
       "device_link",
-      "coach_call_update"
+      "coach_call_update",
+      "asked_reminder"
      ],
      "quiet": [
       1290,
@@ -2242,7 +2261,8 @@
       "daily_move",
       "account",
       "device_link",
-      "coach_call_update"
+      "coach_call_update",
+      "asked_reminder"
      ],
      "quiet": [
       1290,
@@ -2355,7 +2375,8 @@
       "plan_session",
       "account",
       "device_link",
-      "coach_call_update"
+      "coach_call_update",
+      "asked_reminder"
      ],
      "quiet": [
       1290,
@@ -2468,7 +2489,8 @@
       "daily_move",
       "account",
       "device_link",
-      "coach_call_update"
+      "coach_call_update",
+      "asked_reminder"
      ],
      "quiet": [
       1290,
@@ -2581,7 +2603,8 @@
       "desk_lock",
       "account",
       "device_link",
-      "coach_call_update"
+      "coach_call_update",
+      "asked_reminder"
      ],
      "quiet": [
       1290,
@@ -2690,7 +2713,8 @@
       "daily_move",
       "account",
       "device_link",
-      "coach_call_update"
+      "coach_call_update",
+      "asked_reminder"
      ],
      "quiet": [
       1290,
@@ -2809,7 +2833,8 @@
       "challenge_result",
       "account",
       "device_link",
-      "coach_call_update"
+      "coach_call_update",
+      "asked_reminder"
      ],
      "quiet": [
       1290,
@@ -4740,6 +4765,106 @@
    "decision": "send"
   },
   {
+   "profile": "defaults",
+   "kind": "asked_reminder",
+   "sentToday": 0,
+   "decision": "send"
+  },
+  {
+   "profile": "defaults",
+   "kind": "asked_reminder",
+   "sentToday": 0,
+   "localMinute": 720,
+   "decision": "send"
+  },
+  {
+   "profile": "defaults",
+   "kind": "asked_reminder",
+   "sentToday": 0,
+   "localMinute": 1320,
+   "decision": "send"
+  },
+  {
+   "profile": "defaults",
+   "kind": "asked_reminder",
+   "sentToday": 2,
+   "decision": "send"
+  },
+  {
+   "profile": "defaults",
+   "kind": "asked_reminder",
+   "sentToday": 2,
+   "localMinute": 720,
+   "decision": "send"
+  },
+  {
+   "profile": "defaults",
+   "kind": "asked_reminder",
+   "sentToday": 2,
+   "localMinute": 1320,
+   "decision": "send"
+  },
+  {
+   "profile": "defaults",
+   "kind": "asked_reminder",
+   "sentToday": 3,
+   "decision": "send"
+  },
+  {
+   "profile": "defaults",
+   "kind": "asked_reminder",
+   "sentToday": 3,
+   "localMinute": 720,
+   "decision": "send"
+  },
+  {
+   "profile": "defaults",
+   "kind": "asked_reminder",
+   "sentToday": 3,
+   "localMinute": 1320,
+   "decision": "send"
+  },
+  {
+   "profile": "defaults",
+   "kind": "asked_reminder",
+   "sentToday": 5,
+   "decision": "send"
+  },
+  {
+   "profile": "defaults",
+   "kind": "asked_reminder",
+   "sentToday": 5,
+   "localMinute": 720,
+   "decision": "send"
+  },
+  {
+   "profile": "defaults",
+   "kind": "asked_reminder",
+   "sentToday": 5,
+   "localMinute": 1320,
+   "decision": "send"
+  },
+  {
+   "profile": "defaults",
+   "kind": "asked_reminder",
+   "sentToday": 6,
+   "decision": "send"
+  },
+  {
+   "profile": "defaults",
+   "kind": "asked_reminder",
+   "sentToday": 6,
+   "localMinute": 720,
+   "decision": "send"
+  },
+  {
+   "profile": "defaults",
+   "kind": "asked_reminder",
+   "sentToday": 6,
+   "localMinute": 1320,
+   "decision": "send"
+  },
+  {
    "profile": "preset-everything",
    "kind": "coach_call",
    "sentToday": 0,
@@ -6640,6 +6765,106 @@
    "decision": "send"
   },
   {
+   "profile": "preset-everything",
+   "kind": "asked_reminder",
+   "sentToday": 0,
+   "decision": "send"
+  },
+  {
+   "profile": "preset-everything",
+   "kind": "asked_reminder",
+   "sentToday": 0,
+   "localMinute": 720,
+   "decision": "send"
+  },
+  {
+   "profile": "preset-everything",
+   "kind": "asked_reminder",
+   "sentToday": 0,
+   "localMinute": 1320,
+   "decision": "send"
+  },
+  {
+   "profile": "preset-everything",
+   "kind": "asked_reminder",
+   "sentToday": 2,
+   "decision": "send"
+  },
+  {
+   "profile": "preset-everything",
+   "kind": "asked_reminder",
+   "sentToday": 2,
+   "localMinute": 720,
+   "decision": "send"
+  },
+  {
+   "profile": "preset-everything",
+   "kind": "asked_reminder",
+   "sentToday": 2,
+   "localMinute": 1320,
+   "decision": "send"
+  },
+  {
+   "profile": "preset-everything",
+   "kind": "asked_reminder",
+   "sentToday": 3,
+   "decision": "send"
+  },
+  {
+   "profile": "preset-everything",
+   "kind": "asked_reminder",
+   "sentToday": 3,
+   "localMinute": 720,
+   "decision": "send"
+  },
+  {
+   "profile": "preset-everything",
+   "kind": "asked_reminder",
+   "sentToday": 3,
+   "localMinute": 1320,
+   "decision": "send"
+  },
+  {
+   "profile": "preset-everything",
+   "kind": "asked_reminder",
+   "sentToday": 5,
+   "decision": "send"
+  },
+  {
+   "profile": "preset-everything",
+   "kind": "asked_reminder",
+   "sentToday": 5,
+   "localMinute": 720,
+   "decision": "send"
+  },
+  {
+   "profile": "preset-everything",
+   "kind": "asked_reminder",
+   "sentToday": 5,
+   "localMinute": 1320,
+   "decision": "send"
+  },
+  {
+   "profile": "preset-everything",
+   "kind": "asked_reminder",
+   "sentToday": 6,
+   "decision": "send"
+  },
+  {
+   "profile": "preset-everything",
+   "kind": "asked_reminder",
+   "sentToday": 6,
+   "localMinute": 720,
+   "decision": "send"
+  },
+  {
+   "profile": "preset-everything",
+   "kind": "asked_reminder",
+   "sentToday": 6,
+   "localMinute": 1320,
+   "decision": "send"
+  },
+  {
    "profile": "preset-social_competitor",
    "kind": "coach_call",
    "sentToday": 0,
@@ -8540,6 +8765,106 @@
    "decision": "send"
   },
   {
+   "profile": "preset-social_competitor",
+   "kind": "asked_reminder",
+   "sentToday": 0,
+   "decision": "send"
+  },
+  {
+   "profile": "preset-social_competitor",
+   "kind": "asked_reminder",
+   "sentToday": 0,
+   "localMinute": 720,
+   "decision": "send"
+  },
+  {
+   "profile": "preset-social_competitor",
+   "kind": "asked_reminder",
+   "sentToday": 0,
+   "localMinute": 1320,
+   "decision": "send"
+  },
+  {
+   "profile": "preset-social_competitor",
+   "kind": "asked_reminder",
+   "sentToday": 2,
+   "decision": "send"
+  },
+  {
+   "profile": "preset-social_competitor",
+   "kind": "asked_reminder",
+   "sentToday": 2,
+   "localMinute": 720,
+   "decision": "send"
+  },
+  {
+   "profile": "preset-social_competitor",
+   "kind": "asked_reminder",
+   "sentToday": 2,
+   "localMinute": 1320,
+   "decision": "send"
+  },
+  {
+   "profile": "preset-social_competitor",
+   "kind": "asked_reminder",
+   "sentToday": 3,
+   "decision": "send"
+  },
+  {
+   "profile": "preset-social_competitor",
+   "kind": "asked_reminder",
+   "sentToday": 3,
+   "localMinute": 720,
+   "decision": "send"
+  },
+  {
+   "profile": "preset-social_competitor",
+   "kind": "asked_reminder",
+   "sentToday": 3,
+   "localMinute": 1320,
+   "decision": "send"
+  },
+  {
+   "profile": "preset-social_competitor",
+   "kind": "asked_reminder",
+   "sentToday": 5,
+   "decision": "send"
+  },
+  {
+   "profile": "preset-social_competitor",
+   "kind": "asked_reminder",
+   "sentToday": 5,
+   "localMinute": 720,
+   "decision": "send"
+  },
+  {
+   "profile": "preset-social_competitor",
+   "kind": "asked_reminder",
+   "sentToday": 5,
+   "localMinute": 1320,
+   "decision": "send"
+  },
+  {
+   "profile": "preset-social_competitor",
+   "kind": "asked_reminder",
+   "sentToday": 6,
+   "decision": "send"
+  },
+  {
+   "profile": "preset-social_competitor",
+   "kind": "asked_reminder",
+   "sentToday": 6,
+   "localMinute": 720,
+   "decision": "send"
+  },
+  {
+   "profile": "preset-social_competitor",
+   "kind": "asked_reminder",
+   "sentToday": 6,
+   "localMinute": 1320,
+   "decision": "send"
+  },
+  {
    "profile": "compete-spotify",
    "kind": "coach_call",
    "sentToday": 0,
@@ -10435,6 +10760,106 @@
   {
    "profile": "compete-spotify",
    "kind": "coach_call_update",
+   "sentToday": 6,
+   "localMinute": 1320,
+   "decision": "send"
+  },
+  {
+   "profile": "compete-spotify",
+   "kind": "asked_reminder",
+   "sentToday": 0,
+   "decision": "send"
+  },
+  {
+   "profile": "compete-spotify",
+   "kind": "asked_reminder",
+   "sentToday": 0,
+   "localMinute": 720,
+   "decision": "send"
+  },
+  {
+   "profile": "compete-spotify",
+   "kind": "asked_reminder",
+   "sentToday": 0,
+   "localMinute": 1320,
+   "decision": "send"
+  },
+  {
+   "profile": "compete-spotify",
+   "kind": "asked_reminder",
+   "sentToday": 2,
+   "decision": "send"
+  },
+  {
+   "profile": "compete-spotify",
+   "kind": "asked_reminder",
+   "sentToday": 2,
+   "localMinute": 720,
+   "decision": "send"
+  },
+  {
+   "profile": "compete-spotify",
+   "kind": "asked_reminder",
+   "sentToday": 2,
+   "localMinute": 1320,
+   "decision": "send"
+  },
+  {
+   "profile": "compete-spotify",
+   "kind": "asked_reminder",
+   "sentToday": 3,
+   "decision": "send"
+  },
+  {
+   "profile": "compete-spotify",
+   "kind": "asked_reminder",
+   "sentToday": 3,
+   "localMinute": 720,
+   "decision": "send"
+  },
+  {
+   "profile": "compete-spotify",
+   "kind": "asked_reminder",
+   "sentToday": 3,
+   "localMinute": 1320,
+   "decision": "send"
+  },
+  {
+   "profile": "compete-spotify",
+   "kind": "asked_reminder",
+   "sentToday": 5,
+   "decision": "send"
+  },
+  {
+   "profile": "compete-spotify",
+   "kind": "asked_reminder",
+   "sentToday": 5,
+   "localMinute": 720,
+   "decision": "send"
+  },
+  {
+   "profile": "compete-spotify",
+   "kind": "asked_reminder",
+   "sentToday": 5,
+   "localMinute": 1320,
+   "decision": "send"
+  },
+  {
+   "profile": "compete-spotify",
+   "kind": "asked_reminder",
+   "sentToday": 6,
+   "decision": "send"
+  },
+  {
+   "profile": "compete-spotify",
+   "kind": "asked_reminder",
+   "sentToday": 6,
+   "localMinute": 720,
+   "decision": "send"
+  },
+  {
+   "profile": "compete-spotify",
+   "kind": "asked_reminder",
    "sentToday": 6,
    "localMinute": 1320,
    "decision": "send"
@@ -11569,7 +11994,8 @@
       "coach_call",
       "account",
       "device_link",
-      "coach_call_update"
+      "coach_call_update",
+      "asked_reminder"
      ],
      "quiet": [
       1290,
@@ -11730,7 +12156,8 @@
       "coach_call",
       "account",
       "device_link",
-      "coach_call_update"
+      "coach_call_update",
+      "asked_reminder"
      ],
      "quiet": [
       1290,
@@ -11891,7 +12318,8 @@
       "coach_call",
       "account",
       "device_link",
-      "coach_call_update"
+      "coach_call_update",
+      "asked_reminder"
      ],
      "quiet": [
       1290,
@@ -12075,7 +12503,8 @@
       "desk_lock",
       "account",
       "device_link",
-      "coach_call_update"
+      "coach_call_update",
+      "asked_reminder"
      ],
      "quiet": [
       1290,
@@ -12240,7 +12669,8 @@
       "daily_move",
       "account",
       "device_link",
-      "coach_call_update"
+      "coach_call_update",
+      "asked_reminder"
      ],
      "quiet": [
       1290,
@@ -14568,103 +14998,103 @@
  "coachLine": [
   {
    "profile": "defaults",
-   "line": "- VVake profile (\"Your VVake\"): Daily mover. Features on: coach, habits, outdoor. Off: plan, music, camera, social, rewards, desk: never suggest or mention them unless the athlete asks (then say they can turn it on in Your VVake). Style: motivating and upbeat."
+   "line": "- VVake profile (\"Tailor my app\"): Daily mover. Features on: coach, habits, outdoor. Off: plan, music, camera, social, rewards, desk: never suggest or mention them unless the athlete asks (then say they can turn it on in Settings › Tailor my app). Style: motivating and upbeat."
   },
   {
    "profile": "defaults-watch",
-   "line": "- VVake profile (\"Your VVake\"): Daily mover. Features on: coach, habits, outdoor. Off: plan, music, camera, social, rewards, desk: never suggest or mention them unless the athlete asks (then say they can turn it on in Your VVake). Style: motivating and upbeat."
+   "line": "- VVake profile (\"Tailor my app\"): Daily mover. Features on: coach, habits, outdoor. Off: plan, music, camera, social, rewards, desk: never suggest or mention them unless the athlete asks (then say they can turn it on in Settings › Tailor my app). Style: motivating and upbeat."
   },
   {
    "profile": "preset-just_run",
-   "line": "- VVake profile (\"Your VVake\"): Just train. Features on: music, outdoor. Off: plan, coach, habits, camera, social, rewards, desk: never suggest or mention them unless the athlete asks (then say they can turn it on in Your VVake). Style: motivating and upbeat, cues only (they chose no coaching: answer when asked, never start a topic)."
+   "line": "- VVake profile (\"Tailor my app\"): Just train. Features on: music, outdoor. Off: plan, coach, habits, camera, social, rewards, desk: never suggest or mention them unless the athlete asks (then say they can turn it on in Settings › Tailor my app). Style: motivating and upbeat, cues only (they chose no coaching: answer when asked, never start a topic)."
   },
   {
    "profile": "preset-event_prep",
-   "line": "- VVake profile (\"Your VVake\"): Event prep. Features on: plan, coach, music, outdoor. Off: habits, camera, social, rewards, desk: never suggest or mention them unless the athlete asks (then say they can turn it on in Your VVake). Style: motivating and upbeat."
+   "line": "- VVake profile (\"Tailor my app\"): Event prep. Features on: plan, coach, music, outdoor. Off: habits, camera, social, rewards, desk: never suggest or mention them unless the athlete asks (then say they can turn it on in Settings › Tailor my app). Style: motivating and upbeat."
   },
   {
    "profile": "preset-home_workouts",
-   "line": "- VVake profile (\"Your VVake\"): Home workouts. Features on: coach, music, camera. Off: plan, habits, outdoor, social, rewards, desk: never suggest or mention them unless the athlete asks (then say they can turn it on in Your VVake). Style: motivating and upbeat."
+   "line": "- VVake profile (\"Tailor my app\"): Home workouts. Features on: coach, music, camera. Off: plan, habits, outdoor, social, rewards, desk: never suggest or mention them unless the athlete asks (then say they can turn it on in Settings › Tailor my app). Style: motivating and upbeat."
   },
   {
    "profile": "preset-daily_mover",
-   "line": "- VVake profile (\"Your VVake\"): Daily mover. Features on: coach, habits, outdoor. Off: plan, music, camera, social, rewards, desk: never suggest or mention them unless the athlete asks (then say they can turn it on in Your VVake). Style: motivating and upbeat."
+   "line": "- VVake profile (\"Tailor my app\"): Daily mover. Features on: coach, habits, outdoor. Off: plan, music, camera, social, rewards, desk: never suggest or mention them unless the athlete asks (then say they can turn it on in Settings › Tailor my app). Style: motivating and upbeat."
   },
   {
    "profile": "preset-social_competitor",
-   "line": "- VVake profile (\"Your VVake\"): Social competitor. Features on: music, outdoor, social. Off: plan, coach, habits, camera, rewards, desk: never suggest or mention them unless the athlete asks (then say they can turn it on in Your VVake). Style: motivating and upbeat, cues only (they chose no coaching: answer when asked, never start a topic)."
+   "line": "- VVake profile (\"Tailor my app\"): Social competitor. Features on: music, outdoor, social. Off: plan, coach, habits, camera, rewards, desk: never suggest or mention them unless the athlete asks (then say they can turn it on in Settings › Tailor my app). Style: motivating and upbeat, cues only (they chose no coaching: answer when asked, never start a topic)."
   },
   {
    "profile": "preset-web3_earner",
-   "line": "- VVake profile (\"Your VVake\"): Rewards earner. Features on: outdoor, social, rewards. Off: plan, coach, habits, music, camera, desk: never suggest or mention them unless the athlete asks (then say they can turn it on in Your VVake). Style: motivating and upbeat, cues only (they chose no coaching: answer when asked, never start a topic)."
+   "line": "- VVake profile (\"Tailor my app\"): Rewards earner. Features on: outdoor, social, rewards. Off: plan, coach, habits, music, camera, desk: never suggest or mention them unless the athlete asks (then say they can turn it on in Settings › Tailor my app). Style: motivating and upbeat, cues only (they chose no coaching: answer when asked, never start a topic)."
   },
   {
    "profile": "preset-multisport_pro",
-   "line": "- VVake profile (\"Your VVake\"): Multisport. Features on: plan, coach, music, outdoor, camera. Off: habits, social, rewards, desk: never suggest or mention them unless the athlete asks (then say they can turn it on in Your VVake). Style: motivating and upbeat."
+   "line": "- VVake profile (\"Tailor my app\"): Multisport. Features on: plan, coach, music, outdoor, camera. Off: habits, social, rewards, desk: never suggest or mention them unless the athlete asks (then say they can turn it on in Settings › Tailor my app). Style: motivating and upbeat."
   },
   {
    "profile": "preset-everything",
-   "line": "- VVake profile (\"Your VVake\"): Everything. Features on: plan, coach, habits, music, outdoor, camera, social, rewards. Off: desk: never suggest or mention them unless the athlete asks (then say they can turn it on in Your VVake). Style: motivating and upbeat."
+   "line": "- VVake profile (\"Tailor my app\"): Everything. Features on: plan, coach, habits, music, outdoor, camera, social, rewards. Off: desk: never suggest or mention them unless the athlete asks (then say they can turn it on in Settings › Tailor my app). Style: motivating and upbeat."
   },
   {
    "profile": "event-10k",
-   "line": "- VVake profile (\"Your VVake\"): Event prep. Features on: plan, coach, habits, outdoor. Off: music, camera, social, rewards, desk: never suggest or mention them unless the athlete asks (then say they can turn it on in Your VVake). Style: straight to the point. Event: 10k on 2027-03-14."
+   "line": "- VVake profile (\"Tailor my app\"): Event prep. Features on: plan, coach, habits, outdoor. Off: music, camera, social, rewards, desk: never suggest or mention them unless the athlete asks (then say they can turn it on in Settings › Tailor my app). Style: straight to the point. Event: 10k on 2027-03-14."
   },
   {
    "profile": "camera-only",
-   "line": "- VVake profile (\"Your VVake\"): Home workouts. Features on: coach, camera. Off: plan, habits, music, outdoor, social, rewards, desk: never suggest or mention them unless the athlete asks (then say they can turn it on in Your VVake). Style: motivating and upbeat."
+   "line": "- VVake profile (\"Tailor my app\"): Home workouts. Features on: coach, camera. Off: plan, habits, music, outdoor, social, rewards, desk: never suggest or mention them unless the athlete asks (then say they can turn it on in Settings › Tailor my app). Style: motivating and upbeat."
   },
   {
    "profile": "watch-swim",
-   "line": "- VVake profile (\"Your VVake\"): Daily mover. Features on: coach. Off: plan, habits, music, outdoor, camera, social, rewards, desk: never suggest or mention them unless the athlete asks (then say they can turn it on in Your VVake). Style: motivating and upbeat."
+   "line": "- VVake profile (\"Tailor my app\"): Daily mover. Features on: coach. Off: plan, habits, music, outdoor, camera, social, rewards, desk: never suggest or mention them unless the athlete asks (then say they can turn it on in Settings › Tailor my app). Style: motivating and upbeat."
   },
   {
    "profile": "watch-run",
-   "line": "- VVake profile (\"Your VVake\"): Daily mover. Features on: coach, outdoor. Off: plan, habits, music, camera, social, rewards, desk: never suggest or mention them unless the athlete asks (then say they can turn it on in Your VVake). Style: motivating and upbeat."
+   "line": "- VVake profile (\"Tailor my app\"): Daily mover. Features on: coach, outdoor. Off: plan, habits, music, camera, social, rewards, desk: never suggest or mention them unless the athlete asks (then say they can turn it on in Settings › Tailor my app). Style: motivating and upbeat."
   },
   {
    "profile": "gym-strength",
-   "line": "- VVake profile (\"Your VVake\"): Daily mover. Features on: coach, habits, music. Off: plan, outdoor, camera, social, rewards, desk: never suggest or mention them unless the athlete asks (then say they can turn it on in Your VVake). Style: motivating and upbeat."
+   "line": "- VVake profile (\"Tailor my app\"): Daily mover. Features on: coach, habits, music. Off: plan, outdoor, camera, social, rewards, desk: never suggest or mention them unless the athlete asks (then say they can turn it on in Settings › Tailor my app). Style: motivating and upbeat."
   },
   {
    "profile": "earn-only",
-   "line": "- VVake profile (\"Your VVake\"): Rewards earner. Features on: coach, habits, outdoor, social, rewards. Off: plan, music, camera, desk: never suggest or mention them unless the athlete asks (then say they can turn it on in Your VVake). Style: motivating and upbeat."
+   "line": "- VVake profile (\"Tailor my app\"): Rewards earner. Features on: coach, habits, outdoor, social, rewards. Off: plan, music, camera, desk: never suggest or mention them unless the athlete asks (then say they can turn it on in Settings › Tailor my app). Style: motivating and upbeat."
   },
   {
    "profile": "skill",
-   "line": "- VVake profile (\"Your VVake\"): Home workouts. Features on: coach, camera. Off: plan, habits, music, outdoor, social, rewards, desk: never suggest or mention them unless the athlete asks (then say they can turn it on in Your VVake). Style: motivating and upbeat."
+   "line": "- VVake profile (\"Tailor my app\"): Home workouts. Features on: coach, camera. Off: plan, habits, music, outdoor, social, rewards, desk: never suggest or mention them unless the athlete asks (then say they can turn it on in Settings › Tailor my app). Style: motivating and upbeat."
   },
   {
    "profile": "compete-spotify",
-   "line": "- VVake profile (\"Your VVake\"): Social competitor. Features on: coach, habits, music, outdoor, social. Off: plan, camera, rewards, desk: never suggest or mention them unless the athlete asks (then say they can turn it on in Your VVake). Style: motivating and upbeat."
+   "line": "- VVake profile (\"Tailor my app\"): Social competitor. Features on: coach, habits, music, outdoor, social. Off: plan, camera, rewards, desk: never suggest or mention them unless the athlete asks (then say they can turn it on in Settings › Tailor my app). Style: motivating and upbeat."
   },
   {
    "profile": "few-sports-no-event",
-   "line": "- VVake profile (\"Your VVake\"): Multisport. Features on: plan, coach, habits, outdoor. Off: music, camera, social, rewards, desk: never suggest or mention them unless the athlete asks (then say they can turn it on in Your VVake). Style: motivating and upbeat."
+   "line": "- VVake profile (\"Tailor my app\"): Multisport. Features on: plan, coach, habits, outdoor. Off: music, camera, social, rewards, desk: never suggest or mention them unless the athlete asks (then say they can turn it on in Settings › Tailor my app). Style: motivating and upbeat."
   },
   {
    "profile": "no-coach",
-   "line": "- VVake profile (\"Your VVake\"): Daily mover. Features on: habits, outdoor. Off: plan, coach, music, camera, social, rewards, desk: never suggest or mention them unless the athlete asks (then say they can turn it on in Your VVake). Style: motivating and upbeat, cues only (they chose no coaching: answer when asked, never start a topic)."
+   "line": "- VVake profile (\"Tailor my app\"): Daily mover. Features on: habits, outdoor. Off: plan, coach, music, camera, social, rewards, desk: never suggest or mention them unless the athlete asks (then say they can turn it on in Settings › Tailor my app). Style: motivating and upbeat, cues only (they chose no coaching: answer when asked, never start a topic)."
   },
   {
    "profile": "overrides",
-   "line": "- VVake profile (\"Your VVake\"): Event prep. Features on: plan, outdoor, rewards. Off: coach, habits, music, camera, social, desk: never suggest or mention them unless the athlete asks (then say they can turn it on in Your VVake). Style: motivating and upbeat, cues only (they chose no coaching: answer when asked, never start a topic)."
+   "line": "- VVake profile (\"Tailor my app\"): Event prep. Features on: plan, outdoor, rewards. Off: coach, habits, music, camera, social, desk: never suggest or mention them unless the athlete asks (then say they can turn it on in Settings › Tailor my app). Style: motivating and upbeat, cues only (they chose no coaching: answer when asked, never start a topic)."
   },
   {
    "profile": "override-coach-on",
-   "line": "- VVake profile (\"Your VVake\"): Daily mover. Features on: coach, habits, outdoor. Off: plan, music, camera, social, rewards, desk: never suggest or mention them unless the athlete asks (then say they can turn it on in Your VVake). Style: motivating and upbeat."
+   "line": "- VVake profile (\"Tailor my app\"): Daily mover. Features on: coach, habits, outdoor. Off: plan, music, camera, social, rewards, desk: never suggest or mention them unless the athlete asks (then say they can turn it on in Settings › Tailor my app). Style: motivating and upbeat."
   },
   {
    "profile": "desk-linked",
-   "line": "- VVake profile (\"Your VVake\"): Daily mover. Features on: coach, habits, outdoor, desk. Off: plan, music, camera, social, rewards: never suggest or mention them unless the athlete asks (then say they can turn it on in Your VVake). Style: motivating and upbeat."
+   "line": "- VVake profile (\"Tailor my app\"): Daily mover. Features on: coach, habits, outdoor, desk. Off: plan, music, camera, social, rewards: never suggest or mention them unless the athlete asks (then say they can turn it on in Settings › Tailor my app). Style: motivating and upbeat."
   },
   {
    "profile": "desk-offer",
-   "line": "- VVake profile (\"Your VVake\"): Daily mover. Features on: coach, habits, outdoor. Off: plan, music, camera, social, rewards, desk: never suggest or mention them unless the athlete asks (then say they can turn it on in Your VVake). Style: motivating and upbeat."
+   "line": "- VVake profile (\"Tailor my app\"): Daily mover. Features on: coach, habits, outdoor. Off: plan, music, camera, social, rewards, desk: never suggest or mention them unless the athlete asks (then say they can turn it on in Settings › Tailor my app). Style: motivating and upbeat."
   },
   {
    "profile": "dirty",
-   "line": "- VVake profile (\"Your VVake\"): Rewards earner. Features on: coach, habits, outdoor, social, rewards. Off: plan, music, camera, desk: never suggest or mention them unless the athlete asks (then say they can turn it on in Your VVake). Style: motivating and upbeat."
+   "line": "- VVake profile (\"Tailor my app\"): Rewards earner. Features on: coach, habits, outdoor, social, rewards. Off: plan, music, camera, desk: never suggest or mention them unless the athlete asks (then say they can turn it on in Settings › Tailor my app). Style: motivating and upbeat."
   }
  ]
 }

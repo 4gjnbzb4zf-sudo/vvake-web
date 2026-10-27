@@ -1,4 +1,4 @@
-// Copied from VVFit packages/game-core/src/tailor.ts (e7ff18c7 2026-10-27) by scripts/sync-tailor-core.ts. Do not edit: re-sync.
+// Copied from VVFit packages/game-core/src/tailor.ts (c7fb06f9 2026-10-27) by scripts/sync-tailor-core.ts. Do not edit: re-sync.
 /**
  * "Your VVake": the lean, tailored app (ADR-0059, docs/02-product/lean-tailored-experience.md, founder survey GO
  * 2026-10-27). Ten one-tap questions give a profile that switches nine features on or off for one athlete, on every
@@ -342,6 +342,8 @@ export const TAILOR_NOTIFY_KINDS = {
   account: { feature: null, level: "few", late: "drop", exempt: true },
   device_link: { feature: null, level: "few", late: "drop", exempt: true },
   coach_call_update: { feature: null, level: "few", late: "drop", exempt: true },
+  /** A reminder the athlete just asked for ("remind me to move in 30 minutes", a reminder's "In 15 min"): their own action. */
+  asked_reminder: { feature: null, level: "few", late: "drop", exempt: true },
 } as const satisfies Record<
   string,
   { feature: TailorFeature | null; level: TailorNotify; priority?: number; late: "digest" | "drop"; exempt?: boolean }
@@ -349,6 +351,18 @@ export const TAILOR_NOTIFY_KINDS = {
 export type TailorNotifyKind = keyof typeof TAILOR_NOTIFY_KINDS;
 type KindRule = { feature: TailorFeature | null; level: TailorNotify; priority?: number; late: "digest" | "drop"; exempt?: boolean };
 const kindRule = (k: TailorNotifyKind): KindRule => TAILOR_NOTIFY_KINDS[k] as KindRule;
+
+/**
+ * The kinds the athlete can switch off one by one (the Notifications screen; `prefs.notifyOff` on the account): every
+ * kind but the exempt ones (security, replies to their own action). Switched off: never sent, never in the digest.
+ */
+export const TAILOR_SWITCHABLE_KINDS: readonly TailorNotifyKind[] = (Object.keys(TAILOR_NOTIFY_KINDS) as TailorNotifyKind[]).filter(
+  (k) => !kindRule(k).exempt,
+);
+
+/** The kind is switched off in this list (`prefs.notifyOff`); exempt kinds never are. Pure. */
+export const notifyKindOff = (off: readonly string[] | null | undefined, kind: TailorNotifyKind): boolean =>
+  !kindRule(kind).exempt && !!off?.includes(kind);
 
 /** Daily budgets (decision 5): 3 by default, 6 for "A few more"; "Everything" keeps every kind but the hard cap stays 6. */
 export const TAILOR_NOTIFY_BUDGET: Readonly<Record<TailorNotify, number>> = { few: 3, more: 6, all: 6 };
@@ -795,9 +809,9 @@ export function tailorCoachLine(p: TailorProfile | null | undefined): string {
   const on = TAILOR_FEATURES.filter((k) => p.features[k]);
   const off = TAILOR_FEATURES.filter((k) => !p.features[k]);
   const parts = [
-    `- VVake profile ("Your VVake"): ${TAILOR_PRESET_TEXT[p.preset].en}. Features on: ${on.length ? on.join(", ") : "none beyond the basics"}.`,
+    `- VVake profile ("Tailor my app"): ${TAILOR_PRESET_TEXT[p.preset].en}. Features on: ${on.length ? on.join(", ") : "none beyond the basics"}.`,
     off.length
-      ? ` Off: ${off.join(", ")}: never suggest or mention them unless the athlete asks (then say they can turn it on in Your VVake).`
+      ? ` Off: ${off.join(", ")}: never suggest or mention them unless the athlete asks (then say they can turn it on in Settings › Tailor my app).`
       : "",
     ` Style: ${STYLE_EN[p.coach.style]}${p.coach.on ? "" : ", cues only (they chose no coaching: answer when asked, never start a topic)"}.`,
     p.event?.date || p.event?.type ? ` Event: ${[p.event.type, p.event.date].filter(Boolean).join(" on ")}.` : "",
@@ -1108,7 +1122,7 @@ export const TAILOR_PRESET_TEXT: Readonly<Record<TailorPreset, { en: string; fr:
  * `tailor.feature.<id>`, `tailor.summary.*`), EN + FR. The apps copy these into their own string catalogs.
  */
 export const TAILOR_TEXT: Readonly<Record<string, { en: string; fr: string }>> = {
-  "tailor.title": { en: "Your VVake", fr: "Ton VVake" },
+  "tailor.title": { en: "Tailor my app", fr: "Personnaliser mon app" },
   "tailor.goals.title": { en: "What brings you to VVake?", fr: "Qu'est-ce qui t'amène sur VVake ?" },
   "tailor.goals.hint": { en: "Up to 2", fr: "Jusqu'à 2" },
   "tailor.goals.move": { en: "Move more every day", fr: "Bouger plus chaque jour" },
