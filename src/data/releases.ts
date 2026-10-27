@@ -19,6 +19,34 @@ export interface Release {
 
 export const releases: Release[] = [
   {
+    version: "1.0.0 (51)",
+    date: "2026-10-27",
+    channel: "beta",
+    devices: ["iphone", "watch", "android", "wear"],
+    notes: {
+      en: {
+        improved: [
+          "Settings has one Tailor my app row at the top (change your answers or retake the survey), instead of two rows doing almost the same.",
+        ],
+        fixed: [
+          "Everywhere the app talks about your plan, it now names the one you have: VVake Coach Premium (early testers included) or VVake Coach Plus.",
+          "Your watch shows your plan by its name too: Coach Premium or Coach Plus.",
+          "The coach calls your plan by its right name if it comes up.",
+        ],
+      },
+      fr: {
+        improved: [
+          "Les Réglages ont une seule ligne Personnaliser mon app en haut (modifier vos réponses ou refaire le questionnaire), au lieu de deux lignes presque identiques.",
+        ],
+        fixed: [
+          "Partout où l'app parle de votre formule, elle nomme celle que vous avez : VVake Coach Premium (testeurs pionniers compris) ou VVake Coach Plus.",
+          "Votre montre affiche aussi votre formule sous son nom : Coach Premium ou Coach Plus.",
+          "Le coach appelle votre formule par son vrai nom si le sujet vient.",
+        ],
+      },
+    },
+  },
+  {
     version: "1.0.0 (50)",
     date: "2026-10-27",
     channel: "beta",
