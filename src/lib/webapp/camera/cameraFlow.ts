@@ -1,4 +1,4 @@
-// Copied from VVFit packages/game-core/src/cameraFlow.ts (e628403d 2026-10-26) by scripts/sync-camera-core.ts. Do not edit: re-sync.
+// Copied from VVFit packages/game-core/src/cameraFlow.ts (7f2a8945 2026-10-27) by scripts/sync-camera-core.ts. Do not edit: re-sync.
 /**
  * Camera workouts, hands-free (ADR-0046 amendment 2026-10-21). Founder, after build 34: "It's video training mode:
  * the user should not have to go to the phone and tap or type to be recognised." One tap on Start, then the session
@@ -6,12 +6,15 @@
  *
  *   demo (each new move, full screen, played twice) → setup (the readiness check: in the picture, the right angle,
  *   in the start position; cameraReady.ts) → countdown 3-2-1 → set (reps or the hold counted from the pose) → the set
- *   ends by itself (target reached, you stopped moving for 7 s, the hold's time) → rest (the next exercise previewed;
+ *   ends at its target (the reps, the hold's time), or on your Finish set / Skip (tap or voice) → rest (the next exercise previewed;
  *   the last seconds ask you to get into position; liveness checks during rest are pose-only, as before) → the next
  *   set, or the next move's demo → … → done.
  *
  * Nothing starts before you're ready (tester report 2026-10-26: a plank timer started before the plank), except your
- * own Start. A hold's timer runs only while you hold the position; a brief tracking loss doesn't pause it, a real
+ * own Start. Nothing ends before it's done (tester report 2026-10-27: a 2–3 s rest lying down mid-set moved the workout
+ * on, reps left): a planned set with a target stays open through any pause or tracking loss; a long quiet stretch
+ * only asks "Done with this set?" (voice and a card), never advances on its own. A set without a target (a move
+ * picked on its own) still ends 7 s after the last rep, the time out of sight not counted. A hold's timer runs only while you hold the position; a brief tracking loss doesn't pause it, a real
  * break does (and says so), and a manual Start / Resume times it by hand when the camera struggles.
  *
  * Without a routine ("just start moving"): VVake recognises the move you're doing, counts it, ends the set when you
@@ -30,23 +33,28 @@ import type { PoseFrame } from "./cameraPose";
 import type { CameraSummary } from "./cameraPoints";
 import { CAMERA_HEART, restHeartDecision, restHeartLine, type RestRule } from "./cameraHeart";
 import { ReadyGate, readiness as defaultReadiness, type ReadyPrompt, type ReadyReport } from "./cameraReady";
-import { easierOf, getReadyLine, promptLine, viewAsk } from "./cameraPrep";
+import { easierOf, getReadyLine, promptLine, setupOf, turnFor, viewAsk, workoutPlacement, type WorkoutPlacement } from "./cameraPrep";
+import { planRounds, roundLine, type RoundOf } from "./cameraPlan";
+import { READY_TEXT } from "./cameraReady";
 import { progressLine } from "./cameraCues";
 import { normalizeVoice } from "./voiceNormalize";
 
 export const HANDS_FREE = {
   /** The 3-2-1 before each set. */
   countdownMs: 3000,
-  /** No rep for this long, after at least one: the set is over. */
+  /** A set WITHOUT a target ("just start moving", a move picked on its own): no rep for this long, after at least one,
+   * the set is over (time out of sight not counted). A planned set with a target never ends this way. */
   idleEndMs: 7000,
+  /** A planned set with a target: nothing new this long (no rep, the hold not growing) only asks "Done with this
+   * set?" (voice + card); asked again after `askAgainMs`, never ends the set (2026-10-27). */
+  askDoneMs: 45_000,
+  askAgainMs: 90_000,
   /** "Just start moving": a hold that stopped (out of position) this long, after at least `holdMinS`: the set is over. */
   holdIdleEndMs: 6000,
   holdMinS: 3,
   /** A planned hold: out of position (or out of sight) this long and its timer shows "paused" (a blip isn't a break). */
   holdPauseMs: 2500,
-  /** A planned hold: a break this long, after at least `holdMinS`, ends the set (you stopped). */
-  holdBreakEndMs: 12_000,
-  /** Nothing counted this long since the set started: move on (never stuck waiting for a tap). */
+  /** "Just start moving": nothing counted this long since the set started, back to waiting for a move. */
   nothingMs: 60_000,
   /** A move the camera can't count: a timed set (the routine's reps × 3 s, else 40 s; a hold: its time, else 30 s). */
   manualRepS: 3,
@@ -74,7 +82,8 @@ export const HANDS_FREE = {
 export const restPrepS = (restS: number) => Math.max(HANDS_FREE.prepMinS, Math.min(HANDS_FREE.prepMaxS, Math.round(restS / 3)));
 
 export type FlowPhase = "demo" | "setup" | "countdown" | "set" | "rest" | "ready" | "done";
-export type SetEndReason = "target" | "idle" | "time" | "switch" | "nothing" | "skip";
+/** `finish`: your Finish set (tap or voice). `nothing` is no longer produced for a planned set (kept for old logs). */
+export type SetEndReason = "target" | "idle" | "time" | "switch" | "nothing" | "skip" | "finish";
 /** A planned hold's timer, as the screen shows it (cameraReps.ts HoldTimer's states folded: settling = waiting,
  * a wobble or a brief loss = holding, a break or a long loss = paused). */
 export type FlowHoldState = "waiting" | "holding" | "paused";
@@ -111,8 +120,8 @@ export type FlowEvent =
   | { type: "readyPrompt"; move: string; prompt: ReadyPrompt | null }
   /** Ready (`by`: the camera saw you ready, or your own Start): the countdown follows. */
   | { type: "ready"; move: string; by: "camera" | "you" }
-  /** The rest's last seconds: get into position for the next set. */
-  | { type: "getReady"; move: string; leftS: number }
+  /** The rest's last seconds: get into position for the next set (`turn`: only the angle that changes, null: none). */
+  | { type: "getReady"; move: string; leftS: number; turn?: ReadyPrompt | null }
   | { type: "countdown"; n: number }
   /** Counting starts: `setNo` of `sets` (the plan's sets of this move; 0 / 0 without a plan). */
   | { type: "go"; move: string | null; setNo: number; sets: number }
@@ -122,8 +131,16 @@ export type FlowEvent =
   | { type: "lost"; prompt: ReadyPrompt | null }
   | { type: "found" }
   | { type: "setEnd"; move: string | null; set: CameraSet | null; reason: SetEndReason }
-  /** `newMove`: the next set is another move (the rest previews it and asks for its angle). */
-  | { type: "rest"; untilMs: number; restS: number; next: PlannedSet | null; newMove?: boolean }
+  /** `newMove`: the next set is another move (the rest previews it). `turn`: the angle to turn to for it, only when
+   * the last move's angle doesn't count it (null: stay as you are; absent: the move's own angle, older callers). */
+  | { type: "rest"; untilMs: number; restS: number; next: PlannedSet | null; newMove?: boolean; turn?: ReadyPrompt | null }
+  /** A planned set quiet for a long while: "Done with this set?" (`done`: reps or seconds so far). Never ends it. */
+  | { type: "askDone"; move: string; done: number }
+  /** The question answered by moving again, or your Keep going. */
+  | { type: "keepGoing" }
+  /** A repeated sequence starts again: round `n` of `of` (cameraPlan.ts planRounds). */
+  | { type: "round"; n: number; of: number }
+
   /** The rest changed by you (+15 s, the rest length): `addS` when it was "more rest". */
   | { type: "restChanged"; untilMs: number; addS?: number; restS?: number }
   /** The rest followed the heart (cameraHeart.ts): stretched (`addS`) or the next set soon (`leftS`). */
@@ -240,10 +257,20 @@ export class HandsFreeWorkout {
   private manualHoldBase = 0;
   private setLostMs = 0;
   private setPartials = 0;
+  /** "Done with this set?" asked (when), and the rounds of the plan (read back from it). */
+  private askedAt = 0;
+  private rounds: (RoundOf | null)[] = [];
+  /** The moves already demoed (a repeated round doesn't replay them). */
+  private demoed = new Set<string>();
+  /** The angle to turn to for the next move (only when it changes), worked out when the rest starts. */
+  private restTurn: ReadyPrompt | null | undefined = undefined;
+  /** When VVake found you again after losing you in a set (a set without a target: its idle clock restarts). */
+  private foundAt = 0;
 
   constructor(nowMs: number, rnd: () => number, o: FlowOptions = {}) {
     this.engine = new CameraWorkoutEngine(nowMs, rnd);
     this.plan = flowPlan(o);
+    this.rounds = this.plan ? planRounds(this.plan) : [];
     this.loads = { ...(o.loads ?? {}) };
     this.lastActivityMs = nowMs;
     // The screen's clock starts here (any epoch: Date.now on a phone), so the detection pace doesn't depend on it.
@@ -297,6 +324,15 @@ export class HandsFreeWorkout {
   get manualHold(): boolean {
     return this.manualHoldAt > 0;
   }
+  /** "Done with this set?" is on screen (a planned set quiet for a long while). */
+  get askingDone(): boolean {
+    return this.askedAt > 0;
+  }
+  /** "Round 1 of 2" of the planned set (null: not in a repeated sequence). */
+  roundOf(i = this.idx): { n: number; of: number } | null {
+    const r = this.rounds[i];
+    return r ? { n: r.n, of: r.of } : null;
+  }
   /** "Set 2 of 3" of this move in the plan. */
   setOf(i = this.idx): { n: number; of: number } {
     if (!this.plan || !this.plan[i]) return { n: 0, of: 0 };
@@ -327,6 +363,17 @@ export class HandsFreeWorkout {
       return [];
     }
     return this.beginPlanned(nowMs);
+  }
+
+  /** Where the phone goes, once for the whole workout (shown on the plan, said at the start; mixed standing and floor
+   * moves: one low spot, you only turn). Null without a plan. */
+  placement(lang: "en" | "fr"): WorkoutPlacement | null {
+    return this.plan
+      ? workoutPlacement(
+          this.plan.map((s) => s.move),
+          lang,
+        )
+      : null;
   }
 
   pause(nowMs: number) {
@@ -471,9 +518,32 @@ export class HandsFreeWorkout {
     this.gate = null;
     this.gateKey = "";
     this.lastReady = null;
+    this.rounds = planRounds(this.plan);
     const out: FlowEvent[] = [{ type: "swapped", from, to: e.move }];
     if (this.phase !== "rest") out.push(...this.beginDemo(this.plan[this.idx]!, nowMs));
     return out;
+  }
+
+  /**
+   * Your Finish set (tap, or "finish set" / « série finie »): the set ends now with what you did, then the rest. With
+   * nothing done it's a Skip.
+   */
+  finishSet(nowMs: number): FlowEvent[] {
+    if (this.paused || this.phase !== "set") return [];
+    const s = this.engine.set;
+    if (!s || (s.reps <= 0 && s.holdS < 1)) return this.skip(nowMs);
+    const out: FlowEvent[] = [];
+    this.endSet(nowMs, "finish", out);
+    return out;
+  }
+
+  /** "Keep going" to "Done with this set?": the set stays open, the question goes away. */
+  keepGoing(nowMs: number): FlowEvent[] {
+    if (this.phase !== "set" || !this.askedAt) return [];
+    this.askedAt = 0;
+    this.lastActivityMs = nowMs;
+    if (this.holdPausedSince) this.holdPausedSince = nowMs;
+    return [{ type: "keepGoing" }];
   }
 
   /** Your Start / Resume on a hold the camera can't see well: timed by hand from now (judged as yours). */
@@ -527,7 +597,12 @@ export class HandsFreeWorkout {
           const t = this.target;
           if (t && !this.getReadySaid && this.inPrepAt(nowMs)) {
             this.getReadySaid = true;
-            out.push({ type: "getReady", move: t.move, leftS: Math.max(1, Math.round((this.phaseUntilMs - nowMs) / 1000)) });
+            out.push({
+              type: "getReady",
+              move: t.move,
+              leftS: Math.max(1, Math.round((this.phaseUntilMs - nowMs) / 1000)),
+              ...(this.restTurn !== undefined ? { turn: this.restTurn } : {}),
+            });
           }
         }
         if (nowMs >= this.phaseUntilMs && !this.engine.liveness.active) {
@@ -604,13 +679,23 @@ export class HandsFreeWorkout {
       this.finishFlow(out);
       return out;
     }
-    const prev = this.idx > 0 ? this.plan![this.idx - 1]!.move : null;
-    if (prev !== t.move && !this.skipDemo) return this.beginDemo(t, nowMs);
+    const head: FlowEvent[] = [];
+    // A repeated sequence starts again: said, so the second round is never a surprise (2026-10-27).
+    const r = this.rounds[this.idx];
+    const roundStart = !!r && r.n > 1 && this.idx === r.start + (r.n - 1) * r.len;
+    if (r && roundStart) head.push({ type: "round", n: r.n, of: r.of });
+    const before = this.idx > 0 ? this.plan![this.idx - 1]! : null;
+    // Steps of your own (ADR-0061) share one move id: another label is another move (its name and target said again).
+    const fresh = !before || before.move !== t.move || (before.label ?? "") !== (t.label ?? "");
+    // In a later round, a move already shown isn't demoed again (the rest said what's next).
+    const seen = !!r && r.n > 1 && this.demoed.has(`${t.move}|${t.label ?? ""}`);
+    if (fresh && !this.skipDemo && !seen) return [...head, ...this.beginDemo(t, nowMs)];
     this.skipDemo = false;
-    return this.beginSetup(nowMs);
+    return [...head, ...this.beginSetup(nowMs)];
   }
 
   private beginDemo(t: PlannedSet, nowMs: number): FlowEvent[] {
+    this.demoed.add(`${t.move}|${t.label ?? ""}`);
     this.demo = demoLoop(t.move);
     this.demoLoopNo = 1;
     this.enter("demo", nowMs, demoMs(t.move));
@@ -682,6 +767,8 @@ export class HandsFreeWorkout {
     this.lost = null;
     this.setLostMs = 0;
     this.setPartials = 0;
+    this.askedAt = 0;
+    this.foundAt = 0;
   }
 
   private tickSet(nowMs: number, out: FlowEvent[], f: PoseFrame | null) {
@@ -722,11 +809,22 @@ export class HandsFreeWorkout {
     }
     if (m?.kind === "reps" && t?.reps && s.reps >= t.reps) return this.endSet(nowMs, "target", out);
     if (m?.kind === "hold" && t?.holdS && s.holdS >= t.holdS) return this.endSet(nowMs, "time", out);
-    if (m?.kind === "reps" && s.reps > 0 && nowMs - Math.max(this.lastRepAt, since) >= HANDS_FREE.idleEndMs)
-      return this.endSet(nowMs, "idle", out);
+    // A planned set with a target stays open until it's done or you end it (tester report 2026-10-27: a few seconds
+    // lying down between reps ended the set). A long quiet stretch only asks.
+    const targeted = !!this.plan && !!m && ((m.kind === "reps" && !!t?.reps) || (m.kind === "hold" && !!t?.holdS));
+    if (this.askedAt && nowMs - this.lastActivityMs < 1000 && this.lastActivityMs > this.askedAt) {
+      this.askedAt = 0;
+      out.push({ type: "keepGoing" });
+    }
+    if (m?.kind === "reps" && !targeted && s.reps > 0) {
+      // Without a target: 7 s after the last rep (a planned one: never while VVake can't see you, and the clock
+      // restarts when it finds you again).
+      const base = Math.max(this.lastRepAt, since, this.plan ? this.foundAt : 0);
+      if (!(this.plan && this.lost) && nowMs - base >= HANDS_FREE.idleEndMs) return this.endSet(nowMs, "idle", out);
+    }
     if (m?.kind === "hold" && this.plan) {
       // A planned hold: the timer shows waiting / holding / paused (the engine's HoldTimer: it starts only once you're
-      // in position, rides through a wobble or a brief loss, pauses on a real break); a 12 s break ends the set.
+      // in position, rides through a wobble or a brief loss, pauses on a real break); a break never ends the set.
       const hs = this.engine.holdStatus();
       const quiet = nowMs - Math.max(this.holdGrowMs, since);
       const st: FlowHoldState = hs
@@ -746,13 +844,20 @@ export class HandsFreeWorkout {
       }
       if (st === "paused") this.holdPausedSince ||= nowMs;
       else this.holdPausedSince = 0;
-      if (s.holdS >= HANDS_FREE.holdMinS && st === "paused" && nowMs - Math.max(this.holdPausedSince, since) >= HANDS_FREE.holdBreakEndMs)
-        return this.endSet(nowMs, "idle", out);
+      if (st === "holding") this.lastActivityMs = nowMs;
     } else if (m?.kind === "hold" && s.holdS >= HANDS_FREE.holdMinS && nowMs - Math.max(this.holdGrowMs, since) >= HANDS_FREE.holdIdleEndMs)
       return this.endSet(nowMs, "idle", out);
+    if (this.plan && m) {
+      // Planned: never moved on silently. Quiet for a long while (nothing yet, a long pause, a hold broken off): ask.
+      const quiet = nowMs - Math.max(this.lastActivityMs, since);
+      if (quiet >= HANDS_FREE.askDoneMs && (!this.askedAt || nowMs - this.askedAt >= HANDS_FREE.askAgainMs)) {
+        this.askedAt = nowMs;
+        out.push({ type: "askDone", move: m.id, done: m.kind === "hold" && !s.reps ? Math.floor(s.holdS) : s.reps });
+      }
+      return;
+    }
     if (s.reps <= 0 && s.holdS < 1 && nowMs - since >= HANDS_FREE.nothingMs) {
-      // Planned: move on to the next set. Free: back to waiting for a move (nothing was logged).
-      if (this.plan) return this.endSet(nowMs, "nothing", out);
+      // Free: back to waiting for a move (nothing was logged).
       if (m) {
         this.engine.endSet(nowMs, 0);
         this.enter("ready", nowMs, 0);
@@ -771,6 +876,7 @@ export class HandsFreeWorkout {
         this.setLostMs += nowMs - this.lost.since;
         if (this.lost.shown) out.push({ type: "found" });
         this.lost = null;
+        this.foundAt = nowMs;
       }
       return;
     }
@@ -870,6 +976,7 @@ export class HandsFreeWorkout {
     this.holdState = null;
     this.lost = null;
     this.manualHoldAt = 0;
+    this.askedAt = 0;
     out.push({ type: "setEnd", move, set, reason });
     this.lastActivityMs = nowMs;
     if (reason === "switch") return;
@@ -883,7 +990,10 @@ export class HandsFreeWorkout {
     this.restShortened = false;
     this.getReadySaid = false;
     const next = this.target && this.plan ? this.target : null;
-    out.push({ type: "rest", untilMs: this.phaseUntilMs, restS, next, ...(next ? { newMove: next.move !== move } : {}) });
+    const newMove = !!next && next.move !== move;
+    // Only what changes: the angle to turn to when the last move's angle doesn't count the next one.
+    this.restTurn = next ? (newMove ? turnFor(move ? cameraMove(move) : null, cameraMove(next.move)) : null) : undefined;
+    out.push({ type: "rest", untilMs: this.phaseUntilMs, restS, next, ...(next ? { newMove, turn: this.restTurn ?? null } : {}) });
   }
 
   /** A planned rest follows the heart: 15 s more while it's still high at the end (≤ 45 s), or sooner once recovered. */
@@ -958,6 +1068,20 @@ export function weightedMoves(summary: Pick<CameraSummary, "moves">): string[] {
  * rest, what's next and its camera angle; get ready; the end. The form cues stay as they were (cameraCues.ts); the
  * counts follow `repLine`. Null: nothing to say.
  */
+/** A planned set's name: the words you wrote for a step of your own (ADR-0061), else the move's name. */
+export function plannedName(t: Pick<PlannedSet, "move" | "label"> | null | undefined, lang: "en" | "fr"): string {
+  if (!t) return "";
+  return t.label || (cameraMove(t.move)?.name[lang] ?? t.move);
+}
+
+/** The angle line of a rest: only what changes (`turn`), or, for an event without it, the next move's own angle. */
+export function restAsk(e: Extract<FlowEvent, { type: "rest" }>, lang: "en" | "fr"): string | null {
+  if (!e.next) return null;
+  if (e.turn !== undefined) return e.turn ? READY_TEXT[e.turn][lang] : null;
+  const m = e.newMove ? cameraMove(e.next.move) : null;
+  return m ? viewAsk(m, lang) : null;
+}
+
 export function flowLine(e: FlowEvent, lang: "en" | "fr"): string | null {
   const fr = lang === "fr";
   const name = (id: string | null | undefined) => (id ? (cameraMove(id)?.name[lang] ?? id) : "");
@@ -966,13 +1090,15 @@ export function flowLine(e: FlowEvent, lang: "en" | "fr"): string | null {
       if (e.loop !== 1) return null;
       const m = cameraMove(e.move) ?? null;
       const zone = e.target?.zone ? (fr ? ` Zone ${e.target.zone}.` : ` Zone ${e.target.zone}.`) : "";
-      return `${name(e.move)}. ${targetText(e.target, m, lang)}.${zone}`;
+      // The exact variation: its stance and where the weight is (2026-10-27), for a catalogue move.
+      const setup = e.target?.label ? null : setupOf(e.move, lang);
+      return `${e.target?.label || name(e.move)}.${setup ? ` ${setup}` : ""} ${targetText(e.target, m, lang)}.${zone}`;
     }
     case "setup":
     case "readyPrompt":
       return e.prompt && e.prompt !== "ready" ? promptLine(e.prompt, cameraMove(e.move), lang) : null;
     case "getReady":
-      return getReadyLine(e.move, lang);
+      return getReadyLine(e.move, lang, e.turn);
     case "countdown":
       return String(e.n);
     case "go":
@@ -1009,12 +1135,22 @@ export function flowLine(e: FlowEvent, lang: "en" | "fr"): string | null {
           ? `Repos. Reprends quand tu veux, je reconnais ton mouvement.`
           : `Rest. Start moving when you’re ready: I’ll recognise the move.`;
       const base = fr
-        ? `Repos ${e.restS} secondes. Ensuite : ${name(e.next.move)}.`
-        : `Rest ${e.restS} seconds. Next: ${name(e.next.move)}.`;
-      const m = e.newMove ? cameraMove(e.next.move) : null;
-      const ask = m ? viewAsk(m, lang) : null;
+        ? `Repos ${e.restS} secondes. Ensuite : ${plannedName(e.next, lang)}.`
+        : `Rest ${e.restS} seconds. Next: ${plannedName(e.next, lang)}.`;
+      const ask = restAsk(e, lang);
       return ask ? `${base} ${ask}` : base;
     }
+    case "askDone":
+      return e.done > 0
+        ? fr
+          ? "Série terminée ? Dis « série finie », ou continue."
+          : "Done with this set? Say “finish set”, or keep going."
+        : fr
+          ? "Quand tu es prêt. Dis « on passe » pour passer."
+          : "Whenever you’re ready. Say “skip” to move on.";
+    case "round":
+      return roundLine(e.n, e.of, lang);
+
     case "restChanged":
       return e.addS ? (fr ? `${e.addS} secondes de plus.` : `${e.addS} more seconds.`) : null;
     case "swapped":
@@ -1084,7 +1220,7 @@ export class PromptVoice {
 
 // ── Voice controls during a camera workout ────────────────────────────────────────────────────────────────────────
 
-export type CameraVoiceAction = "pause" | "resume" | "more_rest" | "skip" | "start" | "replay" | "easier";
+export type CameraVoiceAction = "pause" | "resume" | "more_rest" | "skip" | "start" | "replay" | "easier" | "finish";
 
 const VOICE_ACTIONS: readonly [CameraVoiceAction, RegExp][] = [
   [
@@ -1096,6 +1232,10 @@ const VOICE_ACTIONS: readonly [CameraVoiceAction, RegExp][] = [
     /^(replay( the)?( demo)?|show (me )?(it )?again|demo again|rejoue( la demo)?|remontre( moi)?|montre (moi )?encore|encore la demo)$/,
   ],
   ["easier", /^(easier|make it easier|easier version|plus facile|version plus facile|en plus facile)$/],
+  [
+    "finish",
+    /^(finish( the)?( set)?|finished|set (done|finished)|done( with (this|the) set)?|i m done|im done|end( the)? set|that s it|thats it|serie (finie|terminee)|fin de (la )?serie|j ai fini|jai fini|fini|termine|c est fini|cest fini)$/,
+  ],
   ["skip", /^(skip( it| this| the rest| rest)?|next( one)?|passe|on passe|suivant|passe au suivant|saute)$/],
   ["pause", /^(pause|wait|hold on|stop|attends|pause la seance|stop)$/],
   ["resume", /^(resume|continue|go on|keep going|reprends|on reprend|continue|reprise)$/],
@@ -1114,8 +1254,8 @@ export function cameraVoiceAction(text: string): CameraVoiceAction | null {
 
 /** What an athlete can say during a camera workout (the voice sheet's help line). */
 export const CAMERA_VOICE_HELP = {
-  en: "Say “pause”, “more rest”, “skip”, “I’m ready”, “replay the demo” or “easier”.",
-  fr: "Dis « pause », « plus de repos », « on passe », « je suis prêt », « rejoue la démo » ou « plus facile ».",
+  en: "Say “pause”, “finish set”, “more rest”, “skip”, “I’m ready”, “replay the demo” or “easier”.",
+  fr: "Dis « pause », « série finie », « plus de repos », « on passe », « je suis prêt », « rejoue la démo » ou « plus facile ».",
 } as const;
 
 // ── The summary, honestly ─────────────────────────────────────────────────────────────────────────────────────────

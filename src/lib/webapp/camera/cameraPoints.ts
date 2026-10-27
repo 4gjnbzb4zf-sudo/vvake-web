@@ -1,4 +1,4 @@
-// Copied from VVFit packages/game-core/src/cameraPoints.ts (e628403d 2026-10-26) by scripts/sync-camera-core.ts. Do not edit: re-sync.
+// Copied from VVFit packages/game-core/src/cameraPoints.ts (7f2a8945 2026-10-27) by scripts/sync-camera-core.ts. Do not edit: re-sync.
 /**
  * Camera workouts (ADR-0046): what a session recorded with the phone's camera (on-device pose, no phone or watch worn)
  * uploads, and the small, capped points it may earn. Pure and deterministic, shared by the API (which enforces it)
@@ -41,6 +41,8 @@ export interface CameraSet {
   holdS?: number;
   /** The load you entered, in kg (the app converts from lb). The camera never measures it. */
   loadKg?: number;
+  /** The reps the plan asked for in this set (weights progression, moveLoads.ts); never scored. */
+  target?: number;
   /** One side of a unilateral move. */
   side?: "l" | "r";
   /** Range of motion, % of the move's full range (median rep). */
@@ -195,6 +197,8 @@ export function cleanCameraSummary(raw: unknown): CameraSummary | null {
       if (hold) set.holdS = Math.round(hold);
       const load = num(ss.loadKg, 0, 500);
       if (load) set.loadKg = Math.round(load * 10) / 10;
+      const target = num(ss.target, 0, 500);
+      if (target && target >= 1) set.target = Math.round(target);
       if (ss.side === "l" || ss.side === "r") set.side = ss.side;
       const rom = num(ss.romPct, 0, 150);
       if (rom !== undefined) set.romPct = Math.round(rom);

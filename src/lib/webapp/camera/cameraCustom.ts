@@ -1,4 +1,4 @@
-// Copied from VVFit packages/game-core/src/cameraCustom.ts (e628403d 2026-10-26) by scripts/sync-camera-core.ts. Do not edit: re-sync.
+// Copied from VVFit packages/game-core/src/cameraCustom.ts (7f2a8945 2026-10-27) by scripts/sync-camera-core.ts. Do not edit: re-sync.
 /**
  * Custom moves (ADR-0047): a move you taught VVake (cameraTemplate.ts), as a catalogue-like MoveDef the session
  * engine, the hands-free flow, the demo and auto-detect use like any other. Ids are `m_` + 10 lower-case letters or

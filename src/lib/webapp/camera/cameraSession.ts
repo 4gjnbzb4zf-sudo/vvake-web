@@ -1,4 +1,4 @@
-// Copied from VVFit packages/game-core/src/cameraSession.ts (e628403d 2026-10-26) by scripts/sync-camera-core.ts. Do not edit: re-sync.
+// Copied from VVFit packages/game-core/src/cameraSession.ts (7f2a8945 2026-10-27) by scripts/sync-camera-core.ts. Do not edit: re-sync.
 /**
  * Camera workouts (ADR-0046): one session in front of the camera. Sets of a move (picked, planned, or detected), reps
  * or a hold counted from the pose, the load you typed, a rest timer between sets, liveness checks during rest, and
@@ -75,6 +75,8 @@ export interface PlannedSet {
   rpe?: number;
   /** Done the easier way (cameraReady.ts easierOf: a chair behind you, hands on a wall): the screens say how. */
   easier?: boolean;
+  /** "Your own workout" (ADR-0061): the words you wrote for a step the catalogue doesn't have (own-reps / own-timed). */
+  label?: string;
 }
 
 export class CameraWorkoutEngine {
@@ -572,8 +574,13 @@ export const CAMERA_ROUTINES: readonly CameraRoutine[] = [
 
 /**
  * A routine for today's planned session (the coach's plan): strength → the dumbbell full body (or bodyweight without
- * weights), core → core, flexibility / recovery → mobility, HIIT → the cardio blast; repeated to fill the planned
- * minutes, never more than twice.
+ * weights), core → core, flexibility / recovery → mobility, HIIT → the cardio blast.
+ *
+ * Longer planned minutes never repeat the whole routine (tester report 2026-10-27: a 45-minute strength day ran the
+ * dumbbell full body twice, 6 sets of every move, without saying so: that was this function's "× 2"). A session at
+ * least half again as long as a strength routine gets one more set of the moves that already have three (never past
+ * four); anything longer stays the routine, honestly timed. A 10-minute circuit may run twice, as 2 rounds shown and
+ * announced (cameraPlan.ts planRounds).
  */
 export function routineForPlan(sport: string, minutes: number, hasWeights: boolean): CameraRoutine | null {
   const pick = (id: string) => CAMERA_ROUTINES.find((r) => r.id === id)!;
@@ -585,12 +592,19 @@ export function routineForPlan(sport: string, minutes: number, hasWeights: boole
     base = pick("mobility-10");
   else if (sport === "hiit" || sport === "mixed-cardio") base = pick("hiit-10");
   if (!base) return null;
-  const times = Math.max(1, Math.min(2, Math.round(minutes / base.minutes)));
-  if (times === 1) return base;
-  return {
-    ...base,
-    id: `${base.id}-x${times}`,
-    minutes: base.minutes * times,
-    sets: Array.from({ length: times }, () => base!.sets).flat(),
-  };
+  if (minutes < base.minutes * 1.5) return base;
+  // A short circuit (10 minutes: core, mobility, the cardio blast): twice through, as 2 rounds the screen shows and
+  // the voice announces ("Round 2 of 2: same moves again.").
+  if (base.minutes <= 10)
+    return { ...base, id: `${base.id}-x2`, minutes: base.minutes * 2, sets: [...base.sets, ...base.sets].map((x) => ({ ...x })) };
+  // One more set of each main move (three sets → four), in place: the same order, no repeated sequence.
+  const sets: PlannedSet[] = [];
+  base.sets.forEach((s, i) => {
+    sets.push(s);
+    const last = i === base!.sets.length - 1 || base!.sets[i + 1]!.move !== s.move;
+    const runOf = base!.sets.filter((x) => x.move === s.move).length;
+    if (last && runOf === 3) sets.push({ ...s });
+  });
+  if (sets.length === base.sets.length) return base;
+  return { ...base, id: `${base.id}-plus`, minutes: Math.round((base.minutes * sets.length) / base.sets.length), sets };
 }

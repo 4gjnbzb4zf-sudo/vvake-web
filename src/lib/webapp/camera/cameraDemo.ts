@@ -1,4 +1,4 @@
-// Copied from VVFit packages/game-core/src/cameraDemo.ts (e628403d 2026-10-26) by scripts/sync-camera-core.ts. Do not edit: re-sync.
+// Copied from VVFit packages/game-core/src/cameraDemo.ts (7f2a8945 2026-10-27) by scripts/sync-camera-core.ts. Do not edit: re-sync.
 /**
  * Camera workouts, hands-free (ADR-0046 amendment 2026-10-21): the demo of each move, shown full screen before its
  * first set and played twice. A stick body (adult proportions, metres) posed per move and projected the way the phone
@@ -134,6 +134,10 @@ function armTo(b: Body3, s: "l" | "r", wrist: V3, pole: V3 = [s === "l" ? 1 : -1
 // ── Bodies ───────────────────────────────────────────────────────────────────────────────────────────────────────
 const FEET: { l: V3; r: V3 } = { l: [0.14, BODY.footY, 0], r: [-0.14, BODY.footY, 0] };
 const planted = () => ({ l: { ankle: FEET.l }, r: { ankle: FEET.r } });
+/** A squat's stance: feet shoulder-width, toes a little out (2026-10-27: the goblet squat demo's close stance read as
+ * another variation). */
+const WIDE: { l: V3; r: V3 } = { l: [0.21, BODY.footY, 0.03], r: [-0.21, BODY.footY, 0.03] };
+const squatStance = () => ({ l: { ankle: WIDE.l }, r: { ankle: WIDE.r } });
 const hang = (): { l: ArmSpec; r: ArmSpec } => ({ l: { pitch: 3, roll: 6, elbow: 170 }, r: { pitch: 3, roll: 6, elbow: 170 } });
 const both = (a: ArmSpec) => ({ l: a, r: a });
 const pelvisY = (reach: number, back: number) => BODY.footY + Math.sqrt(Math.max(0, reach * reach - back * back));
@@ -157,7 +161,7 @@ function squat(k: number, arms: SquatArms = "front", armsOverride?: { l: ArmSpec
   return pose({
     pelvis: [0, pelvisY(reach, back), -back],
     torsoPitch: lerp(4, 35, k),
-    legs: planted(),
+    legs: squatStance(),
     arms:
       armsOverride ?? (arms === "front" ? both({ pitch: lerp(5, 85, k), elbow: 160 }) : both({ rel: SQUAT_ARMS[arms], pole: [1, -1, 0] })),
   });
@@ -614,6 +618,24 @@ export interface DemoLoop {
   loopMs: number;
   /** As the phone would see it: from the front (mirrored, like a mirror) or the side. */
   view: "front" | "side";
+  /** The equipment drawn with the figure (where the weight is): one held at the chest, one in each hand, a bar, a
+   * kettlebell in both hands. Absent: bodyweight. */
+  prop?: DemoProp;
+}
+
+export type DemoProp = "one-at-chest" | "one-overhead" | "dumbbells" | "barbell" | "kettlebell";
+
+/** Where the weight is for a move's demo (the exact variation, 2026-10-27). */
+export function demoProp(moveId: string): DemoProp | undefined {
+  if (moveId === "goblet-squat") return "one-at-chest";
+  if (moveId === "triceps-extension") return "one-overhead";
+  if (moveId === "kettlebell-swing") return "kettlebell";
+  const m = cameraMove(moveId);
+  if (!m?.weighted) return undefined;
+  if (m.equipment.includes("dumbbell")) return "dumbbells";
+  if (m.equipment.includes("barbell")) return "barbell";
+  if (m.equipment.includes("kettlebell")) return "kettlebell";
+  return undefined;
 }
 
 const W = 480;
@@ -636,7 +658,8 @@ export function demoLoop(moveId: string, fps = DEMO_FPS): DemoLoop {
     const p = i / n;
     bodies.push(bodyAt(d, p));
   }
-  return { move: moveId, frames: projectAll(bodies, d.view, loopMs / n), loopMs, view: d.view };
+  const prop = demoProp(moveId);
+  return { move: moveId, frames: projectAll(bodies, d.view, loopMs / n), loopMs, view: d.view, ...(prop ? { prop } : {}) };
 }
 
 /** The body at a loop phase p ∈ [0, 1). Reps start and end at rest, with a short pause each side. */

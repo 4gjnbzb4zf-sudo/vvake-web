@@ -1,4 +1,4 @@
-// Copied from VVFit packages/game-core/src/cameraTraining.ts (e628403d 2026-10-26) by scripts/sync-camera-core.ts. Do not edit: re-sync.
+// Copied from VVFit packages/game-core/src/cameraTraining.ts (7f2a8945 2026-10-27) by scripts/sync-camera-core.ts. Do not edit: re-sync.
 /**
  * Custom trainings (ADR-0047): a video training series you build and share. A list of sets (a catalogue move or one
  * you taught, reps or a hold time, an intensity: a target heart zone, or an effort out of 10 when there's no
@@ -9,7 +9,7 @@
  * Pure: validation, expansion into a routine, the time it takes, the score of a run (challenges: "beat my score on
  * my training"), the zone feedback during a set, and the coach score of a creator.
  */
-import { cameraMove, CAMERA_MOVES } from "./cameraMoves";
+import { cameraMove, CAMERA_MOVES, isOwnMove } from "./cameraMoves";
 import type { CameraRoutine, PlannedSet } from "./cameraSession";
 import type { CameraSummary } from "./cameraPoints";
 import { cleanCustomMove, CUSTOM_MOVE_ID, type CustomMove } from "./cameraCustom";
@@ -30,6 +30,8 @@ export const TRAINING_LIMITS = {
   restS: 600,
   customMoves: 12,
   tags: 5,
+  /** The words of a step of your own (ADR-0061). */
+  labelMax: 32,
 } as const;
 
 export type TrainingLevel = "beginner" | "intermediate" | "advanced";
@@ -70,7 +72,7 @@ export const ZONE_RPE: Readonly<Record<1 | 2 | 3 | 4 | 5, number>> = { 1: 3, 2: 
 export const rpeOf = (s: TrainingSet) => s.rpe ?? (s.zone ? ZONE_RPE[s.zone] : undefined);
 
 export type TrainingProblem =
-  "name" | "description" | "no_sets" | "too_many_sets" | "unknown_move" | "target" | "zone" | "rest" | "rounds" | "custom_move";
+  "name" | "description" | "no_sets" | "too_many_sets" | "unknown_move" | "target" | "zone" | "rest" | "rounds" | "custom_move" | "label";
 
 /** A training as received (an editor, the API, a share link): cleaned, or the first problem found. */
 export function cleanTraining(x: unknown): { training: Training } | { problem: TrainingProblem } {
@@ -94,7 +96,8 @@ export function cleanTraining(x: unknown): { training: Training } | { problem: T
     if (!moves.some((y) => y.id === c.id)) moves.push(c);
   }
   if (moves.length > TRAINING_LIMITS.customMoves) return { problem: "custom_move" };
-  const known = (id: string) => (CUSTOM_MOVE_ID.test(id) ? moves.some((m) => m.id === id) : !!CAMERA_MOVES.find((m) => m.id === id));
+  const known = (id: string) =>
+    CUSTOM_MOVE_ID.test(id) ? moves.some((m) => m.id === id) : isOwnMove(id) || !!CAMERA_MOVES.find((m) => m.id === id);
   const rawSets = Array.isArray(o.sets) ? o.sets : [];
   if (!rawSets.length) return { problem: "no_sets" };
   if (rawSets.length > TRAINING_LIMITS.sets) return { problem: "too_many_sets" };
@@ -105,6 +108,13 @@ export function cleanTraining(x: unknown): { training: Training } | { problem: T
     if (typeof s.move !== "string" || !known(s.move)) return { problem: "unknown_move" };
     const kind = CUSTOM_MOVE_ID.test(s.move) ? moves.find((m) => m.id === s.move)!.kind : cameraMove(s.move)!.kind;
     const set: TrainingSet = { move: s.move };
+    // A step of your own (ADR-0061): its words, short and clean (never on a catalogue move: its name is its own).
+    if (isOwnMove(s.move)) {
+      const label = typeof s.label === "string" ? s.label.normalize("NFC").replace(/\s+/g, " ").trim() : "";
+      if ([...label].length > TRAINING_LIMITS.labelMax || (label && ugcProblem(label))) return { problem: "label" };
+      if (label) set.label = label;
+    }
+    if (s.easier === true) set.easier = true;
     if (kind === "reps") {
       const n = int(s.reps, 1, TRAINING_LIMITS.reps);
       if (n === null) return { problem: "target" };

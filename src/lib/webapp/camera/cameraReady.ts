@@ -1,4 +1,4 @@
-// Copied from VVFit packages/game-core/src/cameraReady.ts (e628403d 2026-10-26) by scripts/sync-camera-core.ts. Do not edit: re-sync.
+// Copied from VVFit packages/game-core/src/cameraReady.ts (7f2a8945 2026-10-27) by scripts/sync-camera-core.ts. Do not edit: re-sync.
 /**
  * Camera workouts (ADR-0046): getting set up for a move and counting it from whichever angle the camera has. Pure.
  *
@@ -35,8 +35,22 @@ const l = (en: string, fr: string): Line => ({ en, fr });
 
 // ── Setup ────────────────────────────────────────────────────────────────────────────────────────────────────────
 
-/** Moves the replay tests count from 45° too (test/cameraTester.test.ts). */
-const DIAGONAL_OK = new Set(["push-up", "knee-push-up"]);
+/** Moves the replay tests count from 45° too (test/cameraTester.test.ts). The plank (tester report 2026-10-27: it
+ * paused and resumed at a diagonal, never face-on): its hold is timed from 45°, see test/cameraV3.test.ts. */
+const DIAGONAL_OK = new Set(["push-up", "knee-push-up", "plank"]);
+
+/**
+ * Seen from about 45° (on the floor): the shoulders look wider than side-on (the view reads "front") but nothing like
+ * a torso pointing at the phone (its span is well over 1 face-on in a plank).
+ */
+export const DIAGONAL_SPAN = { min: 0.3, max: 0.9 } as const;
+export function diagonalSeen(f: PoseFrame): boolean {
+  const span = shoulderSpan(f);
+  return viewOf(f) === "front" && span !== null && span >= DIAGONAL_SPAN.min && span < DIAGONAL_SPAN.max;
+}
+
+/** The parts a floor move needs seen from the side or a diagonal: the whole length of the body (2026-10-27). */
+const FLOOR_BODY: readonly BodyArea[] = ["shoulders", "hips", "knees"];
 
 /** A camera angle, the diagonal included. */
 export type CameraAngle = CameraPlacement | "diagonal";
@@ -139,6 +153,10 @@ export function setupLine(m: MoveDef, lang: "en" | "fr"): string {
           : "facing it is best";
     return fr ? `${where} ; ${best}.` : `${where}; ${best}.`;
   }
+  if (s.views[0] === "side" && s.diagonal)
+    return fr
+      ? `${where}, et mets-toi en diagonale ou de profil pour que je te voie.`
+      : `${where}, and turn diagonal or sideways so I can see you.`;
   return s.views[0] === "side"
     ? fr
       ? `${where}, et mets-toi de profil pour que je puisse te suivre.`
@@ -194,6 +212,7 @@ export type ReadyPrompt =
   | "body_hidden"
   | "turn_sideways"
   | "face_phone"
+  | "turn_diagonal"
   | "get_in_position";
 
 export interface ReadyReport {
@@ -226,6 +245,10 @@ export const READY_TEXT: Readonly<Record<ReadyPrompt, Line>> = {
   ),
   turn_sideways: l("Turn sideways so I can track you.", "Mets-toi de profil pour que je puisse te suivre."),
   face_phone: l("Face the phone so I can track you.", "Mets-toi face au téléphone pour que je puisse te suivre."),
+  turn_diagonal: l(
+    "Turn diagonal or sideways to the phone so I can see you.",
+    "Mets-toi en diagonale ou de profil face au téléphone pour que je te voie.",
+  ),
   get_in_position: l("Get into position: I’ll start when you’re there.", "Mets-toi en position : je démarre quand tu y es."),
 };
 
@@ -245,7 +268,12 @@ export function readiness(f: PoseFrame | null, m: MoveDef, o: { requirePosition?
     const all = Object.values(setup.need);
     return all.length ? all.reduce((a, b) => (b.length < a.length ? b : a)) : [...CORE_AREAS];
   };
-  const fr: FramingReport = framingReport(f, { need: needFor(view) });
+  // A floor move seen from the side or a diagonal: the whole body in the picture before it starts (shoulders to
+  // knees at least), so a plank or a push-up isn't started with half the body out of frame (2026-10-27).
+  const diag = !!f && setup.diagonal && diagonalSeen(f);
+  const lengthwise = setup.floor && setup.views.length > 0 && (view === "side" || diag);
+  const need = needFor(diag && !setup.need.front ? "side" : view);
+  const fr: FramingReport = framingReport(f, { need: lengthwise ? [...new Set([...need, ...FLOOR_BODY])] : need });
   const inPosition = !!f && inStartPosition(f, m);
   const base = { missing: fr.missing, tips: fr.tips, view, inPosition };
   const not = (prompt: ReadyPrompt): ReadyReport => ({ ready: false, prompt, ...base });
@@ -268,7 +296,10 @@ export function readiness(f: PoseFrame | null, m: MoveDef, o: { requirePosition?
   // torso level, or pointing at the phone.
   const checkView =
     setup.views.length > 0 && view !== null && (!setup.floor || inPosition || (torsoTilt(f!) ?? 0) > 45 || (shoulderSpan(f!) ?? 0) >= 1.2);
-  if (checkView && !setup.views.includes(view)) return not(view === "front" ? "turn_sideways" : "face_phone");
+  if (checkView && !setup.views.includes(view)) {
+    // A diagonal counts for the moves the replay tests time from 45° (the plank): face-on asks for the diagonal.
+    if (!(view === "front" && diag)) return not(view === "front" ? (setup.diagonal ? "turn_diagonal" : "turn_sideways") : "face_phone");
+  }
   if (o.requirePosition !== false && setup.views.length && !inPosition) return not("get_in_position");
   return { ready: true, prompt: "ready", ...base };
 }
