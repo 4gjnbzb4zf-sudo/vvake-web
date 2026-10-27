@@ -93,6 +93,8 @@ export const appMeSchema = z.object({
       speedZones: z.optional(z.unknown()),
       /** Sport zones (ADR-0048): `{ at, rpe?, sports }`, checked by sportHeart.ts; absent until the API keeps it. */
       heartZones: z.optional(z.unknown()),
+      /** "Your VVake" (ADR-0059): `{ v, tailorOn, answers, overrides?, source, at }`, checked by tailor/prefs.ts. */
+      tailor: z.optional(z.unknown()),
     }),
   ),
   consents: opt(z.object({ disclaimer: opt(z.object({ version: z.number(), acceptedAt: z.string() })) })),
@@ -242,10 +244,21 @@ const GET: RequestInit = { method: "GET" };
 const send = (method: string, body?: unknown): RequestInit => ({ method, ...(body === undefined ? {} : { body: JSON.stringify(body) }) });
 const tzQ = (tz: string) => `tz=${encodeURIComponent(tz)}`;
 
+/** GET /v1/me/usage30 (ADR-0059): what the survey is pre-filled with; checked by tailor/prefs.ts (cleanAnswers). */
+const usage30Schema = z.object({
+  usage: z.optional(z.object({ desk: opt(z.object({ linked: bool })) })),
+  inferred: opt(z.object({ answers: z.optional(z.unknown()), overrides: z.optional(z.unknown()) })),
+});
+export type Usage30 = z.infer<typeof usage30Schema>;
+/** GET /v1/desk: only whether a Mac or Claude desk is linked (the Desk feature's default, ADR-0059 decision 9). */
+const deskLinkSchema = z.object({ desks: opt(z.array(z.object({ id: z.string() }))) });
+
 export function webApi(s: RewardsSession) {
   return {
     me: () => s.call("/v1/me", GET, appMeSchema),
     patchMe: (p: Record<string, unknown>) => s.call("/v1/me", send("PATCH", p), appMeSchema),
+    usage30: () => s.call("/v1/me/usage30", GET, usage30Schema),
+    deskLinked: async () => ((await s.call("/v1/desk", GET, deskLinkSchema)).desks?.length ?? 0) > 0,
     stats: (tz: string) => s.call(`/v1/stats?${tzQ(tz)}`, GET, statsSchema),
     streak: (tz: string) => s.call(`/v1/streak?${tzQ(tz)}`, GET, streakSchema),
     sessions: (before?: string, limit = 30) =>

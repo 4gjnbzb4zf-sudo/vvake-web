@@ -20,3 +20,5 @@ src/lib/webapp/fixtures/camera-fixtures.json
 public/mediapipe
 # Copied byte for byte from the VVFit monorepo (packages/game-core/test/fixtures/stitch-golden.json) by scripts/sync-stitch-core.ts
 src/lib/webapp/fixtures/stitch-golden.json
+# Copied byte for byte from the VVFit monorepo (packages/game-core/test/fixtures/tailor-golden.json) by scripts/sync-tailor-core.ts
+src/lib/webapp/fixtures/tailor-golden.json

@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useRef, useState, type FormEvent } from "react";
 import { coachPlusActive } from "@/lib/coachPlus";
+import { upsellAllowed } from "@/lib/webapp/tailor/tailor";
 import { cn } from "@/lib/cn";
 import type { CoachContext } from "@/lib/webapp/api";
 import { goalProgress } from "@/lib/webapp/goals";
@@ -31,7 +32,7 @@ interface Turn {
 const KEY = "vvake-app-coach";
 
 export function CoachScreen() {
-  const { t, lang, api, goals, sessions, prefs, setPrefs, go, me } = useApp();
+  const { t, lang, api, goals, sessions, prefs, setPrefs, go, me, profile } = useApp();
   const [turns, setTurns] = useState<Turn[]>(() => {
     try {
       const v = JSON.parse(sessionStorage.getItem(`${KEY}:${me.id}`) ?? "[]") as Turn[];
@@ -229,10 +230,13 @@ export function CoachScreen() {
         </Btn>
       </form>
       {!micOk && <Small className="mt-2">{t.coach.noMic}</Small>}
-      <div className="mt-3">
-        <Note>{t.coach.voiceNote}</Note>
-        <GetTheApp t={t} compact className="mt-2" />
-      </div>
+      {/* VVake Coach Plus is named here: never while Coach is off (ADR-0059 decision 8). */}
+      {upsellAllowed(profile, "coach") && (
+        <div className="mt-3">
+          <Note>{t.coach.voiceNote}</Note>
+          <GetTheApp t={t} compact className="mt-2" />
+        </div>
+      )}
     </div>
   );
 }

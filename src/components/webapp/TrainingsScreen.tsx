@@ -852,7 +852,7 @@ export function BuilderScreen({ id }: { id?: string }) {
 // ── My coach profile ────────────────────────────────────────────────────────────────────────────────────────────
 
 export function CoachProfileScreen() {
-  const { lang, go, me } = useApp();
+  const { lang, go, me, profile: tailored } = useApp();
   const { api, d } = useTrainings();
   const p = d.app.profile;
   const [profile, setProfile] = useState<MyProfile | null>(null);
@@ -969,9 +969,11 @@ export function CoachProfileScreen() {
         )}
         <Small className="mt-3">{p.pointsRule}</Small>
         <Small className="mt-1">{p.webRule}</Small>
-        <a className="mt-2 block text-sm underline" href={`/${lang}/rewards/#creators`}>
-          {p.shareLink}
-        </a>
+        {(!tailored || tailored.rewardsVisible) && (
+          <a className="mt-2 block text-sm underline" href={`/${lang}/rewards/#creators`}>
+            {p.shareLink}
+          </a>
+        )}
       </Card>
     </div>
   );

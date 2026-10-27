@@ -1,4 +1,5 @@
 import * as z from "zod/mini";
+import type { TailorPrefs } from "@/lib/webapp/tailor/tailor";
 import { coachVoicesSchema, type CoachVoiceGender } from "@/lib/coachVoices";
 import type { RewardsSession } from "./rewardsApi";
 import type { HeartZonesPrefs } from "@/lib/webapp/sportHeart";
@@ -44,6 +45,8 @@ const prefsSchema = z.object({
   /** ADR-0044 / ADR-0048: `{ at, sports }` and `{ at, rpe?, sports }`, checked by speedZones.ts / sportHeart.ts. */
   speedZones: z.optional(z.unknown()),
   heartZones: z.optional(z.unknown()),
+  /** "Your VVake" (ADR-0059): checked by webapp/tailor/prefs.ts (parseTailorPrefs). */
+  tailor: z.optional(z.unknown()),
 });
 export type Prefs = z.infer<typeof prefsSchema>;
 
@@ -95,6 +98,8 @@ export interface MePatch {
     /** Sent whole with a fresh `at` (newest wins on the server). */
     speedZones?: SpeedZonesPrefs;
     heartZones?: HeartZonesPrefs;
+    /** Sent whole with a fresh `at` (nextTailorPrefs; newest wins on the server). */
+    tailor?: TailorPrefs;
   };
   coach?: { callsOn?: boolean; callWindows?: [number, number][]; ringWatch?: boolean; voiceGender?: CoachVoiceGender };
 }

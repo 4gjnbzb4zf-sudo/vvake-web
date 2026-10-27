@@ -29,6 +29,8 @@ import {
 } from "@/lib/webapp/workoutPrefs";
 import { maxEnergy, refill, type EnergyState, type WebSession } from "@/lib/webapp/workout";
 import { useNow } from "./useNow";
+import { profileFromPrefs, type TailorPrefs, type TailorProfile } from "@/lib/webapp/tailor/tailor";
+import { parseTailorPrefs, readTailorDev, webTabs, type WebTab } from "@/lib/webapp/tailor/prefs";
 
 /**
  * Everything the web app's screens share: the signed-in session and the API, the account (me, athlete, stats,
@@ -38,6 +40,8 @@ import { useNow } from "./useNow";
 
 export type Route =
   | { name: "today" | "plan" | "crew" | "coach" | "you" | "goals" | "rhythm" | "vvaker" | "sensor" | "workout" | "zones" }
+  /** "Your VVake" (ADR-0059): the survey and its summary, and All features (every feature, on or off). */
+  | { name: "your-vvake" | "features" }
   /** You, scrolled to the VV points card (Today's points pill). */
   | { name: "points" }
   | { name: "session"; id: string }
@@ -81,7 +85,22 @@ export function parseRoute(hash: string): Route {
   if (name === "trainings" || name === "teach" || name === "coach-profile") return { name };
   if (name === "season-goal") return arg && /^sg[a-z0-9]{4,24}$/.test(arg) ? { name, id: arg } : { name };
   if (name === "season" || name === "season-sports" || name === "season-health" || name === "season-history") return { name };
-  const known = ["today", "plan", "crew", "coach", "you", "points", "goals", "rhythm", "vvaker", "sensor", "workout", "zones"] as const;
+  const known = [
+    "today",
+    "plan",
+    "crew",
+    "coach",
+    "you",
+    "points",
+    "goals",
+    "rhythm",
+    "vvaker",
+    "sensor",
+    "workout",
+    "zones",
+    "your-vvake",
+    "features",
+  ] as const;
   return { name: (known as readonly string[]).includes(name ?? "") ? (name as (typeof known)[number]) : "today" };
 }
 
@@ -179,6 +198,19 @@ export interface AppState {
   battery: number | null;
   signOut: () => void;
   fmt: typeof fmt;
+  /**
+   * "Your VVake" (ADR-0059): the account's prefs.tailor and the profile it stands for. `profile` is null while the
+   * switch (`tailorOn`) is off: then every screen is today's web. `tabs`: the profile's tabs, else all six.
+   */
+  tailor: TailorPrefs | null;
+  profile: TailorProfile | null;
+  tabs: readonly WebTab[];
+  /** Sends a new prefs.tailor (nextTailorPrefs); shown at once, the account's answer adopted. */
+  saveTailor: (p: TailorPrefs) => Promise<void>;
+  /** The Developer switch is shown (early testers, or ?tailor=1 in this browser). */
+  tailorDev: boolean;
+  /** A Mac or Claude desk is linked (the Desk feature's default). */
+  deskLinked: boolean;
 }
 
 const Ctx = createContext<AppState | null>(null);
@@ -367,6 +399,40 @@ export function AppProvider({
     return () => window.clearTimeout(id);
   }, [accountVoiceRaw, accountZonesRaw, accountHeartRaw, adoptVoice, adoptZones, adoptHeart, pushPrefs]);
 
+  // ── "Your VVake" (ADR-0059): the account's prefs.tailor; the Desk feature's default needs to know of a linked desk ──
+  const tailorRaw = me.prefs?.tailor;
+  const tailor = useMemo(() => parseTailorPrefs(tailorRaw), [tailorRaw]);
+  const [deskLinked, setDeskLinked] = useState(false);
+  const tailorOn = tailor?.tailorOn === true;
+  const [tailorDev] = useState(() => readTailorDev(window.location.search) || me.earlyTester === true);
+  const wantsDesk = tailorOn || tailorDev;
+  useEffect(() => {
+    if (!wantsDesk) return;
+    let live = true;
+    api
+      .deskLinked()
+      .then((x) => live && setDeskLinked(x))
+      .catch(() => undefined);
+    return () => {
+      live = false;
+    };
+  }, [api, wantsDesk]);
+  const profile = useMemo(() => profileFromPrefs(tailor, { deskLinked }), [tailor, deskLinked]);
+  const tabs = useMemo<readonly WebTab[]>(() => (profile ? webTabs(profile.tabs) : TABS), [profile]);
+  const saveTailor = useCallback(
+    async (p: TailorPrefs) => {
+      const before = me;
+      setMe({ ...me, prefs: { ...me.prefs, tailor: p } });
+      try {
+        setMe(await api.patchMe({ prefs: { tailor: p } }));
+      } catch (e) {
+        setMe(before);
+        throw e;
+      }
+    },
+    [api, me],
+  );
+
   const tz = useMemo(() => localTz(), []);
   const refresh = useCallback(async () => {
     const [st, sk, ss, at] = await Promise.allSettled([api.stats(tz), api.streak(tz), api.sessions(), api.athlete()]);
@@ -534,6 +600,12 @@ export function AppProvider({
     battery,
     signOut,
     fmt,
+    tailor,
+    profile,
+    tabs,
+    saveTailor,
+    tailorDev,
+    deskLinked,
   };
   return <Ctx.Provider value={value}>{children}</Ctx.Provider>;
 }

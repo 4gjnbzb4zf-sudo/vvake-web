@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState, type ReactNode } from "react";
 import { coachPlusActive } from "@/lib/coachPlus";
 import { SignIn } from "@/components/rewards/RewardsAccount";
 import { buttonClass } from "@/components/ui/Button";
@@ -16,8 +16,11 @@ import { cn } from "@/lib/cn";
 import { AppSection, ProfileSection, RemindersSection } from "./ProfilePanels";
 import { CoachSection, HealthSection, GoalsSection, PlanSection } from "./CoachPanels";
 import { ConnectionsSection, DataSection, PlusSection, PulseSection } from "./ConnectionPanels";
-import { ACCOUNT_SECTIONS, sectionIndex, type PanelProps } from "./shared";
+import { ACCOUNT_SECTIONS, sectionIndex, type AccountSectionKey, type PanelProps } from "./shared";
 import { ZonesSection } from "./ZonesPanel";
+import { OffSections, TailorSection } from "./TailorPanel";
+import { profileFromPrefs } from "@/lib/webapp/tailor/tailor";
+import { ACCOUNT_SECTION_FEATURE, parseTailorPrefs } from "@/lib/webapp/tailor/prefs";
 
 /**
  * vvake.com/account: sign in (the rewards page's e-mail code or app link code), then every setting the account keeps.
@@ -31,6 +34,23 @@ export function AccountSettings({ dict, t, lang, apiUrl }: { dict: Dictionary["r
   const [loadError, setLoadError] = useState<string | null>(null);
   const [notice, setNotice] = useState<ConnectNotice | null>(null);
   const [gone, setGone] = useState(false);
+  // "Your VVake" (ADR-0059): with the switch on, the page follows the profile (off features fold under All features).
+  const tailorRaw = me?.prefs?.tailor;
+  const tailor = useMemo(() => parseTailorPrefs(tailorRaw), [tailorRaw]);
+  const tailorOn = tailor?.tailorOn === true;
+  const [deskLinked, setDeskLinked] = useState(false);
+  useEffect(() => {
+    if (!tailorOn) return;
+    let live = true;
+    api
+      .desk()
+      .then((d) => live && setDeskLinked((d.desks?.length ?? 0) > 0))
+      .catch(() => undefined);
+    return () => {
+      live = false;
+    };
+  }, [api, tailorOn]);
+  const profile = useMemo(() => profileFromPrefs(tailor, { deskLinked }), [tailor, deskLinked]);
 
   const errorMsg = useCallback(
     (e: unknown) => {
@@ -155,25 +175,52 @@ export function AccountSettings({ dict, t, lang, apiUrl }: { dict: Dictionary["r
           </p>
         </div>
       )}
-      <ProfileSection {...p} onSignOut={signOut} />
-      <AppSection {...p} />
-      <RemindersSection {...p} />
-      <PlanSection {...p} />
-      <CoachSection {...p} />
-      <HealthSection {...p} />
-      <ZonesSection {...p} />
-      <GoalsSection {...p} />
-      <ConnectionsSection {...p} />
-      <PulseSection {...p} />
-      <PlusSection {...p} />
-      <DataSection
-        {...p}
-        onDeleted={() => {
-          void session.signOut();
-          rememberPlus(null);
-          setGone(true);
-        }}
-      />
+      {(() => {
+        const sections: Record<AccountSectionKey, ReactNode> = {
+          profile: <ProfileSection key="profile" {...p} onSignOut={signOut} />,
+          app: <AppSection key="app" {...p} />,
+          reminders: <RemindersSection key="reminders" {...p} />,
+          plan: <PlanSection key="plan" {...p} />,
+          coach: <CoachSection key="coach" {...p} />,
+          health: <HealthSection key="health" {...p} />,
+          zones: <ZonesSection key="zones" {...p} />,
+          goals: <GoalsSection key="goals" {...p} />,
+          connections: <ConnectionsSection key="connections" {...p} />,
+          pulse: <PulseSection key="pulse" {...p} />,
+          plus: <PlusSection key="plus" {...p} />,
+          data: (
+            <DataSection
+              key="data"
+              {...p}
+              onDeleted={() => {
+                void session.signOut();
+                rememberPlus(null);
+                setGone(true);
+              }}
+            />
+          ),
+        };
+        if (!profile || !tailor) return ACCOUNT_SECTIONS.map((k) => sections[k]);
+        const featureOn = (k: AccountSectionKey) => {
+          const f = ACCOUNT_SECTION_FEATURE[k];
+          return f === null || profile.features[f];
+        };
+        const middle = ACCOUNT_SECTIONS.filter((k) => k !== "profile" && k !== "data");
+        const off = middle.filter((k) => !featureOn(k));
+        return (
+          <>
+            {sections.profile}
+            <TailorSection {...p} tailor={tailor} profile={profile} deskLinked={deskLinked} />
+            {middle.filter(featureOn).map((k) => sections[k])}
+            {off.length > 0 && (
+              <OffSections lang={lang} count={off.length}>
+                {off.map((k) => sections[k])}
+              </OffSections>
+            )}
+            {sections.data}
+          </>
+        );
+      })()}
     </>
   );
 }

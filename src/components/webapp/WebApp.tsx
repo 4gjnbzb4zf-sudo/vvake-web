@@ -27,6 +27,8 @@ import { BuilderScreen, CoachProfileScreen, CreatorScreen, TrainingDetailScreen,
 import { getTrainingsDict } from "@/i18n/trainings";
 import { WorkoutPill } from "./WorkoutPill";
 import { YouScreen } from "./YouScreen";
+import { FeaturesScreen, TailorScreen } from "./TailorScreen";
+import { TodayLean } from "./TodayLean";
 import { VoiceTipToast } from "./VoiceTip";
 import { WorkoutProvider } from "./WorkoutContext";
 import { Btn, Field, inputCls, Kicker, Small } from "./ui";
@@ -140,17 +142,17 @@ const TAB_ICONS: Record<(typeof TABS)[number], string> = { today: "☀", plan: "
 
 function Shell() {
   const app = useApp();
-  const { route, t, go, me, online } = app;
+  const { route, t, go, me, online, tabs, profile } = app;
   const [onboarded, setOnboarded] = useState(() => !needsOnboarding(me));
 
   if (!onboarded) return <Onboarding onDone={() => setOnboarded(true)} />;
 
   const tab =
-    route.name === "points"
+    route.name === "points" || route.name === "your-vvake" || route.name === "features"
       ? "you"
       : route.name.startsWith("season")
         ? "plan"
-        : (TABS as readonly string[]).includes(route.name)
+        : (tabs as readonly string[]).includes(route.name)
           ? route.name
           : null;
   const fullScreen = route.name === "workout" || route.name === "camera" || route.name === "train" || route.name === "teach";
@@ -164,7 +166,7 @@ function Shell() {
             </p>
           )}
           <main id="main">
-            {route.name === "today" && <TodayScreen />}
+            {route.name === "today" && (profile ? <TodayLean /> : <TodayScreen />)}
             {route.name === "plan" && <PlanScreen />}
             {route.name === "crew" && <CrewScreen />}
             {route.name === "coach" && <CoachScreen />}
@@ -187,6 +189,8 @@ function Shell() {
             {route.name === "build" && <BuilderScreen key={route.id ?? "new"} id={route.id} />}
             {route.name === "coach-profile" && <CoachProfileScreen />}
             {route.name === "creator" && <CreatorScreen key={route.handle} handle={route.handle} />}
+            {route.name === "your-vvake" && <TailorScreen />}
+            {route.name === "features" && <FeaturesScreen />}
           </main>
         </Frame>
       )}
@@ -202,7 +206,7 @@ function Shell() {
           className="fixed inset-x-0 bottom-0 z-40 border-t border-line bg-night-2/95 pr-[env(safe-area-inset-right)] pb-[env(safe-area-inset-bottom)] pl-[env(safe-area-inset-left)] backdrop-blur"
         >
           <ul className="mx-auto flex max-w-xl">
-            {TABS.map((k) => (
+            {tabs.map((k) => (
               <li key={k} className="flex-1">
                 <button
                   type="button"
