@@ -19,6 +19,72 @@ export interface Release {
 
 export const releases: Release[] = [
   {
+    version: "1.0.0 (50)",
+    date: "2026-10-27",
+    channel: "beta",
+    devices: ["iphone", "watch", "android", "wear"],
+    notes: {
+      en: {
+        added: [
+          "Before a camera workout starts you see all of it: the order, sets × reps or time, your last weight, the rests, the rounds and about how long, then Start.",
+          'During the workout the screen says "Set 2 of 3 · Round 1 of 2", and the coach tells you when the moves start again ("Round 2 of 2: same moves again.").',
+          'Finish set: a button and a voice command ("finish set") to end a set yourself.',
+          "For workouts mixing standing and floor moves, VVake tells you once where to put the phone (low, 2–2.5 m away) so you only turn between moves, never move the phone.",
+          "Camera workouts show the weight before a weighted move's first set, filled in with last time's, and let you change it between sets with − and + or keep the same.",
+          'Each set keeps its own weight, and the summary says "+2 kg vs last time" or a new best for each move.',
+          'A new "Your weights" page lists each move\'s last sessions, your best set and a suggested weight for next time, which you always choose to use or not.',
+          "With an active skill, you can add about 10 minutes of its practice at the start or the end of a camera routine, and it counts as that skill's session.",
+          "Every camera move and every Skills drill now has a How to sheet: the demo, the setup, numbered steps, what good form looks like, common mistakes, an easier and a harder version, and safety tips.",
+          "Open How to from the demo before a set, the Get ready screen, the next move during a rest, the move pickers, the training builder, your own workout preview and each Skills drill; the workout pauses while you read.",
+          'Ask the coach "how do I do a pike push-up?" and it answers from the same guide.',
+        ],
+        improved: [
+          'The demo and the Get ready screen name the exact variation (for example "Goblet squat: feet shoulder-width, one dumbbell held upright at your chest") with one or two form tips, and the demo shows where the weight is.',
+          "Between moves the coach only says what changes (turn sideways, face the phone), not the whole setup again.",
+          "The plank is now tracked from a diagonal; facing the phone straight on, VVake asks you to turn diagonal or sideways.",
+          "Floor moves start only once your whole body is in the picture.",
+          "The coach says the weight once before a weighted move, and the workout still runs on its own without a tap.",
+          'Skills drills lead with How to; the YouTube link stays as a small "More videos" line.',
+          "With the preview on, Settings opens with Tailor my app, Retake the survey and All features at the top.",
+          '"Your VVake" is now called "Tailor my app" everywhere: Settings, notifications, the coach and the watches.',
+        ],
+        fixed: [
+          'A short rest in the middle of a set (lying down for a few seconds) no longer ends the set: it stays open until your reps or your hold are done. After a long pause VVake asks "Done with this set?" and never moves on by itself.',
+          "A long planned strength day no longer runs the whole routine twice: longer sessions add at most one set per main move.",
+        ],
+      },
+      fr: {
+        added: [
+          "Avant une séance caméra, vous voyez tout : l'ordre, séries × répétitions ou durée, votre dernière charge, les repos, les tours et la durée environ, puis Commencer.",
+          "Pendant la séance l'écran affiche « Série 2 sur 3 · Tour 1 sur 2 », et le coach annonce quand les mouvements recommencent (« Tour 2 sur 2 : les mêmes mouvements. »).",
+          "Finir la série : un bouton et une commande vocale (« série finie ») pour terminer une série vous-même.",
+          "Pour les séances qui mélangent mouvements debout et au sol, VVake vous dit une seule fois où poser le téléphone (bas, à 2–2,5 m) : entre les mouvements vous vous tournez, sans déplacer le téléphone.",
+          "Les séances caméra affichent la charge avant la première série d'un mouvement lesté, préremplie avec celle de la dernière fois, et on la change entre les séries avec − et + ou on garde la même.",
+          "Chaque série garde sa propre charge, et le résumé indique « +2 kg par rapport à la dernière fois » ou un nouveau record pour chaque mouvement.",
+          "Une nouvelle page « Tes charges » liste les dernières séances de chaque mouvement, la meilleure série et une charge suggérée pour la prochaine fois, qu'on choisit toujours d'utiliser ou non.",
+          "Avec un skill actif, on peut ajouter environ 10 minutes de pratique au début ou à la fin d'une routine caméra, et elles comptent comme une séance de ce skill.",
+          "Chaque mouvement caméra et chaque exercice des Skills a maintenant une fiche Comment faire : la démo, la mise en place, les étapes numérotées, la bonne forme, les erreurs fréquentes, une version plus facile et une plus dure, et les conseils de sécurité.",
+          "Ouvrez Comment faire depuis la démo avant une série, l'écran Prépare-toi, le mouvement suivant pendant le repos, les listes de mouvements, le créateur d'entraînement, l'aperçu de votre séance et chaque exercice des Skills ; la séance se met en pause pendant la lecture.",
+          "Demandez au coach « comment on fait une pompe pike ? » : il répond à partir de la même fiche.",
+        ],
+        improved: [
+          "La démo et l'écran Prépare-toi nomment la variante exacte (par exemple « Squat goblet : pieds largeur d'épaules, un haltère tenu debout contre la poitrine ») avec un ou deux conseils, et la démo montre où est la charge.",
+          "Entre deux mouvements le coach ne dit que ce qui change (de profil, face au téléphone), pas toute la mise en place.",
+          "La planche est maintenant suivie en diagonale ; face au téléphone, VVake vous demande de vous mettre en diagonale ou de profil.",
+          "Les mouvements au sol ne démarrent qu'avec tout le corps dans le cadre.",
+          "Le coach annonce la charge une fois avant un mouvement lesté, et la séance continue toute seule sans toucher l'écran.",
+          "Les exercices des Skills mettent Comment faire en avant ; le lien YouTube reste en petit, « Plus de vidéos ».",
+          "Avec l'aperçu activé, les Réglages commencent par Personnaliser mon app, Refaire le questionnaire et Toutes les fonctions.",
+          "« Ton VVake » s'appelle maintenant « Personnaliser mon app » partout : Réglages, notifications, coach et montres.",
+        ],
+        fixed: [
+          "Une courte pause au milieu d'une série (allongé quelques secondes) ne termine plus la série : elle reste ouverte jusqu'à ce que vos répétitions ou votre gainage soient faits. Après une longue pause VVake demande « Série terminée ? » et ne passe jamais à la suite tout seul.",
+          "Une longue séance de renfo planifiée ne répète plus toute la routine deux fois : une séance plus longue ajoute au plus une série par mouvement principal.",
+        ],
+      },
+    },
+  },
+  {
     version: "1.0.0 (49)",
     date: "2026-10-27",
     channel: "beta",
