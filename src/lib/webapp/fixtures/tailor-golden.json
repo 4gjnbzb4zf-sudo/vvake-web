@@ -1816,6 +1816,111 @@
    }
   },
   {
+   "name": "skill",
+   "answers": {
+    "goals": [
+     "skill"
+    ],
+    "sportMode": "one",
+    "sports": [],
+    "where": [
+     "camera"
+    ],
+    "event": "later",
+    "challenge": "none",
+    "coaching": "cues",
+    "voice": "woman",
+    "style": "motivating",
+    "habits": "no",
+    "music": "own",
+    "notifications": "few"
+   },
+   "steps": [
+    "goals",
+    "sports",
+    "where",
+    "event",
+    "challenge",
+    "coaching",
+    "voice",
+    "habits",
+    "music",
+    "notifications",
+    "summary"
+   ],
+   "profile": {
+    "v": 1,
+    "preset": "home_workouts",
+    "features": {
+     "plan": false,
+     "coach": true,
+     "habits": false,
+     "music": false,
+     "outdoor": false,
+     "camera": true,
+     "social": false,
+     "rewards": false,
+     "desk": false
+    },
+    "rewardsVisible": false,
+    "tabs": [
+     "today",
+     "train",
+     "coach",
+     "you"
+    ],
+    "watchPages": [
+     "today",
+     "coach",
+     "you"
+    ],
+    "watchDock": [
+     "coach"
+    ],
+    "nextAction": "camera_workout",
+    "coach": {
+     "on": true,
+     "chattiness": "normal",
+     "workoutVoice": "essential",
+     "calls": false,
+     "live": false,
+     "checkIns": false,
+     "voiceGender": "woman",
+     "style": "motivating"
+    },
+    "notifications": {
+     "level": "few",
+     "budget": 3,
+     "hardCap": 6,
+     "kinds": [
+      "coach_call",
+      "account",
+      "device_link",
+      "coach_call_update"
+     ],
+     "quiet": [
+      1290,
+      420
+     ],
+     "digestAt": 1170
+    },
+    "music": "own",
+    "sportMode": "one",
+    "sports": [],
+    "device": "phone",
+    "ghosts": false,
+    "habits": {
+     "rhythm": false,
+     "moveReminders": false,
+     "deskOffer": false
+    },
+    "event": null,
+    "permissions": [
+     "camera"
+    ]
+   }
+  },
+  {
    "name": "compete-spotify",
    "answers": {
     "goals": [
@@ -11027,6 +11132,28 @@
    "action": "train_now"
   },
   {
+   "profile": "skill",
+   "day": {
+    "planned": true
+   },
+   "action": "planned_session"
+  },
+  {
+   "profile": "skill",
+   "day": {
+    "planned": false
+   },
+   "action": "camera_workout"
+  },
+  {
+   "profile": "skill",
+   "day": {
+    "planned": false,
+    "restDay": true
+   },
+   "action": "camera_workout"
+  },
+  {
    "profile": "compete-spotify",
    "day": {
     "planned": true
@@ -14502,6 +14629,10 @@
   {
    "profile": "earn-only",
    "line": "- VVake profile (\"Your VVake\"): Rewards earner. Features on: coach, habits, outdoor, social, rewards. Off: plan, music, camera, desk: never suggest or mention them unless the athlete asks (then say they can turn it on in Your VVake). Style: motivating and upbeat."
+  },
+  {
+   "profile": "skill",
+   "line": "- VVake profile (\"Your VVake\"): Home workouts. Features on: coach, camera. Off: plan, habits, music, outdoor, social, rewards, desk: never suggest or mention them unless the athlete asks (then say they can turn it on in Your VVake). Style: motivating and upbeat."
   },
   {
    "profile": "compete-spotify",

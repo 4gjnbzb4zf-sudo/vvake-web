@@ -1,4 +1,4 @@
-// Copied from VVFit packages/game-core/src/tailor.ts (c7b1cabb 2026-10-27) by scripts/sync-tailor-core.ts. Do not edit: re-sync.
+// Copied from VVFit packages/game-core/src/tailor.ts (e7ff18c7 2026-10-27) by scripts/sync-tailor-core.ts. Do not edit: re-sync.
 /**
  * "Your VVake": the lean, tailored app (ADR-0059, docs/02-product/lean-tailored-experience.md, founder survey GO
  * 2026-10-27). Ten one-tap questions give a profile that switches nine features on or off for one athlete, on every
@@ -28,7 +28,8 @@ export const TAILOR_FEATURES = ["plan", "coach", "habits", "music", "outdoor", "
 export type TailorFeature = (typeof TAILOR_FEATURES)[number];
 export type TailorFeatures = Record<TailorFeature, boolean>;
 
-export const TAILOR_GOALS = ["move", "home", "event", "outdoor", "compete", "earn"] as const;
+/** Question 1's answers; `skill` (Learn a skill: splits, handstand…, ADR-0060) turns on Camera & trainings. */
+export const TAILOR_GOALS = ["move", "home", "event", "outdoor", "compete", "earn", "skill"] as const;
 export type TailorGoal = (typeof TAILOR_GOALS)[number];
 export const TAILOR_SPORT_MODES = ["one", "few"] as const;
 export type TailorSportMode = (typeof TAILOR_SPORT_MODES)[number];
@@ -183,7 +184,7 @@ export function suggestedAnswer(
     case "habits":
       return { habits: goals.includes("move") ? "yes" : "no" };
     case "where":
-      return { where: goals.includes("home") && !goals.includes("outdoor") ? ["camera"] : d.where };
+      return { where: (goals.includes("home") || goals.includes("skill")) && !goals.includes("outdoor") ? ["camera"] : d.where };
     default:
       return {};
   }
@@ -419,7 +420,7 @@ export function featuresFromAnswers(raw: TailorAnswers, opts: Pick<TailorOptions
     habits: a.habits !== "no",
     music: a.music === "spotify" || a.music === "apple" || a.music === "mixes",
     outdoor: a.where.includes("outside") || g("outdoor") || (a.where.includes("watch") && a.sports.some(gpsSport)),
-    camera: a.where.includes("camera") || g("home"),
+    camera: a.where.includes("camera") || g("home") || g("skill"),
     social: a.challenge === "friends" || a.challenge === "city" || g("compete") || g("earn"),
     // Decision 4: off unless "Earn while I move" was picked; the summary's toggle can flip it.
     rewards: g("earn"),
@@ -1116,6 +1117,7 @@ export const TAILOR_TEXT: Readonly<Record<string, { en: string; fr: string }>> =
   "tailor.goals.outdoor": { en: "Outdoor adventures", fr: "Aventures en plein air" },
   "tailor.goals.compete": { en: "Compete with others", fr: "Me mesurer aux autres" },
   "tailor.goals.earn": { en: "Earn while I move", fr: "Gagner en bougeant" },
+  "tailor.goals.skill": { en: "Learn a skill (splits, handstand…)", fr: "Apprendre un skill (grand écart, équilibre…)" },
   "tailor.sports.title": { en: "Which sports?", fr: "Quels sports ?" },
   "tailor.sports.one": { en: "Just one", fr: "Un seul" },
   "tailor.sports.few": { en: "A few", fr: "Quelques-uns" },
