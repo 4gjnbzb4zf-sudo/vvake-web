@@ -1,4 +1,4 @@
-// Cut from VVFit packages/game-core/src/voiceCommands.ts (e628403d 2026-10-26) by scripts/sync-camera-core.ts. Do not edit: re-sync.
+// Cut from VVFit packages/game-core/src/voiceCommands.ts (7f2a8945 2026-10-27) by scripts/sync-camera-core.ts. Do not edit: re-sync.
 const COMBINING = /[̀-ͯ]/g;
 
 export function normalizeVoice(s: string): string {

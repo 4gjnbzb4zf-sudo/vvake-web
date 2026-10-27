@@ -29,8 +29,17 @@ import {
 } from "@/lib/webapp/camera/cameraCues";
 import { LIVENESS_TEXT, type LivenessKind } from "@/lib/webapp/camera/cameraLiveness";
 import { lookalikes } from "@/lib/webapp/camera/cameraDetect";
-import { CAMERA_MOVES, cameraMove, EQUIPMENT_NAMES, FAMILY_NAMES, type MoveDef, type MoveFamily } from "@/lib/webapp/camera/cameraMoves";
-import { demoFrameAt, demoLoop, moveTip, targetText, type DemoLoop } from "@/lib/webapp/camera/cameraDemo";
+import {
+  CAMERA_MOVES,
+  cameraMove,
+  isOwnMove,
+  EQUIPMENT_NAMES,
+  FAMILY_NAMES,
+  type MoveDef,
+  type MoveFamily,
+} from "@/lib/webapp/camera/cameraMoves";
+import { demoFrameAt, demoLoop, moveTip, targetText, type DemoLoop, type DemoProp } from "@/lib/webapp/camera/cameraDemo";
+import { planOverview, setRoundLine } from "@/lib/webapp/camera/cameraPlan";
 import {
   applyLoads,
   CAMERA_VOICE_HELP,
@@ -39,6 +48,7 @@ import {
   flowPlan,
   HandsFreeWorkout,
   manualSetMs,
+  plannedName,
   PromptVoice,
   repLine,
   trackingNotes,
@@ -47,7 +57,7 @@ import {
   type FlowEvent,
   type SetNote,
 } from "@/lib/webapp/camera/cameraFlow";
-import { easierOf, moveTips, positionLine, promptLine } from "@/lib/webapp/camera/cameraPrep";
+import { easierOf, moveTips, positionLine, promptLine, setIntro } from "@/lib/webapp/camera/cameraPrep";
 import { moveSetup, setupLine, type ReadyPrompt, type ReadyReport } from "@/lib/webapp/camera/cameraReady";
 import { cameraTotals, cameraVolumeKg, type CameraSummary } from "@/lib/webapp/camera/cameraPoints";
 import { CameraHeart, clockText, heartSourceLabel, heartZoneLabel, holdText, type CameraHeartStats } from "@/lib/webapp/camera/cameraHeart";
@@ -109,7 +119,7 @@ import { trainingsApi } from "@/lib/trainings/api";
 import { setRows as setRowsOf, type RunReply } from "@/lib/trainings/data";
 import { useApp } from "./AppContext";
 import { TeachMove } from "./TeachMove";
-import { Btn, Card, Kicker, Note, Small, Toggle } from "./ui";
+import { Btn, Card, Kicker, List, Note, Row, Small, Toggle } from "./ui";
 
 /**
  * Camera workout in the browser (the phone's app/camera-workout.tsx, monorepo apps/mobile; ADR-0046 amendment
@@ -119,12 +129,14 @@ import { Btn, Card, Kicker, Note, Small, Toggle } from "./ui";
  * session uploaded as counts only. The video never leaves the tab and nothing is recorded.
  *
  * Phases: setup (the camera step first: explained, asked, a live mirrored preview with the framing guide; then a
- * routine, a move, or "just start moving") → live → summary (save or discard). The webcam stays on from setup to the
+ * routine, a move, or "just start moving") → overview (a plan: the whole workout before it starts, where the camera
+ * goes, Start; camera v3, 2026-10-27) → live (planned sets end at their target or on your Finish set, never by a
+ * pause; "Done with this set?" after a long quiet stretch; "Set 2 of 3 · Round 1 of 2") → summary (save or discard). The webcam stays on from setup to the
  * end (one permission prompt). Framing tips are written on screen; the voice says one positioning line at the start
  * and at most one reminder 20 s later. The body outline shows 35 s, then fades (Show outline brings it back).
  */
 
-type Phase = "setup" | "live" | "summary";
+type Phase = "setup" | "overview" | "live" | "summary";
 type Plan = { routine: CameraRoutine | null; move: string | null };
 interface FramingShown {
   framing: Framing;
@@ -457,8 +469,12 @@ export function CameraScreen({ sport, training, teach }: { sport?: string; train
           outline={outline.current}
           outlineOn={outlineOn}
           setOutlineOn={setOutlineOn}
-          onStart={() => setPhase("live")}
+          onStart={() => setPhase(plan.routine?.sets.length ? "overview" : "live")}
         />
+      )}
+      {/* A plan: all of it before it starts (tester report 2026-10-27: the second round came as a surprise). */}
+      {!teach && phase === "overview" && plan.routine && (
+        <Overview routine={plan.routine} onBack={() => setPhase("setup")} onStart={() => setPhase("live")} />
       )}
       {!teach && phase === "live" && (
         <Live
@@ -596,6 +612,61 @@ function useTick(ms = 500) {
 }
 
 // ── Setup ───────────────────────────────────────────────────────────────────────────────────────────────────────
+
+/** The whole workout before Start: where the camera goes once, the order, sets × reps or time, the last load, the
+ * rounds, the rests, about how long (camera/cameraPlan.ts planOverview, the phone's overview). */
+function Overview({ routine, onBack, onStart }: { routine: CameraRoutine; onBack: () => void; onStart: () => void }) {
+  const { t, lang, fmt, prefs } = useApp();
+  const c = t.camera;
+  const o = useMemo(() => planOverview(routine.sets, lang, loadCameraLoads()), [routine, lang]);
+  return (
+    <div className="mx-auto w-full max-w-xl space-y-4 pt-[max(env(safe-area-inset-top),1rem)] pr-[max(env(safe-area-inset-right),1rem)] pb-16 pl-[max(env(safe-area-inset-left),1rem)]">
+      <button type="button" className="h-11 text-sm text-muted" onClick={onBack}>
+        ‹ {t.common.back}
+      </button>
+      <Kicker tone="volt">{c.yourWorkout}</Kicker>
+      <h1 className="font-display text-2xl font-bold">{routine.name[lang]}</h1>
+      <p className="text-muted">{fmt(c.aboutMin, { min: o.minutes, sets: o.totalSets })}</p>
+      {o.placement.line ? <Note tone="sky">{forCamera(o.placement.line, lang)}</Note> : null}
+      {o.blocks.map((b, bi) => (
+        <div key={bi} className="space-y-2">
+          <Kicker tone="sky">
+            {b.rounds > 1 ? fmt(c.roundsOf, { n: b.rounds }) : o.blocks.length > 1 ? c.straightSets : c.inThisOrder}
+          </Kicker>
+          <List>
+            {b.items.map((it, i) => (
+              <Row
+                key={`${it.move}-${i}`}
+                icon={String(i + 1)}
+                title={it.name}
+                detail={[
+                  it.sets > 1 ? `${it.sets} × ${it.target}` : it.target,
+                  it.loadKg ? `${kgToUnits(it.loadKg, prefs.units)} ${loadUnit(prefs.units)}` : "",
+                  fmt(c.restN, { n: it.restS }),
+                  it.easier ? c.easierShort : "",
+                ]
+                  .filter(Boolean)
+                  .join(" · ")}
+              />
+            ))}
+          </List>
+          {b.rounds > 1 && <Small>{fmt(c.sameAgain, { n: b.rounds })}</Small>}
+        </div>
+      ))}
+      <Btn
+        big
+        variant="volt"
+        className="w-full"
+        onClick={() => {
+          unlockAudio();
+          onStart();
+        }}
+      >
+        ▶ {c.start}
+      </Btn>
+    </div>
+  );
+}
 
 function Setup({
   training,
@@ -1232,6 +1303,16 @@ function Live({
             setCue(null);
             say(flowSpeech(x, lang), true);
             break;
+          case "askDone":
+            // Never moves on by itself (2026-10-27): asks; the card offers Finish set / Keep going.
+            say(flowLine(x, lang), true);
+            break;
+          case "keepGoing":
+            break;
+          case "round":
+            // "Round 2 of 2: same moves again." (the screen shows "Set 1 of 3 · Round 2 of 2").
+            say(flowLine(x, lang), true);
+            break;
           case "restHeart": {
             // The rest follows the heart: said (in the voice mode) and shown under the rest timer for a few seconds.
             const line = flowLine(x, lang);
@@ -1262,7 +1343,9 @@ function Live({
 
   // The one click was Start: from here the workout runs on its own. The one positioning line; audio off at the end.
   useEffect(() => {
-    if (framingVoice.current.start(Date.now())) speak(FRAMING_VOICE.start[lang], true);
+    // A plan: where the camera goes for the whole workout, once (mixed standing and floor moves: one low spot).
+    const place = flow.placement(lang);
+    if (framingVoice.current.start(Date.now())) speak(place?.line ? forCamera(place.line, lang) : FRAMING_VOICE.start[lang], true);
     handle(flow.start(Date.now()), Date.now());
     return () => hush();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -1350,8 +1433,17 @@ function Live({
         if (!paused) togglePause(true);
         return r.paused;
       case "resume":
+        if (flow.askingDone) {
+          act(flow.keepGoing(at), true);
+          return r.keepGoing;
+        }
         if (paused) togglePause(true);
         return r.back;
+      case "finish": {
+        const ev = flow.finishSet(at);
+        act(ev, true);
+        return ev.length ? r.setDone : r.noSet;
+      }
       case "more_rest": {
         const ev = flow.extendRest(15, at);
         act(ev, true);
@@ -1439,6 +1531,12 @@ function Live({
   const outlineVisible = outline.visible(now);
   const setsSoFar = e.log.reduce((n, m) => n + m.sets.length, 0) + (e.state === "set" && (set?.reps || set?.holdS) ? 1 : 0);
   const so = flow.setOf();
+  // "Set 2 of 3 · Round 1 of 2" (2026-10-27: the set and the round told apart).
+  const setRound = flow.plan ? setRoundLine(so, flow.roundOf(), lang) : "";
+  // The exact variation (its stance, where the weight is) and 1–2 cues, on the demo and Get ready.
+  const intro = targetDef && target && !isOwnMove(targetDef.id) ? setIntro(targetDef.id, lang, target.label) : null;
+  // A set that still ends 7 s after the last rep: "just start moving", or a move picked on its own (no target).
+  const endsOnStop = flow.free || (move?.kind === "reps" && !target?.reps);
   const manualLeft = phase === "set" && move?.judge === "manual" ? manualSetMs(move, target) - (now - flow.phaseStartMs) : 0;
   const heartNow = heart.now(now);
   const heartSignal = heart.signal(now);
@@ -1472,10 +1570,11 @@ function Live({
           <div className="absolute inset-0 flex flex-col items-center justify-center-safe gap-2 overflow-y-auto bg-night px-4 pt-[calc(max(env(safe-area-inset-top),0.75rem)+4rem)] pb-6 text-center">
             <p className="text-sm font-semibold tracking-widest text-sky-fg uppercase">{fmt(c.watch, { n: demoLoopNo })}</p>
             <DemoFigure loop={flow.demo} startedAt={flow.phaseStartMs} className="h-[36vh] max-h-[420px] w-full max-w-md" />
-            <p className="font-display text-4xl leading-tight font-bold text-white sm:text-6xl">{targetDef.name[lang]}</p>
+            <p className="font-display text-4xl leading-tight font-bold text-white sm:text-6xl">{plannedName(target, lang)}</p>
             <p className="font-display text-2xl font-bold text-volt sm:text-4xl">{targetText(target, targetDef, lang)}</p>
             <ZoneTarget target={target} zoneNow={null} lang={lang} />
-            {so.of > 1 && <p className="text-lg text-white">{fmt(c.setOf, { n: so.n, of: so.of })}</p>}
+            {setRound ? <p className="text-lg text-white">{setRound}</p> : null}
+            {intro?.setup ? <p className="max-w-xl text-lg font-semibold text-white sm:text-xl">{intro.setup}</p> : null}
             <p className="max-w-xl text-lg text-white/85 sm:text-2xl">{moveTip(targetDef, lang)}</p>
             <CameraAngle move={targetDef} compact />
           </div>
@@ -1539,12 +1638,12 @@ function Live({
               {phase === "setup" && targetDef && (
                 <div className="flex w-full max-w-xl flex-col items-stretch gap-2 rounded-2xl bg-black/50 p-3 [text-shadow:none]">
                   <p className="text-sm font-semibold tracking-widest text-sky-fg uppercase">{c.getReady}</p>
-                  <p className="font-display text-3xl leading-tight font-bold text-white sm:text-5xl">{targetDef.name[lang]}</p>
-                  <p className="text-lg text-white">
-                    {[targetText(target, targetDef, lang), so.of > 1 ? fmt(c.setOf, { n: so.n, of: so.of }) : ""]
-                      .filter(Boolean)
-                      .join(" · ")}
-                  </p>
+                  <p className="font-display text-3xl leading-tight font-bold text-white sm:text-5xl">{plannedName(target, lang)}</p>
+                  <p className="text-lg text-white">{[targetText(target, targetDef, lang), setRound].filter(Boolean).join(" · ")}</p>
+                  {intro?.setup ? <p className="text-lg font-semibold text-white">{intro.setup}</p> : null}
+                  {intro?.cues.map((cu) => (
+                    <p key={cu} className="text-sm text-white/85">{`· ${cu}`}</p>
+                  ))}
                   <ReadyBanner ready={ready} move={targetDef} />
                   <ReadyChecks ready={ready} move={targetDef} />
                   <CameraAngle move={targetDef} />
@@ -1596,7 +1695,7 @@ function Live({
                     </p>
                   )}
                   {hold && flow.manualHold && <p className="text-lg text-white">{c.timedByYou}</p>}
-                  {so.of > 1 && <p className="text-lg text-white">{fmt(c.setOf, { n: so.n, of: so.of })}</p>}
+                  {setRound ? <p className="text-lg text-white">{setRound}</p> : null}
                   <ZoneTarget target={target} zoneNow={heartNow?.zone ?? null} lang={lang} />
                   {zoneSaid && now - zoneSaid.at < 6000 && (
                     <p role="status" className="mt-2 rounded-full bg-black/70 px-4 py-1 text-lg text-white">
@@ -1628,7 +1727,7 @@ function Live({
                   )}
                   {nextDef && nextSet ? (
                     hidePreview ? (
-                      <p className="font-display text-3xl font-bold text-white">{fmt(c.next, { move: nextDef.name[lang] })}</p>
+                      <p className="font-display text-3xl font-bold text-white">{fmt(c.next, { move: plannedName(nextSet, lang) })}</p>
                     ) : (
                       <NextPreview
                         def={nextDef}
@@ -1641,6 +1740,7 @@ function Live({
                   ) : (
                     <p className="text-2xl text-white">{flow.free ? c.restReady : ""}</p>
                   )}
+                  {nextSet && setRound ? <p className="text-lg text-white">{setRound}</p> : null}
                 </>
               )}
               {phase === "ready" && (
@@ -1805,6 +1905,20 @@ function Live({
                   {flow.holdState === "paused" ? c.resumeTimer : c.startTimer}
                 </Btn>
               )}
+              {/* A long quiet stretch in a planned set: asked, never ended on its own (2026-10-27). */}
+              {flow.askingDone && (
+                <div role="status" className="space-y-2 rounded-2xl border-2 border-volt bg-surface p-3 text-center">
+                  <p className="font-display text-xl font-semibold">{c.askDone}</p>
+                  <div className="flex flex-wrap justify-center gap-2">
+                    <Btn variant="volt" onClick={() => act(flow.finishSet(Date.now()))}>
+                      {c.finishSet}
+                    </Btn>
+                    <Btn variant="ghost" onClick={() => act(flow.keepGoing(Date.now()))}>
+                      {c.keepGoing}
+                    </Btn>
+                  </div>
+                </div>
+              )}
               <div className="flex items-center gap-2">
                 {move?.kind === "reps" && move.judge !== "manual" && (
                   <Btn
@@ -1818,7 +1932,7 @@ function Live({
                     −1
                   </Btn>
                 )}
-                <Small className="flex-1 text-center">{hold ? c.handsFreeHold : c.handsFreeHint}</Small>
+                <Small className="flex-1 text-center">{endsOnStop ? c.handsFreeStop : hold ? c.handsFreeHold : c.handsFreeHint}</Small>
                 {move?.kind === "reps" && move.judge !== "manual" && (
                   <Btn
                     variant="ghost"
@@ -1831,11 +1945,14 @@ function Live({
                     +1
                   </Btn>
                 )}
+                {!flow.free && move?.judge !== "manual" && (
+                  <SmallBtn onClick={() => act(flow.finishSet(Date.now()))}>{c.finishSet}</SmallBtn>
+                )}
                 {flow.plan && <SmallBtn onClick={() => act(flow.skip(Date.now()))}>{c.skip}</SmallBtn>}
               </div>
             </>
           ) : (
-            <Small className="text-center">{c.handsFreeHint}</Small>
+            <Small className="text-center">{flow.free ? c.handsFreeStop : c.handsFreeHint}</Small>
           )}
           <Small className="text-center">{c.keepOpen}</Small>
         </div>
@@ -1949,13 +2066,15 @@ function ReadyChecks({ ready, move }: { ready: Readiness; move: MoveDef }) {
   const c = useApp().t.camera;
   // In the picture once the only thing left is the angle or the position (cameraReady.ts readiness order).
   const p = ready?.prompt;
-  const framed = !!ready && (ready.ready || p === "turn_sideways" || p === "face_phone" || p === "get_in_position");
-  const angle = framed && p !== "turn_sideways" && p !== "face_phone";
+  const turn = p === "turn_sideways" || p === "face_phone" || p === "turn_diagonal";
+  const framed = !!ready && (ready.ready || turn || p === "get_in_position");
+  const angle = framed && !turn;
   const setup = moveSetup(move);
   const views = setup.views;
+  // A floor move: the whole body in the picture, head to knees at least (2026-10-27), confirmed before it starts.
   const items: [string, boolean][] = [
-    [c.inPicture, framed],
-    [views.length === 1 ? (views[0] === "side" ? c.sideOn : c.facingCamera) : c.anyAngle, angle],
+    [setup.floor ? c.wholeBody : c.inPicture, framed],
+    [views.length === 1 ? (views[0] === "side" ? (setup.diagonal ? c.diagonalOrSide : c.sideOn) : c.facingCamera) : c.anyAngle, angle],
   ];
   if (move.kind === "hold" || setup.floor) items.push([c.inPosition, !!ready?.inPosition]);
   return (
@@ -1992,14 +2111,16 @@ function NextPreview({
   ready,
 }: {
   def: MoveDef;
-  next: { reps?: number; holdS?: number; easier?: boolean };
+  next: { move: string; reps?: number; holdS?: number; easier?: boolean; label?: string };
   startedAt: number;
   prep: boolean;
   ready: Readiness;
 }) {
   const { t, lang } = useApp();
   const loop = useMemo(() => demoLoop(def.id), [def.id]);
-  const tips = moveTips(def, lang);
+  // The exact variation first (its stance, where the weight is), then the cues (2026-10-27).
+  const intro = isOwnMove(def.id) ? null : setIntro(def.id, lang, next.label);
+  const tips = intro ? [...(intro.setup ? [intro.setup] : []), ...intro.cues].slice(0, 3) : moveTips(def, lang);
   return (
     <div
       className={cn(
@@ -2008,7 +2129,7 @@ function NextPreview({
       )}
     >
       <p className="text-sm font-semibold tracking-widest text-sky-fg uppercase">{prep ? t.camera.getIntoPosition : t.camera.nextUp}</p>
-      <p className="font-display text-2xl font-bold sm:text-3xl">{def.name[lang]}</p>
+      <p className="font-display text-2xl font-bold sm:text-3xl">{plannedName(next, lang)}</p>
       <p className="text-lg">{targetText(next, def, lang)}</p>
       <div className="flex items-center gap-3 text-left">
         <DemoFigure
@@ -2090,7 +2211,58 @@ function DemoFigure({ loop, startedAt, className }: { loop: DemoLoop | null; sta
         );
       })}
       {head && <circle cx={head.x} cy={head.y} r={34} className="fill-night stroke-volt" strokeWidth={6} />}
+      {loop.prop && <DemoWeight kind={loop.prop} l={p("lWrist")} r={p("rWrist")} size={30} />}
     </svg>
+  );
+}
+
+/** The weight in the demo, where it is (2026-10-27: the exact variation; the phone's PoseFigure Prop): one dumbbell
+ * held at the chest or overhead, one in each hand, a bar across both hands, a kettlebell in both hands. */
+function DemoWeight({
+  kind,
+  l,
+  r,
+  size,
+}: {
+  kind: DemoProp;
+  l: { x: number; y: number } | null;
+  r: { x: number; y: number } | null;
+  size: number;
+}) {
+  if (!l || !r) return null;
+  const mid = { x: (l.x + r.x) / 2, y: (l.y + r.y) / 2 };
+  const bell = (x: number, y: number, vertical: boolean, k = 1) => {
+    const h = size * 1.1 * k;
+    const dx = vertical ? 0 : h;
+    const dy = vertical ? h : 0;
+    return (
+      <g key={`${x}-${y}`}>
+        <line x1={x - dx} y1={y - dy} x2={x + dx} y2={y + dy} className="stroke-sky" strokeWidth={size * 0.35} strokeLinecap="round" />
+        <circle cx={x - dx} cy={y - dy} r={size * 0.55 * k} className="fill-sky" />
+        <circle cx={x + dx} cy={y + dy} r={size * 0.55 * k} className="fill-sky" />
+      </g>
+    );
+  };
+  if (kind === "one-at-chest" || kind === "one-overhead") return bell(mid.x, mid.y, true, 1.2);
+  if (kind === "dumbbells") return <g>{[bell(l.x, l.y, false), bell(r.x, r.y, false)]}</g>;
+  if (kind === "kettlebell") return <circle cx={mid.x} cy={mid.y + size * 0.9} r={size * 0.9} className="fill-sky" />;
+  // A bar across both hands, a little past each.
+  const ex = (r.x - l.x) * 0.25;
+  const ey = (r.y - l.y) * 0.25;
+  return (
+    <g>
+      <line
+        x1={l.x - ex}
+        y1={l.y - ey}
+        x2={r.x + ex}
+        y2={r.y + ey}
+        className="stroke-sky"
+        strokeWidth={size * 0.35}
+        strokeLinecap="round"
+      />
+      <circle cx={l.x - ex} cy={l.y - ey} r={size * 0.8} className="fill-sky" />
+      <circle cx={r.x + ex} cy={r.y + ey} r={size * 0.8} className="fill-sky" />
+    </g>
   );
 }
 

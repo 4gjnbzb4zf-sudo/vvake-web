@@ -189,7 +189,8 @@ describe("long lines and likely lines", () => {
       ],
       "en",
     );
-    expect(cam.map((c) => c.text)).toEqual(["Squat. 15 reps.", "Rest 45 seconds. Next: Squat.", "Squat. 12 reps."]);
+    const setup = "Feet shoulder-width, toes slightly out, arms forward for balance.";
+    expect(cam.map((c) => c.text)).toEqual([`Squat. ${setup} 15 reps.`, "Rest 45 seconds. Next: Squat.", `Squat. ${setup} 12 reps.`]);
     expect(cameraLikelyLines(null, "fr")).toEqual([]);
   });
 });

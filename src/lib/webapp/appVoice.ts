@@ -1,6 +1,6 @@
 import { cameraMove } from "./camera/cameraMoves";
-import { flowLine, type FlowEvent } from "./camera/cameraFlow";
-import { viewAsk } from "./camera/cameraPrep";
+import { flowLine, restAsk, type FlowEvent } from "./camera/cameraFlow";
+import { getReadyParts, setupOf } from "./camera/cameraPrep";
 
 /**
  * One coach voice everywhere (voice-one): the parts of the monorepo's game-core appVoice.ts the web needs, word for
@@ -56,13 +56,15 @@ export function flowSpeech(e: FlowEvent, lang: VoiceLang): CoachSpeech | null {
         : m?.kind === "hold"
           ? part.holdPos(lang)
           : part.free(lang);
-    return { text, parts: [part.move(e.move, lang), target, ...(t?.zone ? [part.zone(t.zone)] : [])] };
+    // The variation's setup (its stance, where the weight is), a fixed line per move.
+    const setup = t?.label ? null : setupOf(e.move, lang);
+    return { text, parts: [part.move(e.move, lang), ...(setup ? [setup] : []), target, ...(t?.zone ? [part.zone(t.zone)] : [])] };
   }
   if (e.type === "rest" && e.next) {
-    // A new move: its camera angle too ("Turn sideways so I can track you."), a fixed line of its own.
-    const m = e.newMove ? cameraMove(e.next.move) : null;
-    const ask = m ? viewAsk(m, lang) : null;
+    // The camera angle to turn to, only when it changes ("Turn sideways so I can track you."), a fixed line of its own.
+    const ask = restAsk(e, lang);
     return { text, parts: [part.rest(e.restS, lang), part.next(e.next.move, lang), ...(ask ? [ask] : [])] };
   }
+  if (e.type === "getReady") return { text, parts: getReadyParts(e.move, lang, e.turn) };
   return { text };
 }

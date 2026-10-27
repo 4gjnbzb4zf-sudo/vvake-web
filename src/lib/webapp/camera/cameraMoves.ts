@@ -1,4 +1,4 @@
-// Copied from VVFit packages/game-core/src/cameraMoves.ts (e628403d 2026-10-26) by scripts/sync-camera-core.ts. Do not edit: re-sync.
+// Copied from VVFit packages/game-core/src/cameraMoves.ts (7f2a8945 2026-10-27) by scripts/sync-camera-core.ts. Do not edit: re-sync.
 /**
  * Camera workouts (ADR-0046): the move catalog. Data only: each move names its signal (cameraReps.ts), the rest and
  * worked positions, the body checks that must hold for a rep to count, the form cues that apply, where to put the
@@ -827,8 +827,114 @@ export const CAMERA_MOVES: readonly MoveDef[] = [
   }),
 ];
 
-const BY_ID = new Map(CAMERA_MOVES.map((m) => [m.id, m]));
-/** A catalogue move, or a custom move registered for this session (cameraCustom.ts, ADR-0047). */
+// ── Skill moves (ADR-0060) ───────────────────────────────────────────────────────────────────────────────────────
+// Holds and reps the skill ladders (skills.ts) measure with the camera. Not in the picker, auto-detect or the
+// recorded voice clips (CAMERA_MOVES): a skill's drill opens them by id. A split is a hold "at least N° between the
+// thighs" (one move per level's depth); the camera can't see the floor, so the depth is an angle (skills.ts
+// splitGapCm says it in centimetres).
+const SPREAD: SignalSpec = { k: "spread" };
+/** The split depths the ladders use, degrees between the thighs. */
+export const SPLIT_DEGREES = [100, 120, 125, 145, 160, 172] as const;
+const splitHold = (kind: "front" | "middle", deg: number): MoveDef =>
+  hold(
+    `${kind}-split-${deg}`,
+    kind === "front"
+      ? name(`Front split ${deg}°`, `Grand écart facial ${deg}°`)
+      : name(`Middle split ${deg}°`, `Grand écart latéral ${deg}°`),
+    "mobility",
+    "flexibility",
+    {
+      view: kind === "front" ? "side" : "front",
+      unilateral: kind === "front",
+      sig: SPREAD,
+      hold: { lo: deg, hi: 181 },
+      judge: "count",
+    },
+  );
+export const SKILL_MOVES: readonly MoveDef[] = [
+  ...SPLIT_DEGREES.flatMap((d) => [splitHold("front", d), splitHold("middle", d)]),
+  /** Hanging from the bar, arms straight. */
+  hold("dead-hang", name("Dead hang", "Suspension bras tendus"), "pull", "functional-strength", {
+    view: "front",
+    equipment: ["bar"],
+    weighted: false,
+    sig: elbow(),
+    hold: { lo: 150, hi: 181 },
+    guards: [ARMS_UP],
+    judge: "count",
+  }),
+  /** A one-leg squat down to a chair or a box behind you (the other leg forward). */
+  reps("box-pistol", name("Box pistol squat", "Pistol squat sur box"), "squat", "functional-strength", {
+    view: "side",
+    unilateral: true,
+    sig: knee("min"),
+    rep: { dir: "down", rest: 155, work: 118, good: 100, minS: 0.8, adapt: true },
+    guards: [{ sig: TILT, max: 60 }],
+    judge: "count",
+    cues: [],
+  }),
+  reps("pistol-squat", name("Pistol squat", "Pistol squat"), "squat", "functional-strength", {
+    view: "side",
+    unilateral: true,
+    sig: knee("min"),
+    rep: { dir: "down", rest: 155, work: 95, good: 75, minS: 0.8, adapt: true },
+    guards: [{ sig: TILT, max: 60 }],
+    judge: "count",
+    cues: [],
+  }),
+  /** Seated on the hands, legs straight out: the hips folded to about a right angle, knees straight, torso upright. */
+  hold("l-sit", name("L-sit", "L-sit"), "core", "core", {
+    view: "side",
+    sig: hip(),
+    hold: { lo: 55, hi: 115 },
+    guards: [
+      { sig: knee("min"), min: 145 },
+      { sig: TILT, max: 40 },
+    ],
+    judge: "count",
+  }),
+  /** The full bridge (wheel): hips pushed up above the shoulders, arms straight. */
+  hold("full-bridge", name("Bridge (wheel)", "Pont (roue)"), "mobility", "flexibility", {
+    view: "side",
+    sig: { k: "hipsAbove" },
+    hold: { lo: 0.35, hi: 3 },
+    guards: [{ sig: elbow("max"), min: 140 }],
+    judge: "count",
+  }),
+  /** Standing fold, knees straight, fingertips to the toes (the hip folded under about 60°). */
+  hold("toe-touch", name("Toe touch", "Toucher les orteils"), "mobility", "flexibility", {
+    view: "side",
+    sig: hip(),
+    hold: { lo: 0, hi: 60 },
+    guards: [{ sig: knee("min"), min: 150 }],
+    judge: "count",
+  }),
+  /** Palms flat: a deeper fold (under about 42°). */
+  hold("deep-fold", name("Palms-flat fold", "Pliage mains à plat"), "mobility", "flexibility", {
+    view: "side",
+    sig: hip(),
+    hold: { lo: 0, hi: 42 },
+    guards: [{ sig: knee("min"), min: 150 }],
+    judge: "count",
+  }),
+];
+
+/**
+ * "Your own workout" (ADR-0061): a step the catalogue doesn't have ("box jump-over", "400 m run", "wall balls") is
+ * kept, never dropped: a set you count yourself (`own-reps`, timed at about 3 s a rep) or a timed one (`own-timed`),
+ * shown and said with the words you wrote (PlannedSet.label). Never earns camera points (judged `manual`). Not in
+ * CAMERA_MOVES: no picker, no demo, no auto-detect, no recorded name.
+ */
+export const OWN_MOVES: readonly MoveDef[] = [
+  reps("own-reps", name("Your move", "Votre mouvement"), "cardio", "functional-strength", { judge: "manual" }),
+  hold("own-timed", name("Timed move", "Exercice chrono"), "cardio", "functional-strength", { judge: "manual" }),
+];
+export const OWN_REPS = "own-reps";
+export const OWN_TIMED = "own-timed";
+export const isOwnMove = (id: string) => id === OWN_REPS || id === OWN_TIMED;
+
+const BY_ID = new Map([...CAMERA_MOVES, ...SKILL_MOVES, ...OWN_MOVES].map((m) => [m.id, m]));
+/** A catalogue move, a skill move, an own-workout step, or a custom move registered for this session (cameraCustom.ts, ADR-0047). */
 export const cameraMove = (id: string): MoveDef | undefined => BY_ID.get(id) ?? customMove(id);
 export const moveName = (m: Pick<MoveDef, "name">, lang: "en" | "fr") => m.name[lang];
 
@@ -878,7 +984,10 @@ export function signalAreas(sig: SignalSpec): BodyArea[] {
       return ["shoulders", "hips"];
     case "dropGap":
     case "drop":
+    case "spread":
       return ["hips", "knees"];
+    case "hipsAbove":
+      return ["shoulders", "hips"];
     case "height":
     case "elbowHeight":
     case "reach":

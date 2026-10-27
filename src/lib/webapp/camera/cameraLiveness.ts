@@ -1,4 +1,4 @@
-// Copied from VVFit packages/game-core/src/cameraLiveness.ts (e628403d 2026-10-26) by scripts/sync-camera-core.ts. Do not edit: re-sync.
+// Copied from VVFit packages/game-core/src/cameraLiveness.ts (7f2a8945 2026-10-27) by scripts/sync-camera-core.ts. Do not edit: re-sync.
 /**
  * Camera workouts (ADR-0046): liveness checks. A replayed or pre-recorded video can make a pose detector count reps,
  * but it can't answer a request it couldn't know: "raise your left arm now", at a random moment, from a random list,

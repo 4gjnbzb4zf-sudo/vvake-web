@@ -1,4 +1,4 @@
-// Copied from VVFit packages/game-core/src/cameraReps.ts (e628403d 2026-10-26) by scripts/sync-camera-core.ts. Do not edit: re-sync.
+// Copied from VVFit packages/game-core/src/cameraReps.ts (7f2a8945 2026-10-27) by scripts/sync-camera-core.ts. Do not edit: re-sync.
 /**
  * Camera workouts (ADR-0046): reps and holds from joint angles. A move (cameraMoves.ts) names one signal (an angle, the
  * torso's tilt, how far the hips dropped toward the knees, how high the wrists are); a rep is that signal leaving its
@@ -58,7 +58,17 @@ export type SignalSpec =
   /** Shoulder width against torso length (cameraPose.ts shoulderSpan): which way the torso points at the phone. */
   | { k: "span" }
   /** How far apart the two knees are in height: |left drop − right drop|, torso lengths (one knee forward: a lunge). */
-  | { k: "dropGap" };
+  | { k: "dropGap" }
+  /**
+   * Skills (ADR-0060): the angle between the two thighs at the middle of the hips, degrees: about 0–25 standing,
+   * 180 in a full split (a front split seen side-on, a middle split seen from the front). Needs both hips and knees.
+   */
+  | { k: "spread" }
+  /**
+   * Skills (ADR-0060): the hips above the shoulders, in torso lengths (about −1 standing, 0 lying flat, above 0.3 in a
+   * bridge pushed up from the floor).
+   */
+  | { k: "hipsAbove" };
 
 const SIDES = { l: "l", r: "r" } as const;
 const joint = (p: BodyPart, s: "l" | "r"): Joint => (p === "nose" ? "nose" : (`${s}${p}` as Joint));
@@ -103,6 +113,8 @@ function sideValue(f: PoseFrame, spec: SignalSpec, s: "l" | "r", ref: number): n
     case "tilt":
     case "span":
     case "dropGap":
+    case "spread":
+    case "hipsAbove":
       return wholeValue(f, spec, ref);
   }
 }
@@ -119,13 +131,36 @@ function wholeValue(f: PoseFrame, spec: SignalSpec, ref: number): number | null 
       const r = sideValue(f, { k: "drop", side: "r" }, "r", ref);
       return l === null || r === null ? null : Math.abs(l - r);
     }
+    case "spread": {
+      if (!ok(f, "lHip", "rHip", "lKnee", "rKnee")) return null;
+      const ar = f.w / f.h;
+      const lh = f.joints.lHip!;
+      const rh = f.joints.rHip!;
+      const hx = ((lh.x + rh.x) / 2) * ar;
+      const hy = (lh.y + rh.y) / 2;
+      const lk = f.joints.lKnee!;
+      const rk = f.joints.rKnee!;
+      const ax = lk.x * ar - hx;
+      const ay = lk.y - hy;
+      const bx = rk.x * ar - hx;
+      const by = rk.y - hy;
+      const n = Math.hypot(ax, ay) * Math.hypot(bx, by);
+      if (n < 1e-9) return null;
+      return (Math.acos(Math.max(-1, Math.min(1, (ax * bx + ay * by) / n))) * 180) / Math.PI;
+    }
+    case "hipsAbove": {
+      const s = mid(f, "lShoulder", "rShoulder");
+      const h = mid(f, "lHip", "rHip");
+      if (!s || !h || ref <= 0) return null;
+      return (s.y - h.y) / ref;
+    }
     default:
       return null;
   }
 }
 
-const isWhole = (spec: SignalSpec): spec is Extract<SignalSpec, { k: "tilt" | "span" | "dropGap" }> =>
-  spec.k === "tilt" || spec.k === "span" || spec.k === "dropGap";
+const isWhole = (spec: SignalSpec): spec is Extract<SignalSpec, { k: "tilt" | "span" | "dropGap" | "spread" | "hipsAbove" }> =>
+  spec.k === "tilt" || spec.k === "span" || spec.k === "dropGap" || spec.k === "spread" || spec.k === "hipsAbove";
 
 /** The joints one side of a signal reads (for its confidence). */
 function sideJoints(spec: SignalSpec, s: "l" | "r"): Joint[] {
