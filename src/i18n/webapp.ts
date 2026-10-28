@@ -213,6 +213,8 @@ const en = {
     webNote:
       "Web workouts add to your streak and journal, but only workouts recorded by the app with a watch count for City Clash scores and prizes.",
     challengesNote: "Challenge a friend, crews and rivals are in the app.",
+    spots: "Spots",
+    spotsDetail: "Places to train near you: pools, tracks, trails, gyms…",
   },
   coach: {
     title: "Coach",
@@ -768,6 +770,30 @@ const en = {
     storage: "The workout under way is kept in this browser (IndexedDB) so a reload resumes it; it's deleted once uploaded.",
     more: "Read the privacy policy",
   },
+  /** Quiet (ADR-0062 §4.4): how much VVake suggests, on every device. */
+  suggest: {
+    title: "How much should VVake suggest?",
+    lead: "Tips, next steps and offers. Nothing is ever suggested during a workout.",
+    levels: {
+      guide: "Guide me",
+      essentials: "Only the essentials",
+      quiet: "Quiet: nothing unless I ask",
+    },
+    details: {
+      guide: "Next steps after a session, tips and feature intros.",
+      essentials: "One next step at most, tips once.",
+      quiet: "No tips, offers or suggestions. Results, safety and your own reminders stay.",
+    },
+  },
+  /** "How did it feel?" after a camera workout or a training run (the phone's SessionFeedback). */
+  feel: {
+    title: "How did it feel?",
+    hard: "Too hard",
+    right: "Just right",
+    easy: "Too easy",
+    say: { hard: "How it felt: too hard.", right: "How it felt: just right.", easy: "How it felt: too easy." },
+    thanks: "Thanks, noted.",
+  },
   update: { ready: "A new version is ready.", reload: "Reload" },
   voiceTip: {
     title: "Get a better voice",
@@ -1002,6 +1028,8 @@ const fr: WebAppDict = {
     webNote:
       "Les séances web comptent pour ta série et ton journal, mais seules les séances enregistrées par l’app avec une montre comptent pour les scores du City Clash et les prix.",
     challengesNote: "Défier un ami, les crews et les rivaux sont dans l’app.",
+    spots: "Spots",
+    spotsDetail: "Où t’entraîner près de toi : piscines, pistes, sentiers, salles…",
   },
   coach: {
     title: "Coach",
@@ -1556,6 +1584,28 @@ const fr: WebAppDict = {
     storage:
       "La séance en cours est gardée dans ce navigateur (IndexedDB) pour qu’un rechargement la reprenne ; elle est effacée une fois envoyée.",
     more: "Lire la politique de confidentialité",
+  },
+  suggest: {
+    title: "Combien VVake doit-il te suggérer ?",
+    lead: "Astuces, prochaines étapes et offres. Rien n’est jamais suggéré pendant une séance.",
+    levels: {
+      guide: "Guide-moi",
+      essentials: "L’essentiel seulement",
+      quiet: "Calme : rien sauf si je demande",
+    },
+    details: {
+      guide: "Les prochaines étapes après une séance, des astuces et la présentation des fonctions.",
+      essentials: "Une prochaine étape au plus, les astuces une seule fois.",
+      quiet: "Ni astuces, ni offres, ni suggestions. Les résultats, la sécurité et tes rappels restent.",
+    },
+  },
+  feel: {
+    title: "Comment tu l’as trouvée ?",
+    hard: "Trop dur",
+    right: "Juste bien",
+    easy: "Trop facile",
+    say: { hard: "Mon ressenti : trop dur.", right: "Mon ressenti : juste bien.", easy: "Mon ressenti : trop facile." },
+    thanks: "Merci, c’est noté.",
   },
   update: { ready: "Une nouvelle version est prête.", reload: "Recharger" },
   voiceTip: {

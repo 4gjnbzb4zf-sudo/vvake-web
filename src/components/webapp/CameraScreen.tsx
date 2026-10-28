@@ -118,6 +118,7 @@ import { getTrainingsDict } from "@/i18n/trainings";
 import { trainingsApi } from "@/lib/trainings/api";
 import { setRows as setRowsOf, type RunReply } from "@/lib/trainings/data";
 import { useApp } from "./AppContext";
+import { FeelAfter } from "./Suggest";
 import { TeachMove } from "./TeachMove";
 import { Btn, Card, Kicker, List, Note, Row, Small, Toggle } from "./ui";
 
@@ -2580,6 +2581,12 @@ function Summary({ result, training }: { result: LiveResult; training?: Training
         {streak && got && <Small className="mt-1">{fmt(t.workout.streakNow, { n: streak.days })}</Small>}
       </Card>
       <Note tone="butter">{t.workout.webRule}</Note>
+      {/* "How did it feel?" once saved (living app §4.2: the camera workout's and the training run's first next step); Quiet hides it. */}
+      {saved && app.suggests("next_step") && (
+        <Card>
+          <FeelAfter sport={result.sport} minutes={result.activeS / 60} />
+        </Card>
+      )}
       {left !== null && !saving && <Small className="text-center">{fmt(c.autoSave, { n: left })}</Small>}
       {!saved ? (
         <>

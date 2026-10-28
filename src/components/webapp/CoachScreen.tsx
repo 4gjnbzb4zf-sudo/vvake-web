@@ -32,7 +32,7 @@ interface Turn {
 const KEY = "vvake-app-coach";
 
 export function CoachScreen() {
-  const { t, lang, api, goals, sessions, prefs, setPrefs, go, me, profile, fmt } = useApp();
+  const { t, lang, api, goals, sessions, prefs, setPrefs, go, me, profile, fmt, suggests } = useApp();
   const [turns, setTurns] = useState<Turn[]>(() => {
     try {
       const v = JSON.parse(sessionStorage.getItem(`${KEY}:${me.id}`) ?? "[]") as Turn[];
@@ -231,7 +231,7 @@ export function CoachScreen() {
       </form>
       {!micOk && <Small className="mt-2">{t.coach.noMic}</Small>}
       {/* The account's plan (Coach Plus, or Premium for Premium and testers) is named here: never while Coach is off (ADR-0059 decision 8). */}
-      {upsellAllowed(profile, "coach") && (
+      {upsellAllowed(profile, "coach") && suggests("you_might_like") && (
         <div className="mt-3">
           <Note>{fmt(t.coach.voiceNote, { plan: ownPlanName(me) })}</Note>
           <GetTheApp t={t} compact className="mt-2" />

@@ -16,6 +16,7 @@ import { useNow } from "./useNow";
 import { BetterVoice, VoiceSources } from "./VoiceTip";
 import { CoachVoicePicker } from "./CoachVoicePicker";
 import { TailorDevCard } from "./TailorScreen";
+import { SuggestPicker } from "./Suggest";
 import { getTailorDict } from "@/i18n/tailor";
 import { packOn, tailorText, TAILOR_FEATURES, TAILOR_PRESET_TEXT } from "@/lib/webapp/tailor/tailor";
 
@@ -53,6 +54,7 @@ export function YouScreen({ focus }: { focus?: Section } = {}) {
     workoutVoice,
     setWorkoutVoice,
     profile,
+    suggests,
   } = useApp();
   const lean = getTailorDict(lang);
   const [settingsOpen, setSettingsOpen] = useState(focus !== undefined && focus !== "points" && focus !== "progress");
@@ -320,6 +322,7 @@ export function YouScreen({ focus }: { focus?: Section } = {}) {
           onChange={(v) => setPrefs({ units: v })}
         />
       </div>
+      <SuggestPicker className="mt-4" />
     </Card>
   );
 
@@ -359,7 +362,7 @@ export function YouScreen({ focus }: { focus?: Section } = {}) {
           <li key={x}>{x}</li>
         ))}
       </ul>
-      <GetTheApp t={t} compact className="mt-4" />
+      {suggests("you_might_like") && <GetTheApp t={t} compact className="mt-4" />}
     </Card>
   );
 

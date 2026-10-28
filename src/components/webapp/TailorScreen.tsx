@@ -28,6 +28,7 @@ import { cleanOverrides, FEATURE_TARGET, nextTailorPrefs, webTabs } from "@/lib/
 import { coachVoiceGender } from "@/lib/coachVoices";
 import { useApp } from "./AppContext";
 import { CoachVoicePicker } from "./CoachVoicePicker";
+import { SuggestPicker } from "./Suggest";
 import { Btn, Card, H1, H2, inputCls, Kicker, List, Row, Segmented, Small, Toggle } from "./ui";
 
 /**
@@ -453,6 +454,9 @@ function Summary({
         .map((k) => t.tabs[k])
         .join(" · ")}`}</Small>
       <p className="text-sm font-medium">{change || x.unchanged}</p>
+      <Card>
+        <SuggestPicker />
+      </Card>
       <Btn big className="w-full" disabled={state === "saving"} onClick={onSave}>
         {state === "saving" ? x.saving : first ? tailorText("tailor.summary.start", L) : x.save}
       </Btn>

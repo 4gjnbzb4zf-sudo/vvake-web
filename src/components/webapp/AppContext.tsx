@@ -31,6 +31,8 @@ import { maxEnergy, refill, type EnergyState, type WebSession } from "@/lib/weba
 import { useNow } from "./useNow";
 import { profileFromPrefs, type TailorPrefs, type TailorProfile } from "@/lib/webapp/tailor/tailor";
 import { parseTailorPrefs, readTailorDev, webTabs, type WebTab } from "@/lib/webapp/tailor/prefs";
+import { suggestAllowed, suggestLevelOf, type SuggestionKind, type SuggestLevel, type SuggestPrefs } from "@/lib/webapp/suggest/suggest";
+import { nextSuggestPrefs, parseSuggestPrefs, suggestKey } from "@/lib/webapp/suggest/prefs";
 
 /**
  * Everything the web app's screens share: the signed-in session and the API, the account (me, athlete, stats,
@@ -211,6 +213,14 @@ export interface AppState {
   tailorDev: boolean;
   /** A Mac or Claude desk is linked (the Desk feature's default). */
   deskLinked: boolean;
+  /**
+   * Quiet (ADR-0062 §4.4): how much VVake suggests (guide / essentials / quiet), this browser's choice synced with
+   * the account's `prefs.suggest` (newest wins). `suggests` is game-core's suggestAllowed with that level: every tip,
+   * offer and "you might like" on the web asks it first; `inWorkout` holds everything back during a workout.
+   */
+  suggestLevel: SuggestLevel;
+  setSuggestLevel: (l: SuggestLevel) => void;
+  suggests: (kind: SuggestionKind, ctx?: { inWorkout?: boolean }) => boolean;
 }
 
 const Ctx = createContext<AppState | null>(null);
@@ -433,6 +443,52 @@ export function AppProvider({
     [api, me],
   );
 
+  // ── Quiet (ADR-0062 §4.4): prefs.suggest, ours per account, the account's adopted when newer ──
+  const [suggestPref, setSuggestPref] = useState<SuggestPrefs | null>(() => readStored(suggestKey(me.id), parseSuggestPrefs));
+  const suggestRef = useRef(suggestPref);
+  /** The choice last sent: an API that doesn't keep it yet never answers with it, so each is sent once a visit. */
+  const suggestSentAt = useRef<string | null>(null);
+  const adoptSuggest = useCallback(
+    (p: SuggestPrefs) => {
+      suggestRef.current = p;
+      setSuggestPref(p);
+      writeStored(suggestKey(me.id), p);
+    },
+    [me.id],
+  );
+  const setSuggestLevel = useCallback(
+    (level: SuggestLevel) => {
+      const p = nextSuggestPrefs(suggestRef.current, level);
+      adoptSuggest(p);
+      suggestSentAt.current = p.at;
+      void api
+        .patchMe({ prefs: { suggest: p } })
+        .then(setMe)
+        .catch(() => undefined); // offline: ours is newer, sent on the next load
+    },
+    [adoptSuggest, api],
+  );
+  const accountSuggestRaw = me.prefs?.suggest;
+  useEffect(() => {
+    const r = reconcile(suggestRef.current, parseSuggestPrefs(accountSuggestRaw));
+    const id = window.setTimeout(() => {
+      if (r.adopt) adoptSuggest(r.adopt);
+    }, 0);
+    if (r.push && r.push.at !== suggestSentAt.current) {
+      suggestSentAt.current = r.push.at;
+      void api
+        .patchMe({ prefs: { suggest: r.push } })
+        .then(setMe)
+        .catch(() => undefined);
+    }
+    return () => window.clearTimeout(id);
+  }, [accountSuggestRaw, adoptSuggest, api]);
+  const suggestLevel = suggestLevelOf(suggestPref?.level);
+  const suggests = useCallback(
+    (kind: SuggestionKind, ctx: { inWorkout?: boolean } = {}) => suggestAllowed(kind, suggestLevel, ctx),
+    [suggestLevel],
+  );
+
   const tz = useMemo(() => localTz(), []);
   const refresh = useCallback(async () => {
     const [st, sk, ss, at] = await Promise.allSettled([api.stats(tz), api.streak(tz), api.sessions(), api.athlete()]);
@@ -606,6 +662,9 @@ export function AppProvider({
     saveTailor,
     tailorDev,
     deskLinked,
+    suggestLevel,
+    setSuggestLevel,
+    suggests,
   };
   return <Ctx.Provider value={value}>{children}</Ctx.Provider>;
 }

@@ -1,11 +1,12 @@
 "use client";
 
-import { useEffect, useState, useSyncExternalStore } from "react";
+import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 import { onBrowserVoice, onVoicePack, voicePackState, voiceSources } from "@/lib/webapp/coachAudio";
 import { coachPlusActive, ownPlanName } from "@/lib/coachPlus";
 import type { LineSource } from "@/lib/webapp/voiceGuarantee";
 import { takeVoiceTip, voicePlatform, type VoicePlatform } from "@/lib/webapp/voiceTip";
 import { useApp } from "./AppContext";
+import { useWorkout } from "./WorkoutContext";
 import { Btn, Small } from "./ui";
 
 const PLATFORMS: Exclude<VoicePlatform, "other">[] = ["ios", "mac", "windows", "android"];
@@ -47,17 +48,25 @@ function Steps() {
 }
 
 /**
- * The first time this browser's own voice says a coach line: "Get a better voice", once (voiceTip.ts), on any screen
- * (the workout screens too), until it's dismissed.
+ * The first time this browser's own voice says a coach line: "Get a better voice", once (voiceTip.ts), until it's
+ * dismissed. A suggestion (ADR-0062 §4.4): never during a workout (camera, training run or live workout: it waits for
+ * a later line once the workout is over) and never in Quiet.
  */
 export function VoiceTipToast() {
-  const { t } = useApp();
+  const { t, route, suggests } = useApp();
+  const wk = useWorkout();
   const v = t.voiceTip;
   const [open, setOpen] = useState(false);
+  const inWorkout = !!wk.w || route.name === "workout" || route.name === "camera" || route.name === "train" || route.name === "teach";
+  const ok = suggests("voice_tip", { inWorkout });
+  const allowed = useRef(ok);
+  useEffect(() => {
+    allowed.current = ok;
+  }, [ok]);
   useEffect(
     () =>
       onBrowserVoice(() => {
-        if (takeVoiceTip(tipStorage())) setOpen(true);
+        if (allowed.current && takeVoiceTip(tipStorage())) setOpen(true);
       }),
     [],
   );

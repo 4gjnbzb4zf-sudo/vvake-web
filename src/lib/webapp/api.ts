@@ -95,6 +95,8 @@ export const appMeSchema = z.object({
       heartZones: z.optional(z.unknown()),
       /** "Your VVake" (ADR-0059): `{ v, tailorOn, answers, overrides?, source, at }`, checked by tailor/prefs.ts. */
       tailor: z.optional(z.unknown()),
+      /** Quiet (ADR-0062 §4.4): `{ level, at }`, checked by suggest/prefs.ts; absent until the API keeps it. */
+      suggest: z.optional(z.unknown()),
     }),
   ),
   consents: opt(z.object({ disclaimer: opt(z.object({ version: z.number(), acceptedAt: z.string() })) })),
@@ -221,6 +223,9 @@ export interface HabitDaySend {
   sleep?: { bedAt?: number; target: number };
 }
 
+/** How a finished session felt (the phone's SessionFeel). */
+export type SessionFeel = "hard" | "right" | "easy";
+
 export interface CoachContext {
   sport?: string;
   elapsedS?: number;
@@ -228,6 +233,8 @@ export interface CoachContext {
   zone?: number;
   distanceM?: number;
   paceSPerKm?: number;
+  /** "How did it feel?" after a session (the phone's SessionFeedback): the coach answers it and may propose a change. */
+  feedback?: { feel: SessionFeel; sport: string; minutes: number };
   goals?: {
     title: string;
     kind: string;
