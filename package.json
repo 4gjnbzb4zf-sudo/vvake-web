@@ -26,7 +26,9 @@
     "sync:stitch": "tsx scripts/sync-stitch-core.ts",
     "check:stitch": "tsx scripts/sync-stitch-core.ts --check",
     "sync:tailor": "tsx scripts/sync-tailor-core.ts",
-    "check:tailor": "tsx scripts/sync-tailor-core.ts --check"
+    "check:tailor": "tsx scripts/sync-tailor-core.ts --check",
+    "sync:suggest": "tsx scripts/sync-suggest-core.ts",
+    "check:suggest": "tsx scripts/sync-suggest-core.ts --check"
   },
   "dependencies": {
     "@mediapipe/tasks-vision": "0.10.35",

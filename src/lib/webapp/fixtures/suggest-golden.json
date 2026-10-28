@@ -1,0 +1,441 @@
+{
+ "allowed": [
+  {
+   "kind": "next_step",
+   "level": "guide",
+   "inWorkout": false,
+   "ok": true
+  },
+  {
+   "kind": "next_step",
+   "level": "guide",
+   "inWorkout": true,
+   "ok": false
+  },
+  {
+   "kind": "next_step_more",
+   "level": "guide",
+   "inWorkout": false,
+   "ok": true
+  },
+  {
+   "kind": "next_step_more",
+   "level": "guide",
+   "inWorkout": true,
+   "ok": false
+  },
+  {
+   "kind": "tip",
+   "level": "guide",
+   "inWorkout": false,
+   "ok": true
+  },
+  {
+   "kind": "tip",
+   "level": "guide",
+   "inWorkout": true,
+   "ok": false
+  },
+  {
+   "kind": "tour",
+   "level": "guide",
+   "inWorkout": false,
+   "ok": true
+  },
+  {
+   "kind": "tour",
+   "level": "guide",
+   "inWorkout": true,
+   "ok": false
+  },
+  {
+   "kind": "you_might_like",
+   "level": "guide",
+   "inWorkout": false,
+   "ok": true
+  },
+  {
+   "kind": "you_might_like",
+   "level": "guide",
+   "inWorkout": true,
+   "ok": false
+  },
+  {
+   "kind": "review_card",
+   "level": "guide",
+   "inWorkout": false,
+   "ok": true
+  },
+  {
+   "kind": "review_card",
+   "level": "guide",
+   "inWorkout": true,
+   "ok": false
+  },
+  {
+   "kind": "voice_tip",
+   "level": "guide",
+   "inWorkout": false,
+   "ok": true
+  },
+  {
+   "kind": "voice_tip",
+   "level": "guide",
+   "inWorkout": true,
+   "ok": false
+  },
+  {
+   "kind": "moment_prompt",
+   "level": "guide",
+   "inWorkout": false,
+   "ok": true
+  },
+  {
+   "kind": "moment_prompt",
+   "level": "guide",
+   "inWorkout": true,
+   "ok": false
+  },
+  {
+   "kind": "upsell_after_workout",
+   "level": "guide",
+   "inWorkout": false,
+   "ok": true
+  },
+  {
+   "kind": "upsell_after_workout",
+   "level": "guide",
+   "inWorkout": true,
+   "ok": false
+  },
+  {
+   "kind": "coach_nudge",
+   "level": "guide",
+   "inWorkout": false,
+   "ok": true
+  },
+  {
+   "kind": "coach_nudge",
+   "level": "guide",
+   "inWorkout": true,
+   "ok": false
+  },
+  {
+   "kind": "push_suggestion",
+   "level": "guide",
+   "inWorkout": false,
+   "ok": true
+  },
+  {
+   "kind": "push_suggestion",
+   "level": "guide",
+   "inWorkout": true,
+   "ok": false
+  },
+  {
+   "kind": "celebration",
+   "level": "guide",
+   "inWorkout": false,
+   "ok": true
+  },
+  {
+   "kind": "celebration",
+   "level": "guide",
+   "inWorkout": true,
+   "ok": false
+  },
+  {
+   "kind": "next_step",
+   "level": "essentials",
+   "inWorkout": false,
+   "ok": true
+  },
+  {
+   "kind": "next_step",
+   "level": "essentials",
+   "inWorkout": true,
+   "ok": false
+  },
+  {
+   "kind": "next_step_more",
+   "level": "essentials",
+   "inWorkout": false,
+   "ok": false
+  },
+  {
+   "kind": "next_step_more",
+   "level": "essentials",
+   "inWorkout": true,
+   "ok": false
+  },
+  {
+   "kind": "tip",
+   "level": "essentials",
+   "inWorkout": false,
+   "ok": true
+  },
+  {
+   "kind": "tip",
+   "level": "essentials",
+   "inWorkout": true,
+   "ok": false
+  },
+  {
+   "kind": "tour",
+   "level": "essentials",
+   "inWorkout": false,
+   "ok": true
+  },
+  {
+   "kind": "tour",
+   "level": "essentials",
+   "inWorkout": true,
+   "ok": false
+  },
+  {
+   "kind": "you_might_like",
+   "level": "essentials",
+   "inWorkout": false,
+   "ok": true
+  },
+  {
+   "kind": "you_might_like",
+   "level": "essentials",
+   "inWorkout": true,
+   "ok": false
+  },
+  {
+   "kind": "review_card",
+   "level": "essentials",
+   "inWorkout": false,
+   "ok": true
+  },
+  {
+   "kind": "review_card",
+   "level": "essentials",
+   "inWorkout": true,
+   "ok": false
+  },
+  {
+   "kind": "voice_tip",
+   "level": "essentials",
+   "inWorkout": false,
+   "ok": true
+  },
+  {
+   "kind": "voice_tip",
+   "level": "essentials",
+   "inWorkout": true,
+   "ok": false
+  },
+  {
+   "kind": "moment_prompt",
+   "level": "essentials",
+   "inWorkout": false,
+   "ok": true
+  },
+  {
+   "kind": "moment_prompt",
+   "level": "essentials",
+   "inWorkout": true,
+   "ok": false
+  },
+  {
+   "kind": "upsell_after_workout",
+   "level": "essentials",
+   "inWorkout": false,
+   "ok": true
+  },
+  {
+   "kind": "upsell_after_workout",
+   "level": "essentials",
+   "inWorkout": true,
+   "ok": false
+  },
+  {
+   "kind": "coach_nudge",
+   "level": "essentials",
+   "inWorkout": false,
+   "ok": true
+  },
+  {
+   "kind": "coach_nudge",
+   "level": "essentials",
+   "inWorkout": true,
+   "ok": false
+  },
+  {
+   "kind": "push_suggestion",
+   "level": "essentials",
+   "inWorkout": false,
+   "ok": true
+  },
+  {
+   "kind": "push_suggestion",
+   "level": "essentials",
+   "inWorkout": true,
+   "ok": false
+  },
+  {
+   "kind": "celebration",
+   "level": "essentials",
+   "inWorkout": false,
+   "ok": true
+  },
+  {
+   "kind": "celebration",
+   "level": "essentials",
+   "inWorkout": true,
+   "ok": false
+  },
+  {
+   "kind": "next_step",
+   "level": "quiet",
+   "inWorkout": false,
+   "ok": false
+  },
+  {
+   "kind": "next_step",
+   "level": "quiet",
+   "inWorkout": true,
+   "ok": false
+  },
+  {
+   "kind": "next_step_more",
+   "level": "quiet",
+   "inWorkout": false,
+   "ok": false
+  },
+  {
+   "kind": "next_step_more",
+   "level": "quiet",
+   "inWorkout": true,
+   "ok": false
+  },
+  {
+   "kind": "tip",
+   "level": "quiet",
+   "inWorkout": false,
+   "ok": false
+  },
+  {
+   "kind": "tip",
+   "level": "quiet",
+   "inWorkout": true,
+   "ok": false
+  },
+  {
+   "kind": "tour",
+   "level": "quiet",
+   "inWorkout": false,
+   "ok": false
+  },
+  {
+   "kind": "tour",
+   "level": "quiet",
+   "inWorkout": true,
+   "ok": false
+  },
+  {
+   "kind": "you_might_like",
+   "level": "quiet",
+   "inWorkout": false,
+   "ok": false
+  },
+  {
+   "kind": "you_might_like",
+   "level": "quiet",
+   "inWorkout": true,
+   "ok": false
+  },
+  {
+   "kind": "review_card",
+   "level": "quiet",
+   "inWorkout": false,
+   "ok": false
+  },
+  {
+   "kind": "review_card",
+   "level": "quiet",
+   "inWorkout": true,
+   "ok": false
+  },
+  {
+   "kind": "voice_tip",
+   "level": "quiet",
+   "inWorkout": false,
+   "ok": false
+  },
+  {
+   "kind": "voice_tip",
+   "level": "quiet",
+   "inWorkout": true,
+   "ok": false
+  },
+  {
+   "kind": "moment_prompt",
+   "level": "quiet",
+   "inWorkout": false,
+   "ok": false
+  },
+  {
+   "kind": "moment_prompt",
+   "level": "quiet",
+   "inWorkout": true,
+   "ok": false
+  },
+  {
+   "kind": "upsell_after_workout",
+   "level": "quiet",
+   "inWorkout": false,
+   "ok": false
+  },
+  {
+   "kind": "upsell_after_workout",
+   "level": "quiet",
+   "inWorkout": true,
+   "ok": false
+  },
+  {
+   "kind": "coach_nudge",
+   "level": "quiet",
+   "inWorkout": false,
+   "ok": false
+  },
+  {
+   "kind": "coach_nudge",
+   "level": "quiet",
+   "inWorkout": true,
+   "ok": false
+  },
+  {
+   "kind": "push_suggestion",
+   "level": "quiet",
+   "inWorkout": false,
+   "ok": false
+  },
+  {
+   "kind": "push_suggestion",
+   "level": "quiet",
+   "inWorkout": true,
+   "ok": false
+  },
+  {
+   "kind": "celebration",
+   "level": "quiet",
+   "inWorkout": false,
+   "ok": true
+  },
+  {
+   "kind": "celebration",
+   "level": "quiet",
+   "inWorkout": true,
+   "ok": false
+  }
+ ],
+ "limits": {
+  "guide": 3,
+  "essentials": 1,
+  "quiet": 0
+ }
+}
