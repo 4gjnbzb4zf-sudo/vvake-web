@@ -2329,7 +2329,7 @@ export const en = {
     title: "Privacy policy",
     description:
       "What the VVake iPhone and Apple Watch apps and vvake.com collect, why, who else sees it, how long we keep it and your rights.",
-    updated: "Last updated: 2026-10-23",
+    updated: "Last updated: 2026-10-28",
     draft: "Draft for the TestFlight preview. This policy will be reviewed by a lawyer before the public launch.",
     intro: [
       "VVake (also called VVake Fit) is a fitness coaching app for iPhone and Apple Watch, with this website, vvake.com. This policy explains in plain words what we collect, why, who else sees it, how long we keep it and what you can do about it. It covers the apps (TestFlight previews included), the VVake API they talk to, the desk companion for Mac, the VVake plugin for Claude Code and this website, including vvake.com/rewards.",
@@ -2411,6 +2411,10 @@ export const en = {
             d: 'The challenges you send or accept (what is measured, how long, status and result), the stickers you react with, the people you block, the clashes your city is in and whether you said "I\'m in", and a "moving now" signal sent once when a session starts and once when it ends during a live clash. Your friends are only people you have already faced in an accepted challenge: we never upload your contacts. For a 24-hour challenge ("beat my mark") we also keep the mark (a distance and time, a distance or minutes, or the session it comes from), when the link was sent and until when it can be accepted, whether it is open to everyone, and for each person who accepts: when, their 24-hour deadline, the device that accepted (one acceptance per device), whether they chose to show their name on the board, the session that counted and its result, why a session did not count, and the VV points won. When you challenge a contact by text message, you pick the person in the iPhone\'s own contact picker and send the message yourself from the Messages app: VVake sees only that one person, never your address book, and uploads nothing about them; the app keeps their first name and how you sent it (text, link or X) on your phone only, so you can challenge them again. When you share a link through another app (WhatsApp, Telegram, Messenger, X…), you choose who gets it in that app: VVake never gets your friends or followers.',
           },
           {
+            t: "Training meetups.",
+            d: 'You can invite people you have already faced (friends, crew, challenge rivals) to train together. A meetup is visible only to the people invited. We keep its sport, time, duration, meeting point, the pace line you typed, how many people may come, who was invited, each answer, when someone tapped "I\'m here" and which reminders were sent. The meeting point is always a public place (a car park, trailhead, park, track…) picked on the map, never a position you type: we store only its OpenStreetMap id. "I\'m here" sends no location. Reports about a meetup are read by our moderators. Meetups are deleted 90 days after they end, and when the host deletes their account; your answers go with your account. "Add to calendar" makes a file on your device with the meetup\'s time, place and pace line only.',
+          },
+          {
             t: "My Pulse (optional).",
             d: "The stock symbols you choose to follow (up to 8), your alert thresholds, your Brand Team, quiet hours and how many alerts a day you want. My Pulse shows facts only, for fun; it is not investment advice.",
           },
@@ -2489,6 +2493,10 @@ export const en = {
           {
             t: "Places to train near you, when you ask.",
             d: "When you look for places to practise a sport near you (on the phone, on the watch through the phone, or on vvake.com/app), your device reads your position once, while you use the app, and sends our servers only that position rounded to about 1 km (two decimals) and the sport. Our servers ask OpenStreetMap's Overpass service for that sport's places in whole map tiles of about 5 to 40 km around the rounded point, so neither we nor OpenStreetMap ever receive your exact position. We keep those map tiles (public map data) for up to 60 days, never your position, the search or who made it. Distances and directions are worked out on your device; the list sent to your watch stays on your devices. Places you save as favourites stay on your phone. Tapping Directions hands the place (not your position) to Apple Maps or Google Maps, under their own policy. Place data © OpenStreetMap contributors, under the Open Database License (ODbL).",
+          },
+          {
+            t: "Rating a spot and new spots.",
+            d: "After a session you can rate the place in three taps: stars, whether you'd recommend it, a few tips from a list and, if you like, up to 80 characters of text. We keep your rating with your account and the place's identifier: an OpenStreetMap id, or for a spot OpenStreetMap doesn't know, a map square of about 150 m. Never your route, the session or the time of day. Other people only ever see totals, and only once a place has at least 3 ratings: the average, how many recommend it, how often each tip was given, and text tips after a moderator approved them. Never who wrote them. To tell you whether a spot is new, your phone (or vvake.com/app) sends once a point rounded to about 100 m and the sport; we use it for that answer and don't keep it. Ratings are deleted with your account.",
           },
         ],
       },
@@ -2783,7 +2791,7 @@ export const en = {
           },
         ],
         after: [
-          "Other VVake users see only your display name and VVaker (on challenge and crew quest invites, on challenge links you send to anyone and in the lists of people you have faced), challenge results and your record against them, your crew quest results to the crew members who join, and your city's totals. Never your health data, sessions or location, except a route you choose to share for a challenge, which only the people racing it can see (see Location).",
+          "Other VVake users see only your display name and VVaker (on challenge and crew quest invites, on challenge links you send to anyone and in the lists of people you have faced), challenge results and your record against them, your crew quest results to the crew members who join, your city's totals, and, to the people you invite to a meetup, your display name and VVaker and who else is going. Never your health data, sessions or location, except a route you choose to share for a challenge, which only the people racing it can see (see Location).",
           "We may disclose information if the law requires it, to protect someone's safety, or as part of a merger or acquisition, in which case this policy keeps applying to your data and we will tell you first.",
         ],
       },
