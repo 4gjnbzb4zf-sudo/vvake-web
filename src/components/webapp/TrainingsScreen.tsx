@@ -79,7 +79,7 @@ const errorText = (e: unknown, d: TrainingsDict["app"]["builder"]) =>
 // ── The tab ─────────────────────────────────────────────────────────────────────────────────────────────────────
 
 export function TrainingsScreen() {
-  const { lang, go, fmt } = useApp();
+  const { lang, go, fmt, t, tabs } = useApp();
   const { api, d } = useTrainings();
   const a = d.app;
   const [tab, setTab] = useState<"discover" | "mine" | "joined">("discover");
@@ -148,6 +148,12 @@ export function TrainingsScreen() {
 
   return (
     <div className="space-y-4">
+      {/* Under Train (Your library) when the Train tab holds the plan: back to it. */}
+      {tabs.includes("plan") && (
+        <button type="button" className="h-11 text-sm text-muted" onClick={() => go({ name: "plan" })}>
+          ‹ {t.tabs.plan}
+        </button>
+      )}
       <H1>{a.title}</H1>
       <Small>{a.lead}</Small>
       <div className="grid grid-cols-2 gap-2">

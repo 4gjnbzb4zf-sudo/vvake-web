@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { localTz, type PlanChange, type Week } from "@/lib/webapp/api";
 import { dayLabel, localDay, timeLabel } from "@/lib/webapp/format";
 import { sportLabel } from "@/lib/webapp/workout";
@@ -14,11 +14,80 @@ import { Btn, Card, H1, Kicker, List, Note, Row, Small } from "./ui";
 import { useNow } from "./useNow";
 
 /**
- * Plan (apps/mobile app/(tabs)/plan.tsx). With a season plan (ADR-0050): the coach's week toward your goals, edited
+ * Train (the Plan tab renamed, living app decision 2): the plan on top, Your library below (apps/mobile
+ * components/TrainLibrary.tsx), so the web has no separate Trainings tab beside it; a one-line "Plan is now Train"
+ * note until it's closed (three visits at most).
+ */
+export function PlanScreen() {
+  return (
+    <div className="space-y-4">
+      <RenamedNote />
+      <PlanBody />
+      <TrainLibrary />
+    </div>
+  );
+}
+
+const RENAMED = "notice:train_renamed";
+
+function RenamedNote() {
+  const { t, steps, recordSteps } = useApp();
+  const [show] = useState(() => !steps[RENAMED]?.dismissed && (steps[RENAMED]?.shown ?? 0) < 3);
+  const [closed, setClosed] = useState(false);
+  const counted = useRef(false);
+  useEffect(() => {
+    if (!show || counted.current) return;
+    counted.current = true;
+    recordSteps([{ id: RENAMED, ev: "shown" }]);
+  }, [show, recordSteps]);
+  if (!show || closed) return null;
+  return (
+    <div className="flex items-start gap-2 rounded-xl border border-line bg-surface-2/60 px-3 py-2 text-sm text-volt-fg">
+      <p className="flex-1">{t.library.renamed}</p>
+      <button
+        type="button"
+        aria-label={t.library.close}
+        className="-my-2 -mr-2 h-11 w-11 shrink-0 text-muted"
+        onClick={() => {
+          setClosed(true);
+          recordSteps([{ id: RENAMED, ev: "dismissed" }]);
+        }}
+      >
+        ✕
+      </button>
+    </div>
+  );
+}
+
+/**
+ * Your library (ADR-0062 §3): the one home of what you train with, while the Camera feature is on (the phone's
+ * usePackOn("camera")). The web's screens only: trainings (yours, joined, Discover), the camera workout, the builder,
+ * teaching a move, your coach page.
+ */
+export function TrainLibrary() {
+  const { t, go, featureOn } = useApp();
+  if (!featureOn("camera")) return null;
+  const l = t.library;
+  return (
+    <section aria-label={l.title} className="space-y-2 pt-2">
+      <Kicker tone="volt">{l.title}</Kicker>
+      <List>
+        <Row tone="volt" icon="▤" title={l.trainings} detail={l.trainingsDetail} onClick={() => go({ name: "trainings" })} />
+        <Row tone="volt" icon="◎" title={l.camera} detail={l.cameraDetail} onClick={() => go({ name: "camera" })} />
+        <Row tone="volt" icon="✚" title={l.build} detail={l.buildDetail} onClick={() => go({ name: "build" })} />
+        <Row tone="volt" icon="✋" title={l.teach} detail={l.teachDetail} onClick={() => go({ name: "teach" })} />
+        <Row tone="sky" icon="★" title={l.coachPage} detail={l.coachPageDetail} onClick={() => go({ name: "coach-profile" })} />
+      </List>
+    </section>
+  );
+}
+
+/**
+ * The plan (apps/mobile app/(tabs)/plan.tsx). With a season plan (ADR-0050): the coach's week toward your goals, edited
  * with the coach (SeasonWeek), and the season a tap away. Without one: an invitation to plan a season, then the week
  * as before.
  */
-export function PlanScreen() {
+function PlanBody() {
   const { lang, go, t } = useApp();
   const s = getSeasonDict(lang);
   const { season, state } = useSeason();

@@ -6,7 +6,8 @@ import { fmt, type WebAppDict } from "@/i18n/webapp";
 import { cn } from "@/lib/cn";
 import { ApiError, RewardsSession, errorKey, isAppCode } from "@/lib/rewardsApi";
 import { webApi, type AppMe } from "@/lib/webapp/api";
-import { AppProvider, TABS, useApp } from "./AppContext";
+import { AppProvider, useApp } from "./AppContext";
+import type { WebTab } from "@/lib/webapp/tailor/prefs";
 import { Onboarding, needsOnboarding } from "./Onboarding";
 import { CameraScreen } from "./CameraScreen";
 import { CoachScreen } from "./CoachScreen";
@@ -138,7 +139,10 @@ function Frame({ children }: { children: ReactNode }) {
   );
 }
 
-const TAB_ICONS: Record<(typeof TABS)[number], string> = { today: "☀", plan: "▦", trainings: "✚", crew: "⚑", coach: "◉", you: "●" };
+const TAB_ICONS: Record<WebTab, string> = { today: "☀", plan: "▦", trainings: "✚", crew: "⚑", coach: "◉", you: "●" };
+
+/** Your library's screens (trainings, a training, the builder, the coach page, a creator): under Train. */
+const LIBRARY_ROUTES = new Set(["trainings", "training", "build", "coach-profile", "creator"]);
 
 function Shell() {
   const app = useApp();
@@ -154,9 +158,15 @@ function Shell() {
         ? "crew"
         : route.name.startsWith("season")
           ? "plan"
-          : (tabs as readonly string[]).includes(route.name)
-            ? route.name
-            : null;
+          : LIBRARY_ROUTES.has(route.name)
+            ? tabs.includes("plan")
+              ? "plan"
+              : tabs.includes("trainings")
+                ? "trainings"
+                : null
+            : (tabs as readonly string[]).includes(route.name)
+              ? route.name
+              : null;
   const fullScreen = route.name === "workout" || route.name === "camera" || route.name === "train" || route.name === "teach";
   return (
     <>
@@ -222,7 +232,7 @@ function Shell() {
                   <span aria-hidden className="text-lg leading-none">
                     {TAB_ICONS[k]}
                   </span>
-                  {t.tabs[k]}
+                  <span className="max-w-full truncate px-0.5">{t.tabs[k]}</span>
                 </button>
               </li>
             ))}

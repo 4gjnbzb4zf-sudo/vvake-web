@@ -40,7 +40,7 @@ const en = {
     mi: "{n} mi",
     site: "vvake.com",
   },
-  tabs: { today: "Today", plan: "Plan", trainings: "Trainings", crew: "Crew & City", coach: "Coach", you: "You" },
+  tabs: { today: "Today", plan: "Train", trainings: "Train", crew: "Crew & City", coach: "Coach", you: "You" },
   signIn: {
     kicker: "VVake on the web",
     title: "Train in your browser",
@@ -229,6 +229,8 @@ const en = {
     hello: "Hi! I'm your coach. Ask me about today's session, your plan, your goals, or how you feel.",
     suggestions: ["What should I do today?", "I'm tired, should I rest?", "How was my week?"],
     proposal: "Plan change proposed",
+    /** The coach's button to a screen (open_screen) when it sends no label. */
+    openScreen: "Open it",
     voiceNote: "Coach calls and the hands-free live coach during workouts are in the app ({plan}).",
   },
   you: {
@@ -794,6 +796,89 @@ const en = {
     say: { hard: "How it felt: too hard.", right: "How it felt: just right.", easy: "How it felt: too easy." },
     thanks: "Thanks, noted.",
   },
+  /** Next steps after a session (ADR-0062 §4): one row of chips, a tap opens it, ✕ says "not this". */
+  steps: {
+    title: "Next",
+    notThis: "Not this: {step}",
+  },
+  /** First-time tours (ADR-0062 §14 A): up to 3 cards on the real controls, before the start, once. */
+  tours: {
+    label: "Quick tour",
+    of: "{n} of {total}",
+    next: "Next",
+    done: "Got it",
+    skip: "Skip",
+    replay: "Replay tours",
+    replayDetail: "The short tours of the workout, the camera workout and a training run show again the next time you open them.",
+    replayed: "Done: the tours show again next time.",
+    gps: [
+      {
+        anchor: "workout-sports",
+        title: "Pick a sport",
+        body: "Sports marked GPS draw your route on the map. Keep this page open and the screen on while you move.",
+      },
+      {
+        anchor: "workout-sensor",
+        title: "Add your heart",
+        body: "Connect a Bluetooth heart-rate strap for live zones and points.",
+      },
+      {
+        anchor: "workout-camera",
+        title: "Counting reps instead?",
+        body: "For strength, core or yoga, the camera workout counts your reps and holds with your webcam.",
+      },
+    ],
+    camera: [
+      {
+        anchor: "camera-check",
+        title: "Set up the camera",
+        body: "Stand 2–3 m away, in view from your shoulders to your knees. The video stays in this tab: only the counts are saved.",
+      },
+      {
+        anchor: "camera-what",
+        title: "Pick what to do",
+        body: "Just start moving, choose one move, or take a routine: VVake counts reps and holds and runs the rests.",
+      },
+      {
+        anchor: "camera-start",
+        title: "One click, hands free",
+        body: "Start, then step back: each move is shown first, then counted, and the next one follows on its own.",
+      },
+    ],
+    training: [
+      {
+        anchor: "training-sets",
+        title: "Your training",
+        body: "Every set, its reps or hold and its rest. A heart zone target shows when the set has one.",
+      },
+      {
+        anchor: "camera-check",
+        title: "Set up the camera",
+        body: "Stand 2–3 m away, in view from your shoulders to your knees. The video stays in this tab: only the counts are saved.",
+      },
+      {
+        anchor: "camera-start",
+        title: "Scored out of 1000",
+        body: "Do the sets, and with a heart-rate strap the time in your target zones counts too. Your score shows at the end.",
+      },
+    ],
+  },
+  /** Your library (ADR-0062 §3): on the Train tab under the plan, the one home of what you train with. */
+  library: {
+    title: "Your library",
+    renamed: "Plan is now Train: your plan and everything you train with, in one tab.",
+    close: "Close",
+    trainings: "My trainings",
+    trainingsDetail: "Yours, the ones you joined, and Discover",
+    camera: "Camera workout",
+    cameraDetail: "Your webcam counts reps and holds",
+    build: "Build a training",
+    buildDetail: "Sets, reps or holds, a heart zone, rests",
+    teach: "Teach a move",
+    teachDetail: "Show VVake a move of your own",
+    coachPage: "Your coach page",
+    coachPageDetail: "Your profile as a coach and your creator points",
+  },
   update: { ready: "A new version is ready.", reload: "Reload" },
   voiceTip: {
     title: "Get a better voice",
@@ -854,7 +939,7 @@ const fr: WebAppDict = {
     mi: "{n} mi",
     site: "vvake.com",
   },
-  tabs: { today: "Aujourd’hui", plan: "Plan", trainings: "Séances", crew: "Crew & Ville", coach: "Coach", you: "Toi" },
+  tabs: { today: "Aujourd’hui", plan: "Entraînement", trainings: "Entraînement", crew: "Crew & Ville", coach: "Coach", you: "Toi" },
   signIn: {
     kicker: "VVake sur le web",
     title: "Entraîne-toi dans ton navigateur",
@@ -1044,6 +1129,7 @@ const fr: WebAppDict = {
     hello: "Salut ! Je suis ton coach. Demande-moi la séance du jour, ton plan, tes objectifs, ou dis-moi comment tu te sens.",
     suggestions: ["Je fais quoi aujourd’hui ?", "Je suis fatigué, je me repose ?", "Comment s’est passée ma semaine ?"],
     proposal: "Changement de plan proposé",
+    openScreen: "Ouvrir",
     voiceNote: "Les appels du coach et le coach vocal mains libres pendant les séances sont dans l’app ({plan}).",
   },
   you: {
@@ -1606,6 +1692,87 @@ const fr: WebAppDict = {
     easy: "Trop facile",
     say: { hard: "Mon ressenti : trop dur.", right: "Mon ressenti : juste bien.", easy: "Mon ressenti : trop facile." },
     thanks: "Merci, c’est noté.",
+  },
+  steps: {
+    title: "Ensuite",
+    notThis: "Pas ça : {step}",
+  },
+  tours: {
+    label: "Petite visite",
+    of: "{n} sur {total}",
+    next: "Suivant",
+    done: "Compris",
+    skip: "Passer",
+    replay: "Revoir les visites",
+    replayDetail:
+      "Les petites visites de la séance, de la séance caméra et d’un entraînement reviennent la prochaine fois que tu les ouvres.",
+    replayed: "C’est fait : les visites reviennent la prochaine fois.",
+    gps: [
+      {
+        anchor: "workout-sports",
+        title: "Choisis un sport",
+        body: "Les sports marqués GPS tracent ton parcours sur la carte. Garde cette page ouverte et l’écran allumé pendant que tu bouges.",
+      },
+      {
+        anchor: "workout-sensor",
+        title: "Ajoute ton cœur",
+        body: "Connecte une ceinture cardio Bluetooth pour tes zones en direct et tes points.",
+      },
+      {
+        anchor: "workout-camera",
+        title: "Plutôt compter des répétitions ?",
+        body: "Pour le renfo, le gainage ou le yoga, la séance caméra compte tes répétitions et tes maintiens avec ta webcam.",
+      },
+    ],
+    camera: [
+      {
+        anchor: "camera-check",
+        title: "Installe la caméra",
+        body: "Mets-toi à 2–3 m, visible des épaules aux genoux. La vidéo reste dans cet onglet : seuls les comptes sont enregistrés.",
+      },
+      {
+        anchor: "camera-what",
+        title: "Choisis quoi faire",
+        body: "Bouge simplement, choisis un mouvement ou prends une routine : VVake compte les répétitions et les maintiens et gère les repos.",
+      },
+      {
+        anchor: "camera-start",
+        title: "Un clic, les mains libres",
+        body: "Démarre, puis recule : chaque mouvement est montré d’abord, puis compté, et le suivant s’enchaîne tout seul.",
+      },
+    ],
+    training: [
+      {
+        anchor: "training-sets",
+        title: "Ton entraînement",
+        body: "Chaque série, ses répétitions ou son maintien et son repos. Une zone cardio cible s’affiche quand la série en a une.",
+      },
+      {
+        anchor: "camera-check",
+        title: "Installe la caméra",
+        body: "Mets-toi à 2–3 m, visible des épaules aux genoux. La vidéo reste dans cet onglet : seuls les comptes sont enregistrés.",
+      },
+      {
+        anchor: "camera-start",
+        title: "Une note sur 1000",
+        body: "Fais les séries ; avec une ceinture cardio, le temps passé dans tes zones cibles compte aussi. Ta note s’affiche à la fin.",
+      },
+    ],
+  },
+  library: {
+    title: "Ta bibliothèque",
+    renamed: "Plan s’appelle maintenant Entraînement : ton plan et tout ce avec quoi tu t’entraînes, dans un seul onglet.",
+    close: "Fermer",
+    trainings: "Mes entraînements",
+    trainingsDetail: "Les tiens, ceux que tu as rejoints, et Découvrir",
+    camera: "Séance caméra",
+    cameraDetail: "Ta webcam compte les répétitions et les maintiens",
+    build: "Créer un entraînement",
+    buildDetail: "Séries, répétitions ou maintiens, une zone cardio, des repos",
+    teach: "Apprendre un mouvement",
+    teachDetail: "Montre à VVake un mouvement à toi",
+    coachPage: "Ta page de coach",
+    coachPageDetail: "Ton profil de coach et tes points de créateur",
   },
   update: { ready: "Une nouvelle version est prête.", reload: "Recharger" },
   voiceTip: {
