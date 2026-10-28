@@ -150,11 +150,13 @@ function Shell() {
   const tab =
     route.name === "points" || route.name === "your-vvake" || route.name === "features"
       ? "you"
-      : route.name.startsWith("season")
-        ? "plan"
-        : (tabs as readonly string[]).includes(route.name)
-          ? route.name
-          : null;
+      : route.name === "places" && tabs.includes("crew")
+        ? "crew"
+        : route.name.startsWith("season")
+          ? "plan"
+          : (tabs as readonly string[]).includes(route.name)
+            ? route.name
+            : null;
   const fullScreen = route.name === "workout" || route.name === "camera" || route.name === "train" || route.name === "teach";
   return (
     <>

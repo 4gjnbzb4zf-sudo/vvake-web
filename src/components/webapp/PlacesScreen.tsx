@@ -66,7 +66,7 @@ type Res =
   { kind: "idle" } | { kind: "loading" } | { kind: "ok"; answer: PlacesAnswer } | { kind: "busy"; until: number } | { kind: "error" };
 
 export function PlacesScreen({ sport: routeSport }: { sport?: string }) {
-  const { t, lang, go, athlete, prefs, apiUrl, fmt } = useApp();
+  const { t, lang, go, athlete, prefs, apiUrl, fmt, tabs } = useApp();
   const wk = useWorkout();
   const p = t.places;
 
@@ -162,7 +162,12 @@ export function PlacesScreen({ sport: routeSport }: { sport?: string }) {
 
   return (
     <div className="space-y-4 pt-2">
-      <button type="button" className="h-11 text-sm text-muted" onClick={() => go({ name: "today" })}>
+      {/* Back where you came from (Crew & City › Spots, Today, the workout); opened straight from a link: Spots' home. */}
+      <button
+        type="button"
+        className="h-11 text-sm text-muted"
+        onClick={() => (window.history.length > 1 ? window.history.back() : go({ name: tabs.includes("crew") ? "crew" : "today" }))}
+      >
         ‹ {t.common.back}
       </button>
       <div>

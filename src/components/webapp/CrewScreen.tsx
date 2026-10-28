@@ -5,14 +5,16 @@ import type { Clash } from "@/lib/webapp/api";
 import { dayLabel, timeLabel } from "@/lib/webapp/format";
 import { useApp } from "./AppContext";
 import { GetTheApp } from "./GetTheApp";
-import { Card, H1, Kicker, Note, Small } from "./ui";
+import { Card, H1, Kicker, List, Note, Row, Small } from "./ui";
 
 /**
- * Crew & City (apps/mobile app/(tabs)/crew.tsx), the City Clash part: your city's clashes (GET /v1/clashes), live
- * scores, what's coming and recent results. Calling a city out, challenges, crews and rivals stay in the app.
+ * Crew & City (apps/mobile app/(tabs)/crew.tsx): people and places (living app §3). Spots, the one home of places
+ * (where to train near me, PlacesScreen), while the Outdoor feature is on; then the City Clash part: your city's
+ * clashes (GET /v1/clashes), live scores, what's coming and recent results. Calling a city out, challenges, crews and
+ * rivals stay in the app. Today and the workout keep their in-context shortcut to places.
  */
 export function CrewScreen() {
-  const { t, lang, me, api, fmt } = useApp();
+  const { t, lang, me, api, fmt, go, profile, suggests } = useApp();
   const [clashes, setClashes] = useState<Clash[] | null>(null);
   const [error, setError] = useState(false);
   useEffect(() => {
@@ -33,6 +35,11 @@ export function CrewScreen() {
     <div className="space-y-4">
       <H1>{t.crew.title}</H1>
       <Small>{t.crew.lead}</Small>
+      {(!profile || profile.features.outdoor) && (
+        <List>
+          <Row tone="mint" icon="⌖" title={t.crew.spots} detail={t.crew.spotsDetail} onClick={() => go({ name: "places" })} />
+        </List>
+      )}
       <Note tone={me.city ? "sky" : "butter"}>{me.city ? fmt(t.crew.yourCity, { city: me.city }) : t.crew.noCity}</Note>
       {!clashes && !error && <p className="text-muted">{t.common.loading}</p>}
       {error && <p className="text-muted">{t.common.error}</p>}
@@ -79,7 +86,7 @@ export function CrewScreen() {
       )}
       <Note tone="butter">{t.crew.webNote}</Note>
       <Note>{t.crew.challengesNote}</Note>
-      <GetTheApp t={t} compact />
+      {suggests("you_might_like") && <GetTheApp t={t} compact />}
     </div>
   );
 }
