@@ -103,7 +103,7 @@ const en = {
     agenda: "Next 7 days",
     agendaNote:
       "Each session sits in the day's first free slot. Your Google Calendar's busy times are used when it's connected; your phone's own calendar only on the phone.",
-    agendaDefault: "No plan set up yet: a gentle plan from what you did in the last 4 weeks. Set up your plan in the app (Plan tab).",
+    agendaDefault: "No plan set up yet: a gentle plan from what you did in the last 4 weeks. Set up your plan in the app (Train tab).",
     rest: "Rest",
     noSessions: "Nothing planned in the next 7 days.",
     proposals: "Coach's plan proposals",
@@ -459,7 +459,7 @@ const fr: AccountDict = {
     agendaNote:
       "Chaque séance se place dans le premier créneau libre du jour. Les heures occupées de Google Agenda comptent quand il est connecté ; l'agenda du téléphone, seulement sur le téléphone.",
     agendaDefault:
-      "Pas encore de plan : un plan tout doux d'après ce que tu as fait ces 4 dernières semaines. Crée ton plan dans l'app (onglet Plan).",
+      "Pas encore de plan : un plan tout doux d'après ce que tu as fait ces 4 dernières semaines. Crée ton plan dans l'app (onglet Entraînement).",
     rest: "Repos",
     noSessions: "Rien de prévu dans les 7 prochains jours.",
     proposals: "Propositions de plan du coach",

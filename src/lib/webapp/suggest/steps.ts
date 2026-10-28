@@ -198,55 +198,35 @@ export function webRouteForStep(step: Pick<Step, "route" | "params">, target: St
 }
 
 /**
- * The coach's `open_screen` route (an allow-listed app route, with or without its slash, a few names the web knows
- * too) as a web screen, or null when the web has none. Pure.
+ * The coach's `open_screen` routes (game-core coachScreens.ts COACH_SCREENS, the API's allow-list) as web screens;
+ * null where the web has no such screen (skills, your own workout, move loads, connections, challenges: in the app).
  */
+export const COACH_SCREEN_WEB: Readonly<Record<string, Route | null>> = {
+  "/trainings": { name: "trainings" },
+  "/my-moves": { name: "trainings" },
+  "/skills": null,
+  "/own-workout": null,
+  "/move-loads": null,
+  "/discover": { name: "trainings" },
+  "/teach-move": { name: "teach" },
+  "/training-builder": { name: "build" },
+  "/places": { name: "places" },
+  "/season": { name: "season" },
+  "/plan": { name: "plan" },
+  "/suggestions": { name: "you" },
+  "/sport-zones": { name: "zones" },
+  "/connections": null,
+  "/coach-voice": { name: "you" },
+  "/challenge": null,
+  "/crew": { name: "crew" },
+  "/health": { name: "season-health" },
+  "/rhythm": { name: "rhythm" },
+  "/habits": { name: "rhythm" },
+  "/points": { name: "points" },
+  "/you": { name: "you" },
+};
+
+/** The web screen for a coach `open_screen` route (exact, as the API sends it), or null. Pure. */
 export function webRouteForScreen(route: string): Route | null {
-  const r = route.trim().replace(/^\/+/, "").replace(/\?.*$/, "");
-  const [head = "", arg] = r.split("/");
-  const name = head.toLowerCase();
-  if ((name === "training" || name === "train") && arg && /^([A-HJ-NP-Z2-9]{8}|t_[a-z0-9]{10})$/i.test(arg))
-    return { name: "training", ref: /^t_/i.test(arg) ? arg.toLowerCase() : arg.toUpperCase() };
-  if ((name === "places" || name === "spots") && arg && /^[a-z-]{2,30}$/.test(arg)) return { name: "places", sport: arg };
-  const map: Record<string, Route> = {
-    today: { name: "today" },
-    plan: { name: "plan" },
-    train: { name: "plan" },
-    library: { name: "trainings" },
-    trainings: { name: "trainings" },
-    discover: { name: "trainings" },
-    "my-moves": { name: "trainings" },
-    "my-trainings": { name: "trainings" },
-    "training-builder": { name: "build" },
-    build: { name: "build" },
-    "teach-move": { name: "teach" },
-    teach: { name: "teach" },
-    camera: { name: "camera" },
-    workout: { name: "workout" },
-    places: { name: "places" },
-    spots: { name: "places" },
-    crew: { name: "crew" },
-    coach: { name: "coach" },
-    you: { name: "you" },
-    settings: { name: "you" },
-    points: { name: "points" },
-    goals: { name: "goals" },
-    rhythm: { name: "rhythm" },
-    habits: { name: "rhythm" },
-    vvaker: { name: "vvaker" },
-    zones: { name: "zones" },
-    "sport-zones": { name: "zones" },
-    "speed-zones": { name: "zones" },
-    sensor: { name: "sensor" },
-    season: { name: "season" },
-    "season-goal": { name: "season-goal" },
-    "season-sports": { name: "season-sports" },
-    "season-health": { name: "season-health" },
-    "season-history": { name: "season-history" },
-    "your-vvake": { name: "your-vvake" },
-    tailor: { name: "your-vvake" },
-    features: { name: "features" },
-    "coach-profile": { name: "coach-profile" },
-  };
-  return map[name] ?? null;
+  return Object.prototype.hasOwnProperty.call(COACH_SCREEN_WEB, route) ? COACH_SCREEN_WEB[route]! : null;
 }

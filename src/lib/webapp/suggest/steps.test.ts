@@ -14,6 +14,7 @@ import {
   tourSeen,
   trainingMoment,
   webRouteForScreen,
+  COACH_SCREEN_WEB,
   webRouteForStep,
 } from "./steps";
 
@@ -128,14 +129,38 @@ describe("where a step or the coach's button opens", () => {
     expect(webRouteForStep({ route: "/challenge", params: { from: "pb" } })).toBeNull();
   });
 
-  it("maps the coach's open_screen routes, with or without a slash", () => {
+  it("maps every coach open_screen route (game-core COACH_SCREENS) and nothing else", () => {
+    // VVFit packages/game-core/src/coachScreens.ts, in order.
+    const routes = [
+      "/trainings",
+      "/my-moves",
+      "/skills",
+      "/own-workout",
+      "/move-loads",
+      "/discover",
+      "/teach-move",
+      "/training-builder",
+      "/places",
+      "/season",
+      "/plan",
+      "/suggestions",
+      "/sport-zones",
+      "/connections",
+      "/coach-voice",
+      "/challenge",
+      "/crew",
+      "/health",
+      "/rhythm",
+      "/habits",
+      "/points",
+      "/you",
+    ];
+    expect(Object.keys(COACH_SCREEN_WEB)).toEqual(routes);
     expect(webRouteForScreen("/my-moves")).toEqual({ name: "trainings" });
-    expect(webRouteForScreen("library")).toEqual({ name: "trainings" });
-    expect(webRouteForScreen("/season")).toEqual({ name: "season" });
-    expect(webRouteForScreen("/settings/notifications")).toEqual({ name: "you" });
-    expect(webRouteForScreen("/training/abcdefgh")).toEqual({ name: "training", ref: "ABCDEFGH" });
-    expect(webRouteForScreen("/places/swim")).toEqual({ name: "places", sport: "swim" });
+    expect(webRouteForScreen("/health")).toEqual({ name: "season-health" });
+    expect(webRouteForScreen("/skills")).toBeNull();
+    expect(webRouteForScreen("my-moves")).toBeNull();
     expect(webRouteForScreen("/meetup")).toBeNull();
-    expect(webRouteForScreen("")).toBeNull();
+    expect(webRouteForScreen("toString")).toBeNull();
   });
 });

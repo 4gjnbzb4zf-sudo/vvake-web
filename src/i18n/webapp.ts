@@ -1676,8 +1676,8 @@ const fr: WebAppDict = {
     lead: "Astuces, prochaines étapes et offres. Rien n’est jamais suggéré pendant une séance.",
     levels: {
       guide: "Guide-moi",
-      essentials: "L’essentiel seulement",
-      quiet: "Calme : rien sauf si je demande",
+      essentials: "Seulement l’essentiel",
+      quiet: "Silence : rien sauf si je demande",
     },
     details: {
       guide: "Les prochaines étapes après une séance, des astuces et la présentation des fonctions.",
