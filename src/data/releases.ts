@@ -19,6 +19,58 @@ export interface Release {
 
 export const releases: Release[] = [
   {
+    version: "1.0.0 (52)",
+    date: "2026-10-28",
+    channel: "beta",
+    devices: ["iphone", "watch", "android", "wear"],
+    notes: {
+      en: {
+        added: [
+          'Suggestions & tips: choose how much VVake suggests. Guide me, Only the essentials (the default) or Quiet: nothing unless you ask. In Quiet there are no tips, no moment prompt, no better-voice tip, no "Still the right VVake?" card, no invite under a workout and your coach never starts a topic. Your results, safety lines and the reminders you set stay. Nothing is ever suggested during a workout. Find it in You › App settings, Settings, Notifications, the Tailor my app survey, or search "quiet" or "tips". It follows your account.',
+          "How did it feel? now comes after a camera workout and under your training run's score, like after a run. One tap tells your coach, who may adjust your plan.",
+          "Your watch follows how much VVake suggests (Guide me, Only the essentials, or Quiet: nothing unless I ask), chosen on your phone, even when the watch is on its own.",
+          "You shows the level you picked under Suggestions.",
+        ],
+        improved: [
+          "Quiet (nothing unless I ask) now follows your account everywhere: with it on, the coach no longer starts topics on its own (no goal check-in card, no skill or settings offered unless you ask), and VVake sends no suggestion notifications (coach check-ins, moment prompts, skipped-session nudges). Calls you turned on, challenge results, reminders you set and security alerts still arrive.",
+          "The coach adapts how much it suggests to your choice: Guide me, Only the essentials or Quiet.",
+          "Places have one home: Spots in Crew & City (where to train near you, and how many spots you saved). The row left You and Today's list; the shortcuts next to a planned session stay, and search still finds it.",
+          "Your season lives on the Plan tab only (search still finds it).",
+          "You › Coach voice opens the voice setting directly instead of the whole Coach tab.",
+          "The Coach tab has a Your coach plan row.",
+          'With the coach turned off in Tailor my app, a button that would open it now says "Your coach is off" with Turn on.',
+          "Search for speed zones opens Sports & zones.",
+          'In Quiet, the watch no longer shows the VVake Coach Plus offer under a workout\'s Done, the "Get a better voice" tip, the "Add a moment on your iPhone" line or the Siri tip on You (Apple Watch). Your results, the feel buttons and your streak stay.',
+          "Your library: your trainings, the moves you taught VVake, skills, your own workout and your weights now live together on the Plan tab (the Train tab if you have no plan), instead of being spread across Crew & City, You and the camera screen.",
+          "Crew & City is now only about people and places: challenges, City Clash, rivals and crew quests.",
+          "Search in You finds every part of the library, including My moves, Learn a skill, Your own workout and Your weights.",
+        ],
+      },
+      fr: {
+        added: [
+          "Suggestions et conseils : choisissez combien VVake vous suggère. Guide-moi, Seulement l’essentiel (par défaut) ou Silence : rien sauf si je demande. En Silence, aucun conseil, pas d'invitation à ajouter un moment, pas de conseil pour une meilleure voix, pas de carte « Toujours le bon VVake ? », pas d'invitation sous une séance, et votre coach ne lance jamais de sujet. Vos résultats, la sécurité et vos rappels restent. Rien n'est jamais suggéré pendant une séance. Dans Toi › Réglages de l'app, Réglages, Notifications, le questionnaire Personnaliser mon app, ou cherchez « silence » ou « conseils ». Votre choix suit votre compte.",
+          "« Comment tu l'as trouvée ? » arrive maintenant après une séance caméra et sous le score de votre entraînement, comme après une course. Un tap le dit à votre coach, qui peut ajuster votre plan.",
+          "Votre montre suit ce que VVake vous suggère (Guide-moi, Seulement l’essentiel ou Silence : rien sauf si je demande), choisi sur votre téléphone, même quand la montre est seule.",
+          "La page Vous affiche le niveau choisi sous Suggestions.",
+        ],
+        improved: [
+          "Le réglage Silence (rien sauf si je demande) suit maintenant votre compte partout : activé, le coach ne lance plus de sujet de lui-même (pas de carte de suivi d'objectif, pas de skill ni de réglage proposé sauf si vous le demandez), et VVake n'envoie plus de notifications de suggestion (relances du coach, invitations à un moment, rappels de séance manquée). Les appels que vous avez activés, les résultats de défis, les rappels que vous avez réglés et les alertes de sécurité arrivent toujours.",
+          "Le coach adapte ses suggestions à votre choix : Guide-moi, Seulement l’essentiel ou Silence.",
+          "Les lieux ont une seule place : Spots dans Équipe et ville (où vous entraîner près d'ici, et combien de spots vous avez gardés). La ligne quitte Toi et la liste d'Aujourd'hui ; les raccourcis à côté d'une séance prévue restent, et la recherche la trouve toujours.",
+          "Votre saison vit seulement dans l'onglet Plan (la recherche la trouve toujours).",
+          "Toi › Voix du coach ouvre directement le réglage de la voix au lieu de tout l'onglet Coach.",
+          "L'onglet Coach a une ligne Ta formule coach.",
+          "Avec le coach désactivé dans Personnaliser mon app, un bouton qui l'ouvrirait affiche « Ton coach est désactivé » avec Activer.",
+          "Chercher les zones de vitesse ouvre Sports et zones.",
+          "En Silence, la montre n'affiche plus l'offre VVake Coach Plus sous Terminé après une séance, l'astuce « Obtenir une meilleure voix », la ligne « Ajoute un moment sur ton iPhone » ni l’astuce Siri de la page Vous (Apple Watch). Vos résultats, les boutons de ressenti et votre série restent.",
+          "Votre bibliothèque : vos entraînements, les mouvements que vous avez appris à VVake, les skills, votre propre séance et vos charges sont maintenant réunis dans l'onglet Plan (l'onglet Entraînement si vous n'avez pas de plan), au lieu d'être éparpillés entre Équipe et ville, Toi et l'écran caméra.",
+          "Équipe et ville ne parle plus que des gens et des lieux : défis, City Clash, rivaux et quêtes d'équipe.",
+          "La recherche dans Toi trouve chaque partie de la bibliothèque, dont Mes mouvements, Apprendre un skill, Ta propre séance et Tes charges.",
+        ],
+      },
+    },
+  },
+  {
     version: "1.0.0 (51)",
     date: "2026-10-27",
     channel: "beta",
