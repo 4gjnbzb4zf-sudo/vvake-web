@@ -97,6 +97,8 @@ export const appMeSchema = z.object({
       tailor: z.optional(z.unknown()),
       /** Quiet (ADR-0062 §4.4): `{ level, at }`, checked by suggest/prefs.ts; absent until the API keeps it. */
       suggest: z.optional(z.unknown()),
+      /** Next steps (ADR-0062 §4.3): `{ ledger, at }`, checked by suggest/steps.ts; absent until the API keeps it. */
+      steps: z.optional(z.unknown()),
     }),
   ),
   consents: opt(z.object({ disclaimer: opt(z.object({ version: z.number(), acceptedAt: z.string() })) })),
@@ -174,7 +176,8 @@ const coachReplySchema = z.object({
   reply: z.string(),
   /** Plus, when asked for: the reply in the coach's voice (`tag`: which voice, the API's voiceTag). */
   voice: opt(z.object({ key: z.string(), url: z.string(), tag: str })),
-  action: opt(z.object({ type: z.string(), sport: str, minutes: num, proposal: opt(planChangeSchema) })),
+  /** `open_screen` (ADR-0062 §5): an app route and its button label; the web opens the matching screen (suggest/steps.ts). */
+  action: opt(z.object({ type: z.string(), sport: str, minutes: num, proposal: opt(planChangeSchema), route: str, label: str })),
 });
 export type CoachReply = z.infer<typeof coachReplySchema>;
 
@@ -223,6 +226,12 @@ export interface HabitDaySend {
   sleep?: { bedAt?: number; target: number };
 }
 
+/** The coach's `context.where`: the web screen talked from and the last moment (a finished session) when there is one. */
+export interface CoachWhere {
+  screen: string;
+  last?: { kind: string; sport?: string; minutes?: number; feel?: SessionFeel };
+}
+
 /** How a finished session felt (the phone's SessionFeel). */
 export type SessionFeel = "hard" | "right" | "easy";
 
@@ -235,6 +244,8 @@ export interface CoachContext {
   paceSPerKm?: number;
   /** "How did it feel?" after a session (the phone's SessionFeedback): the coach answers it and may propose a change. */
   feedback?: { feel: SessionFeel; sport: string; minutes: number };
+  /** Where the athlete is (ADR-0062 §5): the screen, and what they just finished (≤ 200 characters as JSON). */
+  where?: CoachWhere;
   goals?: {
     title: string;
     kind: string;

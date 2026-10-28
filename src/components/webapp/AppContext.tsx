@@ -33,6 +33,18 @@ import { profileFromPrefs, type TailorPrefs, type TailorProfile } from "@/lib/we
 import { parseTailorPrefs, readTailorDev, webTabs, type WebTab } from "@/lib/webapp/tailor/prefs";
 import { suggestAllowed, suggestLevelOf, type SuggestionKind, type SuggestLevel, type SuggestPrefs } from "@/lib/webapp/suggest/suggest";
 import { nextSuggestPrefs, parseSuggestPrefs, suggestKey } from "@/lib/webapp/suggest/prefs";
+import { recordStep, type StepEvent, type StepLedger } from "@/lib/webapp/suggest/nextStep";
+import { packOn, type TailorFeature } from "@/lib/webapp/tailor/tailor";
+import type { CoachWhere } from "@/lib/webapp/api";
+import {
+  accountBehind,
+  mergeStepsPrefs,
+  parseStepsPrefs,
+  pruneLedger,
+  replayTours as replayToursIn,
+  stepsKey,
+  type StepsPrefs,
+} from "@/lib/webapp/suggest/steps";
 
 /**
  * Everything the web app's screens share: the signed-in session and the API, the account (me, athlete, stats,
@@ -63,7 +75,12 @@ export type Route =
   | { name: "season" | "season-sports" | "season-health" | "season-history" }
   | { name: "season-goal"; id?: string };
 
-export const TABS = ["today", "plan", "trainings", "crew", "coach", "you"] as const;
+/**
+ * The tabs while the tailored app is off: the phone's five. Plan is labelled Train (living app decision 2) and holds
+ * Your library under the plan, so there is no separate Trainings tab beside it; `trainings` is a tab only for a tailored
+ * profile without Plan (the phone's Train tab: the library alone).
+ */
+export const TABS = ["today", "plan", "crew", "coach", "you"] as const;
 
 const TRAINING_REF = /^([A-HJ-NP-Z2-9]{8}|t_[a-z0-9]{10})$/;
 const CHALLENGE_REF = /^[A-HJ-NP-Z2-9]{8}$/;
@@ -221,6 +238,19 @@ export interface AppState {
   suggestLevel: SuggestLevel;
   setSuggestLevel: (l: SuggestLevel) => void;
   suggests: (kind: SuggestionKind, ctx?: { inWorkout?: boolean }) => boolean;
+  /**
+   * Next steps (ADR-0062 §4.3): the athlete's step ledger (this browser's, merged with the account's `prefs.steps`,
+   * newest per step), `recordSteps` adds events (shown, accepted, dismissed, ignored; tours as `tour:<activity>`) and
+   * syncs them a moment later, `replayTours` starts every first-time tour fresh. `featureOn`: the Your VVake features
+   * (every feature while the tailored app is off).
+   */
+  steps: StepLedger;
+  recordSteps: (events: { id: string; ev: StepEvent }[]) => void;
+  replayTours: () => void;
+  featureOn: (f: TailorFeature) => boolean;
+  /** What the athlete just finished (a summary seen this visit), for the coach's `context.where.last`. */
+  lastMoment: CoachWhere["last"] | null;
+  setLastMoment: (m: CoachWhere["last"] | null) => void;
 }
 
 const Ctx = createContext<AppState | null>(null);
@@ -489,6 +519,76 @@ export function AppProvider({
     [suggestLevel],
   );
 
+  // ── Next steps (ADR-0062 §4.3): prefs.steps, ours per account merged with the account's, pushed when it lacks ours ──
+  const [stepsPref, setStepsPref] = useState<StepsPrefs | null>(() => {
+    const p = readStored(stepsKey(me.id), parseStepsPrefs);
+    return p ? { ...p, ledger: pruneLedger(p.ledger, new Date()) } : null;
+  });
+  const stepsRef = useRef(stepsPref);
+  const stepsTimer = useRef<number | null>(null);
+  const pushSteps = useCallback(() => {
+    if (stepsTimer.current !== null) window.clearTimeout(stepsTimer.current);
+    // A few events usually come together (shown, then a tap): one PATCH a moment later.
+    stepsTimer.current = window.setTimeout(() => {
+      stepsTimer.current = null;
+      const p = stepsRef.current;
+      if (!p) return;
+      void api
+        .patchMe({ prefs: { steps: p } })
+        .then(setMe)
+        .catch(() => undefined); // offline: ours is newer, sent on the next load
+    }, 1500);
+  }, [api]);
+  useEffect(
+    () => () => {
+      if (stepsTimer.current !== null) window.clearTimeout(stepsTimer.current);
+    },
+    [],
+  );
+  const adoptSteps = useCallback(
+    (p: StepsPrefs) => {
+      stepsRef.current = p;
+      setStepsPref(p);
+      writeStored(stepsKey(me.id), p);
+    },
+    [me.id],
+  );
+  const recordSteps = useCallback(
+    (events: { id: string; ev: StepEvent }[]) => {
+      if (!events.length) return;
+      const now = new Date();
+      let ledger = stepsRef.current?.ledger ?? {};
+      for (const e of events) ledger = recordStep(ledger, e.id, e.ev, now);
+      adoptSteps({ ledger, at: now.toISOString() });
+      pushSteps();
+    },
+    [adoptSteps, pushSteps],
+  );
+  const replayTours = useCallback(() => {
+    const now = new Date();
+    adoptSteps({ ledger: replayToursIn(stepsRef.current?.ledger ?? {}, now), at: now.toISOString() });
+    pushSteps();
+  }, [adoptSteps, pushSteps]);
+  const accountStepsRaw = me.prefs?.steps;
+  /** The local `at` last pushed for an account that lacked ours: sent once a visit (an API that doesn't keep it yet). */
+  const stepsSentAt = useRef<string | null>(null);
+  useEffect(() => {
+    const account = parseStepsPrefs(accountStepsRaw);
+    const local = stepsRef.current;
+    const merged = mergeStepsPrefs(local, account);
+    const id = window.setTimeout(() => {
+      if (merged && merged !== local && JSON.stringify(merged.ledger) !== JSON.stringify(local?.ledger ?? null)) adoptSteps(merged);
+    }, 0);
+    if (local && accountBehind(local.ledger, account?.ledger ?? null) && stepsSentAt.current !== local.at) {
+      stepsSentAt.current = local.at;
+      pushSteps();
+    }
+    return () => window.clearTimeout(id);
+  }, [accountStepsRaw, adoptSteps, pushSteps]);
+  const steps = useMemo(() => stepsPref?.ledger ?? {}, [stepsPref]);
+  const featureOn = useCallback((f: TailorFeature) => packOn(profile, f), [profile]);
+  const [lastMoment, setLastMoment] = useState<CoachWhere["last"] | null>(null);
+
   const tz = useMemo(() => localTz(), []);
   const refresh = useCallback(async () => {
     const [st, sk, ss, at] = await Promise.allSettled([api.stats(tz), api.streak(tz), api.sessions(), api.athlete()]);
@@ -665,6 +765,12 @@ export function AppProvider({
     suggestLevel,
     setSuggestLevel,
     suggests,
+    steps,
+    recordSteps,
+    replayTours,
+    featureOn,
+    lastMoment,
+    setLastMoment,
   };
   return <Ctx.Provider value={value}>{children}</Ctx.Provider>;
 }
