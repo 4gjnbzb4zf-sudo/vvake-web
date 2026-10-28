@@ -16,7 +16,7 @@ import { useNow } from "./useNow";
 import { BetterVoice, VoiceSources } from "./VoiceTip";
 import { CoachVoicePicker } from "./CoachVoicePicker";
 import { TailorDevCard } from "./TailorScreen";
-import { SuggestPicker } from "./Suggest";
+import { ReplayTours, SuggestPicker } from "./Suggest";
 import { getTailorDict } from "@/i18n/tailor";
 import { packOn, tailorText, TAILOR_FEATURES, TAILOR_PRESET_TEXT } from "@/lib/webapp/tailor/tailor";
 
@@ -323,6 +323,7 @@ export function YouScreen({ focus }: { focus?: Section } = {}) {
         />
       </div>
       <SuggestPicker className="mt-4" />
+      <ReplayTours className="mt-4" />
     </Card>
   );
 

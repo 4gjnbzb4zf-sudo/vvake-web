@@ -14,6 +14,7 @@ import { GetTheApp } from "./GetTheApp";
 import { COACH_DRAFT_KEY } from "./SeasonWeek";
 import { goalTitle } from "./GoalsScreen";
 import { Btn, H1, Kicker, Note, Small, Toggle } from "./ui";
+import { OpenScreenButton, openScreenOf } from "./Suggest";
 import { useNow } from "./useNow";
 
 /**
@@ -27,12 +28,14 @@ interface Turn {
   role: "user" | "coach";
   text: string;
   proposal?: boolean;
+  /** The coach's `open_screen` button (ADR-0062 §5): an app route the web has, and its label. */
+  open?: { route: string; label: string };
 }
 
 const KEY = "vvake-app-coach";
 
 export function CoachScreen() {
-  const { t, lang, api, goals, sessions, prefs, setPrefs, go, me, profile, fmt, suggests } = useApp();
+  const { t, lang, api, goals, sessions, prefs, setPrefs, go, me, profile, fmt, suggests, lastMoment } = useApp();
   const [turns, setTurns] = useState<Turn[]>(() => {
     try {
       const v = JSON.parse(sessionStorage.getItem(`${KEY}:${me.id}`) ?? "[]") as Turn[];
@@ -75,6 +78,8 @@ export function CoachScreen() {
   const context = useMemo<CoachContext>(() => {
     const items = sessions.map((s) => ({ sport: s.sport, startMs: Date.parse(s.startedAt), distanceM: s.distanceM ?? undefined }));
     return {
+      // Where the athlete is (ADR-0062 §5): the Coach tab, and the session finished this visit if any.
+      where: { screen: "coach", ...(lastMoment ? { last: lastMoment } : {}) },
       ...(goals.length
         ? {
             goals: goals.slice(0, 8).map((g) => {
@@ -95,7 +100,7 @@ export function CoachScreen() {
           }
         : {}),
     };
-  }, [goals, sessions, t, lang, now]);
+  }, [goals, sessions, t, lang, now, lastMoment]);
 
   const ask = async (message: string) => {
     const m = message.trim().slice(0, 500);
@@ -117,7 +122,8 @@ export function CoachScreen() {
         voice: prefs.speakReplies && cloudVoice,
       });
       const proposal = r.action?.type === "propose_plan";
-      setTurns((x) => [...x, { role: "coach", text: r.reply, proposal }]);
+      const open = openScreenOf(r.action);
+      setTurns((x) => [...x, { role: "coach", text: r.reply, proposal, ...(open ? { open } : {}) }]);
       if (prefs.speakReplies) {
         hush();
         conv.begin(cloudVoice);
@@ -194,6 +200,11 @@ export function CoachScreen() {
               <button type="button" className="mt-1 ml-2 text-sm text-lilac-fg underline" onClick={() => go({ name: "plan" })}>
                 {t.coach.proposal} ›
               </button>
+            )}
+            {x.open && (
+              <div className="mt-1 ml-2">
+                <OpenScreenButton route={x.open.route} label={x.open.label} />
+              </div>
             )}
           </div>
         ))}

@@ -23,6 +23,10 @@ import { useApp } from "./AppContext";
 import { useVVakerSrc } from "./MyVVaker";
 import { useWorkout } from "./WorkoutContext";
 import { Btn, Card, Kicker, Note, Small } from "./ui";
+import { FeelAfter } from "./Suggest";
+import { NextStepsRow, Tour, useHasPlan } from "./NextSteps";
+import { gpsMoment, sessionsLast7 } from "@/lib/webapp/suggest/steps";
+import type { SessionFeel } from "@/lib/webapp/api";
 
 const LiveMap = dynamic(() => import("./LiveMap").then((m) => m.LiveMap), { ssr: false });
 
@@ -47,6 +51,7 @@ function SensorChip() {
   return (
     <button
       type="button"
+      data-tour="workout-sensor"
       onClick={() => go({ name: "sensor" })}
       className={cn(
         "inline-flex min-h-11 items-center gap-2 rounded-full border px-4 text-sm font-semibold",
@@ -136,6 +141,7 @@ function PickView() {
       {support === "unsupported" && <Small className="mt-2">{t.sensor.unsupported}</Small>}
       <button
         type="button"
+        data-tour="workout-camera"
         onClick={() => go({ name: "camera" })}
         className="mt-4 flex min-h-16 w-full items-center gap-3 rounded-2xl border border-volt-fg/60 bg-surface px-4 text-left hover:border-volt-fg"
       >
@@ -167,7 +173,7 @@ function PickView() {
         </span>
       </button>
       <Kicker className="mt-5">{t.workout.quick}</Kicker>
-      <div className="mt-2 grid grid-cols-2 gap-2">
+      <div className="mt-2 grid grid-cols-2 gap-2" data-tour="workout-sports">
         {QUICK_SPORTS.map((k) => (
           <button
             key={k}
@@ -215,6 +221,8 @@ function PickView() {
         <Note tone="butter">{t.workout.webRule}</Note>
       </div>
       {asking && <EntryChoice sport={asking} onClose={() => setAsking(null)} onHeart={() => wk.start(asking)} />}
+      {/* The first time: a short tour of the picker's controls, before any start (ADR-0062 §14 A). */}
+      <Tour id="gps" cards={t.tours.gps} />
     </div>
   );
 }
@@ -546,10 +554,20 @@ function Metric({ label, value, unit, tone, small }: { label: string; value: str
 }
 
 function SummaryView() {
-  const { t, lang, prefs, go, fmt, streak } = useApp();
+  const { t, lang, prefs, go, fmt, streak, sessions, setLastMoment } = useApp();
   const wk = useWorkout();
   const sm = wk.summary!;
   const s = sm.session;
+  const [feel, setFeel] = useState<SessionFeel | null>(null);
+  const hasPlan = useHasPlan();
+  const [now] = useState(() => Date.now());
+  const saved = !!s && !sm.discarded && !sm.uploading;
+  // What the coach hears as "just finished" (context.where.last) for the rest of the visit.
+  const lastSport = s && !sm.discarded ? s.sport : null;
+  const lastMinutes = s ? Math.round(s.activeS / 60) : 0;
+  useEffect(() => {
+    if (lastSport) setLastMoment({ kind: "gps_end", sport: lastSport, minutes: lastMinutes, ...(feel ? { feel } : {}) });
+  }, [lastSport, lastMinutes, feel, setLastMoment]);
   const close = () => {
     wk.closeSummary();
     go({ name: "today" });
@@ -614,6 +632,30 @@ function SummaryView() {
         {streak && <Small className="mt-2">{fmt(t.workout.streakNow, { n: streak.days })}</Small>}
       </Card>
       <Note tone="butter">{t.workout.webRule}</Note>
+      {/* "How did it feel?" (a result, every level) then the next steps (the engine: Quiet shows none). */}
+      {saved && (
+        <Card>
+          <FeelAfter
+            sport={s.sport}
+            minutes={s.activeS / 60}
+            onFeel={setFeel}
+            where={{ screen: "workout_summary", last: { kind: "gps_end", sport: s.sport, minutes: lastMinutes } }}
+          />
+        </Card>
+      )}
+      {saved && (
+        <NextStepsRow
+          moment={gpsMoment({
+            sport: s.sport,
+            activeS: s.activeS,
+            feel,
+            last7: sessionsLast7(sessions, now, s.id),
+            ...(streak ? { streak: streak.days } : {}),
+            ...(hasPlan !== undefined ? { hasPlan } : {}),
+          })}
+          onLeave={() => wk.closeSummary()}
+        />
+      )}
       <Btn big variant="volt" className="w-full" onClick={close}>
         {t.workout.done}
       </Btn>

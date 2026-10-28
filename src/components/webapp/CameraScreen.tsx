@@ -119,6 +119,9 @@ import { trainingsApi } from "@/lib/trainings/api";
 import { setRows as setRowsOf, type RunReply } from "@/lib/trainings/data";
 import { useApp } from "./AppContext";
 import { FeelAfter } from "./Suggest";
+import { NextStepsRow, Tour, useHasPlan } from "./NextSteps";
+import { cameraMoment, sessionsLast7, trainingMoment } from "@/lib/webapp/suggest/steps";
+import type { SessionFeel } from "@/lib/webapp/api";
 import { TeachMove } from "./TeachMove";
 import { Btn, Card, Kicker, List, Note, Row, Small, Toggle } from "./ui";
 
@@ -415,9 +418,10 @@ export function CameraScreen({ sport, training, teach }: { sport?: string; train
   const [phase, setPhase] = useState<Phase>("setup");
   // The moves this session can count: the training's taught moves at once, mine (GET /v1/moves) as they arrive, so
   // a set of a custom move and "just start moving" count them like catalogue moves (game-core cameraCustom.ts).
-  const [, setMovesReady] = useState(() => {
+  // How many moves the athlete taught VVake (the next steps' "teach a move"), unknown until GET /v1/moves answers.
+  const [taughtMoves, setTaughtMoves] = useState<number | undefined>(() => {
     registerCustomMoves(training?.training.moves ?? []);
-    return false;
+    return undefined;
   });
   useEffect(() => {
     let alive = true;
@@ -425,8 +429,9 @@ export function CameraScreen({ sport, training, teach }: { sport?: string; train
       .myMoves()
       .then((list) => {
         if (!alive) return;
-        addCustomMoves(list.map(cleanCustomMove).filter((m): m is CustomMove => !!m));
-        setMovesReady(true);
+        const mine = list.map(cleanCustomMove).filter((m): m is CustomMove => !!m);
+        addCustomMoves(mine);
+        setTaughtMoves(mine.length);
       })
       .catch(() => undefined);
     return () => {
@@ -490,7 +495,7 @@ export function CameraScreen({ sport, training, teach }: { sport?: string; train
           }}
         />
       )}
-      {!teach && phase === "summary" && result && <Summary result={result} training={training} />}
+      {!teach && phase === "summary" && result && <Summary result={result} training={training} taughtMoves={taughtMoves} />}
     </div>
   );
 }
@@ -716,13 +721,19 @@ function Setup({
       <Kicker tone="volt">{c.kicker}</Kicker>
       <h1 className="font-display text-2xl font-bold">{training ? training.training.name : c.title}</h1>
       <p className="text-muted">{c.lead}</p>
-      {training && <TrainingSetsCard training={training.training} />}
+      {training && (
+        <div data-tour="training-sets">
+          <TrainingSetsCard training={training.training} />
+        </div>
+      )}
 
       <Kicker tone="sky">{c.step1}</Kicker>
-      <CameraCheck cam={cam} outline={outline} outlineOn={outlineOn} setOutlineOn={setOutlineOn} />
+      <div data-tour="camera-check">
+        <CameraCheck cam={cam} outline={outline} outlineOn={outlineOn} setOutlineOn={setOutlineOn} />
+      </div>
 
       <Kicker tone="sky">{c.step2}</Kicker>
-      <div className="space-y-2">
+      <div className="space-y-2" data-tour="camera-what">
         <Choice
           on={!plan.routine && !plan.move}
           title={c.justMove}
@@ -757,6 +768,7 @@ function Setup({
         big
         variant="volt"
         className="w-full"
+        data-tour="camera-start"
         disabled={!ready}
         onClick={() => {
           // The Start tap unlocks the page's audio (Safari) and warms the coach's recorded voice.
@@ -771,6 +783,8 @@ function Setup({
         {c.start}
       </Btn>
       {!ready && <Small className="text-center">{c.startHint}</Small>}
+      {/* The first time: a short tour on the real controls, before the start (ADR-0062 §14 A). */}
+      <Tour id={training ? "training" : "camera"} cards={training ? t.tours.training : t.tours.camera} />
       {picking && (
         <MovePicker
           onClose={() => setPicking(false)}
@@ -2380,9 +2394,12 @@ function HeartTile({ bpm, zone, label, zoneLabel }: { bpm: number | null; zone: 
 
 // ── Summary ─────────────────────────────────────────────────────────────────────────────────────────────────────
 
-function Summary({ result, training }: { result: LiveResult; training?: TrainingToRun }) {
+function Summary({ result, training, taughtMoves }: { result: LiveResult; training?: TrainingToRun; taughtMoves?: number }) {
   const app = useApp();
   const { t, lang, fmt, go, prefs, me, athlete, deviceKey, energy, setEnergy, api, refresh, setQueue, queue, streak } = app;
+  const [feel, setFeel] = useState<SessionFeel | null>(null);
+  const hasPlan = useHasPlan();
+  const [startedAt] = useState(() => Date.now());
   // A custom training's run (ADR-0047): scored here first (game-core trainingRun), then by the API once uploaded.
   const [run, setRun] = useState<RunReply | "busy" | "failed" | null>(null);
   const c = t.camera;
@@ -2466,6 +2483,27 @@ function Summary({ result, training }: { result: LiveResult; training?: Training
 
   const got = reply?.session;
   const reason = got?.cameraReason ?? null;
+  // The next steps' moment, from what this summary really knows (a training's score once known, else none).
+  const kind = training ? "training_end" : "camera_end";
+  const score = training
+    ? run && typeof run === "object"
+      ? run.score
+      : trainingRun(training.training, summary, result.heart).score
+    : undefined;
+  const facts = {
+    sport: result.sport,
+    activeS: result.activeS,
+    feel,
+    last7: sessionsLast7(app.sessions, startedAt, got?.id ?? saved?.id),
+    ...(streak ? { streak: streak.days } : {}),
+    ...(hasPlan !== undefined ? { hasPlan } : {}),
+  };
+  const moment = !saved ? null : training ? trainingMoment({ ...facts, score }) : cameraMoment({ ...facts, taughtMoves });
+  const { setLastMoment } = app;
+  const lastMinutes = Math.round(result.activeS / 60);
+  useEffect(() => {
+    if (saved) setLastMoment({ kind, sport: result.sport, minutes: lastMinutes, ...(feel ? { feel } : {}) });
+  }, [saved, kind, result.sport, lastMinutes, feel, setLastMoment]);
   const reasonText = (r: string) => (r in c.reason ? c.reason[r as keyof typeof c.reason] : null);
 
   return (
@@ -2584,9 +2622,15 @@ function Summary({ result, training }: { result: LiveResult; training?: Training
       {/* "How did it feel?" once saved: a result, not a suggestion (lead 2026-10-28), so every level shows it, Quiet too; the summary is never during a workout. */}
       {saved && (
         <Card>
-          <FeelAfter sport={result.sport} minutes={result.activeS / 60} />
+          <FeelAfter
+            sport={result.sport}
+            minutes={result.activeS / 60}
+            onFeel={setFeel}
+            where={{ screen: training ? "training_summary" : "camera_summary", last: { kind, sport: result.sport, minutes: lastMinutes } }}
+          />
         </Card>
       )}
+      {saved && <NextStepsRow moment={moment} target={training ? { trainingRef: training.code ?? training.training.id } : undefined} />}
       {left !== null && !saving && <Small className="text-center">{fmt(c.autoSave, { n: left })}</Small>}
       {!saved ? (
         <>

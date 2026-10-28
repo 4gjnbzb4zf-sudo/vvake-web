@@ -2,7 +2,8 @@
 
 import { useState } from "react";
 import { cn } from "@/lib/cn";
-import type { SessionFeel } from "@/lib/webapp/api";
+import type { CoachWhere, SessionFeel } from "@/lib/webapp/api";
+import { webRouteForScreen } from "@/lib/webapp/suggest/steps";
 import { SUGGEST_LEVELS } from "@/lib/webapp/suggest/suggest";
 import { useApp } from "./AppContext";
 import { Kicker, Small } from "./ui";
@@ -41,6 +42,33 @@ export function SuggestPicker({ className }: { className?: string }) {
   );
 }
 
+/**
+ * "Replay tours" (ADR-0062 §14 A), next to the suggestion level: every first-time tour (the workout, the camera
+ * workout, a training run) shows again the next time, on every device (the ledger's `tour:<activity>` restarted).
+ */
+export function ReplayTours({ className }: { className?: string }) {
+  const { t, replayTours } = useApp();
+  const [done, setDone] = useState(false);
+  return (
+    <div className={cn("flex items-start gap-3", className)}>
+      <p role="status" className="flex-1 text-xs leading-4 text-muted">
+        {done ? t.tours.replayed : t.tours.replayDetail}
+      </p>
+      <button
+        type="button"
+        className="min-h-11 shrink-0 rounded-xl border border-line px-4 text-sm font-semibold disabled:opacity-50"
+        disabled={done}
+        onClick={() => {
+          replayTours();
+          setDone(true);
+        }}
+      >
+        {t.tours.replay}
+      </button>
+    </div>
+  );
+}
+
 const FEELS: SessionFeel[] = ["hard", "right", "easy"];
 
 /**
@@ -48,22 +76,41 @@ const FEELS: SessionFeel[] = ["hard", "right", "easy"];
  * the coach with `context.feedback`; the coach's answer shows here, with a link to the plan when it proposes a
  * change. Optional; signed in only (the web app always is). Offline or no reply: "Thanks, noted."
  */
-export function FeelAfter({ sport, minutes, className }: { sport: string; minutes: number; className?: string }) {
+export function FeelAfter({
+  sport,
+  minutes,
+  className,
+  onFeel,
+  where,
+}: {
+  sport: string;
+  minutes: number;
+  className?: string;
+  /** The tap, for the next steps (a plan review after a hard or easy one). */
+  onFeel?: (f: SessionFeel) => void;
+  /** The coach's `context.where` (ADR-0062 §5): this summary and the session just done. */
+  where?: CoachWhere;
+}) {
   const { t, api, lang, prefs, go } = useApp();
   const x = t.feel;
   const [picked, setPicked] = useState<SessionFeel | null>(null);
   const [reply, setReply] = useState<string | null>(null);
   const [proposal, setProposal] = useState(false);
+  const [screen, setScreen] = useState<{ route: string; label: string } | null>(null);
   const [busy, setBusy] = useState(false);
 
   const send = async (feel: SessionFeel) => {
     if (picked) return;
     setPicked(feel);
+    onFeel?.(feel);
     setBusy(true);
     try {
       const r = await api.coachTalk({
         message: x.say[feel],
-        context: { feedback: { feel, sport, minutes: Math.max(0, Math.round(minutes)) } },
+        context: {
+          feedback: { feel, sport, minutes: Math.max(0, Math.round(minutes)) },
+          ...(where ? { where: { ...where, ...(where.last ? { last: { ...where.last, feel } } : {}) } } : {}),
+        },
         lang,
         units: prefs.units,
         clock: new Intl.DateTimeFormat(lang, { hour: "numeric" }).resolvedOptions().hour12 ? "12h" : "24h",
@@ -71,6 +118,7 @@ export function FeelAfter({ sport, minutes, className }: { sport: string; minute
       });
       setReply(r.reply);
       setProposal(r.action?.type === "propose_plan");
+      setScreen(openScreenOf(r.action));
     } catch {
       setReply(x.thanks);
     } finally {
@@ -110,6 +158,29 @@ export function FeelAfter({ sport, minutes, className }: { sport: string; minute
           {t.coach.proposal} ›
         </button>
       )}
+      {screen && <OpenScreenButton route={screen.route} label={screen.label} />}
     </section>
+  );
+}
+
+/** The coach's `open_screen` action (ADR-0062 §5) when the web has that screen, else null. Pure. */
+export function openScreenOf(action: { type: string; route?: string | null; label?: string | null } | null | undefined) {
+  if (action?.type !== "open_screen" || !action.route || !webRouteForScreen(action.route)) return null;
+  return { route: action.route, label: (action.label ?? "").trim().slice(0, 60) };
+}
+
+/** A coach reply's button to a screen ("Where are my moves?" → My trainings). */
+export function OpenScreenButton({ route, label }: { route: string; label: string }) {
+  const { go, t } = useApp();
+  const r = webRouteForScreen(route);
+  if (!r) return null;
+  return (
+    <button
+      type="button"
+      className="inline-flex min-h-11 items-center rounded-full border border-lilac-fg/50 px-4 text-sm font-semibold text-lilac-fg"
+      onClick={() => go(r)}
+    >
+      {label || t.coach.openScreen} ›
+    </button>
   );
 }
