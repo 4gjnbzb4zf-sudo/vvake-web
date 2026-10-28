@@ -1,4 +1,4 @@
-// Copied from VVFit packages/game-core/src/suggest.ts (4692261d 2026-10-28) by scripts/sync-suggest-core.ts. Do not edit: re-sync.
+// Copied from VVFit packages/game-core/src/suggest.ts (f1594c6b 2026-10-28) by scripts/sync-suggest-core.ts. Do not edit: re-sync.
 /**
  * How much VVake suggests (living app, ADR-0062 §4.4): one level per account, on every device, whether the tailored
  * app (ADR-0059) is on or not. Synced as `prefs.suggest = { level, at }` (newest `at` wins, ADR-0044's rule).
@@ -56,7 +56,7 @@ export function newerSuggestPrefs(a: SuggestPrefs | null | undefined, b: Suggest
  * May this be offered now? `inWorkout`: a workout is live on this device or a linked one (then nothing is offered,
  * not even a celebration: it waits for the summary). Pure.
  */
-export function suggestAllowed(kind: SuggestionKind, level: SuggestLevel, ctx: { inWorkout?: boolean } = {}): boolean {
+export function suggestAllowed(kind: SuggestionKind, level: SuggestLevel, ctx: { inWorkout?: boolean | undefined } = {}): boolean {
   if (ctx.inWorkout) return false;
   if (kind === "celebration") return true;
   if (level === "quiet") return false;
