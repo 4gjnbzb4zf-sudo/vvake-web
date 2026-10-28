@@ -2581,8 +2581,8 @@ function Summary({ result, training }: { result: LiveResult; training?: Training
         {streak && got && <Small className="mt-1">{fmt(t.workout.streakNow, { n: streak.days })}</Small>}
       </Card>
       <Note tone="butter">{t.workout.webRule}</Note>
-      {/* "How did it feel?" once saved (living app §4.2: the camera workout's and the training run's first next step); Quiet hides it. */}
-      {saved && app.suggests("next_step") && (
+      {/* "How did it feel?" once saved: a result, not a suggestion (lead 2026-10-28), so every level shows it, Quiet too; the summary is never during a workout. */}
+      {saved && (
         <Card>
           <FeelAfter sport={result.sport} minutes={result.activeS / 60} />
         </Card>
