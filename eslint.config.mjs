@@ -15,6 +15,8 @@ const eslintConfig = defineConfig([
     "public/mediapipe/**",
     "next-env.d.ts",
   ]),
+  // game-core copied byte for byte by scripts/sync-living-core.ts (never edited here): the monorepo's own lint rules apply.
+  { files: ["src/lib/webapp/living/**"], rules: { "prefer-const": "off" } },
 ]);
 
 export default eslintConfig;

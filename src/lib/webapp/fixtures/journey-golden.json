@@ -1,0 +1,2787 @@
+{
+ "journey": [
+  {
+   "name": "new athlete, nothing yet",
+   "input": {
+    "today": "2026-10-28",
+    "lang": "en",
+    "sessions": []
+   },
+   "output": {
+    "kind": "blocks",
+    "chapters": [
+     {
+      "id": "c1-2026-10-26",
+      "index": 1,
+      "kind": "block",
+      "title": "Chapter 1: first steps",
+      "start": "2026-10-26",
+      "end": "2026-11-22",
+      "status": "current",
+      "stones": [
+       {
+        "id": "c1-2026-10-26:weeks_met",
+        "kind": "weeks_met",
+        "title": "2 weeks at your rhythm",
+        "done": false,
+        "count": 0,
+        "target": 2
+       },
+       {
+        "id": "c1-2026-10-26:rest_week",
+        "kind": "rest_week",
+        "title": "A rest day every week, 3 weeks",
+        "done": false,
+        "count": 0,
+        "target": 3
+       },
+       {
+        "id": "c1-2026-10-26:steady",
+        "kind": "steady",
+        "title": "A steady 20-minute session",
+        "done": false,
+        "count": 0,
+        "target": 1
+       }
+      ],
+      "stonesDone": 0,
+      "complete": false
+     },
+     {
+      "id": "c2-2026-11-23",
+      "index": 2,
+      "kind": "block",
+      "title": "Chapter 2",
+      "start": "2026-11-23",
+      "end": "2026-12-20",
+      "status": "next",
+      "stones": [
+       {
+        "id": "c2-2026-11-23:weeks_met",
+        "kind": "weeks_met",
+        "title": "2 weeks at your rhythm",
+        "done": false,
+        "count": 0,
+        "target": 2
+       },
+       {
+        "id": "c2-2026-11-23:rest_week",
+        "kind": "rest_week",
+        "title": "A rest day every week, 3 weeks",
+        "done": false,
+        "count": 0,
+        "target": 3
+       },
+       {
+        "id": "c2-2026-11-23:steady",
+        "kind": "steady",
+        "title": "A steady 30-minute session",
+        "done": false,
+        "count": 0,
+        "target": 1
+       }
+      ],
+      "stonesDone": 0,
+      "complete": false
+     }
+    ],
+    "current": {
+     "id": "c1-2026-10-26",
+     "index": 1,
+     "kind": "block",
+     "title": "Chapter 1: first steps",
+     "start": "2026-10-26",
+     "end": "2026-11-22",
+     "status": "current",
+     "stones": [
+      {
+       "id": "c1-2026-10-26:weeks_met",
+       "kind": "weeks_met",
+       "title": "2 weeks at your rhythm",
+       "done": false,
+       "count": 0,
+       "target": 2
+      },
+      {
+       "id": "c1-2026-10-26:rest_week",
+       "kind": "rest_week",
+       "title": "A rest day every week, 3 weeks",
+       "done": false,
+       "count": 0,
+       "target": 3
+      },
+      {
+       "id": "c1-2026-10-26:steady",
+       "kind": "steady",
+       "title": "A steady 20-minute session",
+       "done": false,
+       "count": 0,
+       "target": 1
+      }
+     ],
+     "stonesDone": 0,
+     "complete": false
+    },
+    "currentStone": {
+     "id": "c1-2026-10-26:weeks_met",
+     "kind": "weeks_met",
+     "title": "2 weeks at your rhythm",
+     "done": false,
+     "count": 0,
+     "target": 2
+    },
+    "road": [
+     {
+      "day": "2026-10-26",
+      "mark": "free"
+     },
+     {
+      "day": "2026-10-27",
+      "mark": "free"
+     },
+     {
+      "day": "2026-10-28",
+      "mark": "today"
+     },
+     {
+      "day": "2026-10-29",
+      "mark": "ahead"
+     },
+     {
+      "day": "2026-10-30",
+      "mark": "ahead"
+     },
+     {
+      "day": "2026-10-31",
+      "mark": "ahead"
+     },
+     {
+      "day": "2026-11-01",
+      "mark": "ahead"
+     },
+     {
+      "day": "2026-11-02",
+      "mark": "ahead"
+     },
+     {
+      "day": "2026-11-03",
+      "mark": "ahead"
+     },
+     {
+      "day": "2026-11-04",
+      "mark": "ahead"
+     },
+     {
+      "day": "2026-11-05",
+      "mark": "ahead"
+     },
+     {
+      "day": "2026-11-06",
+      "mark": "ahead"
+     },
+     {
+      "day": "2026-11-07",
+      "mark": "ahead"
+     },
+     {
+      "day": "2026-11-08",
+      "mark": "ahead"
+     },
+     {
+      "day": "2026-11-09",
+      "mark": "ahead"
+     },
+     {
+      "day": "2026-11-10",
+      "mark": "ahead"
+     },
+     {
+      "day": "2026-11-11",
+      "mark": "ahead"
+     },
+     {
+      "day": "2026-11-12",
+      "mark": "ahead"
+     },
+     {
+      "day": "2026-11-13",
+      "mark": "ahead"
+     },
+     {
+      "day": "2026-11-14",
+      "mark": "ahead"
+     },
+     {
+      "day": "2026-11-15",
+      "mark": "ahead"
+     },
+     {
+      "day": "2026-11-16",
+      "mark": "ahead"
+     },
+     {
+      "day": "2026-11-17",
+      "mark": "ahead"
+     },
+     {
+      "day": "2026-11-18",
+      "mark": "ahead"
+     },
+     {
+      "day": "2026-11-19",
+      "mark": "ahead"
+     },
+     {
+      "day": "2026-11-20",
+      "mark": "ahead"
+     },
+     {
+      "day": "2026-11-21",
+      "mark": "ahead"
+     },
+     {
+      "day": "2026-11-22",
+      "mark": "ahead"
+     }
+    ],
+    "progress": {
+     "chapter": 1,
+     "chapters": 1,
+     "stonesDone": 0,
+     "stones": 3,
+     "fraction": 0
+    },
+    "totals": {
+     "stones": 0,
+     "chapters": 0
+    },
+    "line": "Chapter 1: first steps · next: 2 weeks at your rhythm (0/2)"
+   }
+  },
+  {
+   "name": "blocks: runner three times a week, chapter 2",
+   "input": {
+    "today": "2026-10-28",
+    "lang": "en",
+    "sessions": [
+     {
+      "day": "2026-09-14",
+      "sport": "run",
+      "minutes": 35
+     },
+     {
+      "day": "2026-09-16",
+      "sport": "run",
+      "minutes": 35
+     },
+     {
+      "day": "2026-09-18",
+      "sport": "run",
+      "minutes": 35
+     },
+     {
+      "day": "2026-09-21",
+      "sport": "run",
+      "minutes": 35
+     },
+     {
+      "day": "2026-09-23",
+      "sport": "run",
+      "minutes": 35
+     },
+     {
+      "day": "2026-09-25",
+      "sport": "run",
+      "minutes": 35
+     },
+     {
+      "day": "2026-09-28",
+      "sport": "run",
+      "minutes": 35
+     },
+     {
+      "day": "2026-09-30",
+      "sport": "run",
+      "minutes": 35
+     },
+     {
+      "day": "2026-10-02",
+      "sport": "run",
+      "minutes": 35
+     },
+     {
+      "day": "2026-10-05",
+      "sport": "run",
+      "minutes": 35
+     },
+     {
+      "day": "2026-10-07",
+      "sport": "run",
+      "minutes": 35
+     },
+     {
+      "day": "2026-10-09",
+      "sport": "run",
+      "minutes": 35
+     },
+     {
+      "day": "2026-10-12",
+      "sport": "run",
+      "minutes": 35
+     },
+     {
+      "day": "2026-10-14",
+      "sport": "run",
+      "minutes": 35
+     },
+     {
+      "day": "2026-10-16",
+      "sport": "run",
+      "minutes": 35
+     },
+     {
+      "day": "2026-10-19",
+      "sport": "run",
+      "minutes": 35
+     },
+     {
+      "day": "2026-10-21",
+      "sport": "run",
+      "minutes": 35
+     },
+     {
+      "day": "2026-10-23",
+      "sport": "run",
+      "minutes": 35
+     },
+     {
+      "day": "2026-10-26",
+      "sport": "run",
+      "minutes": 35
+     },
+     {
+      "day": "2026-10-28",
+      "sport": "run",
+      "minutes": 35
+     },
+     {
+      "day": "2026-10-30",
+      "sport": "run",
+      "minutes": 35
+     }
+    ],
+    "restWeekdays": [
+     1,
+     3,
+     6
+    ]
+   },
+   "output": {
+    "kind": "blocks",
+    "chapters": [
+     {
+      "id": "c1-2026-09-14",
+      "index": 1,
+      "kind": "block",
+      "title": "Chapter 1: Run, 3 times a week",
+      "start": "2026-09-14",
+      "end": "2026-10-11",
+      "status": "past",
+      "stones": [
+       {
+        "id": "c1-2026-09-14:weeks_met",
+        "kind": "weeks_met",
+        "title": "2 weeks at your rhythm",
+        "done": true,
+        "doneDay": "2026-09-23",
+        "count": 2,
+        "target": 2
+       },
+       {
+        "id": "c1-2026-09-14:rest_week",
+        "kind": "rest_week",
+        "title": "A rest day every week, 3 weeks",
+        "done": true,
+        "doneDay": "2026-10-04",
+        "count": 3,
+        "target": 3
+       },
+       {
+        "id": "c1-2026-09-14:steady",
+        "kind": "steady",
+        "title": "A steady 20-minute session",
+        "done": true,
+        "doneDay": "2026-09-14",
+        "count": 1,
+        "target": 1
+       }
+      ],
+      "stonesDone": 3,
+      "complete": true
+     },
+     {
+      "id": "c2-2026-10-12",
+      "index": 2,
+      "kind": "block",
+      "title": "Chapter 2: Run, 3 times a week",
+      "start": "2026-10-12",
+      "end": "2026-11-08",
+      "status": "current",
+      "stones": [
+       {
+        "id": "c2-2026-10-12:weeks_met",
+        "kind": "weeks_met",
+        "title": "2 weeks at your rhythm",
+        "done": true,
+        "doneDay": "2026-10-21",
+        "count": 2,
+        "target": 2
+       },
+       {
+        "id": "c2-2026-10-12:rest_week",
+        "kind": "rest_week",
+        "title": "A rest day every week, 3 weeks",
+        "done": false,
+        "count": 2,
+        "target": 3
+       },
+       {
+        "id": "c2-2026-10-12:steady",
+        "kind": "steady",
+        "title": "A steady 30-minute session",
+        "done": true,
+        "doneDay": "2026-10-12",
+        "count": 1,
+        "target": 1
+       }
+      ],
+      "stonesDone": 2,
+      "complete": false
+     },
+     {
+      "id": "c3-2026-11-09",
+      "index": 3,
+      "kind": "block",
+      "title": "Chapter 3",
+      "start": "2026-11-09",
+      "end": "2026-12-06",
+      "status": "next",
+      "stones": [
+       {
+        "id": "c3-2026-11-09:weeks_met",
+        "kind": "weeks_met",
+        "title": "2 weeks at your rhythm",
+        "done": false,
+        "count": 0,
+        "target": 2
+       },
+       {
+        "id": "c3-2026-11-09:rest_week",
+        "kind": "rest_week",
+        "title": "A rest day every week, 3 weeks",
+        "done": false,
+        "count": 0,
+        "target": 3
+       },
+       {
+        "id": "c3-2026-11-09:steady",
+        "kind": "steady",
+        "title": "A steady 40-minute session",
+        "done": false,
+        "count": 0,
+        "target": 1
+       }
+      ],
+      "stonesDone": 0,
+      "complete": false
+     }
+    ],
+    "current": {
+     "id": "c2-2026-10-12",
+     "index": 2,
+     "kind": "block",
+     "title": "Chapter 2: Run, 3 times a week",
+     "start": "2026-10-12",
+     "end": "2026-11-08",
+     "status": "current",
+     "stones": [
+      {
+       "id": "c2-2026-10-12:weeks_met",
+       "kind": "weeks_met",
+       "title": "2 weeks at your rhythm",
+       "done": true,
+       "doneDay": "2026-10-21",
+       "count": 2,
+       "target": 2
+      },
+      {
+       "id": "c2-2026-10-12:rest_week",
+       "kind": "rest_week",
+       "title": "A rest day every week, 3 weeks",
+       "done": false,
+       "count": 2,
+       "target": 3
+      },
+      {
+       "id": "c2-2026-10-12:steady",
+       "kind": "steady",
+       "title": "A steady 30-minute session",
+       "done": true,
+       "doneDay": "2026-10-12",
+       "count": 1,
+       "target": 1
+      }
+     ],
+     "stonesDone": 2,
+     "complete": false
+    },
+    "currentStone": {
+     "id": "c2-2026-10-12:rest_week",
+     "kind": "rest_week",
+     "title": "A rest day every week, 3 weeks",
+     "done": false,
+     "count": 2,
+     "target": 3
+    },
+    "road": [
+     {
+      "day": "2026-10-12",
+      "mark": "session"
+     },
+     {
+      "day": "2026-10-13",
+      "mark": "rest"
+     },
+     {
+      "day": "2026-10-14",
+      "mark": "session"
+     },
+     {
+      "day": "2026-10-15",
+      "mark": "rest"
+     },
+     {
+      "day": "2026-10-16",
+      "mark": "session"
+     },
+     {
+      "day": "2026-10-17",
+      "mark": "free"
+     },
+     {
+      "day": "2026-10-18",
+      "mark": "rest"
+     },
+     {
+      "day": "2026-10-19",
+      "mark": "session"
+     },
+     {
+      "day": "2026-10-20",
+      "mark": "rest"
+     },
+     {
+      "day": "2026-10-21",
+      "mark": "session"
+     },
+     {
+      "day": "2026-10-22",
+      "mark": "rest"
+     },
+     {
+      "day": "2026-10-23",
+      "mark": "session"
+     },
+     {
+      "day": "2026-10-24",
+      "mark": "free"
+     },
+     {
+      "day": "2026-10-25",
+      "mark": "rest"
+     },
+     {
+      "day": "2026-10-26",
+      "mark": "session"
+     },
+     {
+      "day": "2026-10-27",
+      "mark": "rest"
+     },
+     {
+      "day": "2026-10-28",
+      "mark": "session"
+     },
+     {
+      "day": "2026-10-29",
+      "mark": "rest"
+     },
+     {
+      "day": "2026-10-30",
+      "mark": "ahead"
+     },
+     {
+      "day": "2026-10-31",
+      "mark": "ahead"
+     },
+     {
+      "day": "2026-11-01",
+      "mark": "rest"
+     },
+     {
+      "day": "2026-11-02",
+      "mark": "ahead"
+     },
+     {
+      "day": "2026-11-03",
+      "mark": "rest"
+     },
+     {
+      "day": "2026-11-04",
+      "mark": "ahead"
+     },
+     {
+      "day": "2026-11-05",
+      "mark": "rest"
+     },
+     {
+      "day": "2026-11-06",
+      "mark": "ahead"
+     },
+     {
+      "day": "2026-11-07",
+      "mark": "ahead"
+     },
+     {
+      "day": "2026-11-08",
+      "mark": "rest"
+     }
+    ],
+    "progress": {
+     "chapter": 2,
+     "chapters": 2,
+     "stonesDone": 2,
+     "stones": 3,
+     "fraction": 0.67
+    },
+    "totals": {
+     "stones": 5,
+     "chapters": 1
+    },
+    "line": "Chapter 2: Run, 3 times a week · next: A rest day every week, 3 weeks (2/3)"
+   }
+  },
+  {
+   "name": "blocks (fr): mixed sports with a habit, a skill and a goal",
+   "input": {
+    "today": "2026-10-28",
+    "lang": "fr",
+    "sessions": [
+     {
+      "day": "2026-10-05",
+      "sport": "yoga",
+      "minutes": 30
+     },
+     {
+      "day": "2026-10-08",
+      "sport": "yoga",
+      "minutes": 30
+     },
+     {
+      "day": "2026-10-12",
+      "sport": "yoga",
+      "minutes": 30
+     },
+     {
+      "day": "2026-10-15",
+      "sport": "yoga",
+      "minutes": 30
+     },
+     {
+      "day": "2026-10-19",
+      "sport": "yoga",
+      "minutes": 30
+     },
+     {
+      "day": "2026-10-06",
+      "sport": "ride",
+      "minutes": 50
+     },
+     {
+      "day": "2026-10-13",
+      "sport": "ride",
+      "minutes": 50
+     },
+     {
+      "day": "2026-10-20",
+      "sport": "ride",
+      "minutes": 50
+     },
+     {
+      "day": "2026-10-22",
+      "sport": "ride",
+      "minutes": 50
+     }
+    ],
+    "startDay": "2026-10-05",
+    "habitDays": [
+     {
+      "day": "2026-10-20",
+      "score": 90
+     },
+     {
+      "day": "2026-10-21",
+      "score": 90
+     },
+     {
+      "day": "2026-10-22",
+      "score": 90
+     },
+     {
+      "day": "2026-10-23",
+      "score": 90
+     },
+     {
+      "day": "2026-10-24",
+      "score": 90
+     }
+    ],
+    "skills": [
+     {
+      "name": "Handstand",
+      "levelUps": [
+       "2026-10-12"
+      ]
+     }
+    ],
+    "goals": [
+     {
+      "id": "g1",
+      "title": "12 séances",
+      "endDay": "2026-11-01"
+     }
+    ]
+   },
+   "output": {
+    "kind": "blocks",
+    "chapters": [
+     {
+      "id": "c1-2026-10-05",
+      "index": 1,
+      "kind": "block",
+      "title": "Chapitre 1 : 3 jours actifs par semaine",
+      "start": "2026-10-05",
+      "end": "2026-11-01",
+      "status": "current",
+      "stones": [
+       {
+        "id": "c1-2026-10-05:weeks_met",
+        "kind": "weeks_met",
+        "title": "2 semaines à ton rythme",
+        "done": true,
+        "doneDay": "2026-10-13",
+        "count": 2,
+        "target": 2
+       },
+       {
+        "id": "c1-2026-10-05:rest_week",
+        "kind": "rest_week",
+        "title": "Un jour de repos chaque semaine, 3 semaines",
+        "done": true,
+        "doneDay": "2026-10-25",
+        "count": 3,
+        "target": 3
+       },
+       {
+        "id": "c1-2026-10-05:steady",
+        "kind": "steady",
+        "title": "Une séance régulière de 20 minutes",
+        "done": true,
+        "doneDay": "2026-10-05",
+        "count": 1,
+        "target": 1
+       },
+       {
+        "id": "c1-2026-10-05:goal",
+        "kind": "goal",
+        "title": "Objectif : 12 séances",
+        "done": false,
+        "count": 0,
+        "target": 1
+       },
+       {
+        "id": "c1-2026-10-05:skill",
+        "kind": "skill",
+        "title": "Un nouveau niveau en Handstand",
+        "done": true,
+        "doneDay": "2026-10-12",
+        "count": 1,
+        "target": 1
+       }
+      ],
+      "stonesDone": 4,
+      "complete": false
+     },
+     {
+      "id": "c2-2026-11-02",
+      "index": 2,
+      "kind": "block",
+      "title": "Chapitre 2",
+      "start": "2026-11-02",
+      "end": "2026-11-29",
+      "status": "next",
+      "stones": [
+       {
+        "id": "c2-2026-11-02:weeks_met",
+        "kind": "weeks_met",
+        "title": "2 semaines à ton rythme",
+        "done": false,
+        "count": 0,
+        "target": 2
+       },
+       {
+        "id": "c2-2026-11-02:rest_week",
+        "kind": "rest_week",
+        "title": "Un jour de repos chaque semaine, 3 semaines",
+        "done": false,
+        "count": 0,
+        "target": 3
+       },
+       {
+        "id": "c2-2026-11-02:steady",
+        "kind": "steady",
+        "title": "Une séance régulière de 30 minutes",
+        "done": false,
+        "count": 0,
+        "target": 1
+       },
+       {
+        "id": "c2-2026-11-02:skill",
+        "kind": "skill",
+        "title": "Un nouveau niveau en Handstand",
+        "done": false,
+        "count": 0,
+        "target": 1
+       },
+       {
+        "id": "c2-2026-11-02:habits",
+        "kind": "habits",
+        "title": "Bonnes journées d’habitudes : 5",
+        "done": false,
+        "count": 0,
+        "target": 5
+       }
+      ],
+      "stonesDone": 0,
+      "complete": false
+     }
+    ],
+    "current": {
+     "id": "c1-2026-10-05",
+     "index": 1,
+     "kind": "block",
+     "title": "Chapitre 1 : 3 jours actifs par semaine",
+     "start": "2026-10-05",
+     "end": "2026-11-01",
+     "status": "current",
+     "stones": [
+      {
+       "id": "c1-2026-10-05:weeks_met",
+       "kind": "weeks_met",
+       "title": "2 semaines à ton rythme",
+       "done": true,
+       "doneDay": "2026-10-13",
+       "count": 2,
+       "target": 2
+      },
+      {
+       "id": "c1-2026-10-05:rest_week",
+       "kind": "rest_week",
+       "title": "Un jour de repos chaque semaine, 3 semaines",
+       "done": true,
+       "doneDay": "2026-10-25",
+       "count": 3,
+       "target": 3
+      },
+      {
+       "id": "c1-2026-10-05:steady",
+       "kind": "steady",
+       "title": "Une séance régulière de 20 minutes",
+       "done": true,
+       "doneDay": "2026-10-05",
+       "count": 1,
+       "target": 1
+      },
+      {
+       "id": "c1-2026-10-05:goal",
+       "kind": "goal",
+       "title": "Objectif : 12 séances",
+       "done": false,
+       "count": 0,
+       "target": 1
+      },
+      {
+       "id": "c1-2026-10-05:skill",
+       "kind": "skill",
+       "title": "Un nouveau niveau en Handstand",
+       "done": true,
+       "doneDay": "2026-10-12",
+       "count": 1,
+       "target": 1
+      }
+     ],
+     "stonesDone": 4,
+     "complete": false
+    },
+    "currentStone": {
+     "id": "c1-2026-10-05:goal",
+     "kind": "goal",
+     "title": "Objectif : 12 séances",
+     "done": false,
+     "count": 0,
+     "target": 1
+    },
+    "road": [
+     {
+      "day": "2026-10-05",
+      "mark": "session"
+     },
+     {
+      "day": "2026-10-06",
+      "mark": "session"
+     },
+     {
+      "day": "2026-10-07",
+      "mark": "free"
+     },
+     {
+      "day": "2026-10-08",
+      "mark": "session"
+     },
+     {
+      "day": "2026-10-09",
+      "mark": "free"
+     },
+     {
+      "day": "2026-10-10",
+      "mark": "free"
+     },
+     {
+      "day": "2026-10-11",
+      "mark": "free"
+     },
+     {
+      "day": "2026-10-12",
+      "mark": "session"
+     },
+     {
+      "day": "2026-10-13",
+      "mark": "session"
+     },
+     {
+      "day": "2026-10-14",
+      "mark": "free"
+     },
+     {
+      "day": "2026-10-15",
+      "mark": "session"
+     },
+     {
+      "day": "2026-10-16",
+      "mark": "free"
+     },
+     {
+      "day": "2026-10-17",
+      "mark": "free"
+     },
+     {
+      "day": "2026-10-18",
+      "mark": "free"
+     },
+     {
+      "day": "2026-10-19",
+      "mark": "session"
+     },
+     {
+      "day": "2026-10-20",
+      "mark": "session"
+     },
+     {
+      "day": "2026-10-21",
+      "mark": "free"
+     },
+     {
+      "day": "2026-10-22",
+      "mark": "session"
+     },
+     {
+      "day": "2026-10-23",
+      "mark": "free"
+     },
+     {
+      "day": "2026-10-24",
+      "mark": "free"
+     },
+     {
+      "day": "2026-10-25",
+      "mark": "free"
+     },
+     {
+      "day": "2026-10-26",
+      "mark": "free"
+     },
+     {
+      "day": "2026-10-27",
+      "mark": "free"
+     },
+     {
+      "day": "2026-10-28",
+      "mark": "today"
+     },
+     {
+      "day": "2026-10-29",
+      "mark": "ahead"
+     },
+     {
+      "day": "2026-10-30",
+      "mark": "ahead"
+     },
+     {
+      "day": "2026-10-31",
+      "mark": "ahead"
+     },
+     {
+      "day": "2026-11-01",
+      "mark": "ahead"
+     }
+    ],
+    "progress": {
+     "chapter": 1,
+     "chapters": 1,
+     "stonesDone": 4,
+     "stones": 5,
+     "fraction": 0.8
+    },
+    "totals": {
+     "stones": 4,
+     "chapters": 0
+    },
+    "line": "Chapitre 1 : 3 jours actifs par semaine · prochaine étape : Objectif : 12 séances (0/1)"
+   }
+  },
+  {
+   "name": "season: in build, heart rate data, a pause",
+   "input": {
+    "today": "2026-10-14",
+    "lang": "en",
+    "sessions": [
+     {
+      "day": "2026-09-07",
+      "sport": "run",
+      "minutes": 45,
+      "zoneMin": [
+       10,
+       25,
+       5,
+       0,
+       0
+      ]
+     },
+     {
+      "day": "2026-09-09",
+      "sport": "run",
+      "minutes": 45,
+      "zoneMin": [
+       10,
+       25,
+       5,
+       0,
+       0
+      ]
+     },
+     {
+      "day": "2026-09-12",
+      "sport": "run",
+      "minutes": 45,
+      "zoneMin": [
+       10,
+       25,
+       5,
+       0,
+       0
+      ]
+     },
+     {
+      "day": "2026-09-14",
+      "sport": "run",
+      "minutes": 45,
+      "zoneMin": [
+       10,
+       25,
+       5,
+       0,
+       0
+      ]
+     },
+     {
+      "day": "2026-09-16",
+      "sport": "run",
+      "minutes": 45,
+      "zoneMin": [
+       10,
+       25,
+       5,
+       0,
+       0
+      ]
+     },
+     {
+      "day": "2026-09-19",
+      "sport": "run",
+      "minutes": 45,
+      "zoneMin": [
+       10,
+       25,
+       5,
+       0,
+       0
+      ]
+     },
+     {
+      "day": "2026-09-21",
+      "sport": "run",
+      "minutes": 45,
+      "zoneMin": [
+       10,
+       25,
+       5,
+       0,
+       0
+      ]
+     },
+     {
+      "day": "2026-09-23",
+      "sport": "run",
+      "minutes": 45,
+      "zoneMin": [
+       10,
+       25,
+       5,
+       0,
+       0
+      ]
+     },
+     {
+      "day": "2026-09-26",
+      "sport": "run",
+      "minutes": 45,
+      "zoneMin": [
+       10,
+       25,
+       5,
+       0,
+       0
+      ]
+     },
+     {
+      "day": "2026-09-28",
+      "sport": "run",
+      "minutes": 45,
+      "zoneMin": [
+       10,
+       25,
+       5,
+       0,
+       0
+      ]
+     },
+     {
+      "day": "2026-09-30",
+      "sport": "run",
+      "minutes": 45,
+      "zoneMin": [
+       10,
+       25,
+       5,
+       0,
+       0
+      ]
+     },
+     {
+      "day": "2026-10-05",
+      "sport": "run",
+      "minutes": 75,
+      "zoneMin": [
+       10,
+       40,
+       12,
+       3,
+       0
+      ]
+     },
+     {
+      "day": "2026-10-07",
+      "sport": "run",
+      "minutes": 75,
+      "zoneMin": [
+       10,
+       40,
+       12,
+       3,
+       0
+      ]
+     },
+     {
+      "day": "2026-10-10",
+      "sport": "run",
+      "minutes": 75,
+      "zoneMin": [
+       10,
+       40,
+       12,
+       3,
+       0
+      ]
+     },
+     {
+      "day": "2026-10-12",
+      "sport": "run",
+      "minutes": 75,
+      "zoneMin": [
+       10,
+       40,
+       12,
+       3,
+       0
+      ]
+     }
+    ],
+    "season": {
+     "weeks": [
+      {
+       "start": "2026-09-07",
+       "phase": "base",
+       "deload": false,
+       "longMin": 60,
+       "targetMin": 200
+      },
+      {
+       "start": "2026-09-14",
+       "phase": "base",
+       "deload": false,
+       "longMin": 70,
+       "targetMin": 215
+      },
+      {
+       "start": "2026-09-21",
+       "phase": "base",
+       "deload": false,
+       "longMin": 80,
+       "targetMin": 230
+      },
+      {
+       "start": "2026-09-28",
+       "phase": "base",
+       "deload": true,
+       "longMin": 90,
+       "targetMin": 245
+      },
+      {
+       "start": "2026-10-05",
+       "phase": "build",
+       "deload": false,
+       "longMin": 100,
+       "targetMin": 260
+      },
+      {
+       "start": "2026-10-12",
+       "phase": "build",
+       "deload": false,
+       "longMin": 110,
+       "targetMin": 275
+      },
+      {
+       "start": "2026-10-19",
+       "phase": "build",
+       "deload": false,
+       "longMin": 120,
+       "targetMin": 290
+      },
+      {
+       "start": "2026-10-26",
+       "phase": "peak",
+       "deload": false,
+       "longMin": 130,
+       "targetMin": 305
+      },
+      {
+       "start": "2026-11-02",
+       "phase": "taper",
+       "deload": false,
+       "longMin": 50,
+       "targetMin": 150
+      },
+      {
+       "start": "2026-11-09",
+       "phase": "race",
+       "deload": false,
+       "longMin": 0,
+       "targetMin": 90
+      }
+     ],
+     "goalTitle": "City 10K",
+     "raceDay": "2026-11-15"
+    },
+    "weeklyMinimum": 2,
+    "pauses": [
+     {
+      "kind": "sick",
+      "from": "2026-09-28",
+      "until": "2026-10-01",
+      "at": "2026-09-28T08:00:00.000Z"
+     }
+    ]
+   },
+   "output": {
+    "kind": "season",
+    "chapters": [
+     {
+      "id": "p1-base-2026-09-07",
+      "index": 1,
+      "kind": "phase",
+      "phase": "base",
+      "title": "Chapter 1: Base",
+      "start": "2026-09-07",
+      "end": "2026-10-04",
+      "status": "past",
+      "stones": [
+       {
+        "id": "p1-base-2026-09-07:weeks_met",
+        "kind": "weeks_met",
+        "title": "3 weeks at your rhythm",
+        "done": true,
+        "doneDay": "2026-09-23",
+        "count": 3,
+        "target": 3
+       },
+       {
+        "id": "p1-base-2026-09-07:rest_week",
+        "kind": "rest_week",
+        "title": "A rest day every week, 3 weeks",
+        "done": true,
+        "doneDay": "2026-09-27",
+        "count": 3,
+        "target": 3
+       },
+       {
+        "id": "p1-base-2026-09-07:zone2",
+        "kind": "zone2",
+        "title": "20 minutes in zone 2 in one session",
+        "done": true,
+        "doneDay": "2026-09-07",
+        "count": 1,
+        "target": 1
+       }
+      ],
+      "stonesDone": 3,
+      "complete": true
+     },
+     {
+      "id": "p2-build-2026-10-05",
+      "index": 2,
+      "kind": "phase",
+      "phase": "build",
+      "title": "Chapter 2: Build",
+      "start": "2026-10-05",
+      "end": "2026-10-25",
+      "status": "current",
+      "stones": [
+       {
+        "id": "p2-build-2026-10-05:weeks_met",
+        "kind": "weeks_met",
+        "title": "3 weeks at your rhythm",
+        "done": false,
+        "count": 1,
+        "target": 3
+       },
+       {
+        "id": "p2-build-2026-10-05:long",
+        "kind": "long",
+        "title": "Your long session: 90 minutes",
+        "done": false,
+        "count": 0,
+        "target": 1
+       },
+       {
+        "id": "p2-build-2026-10-05:rest_week",
+        "kind": "rest_week",
+        "title": "A rest day every week, 2 weeks",
+        "done": false,
+        "count": 1,
+        "target": 2
+       },
+       {
+        "id": "p2-build-2026-10-05:quality",
+        "kind": "quality",
+        "title": "First steady-hard session: 10 minutes in zones 3–4",
+        "done": true,
+        "doneDay": "2026-10-05",
+        "count": 1,
+        "target": 1
+       }
+      ],
+      "stonesDone": 1,
+      "complete": false
+     },
+     {
+      "id": "p3-peak-2026-10-26",
+      "index": 3,
+      "kind": "phase",
+      "phase": "peak",
+      "title": "Chapter 3: Peak",
+      "start": "2026-10-26",
+      "end": "2026-11-01",
+      "status": "next",
+      "stones": [
+       {
+        "id": "p3-peak-2026-10-26:weeks_met",
+        "kind": "weeks_met",
+        "title": "1 weeks at your rhythm",
+        "done": false,
+        "count": 0,
+        "target": 1
+       },
+       {
+        "id": "p3-peak-2026-10-26:long",
+        "kind": "long",
+        "title": "Your long session: 115 minutes",
+        "done": false,
+        "count": 0,
+        "target": 1
+       },
+       {
+        "id": "p3-peak-2026-10-26:rest_week",
+        "kind": "rest_week",
+        "title": "A rest day every week, 1 weeks",
+        "done": false,
+        "count": 0,
+        "target": 1
+       }
+      ],
+      "stonesDone": 0,
+      "complete": false
+     },
+     {
+      "id": "p4-taper-2026-11-02",
+      "index": 4,
+      "kind": "phase",
+      "phase": "taper",
+      "title": "Chapter 4: Taper",
+      "start": "2026-11-02",
+      "end": "2026-11-08",
+      "status": "later",
+      "stones": [
+       {
+        "id": "p4-taper-2026-11-02:kept_light",
+        "kind": "kept_light",
+        "title": "Keep the taper light, 1 week(s)",
+        "done": false,
+        "count": 0,
+        "target": 1
+       },
+       {
+        "id": "p4-taper-2026-11-02:weeks_met",
+        "kind": "weeks_met",
+        "title": "1 weeks at your rhythm",
+        "done": false,
+        "count": 0,
+        "target": 1
+       },
+       {
+        "id": "p4-taper-2026-11-02:rest_week",
+        "kind": "rest_week",
+        "title": "A rest day every week, 1 weeks",
+        "done": false,
+        "count": 0,
+        "target": 1
+       }
+      ],
+      "stonesDone": 0,
+      "complete": false
+     },
+     {
+      "id": "p5-race-2026-11-09",
+      "index": 5,
+      "kind": "phase",
+      "phase": "race",
+      "title": "Chapter 5: Race week · City 10K",
+      "start": "2026-11-09",
+      "end": "2026-11-15",
+      "status": "later",
+      "stones": [
+       {
+        "id": "p5-race-2026-11-09:shakeout",
+        "kind": "shakeout",
+        "title": "A short easy shake-out before the day",
+        "done": false,
+        "count": 0,
+        "target": 1
+       },
+       {
+        "id": "p5-race-2026-11-09:rest_before",
+        "kind": "rest_before",
+        "title": "A rest day just before the race",
+        "done": false,
+        "count": 0,
+        "target": 1
+       },
+       {
+        "id": "p5-race-2026-11-09:race_done",
+        "kind": "race_done",
+        "title": "Race day: City 10K",
+        "done": false,
+        "count": 0,
+        "target": 1
+       }
+      ],
+      "stonesDone": 0,
+      "complete": false
+     }
+    ],
+    "current": {
+     "id": "p2-build-2026-10-05",
+     "index": 2,
+     "kind": "phase",
+     "phase": "build",
+     "title": "Chapter 2: Build",
+     "start": "2026-10-05",
+     "end": "2026-10-25",
+     "status": "current",
+     "stones": [
+      {
+       "id": "p2-build-2026-10-05:weeks_met",
+       "kind": "weeks_met",
+       "title": "3 weeks at your rhythm",
+       "done": false,
+       "count": 1,
+       "target": 3
+      },
+      {
+       "id": "p2-build-2026-10-05:long",
+       "kind": "long",
+       "title": "Your long session: 90 minutes",
+       "done": false,
+       "count": 0,
+       "target": 1
+      },
+      {
+       "id": "p2-build-2026-10-05:rest_week",
+       "kind": "rest_week",
+       "title": "A rest day every week, 2 weeks",
+       "done": false,
+       "count": 1,
+       "target": 2
+      },
+      {
+       "id": "p2-build-2026-10-05:quality",
+       "kind": "quality",
+       "title": "First steady-hard session: 10 minutes in zones 3–4",
+       "done": true,
+       "doneDay": "2026-10-05",
+       "count": 1,
+       "target": 1
+      }
+     ],
+     "stonesDone": 1,
+     "complete": false
+    },
+    "currentStone": {
+     "id": "p2-build-2026-10-05:weeks_met",
+     "kind": "weeks_met",
+     "title": "3 weeks at your rhythm",
+     "done": false,
+     "count": 1,
+     "target": 3
+    },
+    "road": [
+     {
+      "day": "2026-10-05",
+      "mark": "session"
+     },
+     {
+      "day": "2026-10-06",
+      "mark": "free"
+     },
+     {
+      "day": "2026-10-07",
+      "mark": "session"
+     },
+     {
+      "day": "2026-10-08",
+      "mark": "free"
+     },
+     {
+      "day": "2026-10-09",
+      "mark": "free"
+     },
+     {
+      "day": "2026-10-10",
+      "mark": "session"
+     },
+     {
+      "day": "2026-10-11",
+      "mark": "free"
+     },
+     {
+      "day": "2026-10-12",
+      "mark": "session"
+     },
+     {
+      "day": "2026-10-13",
+      "mark": "free"
+     },
+     {
+      "day": "2026-10-14",
+      "mark": "today"
+     },
+     {
+      "day": "2026-10-15",
+      "mark": "ahead"
+     },
+     {
+      "day": "2026-10-16",
+      "mark": "ahead"
+     },
+     {
+      "day": "2026-10-17",
+      "mark": "ahead"
+     },
+     {
+      "day": "2026-10-18",
+      "mark": "ahead"
+     },
+     {
+      "day": "2026-10-19",
+      "mark": "ahead"
+     },
+     {
+      "day": "2026-10-20",
+      "mark": "ahead"
+     },
+     {
+      "day": "2026-10-21",
+      "mark": "ahead"
+     },
+     {
+      "day": "2026-10-22",
+      "mark": "ahead"
+     },
+     {
+      "day": "2026-10-23",
+      "mark": "ahead"
+     },
+     {
+      "day": "2026-10-24",
+      "mark": "ahead"
+     },
+     {
+      "day": "2026-10-25",
+      "mark": "ahead"
+     }
+    ],
+    "progress": {
+     "chapter": 2,
+     "chapters": 5,
+     "stonesDone": 1,
+     "stones": 4,
+     "fraction": 0.25
+    },
+    "totals": {
+     "stones": 4,
+     "chapters": 1
+    },
+    "line": "Chapter 2: Build · next: 3 weeks at your rhythm (1/3)"
+   }
+  },
+  {
+   "name": "season: race day, raced",
+   "input": {
+    "today": "2026-11-15",
+    "lang": "fr",
+    "sessions": [
+     {
+      "day": "2026-11-09",
+      "sport": "run",
+      "minutes": 25
+     },
+     {
+      "day": "2026-11-11",
+      "sport": "run",
+      "minutes": 25
+     },
+     {
+      "day": "2026-11-13",
+      "sport": "run",
+      "minutes": 25
+     },
+     {
+      "day": "2026-11-15",
+      "sport": "run",
+      "minutes": 52
+     }
+    ],
+    "season": {
+     "weeks": [
+      {
+       "start": "2026-09-07",
+       "phase": "base",
+       "deload": false,
+       "longMin": 60,
+       "targetMin": 200
+      },
+      {
+       "start": "2026-09-14",
+       "phase": "base",
+       "deload": false,
+       "longMin": 70,
+       "targetMin": 215
+      },
+      {
+       "start": "2026-09-21",
+       "phase": "base",
+       "deload": false,
+       "longMin": 80,
+       "targetMin": 230
+      },
+      {
+       "start": "2026-09-28",
+       "phase": "base",
+       "deload": true,
+       "longMin": 90,
+       "targetMin": 245
+      },
+      {
+       "start": "2026-10-05",
+       "phase": "build",
+       "deload": false,
+       "longMin": 100,
+       "targetMin": 260
+      },
+      {
+       "start": "2026-10-12",
+       "phase": "build",
+       "deload": false,
+       "longMin": 110,
+       "targetMin": 275
+      },
+      {
+       "start": "2026-10-19",
+       "phase": "build",
+       "deload": false,
+       "longMin": 120,
+       "targetMin": 290
+      },
+      {
+       "start": "2026-10-26",
+       "phase": "peak",
+       "deload": false,
+       "longMin": 130,
+       "targetMin": 305
+      },
+      {
+       "start": "2026-11-02",
+       "phase": "taper",
+       "deload": false,
+       "longMin": 50,
+       "targetMin": 150
+      },
+      {
+       "start": "2026-11-09",
+       "phase": "race",
+       "deload": false,
+       "longMin": 0,
+       "targetMin": 90
+      }
+     ],
+     "goalTitle": "10 km de la ville",
+     "raceDay": "2026-11-15",
+     "raceDoneDay": "2026-11-15"
+    }
+   },
+   "output": {
+    "kind": "season",
+    "chapters": [
+     {
+      "id": "p1-base-2026-09-07",
+      "index": 1,
+      "kind": "phase",
+      "phase": "base",
+      "title": "Chapitre 1 : Fondation",
+      "start": "2026-09-07",
+      "end": "2026-10-04",
+      "status": "past",
+      "stones": [
+       {
+        "id": "p1-base-2026-09-07:weeks_met",
+        "kind": "weeks_met",
+        "title": "3 semaines à ton rythme",
+        "done": false,
+        "count": 0,
+        "target": 3
+       },
+       {
+        "id": "p1-base-2026-09-07:rest_week",
+        "kind": "rest_week",
+        "title": "Un jour de repos chaque semaine, 3 semaines",
+        "done": false,
+        "count": 0,
+        "target": 3
+       },
+       {
+        "id": "p1-base-2026-09-07:steady",
+        "kind": "steady",
+        "title": "Une séance régulière de 30 minutes",
+        "done": false,
+        "count": 0,
+        "target": 1
+       }
+      ],
+      "stonesDone": 0,
+      "complete": false
+     },
+     {
+      "id": "p2-build-2026-10-05",
+      "index": 2,
+      "kind": "phase",
+      "phase": "build",
+      "title": "Chapitre 2 : Développement",
+      "start": "2026-10-05",
+      "end": "2026-10-25",
+      "status": "past",
+      "stones": [
+       {
+        "id": "p2-build-2026-10-05:weeks_met",
+        "kind": "weeks_met",
+        "title": "3 semaines à ton rythme",
+        "done": false,
+        "count": 0,
+        "target": 3
+       },
+       {
+        "id": "p2-build-2026-10-05:long",
+        "kind": "long",
+        "title": "Ta sortie longue : 90 minutes",
+        "done": false,
+        "count": 0,
+        "target": 1
+       },
+       {
+        "id": "p2-build-2026-10-05:rest_week",
+        "kind": "rest_week",
+        "title": "Un jour de repos chaque semaine, 2 semaines",
+        "done": false,
+        "count": 0,
+        "target": 2
+       }
+      ],
+      "stonesDone": 0,
+      "complete": false
+     },
+     {
+      "id": "p3-peak-2026-10-26",
+      "index": 3,
+      "kind": "phase",
+      "phase": "peak",
+      "title": "Chapitre 3 : Pic",
+      "start": "2026-10-26",
+      "end": "2026-11-01",
+      "status": "past",
+      "stones": [
+       {
+        "id": "p3-peak-2026-10-26:weeks_met",
+        "kind": "weeks_met",
+        "title": "1 semaines à ton rythme",
+        "done": false,
+        "count": 0,
+        "target": 1
+       },
+       {
+        "id": "p3-peak-2026-10-26:long",
+        "kind": "long",
+        "title": "Ta sortie longue : 115 minutes",
+        "done": false,
+        "count": 0,
+        "target": 1
+       },
+       {
+        "id": "p3-peak-2026-10-26:rest_week",
+        "kind": "rest_week",
+        "title": "Un jour de repos chaque semaine, 1 semaines",
+        "done": false,
+        "count": 0,
+        "target": 1
+       }
+      ],
+      "stonesDone": 0,
+      "complete": false
+     },
+     {
+      "id": "p4-taper-2026-11-02",
+      "index": 4,
+      "kind": "phase",
+      "phase": "taper",
+      "title": "Chapitre 4 : Affûtage",
+      "start": "2026-11-02",
+      "end": "2026-11-08",
+      "status": "past",
+      "stones": [
+       {
+        "id": "p4-taper-2026-11-02:kept_light",
+        "kind": "kept_light",
+        "title": "Garde l’affûtage léger, 1 semaine(s)",
+        "done": false,
+        "count": 0,
+        "target": 1
+       },
+       {
+        "id": "p4-taper-2026-11-02:weeks_met",
+        "kind": "weeks_met",
+        "title": "1 semaines à ton rythme",
+        "done": false,
+        "count": 0,
+        "target": 1
+       },
+       {
+        "id": "p4-taper-2026-11-02:rest_week",
+        "kind": "rest_week",
+        "title": "Un jour de repos chaque semaine, 1 semaines",
+        "done": false,
+        "count": 0,
+        "target": 1
+       }
+      ],
+      "stonesDone": 0,
+      "complete": false
+     },
+     {
+      "id": "p5-race-2026-11-09",
+      "index": 5,
+      "kind": "phase",
+      "phase": "race",
+      "title": "Chapitre 5 : Semaine de course · 10 km de la ville",
+      "start": "2026-11-09",
+      "end": "2026-11-15",
+      "status": "current",
+      "stones": [
+       {
+        "id": "p5-race-2026-11-09:shakeout",
+        "kind": "shakeout",
+        "title": "Un petit déblocage facile avant le jour J",
+        "done": true,
+        "doneDay": "2026-11-09",
+        "count": 1,
+        "target": 1
+       },
+       {
+        "id": "p5-race-2026-11-09:rest_before",
+        "kind": "rest_before",
+        "title": "Un jour de repos juste avant la course",
+        "done": true,
+        "doneDay": "2026-11-14",
+        "count": 1,
+        "target": 1
+       },
+       {
+        "id": "p5-race-2026-11-09:race_done",
+        "kind": "race_done",
+        "title": "Jour J : 10 km de la ville",
+        "done": true,
+        "doneDay": "2026-11-15",
+        "count": 1,
+        "target": 1
+       }
+      ],
+      "stonesDone": 3,
+      "complete": true
+     }
+    ],
+    "current": {
+     "id": "p5-race-2026-11-09",
+     "index": 5,
+     "kind": "phase",
+     "phase": "race",
+     "title": "Chapitre 5 : Semaine de course · 10 km de la ville",
+     "start": "2026-11-09",
+     "end": "2026-11-15",
+     "status": "current",
+     "stones": [
+      {
+       "id": "p5-race-2026-11-09:shakeout",
+       "kind": "shakeout",
+       "title": "Un petit déblocage facile avant le jour J",
+       "done": true,
+       "doneDay": "2026-11-09",
+       "count": 1,
+       "target": 1
+      },
+      {
+       "id": "p5-race-2026-11-09:rest_before",
+       "kind": "rest_before",
+       "title": "Un jour de repos juste avant la course",
+       "done": true,
+       "doneDay": "2026-11-14",
+       "count": 1,
+       "target": 1
+      },
+      {
+       "id": "p5-race-2026-11-09:race_done",
+       "kind": "race_done",
+       "title": "Jour J : 10 km de la ville",
+       "done": true,
+       "doneDay": "2026-11-15",
+       "count": 1,
+       "target": 1
+      }
+     ],
+     "stonesDone": 3,
+     "complete": true
+    },
+    "currentStone": null,
+    "road": [
+     {
+      "day": "2026-11-09",
+      "mark": "session"
+     },
+     {
+      "day": "2026-11-10",
+      "mark": "rest"
+     },
+     {
+      "day": "2026-11-11",
+      "mark": "session"
+     },
+     {
+      "day": "2026-11-12",
+      "mark": "rest"
+     },
+     {
+      "day": "2026-11-13",
+      "mark": "session"
+     },
+     {
+      "day": "2026-11-14",
+      "mark": "rest"
+     },
+     {
+      "day": "2026-11-15",
+      "mark": "session"
+     }
+    ],
+    "progress": {
+     "chapter": 5,
+     "chapters": 5,
+     "stonesDone": 3,
+     "stones": 3,
+     "fraction": 1
+    },
+    "totals": {
+     "stones": 3,
+     "chapters": 1
+    },
+    "line": "Chapitre 5 : Semaine de course · 10 km de la ville · toutes les étapes franchies"
+   }
+  },
+  {
+   "name": "season over: back to 4-week chapters",
+   "input": {
+    "today": "2026-12-10",
+    "lang": "en",
+    "sessions": [
+     {
+      "day": "2026-11-23",
+      "sport": "run",
+      "minutes": 35
+     },
+     {
+      "day": "2026-11-25",
+      "sport": "run",
+      "minutes": 35
+     },
+     {
+      "day": "2026-11-30",
+      "sport": "run",
+      "minutes": 35
+     },
+     {
+      "day": "2026-12-02",
+      "sport": "run",
+      "minutes": 35
+     },
+     {
+      "day": "2026-12-07",
+      "sport": "run",
+      "minutes": 35
+     }
+    ],
+    "season": {
+     "weeks": [
+      {
+       "start": "2026-09-07",
+       "phase": "base",
+       "deload": false,
+       "longMin": 60,
+       "targetMin": 200
+      },
+      {
+       "start": "2026-09-14",
+       "phase": "base",
+       "deload": false,
+       "longMin": 70,
+       "targetMin": 215
+      },
+      {
+       "start": "2026-09-21",
+       "phase": "base",
+       "deload": false,
+       "longMin": 80,
+       "targetMin": 230
+      },
+      {
+       "start": "2026-09-28",
+       "phase": "base",
+       "deload": true,
+       "longMin": 90,
+       "targetMin": 245
+      },
+      {
+       "start": "2026-10-05",
+       "phase": "build",
+       "deload": false,
+       "longMin": 100,
+       "targetMin": 260
+      },
+      {
+       "start": "2026-10-12",
+       "phase": "build",
+       "deload": false,
+       "longMin": 110,
+       "targetMin": 275
+      },
+      {
+       "start": "2026-10-19",
+       "phase": "build",
+       "deload": false,
+       "longMin": 120,
+       "targetMin": 290
+      },
+      {
+       "start": "2026-10-26",
+       "phase": "peak",
+       "deload": false,
+       "longMin": 130,
+       "targetMin": 305
+      },
+      {
+       "start": "2026-11-02",
+       "phase": "taper",
+       "deload": false,
+       "longMin": 50,
+       "targetMin": 150
+      },
+      {
+       "start": "2026-11-09",
+       "phase": "race",
+       "deload": false,
+       "longMin": 0,
+       "targetMin": 90
+      }
+     ]
+    }
+   },
+   "output": {
+    "kind": "blocks",
+    "chapters": [
+     {
+      "id": "c1-2026-11-23",
+      "index": 1,
+      "kind": "block",
+      "title": "Chapter 1: Run, 2 times a week",
+      "start": "2026-11-23",
+      "end": "2026-12-20",
+      "status": "current",
+      "stones": [
+       {
+        "id": "c1-2026-11-23:weeks_met",
+        "kind": "weeks_met",
+        "title": "2 weeks at your rhythm",
+        "done": true,
+        "doneDay": "2026-12-02",
+        "count": 2,
+        "target": 2
+       },
+       {
+        "id": "c1-2026-11-23:rest_week",
+        "kind": "rest_week",
+        "title": "A rest day every week, 3 weeks",
+        "done": false,
+        "count": 2,
+        "target": 3
+       },
+       {
+        "id": "c1-2026-11-23:steady",
+        "kind": "steady",
+        "title": "A steady 20-minute session",
+        "done": true,
+        "doneDay": "2026-11-23",
+        "count": 1,
+        "target": 1
+       }
+      ],
+      "stonesDone": 2,
+      "complete": false
+     },
+     {
+      "id": "c2-2026-12-21",
+      "index": 2,
+      "kind": "block",
+      "title": "Chapter 2",
+      "start": "2026-12-21",
+      "end": "2027-01-17",
+      "status": "next",
+      "stones": [
+       {
+        "id": "c2-2026-12-21:weeks_met",
+        "kind": "weeks_met",
+        "title": "2 weeks at your rhythm",
+        "done": false,
+        "count": 0,
+        "target": 2
+       },
+       {
+        "id": "c2-2026-12-21:rest_week",
+        "kind": "rest_week",
+        "title": "A rest day every week, 3 weeks",
+        "done": false,
+        "count": 0,
+        "target": 3
+       },
+       {
+        "id": "c2-2026-12-21:steady",
+        "kind": "steady",
+        "title": "A steady 30-minute session",
+        "done": false,
+        "count": 0,
+        "target": 1
+       }
+      ],
+      "stonesDone": 0,
+      "complete": false
+     }
+    ],
+    "current": {
+     "id": "c1-2026-11-23",
+     "index": 1,
+     "kind": "block",
+     "title": "Chapter 1: Run, 2 times a week",
+     "start": "2026-11-23",
+     "end": "2026-12-20",
+     "status": "current",
+     "stones": [
+      {
+       "id": "c1-2026-11-23:weeks_met",
+       "kind": "weeks_met",
+       "title": "2 weeks at your rhythm",
+       "done": true,
+       "doneDay": "2026-12-02",
+       "count": 2,
+       "target": 2
+      },
+      {
+       "id": "c1-2026-11-23:rest_week",
+       "kind": "rest_week",
+       "title": "A rest day every week, 3 weeks",
+       "done": false,
+       "count": 2,
+       "target": 3
+      },
+      {
+       "id": "c1-2026-11-23:steady",
+       "kind": "steady",
+       "title": "A steady 20-minute session",
+       "done": true,
+       "doneDay": "2026-11-23",
+       "count": 1,
+       "target": 1
+      }
+     ],
+     "stonesDone": 2,
+     "complete": false
+    },
+    "currentStone": {
+     "id": "c1-2026-11-23:rest_week",
+     "kind": "rest_week",
+     "title": "A rest day every week, 3 weeks",
+     "done": false,
+     "count": 2,
+     "target": 3
+    },
+    "road": [
+     {
+      "day": "2026-11-23",
+      "mark": "session"
+     },
+     {
+      "day": "2026-11-24",
+      "mark": "free"
+     },
+     {
+      "day": "2026-11-25",
+      "mark": "session"
+     },
+     {
+      "day": "2026-11-26",
+      "mark": "free"
+     },
+     {
+      "day": "2026-11-27",
+      "mark": "free"
+     },
+     {
+      "day": "2026-11-28",
+      "mark": "free"
+     },
+     {
+      "day": "2026-11-29",
+      "mark": "free"
+     },
+     {
+      "day": "2026-11-30",
+      "mark": "session"
+     },
+     {
+      "day": "2026-12-01",
+      "mark": "free"
+     },
+     {
+      "day": "2026-12-02",
+      "mark": "session"
+     },
+     {
+      "day": "2026-12-03",
+      "mark": "free"
+     },
+     {
+      "day": "2026-12-04",
+      "mark": "free"
+     },
+     {
+      "day": "2026-12-05",
+      "mark": "free"
+     },
+     {
+      "day": "2026-12-06",
+      "mark": "free"
+     },
+     {
+      "day": "2026-12-07",
+      "mark": "session"
+     },
+     {
+      "day": "2026-12-08",
+      "mark": "free"
+     },
+     {
+      "day": "2026-12-09",
+      "mark": "free"
+     },
+     {
+      "day": "2026-12-10",
+      "mark": "today"
+     },
+     {
+      "day": "2026-12-11",
+      "mark": "ahead"
+     },
+     {
+      "day": "2026-12-12",
+      "mark": "ahead"
+     },
+     {
+      "day": "2026-12-13",
+      "mark": "ahead"
+     },
+     {
+      "day": "2026-12-14",
+      "mark": "ahead"
+     },
+     {
+      "day": "2026-12-15",
+      "mark": "ahead"
+     },
+     {
+      "day": "2026-12-16",
+      "mark": "ahead"
+     },
+     {
+      "day": "2026-12-17",
+      "mark": "ahead"
+     },
+     {
+      "day": "2026-12-18",
+      "mark": "ahead"
+     },
+     {
+      "day": "2026-12-19",
+      "mark": "ahead"
+     },
+     {
+      "day": "2026-12-20",
+      "mark": "ahead"
+     }
+    ],
+    "progress": {
+     "chapter": 1,
+     "chapters": 1,
+     "stonesDone": 2,
+     "stones": 3,
+     "fraction": 0.67
+    },
+    "totals": {
+     "stones": 2,
+     "chapters": 0
+    },
+    "line": "Chapter 1: Run, 2 times a week · next: A rest day every week, 3 weeks (2/3)"
+   }
+  }
+ ],
+ "weeklyStreak": [
+  {
+   "name": "no plan, 2 days a week, 3 weeks",
+   "days": [
+    "2026-10-12",
+    "2026-10-14",
+    "2026-10-19",
+    "2026-10-21",
+    "2026-10-26",
+    "2026-10-27"
+   ],
+   "today": "2026-10-28",
+   "output": {
+    "weeks": 3,
+    "best": 3,
+    "thisWeek": "kept",
+    "needed": 0
+   }
+  },
+  {
+   "name": "a missed week breaks it",
+   "days": [
+    "2026-10-05",
+    "2026-10-07",
+    "2026-10-19",
+    "2026-10-21",
+    "2026-10-26"
+   ],
+   "today": "2026-10-28",
+   "output": {
+    "weeks": 1,
+    "best": 1,
+    "thisWeek": "open",
+    "needed": 1
+   }
+  },
+  {
+   "name": "a paused week holds it",
+   "days": [
+    "2026-10-05",
+    "2026-10-07",
+    "2026-10-19",
+    "2026-10-21"
+   ],
+   "today": "2026-10-28",
+   "pause": {
+    "kind": "sick",
+    "from": "2026-10-12",
+    "until": "2026-10-18",
+    "at": "2026-10-12T07:00:00.000Z"
+   },
+   "output": {
+    "weeks": 2,
+    "best": 2,
+    "thisWeek": "open",
+    "needed": 2
+   }
+  }
+ ],
+ "comeback": [
+  {
+   "last": "2026-10-27",
+   "today": "2026-10-28",
+   "paused": false,
+   "missed": 0,
+   "stage": "none"
+  },
+  {
+   "last": "2026-10-25",
+   "today": "2026-10-28",
+   "paused": false,
+   "missed": 0,
+   "stage": "easy_win"
+  },
+  {
+   "last": "2026-10-26",
+   "today": "2026-10-28",
+   "paused": false,
+   "missed": 2,
+   "stage": "easy_win"
+  },
+  {
+   "last": "2026-10-21",
+   "today": "2026-10-28",
+   "paused": false,
+   "missed": 0,
+   "stage": "nudge"
+  },
+  {
+   "last": "2026-10-14",
+   "today": "2026-10-28",
+   "paused": false,
+   "missed": 0,
+   "stage": "welcome_back"
+  },
+  {
+   "last": "2026-09-20",
+   "today": "2026-10-28",
+   "paused": false,
+   "missed": 0,
+   "stage": "monthly"
+  },
+  {
+   "last": "2026-09-20",
+   "today": "2026-10-28",
+   "paused": true,
+   "missed": 0,
+   "stage": "none"
+  },
+  {
+   "last": null,
+   "today": "2026-10-28",
+   "paused": false,
+   "missed": 0,
+   "stage": "none"
+  }
+ ],
+ "celebrations": [
+  {
+   "name": "nothing",
+   "before": {
+    "sessions": 10,
+    "weeksKept": 3,
+    "streakDays": 5,
+    "weeklyStreak": 3,
+    "pbs": 1,
+    "stones": 2,
+    "chapters": 0,
+    "vvakerLevel": 4,
+    "leagueTier": "jog",
+    "goalsDone": 0,
+    "skillLevels": 0
+   },
+   "after": {
+    "sessions": 11,
+    "weeksKept": 3,
+    "streakDays": 5,
+    "weeklyStreak": 3,
+    "pbs": 1,
+    "stones": 2,
+    "chapters": 0,
+    "vvakerLevel": 4,
+    "leagueTier": "jog",
+    "goalsDone": 0,
+    "skillLevels": 0
+   },
+   "en": null,
+   "fr": null
+  },
+  {
+   "name": "first session",
+   "before": {
+    "sessions": 0,
+    "weeksKept": 0,
+    "streakDays": 0,
+    "weeklyStreak": 0,
+    "pbs": 1,
+    "stones": 2,
+    "chapters": 0,
+    "vvakerLevel": 4,
+    "leagueTier": "jog",
+    "goalsDone": 0,
+    "skillLevels": 0
+   },
+   "after": {
+    "sessions": 1,
+    "weeksKept": 0,
+    "streakDays": 1,
+    "weeklyStreak": 0,
+    "pbs": 1,
+    "stones": 2,
+    "chapters": 0,
+    "vvakerLevel": 4,
+    "leagueTier": "jog",
+    "goalsDone": 0,
+    "skillLevels": 0
+   },
+   "en": {
+    "id": "first_session",
+    "line": "First one in. That’s the hardest step, and it’s taken.",
+    "reaction": "jump",
+    "also": []
+   },
+   "fr": {
+    "id": "first_session",
+    "line": "La première est faite. C’était le pas le plus dur, et il est fait.",
+    "reaction": "jump",
+    "also": []
+   }
+  },
+  {
+   "name": "streak 7 and a stone: the stone wins",
+   "before": {
+    "sessions": 10,
+    "weeksKept": 3,
+    "streakDays": 6,
+    "weeklyStreak": 3,
+    "pbs": 1,
+    "stones": 2,
+    "chapters": 0,
+    "vvakerLevel": 4,
+    "leagueTier": "jog",
+    "goalsDone": 0,
+    "skillLevels": 0
+   },
+   "after": {
+    "sessions": 10,
+    "weeksKept": 3,
+    "streakDays": 7,
+    "weeklyStreak": 3,
+    "pbs": 1,
+    "stones": 3,
+    "chapters": 0,
+    "vvakerLevel": 4,
+    "leagueTier": "jog",
+    "goalsDone": 0,
+    "skillLevels": 0
+   },
+   "en": {
+    "id": "stone",
+    "line": "Stone passed. One more step on your path.",
+    "reaction": "wave",
+    "also": [
+     "streak_7"
+    ]
+   },
+   "fr": {
+    "id": "stone",
+    "line": "Étape franchie. Un pas de plus sur ton chemin.",
+    "reaction": "wave",
+    "also": [
+     "streak_7"
+    ]
+   }
+  },
+  {
+   "name": "new stage beats level up",
+   "before": {
+    "sessions": 10,
+    "weeksKept": 3,
+    "streakDays": 5,
+    "weeklyStreak": 3,
+    "pbs": 1,
+    "stones": 2,
+    "chapters": 0,
+    "vvakerLevel": 10,
+    "leagueTier": "jog",
+    "goalsDone": 0,
+    "skillLevels": 0
+   },
+   "after": {
+    "sessions": 10,
+    "weeksKept": 3,
+    "streakDays": 5,
+    "weeklyStreak": 3,
+    "pbs": 1,
+    "stones": 2,
+    "chapters": 0,
+    "vvakerLevel": 11,
+    "leagueTier": "jog",
+    "goalsDone": 0,
+    "skillLevels": 0
+   },
+   "en": {
+    "id": "new_stage",
+    "line": "Your VVaker just grew up. All earned by you.",
+    "reaction": "flex",
+    "also": [
+     "level_up"
+    ]
+   },
+   "fr": {
+    "id": "new_stage",
+    "line": "Ton VVaker vient de grandir. Tout ça, c’est toi.",
+    "reaction": "flex",
+    "also": [
+     "level_up"
+    ]
+   }
+  },
+  {
+   "name": "goal done beats everything",
+   "before": {
+    "sessions": 10,
+    "weeksKept": 3,
+    "streakDays": 5,
+    "weeklyStreak": 11,
+    "pbs": 1,
+    "stones": 2,
+    "chapters": 0,
+    "vvakerLevel": 4,
+    "leagueTier": "jog",
+    "goalsDone": 0,
+    "skillLevels": 0
+   },
+   "after": {
+    "sessions": 10,
+    "weeksKept": 3,
+    "streakDays": 5,
+    "weeklyStreak": 12,
+    "pbs": 2,
+    "stones": 2,
+    "chapters": 0,
+    "vvakerLevel": 4,
+    "leagueTier": "tempo",
+    "goalsDone": 1,
+    "skillLevels": 0
+   },
+   "en": {
+    "id": "goal_done",
+    "line": "You did it. Every week of work is in that finish.",
+    "reaction": "medal",
+    "also": [
+     "weekly_12",
+     "league_up",
+     "pb"
+    ]
+   },
+   "fr": {
+    "id": "goal_done",
+    "line": "Tu l’as fait. Chaque semaine de travail est dans cette arrivée.",
+    "reaction": "medal",
+    "also": [
+     "weekly_12",
+     "league_up",
+     "pb"
+    ]
+   }
+  }
+ ]
+}
