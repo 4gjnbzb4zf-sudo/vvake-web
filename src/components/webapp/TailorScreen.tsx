@@ -30,6 +30,8 @@ import { useApp } from "./AppContext";
 import { CoachVoicePicker } from "./CoachVoicePicker";
 import { useDayOneCall } from "./LiveCall";
 import { SuggestPicker } from "./Suggest";
+import { CustomValueDialog, type CustomNumber } from "./CustomValueDialog";
+import { EVENT_DISTANCE_BOUNDS, eventDistanceSlug, eventDistanceText, parseEventDistance } from "@/lib/webapp/survey/customValue";
 import { Btn, Card, H1, H2, inputCls, Kicker, List, Row, Segmented, Small, Toggle } from "./ui";
 
 /**
@@ -235,9 +237,11 @@ function Question({
   recent: string[];
   big?: boolean;
 }) {
-  const { lang } = useApp();
+  const { lang, prefs } = useApp();
   const L = lang === "fr" ? "fr" : "en";
   const x = getTailorDict(lang).survey;
+  // "Custom distance…" (build 54): any event distance in km or mi (your units), stored as "15k", "21-1k", "12mi".
+  const [distancePick, setDistancePick] = useState<CustomNumber | null>(null);
   const title = <h2 className={cn("font-display font-semibold", big ? "text-2xl" : "text-lg")}>{tailorText(`tailor.${step}.title`, L)}</h2>;
 
   if (step === "eventDetails")
@@ -246,15 +250,43 @@ function Question({
         {title}
         <p className="mt-3 mb-1 text-sm font-medium">{tailorText("tailor.eventDetails.type", L)}</p>
         <Chips
-          options={[...EVENTS, "other" as const].map((e) => ({ value: e, label: x.events[e] }))}
+          options={[
+            ...[...EVENTS, "other" as const].map((e) => ({ value: e, label: x.events[e] })),
+            { value: "custom", label: eventDistanceText(answers.eventType, L) ?? x.customDistance },
+          ]}
           selected={[
             answers.eventType && (EVENTS as readonly string[]).includes(answers.eventType)
               ? answers.eventType
-              : answers.eventType
-                ? "other"
-                : "",
+              : parseEventDistance(answers.eventType)
+                ? "custom"
+                : answers.eventType
+                  ? "other"
+                  : "",
           ]}
-          onTap={(v) => set("eventDetails", { eventType: v === "other" ? undefined : v })}
+          onTap={(v) => {
+            if (v !== "custom") return set("eventDetails", { eventType: v === "other" ? undefined : v });
+            const own = parseEventDistance(answers.eventType);
+            const unit = own?.unit ?? (prefs.units === "imperial" ? "mi" : "km");
+            const b = EVENT_DISTANCE_BOUNDS[unit];
+            setDistancePick({
+              title: x.customDistance,
+              value: own?.value ?? (unit === "mi" ? 6 : 15),
+              min: b.min,
+              max: b.max,
+              step: 0.1,
+              bigStep: 1,
+              unit,
+            });
+          }}
+        />
+        <CustomValueDialog
+          pick={distancePick}
+          onClose={() => setDistancePick(null)}
+          onDone={(v) => {
+            const slug = distancePick ? eventDistanceSlug(v, distancePick.unit === "mi" ? "mi" : "km") : undefined;
+            if (slug) set("eventDetails", { eventType: slug });
+            setDistancePick(null);
+          }}
         />
         <label className="mt-4 block">
           <span className="mb-1 block text-sm font-medium">{tailorText("tailor.eventDetails.date", L)}</span>
