@@ -178,8 +178,12 @@ const coachReplySchema = z.object({
   reply: z.string(),
   /** Plus, when asked for: the reply in the coach's voice (`tag`: which voice, the API's voiceTag). */
   voice: opt(z.object({ key: z.string(), url: z.string(), tag: str })),
-  /** `open_screen` (ADR-0062 §5): an app route and its button label; the web opens the matching screen (suggest/steps.ts). */
-  action: opt(z.object({ type: z.string(), sport: str, minutes: num, proposal: opt(planChangeSchema), route: str, label: str })),
+  /**
+   * `open_screen` (ADR-0062 §5): an app route and its button label; the web opens the matching screen (suggest/steps.ts).
+   * The app actions (ADR-0063, with `actions: 2`): every other field is kept as sent (card, lines, planned, routine…)
+   * and checked again by coach/webActions.ts cardActionOf before a card is shown.
+   */
+  action: opt(z.looseObject({ type: z.string(), sport: str, minutes: num, proposal: opt(planChangeSchema), route: str, label: str })),
 });
 export type CoachReply = z.infer<typeof coachReplySchema>;
 
@@ -248,6 +252,8 @@ export interface CoachContext {
   feedback?: { feel: SessionFeel; sport: string; minutes: number };
   /** Where the athlete is (ADR-0062 §5): the screen, and what they just finished (≤ 200 characters as JSON). */
   where?: CoachWhere;
+  /** Today's planned session (or a rest day): the coach's "start today's session" card follows it (ADR-0063). */
+  today?: { rest?: boolean; sport?: string; minutes?: number };
   goals?: {
     title: string;
     kind: string;
@@ -355,7 +361,9 @@ export function webApi(s: RewardsSession) {
       clock: string;
       /** The reply in the coach's voice (Plus; counted in the API's daily voice quota). */
       voice?: boolean;
-    }) => s.call("/v1/coach/talk", send("POST", { ...b, voice: b.voice === true }), coachReplySchema),
+    }) =>
+      // actions: 2 = this app shows the coach's action cards (ADR-0063); an older API just ignores it.
+      s.call("/v1/coach/talk", send("POST", { ...b, voice: b.voice === true, actions: 2 }), coachReplySchema),
     // Every voice fetch names the coach voice (ADR-0056: `voice=woman|man`), never left to the account's setting.
     voicePack: (lang: string, voice: CoachVoiceGender) => s.call(`/v1/voice/pack?${voiceQ(lang, voice)}`, GET, voiceSetSchema),
     voiceLibrary: (lang: string, imperial: boolean, voice: CoachVoiceGender) =>

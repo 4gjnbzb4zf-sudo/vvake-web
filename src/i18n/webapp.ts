@@ -235,6 +235,16 @@ const en = {
     proposal: "Plan change proposed",
     /** The coach's button to a screen (open_screen) when it sends no label. */
     openScreen: "Open it",
+    /** The coach's action cards (ADR-0063): the card's own words come from the server; these are the chrome. */
+    action: {
+      label: "From your coach",
+      turnOnCamera: "Turn on Camera & trainings",
+      done: "Done",
+      cancelled: "Not started",
+      failed: "Didn't happen",
+      expired: "From an earlier visit: ask your coach again to start it.",
+      local: "Your coach can't be reached right now: this button was made on this device.",
+    },
     voiceNote: "Coach calls and the hands-free live coach during workouts are in the app ({plan}).",
   },
   you: {
@@ -1141,6 +1151,15 @@ const fr: WebAppDict = {
     suggestions: ["Je fais quoi aujourd’hui ?", "Je suis fatigué, je me repose ?", "Comment s’est passée ma semaine ?"],
     proposal: "Changement de plan proposé",
     openScreen: "Ouvrir",
+    action: {
+      label: "De ton coach",
+      turnOnCamera: "Activer Caméra et entraînements",
+      done: "Fait",
+      cancelled: "Pas lancé",
+      failed: "Pas fait",
+      expired: "D’une visite précédente : redemande à ton coach pour le lancer.",
+      local: "Ton coach est injoignable pour l’instant : ce bouton a été fait sur cet appareil.",
+    },
     voiceNote: "Les appels du coach et le coach vocal mains libres pendant les séances sont dans l’app ({plan}).",
   },
   you: {
