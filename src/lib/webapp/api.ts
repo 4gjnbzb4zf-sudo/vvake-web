@@ -97,6 +97,8 @@ export const appMeSchema = z.object({
       tailor: z.optional(z.unknown()),
       /** Quiet (ADR-0062 §4.4): `{ level, at }`, checked by suggest/prefs.ts; absent until the API keeps it. */
       suggest: z.optional(z.unknown()),
+      /** Show on Home (build 54): `{ gps, camera, at }`, checked by startWays.ts; absent until the API keeps it. */
+      startWays: z.optional(z.unknown()),
       /** Next steps (ADR-0062 §4.3): `{ ledger, at }`, checked by suggest/steps.ts; absent until the API keeps it. */
       steps: z.optional(z.unknown()),
     }),

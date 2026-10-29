@@ -72,6 +72,7 @@ import {
 } from "@/lib/webapp/camera/webHeart";
 import { seen, type BodyArea, type Framing, type FramingTip, type Joint, type PoseFrame } from "@/lib/webapp/camera/cameraPose";
 import { CAMERA_ROUTINES, routineForPlan, type CameraRoutine } from "@/lib/webapp/camera/cameraSession";
+import { cameraPickOf, openingPick, parseCameraPick, type CameraPick } from "@/lib/webapp/startWays";
 import { createPoseDetector, type PoseDetector } from "@/lib/webapp/camera/landmarker";
 import { cameraPointsPreview, cameraSessionEmpty, strapSample, toWebCameraSession } from "@/lib/webapp/camera/webCameraSession";
 import {
@@ -142,6 +143,29 @@ import { Btn, Card, Kicker, List, Note, Row, Small, Toggle } from "./ui";
 
 type Phase = "setup" | "overview" | "live" | "summary";
 type Plan = { routine: CameraRoutine | null; move: string | null };
+
+/** The camera workout's last pick in this browser (startWays.ts CameraPick). */
+const LAST_PICK_KEY = "vvake-app-camera-pick";
+const KNOWN_PICKS = { routine: (id: string) => CAMERA_ROUTINES.some((r) => r.id === id), move: (id: string) => !!cameraMove(id) };
+function readLastPick(): CameraPick | null {
+  try {
+    return parseCameraPick(localStorage.getItem(LAST_PICK_KEY));
+  } catch {
+    return null;
+  }
+}
+function writeLastPick(p: CameraPick) {
+  try {
+    localStorage.setItem(LAST_PICK_KEY, JSON.stringify(p));
+  } catch {
+    // private mode: this visit only
+  }
+}
+function planOfPick(p: CameraPick): Plan {
+  if (p.kind === "routine") return { routine: CAMERA_ROUTINES.find((r) => r.id === p.id) ?? null, move: null };
+  if (p.kind === "move") return { routine: null, move: p.id };
+  return { routine: null, move: null };
+}
 interface FramingShown {
   framing: Framing;
   missing: BodyArea[];
@@ -438,10 +462,15 @@ export function CameraScreen({ sport, training, teach }: { sport?: string; train
       alive = false;
     };
   }, [session]);
-  const [plan, setPlan] = useState<Plan>(() => ({
-    routine: training ? trainingRoutine(training.training) : sport ? routineForPlan(sport, 20, true) : null,
-    move: null,
-  }));
+  // Start at the top, set to the last pick (build 54): opened without a training or a sport, the screen takes this
+  // browser's last pick; the first time, the beginner routine with the choices open.
+  const [opening] = useState(() => (training || sport ? null : openingPick(readLastPick(), KNOWN_PICKS)));
+  const [plan, setPlan] = useState<Plan>(() =>
+    opening
+      ? planOfPick(opening.pick)
+      : { routine: training ? trainingRoutine(training.training) : sport ? routineForPlan(sport, 20, true) : null, move: null },
+  );
+  const [choicesOpen, setChoicesOpen] = useState(() => opening?.open ?? false);
   const [result, setResult] = useState<LiveResult | null>(null);
   const [outlineOn, setOutlineOnState] = useState(() => (typeof window === "undefined" ? true : loadOutlinePref()));
   const outline = useRef<OutlineClock | null>(null);
@@ -472,10 +501,16 @@ export function CameraScreen({ sport, training, teach }: { sport?: string; train
           cam={cam}
           plan={plan}
           setPlan={setPlan}
+          open={choicesOpen}
+          setOpen={setChoicesOpen}
           outline={outline.current}
           outlineOn={outlineOn}
           setOutlineOn={setOutlineOn}
-          onStart={() => setPhase(plan.routine?.sets.length ? "overview" : "live")}
+          onStart={() => {
+            const pick = training ? null : cameraPickOf(plan, KNOWN_PICKS);
+            if (pick) writeLastPick(pick);
+            setPhase(plan.routine?.sets.length ? "overview" : "live");
+          }}
         />
       )}
       {/* A plan: all of it before it starts (tester report 2026-10-27: the second round came as a surprise). */}
@@ -679,6 +714,8 @@ function Setup({
   cam,
   plan,
   setPlan,
+  open,
+  setOpen,
   outline,
   outlineOn,
   setOutlineOn,
@@ -688,6 +725,8 @@ function Setup({
   cam: Webcam;
   plan: Plan;
   setPlan: (p: Plan) => void;
+  open: boolean;
+  setOpen: (v: boolean) => void;
   outline: OutlineClock;
   outlineOn: boolean;
   setOutlineOn: (v: boolean) => void;
@@ -698,6 +737,12 @@ function Setup({
   const [picking, setPicking] = useState(false);
   const chosen = plan.move ? cameraMove(plan.move) : null;
   const ready = cam.state === "ready" && cam.running && cam.model === "ready";
+  // A pick folds the choices again: Start, at the top, now says it.
+  const choose = (p: Plan) => {
+    setPlan(p);
+    setOpen(false);
+  };
+  const pickName = training ? training.training.name : plan.routine ? plan.routine.name[lang] : chosen ? chosen.name[lang] : c.justMove;
 
   return (
     <div className="mx-auto w-full max-w-xl space-y-4 pt-[max(env(safe-area-inset-top),1rem)] pr-[max(env(safe-area-inset-right),1rem)] pb-16 pl-[max(env(safe-area-inset-left),1rem)]">
@@ -727,43 +772,6 @@ function Setup({
         </div>
       )}
 
-      <Kicker tone="sky">{c.step1}</Kicker>
-      <div data-tour="camera-check">
-        <CameraCheck cam={cam} outline={outline} outlineOn={outlineOn} setOutlineOn={setOutlineOn} />
-      </div>
-
-      <Kicker tone="sky">{c.step2}</Kicker>
-      <div className="space-y-2" data-tour="camera-what">
-        <Choice
-          on={!plan.routine && !plan.move}
-          title={c.justMove}
-          detail={c.justMoveDetail}
-          onClick={() => setPlan({ routine: null, move: null })}
-        />
-        <Choice
-          on={!!chosen}
-          title={chosen ? chosen.name[lang] : c.pickMove}
-          detail={chosen ? `${c.judge[chosen.judge]} · ${placement(chosen, c)}` : c.pickMoveDetail}
-          onClick={() => setPicking(true)}
-        />
-      </div>
-      <Kicker tone="sky">{c.routines}</Kicker>
-      <div className="space-y-2">
-        {[...(plan.routine && !CAMERA_ROUTINES.some((r) => r.id === plan.routine!.id) ? [plan.routine] : []), ...CAMERA_ROUTINES].map(
-          (r) => (
-            <Choice
-              key={r.id}
-              on={plan.routine?.id === r.id}
-              title={r.name[lang]}
-              detail={fmt(c.minSets, { min: r.minutes, sets: r.sets.length })}
-              onClick={() => setPlan({ routine: r, move: null })}
-            />
-          ),
-        )}
-      </div>
-      <Small>{c.pointsRule}</Small>
-      {bleSupport() === "ok" && <Small>{c.strapHint}</Small>}
-      <Small>{c.handsFree}</Small>
       <Btn
         big
         variant="volt"
@@ -780,16 +788,69 @@ function Setup({
           onStart();
         }}
       >
-        {c.start}
+        {fmt(c.startPick, { what: pickName })}
       </Btn>
       {!ready && <Small className="text-center">{c.startHint}</Small>}
+      <button
+        type="button"
+        aria-expanded={open}
+        onClick={() => setOpen(!open)}
+        className="flex min-h-11 w-full items-center gap-3 text-left"
+      >
+        <span className="font-semibold text-sky-fg">{c.change}</span>
+        <span className="flex-1 truncate text-sm text-muted">{c.changeDetail}</span>
+        <span aria-hidden className="text-muted">
+          {open ? "▴" : "▾"}
+        </span>
+      </button>
+      {open && (
+        <div className="space-y-4">
+          <Kicker tone="sky">{c.step2}</Kicker>
+          <div className="space-y-2" data-tour="camera-what">
+            <Choice
+              on={!plan.routine && !plan.move}
+              title={c.justMove}
+              detail={c.justMoveDetail}
+              onClick={() => choose({ routine: null, move: null })}
+            />
+            <Choice
+              on={!!chosen}
+              title={chosen ? chosen.name[lang] : c.pickMove}
+              detail={chosen ? `${c.judge[chosen.judge]} · ${placement(chosen, c)}` : c.pickMoveDetail}
+              onClick={() => setPicking(true)}
+            />
+          </div>
+          <Kicker tone="sky">{c.routines}</Kicker>
+          <div className="space-y-2">
+            {[...(plan.routine && !CAMERA_ROUTINES.some((r) => r.id === plan.routine!.id) ? [plan.routine] : []), ...CAMERA_ROUTINES].map(
+              (r) => (
+                <Choice
+                  key={r.id}
+                  on={plan.routine?.id === r.id}
+                  title={r.name[lang]}
+                  detail={fmt(c.minSets, { min: r.minutes, sets: r.sets.length })}
+                  onClick={() => choose({ routine: r, move: null })}
+                />
+              ),
+            )}
+          </div>
+        </div>
+      )}
+      <Kicker tone="sky">{c.step1}</Kicker>
+      <div data-tour="camera-check">
+        <CameraCheck cam={cam} outline={outline} outlineOn={outlineOn} setOutlineOn={setOutlineOn} />
+      </div>
+
+      <Small>{c.pointsRule}</Small>
+      {bleSupport() === "ok" && <Small>{c.strapHint}</Small>}
+      <Small>{c.handsFree}</Small>
       {/* The first time: a short tour on the real controls, before the start (ADR-0062 §14 A). */}
       <Tour id={training ? "training" : "camera"} cards={training ? t.tours.training : t.tours.camera} />
       {picking && (
         <MovePicker
           onClose={() => setPicking(false)}
           onPick={(id) => {
-            setPlan({ routine: null, move: id });
+            choose({ routine: null, move: id });
             setPicking(false);
           }}
         />

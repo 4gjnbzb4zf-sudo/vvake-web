@@ -48,7 +48,9 @@ export function TodayLean() {
   const today = localDay(now);
   const planned = week?.days.find((d) => d.date === today) ?? null;
   const restDay = !planned && !!week?.days.length;
-  const action = todayNextAction(p, { planned: !!planned, restDay });
+  const picked = todayNextAction(p, { planned: !!planned, restDay });
+  // Show on Home (build 54): GPS & sensor workouts hidden make the camera the day's action (not on a rest day).
+  const action = !app.ways.gps && picked !== "rest_day" ? "camera_workout" : picked;
   const days = streak?.days ?? stats?.streakDays ?? 0;
   const vv = useMemo(() => weekPoints(sessions, now), [sessions, now]);
   const pending = queue.filter((q) => q.userId === me.id).length;
@@ -76,16 +78,17 @@ export function TodayLean() {
   );
   // Camera & trainings on: the camera workout one tap from Today, under the day's action (not when it is the action,
   // not on a rest day). Plain navigation, not a suggestion: Quiet keeps it (build 54).
-  const cameraLink = p.features.camera ? (
-    <button
-      type="button"
-      className="mt-1 block min-h-11 text-sm font-semibold text-volt-fg"
-      onClick={() => go({ name: "camera" })}
-      disabled={busy}
-    >
-      {t.camera.todayButton}
-    </button>
-  ) : null;
+  const cameraLink =
+    app.ways.camera && app.ways.gps ? (
+      <button
+        type="button"
+        className="mt-1 block min-h-11 text-sm font-semibold text-volt-fg"
+        onClick={() => go({ name: "camera" })}
+        disabled={busy}
+      >
+        {t.camera.todayButton}
+      </button>
+    ) : null;
 
   let next: ReactNode;
   if (wk.w && !wk.summary)
@@ -189,6 +192,28 @@ export function TodayLean() {
           />
         )}
       </Card>
+
+      {/* Show on Home (build 54): one tap each, never both hidden; only while the camera feature is on. */}
+      {p.features.camera && (
+        <div className="flex flex-wrap items-center gap-2" role="group" aria-label={x.showOnHome}>
+          <span className="text-sm text-muted">{x.showOnHome}</span>
+          {(["gps", "camera"] as const).map((w) => {
+            const on = app.ways[w];
+            return (
+              <button
+                key={w}
+                type="button"
+                aria-pressed={on}
+                disabled={on && !app.canHideWay(w)}
+                onClick={() => app.setWay(w, !on)}
+                className={`min-h-9 rounded-full border px-3 text-sm font-semibold disabled:opacity-60 ${on ? "border-volt-fg text-volt-fg" : "border-line text-muted"}`}
+              >
+                {w === "gps" ? x.waysGps : x.waysCamera}
+              </button>
+            );
+          })}
+        </div>
+      )}
 
       {/* 2. This week: three numbers. */}
       <button type="button" className="block w-full text-left" onClick={() => go({ name: "points" })}>

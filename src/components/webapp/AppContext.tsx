@@ -35,6 +35,7 @@ import { suggestAllowed, suggestLevelOf, type SuggestionKind, type SuggestLevel,
 import { nextSuggestPrefs, parseSuggestPrefs, suggestKey } from "@/lib/webapp/suggest/prefs";
 import { recordStep, type StepEvent, type StepLedger } from "@/lib/webapp/suggest/nextStep";
 import { packOn, type TailorFeature } from "@/lib/webapp/tailor/tailor";
+import { canHideWay, cleanStartWays, homeWays, setStartWay, type StartWay, type StartWaysPrefs } from "@/lib/webapp/startWays";
 import type { CoachWhere } from "@/lib/webapp/api";
 import {
   accountBehind,
@@ -266,6 +267,13 @@ export interface AppState {
   suggestLevel: SuggestLevel;
   setSuggestLevel: (l: SuggestLevel) => void;
   suggests: (kind: SuggestionKind, ctx?: { inWorkout?: boolean }) => boolean;
+  /**
+   * Show on Home (build 54, startWays.ts): GPS & sensor and camera workouts on Today, this browser's choice synced
+   * with the account's `prefs.startWays` (newest wins). Never both hidden; `setWay` refuses to hide the last one.
+   */
+  ways: { gps: boolean; camera: boolean };
+  canHideWay: (w: StartWay) => boolean;
+  setWay: (w: StartWay, show: boolean) => boolean;
   /**
    * Next steps (ADR-0062 §4.3): the athlete's step ledger (this browser's, merged with the account's `prefs.steps`,
    * newest per step), `recordSteps` adds events (shown, accepted, dismissed, ignored; tours as `tour:<activity>`) and
@@ -615,6 +623,51 @@ export function AppProvider({
   }, [accountStepsRaw, adoptSteps, pushSteps]);
   const steps = useMemo(() => stepsPref?.ledger ?? {}, [stepsPref]);
   const featureOn = useCallback((f: TailorFeature) => packOn(profile, f), [profile]);
+
+  // ── Show on Home (build 54): prefs.startWays, ours per account, the account's adopted when newer ──
+  const [waysPref, setWaysPref] = useState<StartWaysPrefs | null>(() => readStored(`vvake-app-startways:${me.id}`, cleanStartWays));
+  const waysRef = useRef(waysPref);
+  const waysSentAt = useRef<string | null>(null);
+  const adoptWays = useCallback(
+    (p: StartWaysPrefs) => {
+      waysRef.current = p;
+      setWaysPref(p);
+      writeStored(`vvake-app-startways:${me.id}`, p);
+    },
+    [me.id],
+  );
+  const cameraFeature = featureOn("camera");
+  const setWay = useCallback(
+    (w: StartWay, show: boolean) => {
+      const p = setStartWay(waysRef.current, w, show, cameraFeature);
+      if (!p) return false;
+      adoptWays(p);
+      waysSentAt.current = p.at;
+      void api
+        .patchMe({ prefs: { startWays: p } })
+        .then(setMe)
+        .catch(() => undefined); // offline: ours is newer, sent on the next load
+      return true;
+    },
+    [adoptWays, api, cameraFeature],
+  );
+  const accountWaysRaw = me.prefs?.startWays;
+  useEffect(() => {
+    const r = reconcile(waysRef.current, cleanStartWays(accountWaysRaw));
+    const id = window.setTimeout(() => {
+      if (r.adopt) adoptWays(r.adopt);
+    }, 0);
+    if (r.push && r.push.at !== waysSentAt.current) {
+      waysSentAt.current = r.push.at;
+      void api
+        .patchMe({ prefs: { startWays: r.push } })
+        .then(setMe)
+        .catch(() => undefined);
+    }
+    return () => window.clearTimeout(id);
+  }, [accountWaysRaw, adoptWays, api]);
+  const ways = useMemo(() => homeWays(waysPref, cameraFeature), [waysPref, cameraFeature]);
+  const canHideWayNow = useCallback((w: StartWay) => canHideWay(w, waysPref, cameraFeature), [waysPref, cameraFeature]);
   const [lastMoment, setLastMoment] = useState<CoachWhere["last"] | null>(null);
 
   const tz = useMemo(() => localTz(), []);
@@ -793,6 +846,9 @@ export function AppProvider({
     suggestLevel,
     setSuggestLevel,
     suggests,
+    ways,
+    canHideWay: canHideWayNow,
+    setWay,
     steps,
     recordSteps,
     replayTours,

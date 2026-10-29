@@ -384,6 +384,7 @@ export function YouScreen({ focus }: { focus?: Section } = {}) {
         {statsCard}
         <div id={sectionId("points")}>{pointsCard}</div>
         {history}
+        <WaysToTrain />
         <List>
           <Row
             tone="volt"
@@ -491,5 +492,41 @@ function SectionTitle({ id, children }: { id: string; children: ReactNode }) {
     <div id={id} className="pt-2">
       <H2>{children}</H2>
     </div>
+  );
+}
+
+/** Ways to train (build 54): GPS & sensor and camera workouts on Today, never both hidden (the tailored You). */
+function WaysToTrain() {
+  const { lang, ways, canHideWay, setWay, featureOn } = useApp();
+  const x = getTailorDict(lang).today;
+  if (!featureOn("camera")) return null;
+  const row = (w: "gps" | "camera", title: string, detail?: string) => {
+    const on = ways[w];
+    return (
+      <label className="flex min-h-14 items-center gap-3 px-4 py-2">
+        <span className="flex-1">
+          <span className="block font-display font-semibold">{title}</span>
+          {detail && <span className="block text-sm text-muted">{detail}</span>}
+        </span>
+        <input
+          type="checkbox"
+          role="switch"
+          className="h-5 w-5"
+          checked={on}
+          disabled={on && !canHideWay(w)}
+          onChange={(e) => setWay(w, e.target.checked)}
+        />
+      </label>
+    );
+  };
+  return (
+    <section aria-label={x.waysTitle} className="space-y-2">
+      <Kicker>{x.waysTitle}</Kicker>
+      <List>
+        {row("gps", x.waysGpsRow, x.waysGpsDetail)}
+        {row("camera", x.waysCameraRow)}
+      </List>
+      <Small>{x.waysHint}</Small>
+    </section>
   );
 }
