@@ -19,6 +19,40 @@ export interface Release {
 
 export const releases: Release[] = [
   {
+    version: "1.0.0 (55)",
+    date: "2026-10-29",
+    channel: "beta",
+    devices: ["iphone", "watch", "android", "wear"],
+    notes: {
+      en: {
+        added: [
+          'Your coach can now really start things for you. Ask it (or say yes to its offer) and a card appears in the chat, for example "Start Run · 30 min · easy · Start / Not now". One tap and it starts: on your watch when one is linked, otherwise on the phone.',
+          "The same card works for a camera workout, your daily move, logging a habit, a reminder at a time you choose, adding a session to your calendar, and pausing your streak when you're sick.",
+          'On a coach call, saying "yes" while the card is on screen starts it too.',
+          "On the watch, the coach's Start card starts the workout (or your daily move) right on your wrist; anything else opens on your phone, where you confirm it.",
+          "In the web app, the coach's cards start a GPS or camera workout, add a session to your calendar, pause your streak or log water, a meal or bedtime.",
+        ],
+        fixed: [
+          'The coach no longer says it started a workout (or set a reminder) when nothing happened. It offers, you tap, and only then the app says "Run started" or why it couldn\'t.',
+          "Nothing new starts while a workout is running.",
+        ],
+      },
+      fr: {
+        added: [
+          "Ton coach peut maintenant vraiment lancer les choses pour toi. Demande-lui (ou réponds oui à sa proposition) et une carte s'affiche dans la discussion, par exemple « Démarrer : Course · 30 min · facile · Démarrer / Pas maintenant ». Un toucher et c'est lancé : sur ta montre si elle est reliée, sinon sur le téléphone.",
+          "La même carte marche pour une séance caméra, ton mouvement du jour, noter une habitude, un rappel à l'heure de ton choix, ajouter une séance à ton agenda, et mettre ta série en pause quand tu es malade.",
+          "Pendant un appel du coach, dire « oui » quand la carte est à l'écran la lance aussi.",
+          "Sur la montre, la carte Démarrer du coach lance la séance (ou ton mouvement du jour) directement au poignet ; le reste s'ouvre sur ton téléphone, où tu confirmes.",
+          "Dans l'app web, les cartes du coach lancent une séance GPS ou caméra, ajoutent une séance à ton agenda, mettent ta série en pause ou notent l'eau, un repas ou le coucher.",
+        ],
+        fixed: [
+          "Le coach ne dit plus qu'il a lancé une séance (ou réglé un rappel) quand rien ne s'est passé. Il propose, tu touches, et seulement ensuite l'app dit « Course : c'est lancé » ou pourquoi ça n'a pas marché.",
+          "Rien de nouveau ne démarre pendant une séance en cours.",
+        ],
+      },
+    },
+  },
+  {
     version: "1.0.0 (54)",
     date: "2026-10-29",
     channel: "beta",
