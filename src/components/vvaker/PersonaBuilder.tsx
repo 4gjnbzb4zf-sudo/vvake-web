@@ -25,6 +25,7 @@ import {
 import { personaSrc } from "@/lib/personas";
 import { savePersona, saveRenders, usePersona, useRenders } from "@/lib/prefs";
 import { useSportLabel } from "@/lib/sportNames";
+import { VVAKER_NAME_MAX, vvakerIssueText, vvakerRequestIssues } from "@/lib/vvakerCheck";
 import { VVAKER_SPORTS } from "./traits";
 import { VVaker } from "./VVaker";
 import { VVakerOwnership } from "./VVakerOwnership";
@@ -166,14 +167,29 @@ export function PersonaBuilder({
   }, [bankIndex]);
   const browse = (step: number) => showCast(VVAKER_SPORTS[(bankIndex + step + VVAKER_SPORTS.length) % VVAKER_SPORTS.length]);
 
+  // The fields (lib/vvakerCheck, the apps' and the API's rules): Generate with a field to fix never renders (a paid
+  // image); it scrolls to the field, focuses it, outlines it and says why under it, until it's fixed.
+  const nameInput = useRef<HTMLInputElement>(null);
+  const [checked, setChecked] = useState(false);
+  const issue = checked ? vvakerRequestIssues({ name: persona.name, code }) : null;
+  const nameIssue = issue?.field === "name" ? vvakerIssueText(issue, lang) : null;
+
   const renderMine = async () => {
+    setChecked(true);
+    const found = vvakerRequestIssues({ name: persona.name, code });
+    if (found) {
+      const input = nameInput.current;
+      input?.scrollIntoView({ behavior: "smooth", block: "center" });
+      input?.focus({ preventScroll: true });
+      return;
+    }
     setRendering(true);
     setRenderError(false);
     try {
       const r = await fetch(`${RENDER_SERVER}/render`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ prompt, code }),
+        body: JSON.stringify({ prompt, code, name: persona.name.trim() }),
       });
       const json = (await r.json()) as { url?: string };
       if (!r.ok || !json.url) throw new Error("render failed");
@@ -312,12 +328,23 @@ export function PersonaBuilder({
         <label className="mt-4 block">
           <span className="text-sm font-semibold">{dict.name}</span>
           <input
+            ref={nameInput}
             value={persona.name}
-            maxLength={24}
+            maxLength={VVAKER_NAME_MAX}
             placeholder={dict.namePlaceholder}
             onChange={(e) => update({ name: e.target.value })}
-            className="mt-2 h-10 w-full rounded-xl border border-line bg-night px-3 text-sm outline-none focus:border-volt-fg"
+            aria-invalid={nameIssue ? true : undefined}
+            aria-describedby={nameIssue ? "vvaker-name-issue" : undefined}
+            className={cn(
+              "mt-2 h-10 w-full rounded-xl border bg-night px-3 text-sm outline-none",
+              nameIssue ? "border-2 border-down-fg" : "border-line focus:border-volt-fg",
+            )}
           />
+          {nameIssue && (
+            <span id="vvaker-name-issue" role="alert" className="mt-1.5 block text-sm font-semibold text-down-fg">
+              {nameIssue}
+            </span>
+          )}
         </label>
 
         <div role="tablist" aria-label={dict.title} className="mt-5 flex flex-wrap rounded-xl border border-line bg-night p-1">
