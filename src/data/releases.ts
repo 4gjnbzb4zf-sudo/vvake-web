@@ -19,6 +19,36 @@ export interface Release {
 
 export const releases: Release[] = [
   {
+    version: "1.0.0 (57)",
+    date: "2026-10-29",
+    channel: "beta",
+    devices: ["iphone", "android"],
+    notes: {
+      en: {
+        fixed: [
+          'After an update, VVake asks for Motion & Fitness (Physical activity on Android) once when you open it, if your phone records walks or runs and it was never asked. When a run from the last 7 days is waiting for its steps, it says so: "Allow steps to add the step points your run on Oct 29, 2026 missed."',
+          'Allowing Motion & Fitness adds the missed step points right away ("+N step points from your steps"), even right after the system prompt.',
+          "Picking a walk, run or hike asks for step counting first, even with an Apple Watch paired, so a run your phone records (Phone only, or the watch out of reach) never misses its steps.",
+          "Points added are announced once your workout is over, never during it.",
+        ],
+        improved: [
+          "You › Connections › Steps: once allowed, Check my recent runs reads the last 7 days again and says why when there is nothing to add.",
+        ],
+      },
+      fr: {
+        fixed: [
+          "Après une mise à jour, VVake demande Mouvements et forme (Activité physique sur Android) une fois à l'ouverture, si votre téléphone enregistre des marches ou des courses et que la question n'a jamais été posée. Quand une course des 7 derniers jours attend ses pas, il le dit : « Autorise les pas pour ajouter les points de pas qui ont manqué à ta course du 29 oct. 2026. »",
+          "Autoriser Mouvements et forme ajoute tout de suite les points de pas manqués (« +N points de pas grâce à tes pas »), même juste après la fenêtre du système.",
+          "Choisir une marche, une course ou une rando demande d'abord le comptage des pas, même avec une Apple Watch jumelée : une course enregistrée par votre téléphone (Téléphone seul, ou montre hors de portée) ne manque jamais ses pas.",
+          "Les points ajoutés sont annoncés une fois la séance finie, jamais pendant.",
+        ],
+        improved: [
+          "Vous › Connexions › Pas : une fois autorisé, Vérifier mes dernières sorties relit les 7 derniers jours et dit pourquoi quand il n'y a rien à ajouter.",
+        ],
+      },
+    },
+  },
+  {
     version: "1.0.0 (56)",
     date: "2026-10-29",
     channel: "beta",
