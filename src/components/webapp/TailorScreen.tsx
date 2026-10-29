@@ -7,10 +7,12 @@ import { getTailorDict } from "@/i18n/tailor";
 import {
   cleanAnswers,
   defaultAnswers,
+  makeMainSport,
   previewChanges,
   suggestedAnswer,
   tailorFromAnswers,
   tailorText,
+  tapSport,
   visibleSteps,
   TAILOR_FEATURE_NAMES,
   TAILOR_FEATURES,
@@ -364,10 +366,15 @@ function Chips({
   options,
   selected,
   onTap,
+  main,
+  mainLabel,
 }: {
   options: { value: string; label: string }[];
   selected: string[];
   onTap: (v: string) => void;
+  /** The chip marked as the main one (the sports' first tap), with its badge's word. */
+  main?: string | null;
+  mainLabel?: string;
 }) {
   return (
     <div className="flex flex-wrap gap-2">
@@ -378,11 +385,14 @@ function Chips({
           aria-pressed={selected.includes(o.value)}
           onClick={() => onTap(o.value)}
           className={cn(
-            "min-h-11 rounded-full border px-4 text-sm font-semibold",
+            "inline-flex min-h-11 items-center gap-2 rounded-full border px-4 text-sm font-semibold",
             selected.includes(o.value) ? "border-volt bg-volt text-ink" : "border-line bg-surface-2 text-muted hover:text-text",
           )}
         >
           {o.label}
+          {main === o.value && mainLabel && (
+            <span className="rounded-full border border-ink/40 px-2 py-0.5 text-[11px] leading-none text-ink">{mainLabel}</span>
+          )}
         </button>
       ))}
     </div>
@@ -412,11 +422,10 @@ function SportsQuestion({
   const shown = query.trim()
     ? catalog.sports.filter((s) => fold(s.name[L]).includes(fold(query.trim()))).map((s) => s.key)
     : [...new Set([...answers.sports, ...recent, ...catalog.sports.map((s) => s.key)])].slice(0, Math.max(6, answers.sports.length));
-  const tap = (k: string) => {
-    const has = answers.sports.includes(k);
-    const next = has ? answers.sports.filter((s) => s !== k) : max === 1 ? [k] : [...answers.sports, k].slice(0, max);
-    set("sports", { sports: next });
-  };
+  // Tap order is the order (build 56): the first sport tapped is the main one, marked Main; never re-sorted.
+  const tap = (k: string) => set("sports", { sports: tapSport(answers.sports, k, { max }) });
+  const several = answers.sports.length > 1;
+  const others = several ? answers.sports.slice(1) : [];
   return (
     <div>
       {title}
@@ -439,11 +448,32 @@ function SportsQuestion({
       />
       <div className="mt-3">
         {shown.length ? (
-          <Chips options={shown.slice(0, 24).map((k) => ({ value: k, label: name(k) }))} selected={answers.sports} onTap={tap} />
+          <Chips
+            options={shown.slice(0, 24).map((k) => ({ value: k, label: name(k) }))}
+            selected={answers.sports}
+            onTap={tap}
+            main={several ? answers.sports[0] : null}
+            mainLabel={x.sportMain}
+          />
         ) : (
           <Small>{x.noSport}</Small>
         )}
       </div>
+      {others.length > 0 && (
+        <div className="mt-3 flex flex-wrap items-center gap-2">
+          <Small>{x.makeMain}</Small>
+          {others.map((k) => (
+            <button
+              key={k}
+              type="button"
+              onClick={() => set("sports", { sports: makeMainSport(answers.sports, k) })}
+              className="min-h-9 rounded-full border border-line px-3 text-xs font-semibold text-muted hover:text-text"
+            >
+              {name(k)}
+            </button>
+          ))}
+        </div>
+      )}
     </div>
   );
 }
