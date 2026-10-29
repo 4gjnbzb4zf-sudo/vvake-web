@@ -12,6 +12,10 @@ import { CoachVoicePicker } from "./CoachVoicePicker";
 import { coachVoiceGender, type CoachVoiceGender } from "@/lib/coachVoices";
 import { GoalForm } from "./GoalsScreen";
 import { Btn, Field, inputCls, Kicker, Segmented, Small } from "./ui";
+import { CustomValueDialog, type CustomNumber } from "./CustomValueDialog";
+import { MINUTES_BOUNDS } from "@/lib/webapp/survey/customValue";
+
+const MINUTE_CHOICES = [15, 20, 30, 45, 60, 90];
 
 /**
  * The phone's first run (apps/mobile app/onboarding.tsx), as far as the API goes: your name and city, your VVaker
@@ -39,6 +43,7 @@ export function Onboarding({ onDone }: { onDone: () => void }) {
   const [sports, setSports] = useState<string[]>(["run"]);
   const [days, setDays] = useState(3);
   const [minutes, setMinutes] = useState(30);
+  const [minutesPick, setMinutesPick] = useState<CustomNumber | null>(null);
   const [aim, setAim] = useState<SurveyPut["aim"]>("health");
   const [level, setLevel] = useState<SurveyPut["sports"][number]["experience"]>("regular");
   const [pain, setPain] = useState(false);
@@ -193,9 +198,33 @@ export function Onboarding({ onDone }: { onDone: () => void }) {
           <Field label={o.moves.minutes}>
             <Segmented
               label={o.moves.minutes}
-              value={String(minutes)}
-              options={[15, 20, 30, 45, 60, 90].map((n) => ({ value: String(n), label: String(n) }))}
-              onChange={(v) => setMinutes(Number(v))}
+              value={MINUTE_CHOICES.includes(minutes) ? String(minutes) : "custom"}
+              options={[
+                ...MINUTE_CHOICES.map((n) => ({ value: String(n), label: String(n) })),
+                // "Custom…" (build 54): any minutes inside the survey's bounds; the picked value shows here.
+                { value: "custom", label: MINUTE_CHOICES.includes(minutes) ? t.common.custom : String(minutes) },
+              ]}
+              onChange={(v) =>
+                v === "custom"
+                  ? setMinutesPick({
+                      title: o.moves.minutes,
+                      value: minutes,
+                      min: MINUTES_BOUNDS.min,
+                      max: MINUTES_BOUNDS.max,
+                      step: 1,
+                      bigStep: 5,
+                      unit: "min",
+                    })
+                  : setMinutes(Number(v))
+              }
+            />
+            <CustomValueDialog
+              pick={minutesPick}
+              onClose={() => setMinutesPick(null)}
+              onDone={(v) => {
+                setMinutes(v);
+                setMinutesPick(null);
+              }}
             />
           </Field>
           <Field label={o.moves.aim}>

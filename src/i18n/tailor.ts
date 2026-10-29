@@ -65,6 +65,7 @@ const en = {
       ironman: "Ironman",
       other: "Other",
     },
+    customDistance: "Custom distance…",
     tabs: "Tabs",
   },
   account: {
@@ -139,6 +140,7 @@ const fr: TailorDict = {
       ironman: "Ironman",
       other: "Autre",
     },
+    customDistance: "Autre distance…",
     tabs: "Onglets",
   },
   account: {
