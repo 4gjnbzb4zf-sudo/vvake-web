@@ -754,6 +754,8 @@
      "hardCap": 6,
      "kinds": [
       "challenge_result",
+      "meetup_invite",
+      "meetup_reminder",
       "account",
       "device_link",
       "coach_call_update",
@@ -864,6 +866,8 @@
      "hardCap": 6,
      "kinds": [
       "challenge_result",
+      "meetup_invite",
+      "meetup_reminder",
       "account",
       "device_link",
       "coach_call_update",
@@ -1120,6 +1124,8 @@
       "clash",
       "crew_quest",
       "training_challenge",
+      "meetup_invite",
+      "meetup_reminder",
       "referral",
       "account",
       "device_link",
@@ -1803,6 +1809,8 @@
       "habit_reminder",
       "daily_move",
       "challenge_result",
+      "meetup_invite",
+      "meetup_reminder",
       "account",
       "device_link",
       "coach_call_update",
@@ -2032,6 +2040,8 @@
       "crew_quest",
       "training_challenge",
       "moment",
+      "meetup_invite",
+      "meetup_reminder",
       "referral",
       "account",
       "device_link",
@@ -2167,6 +2177,126 @@
      "run",
      "ride",
      "swim"
+    ],
+    "device": "phone",
+    "ghosts": true,
+    "habits": {
+     "rhythm": false,
+     "moveReminders": true,
+     "deskOffer": false
+    },
+    "event": null,
+    "permissions": [
+     "location",
+     "health"
+    ]
+   }
+  },
+  {
+   "name": "sports-tap-order",
+   "answers": {
+    "goals": [
+     "move"
+    ],
+    "sportMode": "few",
+    "sports": [
+     "yoga",
+     "swim",
+     "run"
+    ],
+    "where": [
+     "outside"
+    ],
+    "event": "later",
+    "challenge": "self",
+    "coaching": "cues",
+    "voice": "woman",
+    "style": "motivating",
+    "habits": "move",
+    "music": "own",
+    "notifications": "few"
+   },
+   "steps": [
+    "goals",
+    "sports",
+    "where",
+    "event",
+    "challenge",
+    "coaching",
+    "voice",
+    "habits",
+    "music",
+    "notifications",
+    "summary"
+   ],
+   "profile": {
+    "v": 1,
+    "preset": "multisport_pro",
+    "features": {
+     "plan": true,
+     "coach": true,
+     "habits": true,
+     "music": false,
+     "outdoor": true,
+     "camera": false,
+     "social": false,
+     "rewards": false,
+     "desk": false
+    },
+    "rewardsVisible": false,
+    "tabs": [
+     "today",
+     "plan",
+     "coach",
+     "you"
+    ],
+    "watchPages": [
+     "today",
+     "coach",
+     "you"
+    ],
+    "watchDock": [
+     "race",
+     "move",
+     "coach"
+    ],
+    "nextAction": "planned_session",
+    "coach": {
+     "on": true,
+     "chattiness": "normal",
+     "workoutVoice": "essential",
+     "calls": false,
+     "live": false,
+     "checkIns": false,
+     "voiceGender": "woman",
+     "style": "motivating"
+    },
+    "notifications": {
+     "level": "few",
+     "budget": 3,
+     "hardCap": 6,
+     "kinds": [
+      "coach_call",
+      "plan_session",
+      "habit_reminder",
+      "daily_move",
+      "account",
+      "device_link",
+      "coach_call_update",
+      "asked_reminder"
+     ],
+     "quiet": [
+      1290,
+      420
+     ],
+     "digestAt": 1170
+    },
+    "music": "own",
+    "sportMode": "few",
+    "sports": [
+     "yoga",
+     "swim",
+     "run"
     ],
     "device": "phone",
     "ghosts": true,
@@ -2831,6 +2961,8 @@
       "habit_reminder",
       "daily_move",
       "challenge_result",
+      "meetup_invite",
+      "meetup_reminder",
       "account",
       "device_link",
       "coach_call_update",
@@ -4166,6 +4298,206 @@
   },
   {
    "profile": "defaults",
+   "kind": "meetup_invite",
+   "sentToday": 0,
+   "decision": "drop"
+  },
+  {
+   "profile": "defaults",
+   "kind": "meetup_invite",
+   "sentToday": 0,
+   "localMinute": 720,
+   "decision": "drop"
+  },
+  {
+   "profile": "defaults",
+   "kind": "meetup_invite",
+   "sentToday": 0,
+   "localMinute": 1320,
+   "decision": "drop"
+  },
+  {
+   "profile": "defaults",
+   "kind": "meetup_invite",
+   "sentToday": 2,
+   "decision": "drop"
+  },
+  {
+   "profile": "defaults",
+   "kind": "meetup_invite",
+   "sentToday": 2,
+   "localMinute": 720,
+   "decision": "drop"
+  },
+  {
+   "profile": "defaults",
+   "kind": "meetup_invite",
+   "sentToday": 2,
+   "localMinute": 1320,
+   "decision": "drop"
+  },
+  {
+   "profile": "defaults",
+   "kind": "meetup_invite",
+   "sentToday": 3,
+   "decision": "drop"
+  },
+  {
+   "profile": "defaults",
+   "kind": "meetup_invite",
+   "sentToday": 3,
+   "localMinute": 720,
+   "decision": "drop"
+  },
+  {
+   "profile": "defaults",
+   "kind": "meetup_invite",
+   "sentToday": 3,
+   "localMinute": 1320,
+   "decision": "drop"
+  },
+  {
+   "profile": "defaults",
+   "kind": "meetup_invite",
+   "sentToday": 5,
+   "decision": "drop"
+  },
+  {
+   "profile": "defaults",
+   "kind": "meetup_invite",
+   "sentToday": 5,
+   "localMinute": 720,
+   "decision": "drop"
+  },
+  {
+   "profile": "defaults",
+   "kind": "meetup_invite",
+   "sentToday": 5,
+   "localMinute": 1320,
+   "decision": "drop"
+  },
+  {
+   "profile": "defaults",
+   "kind": "meetup_invite",
+   "sentToday": 6,
+   "decision": "drop"
+  },
+  {
+   "profile": "defaults",
+   "kind": "meetup_invite",
+   "sentToday": 6,
+   "localMinute": 720,
+   "decision": "drop"
+  },
+  {
+   "profile": "defaults",
+   "kind": "meetup_invite",
+   "sentToday": 6,
+   "localMinute": 1320,
+   "decision": "drop"
+  },
+  {
+   "profile": "defaults",
+   "kind": "meetup_reminder",
+   "sentToday": 0,
+   "decision": "drop"
+  },
+  {
+   "profile": "defaults",
+   "kind": "meetup_reminder",
+   "sentToday": 0,
+   "localMinute": 720,
+   "decision": "drop"
+  },
+  {
+   "profile": "defaults",
+   "kind": "meetup_reminder",
+   "sentToday": 0,
+   "localMinute": 1320,
+   "decision": "drop"
+  },
+  {
+   "profile": "defaults",
+   "kind": "meetup_reminder",
+   "sentToday": 2,
+   "decision": "drop"
+  },
+  {
+   "profile": "defaults",
+   "kind": "meetup_reminder",
+   "sentToday": 2,
+   "localMinute": 720,
+   "decision": "drop"
+  },
+  {
+   "profile": "defaults",
+   "kind": "meetup_reminder",
+   "sentToday": 2,
+   "localMinute": 1320,
+   "decision": "drop"
+  },
+  {
+   "profile": "defaults",
+   "kind": "meetup_reminder",
+   "sentToday": 3,
+   "decision": "drop"
+  },
+  {
+   "profile": "defaults",
+   "kind": "meetup_reminder",
+   "sentToday": 3,
+   "localMinute": 720,
+   "decision": "drop"
+  },
+  {
+   "profile": "defaults",
+   "kind": "meetup_reminder",
+   "sentToday": 3,
+   "localMinute": 1320,
+   "decision": "drop"
+  },
+  {
+   "profile": "defaults",
+   "kind": "meetup_reminder",
+   "sentToday": 5,
+   "decision": "drop"
+  },
+  {
+   "profile": "defaults",
+   "kind": "meetup_reminder",
+   "sentToday": 5,
+   "localMinute": 720,
+   "decision": "drop"
+  },
+  {
+   "profile": "defaults",
+   "kind": "meetup_reminder",
+   "sentToday": 5,
+   "localMinute": 1320,
+   "decision": "drop"
+  },
+  {
+   "profile": "defaults",
+   "kind": "meetup_reminder",
+   "sentToday": 6,
+   "decision": "drop"
+  },
+  {
+   "profile": "defaults",
+   "kind": "meetup_reminder",
+   "sentToday": 6,
+   "localMinute": 720,
+   "decision": "drop"
+  },
+  {
+   "profile": "defaults",
+   "kind": "meetup_reminder",
+   "sentToday": 6,
+   "localMinute": 1320,
+   "decision": "drop"
+  },
+  {
+   "profile": "defaults",
    "kind": "pulse",
    "sentToday": 0,
    "decision": "drop"
@@ -6166,6 +6498,206 @@
   },
   {
    "profile": "preset-everything",
+   "kind": "meetup_invite",
+   "sentToday": 0,
+   "decision": "send"
+  },
+  {
+   "profile": "preset-everything",
+   "kind": "meetup_invite",
+   "sentToday": 0,
+   "localMinute": 720,
+   "decision": "send"
+  },
+  {
+   "profile": "preset-everything",
+   "kind": "meetup_invite",
+   "sentToday": 0,
+   "localMinute": 1320,
+   "decision": "digest"
+  },
+  {
+   "profile": "preset-everything",
+   "kind": "meetup_invite",
+   "sentToday": 2,
+   "decision": "send"
+  },
+  {
+   "profile": "preset-everything",
+   "kind": "meetup_invite",
+   "sentToday": 2,
+   "localMinute": 720,
+   "decision": "send"
+  },
+  {
+   "profile": "preset-everything",
+   "kind": "meetup_invite",
+   "sentToday": 2,
+   "localMinute": 1320,
+   "decision": "digest"
+  },
+  {
+   "profile": "preset-everything",
+   "kind": "meetup_invite",
+   "sentToday": 3,
+   "decision": "send"
+  },
+  {
+   "profile": "preset-everything",
+   "kind": "meetup_invite",
+   "sentToday": 3,
+   "localMinute": 720,
+   "decision": "send"
+  },
+  {
+   "profile": "preset-everything",
+   "kind": "meetup_invite",
+   "sentToday": 3,
+   "localMinute": 1320,
+   "decision": "digest"
+  },
+  {
+   "profile": "preset-everything",
+   "kind": "meetup_invite",
+   "sentToday": 5,
+   "decision": "send"
+  },
+  {
+   "profile": "preset-everything",
+   "kind": "meetup_invite",
+   "sentToday": 5,
+   "localMinute": 720,
+   "decision": "send"
+  },
+  {
+   "profile": "preset-everything",
+   "kind": "meetup_invite",
+   "sentToday": 5,
+   "localMinute": 1320,
+   "decision": "digest"
+  },
+  {
+   "profile": "preset-everything",
+   "kind": "meetup_invite",
+   "sentToday": 6,
+   "decision": "digest"
+  },
+  {
+   "profile": "preset-everything",
+   "kind": "meetup_invite",
+   "sentToday": 6,
+   "localMinute": 720,
+   "decision": "digest"
+  },
+  {
+   "profile": "preset-everything",
+   "kind": "meetup_invite",
+   "sentToday": 6,
+   "localMinute": 1320,
+   "decision": "digest"
+  },
+  {
+   "profile": "preset-everything",
+   "kind": "meetup_reminder",
+   "sentToday": 0,
+   "decision": "send"
+  },
+  {
+   "profile": "preset-everything",
+   "kind": "meetup_reminder",
+   "sentToday": 0,
+   "localMinute": 720,
+   "decision": "send"
+  },
+  {
+   "profile": "preset-everything",
+   "kind": "meetup_reminder",
+   "sentToday": 0,
+   "localMinute": 1320,
+   "decision": "drop"
+  },
+  {
+   "profile": "preset-everything",
+   "kind": "meetup_reminder",
+   "sentToday": 2,
+   "decision": "send"
+  },
+  {
+   "profile": "preset-everything",
+   "kind": "meetup_reminder",
+   "sentToday": 2,
+   "localMinute": 720,
+   "decision": "send"
+  },
+  {
+   "profile": "preset-everything",
+   "kind": "meetup_reminder",
+   "sentToday": 2,
+   "localMinute": 1320,
+   "decision": "drop"
+  },
+  {
+   "profile": "preset-everything",
+   "kind": "meetup_reminder",
+   "sentToday": 3,
+   "decision": "send"
+  },
+  {
+   "profile": "preset-everything",
+   "kind": "meetup_reminder",
+   "sentToday": 3,
+   "localMinute": 720,
+   "decision": "send"
+  },
+  {
+   "profile": "preset-everything",
+   "kind": "meetup_reminder",
+   "sentToday": 3,
+   "localMinute": 1320,
+   "decision": "drop"
+  },
+  {
+   "profile": "preset-everything",
+   "kind": "meetup_reminder",
+   "sentToday": 5,
+   "decision": "send"
+  },
+  {
+   "profile": "preset-everything",
+   "kind": "meetup_reminder",
+   "sentToday": 5,
+   "localMinute": 720,
+   "decision": "send"
+  },
+  {
+   "profile": "preset-everything",
+   "kind": "meetup_reminder",
+   "sentToday": 5,
+   "localMinute": 1320,
+   "decision": "drop"
+  },
+  {
+   "profile": "preset-everything",
+   "kind": "meetup_reminder",
+   "sentToday": 6,
+   "decision": "drop"
+  },
+  {
+   "profile": "preset-everything",
+   "kind": "meetup_reminder",
+   "sentToday": 6,
+   "localMinute": 720,
+   "decision": "drop"
+  },
+  {
+   "profile": "preset-everything",
+   "kind": "meetup_reminder",
+   "sentToday": 6,
+   "localMinute": 1320,
+   "decision": "drop"
+  },
+  {
+   "profile": "preset-everything",
    "kind": "pulse",
    "sentToday": 0,
    "decision": "digest"
@@ -8166,6 +8698,206 @@
   },
   {
    "profile": "preset-social_competitor",
+   "kind": "meetup_invite",
+   "sentToday": 0,
+   "decision": "send"
+  },
+  {
+   "profile": "preset-social_competitor",
+   "kind": "meetup_invite",
+   "sentToday": 0,
+   "localMinute": 720,
+   "decision": "send"
+  },
+  {
+   "profile": "preset-social_competitor",
+   "kind": "meetup_invite",
+   "sentToday": 0,
+   "localMinute": 1320,
+   "decision": "digest"
+  },
+  {
+   "profile": "preset-social_competitor",
+   "kind": "meetup_invite",
+   "sentToday": 2,
+   "decision": "send"
+  },
+  {
+   "profile": "preset-social_competitor",
+   "kind": "meetup_invite",
+   "sentToday": 2,
+   "localMinute": 720,
+   "decision": "send"
+  },
+  {
+   "profile": "preset-social_competitor",
+   "kind": "meetup_invite",
+   "sentToday": 2,
+   "localMinute": 1320,
+   "decision": "digest"
+  },
+  {
+   "profile": "preset-social_competitor",
+   "kind": "meetup_invite",
+   "sentToday": 3,
+   "decision": "digest"
+  },
+  {
+   "profile": "preset-social_competitor",
+   "kind": "meetup_invite",
+   "sentToday": 3,
+   "localMinute": 720,
+   "decision": "digest"
+  },
+  {
+   "profile": "preset-social_competitor",
+   "kind": "meetup_invite",
+   "sentToday": 3,
+   "localMinute": 1320,
+   "decision": "digest"
+  },
+  {
+   "profile": "preset-social_competitor",
+   "kind": "meetup_invite",
+   "sentToday": 5,
+   "decision": "digest"
+  },
+  {
+   "profile": "preset-social_competitor",
+   "kind": "meetup_invite",
+   "sentToday": 5,
+   "localMinute": 720,
+   "decision": "digest"
+  },
+  {
+   "profile": "preset-social_competitor",
+   "kind": "meetup_invite",
+   "sentToday": 5,
+   "localMinute": 1320,
+   "decision": "digest"
+  },
+  {
+   "profile": "preset-social_competitor",
+   "kind": "meetup_invite",
+   "sentToday": 6,
+   "decision": "digest"
+  },
+  {
+   "profile": "preset-social_competitor",
+   "kind": "meetup_invite",
+   "sentToday": 6,
+   "localMinute": 720,
+   "decision": "digest"
+  },
+  {
+   "profile": "preset-social_competitor",
+   "kind": "meetup_invite",
+   "sentToday": 6,
+   "localMinute": 1320,
+   "decision": "digest"
+  },
+  {
+   "profile": "preset-social_competitor",
+   "kind": "meetup_reminder",
+   "sentToday": 0,
+   "decision": "send"
+  },
+  {
+   "profile": "preset-social_competitor",
+   "kind": "meetup_reminder",
+   "sentToday": 0,
+   "localMinute": 720,
+   "decision": "send"
+  },
+  {
+   "profile": "preset-social_competitor",
+   "kind": "meetup_reminder",
+   "sentToday": 0,
+   "localMinute": 1320,
+   "decision": "drop"
+  },
+  {
+   "profile": "preset-social_competitor",
+   "kind": "meetup_reminder",
+   "sentToday": 2,
+   "decision": "send"
+  },
+  {
+   "profile": "preset-social_competitor",
+   "kind": "meetup_reminder",
+   "sentToday": 2,
+   "localMinute": 720,
+   "decision": "send"
+  },
+  {
+   "profile": "preset-social_competitor",
+   "kind": "meetup_reminder",
+   "sentToday": 2,
+   "localMinute": 1320,
+   "decision": "drop"
+  },
+  {
+   "profile": "preset-social_competitor",
+   "kind": "meetup_reminder",
+   "sentToday": 3,
+   "decision": "send"
+  },
+  {
+   "profile": "preset-social_competitor",
+   "kind": "meetup_reminder",
+   "sentToday": 3,
+   "localMinute": 720,
+   "decision": "send"
+  },
+  {
+   "profile": "preset-social_competitor",
+   "kind": "meetup_reminder",
+   "sentToday": 3,
+   "localMinute": 1320,
+   "decision": "drop"
+  },
+  {
+   "profile": "preset-social_competitor",
+   "kind": "meetup_reminder",
+   "sentToday": 5,
+   "decision": "send"
+  },
+  {
+   "profile": "preset-social_competitor",
+   "kind": "meetup_reminder",
+   "sentToday": 5,
+   "localMinute": 720,
+   "decision": "send"
+  },
+  {
+   "profile": "preset-social_competitor",
+   "kind": "meetup_reminder",
+   "sentToday": 5,
+   "localMinute": 1320,
+   "decision": "drop"
+  },
+  {
+   "profile": "preset-social_competitor",
+   "kind": "meetup_reminder",
+   "sentToday": 6,
+   "decision": "drop"
+  },
+  {
+   "profile": "preset-social_competitor",
+   "kind": "meetup_reminder",
+   "sentToday": 6,
+   "localMinute": 720,
+   "decision": "drop"
+  },
+  {
+   "profile": "preset-social_competitor",
+   "kind": "meetup_reminder",
+   "sentToday": 6,
+   "localMinute": 1320,
+   "decision": "drop"
+  },
+  {
+   "profile": "preset-social_competitor",
    "kind": "pulse",
    "sentToday": 0,
    "decision": "drop"
@@ -10160,6 +10892,206 @@
   {
    "profile": "compete-spotify",
    "kind": "moment",
+   "sentToday": 6,
+   "localMinute": 1320,
+   "decision": "drop"
+  },
+  {
+   "profile": "compete-spotify",
+   "kind": "meetup_invite",
+   "sentToday": 0,
+   "decision": "send"
+  },
+  {
+   "profile": "compete-spotify",
+   "kind": "meetup_invite",
+   "sentToday": 0,
+   "localMinute": 720,
+   "decision": "send"
+  },
+  {
+   "profile": "compete-spotify",
+   "kind": "meetup_invite",
+   "sentToday": 0,
+   "localMinute": 1320,
+   "decision": "digest"
+  },
+  {
+   "profile": "compete-spotify",
+   "kind": "meetup_invite",
+   "sentToday": 2,
+   "decision": "send"
+  },
+  {
+   "profile": "compete-spotify",
+   "kind": "meetup_invite",
+   "sentToday": 2,
+   "localMinute": 720,
+   "decision": "send"
+  },
+  {
+   "profile": "compete-spotify",
+   "kind": "meetup_invite",
+   "sentToday": 2,
+   "localMinute": 1320,
+   "decision": "digest"
+  },
+  {
+   "profile": "compete-spotify",
+   "kind": "meetup_invite",
+   "sentToday": 3,
+   "decision": "send"
+  },
+  {
+   "profile": "compete-spotify",
+   "kind": "meetup_invite",
+   "sentToday": 3,
+   "localMinute": 720,
+   "decision": "send"
+  },
+  {
+   "profile": "compete-spotify",
+   "kind": "meetup_invite",
+   "sentToday": 3,
+   "localMinute": 1320,
+   "decision": "digest"
+  },
+  {
+   "profile": "compete-spotify",
+   "kind": "meetup_invite",
+   "sentToday": 5,
+   "decision": "send"
+  },
+  {
+   "profile": "compete-spotify",
+   "kind": "meetup_invite",
+   "sentToday": 5,
+   "localMinute": 720,
+   "decision": "send"
+  },
+  {
+   "profile": "compete-spotify",
+   "kind": "meetup_invite",
+   "sentToday": 5,
+   "localMinute": 1320,
+   "decision": "digest"
+  },
+  {
+   "profile": "compete-spotify",
+   "kind": "meetup_invite",
+   "sentToday": 6,
+   "decision": "digest"
+  },
+  {
+   "profile": "compete-spotify",
+   "kind": "meetup_invite",
+   "sentToday": 6,
+   "localMinute": 720,
+   "decision": "digest"
+  },
+  {
+   "profile": "compete-spotify",
+   "kind": "meetup_invite",
+   "sentToday": 6,
+   "localMinute": 1320,
+   "decision": "digest"
+  },
+  {
+   "profile": "compete-spotify",
+   "kind": "meetup_reminder",
+   "sentToday": 0,
+   "decision": "send"
+  },
+  {
+   "profile": "compete-spotify",
+   "kind": "meetup_reminder",
+   "sentToday": 0,
+   "localMinute": 720,
+   "decision": "send"
+  },
+  {
+   "profile": "compete-spotify",
+   "kind": "meetup_reminder",
+   "sentToday": 0,
+   "localMinute": 1320,
+   "decision": "drop"
+  },
+  {
+   "profile": "compete-spotify",
+   "kind": "meetup_reminder",
+   "sentToday": 2,
+   "decision": "send"
+  },
+  {
+   "profile": "compete-spotify",
+   "kind": "meetup_reminder",
+   "sentToday": 2,
+   "localMinute": 720,
+   "decision": "send"
+  },
+  {
+   "profile": "compete-spotify",
+   "kind": "meetup_reminder",
+   "sentToday": 2,
+   "localMinute": 1320,
+   "decision": "drop"
+  },
+  {
+   "profile": "compete-spotify",
+   "kind": "meetup_reminder",
+   "sentToday": 3,
+   "decision": "send"
+  },
+  {
+   "profile": "compete-spotify",
+   "kind": "meetup_reminder",
+   "sentToday": 3,
+   "localMinute": 720,
+   "decision": "send"
+  },
+  {
+   "profile": "compete-spotify",
+   "kind": "meetup_reminder",
+   "sentToday": 3,
+   "localMinute": 1320,
+   "decision": "drop"
+  },
+  {
+   "profile": "compete-spotify",
+   "kind": "meetup_reminder",
+   "sentToday": 5,
+   "decision": "send"
+  },
+  {
+   "profile": "compete-spotify",
+   "kind": "meetup_reminder",
+   "sentToday": 5,
+   "localMinute": 720,
+   "decision": "send"
+  },
+  {
+   "profile": "compete-spotify",
+   "kind": "meetup_reminder",
+   "sentToday": 5,
+   "localMinute": 1320,
+   "decision": "drop"
+  },
+  {
+   "profile": "compete-spotify",
+   "kind": "meetup_reminder",
+   "sentToday": 6,
+   "decision": "drop"
+  },
+  {
+   "profile": "compete-spotify",
+   "kind": "meetup_reminder",
+   "sentToday": 6,
+   "localMinute": 720,
+   "decision": "drop"
+  },
+  {
+   "profile": "compete-spotify",
+   "kind": "meetup_reminder",
    "sentToday": 6,
    "localMinute": 1320,
    "decision": "drop"
@@ -11623,6 +12555,28 @@
    "action": "rest_day"
   },
   {
+   "profile": "sports-tap-order",
+   "day": {
+    "planned": true
+   },
+   "action": "planned_session"
+  },
+  {
+   "profile": "sports-tap-order",
+   "day": {
+    "planned": false
+   },
+   "action": "train_now"
+  },
+  {
+   "profile": "sports-tap-order",
+   "day": {
+    "planned": false,
+    "restDay": true
+   },
+   "action": "rest_day"
+  },
+  {
    "profile": "no-coach",
    "day": {
     "planned": true
@@ -12499,6 +13453,8 @@
       "clash",
       "crew_quest",
       "training_challenge",
+      "meetup_invite",
+      "meetup_reminder",
       "referral",
       "desk_lock",
       "account",
@@ -15070,6 +16026,10 @@
   },
   {
    "profile": "few-sports-no-event",
+   "line": "- VVake profile (\"Tailor my app\"): Multisport. Features on: plan, coach, habits, outdoor. Off: music, camera, social, rewards, desk: never suggest or mention them unless the athlete asks (then say they can turn it on in Settings › Tailor my app). Style: motivating and upbeat."
+  },
+  {
+   "profile": "sports-tap-order",
    "line": "- VVake profile (\"Tailor my app\"): Multisport. Features on: plan, coach, habits, outdoor. Off: music, camera, social, rewards, desk: never suggest or mention them unless the athlete asks (then say they can turn it on in Settings › Tailor my app). Style: motivating and upbeat."
   },
   {

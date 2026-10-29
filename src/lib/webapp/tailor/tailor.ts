@@ -1,4 +1,4 @@
-// Copied from VVFit packages/game-core/src/tailor.ts (c7fb06f9 2026-10-27) by scripts/sync-tailor-core.ts. Do not edit: re-sync.
+// Copied from VVFit packages/game-core/src/tailor.ts (d9c6a8a3 2026-10-29) by scripts/sync-tailor-core.ts. Do not edit: re-sync.
 /**
  * "Your VVake": the lean, tailored app (ADR-0059, docs/02-product/lean-tailored-experience.md, founder survey GO
  * 2026-10-27). Ten one-tap questions give a profile that switches nine features on or off for one athlete, on every
@@ -58,6 +58,29 @@ export const TAILOR_SPORTS_MAX = 8;
 /** An event's type: a sport key or a short label ("10k", "marathon", "ironman"). */
 export const TAILOR_EVENT_TYPE = /^[a-z0-9_-]{1,40}$/;
 const SPORT_KEY = /^[a-z0-9_-]{1,40}$/;
+
+/**
+ * A custom event distance (question 4's "Custom distance…", build 54) as an event type: "15k", "21-1k" (21.1 km),
+ * "12mi", "26-2mi". One decimal at most; 1 to 1000 km or 1 to 620 mi. Passes TAILOR_EVENT_TYPE. Pure.
+ */
+export const EVENT_DISTANCE_BOUNDS = { km: { min: 1, max: 1000 }, mi: { min: 1, max: 620 } } as const;
+export type DistanceUnit = keyof typeof EVENT_DISTANCE_BOUNDS;
+export function eventDistanceSlug(value: number, unit: DistanceUnit): string | undefined {
+  if (!Number.isFinite(value)) return undefined;
+  const b = EVENT_DISTANCE_BOUNDS[unit];
+  const v = Math.round(Math.min(b.max, Math.max(b.min, value)) * 10) / 10;
+  const [whole, dec] = v.toFixed(1).split(".") as [string, string];
+  return `${whole}${dec === "0" ? "" : `-${dec}`}${unit === "km" ? "k" : "mi"}`;
+}
+/** A custom event distance's value and unit ("21-1k" → 21.1 km), or null for any other event type. Pure. */
+export function parseEventDistance(type: string | null | undefined): { value: number; unit: DistanceUnit } | null {
+  const m = typeof type === "string" ? /^(\d{1,4})(?:-(\d))?(k|mi)$/.exec(type) : null;
+  if (!m) return null;
+  const unit: DistanceUnit = m[3] === "k" ? "km" : "mi";
+  const value = Number(m[1]) + (m[2] ? Number(m[2]) / 10 : 0);
+  const b = EVENT_DISTANCE_BOUNDS[unit];
+  return value >= b.min && value <= b.max ? { value, unit } : null;
+}
 const DAY = /^\d{4}-\d{2}-\d{2}$/;
 
 /** The survey's answers, one field per question (7 has two: voice and style; 4 has the event's type and date). */
@@ -236,6 +259,31 @@ const cleanSports = (v: unknown): string[] => {
 };
 
 /**
+ * One tap on a sport chip, in tap order (build 56): the FIRST sport tapped is the main one (the picker's first sport,
+ * Today's quick start, the watches' Start). A new sport goes at the end; a picked one is removed (tapped again later, it
+ * goes at the end again); "Just one" (`one`, or `max` 1) keeps only the tap. Full: the main stays and the oldest other
+ * pick makes room. `preset`: the list is the app's preselection (a default the athlete hasn't touched, e.g. Run), so
+ * the athlete's first tap of another sport goes FIRST, the preset kept after it. Never re-sorted. Pure.
+ */
+export function tapSport(list: readonly string[], key: string, o: { max?: number; one?: boolean; preset?: boolean } = {}): string[] {
+  const max = Math.max(1, o.max ?? TAILOR_SPORTS_MAX);
+  const cur = [...new Set(list)];
+  if (cur.includes(key)) return cur.filter((x) => x !== key);
+  if (o.one || max === 1) return [key];
+  if (o.preset) return [key, ...cur].slice(0, max);
+  if (cur.length < max) return [...cur, key];
+  return [...cur.slice(0, 1), ...cur.slice(2), key].slice(0, max);
+}
+
+/** A picked sport made the main one (held on its chip): first, the others in their order. Not picked: unchanged. Pure. */
+export function makeMainSport(list: readonly string[], key: string): string[] {
+  return list.includes(key) ? [key, ...list.filter((x) => x !== key)] : [...list];
+}
+
+/** The main sport of the answers or a profile: the first picked (tap order, never sorted), or null. Pure. */
+export const mainSportOf = (a: { sports: readonly string[] } | null | undefined): string | null => a?.sports[0] ?? null;
+
+/**
  * Answers made safe: unknown ids dropped, lists capped and de-duplicated, empty required lists back to their default,
  * the event's details kept only with "yes" (a date as YYYY-MM-DD). The server stores only this. Pure.
  */
@@ -336,6 +384,10 @@ export const TAILOR_NOTIFY_KINDS = {
   crew_quest: { feature: "social", level: "more", late: "digest" },
   training_challenge: { feature: "social", level: "more", late: "digest" },
   moment: { feature: "social", level: "all", late: "drop" },
+  /** A friend invites you to a meetup (meetups.ts, invite-only). */
+  meetup_invite: { feature: "social", level: "few", late: "digest" },
+  /** A meetup you joined: 2 h / evening before / 15 min, cancelled or changed. Past the budget like a habit reminder. */
+  meetup_reminder: { feature: "social", level: "few", priority: 3, late: "drop" },
   pulse: { feature: "rewards", level: "all", late: "digest" },
   referral: { feature: null, level: "more", late: "digest" },
   desk_lock: { feature: "desk", level: "few", late: "drop", exempt: true },
