@@ -88,6 +88,8 @@ const en = {
     vvaker: {
       title: "Pick your VVaker",
       lead: "Your animal athlete, on every screen and on the map while you train. Custom VVakers come with {plan} in the app.",
+      backTitle: "Your VVaker is back",
+      backLead: "It came back with your account, picture included. Next keeps it; tap another one only to change.",
     },
     voice: {
       title: "Your coach's voice",
@@ -991,6 +993,8 @@ const fr: WebAppDict = {
     vvaker: {
       title: "Choisis ton VVaker",
       lead: "Ton athlète animal, sur chaque écran et sur la carte pendant ta séance. Les VVakers sur mesure viennent avec {plan} dans l’app.",
+      backTitle: "Ton VVaker est de retour",
+      backLead: "Il est revenu avec ton compte, image comprise. Suivant le garde ; touche-en un autre seulement pour changer.",
     },
     voice: {
       title: "La voix de ton coach",
