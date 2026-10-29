@@ -74,6 +74,18 @@ export function TodayLean() {
       {x.pickAnother}
     </button>
   );
+  // Camera & trainings on: the camera workout one tap from Today, under the day's action (not when it is the action,
+  // not on a rest day). Plain navigation, not a suggestion: Quiet keeps it (build 54).
+  const cameraLink = p.features.camera ? (
+    <button
+      type="button"
+      className="mt-1 block min-h-11 text-sm font-semibold text-volt-fg"
+      onClick={() => go({ name: "camera" })}
+      disabled={busy}
+    >
+      {t.camera.todayButton}
+    </button>
+  ) : null;
 
   let next: ReactNode;
   if (wk.w && !wk.summary)
@@ -100,6 +112,7 @@ export function TodayLean() {
           {`${t.today.trainNow} · ${sportLabel(planned.sport, lang)}`}
         </Btn>
         {pickAnother}
+        {cameraLink}
       </>
     );
   else if (action === "rest_day")
@@ -139,6 +152,7 @@ export function TodayLean() {
           {one ? one.label : t.today.trainNow}
         </Btn>
         {one && pickAnother}
+        {action !== "camera_workout" && cameraLink}
       </>
     );
   }

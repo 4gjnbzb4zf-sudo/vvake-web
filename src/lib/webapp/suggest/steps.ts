@@ -229,6 +229,7 @@ export const COACH_SCREEN_WEB: Readonly<Record<string, Route | null>> = {
   "/my-moves": { name: "trainings" },
   "/skills": null,
   "/own-workout": null,
+  "/camera-workout": { name: "camera" },
   "/move-loads": null,
   "/discover": { name: "trainings" },
   "/teach-move": { name: "teach" },

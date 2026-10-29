@@ -152,6 +152,7 @@ describe("where a step or the coach's button opens", () => {
       "/my-moves",
       "/skills",
       "/own-workout",
+      "/camera-workout",
       "/move-loads",
       "/discover",
       "/teach-move",
@@ -175,6 +176,7 @@ describe("where a step or the coach's button opens", () => {
     expect(webRouteForScreen("/my-moves")).toEqual({ name: "trainings" });
     expect(webRouteForScreen("/health")).toEqual({ name: "season-health" });
     expect(webRouteForScreen("/skills")).toBeNull();
+    expect(webRouteForScreen("/camera-workout")).toEqual({ name: "camera" });
     expect(webRouteForScreen("my-moves")).toBeNull();
     expect(webRouteForScreen("/meetup")).toBeNull();
     expect(webRouteForScreen("toString")).toBeNull();
