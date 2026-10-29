@@ -2614,6 +2614,10 @@ export const fr: Dictionary = {
             t: "Ce que nous écrivons dans l'app Santé.",
             d: "Votre Apple Watch enregistre vos séances comme entraînements dans l'app Santé, avec le tracé pour les séances extérieures. Si vous l'autorisez, les séances extérieures enregistrées avec votre iPhone y sont aussi enregistrées, avec leur tracé.",
           },
+          {
+            t: "La santé pendant les appels en direct et le premier appel.",
+            d: "Si vous le souhaitez, le coach peut consulter un court résumé des données de santé que vous partagez pendant un appel en direct du coach ou pendant le premier appel facultatif (lors de ce premier appel, le coach vous propose d'autoriser l'accès à Apple Santé ou à Health Connect, et l'écran du système ne s'ouvre que lorsque vous touchez le bouton). L'app lit vos données sur votre appareil et n'envoie qu'un résumé approximatif sous forme de fourchettes : à peu près combien de pas par jour, votre fréquence cardiaque au repos, combien vous dormez et combien de séances par semaine (par exemple 7 000 à 8 000 pas par jour, une fréquence cardiaque au repos autour de 55 à 60, environ 7 heures de sommeil). Notre serveur élargit encore ces fourchettes avant que le coach ne les voie. Le coach s'en sert pour définir ou ajuster votre niveau, vos zones et votre semaine, jamais pour poser un diagnostic. Aucune mesure individuelle ne quitte votre téléphone. Le coach ne dit rien de votre santé à voix haute, sauf si vous utilisez des écouteurs et ne lui avez pas demandé de rester discret ; sinon, il l'affiche seulement à l'écran. Il ne s'agit pas d'un avis médical.",
+          },
         ],
         after: [
           "Votre profil de santé sert uniquement à planifier votre entraînement et à renseigner votre coach. Il n'est jamais vendu, jamais utilisé pour la publicité ou le marketing, jamais montré aux autres utilisateurs et n'est jamais une condition pour participer à quoi que ce soit. Les compétitions utilisent un seul chiffre : le score d'effort des séances que vous choisissez de compter. Les autres peuvent voir le résultat d'un défi ou le total de votre ville, jamais votre fréquence cardiaque, vos zones ni aucune donnée de santé.",
@@ -2657,6 +2661,10 @@ export const fr: Dictionary = {
             t: "Noter un lieu et les nouveaux coins.",
             d: "Après une séance, vous pouvez noter le lieu en trois touches : des étoiles, si vous le recommandez, quelques infos d'une liste et, si vous voulez, 80 caractères de texte. Nous gardons votre note avec votre compte et l'identifiant du lieu : un identifiant OpenStreetMap, ou pour un coin qu'OpenStreetMap ne connaît pas, un carré de carte d'environ 150 m. Jamais votre parcours, la séance ni l'heure. Les autres ne voient que des totaux, et seulement à partir de 3 notes : la moyenne, combien le recommandent, combien de fois chaque info a été donnée, et les textes une fois approuvés par un modérateur. Jamais qui les a écrits. Pour savoir si un coin est nouveau, votre téléphone (ou vvake.com/app) envoie une fois un point arrondi à environ 100 m et le sport ; nous l'utilisons pour cette réponse et ne le gardons pas. Vos notes sont supprimées avec votre compte.",
           },
+          {
+            t: "Zones de carte hors ligne (téléphone).",
+            d: "Si vous enregistrez une zone de carte pour une sortie sans réseau, le téléphone télécharge les tuiles de carte de cette zone depuis OpenFreeMap (avec le relief du jeu de données ouvert AWS Terrain Tiles) et les garde uniquement sur votre appareil. Comme pour toute carte affichée, ces services voient quelle zone est demandée, jamais votre compte ; nous ne savons pas quelles zones vous enregistrez. Vous voyez, mettez à jour et supprimez les zones enregistrées dans le stockage des cartes de l'app ; supprimer l'app les supprime aussi. Sur l'Apple Watch, le relief d'une sortie prévue est copié directement de votre iPhone vers la montre.",
+          },
         ],
       },
       {
@@ -2699,6 +2707,7 @@ export const fr: Dictionary = {
           "Le microphone n'est utilisé que lorsque vous parlez à VVake : une commande vocale après avoir touché le micro, ou une question ou une conversation avec le coach tant qu'elle est ouverte (une touche la lance ; l'écoute s'arrête quand vous dites au revoir, l'arrêtez d'une touche, mettez en pause ou terminez la séance, ou quand vos minutes sont épuisées).",
           "Sur le téléphone, vos paroles sont transformées en texte par la reconnaissance vocale du téléphone (celle d'Apple sur iPhone, celle de Google sur Android), sur l'appareil quand il le permet (sinon sur les serveurs d'Apple ou de Google, selon leur politique de confidentialité). Seul le texte nous est envoyé, jamais l'audio.",
           "Sur l'Apple Watch et les montres Wear OS, qui ne peuvent pas le faire elles-mêmes, l'enregistrement de ce que vous dites au coach est envoyé à notre API et à ElevenLabs (transcription de la parole) pour être transformé en texte. Nous ne conservons pas l'enregistrement : seul le texte est transmis au coach.",
+          "Conversations en direct avec votre coach. Pendant une conversation en direct (un échange que vous lancez pendant une séance, un appel du coach auquel vous répondez, ou le premier appel facultatif pour configurer VVake), le micro reste allumé jusqu'à la fin de l'appel, et l'app l'indique. Sur les téléphones qui le permettent, vos paroles sont reconnues sur l'appareil et seul le texte est envoyé. Sur les montres, sur le web et sur les téléphones qui ne le permettent pas, le son passe par notre serveur vers notre prestataire de reconnaissance vocale (ElevenLabs) pendant que vous parlez, pour le transformer en texte ; ni nous ni l'app ne conservons d'enregistrement, et nous demandons au prestataire de ne pas le conserver non plus. Le texte de la conversation est envoyé à notre prestataire d'IA (Anthropic) pour rédiger les réponses du coach, comme pour les échanges écrits avec le coach, et à ElevenLabs pour les dire avec la voix du coach. Nous conservons le texte d'une conversation en direct avec la fiche de l'appel pendant 90 jours, puis nous le supprimons ; nous ne conservons jamais le son. Le premier appel ne conserve aucun texte : seules les réponses que vous confirmez sont enregistrées, comme avec les questions à l'écran. Vous pouvez arrêter un appel à tout moment, ou répondre à l'écran.",
           "Les réponses du coach sont lues par une voix de synthèse créée par ElevenLabs, avec la voix du coach que vous choisissez (une voix de femme ou d'homme), ou par la voix de votre appareil si vous la choisissez. Le coach est une IA, pas une personne, et pas un médecin.",
         ],
         list: [],
@@ -2834,6 +2843,10 @@ export const fr: Dictionary = {
           {
             t: "Transcription de la parole sur les montres (ElevenLabs).",
             d: "Quand vous parlez au coach sur une Apple Watch ou une montre Wear OS, ElevenLabs reçoit l'enregistrement de ce que vous avez dit et renvoie le texte. Nous ne gardons pas l'enregistrement.",
+          },
+          {
+            t: "Conversations en direct (Anthropic, ElevenLabs).",
+            d: "Pendant une conversation en direct avec le coach, Anthropic reçoit le texte de chaque échange, comme pour un échange écrit avec le coach, et ElevenLabs reçoit le son de ce que vous dites quand votre appareil ne peut pas le reconnaître lui-même (montres, web, certains téléphones), puis le texte des réponses du coach pour les dire. Nous demandons à ElevenLabs de ne conserver ni le son ni le texte. Voir Microphone et reconnaissance vocale.",
           },
           {
             t: "La voix du coach (ElevenLabs).",
@@ -2998,8 +3011,12 @@ export const fr: Dictionary = {
             d: "publiques et permanentes une fois publiées et inscrites sur la blockchain (voir Prix $VVAKE et votre portefeuille). Notre copie garde l'adresse, les points et le montant, sans votre compte une fois celui-ci supprimé.",
           },
           {
-            t: "Appels du coach (VVake Coach Plus, si tu les actives) :",
-            d: "le texte, l'audio et l'état de chaque appel pendant 90 jours, puis supprimés ; tout de suite avec ton compte.",
+            t: "Appels du coach (VVake Coach Plus, si vous les activez) :",
+            d: "le texte, l'audio et l'état de chaque appel pendant 90 jours, puis supprimés ; tout de suite avec votre compte.",
+          },
+          {
+            t: "Conversations en direct avec le coach :",
+            d: "la fiche de l'appel (quand, combien de temps, minutes utilisées) et le texte de ce qui a été dit pendant 90 jours, puis supprimés ; jamais de son ; le premier appel ne conserve aucun texte ; tout de suite avec votre compte.",
           },
           {
             t: "Le résumé pour votre prochain appel du coach (plan de la semaine et ce que vous avez fait, sommeil, fréquence cardiaque au repos, VFC) :",

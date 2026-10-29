@@ -2455,6 +2455,10 @@ export const en = {
             t: "What we write to Apple Health.",
             d: "Your Apple Watch saves your sessions as workouts in Apple Health, with the route for outdoor sessions. If you allow it, the outdoor sessions you record with your iPhone are saved there too, with their route.",
           },
+          {
+            t: "Health in live calls and the first call.",
+            d: "If you choose to, the coach can look at a short summary of the Health data you share during a live coach call or the optional first call (on that first call, the coach asks for access to Apple Health or Health Connect, and the system's own screen opens only when you tap). The app reads your data on your device and sends only a rough summary as ranges: about how many steps a day, your resting heart rate, how much you sleep and how many workouts a week (for example 7,000 to 8,000 steps a day, resting heart rate around 55 to 60, about 7 hours of sleep). Our server widens these ranges again before the coach sees them. The coach uses them to set or adjust your level, zones and week, never to make a diagnosis. No individual measurements leave your phone. The coach says nothing about your health aloud unless you are using headphones and have not asked it to stay quiet; otherwise it only shows it on your screen. This is not medical advice.",
+          },
         ],
         after: [
           "Your health profile is used only to plan your training and brief your coach. It is never sold, never used for advertising or marketing, never shown to other users and never a condition for taking part in anything. Competitions use one number: the effort score of the sessions you choose to count. Other people may see a challenge result or your city's total, never your heart rate, zones or any health value.",
@@ -2498,6 +2502,10 @@ export const en = {
             t: "Rating a spot and new spots.",
             d: "After a session you can rate the place in three taps: stars, whether you'd recommend it, a few tips from a list and, if you like, up to 80 characters of text. We keep your rating with your account and the place's identifier: an OpenStreetMap id, or for a spot OpenStreetMap doesn't know, a map square of about 150 m. Never your route, the session or the time of day. Other people only ever see totals, and only once a place has at least 3 ratings: the average, how many recommend it, how often each tip was given, and text tips after a moderator approved them. Never who wrote them. To tell you whether a spot is new, your phone (or vvake.com/app) sends once a point rounded to about 100 m and the sport; we use it for that answer and don't keep it. Ratings are deleted with your account.",
           },
+          {
+            t: "Offline map areas (phone).",
+            d: "If you save a map area for an outing without signal, the phone downloads that area's map tiles from OpenFreeMap (with the relief from the AWS Terrain Tiles open dataset) and keeps them on your device only. Like any map you view, those services see which map area is asked for, never your account; we are not told which areas you save. You see, refresh and delete saved areas in the app's map storage; deleting the app deletes them too. On the Apple Watch, the relief for a planned outing is copied from your iPhone to the watch, directly.",
+          },
         ],
       },
       {
@@ -2540,6 +2548,7 @@ export const en = {
           "The microphone is used only while you speak to VVake: a voice command after you press the mic, or a question or conversation with the coach while it's open (one tap starts it; it stops listening when you say bye, tap End, pause or end the session, or your minutes run out).",
           "On the phone, your speech is turned into text by the phone's own speech recognition (Apple's on iPhone, Google's on Android), on the device when it supports it (otherwise on Apple's or Google's servers, under their privacy policies). Only the text is sent to us, never the audio.",
           "On the Apple Watch and Wear OS watches, which can't do that themselves, the recording of what you say to the coach is sent to our API and to ElevenLabs (speech-to-text) to be turned into text. We don't store the recording: only the text goes on to the coach.",
+          "Live conversations with your coach. During a live conversation (a talk you start during a workout, a coach call you answer, or the optional first call when you set up VVake) the microphone stays on until the call ends, and the app shows it. On phones that can, your words are recognised on your device and only the text is sent. On watches, on the web and on phones that can't, the sound goes through our server to our speech-to-text provider (ElevenLabs) as you speak, to turn it into text; neither we nor the app keep any recording, and we ask the provider not to keep it either. The text of the conversation goes to our AI provider (Anthropic) to write the coach's answers, like coach chats, and to ElevenLabs to say them in the coach's voice. We keep the text of a live conversation with its call record for 90 days, then delete it; we never keep audio. The first call keeps no text: only the answers you confirm are saved, like the questions on screen. You can stop any call at any time, or answer on screen instead.",
           "Coach replies are spoken with a synthetic voice made by ElevenLabs, in the coach voice you choose (a woman's or a man's), or by your device's own voice if you choose it. The coach is an AI, not a person, and not a doctor.",
         ],
         list: [],
@@ -2675,6 +2684,10 @@ export const en = {
           {
             t: "Speech-to-text on the watches (ElevenLabs).",
             d: "When you talk to the coach on an Apple Watch or a Wear OS watch, ElevenLabs receives the recording of what you said and returns the text. We don't keep the recording.",
+          },
+          {
+            t: "Live conversations (Anthropic, ElevenLabs).",
+            d: "In a live conversation with the coach, Anthropic receives the text of each turn, like a coach chat, and ElevenLabs receives the sound of what you say when your device can't recognise it itself (watches, the web, some phones), then the text of the coach's answers to say them. We ask ElevenLabs not to keep the sound or the text. See Microphone and speech.",
           },
           {
             t: "The coach's voice (ElevenLabs).",
@@ -2832,6 +2845,10 @@ export const en = {
           {
             t: "Coach calls (VVake Coach Plus, if you turn them on):",
             d: "each call's script, audio and status for 90 days, then deleted; with your account at once.",
+          },
+          {
+            t: "Live conversations with the coach:",
+            d: "the call record (when, how long, minutes used) and the text of what was said for 90 days, then deleted; never any audio; the first call keeps no text; with your account at once.",
           },
           {
             t: "The summary for your next coach call (this week's plan and what you did, sleep, resting heart rate, HRV):",
