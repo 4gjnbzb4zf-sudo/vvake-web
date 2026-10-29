@@ -33,6 +33,8 @@ export class ApiError extends Error {
     readonly status: number,
     readonly code: string,
     message: string,
+    /** The error body's other fields (a 409's `reason`, e.g. the live call's "off", "used", "cap"). */
+    readonly extra: Record<string, unknown> = {},
   ) {
     super(message);
   }
@@ -270,7 +272,12 @@ async function request<T>(apiUrl: string, path: string, init: RequestInit, schem
   const json: unknown = await res.json().catch(() => null);
   if (!res.ok) {
     const j = (json ?? {}) as { error?: unknown; message?: unknown };
-    throw new ApiError(res.status, typeof j.error === "string" ? j.error : "error", typeof j.message === "string" ? j.message : "");
+    throw new ApiError(
+      res.status,
+      typeof j.error === "string" ? j.error : "error",
+      typeof j.message === "string" ? j.message : "",
+      json && typeof json === "object" ? (json as Record<string, unknown>) : {},
+    );
   }
   if (!schema) return json as T;
   const parsed = schema.safeParse(json);
@@ -438,6 +445,11 @@ export class RewardsSession {
       if (!(e instanceof ApiError) || e.status !== 401 || !(await this.resume())) throw e;
       return request(this.apiUrl, path, init, schema, this.access!);
     }
+  }
+
+  /** The API's base URL (the live call's WebSocket is opened on its host). */
+  get base(): string {
+    return this.apiUrl;
   }
 
   /** Any signed-in call (vvake.com/account, src/lib/accountApi.ts): the same 401 refresh as the rest. */

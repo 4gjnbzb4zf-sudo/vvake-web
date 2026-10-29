@@ -334,6 +334,16 @@ export function webApi(s: RewardsSession) {
           raceDone: opt(z.object({ goalId: z.string(), summary: str })),
         }),
       ),
+    /**
+     * POST /v1/coach/live-call/ticket: a one-use ticket (60 s) for a live call's WebSocket (monorepo
+     * docs/05-tech/live-call.md). A 409 `{ reason }` (off, scripted, used, quiet, day_cap…) means "go on without it".
+     */
+    liveCallTicket: (b: { mode: "workout" | "call" | "onboarding"; lang: string; callId?: string; sessionId?: string }) =>
+      s.call(
+        "/v1/coach/live-call/ticket",
+        send("POST", { ...b, lang: b.lang === "fr" ? "fr" : "en" }),
+        z.object({ ticket: z.string(), url: str, liveCallId: str, allowanceS: num }),
+      ),
     coachTalk: (b: {
       message: string;
       history?: { role: "user" | "coach"; text: string }[];

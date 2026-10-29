@@ -27,6 +27,16 @@ export const TURNSTILE_ORIGIN = "https://challenges.cloudflare.com";
 export const MAP_ORIGIN = "https://tiles.openfreemap.org";
 
 /**
+ * The web app's other connections: the live map's tiles (MAP_ORIGIN) and the live coach call's WebSocket
+ * (src/lib/webapp/live: wss:// on the API's host; CSP 3 lets https: cover wss:, older Safari doesn't, so it is named).
+ * On the web app's pages only.
+ */
+export function webAppConnect(cfg: CspConfig = buildConfig()): string[] {
+  const api = cfg.apiUrl ? origin(cfg.apiUrl) : null;
+  return [MAP_ORIGIN, ...(api ? [api.replace(/^http/, "ws")] : [])];
+}
+
+/**
  * The web app's coach voice (src/lib/webapp/coachAudio.ts): its recorded lines are fetched from the VVake API with the
  * token (connect-src) and played from blob: URLs; the API origin is allowed for audio too. media-src on the web app's
  * pages only; the rest of the site plays no audio (default-src 'self').
