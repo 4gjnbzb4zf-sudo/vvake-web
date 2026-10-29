@@ -1,4 +1,4 @@
-// Copied from VVFit packages/game-core/src/nextStep.ts (bb4afbec 2026-10-28) by scripts/sync-suggest-core.ts. Do not edit: re-sync.
+// Copied from VVFit packages/game-core/src/nextStep.ts (02f6c705 2026-10-28) by scripts/sync-suggest-core.ts. Do not edit: re-sync.
 /**
  * The next-step engine (living app, ADR-0062 §4 and the promotion map §9/§14.1): after something ends, at most one
  * primary and two secondary actions chosen for this athlete, never during a workout, gated by the Your VVake features
@@ -397,6 +397,46 @@ export function mergeLedgers(a: StepLedger | null | undefined, b: StepLedger | n
   const out: StepLedger = { ...(a ?? {}) };
   for (const [k, r] of Object.entries(b ?? {})) if (!out[k] || Date.parse(r.lastAt) > Date.parse(out[k]!.lastAt)) out[k] = r;
   return out;
+}
+
+/** Steps kept per athlete, and days a record is kept after its last touch (unless still muted). */
+export const LEDGER_MAX_STEPS = 200;
+export const LEDGER_KEEP_DAYS = 90;
+
+/**
+ * The ledger kept: records touched in the last 90 days (or still muted), ≤ 200 (oldest touched dropped); a record
+ * stamped in the future counts as now (a wrong device clock never wins forever). Pure.
+ */
+export function trimLedger(ledger: StepLedger | null | undefined, now: Date): StepLedger {
+  const t = now.getTime();
+  const kept = Object.entries(ledger ?? {})
+    .filter(([, r]) => Number.isFinite(Date.parse(r.lastAt)))
+    .map(([k, r]) => [k, Date.parse(r.lastAt) > t ? { ...r, lastAt: iso(now) } : r] as const)
+    .filter(([, r]) => t - Date.parse(r.lastAt) <= LEDGER_KEEP_DAYS * DAY || (!!r.mutedUntil && Date.parse(r.mutedUntil) > t))
+    .sort((a, b) => Date.parse(b[1].lastAt) - Date.parse(a[1].lastAt) || a[0].localeCompare(b[0]))
+    .slice(0, LEDGER_MAX_STEPS);
+  return Object.fromEntries(kept);
+}
+
+/**
+ * The ledger as synced to the account (`prefs.steps`): `at` = the last change, `resetAt` = the last "reset what VVake
+ * learned" (records touched before it are gone on every device, even when an older device sends them again).
+ */
+export interface StepPrefs {
+  ledger: StepLedger;
+  at: string;
+  resetAt?: string;
+}
+
+/** Two synced ledgers merged: per step the newest lastAt wins, the latest reset applies, then trimmed. Pure. */
+export function mergeStepPrefs(a: StepPrefs | null | undefined, b: StepPrefs | null | undefined, now: Date): StepPrefs | null {
+  if (!a && !b) return null;
+  const cap = (s?: string) => (s && Date.parse(s) > now.getTime() ? iso(now) : s);
+  const later = (x?: string, y?: string) => cap(!x ? y : !y ? x : Date.parse(y) > Date.parse(x) ? y : x);
+  const resetAt = later(a?.resetAt, b?.resetAt);
+  let ledger = mergeLedgers(trimLedger(a?.ledger, now), trimLedger(b?.ledger, now));
+  if (resetAt) ledger = Object.fromEntries(Object.entries(ledger).filter(([, r]) => Date.parse(r.lastAt) > Date.parse(resetAt)));
+  return { ledger: trimLedger(ledger, now), at: later(a?.at, b?.at) ?? iso(now), ...(resetAt ? { resetAt } : {}) };
 }
 
 /** How much the athlete likes this step: (1 + accepted) / (1 + accepted + 2·dismissed + 0.5·ignored-run). Pure. */
