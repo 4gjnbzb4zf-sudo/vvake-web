@@ -5,6 +5,7 @@ import { cn } from "@/lib/cn";
 import type { AppMe, SurveyPut } from "@/lib/webapp/api";
 import { DISCLAIMER_SHORT, DISCLAIMER_VERSION } from "@/lib/webapp/disclaimer";
 import { QUICK_SPORTS, sportLabel, uuid } from "@/lib/webapp/workout";
+import { tapSport } from "@/lib/webapp/tailor/tailor";
 import { ownPlanName } from "@/lib/coachPlus";
 import { useApp } from "./AppContext";
 import { CAST_IDS, castSrc, resetVVakerCache, VVakerImg } from "./MyVVaker";
@@ -49,6 +50,8 @@ export function Onboarding({ onDone }: { onDone: () => void }) {
   // The coach's voice (ADR-0056): a light choice, Next keeps the one shown (a woman's unless chosen before).
   const [voiceGender, setVoiceGender] = useState<CoachVoiceGender>(coachVoiceGender(me.coach?.voiceGender));
   const [sports, setSports] = useState<string[]>(["run"]);
+  // Tap order (build 56): the first sport tapped is the main one; the preselected Run never outranks it.
+  const [sportsTouched, setSportsTouched] = useState(false);
   const [days, setDays] = useState(3);
   const [minutes, setMinutes] = useState(30);
   const [minutesPick, setMinutesPick] = useState<CustomNumber | null>(null);
@@ -196,13 +199,21 @@ export function Onboarding({ onDone }: { onDone: () => void }) {
                     key={s}
                     type="button"
                     aria-pressed={on}
-                    onClick={() => setSports((x) => (on ? x.filter((y) => y !== s) : x.length < 3 ? [...x, s] : x))}
+                    onClick={() => {
+                      setSports((x) => tapSport(x, s, { max: 3, preset: !sportsTouched }));
+                      setSportsTouched(true);
+                    }}
                     className={cn(
                       "min-h-11 rounded-full border px-4 text-sm font-semibold",
                       on ? "border-volt-fg bg-volt text-ink" : "border-line bg-surface text-text",
                     )}
                   >
                     {sportLabel(s, lang)}
+                    {sports.length > 1 && sports[0] === s && (
+                      <span className="ml-2 rounded-full border border-ink/40 px-2 py-0.5 text-[11px] leading-none text-ink">
+                        {o.moves.main}
+                      </span>
+                    )}
                   </button>
                 );
               })}

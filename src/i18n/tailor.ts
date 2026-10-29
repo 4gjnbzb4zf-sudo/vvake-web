@@ -61,7 +61,9 @@ const en = {
     error: "That didn't work. Check your connection and try again.",
     unchanged: "Nothing changes.",
     summaryLead: "Turn anything on or off. Change it any time in You › Tailor my app.",
-    sportsHint: "Main sport first",
+    sportsHint: "Your first tap is your main sport",
+    sportMain: "Main",
+    makeMain: "Make main:",
     sportsMax: "Up to {n}",
     noSport: "No sport found",
     events: {
@@ -144,7 +146,9 @@ const fr: TailorDict = {
     error: "Ça n’a pas marché. Vérifie ta connexion et réessaie.",
     unchanged: "Rien ne change.",
     summaryLead: "Active ou désactive ce que tu veux. Modifiable à tout moment dans Toi › Personnaliser mon app.",
-    sportsHint: "Ton sport principal d’abord",
+    sportsHint: "Ton premier choix est ton sport principal",
+    sportMain: "Principal",
+    makeMain: "Mettre en principal :",
     sportsMax: "Jusqu’à {n}",
     noSport: "Aucun sport trouvé",
     events: {

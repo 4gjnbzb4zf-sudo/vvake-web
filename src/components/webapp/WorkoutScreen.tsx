@@ -9,7 +9,7 @@ import { paceOf } from "@/lib/webapp/geo";
 import { getSportZonesDict } from "@/i18n/sportZones";
 import { RPE_ZONES } from "@/lib/webapp/sportHeart";
 import { kindValue, paceKindText, paceKindUnit, showsSpeed, toggleWorkoutVoice, WORKOUT_VOICE_MODES } from "@/lib/webapp/speedZones";
-import { elapsedS, isPaused, QUICK_SPORTS, sportLabel, sportOf, usesGps, WEB_SPORTS } from "@/lib/webapp/workout";
+import { elapsedS, isPaused, quickSportsFor, sportLabel, sportOf, usesGps, WEB_SPORTS } from "@/lib/webapp/workout";
 import { sports as catalog } from "@/lib/sports";
 import {
   cameraSport,
@@ -117,7 +117,9 @@ export function EntryChoice({ sport, onClose, onHeart }: { sport: string; onClos
 }
 
 function PickView() {
-  const { t, lang, go } = useApp();
+  const { t, lang, go, profile } = useApp();
+  // Your sports first, main first (build 56), then the usual ones.
+  const quick = useMemo(() => quickSportsFor(profile?.sports), [profile?.sports]);
   const wk = useWorkout();
   const [asking, setAsking] = useState<string | null>(null);
   /** A sport the camera counts asks first; any other starts at once. */
@@ -177,7 +179,7 @@ function PickView() {
       </button>
       <Kicker className="mt-5">{t.workout.quick}</Kicker>
       <div className="mt-2 grid grid-cols-2 gap-2" data-tour="workout-sports">
-        {QUICK_SPORTS.map((k) => (
+        {quick.map((k) => (
           <button
             key={k}
             type="button"

@@ -57,6 +57,15 @@ export const WEB_SPORTS: WebSport[] = sports.sports.map((s) => {
 /** The sports offered first (the apps' quick picks). */
 export const QUICK_SPORTS = ["run", "walk", "ride", "hike", "strength", "yoga", "dance", "boxing"];
 
+/**
+ * The quick picks with your sports first ("Your VVake", in the order you tapped them: main first, build 56, as on the
+ * phone's picker), then the usual ones; sports this site doesn't know are left out; as many as the usual grid. Pure.
+ */
+export function quickSportsFor(mine: readonly string[] = []): string[] {
+  const known = (k: string) => WEB_SPORTS.some((s) => s.key === k);
+  return [...new Set([...mine.filter(known), ...QUICK_SPORTS])].slice(0, Math.max(QUICK_SPORTS.length, mine.length));
+}
+
 export const sportOf = (key: string): WebSport =>
   WEB_SPORTS.find((s) => s.key === key) ?? {
     key: "other",

@@ -100,6 +100,7 @@ const en = {
     moves: {
       title: "How do you move?",
       sports: "Your sports (up to 3)",
+      main: "Main",
       days: "Days a week",
       minutes: "Minutes a session",
       aim: "What matters most",
@@ -1017,6 +1018,7 @@ const fr: WebAppDict = {
     moves: {
       title: "Comment tu bouges ?",
       sports: "Tes sports (3 au plus)",
+      main: "Principal",
       days: "Jours par semaine",
       minutes: "Minutes par séance",
       aim: "Ce qui compte le plus",
