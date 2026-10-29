@@ -6,6 +6,7 @@ import { cn } from "@/lib/cn";
 import { bleSupport } from "@/lib/webapp/ble";
 import { clock, distanceNumber, distanceUnit, elevation, pace, speed } from "@/lib/webapp/format";
 import { paceOf } from "@/lib/webapp/geo";
+import { sessionTimes, showsPaused } from "@/lib/webapp/moving";
 import { getSportZonesDict } from "@/i18n/sportZones";
 import { RPE_ZONES } from "@/lib/webapp/sportHeart";
 import { kindValue, paceKindText, paceKindUnit, showsSpeed, toggleWorkoutVoice, WORKOUT_VOICE_MODES } from "@/lib/webapp/speedZones";
@@ -587,14 +588,16 @@ function SummaryView() {
     );
   const hasHr = s.tier === "B";
   const points = sm.reply?.points;
+  // Moving time (lib/webapp/moving.ts): the pace and the time shown; the time in all on its own line.
   const p = s.distanceM ? paceOf(s.activeS, s.distanceM) : null;
+  const times = s.endedAt ? sessionTimes(s) : null;
   return (
     <div className="mx-auto min-h-dvh w-full max-w-xl space-y-4 pt-[max(env(safe-area-inset-top),1.5rem)] pr-[max(env(safe-area-inset-right),1rem)] pb-16 pl-[max(env(safe-area-inset-left),1rem)]">
       <Kicker tone="volt">{t.workout.summary}</Kicker>
       <h1 className="font-display text-3xl font-bold">{sportLabel(s.sport, lang)}</h1>
       <Card>
         <dl className="grid grid-cols-2 gap-4">
-          <Metric label={t.workout.elapsed} value={clock(s.activeS)} />
+          <Metric label={times && showsPaused(times) ? t.workout.movingTime : t.workout.elapsed} value={clock(s.activeS)} />
           {s.distanceM ? (
             <Metric label={t.workout.distance} value={distanceNumber(s.distanceM, prefs.units, lang)} unit={distanceUnit(prefs.units)} />
           ) : null}
@@ -607,6 +610,11 @@ function SummaryView() {
           {s.avgBpm ? <Metric label={t.workout.heart} value={`${s.avgBpm}`} unit={`/ ${s.maxBpm} bpm`} tone="pulse" /> : null}
           {sm.gainM > 0 ? <Metric label={t.workout.elevation} value={elevation(sm.gainM, prefs.units, lang)} /> : null}
         </dl>
+        {times && showsPaused(times) ? (
+          <p className="mt-3 text-sm text-muted">
+            {fmt(t.workout.inAllPaused, { total: clock(times.elapsedS), paused: clock(times.pausedS) })}
+          </p>
+        ) : null}
       </Card>
       {sm.splits.length > 0 && (
         <Card>
