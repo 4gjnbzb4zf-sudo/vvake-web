@@ -102,9 +102,13 @@ describe("moments from what the web knows", () => {
   it("offers on the web only the steps it has a screen for", () => {
     const ids = webDefs().map((d) => d.id);
     expect(ids).toEqual(expect.arrayContaining(["clash_join", "teach_move", "new_training", "save_training", "review_plan", "new_spot"]));
-    for (const no of ["rate_spot", "dare_pb", "race_route", "meetup_here", "invite_friend", "try_skill", "calendar_add", "watch_install"])
+    expect(ids).toContain("meetup_here");
+    for (const no of ["rate_spot", "dare_pb", "race_route", "invite_friend", "try_skill", "calendar_add", "watch_install"])
       expect(ids).not.toContain(no);
     expect(webDefs({ trainingRef: "ABCDEFGH" }).map((d) => d.id)).toContain("challenge_training");
+    // A spot to rate and a meetup to add to a calendar bring their steps.
+    expect(webDefs({ place: { key: "gh:f25dvfv", sport: "hike", fresh: true } }).map((d) => d.id)).toContain("rate_spot");
+    expect(webDefs({ meetupId: "m1" }).map((d) => d.id)).toContain("calendar_add");
   });
 
   it("a hard camera workout with a plan: review the week first; Quiet and a live workout: nothing", () => {
@@ -122,6 +126,18 @@ describe("where a step or the coach's button opens", () => {
     expect(webRouteForStep({ route: "/teach-move", params: {} })).toEqual({ name: "teach" });
     expect(webRouteForStep({ route: "/places", params: { sport: "hike", fresh: "1" } })).toEqual({ name: "places", sport: "hike" });
     expect(webRouteForStep({ route: "/places", params: { plan: "1" } })).toBeNull();
+    expect(webRouteForStep({ route: "/place-note", params: {} })).toBeNull();
+    expect(webRouteForStep({ route: "/place-note", params: {} }, { place: { key: "osm:node/12", sport: "run" } })).toEqual({
+      name: "place-note",
+      key: "osm:node/12",
+      sport: "run",
+    });
+    expect(webRouteForStep({ route: "/meetup", params: { sport: "run", here: "1" } })).toEqual({ name: "meetup-new", sport: "run" });
+    expect(webRouteForStep({ route: "/connections", params: { calendar: "event" } })).toBeNull();
+    expect(webRouteForStep({ route: "/connections", params: { calendar: "event" } }, { meetupId: "m1" })).toEqual({
+      name: "meetup",
+      id: "m1",
+    });
     expect(webRouteForStep({ route: "/challenge", params: { from: "training" } }, { trainingRef: "t_abcdefghij" })).toEqual({
       name: "training",
       ref: "t_abcdefghij",

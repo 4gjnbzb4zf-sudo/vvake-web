@@ -20,6 +20,7 @@ export function NextStepsRow({
   moment,
   target,
   onLeave,
+  onHere,
   className,
 }: {
   /** The moment, built from what the web knows (suggest/steps.ts); null while the summary isn't saved yet. */
@@ -27,6 +28,8 @@ export function NextStepsRow({
   target?: StepTarget;
   /** Called before a step opens another screen (the GPS summary closes itself). */
   onLeave?: () => void;
+  /** A step done right here from the tap (the .ics download of "Add it to your calendar?"): true when handled. */
+  onHere?: (s: Step) => boolean;
   className?: string;
 }) {
   const { t, lang, go, fmt, steps, recordSteps, suggestLevel, featureOn } = useApp();
@@ -73,6 +76,7 @@ export function NextStepsRow({
     const r = webRouteForStep(s, target);
     answered.current.add(s.id);
     recordSteps([{ id: s.id, ev: "accepted" }]);
+    if (onHere?.(s)) return setGone((g) => [...g, s.id]);
     if (!r) return;
     onLeave?.();
     go(r);

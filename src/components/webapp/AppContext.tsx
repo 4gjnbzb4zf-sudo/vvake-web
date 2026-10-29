@@ -73,7 +73,14 @@ export type Route =
   | { name: "creator"; handle: string }
   /** Season plans (ADR-0050): the season, a goal (new without id), the weekly sports, the health context, the history. */
   | { name: "season" | "season-sports" | "season-health" | "season-history" }
-  | { name: "season-goal"; id?: string };
+  | { name: "season-goal"; id?: string }
+  /**
+   * The living app (VVFit living-app.md §6, §14): rate a spot (a place key, osm:… or gh:…, and the sport; `fresh`: a
+   * spot nobody documented yet), a training meetup, a new meetup (for a sport).
+   */
+  | { name: "place-note"; key: string; sport: string; fresh?: boolean }
+  | { name: "meetup"; id: string }
+  | { name: "meetup-new"; sport?: string };
 
 /**
  * The tabs while the tailored app is off: the phone's five. Plan is labelled Train (living app decision 2) and holds
@@ -104,6 +111,21 @@ export function parseRoute(hash: string): Route {
   if (name === "trainings" || name === "teach" || name === "coach-profile") return { name };
   if (name === "season-goal") return arg && /^sg[a-z0-9]{4,24}$/.test(arg) ? { name, id: arg } : { name };
   if (name === "season" || name === "season-sports" || name === "season-health" || name === "season-history") return { name };
+  if (name === "meetup") return arg && /^[A-Za-z0-9_-]{4,64}$/.test(arg) ? { name, id: arg } : { name: "crew" };
+  if (name === "meetup-new") return arg && /^[a-z0-9_-]{2,30}$/.test(arg) ? { name, sport: arg } : { name };
+  if (name === "place-note") {
+    const parts = h.split("/");
+    let key = "";
+    try {
+      key = decodeURIComponent(parts[1] ?? "");
+    } catch {
+      // a broken link: Spots
+    }
+    const sport = parts[2] ?? "";
+    if (!/^(osm:(node|way|relation)\/\d{1,15}|gh:[0-9b-hjkmnp-z]{7})$/.test(key) || !/^[a-z0-9_-]{2,30}$/.test(sport))
+      return { name: "places" };
+    return parts[3] === "new" ? { name, key, sport, fresh: true } : { name, key, sport };
+  }
   const known = [
     "today",
     "plan",
@@ -136,7 +158,13 @@ export const routeHash = (r: Route) =>
             ? `#/creator/${r.handle}`
             : r.name === "season-goal"
               ? `#/season-goal${r.id ? `/${r.id}` : ""}`
-              : `#/${r.name}`;
+              : r.name === "meetup"
+                ? `#/meetup/${r.id}`
+                : r.name === "meetup-new"
+                  ? `#/meetup-new${r.sport ? `/${r.sport}` : ""}`
+                  : r.name === "place-note"
+                    ? `#/place-note/${encodeURIComponent(r.key)}/${r.sport}${r.fresh ? "/new" : ""}`
+                    : `#/${r.name}`;
 
 export interface Prefs {
   units: Units;

@@ -25,6 +25,7 @@ import { useWorkout } from "./WorkoutContext";
 import { Btn, Card, Kicker, Note, Small } from "./ui";
 import { FeelAfter } from "./Suggest";
 import { NextStepsRow, Tour, useHasPlan } from "./NextSteps";
+import { SessionCelebration, useLiving, usePrimeMilestones } from "./Journey";
 import { gpsMoment, sessionsLast7 } from "@/lib/webapp/suggest/steps";
 import type { SessionFeel } from "@/lib/webapp/api";
 
@@ -38,6 +39,8 @@ const LiveMap = dynamic(() => import("./LiveMap").then((m) => m.LiveMap), { ssr:
  */
 export function WorkoutScreen() {
   const wk = useWorkout();
+  // The milestones as they are before this session: the summary celebrates what it crossed (one per session).
+  usePrimeMilestones(wk.w && !wk.summary ? wk.w.id : null);
   if (wk.summary) return <SummaryView />;
   if (wk.w && wk.restored) return <RestoreView />;
   if (wk.w) return <LiveView />;
@@ -554,7 +557,7 @@ function Metric({ label, value, unit, tone, small }: { label: string; value: str
 }
 
 function SummaryView() {
-  const { t, lang, prefs, go, fmt, streak, sessions, setLastMoment } = useApp();
+  const { t, lang, prefs, go, fmt, streak, sessions, setLastMoment, featureOn, me } = useApp();
   const wk = useWorkout();
   const sm = wk.summary!;
   const s = sm.session;
@@ -562,6 +565,7 @@ function SummaryView() {
   const hasPlan = useHasPlan();
   const [now] = useState(() => Date.now());
   const saved = !!s && !sm.discarded && !sm.uploading;
+  const spot = useSessionSpot(saved && featureOn("outdoor") && !me.guest ? (sm.spot ?? null) : null, s?.sport ?? "");
   // What the coach hears as "just finished" (context.where.last) for the rest of the visit.
   const lastSport = s && !sm.discarded ? s.sport : null;
   const lastMinutes = s ? Math.round(s.activeS / 60) : 0;
@@ -645,20 +649,65 @@ function SummaryView() {
       )}
       {saved && (
         <NextStepsRow
-          moment={gpsMoment({
-            sport: s.sport,
-            activeS: s.activeS,
-            feel,
-            last7: sessionsLast7(sessions, now, s.id),
-            ...(streak ? { streak: streak.days } : {}),
-            ...(hasPlan !== undefined ? { hasPlan } : {}),
-          })}
+          moment={
+            spot.done
+              ? gpsMoment({
+                  sport: s.sport,
+                  activeS: s.activeS,
+                  feel,
+                  last7: sessionsLast7(sessions, now, s.id),
+                  ...(streak ? { streak: streak.days } : {}),
+                  ...(hasPlan !== undefined ? { hasPlan } : {}),
+                  ...(spot.placeNew !== undefined ? { placeNew: spot.placeNew } : {}),
+                  ...(spot.placeNotes !== undefined ? { placeNotes: spot.placeNotes } : {}),
+                })
+              : null
+          }
+          target={spot.place ? { place: spot.place } : undefined}
           onLeave={() => wk.closeSummary()}
         />
       )}
+      {s && !sm.discarded && <SessionCelebration sessionId={s.id} ready={!!sm.reply} />}
       <Btn big variant="volt" className="w-full" onClick={close}>
         {t.workout.done}
       </Btn>
     </div>
   );
+}
+
+interface SessionSpot {
+  /** The answer came (or 4 s passed): the next steps can be picked. */
+  done: boolean;
+  placeNew?: boolean;
+  placeNotes?: number;
+  place?: { key: string; sport: string; fresh?: boolean };
+}
+
+/**
+ * Is the session's spot new, or barely rated? (living app §6.1) GET /v1/places/near-new with the busiest point of the
+ * route rounded to 3 decimals, once; neither kept nor logged by the API. The next steps wait for it at most 4 s.
+ */
+function useSessionSpot(at: { lat: number; lon: number } | null, sport: string): SessionSpot {
+  const { la } = useLiving();
+  const [spot, setSpot] = useState<SessionSpot>({ done: false });
+  const lat = at?.lat;
+  const lon = at?.lon;
+  useEffect(() => {
+    if (lat === undefined || lon === undefined || !sport) return;
+    let live = true;
+    const timer = window.setTimeout(() => live && setSpot((x) => (x.done ? x : { done: true })), 4000);
+    la.nearNew(sport, lat, lon)
+      .then((r) => {
+        if (!live) return;
+        if (r.undocumented && r.key) setSpot({ done: true, placeNew: true, place: { key: r.key, sport, fresh: true } });
+        else if (r.spot) setSpot({ done: true, placeNotes: r.spot.notes?.count ?? 0, place: { key: r.spot.key, sport } });
+        else setSpot({ done: true });
+      })
+      .catch(() => live && setSpot({ done: true }));
+    return () => {
+      live = false;
+      window.clearTimeout(timer);
+    };
+  }, [la, lat, lon, sport]);
+  return lat === undefined ? { done: true } : spot;
 }

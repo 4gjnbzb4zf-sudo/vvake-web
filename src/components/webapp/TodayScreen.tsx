@@ -16,6 +16,7 @@ import { goalTitle } from "./GoalsScreen";
 import { VVakerImg } from "./MyVVaker";
 import { rhythmToday } from "./RhythmScreen";
 import { HabitsToday } from "./HabitsToday";
+import { ComebackCard } from "./Journey";
 import { useWorkout } from "./WorkoutContext";
 import { EntryChoice } from "./WorkoutScreen";
 import { cameraSport } from "@/lib/webapp/camera/webSetup";
@@ -101,6 +102,7 @@ export function TodayScreen() {
         </Card>
       )}
       <SkippedCard />
+      {!wk.w && <ComebackCard />}
 
       <div className="flex items-center gap-3">
         <div className="min-w-0 flex-1">

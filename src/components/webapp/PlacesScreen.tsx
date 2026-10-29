@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { sports as catalog } from "@/lib/sports";
 import { cn } from "@/lib/cn";
 import { cameraSport } from "@/lib/webapp/camera/webSetup";
@@ -30,6 +30,10 @@ import { Btn, Card, H1, Kicker, Note, Segmented, Small } from "./ui";
 import { useNow } from "./useNow";
 import { useWorkout } from "./WorkoutContext";
 import { EntryChoice } from "./WorkoutScreen";
+import { useLiving } from "./Journey";
+import { aggregateOf, PlaceNotesLine, ratedPlaces } from "./PlaceNote";
+import { osmPlaceKey } from "@/lib/webapp/living/placeNotes";
+import type { NotesView } from "@/lib/webapp/livingApi";
 
 /**
  * Where to train near me (the phone's Places screen, monorepo docs/02-product/nearby-places.md): pick a sport, tap
@@ -39,6 +43,10 @@ import { EntryChoice } from "./WorkoutScreen";
  *
  * Only a point rounded to 2 decimals goes to GET /v1/places (public); the exact fix stays in this page's memory to
  * sort and point the way, never stored or sent. #/places/<sport>.
+ *
+ * Place notes (living app §6): each place shows what athletes said of it (GET /v1/places/notes, from 3 notes on:
+ * stars, % who recommend it, the top tips, approved text tips), a Rate button (3 taps), and "New for you" lists the
+ * well-rated places near you that this browser hasn't rated yet. Our own notes, beside OpenStreetMap's places.
  */
 
 const SPORT_KEY = "vvake-app-places-sport";
@@ -66,9 +74,11 @@ type Res =
   { kind: "idle" } | { kind: "loading" } | { kind: "ok"; answer: PlacesAnswer } | { kind: "busy"; until: number } | { kind: "error" };
 
 export function PlacesScreen({ sport: routeSport }: { sport?: string }) {
-  const { t, lang, go, athlete, prefs, apiUrl, fmt, tabs } = useApp();
+  const { t, lang, go, athlete, prefs, apiUrl, fmt, tabs, me } = useApp();
   const wk = useWorkout();
   const p = t.places;
+  const { la, L } = useLiving();
+  const [notes, setNotes] = useState<Record<string, NotesView>>({});
 
   const mine = useMemo(() => {
     const fromSurvey = (athlete?.survey?.sports ?? []).map((s) => s.sport).filter(hasPlaces);
@@ -144,6 +154,34 @@ export function PlacesScreen({ sport: routeSport }: { sport?: string }) {
     [res, fix, radius],
   );
   const kinds = useMemo(() => kindsIn(near), [near]);
+  // The notes of the nearest 50 places (aggregates only: never who wrote them).
+  const noteKeys = useMemo(
+    () =>
+      near
+        .slice(0, 50)
+        .map((x) => osmPlaceKey(x.id))
+        .filter((k): k is string => !!k)
+        .join(","),
+    [near],
+  );
+  useEffect(() => {
+    if (!noteKeys) return;
+    let live = true;
+    la.notes(noteKeys.split(","))
+      .then((n) => live && setNotes((old) => ({ ...old, ...n })))
+      .catch(() => undefined);
+    return () => {
+      live = false;
+    };
+  }, [la, noteKeys]);
+  const fresh = useMemo(() => {
+    const rated = new Set(ratedPlaces(me.id));
+    return near
+      .map((x) => ({ x, key: osmPlaceKey(x.id) ?? "", agg: aggregateOf(notes[osmPlaceKey(x.id) ?? ""]) }))
+      .filter((r) => r.agg && !rated.has(r.key) && r.agg.rating >= 4 && r.agg.recommendPct >= 70)
+      .sort((a, b) => b.agg!.rating - a.agg!.rating || a.x.distanceM - b.x.distanceM)
+      .slice(0, 3);
+  }, [near, notes, me.id]);
   const list = useMemo(() => (kind ? near.filter((x) => x.kind === kind) : near), [near, kind]);
   const dist = (m: number) => formatPlaceDistance(m, prefs.units, lang);
   const radiusText = (r: number) => (prefs.units === "imperial" ? dist(r * 1000) : `${r} km`);
@@ -298,6 +336,34 @@ export function PlacesScreen({ sport: routeSport }: { sport?: string }) {
             </Card>
           ) : (
             <>
+              {fresh.length > 0 && (
+                <Card>
+                  <Kicker tone="mint">{L.notes.newForYou}</Kicker>
+                  <Small className="mt-1">{L.notes.newForYouLead}</Small>
+                  <ul className="mt-2 space-y-1">
+                    {fresh.map(({ x, agg }) => (
+                      <li key={x.id}>
+                        <button
+                          type="button"
+                          className="flex min-h-12 w-full items-center gap-3 rounded-xl px-2 text-left hover:bg-surface-2"
+                          onClick={() => {
+                            setSelected(x.id);
+                            const i = list.findIndex((y) => y.id === x.id);
+                            if (i >= shown) setShown(i + 1);
+                            window.setTimeout(() => document.getElementById(`place-${x.id}`)?.scrollIntoView({ block: "center" }), 50);
+                          }}
+                        >
+                          <span className="min-w-0 flex-1 text-sm">
+                            <span className="block font-medium">{placeTitle(x, lang)}</span>
+                            <span className="block text-xs text-muted">{dist(x.distanceM)}</span>
+                          </span>
+                          <span className="text-sm font-semibold text-butter-fg">{`${lang === "fr" ? String(agg!.rating).replace(".", ",") : agg!.rating}★`}</span>
+                        </button>
+                      </li>
+                    ))}
+                  </ul>
+                </Card>
+              )}
               <Small>{fmt(p.count, { n: near.length, radius: radiusText(radius) })}</Small>
               {kinds.length > 1 && (
                 <div className="flex flex-wrap gap-2" role="group" aria-label={p.title}>
@@ -328,6 +394,12 @@ export function PlacesScreen({ sport: routeSport }: { sport?: string }) {
                     onStart={() => start(sport)}
                     startDisabled={!!wk.w}
                     onPick={() => setSelected(x.id)}
+                    notes={notes[osmPlaceKey(x.id) ?? ""]}
+                    onRate={() => {
+                      const key = osmPlaceKey(x.id);
+                      if (key) go({ name: "place-note", key, sport });
+                    }}
+                    rateLabel={L.notes.rate}
                   />
                 ))}
               </ul>
@@ -369,6 +441,9 @@ function PlaceCard({
   onStart,
   startDisabled,
   onPick,
+  notes,
+  onRate,
+  rateLabel,
 }: {
   place: NearPlace;
   picked: boolean;
@@ -377,6 +452,9 @@ function PlaceCard({
   onStart: () => void;
   startDisabled: boolean;
   onPick: () => void;
+  notes?: NotesView;
+  onRate: () => void;
+  rateLabel: string;
 }) {
   const { t, lang, fmt } = useApp();
   const p = t.places;
@@ -415,6 +493,7 @@ function PlaceCard({
         </p>
       )}
       {facts.length > 0 && <p className="mt-1 text-sm text-muted">{facts.join(" · ")}</p>}
+      <PlaceNotesLine view={notes} />
       <div className="mt-3 flex flex-wrap items-center gap-2">
         <Btn className="h-10" onClick={onStart} disabled={startDisabled}>
           {p.startHere}
@@ -426,6 +505,9 @@ function PlaceCard({
         <a className={link} href={directionsUrl(x, "google", x.distanceM)} target="_blank" rel="noopener noreferrer">
           {p.google}
         </a>
+        <button type="button" className={link} onClick={onRate}>
+          ★ {rateLabel}
+        </button>
       </div>
       <p className="mt-2 flex flex-wrap gap-x-3 text-xs text-faint">
         {x.website && /^https?:\/\//.test(x.website) && (

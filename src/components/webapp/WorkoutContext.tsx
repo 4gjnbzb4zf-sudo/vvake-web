@@ -1,7 +1,8 @@
 "use client";
 
 import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState, type ReactNode } from "react";
-import { addFix, gpsBars, splitsOf } from "@/lib/webapp/geo";
+import { addFix, gpsBars, splitsOf, type LatLon } from "@/lib/webapp/geo";
+import { spotOfRoute } from "@/lib/webapp/livingApi";
 import { heartProfileOf, zoneOf, type HeartProfile } from "@/lib/webapp/heart";
 import { localTz, type UploadReply } from "@/lib/webapp/api";
 import { MILE_M } from "@/lib/webapp/format";
@@ -57,6 +58,8 @@ export interface Summary {
   queued: boolean;
   splits: number[];
   gainM: number;
+  /** Where the session spent most time (livingApi spotOfRoute), in this page's memory only: to ask if the spot is new. */
+  spot?: LatLon | null;
 }
 
 interface WorkoutApi {
@@ -416,7 +419,16 @@ export function WorkoutProvider({ children }: { children: ReactNode }) {
     clear();
     hush();
     if (workoutVoice !== "off") playCue(cueSpoken.done(lang, Math.floor(activeS / 60)));
-    setSummary({ session, discarded: false, reply: null, uploading: true, queued: true, splits, gainM: done.track.gainM });
+    setSummary({
+      session,
+      discarded: false,
+      reply: null,
+      uploading: true,
+      queued: true,
+      splits,
+      gainM: done.track.gainM,
+      spot: gpsUsed ? spotOfRoute(done.track.route) : null,
+    });
     void api
       .upload(session, localTz())
       .then((reply) => {

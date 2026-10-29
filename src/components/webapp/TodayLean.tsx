@@ -13,6 +13,7 @@ import { getTailorDict } from "@/i18n/tailor";
 import { useApp } from "./AppContext";
 import { SkippedCard } from "./PlanEdit";
 import { HabitsToday } from "./HabitsToday";
+import { ComebackCard } from "./Journey";
 import { VVakerImg } from "./MyVVaker";
 import { useSeason } from "./useSeason";
 import { useWorkout } from "./WorkoutContext";
@@ -158,6 +159,7 @@ export function TodayLean() {
           <VVakerImg alt="" className="h-16 w-11" />
         </button>
       </header>
+      {!wk.w && <ComebackCard />}
 
       {/* 1. Next: the one action. */}
       <Card>

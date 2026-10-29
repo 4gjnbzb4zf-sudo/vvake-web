@@ -5,11 +5,14 @@ import type { Clash } from "@/lib/webapp/api";
 import { dayLabel, timeLabel } from "@/lib/webapp/format";
 import { useApp } from "./AppContext";
 import { GetTheApp } from "./GetTheApp";
+import { LeagueCard } from "./Journey";
+import { MeetupsSection } from "./Meetups";
 import { Card, H1, Kicker, List, Note, Row, Small } from "./ui";
 
 /**
  * Crew & City (apps/mobile app/(tabs)/crew.tsx): people and places (living app §3). Spots, the one home of places
- * (where to train near me, PlacesScreen), while the Outdoor feature is on; then the City Clash part: your city's
+ * (where to train near me, PlacesScreen), while the Outdoor feature is on; your training meetups and the weekly league
+ * (Social feature, living app §10.4 and §14); then the City Clash part: your city's
  * clashes (GET /v1/clashes), live scores, what's coming and recent results. Calling a city out, challenges, crews and
  * rivals stay in the app. Today and the workout keep their in-context shortcut to places.
  */
@@ -40,6 +43,8 @@ export function CrewScreen() {
           <Row tone="mint" icon="⌖" title={t.crew.spots} detail={t.crew.spotsDetail} onClick={() => go({ name: "places" })} />
         </List>
       )}
+      <MeetupsSection />
+      <LeagueCard />
       <Note tone={me.city ? "sky" : "butter"}>{me.city ? fmt(t.crew.yourCity, { city: me.city }) : t.crew.noCity}</Note>
       {!clashes && !error && <p className="text-muted">{t.common.loading}</p>}
       {error && <p className="text-muted">{t.common.error}</p>}

@@ -15,6 +15,8 @@ import { CrewScreen } from "./CrewScreen";
 import { GetTheApp } from "./GetTheApp";
 import { GoalsScreen } from "./GoalsScreen";
 import { PlacesScreen } from "./PlacesScreen";
+import { PlaceNoteScreen } from "./PlaceNote";
+import { MeetupNewScreen, MeetupScreen } from "./Meetups";
 import { PlanScreen } from "./PlanScreen";
 import { RhythmScreen } from "./RhythmScreen";
 import { SeasonGoalScreen, SeasonHealthScreen, SeasonHistoryScreen, SeasonScreen, SeasonSportsScreen } from "./SeasonScreen";
@@ -154,7 +156,8 @@ function Shell() {
   const tab =
     route.name === "points" || route.name === "your-vvake" || route.name === "features"
       ? "you"
-      : route.name === "places" && tabs.includes("crew")
+      : (route.name === "places" || route.name === "place-note" || route.name === "meetup" || route.name === "meetup-new") &&
+          tabs.includes("crew")
         ? "crew"
         : route.name.startsWith("season")
           ? "plan"
@@ -196,6 +199,11 @@ function Shell() {
             {route.name === "zones" && <ZonesScreen />}
             {route.name === "session" && <SessionScreen id={route.id} />}
             {route.name === "places" && <PlacesScreen sport={route.sport} />}
+            {route.name === "place-note" && (
+              <PlaceNoteScreen key={`${route.key}/${route.sport}`} placeKey={route.key} sport={route.sport} fresh={route.fresh} />
+            )}
+            {route.name === "meetup" && <MeetupScreen key={route.id} id={route.id} />}
+            {route.name === "meetup-new" && <MeetupNewScreen key={route.sport ?? "new"} sport={route.sport} />}
             {route.name === "trainings" && <TrainingsScreen />}
             {route.name === "training" && <TrainingDetailScreen key={route.ref} refId={route.ref} challenge={route.challenge} />}
             {route.name === "build" && <BuilderScreen key={route.id ?? "new"} id={route.id} />}

@@ -142,8 +142,19 @@ function base(f: MomentFacts): Omit<Moment, "kind"> {
   };
 }
 
-/** The web GPS workout's summary. Places, routes, personal bests and friends aren't known here: left undefined. Pure. */
-export const gpsMoment = (f: MomentFacts): Moment => ({ kind: HIKE_SPORTS.has(f.sport) ? "hike_end" : "gps_end", ...base(f) });
+/**
+ * The web GPS workout's summary, with the spot when GET /v1/places/near-new answered (new to everyone, or the notes
+ * others left there). Routes, personal bests and friends aren't known here: left undefined. Pure.
+ */
+export const gpsMoment = (f: MomentFacts & { placeNew?: boolean; placeNotes?: number }): Moment => ({
+  kind: HIKE_SPORTS.has(f.sport) ? "hike_end" : "gps_end",
+  ...base(f),
+  ...known("placeNew", f.placeNew),
+  ...known("placeNotes", f.placeNotes),
+});
+
+/** A meetup just saved: the web has no linked calendar of its own, so "Add it to your calendar?" (an .ics) may come. */
+export const meetupSavedMoment = (sport: string): Moment => ({ kind: "meetup_saved", sport, noCalendar: true });
 
 /** The webcam camera workout's summary: how many moves the athlete taught VVake when known. Pure. */
 export const cameraMoment = (f: MomentFacts & { taughtMoves?: number }): Moment => ({
@@ -161,14 +172,19 @@ export const trainingMoment = (f: MomentFacts & { score?: number }): Moment => (
 
 // ── Where a step opens on the web ───────────────────────────────────────────────────────────────────────────────
 
-/** What a step may need from the screen it was offered on (the training just run). */
+/** What a step may need from the screen it was offered on (the training just run, the spot, the meetup just saved). */
 export interface StepTarget {
   trainingRef?: string;
+  /** The session's spot (GET /v1/places/near-new): rate it in 3 taps. `fresh`: nobody documented it yet. */
+  place?: { key: string; sport: string; fresh?: boolean };
+  /** The meetup just saved: "Add it to your calendar?" downloads its .ics. */
+  meetupId?: string;
 }
 
 /**
- * The web screen for a step (game-core's phone routes), or null when the web has no such screen (place notes, meetups,
- * ghost races, skills, calendars, watch install, friend invites): those steps are not offered here. Pure.
+ * The web screen for a step (game-core's phone routes), or null when the web has no such screen (ghost races, skills,
+ * calendar links, watch install, friend invites) or the screen lacks what it needs (a spot to rate, a meetup to add to a
+ * calendar): those steps are not offered here. Pure.
  */
 export function webRouteForStep(step: Pick<Step, "route" | "params">, target: StepTarget = {}): Route | null {
   const p = step.params ?? {};
@@ -177,6 +193,13 @@ export function webRouteForStep(step: Pick<Step, "route" | "params">, target: St
       return p.plan ? null : p.sport ? { name: "places", sport: p.sport } : { name: "places" };
     case "/crew":
       return { name: "crew" };
+    case "/place-note":
+      return target.place ? { name: "place-note", ...target.place } : null;
+    case "/meetup":
+      return p.sport ? { name: "meetup-new", sport: p.sport } : { name: "meetup-new" };
+    case "/connections":
+      // The web adds just this event (an .ics file); linking a calendar is in the app.
+      return p.calendar === "event" && target.meetupId ? { name: "meetup", id: target.meetupId } : null;
     case "/challenge":
       // Challenging friends on a training lives on the training's page; duels and invites are in the phone app.
       return p.from === "training" && target.trainingRef ? { name: "training", ref: target.trainingRef } : null;

@@ -115,7 +115,12 @@ export function PlacesMap({
 
   useEffect(() => {
     const m = map.current;
-    if (!m || !ready || !here) return;
+    if (!m || !ready) return;
+    // No position (a meetup's page): the first place, at street level.
+    if (!here) {
+      if (places[0]) m.jumpTo({ center: [places[0].lon, places[0].lat], zoom: 15 });
+      return;
+    }
     const pts = [here, ...places.slice(0, 8)];
     let [w, s, e, n] = [here.lon, here.lat, here.lon, here.lat];
     for (const p of pts) {

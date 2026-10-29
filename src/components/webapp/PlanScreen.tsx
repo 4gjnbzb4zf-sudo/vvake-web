@@ -7,6 +7,7 @@ import { sportLabel } from "@/lib/webapp/workout";
 import { getSeasonDict } from "@/i18n/season";
 import { useApp } from "./AppContext";
 import { SkippedCard } from "./PlanEdit";
+import { JourneyPath } from "./Journey";
 import { SeasonWeekEditor } from "./SeasonWeek";
 import { useSeason } from "./useSeason";
 import { useWorkout } from "./WorkoutContext";
@@ -14,7 +15,8 @@ import { Btn, Card, H1, Kicker, List, Note, Row, Small } from "./ui";
 import { useNow } from "./useNow";
 
 /**
- * Train (the Plan tab renamed, living app decision 2): the plan on top, Your library below (apps/mobile
+ * Train (the Plan tab renamed, living app decision 2): your path on top (living app §10: chapters, stones, the weekly
+ * streak and the pause), the plan, Your library below (apps/mobile
  * components/TrainLibrary.tsx), so the web has no separate Trainings tab beside it; a one-line "Plan is now Train"
  * note until it's closed (three visits at most).
  */
@@ -22,6 +24,7 @@ export function PlanScreen() {
   return (
     <div className="space-y-4">
       <RenamedNote />
+      <JourneyPath />
       <PlanBody />
       <TrainLibrary />
     </div>
