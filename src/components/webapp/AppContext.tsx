@@ -60,8 +60,11 @@ export type Route =
   /** You, scrolled to the VV points card (Today's points pill). */
   | { name: "points" }
   | { name: "session"; id: string }
-  /** The camera workout (CameraScreen.tsx), with the sport whose routine it suggests (#/camera/strength). */
-  | { name: "camera"; sport?: string }
+  /**
+   * The camera workout (CameraScreen.tsx), with the sport whose routine it suggests (#/camera/strength), or a catalogue
+   * routine set at the top (#/camera/routine/core-10: the coach's camera-workout card, ADR-0063).
+   */
+  | { name: "camera"; sport?: string; routine?: string }
   /** Where to train near me (PlacesScreen.tsx), for a sport (#/places/swim). */
   | { name: "places"; sport?: string }
   /**
@@ -97,7 +100,11 @@ export function parseRoute(hash: string): Route {
   const h = hash.replace(/^#\/?/, "");
   const [name, arg] = h.split("/");
   if (name === "session" && arg) return { name: "session", id: decodeURIComponent(arg) };
-  if (name === "camera") return arg && /^[a-z-]{2,30}$/.test(arg) ? { name: "camera", sport: arg } : { name: "camera" };
+  if (name === "camera") {
+    const routine = h.split("/")[2] ?? "";
+    if (arg === "routine") return /^[a-z0-9-]{2,40}$/.test(routine) ? { name: "camera", routine } : { name: "camera" };
+    return arg && /^[a-z-]{2,30}$/.test(arg) ? { name: "camera", sport: arg } : { name: "camera" };
+  }
   if (name === "places") return arg && /^[a-z-]{2,30}$/.test(arg) ? { name: "places", sport: arg } : { name: "places" };
   if (name === "train" || name === "training") {
     const parts = h.split("/");
@@ -149,23 +156,25 @@ export function parseRoute(hash: string): Route {
 export const routeHash = (r: Route) =>
   r.name === "session"
     ? `#/session/${encodeURIComponent(r.id)}`
-    : r.name === "camera" || r.name === "places"
-      ? `#/${r.name}${r.sport ? `/${r.sport}` : ""}`
-      : r.name === "train" || r.name === "training"
-        ? `#/${r.name}/${r.ref}${r.challenge ? `/${r.challenge}` : ""}`
-        : r.name === "build"
-          ? `#/build${r.id ? `/${r.id}` : ""}`
-          : r.name === "creator"
-            ? `#/creator/${r.handle}`
-            : r.name === "season-goal"
-              ? `#/season-goal${r.id ? `/${r.id}` : ""}`
-              : r.name === "meetup"
-                ? `#/meetup/${r.id}`
-                : r.name === "meetup-new"
-                  ? `#/meetup-new${r.sport ? `/${r.sport}` : ""}`
-                  : r.name === "place-note"
-                    ? `#/place-note/${encodeURIComponent(r.key)}/${r.sport}${r.fresh ? "/new" : ""}`
-                    : `#/${r.name}`;
+    : r.name === "camera" && r.routine
+      ? `#/camera/routine/${r.routine}`
+      : r.name === "camera" || r.name === "places"
+        ? `#/${r.name}${r.sport ? `/${r.sport}` : ""}`
+        : r.name === "train" || r.name === "training"
+          ? `#/${r.name}/${r.ref}${r.challenge ? `/${r.challenge}` : ""}`
+          : r.name === "build"
+            ? `#/build${r.id ? `/${r.id}` : ""}`
+            : r.name === "creator"
+              ? `#/creator/${r.handle}`
+              : r.name === "season-goal"
+                ? `#/season-goal${r.id ? `/${r.id}` : ""}`
+                : r.name === "meetup"
+                  ? `#/meetup/${r.id}`
+                  : r.name === "meetup-new"
+                    ? `#/meetup-new${r.sport ? `/${r.sport}` : ""}`
+                    : r.name === "place-note"
+                      ? `#/place-note/${encodeURIComponent(r.key)}/${r.sport}${r.fresh ? "/new" : ""}`
+                      : `#/${r.name}`;
 
 export interface Prefs {
   units: Units;

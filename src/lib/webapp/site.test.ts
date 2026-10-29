@@ -48,6 +48,12 @@ describe("the web app on the site", () => {
     expect(parseRoute("#/places/swim")).toEqual({ name: "places", sport: "swim" });
     expect(parseRoute("#/places")).toEqual({ name: "places" });
     expect(parseRoute("#/places/<x>")).toEqual({ name: "places" });
+    // The coach's camera-workout card opens on a routine (ADR-0063).
+    expect(parseRoute("#/camera/strength")).toEqual({ name: "camera", sport: "strength" });
+    expect(parseRoute("#/camera/routine/core-10")).toEqual({ name: "camera", routine: "core-10" });
+    expect(parseRoute("#/camera/routine/<x>")).toEqual({ name: "camera" });
+    expect(routeHash({ name: "camera", routine: "core-10" })).toBe("#/camera/routine/core-10");
+    expect(routeHash({ name: "camera", sport: "yoga" })).toBe("#/camera/yoga");
     expect(routeHash({ name: "places", sport: "track-field" })).toBe("#/places/track-field");
   });
   it("custom training routes (ADR-0047): run, page, builder, teach, creator", () => {

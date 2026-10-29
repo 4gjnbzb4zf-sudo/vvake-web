@@ -215,7 +215,7 @@ function Shell() {
         </Frame>
       )}
       {route.name === "workout" && <WorkoutScreen />}
-      {route.name === "camera" && <CameraScreen sport={route.sport} />}
+      {route.name === "camera" && <CameraScreen sport={route.sport} routine={route.routine} />}
       {route.name === "train" && <TrainingRun key={route.ref} refId={route.ref} challenge={route.challenge} />}
       {route.name === "teach" && <CameraScreen teach />}
       {!fullScreen && <WorkoutPill />}

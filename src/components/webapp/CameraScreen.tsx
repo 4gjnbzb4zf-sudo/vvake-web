@@ -436,7 +436,18 @@ export interface TrainingToRun {
   challenge?: string | null;
 }
 
-export function CameraScreen({ sport, training, teach }: { sport?: string; training?: TrainingToRun; teach?: boolean }) {
+export function CameraScreen({
+  sport,
+  routine,
+  training,
+  teach,
+}: {
+  sport?: string;
+  /** A catalogue routine set at the top (the coach's card); unknown ids open on the last pick. */
+  routine?: string;
+  training?: TrainingToRun;
+  teach?: boolean;
+}) {
   const cam = useWebcam();
   const { session } = useApp();
   const [phase, setPhase] = useState<Phase>("setup");
@@ -464,7 +475,12 @@ export function CameraScreen({ sport, training, teach }: { sport?: string; train
   }, [session]);
   // Start at the top, set to the last pick (build 54): opened without a training or a sport, the screen takes this
   // browser's last pick; the first time, the beginner routine with the choices open.
-  const [opening] = useState(() => (training || sport ? null : openingPick(readLastPick(), KNOWN_PICKS)));
+  // The coach's card names a routine: it is the pick at the top, as if picked last.
+  const [opening] = useState(() =>
+    training || sport
+      ? null
+      : openingPick(routine && KNOWN_PICKS.routine(routine) ? { kind: "routine", id: routine } : readLastPick(), KNOWN_PICKS),
+  );
   const [plan, setPlan] = useState<Plan>(() =>
     opening
       ? planOfPick(opening.pick)
