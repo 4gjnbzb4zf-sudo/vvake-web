@@ -9,6 +9,7 @@ import {
   parseCsp,
   readCsp,
   scriptHash,
+  webAppConnect,
   webAppScript,
   withCsp,
   type CspConfig,
@@ -89,6 +90,8 @@ describe("VV-12 Content-Security-Policy", () => {
       "src/lib/trainings/api.ts": (c) => c.apiUrl,
       // The stitched coach voice (ADR-0054): the public GET /v1/voice/stitch and its pack, relative to the API base.
       "src/lib/webapp/coachAudio.ts": (c) => c.apiUrl,
+      // The live call's switch (public GET /v1/health on the API base; the socket is webAppConnect's wss:).
+      "src/lib/webapp/live/liveCallBrowser.ts": (c) => c.apiUrl,
       "src/lib/chain.ts": (c) => c.rpcUrl,
       "src/lib/waitlist.ts": (c) => c.waitlistEndpoint || null,
       "src/components/sections/LiveMap.tsx": (c) => c.liveEndpoint || null,
@@ -163,5 +166,13 @@ describe.skipIf(!existsSync(OUT))("VV-12 built site (out/)", () => {
       expect(html).toContain("data-frame-notice");
       expect(html).toContain("window.top===window.self");
     }
+  });
+});
+
+describe("web app connections", () => {
+  it("names the live call's WebSocket on the API's host, next to the map tiles", () => {
+    expect(webAppConnect(cfg)).toEqual(["https://tiles.openfreemap.org", "wss://vvake-api.val-54e.workers.dev"]);
+    const csp = parseCsp(buildCsp([], cfg, webAppConnect(cfg)));
+    expect(csp["connect-src"]).toContain("wss://vvake-api.val-54e.workers.dev");
   });
 });

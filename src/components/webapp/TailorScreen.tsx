@@ -28,6 +28,7 @@ import { cleanOverrides, FEATURE_TARGET, nextTailorPrefs, webTabs } from "@/lib/
 import { coachVoiceGender } from "@/lib/coachVoices";
 import { useApp } from "./AppContext";
 import { CoachVoicePicker } from "./CoachVoicePicker";
+import { useDayOneCall } from "./LiveCall";
 import { SuggestPicker } from "./Suggest";
 import { Btn, Card, H1, H2, inputCls, Kicker, List, Row, Segmented, Small, Toggle } from "./ui";
 
@@ -56,6 +57,24 @@ export function TailorScreen() {
   const [state, setState] = useState<"idle" | "saving" | "error">("idle");
   /** A card was answered here: the answers inferred from use no longer replace them. */
   const answered = useRef(!!tailor);
+  /** The first week the coach proposed in the day-one call (shown above the summary). */
+  const [weekNote, setWeekNote] = useState<string | null>(null);
+  // Day one by voice (behind the server's switch): the call fills these same cards and ends on the summary.
+  const day = useDayOneCall({
+    first: !tailor,
+    onAnswer: (patch, s) => {
+      answered.current = true;
+      setAnswers(patch);
+      if (s) {
+        setTouched((t) => new Set([...t, s]));
+        setStep(s);
+      }
+    },
+    onSummary: (note) => {
+      setWeekNote(note);
+      setStep("summary");
+    },
+  });
 
   // An account without answers yet: the survey starts from 30 days of use (decision 2), until a card is answered.
   useEffect(() => {
@@ -157,12 +176,16 @@ export function TailorScreen() {
     );
 
   const total = questions.length;
+  if (day.view === "wait") return null;
+  if (day.view === "ask") return day.offer;
   return (
     <div className="space-y-5">
       <div className="flex items-center justify-between">
         <Kicker tone="volt">{tailorText("tailor.title", L)}</Kicker>
         {step !== "summary" && <Small>{x.step.replace("{n}", String(at + 1)).replace("{total}", String(total))}</Small>}
       </div>
+      {day.header}
+      {step === "summary" && weekNote && <p className="text-sm text-sky-fg">{weekNote}</p>}
       {step === "summary" ? (
         summary
       ) : (

@@ -774,6 +774,16 @@ export function speakReply(text: string, voice: { url: string; tag?: string | nu
   });
 }
 
+/**
+ * A live coach call's device-voice line (src/lib/webapp/live: the server said "say it on the device", or a fixed line
+ * without audio): the browser voice in the coach's gender, after hushing anything else, with its end for the call's
+ * player (which stops it on a barge-in).
+ */
+export function sayLiveDevice(text: string, lang: Locale, done: () => void): { stop(): void } {
+  hush();
+  return speakDevice(text, lang, genderOf(cfg), done);
+}
+
 /** Stops the line speaking and everything waiting (a barge-in, the screen closing, the workout ending). */
 export function hush() {
   queue.bargeIn();
