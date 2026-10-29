@@ -19,6 +19,46 @@ export interface Release {
 
 export const releases: Release[] = [
   {
+    version: "1.0.0 (54)",
+    date: "2026-10-29",
+    channel: "beta",
+    devices: ["iphone", "watch", "android", "wear"],
+    notes: {
+      en: {
+        improved: [
+          'The camera workout opens with Start at the top, set to what you picked last ("Start · Core 10"). Change, right under it, opens the other routines, a move or your own workout. The first time, it starts on the beginner routine with the choices open. On the web too.',
+          "Show on Home: two chips on Today, GPS & sensors and Camera, show or hide each way to train with one tap, synced with your account (the web too). Settings › Ways to train has the same switches and Camera & trainings. At least one always stays on Home, and a hidden one is still under Pick another › All sports.",
+          "First-run questions take your own numbers: every time or distance answer has a Custom… choice that opens a picker (minutes, a time in h:min:s, or a distance in km or mi, following your units). Your value shows on the chip; tap it to change it. In Tailor my app, the event step has Custom distance… (for example 15 km or 12 mi), and in your coach's questions the usual session, longest session, minutes a day, recent best, event distance, weeks to go and target time all have it. The web app has the same choices.",
+          'On a day-one call, saying a distance for your event ("a 15 km race") fills it in the same way.',
+        ],
+        fixed: [
+          "With Camera & trainings on in Tailor my app, the camera workout is easy to find again: a Camera workout button under the day's action on Today, a Camera workout row right under your sports when you pick a sport (no longer hidden under All sports), and a first row in Your library on the Train tab. The web app's Today has it too.",
+          'Ask the coach "Where is the camera workout?" (or search "camera" in Settings): it opens the camera workout.',
+          'Reinstalled the app or set up a new phone? Signing in brings your VVaker back: the one you had chosen, with its own picture, downloaded from your account for free (never rendered again). The first-run VVaker step now says "Your VVaker is back" and lets you keep it, instead of starting from a cast member that replaced yours.',
+          "Signing in to your account after using the app without one keeps your account's VVaker; the default pick from the first run no longer overwrites it.",
+          "Your other VVakers stay yours in My VVakers. Your watch follows your phone.",
+          "On the web app, the first-run VVaker step keeps your account's VVaker unless you tap another one.",
+        ],
+      },
+      fr: {
+        improved: [
+          "La séance caméra s'ouvre avec Démarrer en haut, réglé sur votre dernier choix (« Lancer · Gainage 10 »). Modifier, juste en dessous, ouvre les autres routines, un mouvement ou votre propre séance. La première fois, elle démarre sur la routine débutant avec les choix ouverts. Sur le web aussi.",
+          "Sur l'accueil : deux puces sur Aujourd'hui, GPS et capteurs et Caméra, affichent ou masquent chaque façon de vous entraîner en une touche, synchronisées avec votre compte (le web aussi). Réglages › Façons de t’entraîner a les mêmes interrupteurs et Caméra et entraînements. Au moins une reste toujours sur l'accueil, et celle qui est masquée reste dans Autre choix › Tous les sports.",
+          "Les premières questions acceptent vos propres valeurs : chaque réponse en temps ou en distance a un choix Autre… qui ouvre un sélecteur (minutes, un temps en h:min:s, ou une distance en km ou en mi selon vos unités). Votre valeur s'affiche sur la puce ; touchez-la pour la modifier. Dans Personnaliser mon app, l'étape de l'événement a Autre distance… (par exemple 15 km ou 12 mi), et dans les questions de votre coach la séance habituelle, la plus longue séance, les minutes par jour, le meilleur temps récent, la distance de l'événement, les semaines restantes et le temps visé l'ont aussi. L'app web a les mêmes choix.",
+          "Pendant l'appel du premier jour, dire une distance pour votre événement (« une course de 15 km ») la remplit de la même façon.",
+        ],
+        fixed: [
+          "Avec Caméra et entraînements activé dans Personnaliser mon app, la séance caméra se trouve à nouveau facilement : un bouton Séance caméra sous l'action du jour sur Aujourd'hui, une ligne Séance caméra juste sous vos sports quand vous choisissez un sport (plus cachée sous Tous les sports), et une première ligne dans Votre bibliothèque sur l'onglet Entraînement. L'app web l'a aussi sur Aujourd'hui.",
+          "Demandez au coach « Où est la séance caméra ? » (ou cherchez « caméra » dans les Réglages) : il ouvre la séance caméra.",
+          "Tu as réinstallé l'app ou pris un nouveau téléphone ? En te connectant, ton VVaker revient : celui que tu avais choisi, avec sa propre image, récupérée gratuitement depuis ton compte (jamais générée à nouveau). L'étape VVaker du premier lancement affiche « Ton VVaker est de retour » et te propose de le garder, au lieu de partir d'un membre de la troupe qui remplaçait le tien.",
+          "Si tu te connectes à ton compte après avoir utilisé l'app sans compte, ton compte garde son VVaker : le choix par défaut du premier lancement ne l'écrase plus.",
+          "Tes autres VVakers restent à toi dans Mes VVakers. Ta montre suit ton téléphone.",
+          "Sur l'app web, l'étape VVaker du premier lancement garde le VVaker de ton compte sauf si tu en touches un autre.",
+        ],
+      },
+    },
+  },
+  {
     version: "1.0.0 (53)",
     date: "2026-10-28",
     channel: "beta",
