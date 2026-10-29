@@ -5,6 +5,7 @@ import type { ApiSession } from "@/lib/webapp/api";
 import { showsSpeed } from "@/lib/webapp/speedZones";
 import { clock, dayLabel, distance, pace, speed, timeLabel } from "@/lib/webapp/format";
 import { paceOf } from "@/lib/webapp/geo";
+import { sessionTimes, showsPaused } from "@/lib/webapp/moving";
 import { sportLabel } from "@/lib/webapp/workout";
 import { useApp } from "./AppContext";
 import { Btn, Card, H1, Kicker, Note, Small } from "./ui";
@@ -26,7 +27,9 @@ export function SessionScreen({ id }: { id: string }) {
   }, [api, id]);
   if (error) return <p className="text-muted">{t.common.error}</p>;
   if (!s) return <p className="text-muted">{t.common.loading}</p>;
+  // Moving time (lib/webapp/moving.ts): the pace and the time shown; the time in all on its own line.
   const p = s.distanceM ? paceOf(s.activeS, s.distanceM) : null;
+  const times = s.endedAt ? sessionTimes(s) : null;
   const hr = (s.samples ?? []).filter((x) => typeof x.bpm === "number") as { t: number; bpm: number }[];
   const noHr = !s.avgBpm && hr.length < 2;
   const zones = s.zoneS ?? null;
@@ -42,7 +45,7 @@ export function SessionScreen({ id }: { id: string }) {
       </div>
       <Card>
         <dl className="grid grid-cols-2 gap-4">
-          <Stat label={t.workout.elapsed} value={clock(s.activeS)} />
+          <Stat label={times && showsPaused(times) ? t.workout.movingTime : t.workout.elapsed} value={clock(s.activeS)} />
           {s.distanceM ? <Stat label={t.workout.distance} value={distance(s.distanceM, prefs.units, lang)} /> : null}
           {p ? (
             <Stat
@@ -52,6 +55,11 @@ export function SessionScreen({ id }: { id: string }) {
           ) : null}
           {s.avgBpm ? <Stat label={t.workout.heart} value={`${s.avgBpm} / ${s.maxBpm ?? "–"} bpm`} /> : null}
         </dl>
+        {times && showsPaused(times) ? (
+          <p className="mt-3 text-sm text-muted">
+            {fmt(t.workout.inAllPaused, { total: clock(times.elapsedS), paused: clock(times.pausedS) })}
+          </p>
+        ) : null}
       </Card>
       {hr.length > 1 && <HeartChart samples={hr} />}
       {zones && zoneTotal > 0 && (
