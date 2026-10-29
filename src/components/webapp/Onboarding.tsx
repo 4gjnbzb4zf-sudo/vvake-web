@@ -7,7 +7,7 @@ import { DISCLAIMER_SHORT, DISCLAIMER_VERSION } from "@/lib/webapp/disclaimer";
 import { QUICK_SPORTS, sportLabel, uuid } from "@/lib/webapp/workout";
 import { ownPlanName } from "@/lib/coachPlus";
 import { useApp } from "./AppContext";
-import { CAST_IDS, castSrc, resetVVakerCache } from "./MyVVaker";
+import { CAST_IDS, castSrc, resetVVakerCache, VVakerImg } from "./MyVVaker";
 import { CoachVoicePicker } from "./CoachVoicePicker";
 import { coachVoiceGender, type CoachVoiceGender } from "@/lib/coachVoices";
 import { GoalForm } from "./GoalsScreen";
@@ -34,6 +34,14 @@ export function Onboarding({ onDone }: { onDone: () => void }) {
   const [name, setName] = useState(me.name ?? "");
   const [city, setCity] = useState(me.city ?? "");
   const [cast, setCast] = useState<string>(me.castId && (CAST_IDS as readonly string[]).includes(me.castId) ? me.castId : "runner");
+  // The account's VVaker (a custom render, or one picked on a phone) is kept unless another one is tapped here: the
+  // default shown on this step is never sent over it (a reinstall overwrote a rendered VVaker this way, build 53).
+  const hasVVaker = !!me.vvakerCode || !!me.castId;
+  const [picked, setPicked] = useState(false);
+  const pickCast = (id: string) => {
+    setCast(id);
+    setPicked(true);
+  };
   // The coach's voice (ADR-0056): a light choice, Next keeps the one shown (a woman's unless chosen before).
   const [voiceGender, setVoiceGender] = useState<CoachVoiceGender>(coachVoiceGender(me.coach?.voiceGender));
   const [sports, setSports] = useState<string[]>(["run"]);
@@ -64,7 +72,7 @@ export function Onboarding({ onDone }: { onDone: () => void }) {
       };
       // Absent is a woman's voice: only a change is sent.
       if (voiceGender !== coachVoiceGender(me.coach?.voiceGender)) Object.assign(patch, { coach: { voiceGender } });
-      if (cast !== me.castId) Object.assign(patch, { castId: cast, vvakerUpdatedAt: now });
+      if ((picked || !hasVVaker) && cast !== me.castId) Object.assign(patch, { castId: cast, vvakerUpdatedAt: now });
       const m = await api.patchMe(patch);
       setMe(m);
       resetVVakerCache();
@@ -116,8 +124,12 @@ export function Onboarding({ onDone }: { onDone: () => void }) {
 
       {step === "welcome" && (
         <div className="mt-10 text-center">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={castSrc(cast)} alt="" className="mx-auto h-56 w-auto object-contain" />
+          {hasVVaker && !picked ? (
+            <VVakerImg alt="" className="mx-auto h-56 w-auto" />
+          ) : (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img src={castSrc(cast)} alt="" className="mx-auto h-56 w-auto object-contain" />
+          )}
           <h1 className="mt-6 font-display text-4xl font-bold">{o.welcome.title}</h1>
           <p className="mt-3 text-muted">{o.welcome.lead}</p>
         </div>
@@ -145,7 +157,16 @@ export function Onboarding({ onDone }: { onDone: () => void }) {
         <div className="mt-6">
           <h1 className="font-display text-2xl font-bold">{o.vvaker.title}</h1>
           <p className="mt-2 text-sm text-muted">{fmt(o.vvaker.lead, { plan: ownPlanName(me) })}</p>
-          <CastGrid value={cast} onChange={setCast} />
+          {hasVVaker && !picked && (
+            <div className="mt-4 flex items-center gap-4 rounded-2xl border border-line bg-surface p-3">
+              <VVakerImg alt="" className="h-32 w-24" />
+              <div>
+                <p className="font-display text-lg font-bold">{o.vvaker.backTitle}</p>
+                <p className="mt-1 text-sm text-muted">{o.vvaker.backLead}</p>
+              </div>
+            </div>
+          )}
+          <CastGrid value={hasVVaker && !picked ? "" : cast} onChange={pickCast} />
         </div>
       )}
 
