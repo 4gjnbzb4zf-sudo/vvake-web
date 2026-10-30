@@ -41,6 +41,15 @@ import {
   vehicleStep,
   type SpeedFix,
 } from "@/lib/webapp/vehicle/workoutVehicle";
+import {
+  acceptAutoCard,
+  autoPauseModeFor,
+  autoPauseStep,
+  dismissAutoCard,
+  parseAutoPausePrefs,
+  type AutoPauseCard,
+} from "@/lib/webapp/vehicle/workoutAutoPause";
+import type { AutoPauseAction } from "@/lib/webapp/vehicle/autoPause";
 import { useApp } from "./AppContext";
 
 /**
@@ -58,6 +67,11 @@ import { useApp } from "./AppContext";
  * Foot sports (walk, run, hike…) run the vehicle guard on the GPS speed (build 58, vehicle/workoutVehicle.ts): in a
  * car, bus or train the workout pauses from where the ride began and resumes by itself on foot; a session that was
  * mostly a ride is saved with the flag "vehicle" (not counted). The browser has no step count: speed alone judges.
+ *
+ * GPS sports run auto-pause on the same speed reading (build 59, vehicle/workoutAutoPause.ts, ADR-0065), per sport from
+ * the account's prefs.autoPause (Off / Suggest / Automatic, set on vvake.com/account): Automatic pauses from where a
+ * stop began and resumes from where you moved again; Suggest shows "Stopped? Pause" / "Moving again? Resume". A short
+ * buzz (where the browser vibrates) and "Paused" / "Resumed" when the workout voice allows it; never in a vehicle.
  */
 
 export type GpsState = "off" | "searching" | "live" | "denied" | "unsupported";
@@ -100,6 +114,13 @@ interface WorkoutApi {
   gap: boolean;
   /** Paused by the vehicle guard: the banner shows (Resume / End). */
   vehicle: boolean;
+  /** Paused by auto-pause (it resumes by itself when you move again). */
+  autoPaused: boolean;
+  /** Auto-pause's suggestion card (Suggest mode), or null. */
+  autoCard: AutoPauseCard | null;
+  /** The card's button (Pause from where the stop began, or Resume now) and its ×. */
+  acceptAutoCard: () => void;
+  dismissAutoCard: () => void;
   summary: Summary | null;
   start: (sport: string) => void;
   pause: () => void;
@@ -289,6 +310,25 @@ export function WorkoutProvider({ children }: { children: ReactNode }) {
   }, [sensorState, summary, speak, lang]);
 
   const speedFixes = useRef<SpeedFix[]>([]);
+  // Auto-pause (build 59): the account's choice per sport, read on every fix (the GPS watch isn't re-subscribed for it).
+  const autoPausePrefs = useMemo(() => parseAutoPausePrefs(me.prefs?.autoPause), [me.prefs?.autoPause]);
+  const autoPausePrefsRef = useRef(autoPausePrefs);
+  useEffect(() => {
+    autoPausePrefsRef.current = autoPausePrefs;
+  }, [autoPausePrefs]);
+  const autoFeedback = useRef<(a: AutoPauseAction) => void>(() => undefined);
+  useEffect(() => {
+    autoFeedback.current = (a) => {
+      if (a?.kind !== "pause" && a?.kind !== "resume") return;
+      // A short buzz where the browser has it (Android); iOS Safari has none. Spoken only as the workout voice allows.
+      try {
+        navigator.vibrate?.(40);
+      } catch {
+        // not allowed here
+      }
+      speak(a.kind === "pause" ? cueSpoken.paused(lang) : cueSpoken.resumed(lang), true);
+    };
+  }, [speak, lang]);
   // ── GPS ──────────────────────────────────────────────────────────────────────────────────────────────────────
   useEffect(() => {
     if (!w || !gpsOn || summary || restored || !("geolocation" in navigator)) return;
@@ -308,11 +348,18 @@ export function WorkoutProvider({ children }: { children: ReactNode }) {
         };
         const sp = speedReading(speedFixes.current, { ...fix, speed: p.coords.speed });
         speedFixes.current = sp.buffer;
+        let action: AutoPauseAction = null;
         update((x) => {
           const r = addFix(x.track, fix, { t: elapsedS(x, t), now: t, capKmh: cap, paused: isPaused(x) });
           // The vehicle guard (foot sports): paused from where a ride began, resumed on foot.
-          return vehicleStep({ ...x, track: r.state }, { now: t, speedMs: sp.speedMs }).w;
+          const v = vehicleStep({ ...x, track: r.state }, { now: t, speedMs: sp.speedMs }).w;
+          // Auto-pause (build 59): back-dated pause at a stop, back-dated resume when moving again, or a card.
+          const mode = autoPauseModeFor(v.sport, autoPausePrefsRef.current);
+          const a = autoPauseStep(v, { now: t, speedMs: sp.speedMs, mode, fixes: speedFixes.current });
+          action = a.action;
+          return a.w;
         });
+        autoFeedback.current(action);
       },
       (e) => setGps(e.code === e.PERMISSION_DENIED ? "denied" : "searching"),
       { enableHighAccuracy: true, maximumAge: 0, timeout: 20_000 },
@@ -388,14 +435,26 @@ export function WorkoutProvider({ children }: { children: ReactNode }) {
   );
   const pause = useCallback(() => {
     unlockAudio();
-    update((x) => pauseW(x, Date.now()));
+    update((x) => ({ ...pauseW(x, Date.now()), autoPaused: false, autoCard: null }));
     speak(cueSpoken.paused(lang), true);
   }, [update, speak, lang]);
   const resume = useCallback(() => {
     unlockAudio();
-    update((x) => (inVehicle(x) ? vehicleResumeNow(x, Date.now()) : resumeW(x, Date.now())));
+    update((x) => ({
+      ...(inVehicle(x) ? vehicleResumeNow(x, Date.now()) : resumeW(x, Date.now())),
+      autoPaused: false,
+      autoCard: null,
+    }));
     speak(cueSpoken.resumed(lang), true);
   }, [update, speak, lang]);
+  const acceptCard = useCallback(() => {
+    unlockAudio();
+    const card = wRef.current?.autoCard;
+    if (!card) return;
+    update((x) => acceptAutoCard(x, Date.now()));
+    speak(card.kind === "pause" ? cueSpoken.paused(lang) : cueSpoken.resumed(lang), true);
+  }, [update, speak, lang]);
+  const dismissCard = useCallback(() => update(dismissAutoCard), [update]);
   const confirmRestore = useCallback(() => {
     setRestored(false);
     setGap(true);
@@ -496,6 +555,10 @@ export function WorkoutProvider({ children }: { children: ReactNode }) {
     wakeLock,
     gap,
     vehicle: inVehicle(w),
+    autoPaused: !!w?.pausedAt && !!w.autoPaused,
+    autoCard: w?.autoCard ?? null,
+    acceptAutoCard: acceptCard,
+    dismissAutoCard: dismissCard,
     summary,
     start,
     pause,

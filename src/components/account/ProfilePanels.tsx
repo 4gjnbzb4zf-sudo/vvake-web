@@ -11,6 +11,8 @@ import { Card, linkButton, Pill, Row, Select, smallButton, smallInput, Toggle, u
 import { sectionIndex, type PanelProps } from "./shared";
 import { AUTO_START_MODES, autoStartModeOf, type AutoStartMode } from "@/lib/webapp/vehicle/autoStart";
 import { nextAutoStart } from "@/lib/webapp/vehicle/autoStartPrefs";
+import { AUTO_PAUSE_MODES, AUTO_PAUSE_SPORTS, type AutoPauseMode } from "@/lib/webapp/vehicle/autoPause";
+import { autoPauseModeFor, nextAutoPause, parseAutoPausePrefs } from "@/lib/webapp/vehicle/workoutAutoPause";
 
 /** This browser's device id (src/lib/rewardsApi.ts keeps it), to mark it in the list. */
 function thisDeviceId(): string | null {
@@ -171,6 +173,22 @@ export function AppSection(p: PanelProps) {
   ];
   // Start workouts for me (build 58, prefs.autoStart): one mode for every phone and watch; newest wins.
   const autoStartChoices: Choice<AutoStartMode>[] = AUTO_START_MODES.map((m) => ({ value: m, label: t.app.autoStartModes[m] }));
+  // Auto-pause (build 59, prefs.autoPause): per sport, Off / Suggest / Automatic; a change is stamped after the account's.
+  const autoPauseChoices: Choice<AutoPauseMode>[] = AUTO_PAUSE_MODES.map((m) => ({ value: m, label: t.app.autoPauseModes[m] }));
+  const autoPausePrefs = parseAutoPausePrefs(prefs.autoPause);
+  const autoPauseRow = (sport: string) => (
+    <Row key={sport} label={t.app.autoPauseSports[sport] ?? sport} htmlFor={`acct-autopause-${sport}`}>
+      <Select
+        id={`acct-autopause-${sport}`}
+        value={autoPauseModeFor(sport, autoPausePrefs)}
+        options={autoPauseChoices}
+        disabled={a.busy}
+        onChange={(mode) => patch({ autoPause: nextAutoPause(prefs.autoPause, sport, mode) })}
+      />
+    </Row>
+  );
+  const autoPauseMain = ["run", "walk", "ride", "hike"];
+  const autoPauseMore = Object.keys(AUTO_PAUSE_SPORTS).filter((k) => !autoPauseMain.includes(k));
   const units = me.coach?.units === "imperial" || me.coach?.units === "metric" ? t.app.unitsValue[me.coach.units] : t.notSet;
 
   return (
@@ -240,6 +258,14 @@ export function AppSection(p: PanelProps) {
           <Row label={t.app.moments} hint={t.appOnlyNote}>
             <Pill>{t.appOnly}</Pill>
           </Row>
+        </Card>
+        <Card title={t.app.autoPause}>
+          <p className="mt-2 text-xs leading-relaxed text-faint">{t.app.autoPauseHint}</p>
+          {autoPauseMain.map(autoPauseRow)}
+          <details className="border-t border-line/60 pt-3">
+            <summary className="cursor-pointer text-sm text-muted">{t.app.autoPauseMore}</summary>
+            {autoPauseMore.map(autoPauseRow)}
+          </details>
         </Card>
       </div>
     </Section>

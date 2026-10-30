@@ -86,6 +86,25 @@ const en = {
     autoStartHint:
       "On your phone and watch: when you start walking or running, VVake asks first (Ask me) or records it for you (Start automatically). Each device asks for motion access only when you pick it, and never starts in a vehicle.",
     autoStartModes: { off: "Off", ask: "Ask me", auto: "Start automatically" },
+    autoPause: "Auto-pause",
+    autoPauseHint:
+      'Per sport, on your phone, your watch and the web app: when you stop (a light, a crossing, a photo), VVake pauses the workout from where you stopped (Automatic) or asks "Stopped? Pause" (Suggest), and resumes from where you move again. Stops never count as moving time. A pause you make yourself never resumes by itself.',
+    autoPauseModes: { off: "Off", suggest: "Suggest", auto: "Automatic" },
+    autoPauseMore: "More sports",
+    autoPauseSports: {
+      run: "Run",
+      "trail-run": "Trail run",
+      orienteering: "Orienteering",
+      walk: "Walk",
+      hike: "Hike",
+      "nordic-walking": "Nordic walking",
+      snowshoe: "Snowshoe",
+      ride: "Ride",
+      "hand-cycling": "Hand cycling",
+      skate: "Skate",
+      "wheelchair-walk": "Wheelchair walk",
+      "wheelchair-run": "Wheelchair run",
+    } as Record<string, string>,
   },
   reminders: {
     lead: "Your daily rhythm, the daily move and My Pulse alerts. Each phone schedules its own notifications from these.",
@@ -445,6 +464,25 @@ const fr: AccountDict = {
     autoStartHint:
       "Sur ton téléphone et ta montre : quand tu te mets à marcher ou à courir, VVake te demande d'abord (Me demander) ou l'enregistre pour toi (Automatiquement). Chaque appareil demande l'accès aux mouvements seulement quand tu le choisis, et ne lance jamais rien dans un véhicule.",
     autoStartModes: { off: "Non", ask: "Me demander", auto: "Automatiquement" },
+    autoPause: "Pause auto",
+    autoPauseHint:
+      "Par sport, sur ton téléphone, ta montre et l'app web : quand tu t'arrêtes (un feu, un passage piéton, une photo), VVake met la séance en pause depuis l'endroit où tu t'es arrêté (Automatique) ou te demande « Arrêté ? Pause » (Proposer), et reprend depuis l'endroit où tu repars. Les arrêts ne comptent jamais dans le temps en mouvement. Une pause que tu fais toi-même ne reprend jamais toute seule.",
+    autoPauseModes: { off: "Non", suggest: "Proposer", auto: "Automatique" },
+    autoPauseMore: "Autres sports",
+    autoPauseSports: {
+      run: "Course",
+      "trail-run": "Trail",
+      orienteering: "Course d'orientation",
+      walk: "Marche",
+      hike: "Randonnée",
+      "nordic-walking": "Marche nordique",
+      snowshoe: "Raquettes",
+      ride: "Vélo",
+      "hand-cycling": "Handbike",
+      skate: "Roller",
+      "wheelchair-walk": "Fauteuil, balade",
+      "wheelchair-run": "Fauteuil, course",
+    },
   },
   reminders: {
     lead: "Ton rythme quotidien, le mouvement du jour et les alertes Mon Pulse. Chaque téléphone programme ses propres notifications à partir de ça.",

@@ -1,6 +1,7 @@
 import * as z from "zod/mini";
 import type { TailorPrefs } from "@/lib/webapp/tailor/tailor";
 import type { AutoStartPrefs } from "@/lib/webapp/vehicle/autoStart";
+import type { AutoPausePrefs } from "@/lib/webapp/vehicle/autoPause";
 import { coachVoicesSchema, type CoachVoiceGender } from "@/lib/coachVoices";
 import type { RewardsSession } from "./rewardsApi";
 import type { HeartZonesPrefs } from "@/lib/webapp/sportHeart";
@@ -50,6 +51,8 @@ const prefsSchema = z.object({
   tailor: z.optional(z.unknown()),
   /** Start workouts for me (VVFit build 58): `{ mode, at }`, read with autoStartModeOf (webapp/vehicle/autoStart.ts). */
   autoStart: z.optional(z.unknown()),
+  /** Auto-pause per sport (VVFit build 59): `{ bySport, at }`, read with parseAutoPausePrefs (webapp/vehicle/workoutAutoPause.ts). */
+  autoPause: z.optional(z.unknown()),
 });
 export type Prefs = z.infer<typeof prefsSchema>;
 
@@ -105,6 +108,8 @@ export interface MePatch {
     tailor?: TailorPrefs;
     /** Start workouts for me: sent with a fresh `at` (newest wins on the server). */
     autoStart?: AutoStartPrefs;
+    /** Auto-pause per sport: sent whole with a fresh `at` (nextAutoPause; newest wins on the server). */
+    autoPause?: AutoPausePrefs;
   };
   coach?: { callsOn?: boolean; callWindows?: [number, number][]; ringWatch?: boolean; voiceGender?: CoachVoiceGender };
 }

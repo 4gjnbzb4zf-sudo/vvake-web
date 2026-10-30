@@ -474,6 +474,13 @@ const en = {
     // Vehicle guard (build 58, ADR-0064): never an accusation.
     vehicleBanner: "Looks like you're in a vehicle, so this part doesn't count.",
     vehicleBannerHint: "It picks up again by itself once you're on foot.",
+    // Auto-pause (build 59, ADR-0065): Suggest mode's cards, and the line while auto-paused.
+    autoStopped: "Stopped?",
+    autoMoving: "Moving again?",
+    autoNotNow: "Not now",
+    autoPausedLine: "Paused automatically. It resumes as soon as you move.",
+    // Phone-only points v2 (build 59, ADR-0066): a phone-only session with points, in the journal (no shaming).
+    phoneOnlyPrize: "With a watch or heart strap: prize eligible",
     vehicleNotCounted: "Not counted: vehicle detected",
     vehicleLeftOut: "Vehicle stretch left out: {n} min",
     // A workout continued on another device (build 58, watch takeover): its sources in order.
@@ -1399,6 +1406,11 @@ const fr: WebAppDict = {
     pointsPending: "Les points arrivent avec l’envoi.",
     vehicleBanner: "On dirait que tu es dans un véhicule : cette partie ne compte pas.",
     vehicleBannerHint: "Elle reprend toute seule dès que tu es à pied.",
+    phoneOnlyPrize: "Avec une montre ou une ceinture cardio : éligible aux prix",
+    autoStopped: "Arrêté ?",
+    autoMoving: "Tu repars ?",
+    autoNotNow: "Pas maintenant",
+    autoPausedLine: "En pause automatique. Ça reprend dès que tu bouges.",
     vehicleNotCounted: "Non compté : véhicule détecté",
     vehicleLeftOut: "Passage en véhicule retiré : {n} min",
     sourcePhone: "Téléphone {n} min",

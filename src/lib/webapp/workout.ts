@@ -5,6 +5,7 @@ import { emptyTrack, type TrackState } from "./geo";
 import { heartEffort, zoneSeconds, type HeartProfile } from "./heart";
 import type { CameraSummary } from "./camera/cameraPoints";
 import type { VehicleGuardState, VehicleVerdict } from "./vehicle/vehicleGuard";
+import type { AutoPauseState } from "./vehicle/autoPause";
 
 /**
  * A workout recorded in the browser (vvake.com/app), with the phone app's rules (apps/mobile app/workout.tsx):
@@ -122,6 +123,12 @@ export interface WorkoutSnapshot {
   vehicle?: VehicleGuardState;
   /** Paused by the vehicle guard (not by the athlete): it resumes by itself once on foot again. */
   vehiclePaused?: boolean;
+  /** Auto-pause (build 59, vehicle/workoutAutoPause.ts): game-core's stop/go state, kept with the snapshot. */
+  autoPause?: AutoPauseState;
+  /** Paused by auto-pause (not by the athlete): it resumes by itself when you move again. */
+  autoPaused?: boolean;
+  /** A suggestion card on screen (Suggest mode): "Stopped? Pause" (from where the stop began) or "Moving again? Resume". */
+  autoCard?: { kind: "pause"; fromMs: number } | { kind: "resume" } | null;
 }
 
 export function newWorkout(o: { id: string; userId: string; sport: string; now: number; energy: number }): WorkoutSnapshot {

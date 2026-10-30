@@ -394,6 +394,23 @@ function LiveView() {
               <p className="text-xs">{t.workout.vehicleBannerHint}</p>
             </div>
           )}
+          {wk.autoPaused && !wk.vehicle && (
+            <p className="mt-3 text-sm text-butter-fg" role="status" aria-live="polite">
+              {t.workout.autoPausedLine}
+            </p>
+          )}
+          {wk.autoCard && !wk.vehicle && (
+            // Auto-pause, Suggest mode (build 59): "Stopped? Pause" pauses from where the stop began; "Moving again? Resume".
+            <div className="mt-3 flex items-center gap-2 rounded-xl bg-volt/15 px-3 py-2" role="status" aria-live="polite">
+              <p className="flex-1 text-sm font-semibold">{wk.autoCard.kind === "pause" ? t.workout.autoStopped : t.workout.autoMoving}</p>
+              <Btn variant="volt" onClick={wk.acceptAutoCard}>
+                {wk.autoCard.kind === "pause" ? t.workout.pause : t.workout.resume}
+              </Btn>
+              <Btn variant="ghost" onClick={wk.dismissAutoCard} aria-label={t.workout.autoNotNow}>
+                ×
+              </Btn>
+            </div>
+          )}
           {!confirmEnd ? (
             <div className="mt-3 flex gap-3">
               {paused ? (
@@ -652,7 +669,7 @@ function SummaryView() {
           <p className="text-sm text-butter-fg">{t.workout.summaryLocal}</p>
         ) : null}
         {vehicleNote ? <p className="mt-2 text-sm font-semibold text-butter-fg">{vehicleNote}</p> : null}
-        {!hasHr && !s.flags.includes("vehicle") && <p className="mt-2 text-sm">{t.workout.noPoints}</p>}
+        {!hasHr && !s.flags.includes("vehicle") && !((points?.total ?? 0) > 0) && <p className="mt-2 text-sm">{t.workout.noPoints}</p>}
         {streak && !s.flags.includes("vehicle") && <Small className="mt-2">{fmt(t.workout.streakNow, { n: streak.days })}</Small>}
       </Card>
       <Note tone="butter">{t.workout.webRule}</Note>

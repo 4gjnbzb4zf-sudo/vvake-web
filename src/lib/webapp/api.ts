@@ -101,6 +101,8 @@ export const appMeSchema = z.object({
       startWays: z.optional(z.unknown()),
       /** Next steps (ADR-0062 §4.3): `{ ledger, at }`, checked by suggest/steps.ts; absent until the API keeps it. */
       steps: z.optional(z.unknown()),
+      /** Auto-pause (build 59, ADR-0065): `{ bySport, at }`, checked by vehicle/workoutAutoPause.ts; absent until set. */
+      autoPause: z.optional(z.unknown()),
     }),
   ),
   consents: opt(z.object({ disclaimer: opt(z.object({ version: z.number(), acceptedAt: z.string() })) })),
