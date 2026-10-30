@@ -135,7 +135,7 @@ export interface LiveClientDeps {
   stt: LiveStt;
   player: LivePlayer;
   /** A tool the server asks the app to run (fill a card, show a permission…); its result goes back when it waits. */
-  onTool(name: string, args: Record<string, unknown>): Promise<unknown> | unknown;
+  onTool(name: string, args: Record<string, unknown>, id: string): Promise<unknown> | unknown;
   /**
    * The athlete's words, before they go to the server: true when the app answered them itself (a spoken yes or no to
    * the coach action card on screen, build 55; any mode since ADR-0068): shown as theirs, never sent. With cloud STT
@@ -476,7 +476,7 @@ export class LiveCallClient {
     }
     let result: unknown;
     try {
-      result = await this.d.onTool(name, args);
+      result = await this.d.onTool(name, args, id);
     } catch {
       result = { status: "error" };
     }
@@ -553,6 +553,17 @@ export class LiveCallClient {
 
   private coachSpeaking() {
     return this.s.phase === "speaking" || this.d.player.busy();
+  }
+
+  /** Typed words in a live talk (ADR-0068: text is always there): the same as a spoken final. */
+  sendText(text: string) {
+    const t = text.trim().slice(0, 600);
+    if (this.closed || !t || !this.begun) return;
+    if (this.coachSpeaking()) this.bargeIn();
+    this.addMine(t);
+    this.markFinal();
+    this.sendMsg({ type: "text", final: true, text: t });
+    this.set({ phase: "thinking" });
   }
 
   /** The athlete talked over the coach: silence now, drop the rest of the turn, tell the server what was heard. */
