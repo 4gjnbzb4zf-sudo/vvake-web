@@ -1,4 +1,4 @@
-// Copied from VVFit packages/game-core/src/coachActions.ts (c525a71a 2026-10-30) by scripts/sync-coach-core.ts. Do not edit: re-sync.
+// Copied from VVFit packages/game-core/src/coachActions.ts (6c84bcda 2026-10-30) by scripts/sync-coach-core.ts. Do not edit: re-sync.
 /**
  * The coach's app actions (build 55, founder bug: the coach said "I started your workout" and nothing started).
  *
@@ -916,9 +916,26 @@ export function cardDecision(textIn: string): { decision: "confirm" | "cancel" |
     const rest = t.slice(m[0].length).trim();
     if (rest) return { decision: "change", rest };
   }
-  const yn = yesNo(t);
+  const yn = yesNo(t) ?? yesNoPair(t);
   if (yn === "yes") return { decision: "confirm" };
   if (yn === "no") return { decision: "cancel" };
+  return null;
+}
+
+/** Two short answers in a row ("yes, do it", « oui vas-y », "no, not now"): the same answer. Pure. */
+function yesNoPair(t: string): "yes" | "no" | null {
+  const c = t
+    .replace(/[,;:]+/g, " ")
+    .replace(/\b(please|coach|merci|thanks|stp)\b/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+  const words = c.split(" ");
+  if (words.length < 2 || words.length > 5) return null;
+  for (let i = 1; i < words.length; i++) {
+    const a = yesNo(words.slice(0, i).join(" "));
+    const b = yesNo(words.slice(i).join(" "));
+    if (a && a === b) return a;
+  }
   return null;
 }
 
