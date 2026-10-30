@@ -19,6 +19,36 @@ export interface Release {
 
 export const releases: Release[] = [
   {
+    version: "1.0.0 (64)",
+    date: "2026-10-30",
+    channel: "beta",
+    devices: ["iphone", "android"],
+    notes: {
+      en: {
+        added: [
+          'Ask for several sessions at once ("add a 15-minute walk every day for the next 7 days"): one card adds them to your plan, then the coach asks if you want them in your calendar too.',
+          "Adding several sessions to your calendar in one go. If your calendar isn't allowed or linked, or only some could be added, the coach says so plainly.",
+        ],
+        fixed: [
+          "Talking live with your coach no longer loops: the coach no longer hears its own voice through the speaker, stops itself, and answers its own words.",
+          "The coach never says something was added, set or logged unless it really was. After you say yes to a card, what you hear is the app's real result (or why it couldn't be done).",
+          "Saying yes or no out loud to a plan or settings proposal during a live talk now really approves or declines it.",
+        ],
+      },
+      fr: {
+        added: [
+          "Demande plusieurs séances d'un coup (« ajoute une marche de 15 minutes chaque jour pendant 7 jours ») : une carte les ajoute à ton plan, puis le coach te demande si tu les veux aussi dans ton agenda.",
+          "Ajouter plusieurs séances à ton agenda en une fois. Si ton agenda n'est pas autorisé ou relié, ou si seules certaines ont pu être ajoutées, le coach le dit clairement.",
+        ],
+        fixed: [
+          "Parler en direct avec ton coach ne tourne plus en boucle : le coach n'entend plus sa propre voix dans le haut-parleur, ne se coupe plus lui-même et ne répond plus à ses propres mots.",
+          "Le coach ne dit jamais qu'une chose a été ajoutée, réglée ou notée si ce n'est pas vrai. Quand tu dis oui à une carte, tu entends le vrai résultat de l'app (ou pourquoi ça n'a pas pu se faire).",
+          "Dire oui ou non à voix haute à une proposition de plan ou de réglage pendant une discussion en direct la valide ou la refuse vraiment.",
+        ],
+      },
+    },
+  },
+  {
     version: "1.0.0 (63)",
     date: "2026-10-30",
     channel: "beta",
