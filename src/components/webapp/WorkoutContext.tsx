@@ -50,7 +50,31 @@ import {
   type AutoPauseCard,
 } from "@/lib/webapp/vehicle/workoutAutoPause";
 import type { AutoPauseAction } from "@/lib/webapp/vehicle/autoPause";
+import {
+  adaptiveUpload,
+  answerAdaptive,
+  cueEssential,
+  cueSpokenOf,
+  heardAdaptive,
+  pacesOf,
+  restoreAdaptive,
+  startAdaptive,
+  stepAdaptive,
+  vibrationOf,
+  viewOf,
+  zoneCapOf,
+  type PlannedStart,
+} from "@/lib/webapp/adaptive/workoutAdaptive";
+import {
+  classifySaid,
+  type AdaptiveSummary,
+  type AdaptiveView,
+  type RpeTap,
+  type SessionStructure,
+} from "@/lib/webapp/adaptive/adaptiveSession";
+import { adaptiveOn, parseAdaptivePrefs } from "@/lib/webapp/adaptive/progressApi";
 import { useApp } from "./AppContext";
+import { cachedReadiness } from "./useProgress";
 
 /**
  * The workout running in this browser, for every screen (the phone's lib/liveWorkout.ts + app/workout.tsx): one
@@ -72,6 +96,12 @@ import { useApp } from "./AppContext";
  * the account's prefs.autoPause (Off / Suggest / Automatic, set on vvake.com/account): Automatic pauses from where a
  * stop began and resumes from where you moved again; Suggest shows "Stopped? Pause" / "Moving again? Resume". A short
  * buzz (where the browser vibrates) and "Paused" / "Resumed" when the workout voice allows it; never in a vehicle.
+ *
+ * A planned session (build 62, ADR-0069, adaptive/workoutAdaptive.ts) runs game-core's adaptive engine every second
+ * with the strap's heart zone, else the live GPS pace: segment, target, time left or "until recovered", status and next
+ * on screen, its cues through the same speech path (the workout voice switch decides; Essential keeps the turns and
+ * safety), a buzz per cue where the browser vibrates, and the Easy / Moderate / Hard card on an effort check. The
+ * session uploads with `rpe` and `adaptive`. Free workouts keep the zone cues as before.
  */
 
 export type GpsState = "off" | "searching" | "live" | "denied" | "unsupported";
@@ -87,6 +117,19 @@ export interface Summary {
   gainM: number;
   /** Where the session spent most time (livingApi spotOfRoute), in this page's memory only: to ask if the spot is new. */
   spot?: LatLon | null;
+  /** A planned session run adaptively: what happened (time in target, adjustments, effort answers). */
+  adaptive?: { structure: SessionStructure; summary: AdaptiveSummary } | null;
+}
+
+/** The planned session's live panel (null for a free workout). */
+export interface AdaptiveLive {
+  view: AdaptiveView;
+  /** The effort card is on screen (Easy / Moderate / Hard, gone after 20 s). */
+  asking: boolean;
+  eased?: "tired" | "strained";
+  fixed: boolean;
+  /** Heart rate is streaming (zones), else pace or effort. */
+  hasHr: boolean;
 }
 
 interface WorkoutApi {
@@ -122,7 +165,16 @@ interface WorkoutApi {
   acceptAutoCard: () => void;
   dismissAutoCard: () => void;
   summary: Summary | null;
-  start: (sport: string) => void;
+  adaptive: AdaptiveLive | null;
+  /** An effort answer (the card, or a spoken one). */
+  answerEffort: (tap: RpeTap) => void;
+  /** Words said during the workout (the coach talk's transcript): "pain", "too hard", "easy"… feed the session. */
+  heard: (text: string) => void;
+  /** `plan`: today's planned session (purpose, minutes, zone) with the season's health flags: runs it adaptively. */
+  start: (
+    sport: string,
+    plan?: PlannedStart & { health?: { condition?: boolean | null; cleared?: boolean | null; easyOnly?: boolean | null } },
+  ) => void;
   pause: () => void;
   resume: () => void;
   end: () => void;
@@ -148,7 +200,7 @@ interface WakeLockSentinelLike {
 export function WorkoutProvider({ children }: { children: ReactNode }) {
   const app = useApp();
   const { lang, me, prefs, kv, athlete, energy, setEnergy, bpm, sensorState, api, deviceKey, queue, setQueue, refresh } = app;
-  const { workoutVoice, speedZones, heartZones } = app;
+  const { workoutVoice, speedZones, heartZones, suggestLevel } = app;
   const [w, setW] = useState<WorkoutSnapshot | null>(null);
   const wRef = useRef<WorkoutSnapshot | null>(null);
   const [restored, setRestored] = useState(false);
@@ -197,7 +249,8 @@ export function WorkoutProvider({ children }: { children: ReactNode }) {
     if (!kv) return;
     void kv.get<WorkoutSnapshot>(WORKOUT_KEY).then((saved) => {
       if (!saved || saved.v !== 1 || saved.userId !== me.id || wRef.current) return;
-      const r = afterReload(saved);
+      // A planned session's machine comes back only when it still checks out (else the workout runs free).
+      const r = afterReload({ ...saved, adaptive: restoreAdaptive(saved.adaptive) });
       wRef.current = r;
       setW(r);
       setRestored(true);
@@ -263,8 +316,31 @@ export function WorkoutProvider({ children }: { children: ReactNode }) {
       setSpeedKmh((x) => (Math.abs(x - kmh) < 0.05 ? x : kmh));
       const z = zoneRef.current;
       const level = workoutChattiness(workoutVoice, prefs.chattiness) ?? "quiet";
+      // A planned session (ADR-0069): the engine steps every second and says its own cues (no zone cues then).
+      if (cur.adaptive && !cur.adaptive.state.done) {
+        const pkmh = gpsOn ? windowSpeedKmh(d) : 0;
+        const hr = bpm !== null ? zoneOf(bpm, heart) : 0;
+        const r = stepAdaptive(cur.adaptive, {
+          t: s,
+          ...(hr > 0 ? { zone: hr, bpm: bpm ?? undefined } : {}),
+          ...(pkmh > 1 ? { paceSPerKm: 3600 / pkmh } : {}),
+        });
+        update((x) => ({ ...x, adaptive: r.a }));
+        for (const c of r.cues) {
+          const v = vibrationOf(c);
+          if (v)
+            try {
+              navigator.vibrate?.(v);
+            } catch {
+              // not allowed here
+            }
+          speak(cueSpokenOf(c, lang), cueEssential(c));
+        }
+      }
       // A zone settled for 15 s is said once.
-      if (zone !== z.zone) {
+      if (cur.adaptive) {
+        // the engine speaks for the zones
+      } else if (zone !== z.zone) {
         z.zone = zone;
         z.since = s;
       } else if (s - z.since === 15 && zone > 0 && zone !== z.spoken) {
@@ -293,7 +369,24 @@ export function WorkoutProvider({ children }: { children: ReactNode }) {
       }
     }, 1000);
     return () => window.clearInterval(id);
-  }, [w, summary, restored, update, zone, prefs.chattiness, prefs.units, gpsOn, lang, speak, speedOn, thresholds, speedZone, workoutVoice]);
+  }, [
+    w,
+    summary,
+    restored,
+    update,
+    zone,
+    prefs.chattiness,
+    prefs.units,
+    gpsOn,
+    lang,
+    speak,
+    speedOn,
+    thresholds,
+    speedZone,
+    workoutVoice,
+    bpm,
+    heart,
+  ]);
 
   // ── Heart rate from the sensor ────────────────────────────────────────────────────────────────────────────────
   useEffect(() => {
@@ -408,13 +501,29 @@ export function WorkoutProvider({ children }: { children: ReactNode }) {
 
   // ── Controls ─────────────────────────────────────────────────────────────────────────────────────────────────
   const start = useCallback(
-    (sportKey: string) => {
+    (
+      sportKey: string,
+      plan?: PlannedStart & { health?: { condition?: boolean | null; cleared?: boolean | null; easyOnly?: boolean | null } },
+    ) => {
       if (wRef.current) return;
       // The Start tap: the one audio element and the browser voice are unlocked here (iOS Safari autoplay).
       unlockAudio();
       void warmVoice();
       const t = Date.now();
-      const fresh = newWorkout({ id: uuid(), userId: me.id, sport: sportKey, now: t, energy: Math.floor(energy.current) });
+      const base = newWorkout({ id: uuid(), userId: me.id, sport: sportKey, now: t, energy: Math.floor(energy.current) });
+      // A planned session (ADR-0069): its structure with the day's readiness, the health cap and your set paces.
+      const ad =
+        plan && adaptiveOn(me)
+          ? startAdaptive(plan, {
+              sport: sportKey,
+              prefs: parseAdaptivePrefs(me.prefs?.adaptive),
+              level: suggestLevel,
+              readiness: cachedReadiness(me.id),
+              zoneCap: zoneCapOf(plan.health),
+              paces: pacesOf(speedZones?.sports?.[sportKey]),
+            })
+          : null;
+      const fresh = ad ? { ...base, adaptive: ad } : base;
       wRef.current = fresh;
       setW(fresh);
       setSummary(null);
@@ -431,7 +540,18 @@ export function WorkoutProvider({ children }: { children: ReactNode }) {
       void kv?.set(WORKOUT_KEY, fresh);
       speak(cueSpoken.start(lang, me.name ?? "", sportLabel(sportKey, lang)), true);
     },
-    [me.id, me.name, energy, kv, lang, speak],
+    [me, energy, kv, lang, speak, suggestLevel, speedZones],
+  );
+  const answerEffort = useCallback(
+    (tap: RpeTap) => update((x) => (x.adaptive ? { ...x, adaptive: answerAdaptive(x.adaptive, tap) } : x)),
+    [update],
+  );
+  const heard = useCallback(
+    (text: string) => {
+      const said = classifySaid(text);
+      if (said) update((x) => (x.adaptive && !x.adaptive.state.done ? { ...x, adaptive: heardAdaptive(x.adaptive, said) } : x));
+    },
+    [update],
   );
   const pause = useCallback(() => {
     unlockAudio();
@@ -496,7 +616,10 @@ export function WorkoutProvider({ children }: { children: ReactNode }) {
       setSummary({ session: null, discarded: true, reply: null, uploading: false, queued: false, splits: [], gainM: 0 });
       return;
     }
-    const session = buildSession(done, { now: t, deviceKey, heart, gps: gpsUsed, vehicle });
+    const built = buildSession(done, { now: t, deviceKey, heart, gps: gpsUsed, vehicle });
+    // A planned session: the structure, what happened and the effort answers go up with it (the API checks them).
+    const ad = done.adaptive && adaptiveOn(me) ? adaptiveUpload(done.adaptive, activeS) : null;
+    const session = ad ? { ...built, ...ad } : built;
     // Scored minutes spend energy (what's left refills four times a day).
     if (session.energyUsed) setEnergy(spend(energy, session.energyUsed));
     const q = enqueue(queueRef.current, me.id, session);
@@ -513,6 +636,7 @@ export function WorkoutProvider({ children }: { children: ReactNode }) {
       splits,
       gainM: done.track.gainM,
       spot: gpsUsed ? spotOfRoute(done.track.route) : null,
+      adaptive: ad?.adaptive ?? null,
     });
     void api
       .upload(session, localTz())
@@ -524,7 +648,7 @@ export function WorkoutProvider({ children }: { children: ReactNode }) {
         void refresh();
       })
       .catch(() => setSummary((s) => (s && s.session?.id === session.id ? { ...s, uploading: false } : s)));
-  }, [prefs.units, workoutVoice, deviceKey, heart, energy, setEnergy, me.id, setQueue, clear, lang, api, refresh]);
+  }, [prefs.units, workoutVoice, deviceKey, heart, energy, setEnergy, me, setQueue, clear, lang, api, refresh]);
 
   const closeSummary = useCallback(() => setSummary(null), []);
 
@@ -560,6 +684,18 @@ export function WorkoutProvider({ children }: { children: ReactNode }) {
     acceptAutoCard: acceptCard,
     dismissAutoCard: dismissCard,
     summary,
+    adaptive:
+      w?.adaptive && !summary
+        ? {
+            view: viewOf(w.adaptive, elapsedS(w, now), bpm !== null),
+            asking: w.adaptive.askT !== null,
+            ...(w.adaptive.structure.eased ? { eased: w.adaptive.structure.eased } : {}),
+            fixed: w.adaptive.timing === "fixed" || !w.adaptive.structure.adaptive,
+            hasHr: bpm !== null,
+          }
+        : null,
+    answerEffort,
+    heard,
     start,
     pause,
     resume,

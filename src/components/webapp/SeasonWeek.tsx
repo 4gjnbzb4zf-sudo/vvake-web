@@ -17,6 +17,7 @@ import {
   type SeasonSessionView,
 } from "@/lib/webapp/season";
 import { sportLabel } from "@/lib/webapp/workout";
+import { plannedOf } from "@/lib/webapp/adaptive/workoutAdaptive";
 import { useApp } from "./AppContext";
 import { EditToast, SessionSheet, useEditApply, WarningNotes } from "./PlanEdit";
 import { ProposalCard, Chip } from "./SeasonParts";
@@ -287,8 +288,10 @@ export function SeasonWeekEditor() {
             setOpen={(o) => setOpenDay(o ? d.date : null)}
             onEdit={(e) => void edit(e)}
             onSheet={(session) => setSheet({ session, date: d.date })}
-            onStart={(sport) => {
-              wk.start(sport);
+            onStart={(x) => {
+              // A planned session runs adaptively (ADR-0069): its purpose, minutes and zone, with the health flags.
+              const plan = plannedOf(x);
+              wk.start(x.sport, plan ? { ...plan, health: base.season?.health } : undefined);
               go({ name: "workout" });
             }}
             startDisabled={!!wk.w}
@@ -371,7 +374,7 @@ function DayCard({
   setOpen: (open: boolean) => void;
   onEdit: (e: EditDraft) => void;
   onSheet: (session: SeasonSessionView | null) => void;
-  onStart: (sport: string) => void;
+  onStart: (x: SeasonSessionView) => void;
   startDisabled: boolean;
 }) {
   const { lang } = useApp();
@@ -413,7 +416,7 @@ function DayCard({
               can={can}
               isToday={isToday}
               onOpen={() => onSheet(x)}
-              onStart={() => onStart(x.sport)}
+              onStart={() => onStart(x)}
               startDisabled={startDisabled}
             />
           ))}

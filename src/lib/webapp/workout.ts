@@ -6,6 +6,8 @@ import { heartEffort, zoneSeconds, type HeartProfile } from "./heart";
 import type { CameraSummary } from "./camera/cameraPoints";
 import type { VehicleGuardState, VehicleVerdict } from "./vehicle/vehicleGuard";
 import type { AutoPauseState } from "./vehicle/autoPause";
+import type { WorkoutAdaptive } from "./adaptive/workoutAdaptive";
+import type { AdaptiveSummary, SessionStructure } from "./adaptive/adaptiveSession";
 
 /**
  * A workout recorded in the browser (vvake.com/app), with the phone app's rules (apps/mobile app/workout.tsx):
@@ -129,6 +131,8 @@ export interface WorkoutSnapshot {
   autoPaused?: boolean;
   /** A suggestion card on screen (Suggest mode): "Stopped? Pause" (from where the stop began) or "Moving again? Resume". */
   autoCard?: { kind: "pause"; fromMs: number } | { kind: "resume" } | null;
+  /** A planned session run adaptively (build 62, ADR-0069, adaptive/workoutAdaptive.ts): its structure and machine. */
+  adaptive?: WorkoutAdaptive;
 }
 
 export function newWorkout(o: { id: string; userId: string; sport: string; now: number; energy: number }): WorkoutSnapshot {
@@ -226,6 +230,10 @@ export interface WebSession {
   camera?: CameraSummary;
   /** Seconds the vehicle guard left out (build 58); with the flag "vehicle" when the session was mostly vehicle. */
   vehicleS?: number;
+  /** Effort out of 10 (build 62): the mean of the effort answers during a planned session. */
+  rpe?: number;
+  /** A planned session run adaptively (build 62): the structure and what happened; the API replays the hold bonus. */
+  adaptive?: { structure: SessionStructure; summary: AdaptiveSummary };
 }
 
 export const MINUTES_PER_ENERGY = 5;

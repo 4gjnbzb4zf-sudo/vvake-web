@@ -19,6 +19,7 @@ import { HabitsToday } from "./HabitsToday";
 import { ComebackCard } from "./Journey";
 import { useWorkout } from "./WorkoutContext";
 import { ProgressLine } from "./ProgressScreen";
+import { plannedOf } from "@/lib/webapp/adaptive/workoutAdaptive";
 import { EntryChoice } from "./WorkoutScreen";
 import { cameraSport } from "@/lib/webapp/camera/webSetup";
 import { hasPlaces } from "@/lib/webapp/places";
@@ -167,7 +168,10 @@ export function TodayScreen() {
                 onClick={() => {
                   // A sport the camera counts asks "With the camera" or "Heart only" first (the phone's Today ask=1).
                   if (cameraSport(planned.sport)) return setAsking(planned.sport);
-                  wk.start(planned.sport);
+                  // The season's session for today (ADR-0069): run adaptively when it is the one planned.
+                  const sx = season?.today.find((x) => x.sport === planned.sport);
+                  const plan = sx ? plannedOf(sx) : undefined;
+                  wk.start(planned.sport, plan ? { ...plan, health: season?.health } : undefined);
                   go({ name: "workout" });
                 }}
               >

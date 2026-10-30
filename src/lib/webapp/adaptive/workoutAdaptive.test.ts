@@ -5,6 +5,7 @@ import {
   answerAdaptive,
   cueEssential,
   pacesOf,
+  plannedOf,
   restoreAdaptive,
   RPE_CARD_S,
   startAdaptive,
@@ -133,5 +134,17 @@ describe("adaptive web workout", () => {
       "en",
     );
     expect(line).toBe("2 rests extended, last rep dropped");
+  });
+
+  it("a season session (or the plain plan's typed one) becomes a planned start", () => {
+    expect(plannedOf({ id: "2026-10-30#1", purpose: "intervals", minutes: 45, zone: 4 })).toEqual({
+      purpose: "intervals",
+      minutes: 45,
+      zone: 4,
+      sessionId: "2026-10-30#1",
+    });
+    expect(plannedOf({ type: "easy", minutes: 30, purpose: null })).toEqual({ purpose: "easy", minutes: 30 });
+    expect(plannedOf({ minutes: 30 })).toBeUndefined();
+    expect(plannedOf({ purpose: "easy", minutes: 0 })).toBeUndefined();
   });
 });

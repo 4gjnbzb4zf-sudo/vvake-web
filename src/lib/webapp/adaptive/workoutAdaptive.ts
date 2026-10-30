@@ -227,3 +227,16 @@ export function adjustLine(s: AdaptiveSummary, lang: Locale): string | null {
   if (a.pain) parts.push(fr ? "arrêt de l’intensité (douleur)" : "hard part stopped (pain)");
   return parts.length ? parts.join(", ") : null;
 }
+
+/** A season session (or the plain plan's typed one) as a planned start, when it says what kind of session it is. */
+export function plannedOf(x: {
+  id?: string | null;
+  purpose?: string | null;
+  type?: string | null;
+  minutes?: number | null;
+  zone?: number | null;
+}): PlannedStart | undefined {
+  const purpose = x.purpose || x.type;
+  if (!purpose || !x.minutes || x.minutes <= 0) return undefined;
+  return { purpose, minutes: x.minutes, ...(x.zone ? { zone: x.zone } : {}), ...(x.id ? { sessionId: x.id } : {}) };
+}

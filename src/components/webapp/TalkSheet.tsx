@@ -295,11 +295,24 @@ function TalkSheet({
   });
 
   const fellBackRef = useRef<(s: LiveState) => void>(() => undefined);
+  // What the athlete says on a live call during a planned session steers it too (ADR-0069): each new line once.
+  const heardRef = useRef<{ key: string; heard: (t: string) => void }>({ key: "", heard: () => undefined });
+  useEffect(() => {
+    heardRef.current.heard = (t: string) => {
+      if (wk.w) wk.heard(t);
+    };
+  });
   // The live client's tools and answers, routed here.
   useEffect(() => {
     setHandlers({
       onState: (s) => {
         setLive({ ...s });
+        const mine = [...s.captions].reverse().find((c) => c.who === "me");
+        const key = mine ? `${mine.turn}:${mine.text}` : "";
+        if (mine && key !== heardRef.current.key) {
+          heardRef.current.key = key;
+          heardRef.current.heard(mine.text);
+        }
         if (s.phase === "ended") fellBackRef.current(s);
       },
       answer: (t) => chatRef.current.answerCard(t, "voice"),
@@ -420,6 +433,8 @@ function TalkSheet({
     if (r.stopVoice) hush();
     if (r.stopListening) stopper.current?.stop();
     if (r.send) {
+      // During a planned session, "pain", "too hard", "feels easy" also steer it (ADR-0069 classifySaid).
+      if (wk.w) wk.heard(r.send);
       // The reply may be said (and done) before ask() resolves (no voice, a card's answer): never stuck "speaking".
       let said = false;
       void chat
@@ -466,6 +481,7 @@ function TalkSheet({
     const m = text.trim();
     if (!m) return;
     setText("");
+    if (wk.w) wk.heard(m);
     const c = client.current;
     if (c && c.state.phase !== "ended" && pick?.mode === "live") {
       if (chat.answerCard(m, "chat")) return;

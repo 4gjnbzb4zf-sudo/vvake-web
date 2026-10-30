@@ -18,6 +18,7 @@ import { VVakerImg } from "./MyVVaker";
 import { useSeason } from "./useSeason";
 import { useWorkout } from "./WorkoutContext";
 import { ProgressLine } from "./ProgressScreen";
+import { plannedOf } from "@/lib/webapp/adaptive/workoutAdaptive";
 import { EntryChoice } from "./WorkoutScreen";
 import { Btn, Card, Kicker, Small } from "./ui";
 import { useNow } from "./useNow";
@@ -64,7 +65,10 @@ export function TodayLean() {
   const startSport = (sport: string) => {
     // A sport the camera counts asks "With the camera" or "Heart only" first (as on the full Today).
     if (cameraSport(sport)) return setAsking(sport);
-    wk.start(sport);
+    // The season's session for today (ADR-0069): run adaptively when it is the one planned.
+    const sx = planned && planned.sport === sport ? season?.today.find((x) => x.sport === sport) : undefined;
+    const plan = sx ? plannedOf(sx) : undefined;
+    wk.start(sport, plan ? { ...plan, health: season?.health } : undefined);
     go({ name: "workout" });
   };
   const pickAnother = (

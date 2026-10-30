@@ -24,6 +24,7 @@ import {
 import { useApp } from "./AppContext";
 import { useVVakerSrc } from "./MyVVaker";
 import { useWorkout } from "./WorkoutContext";
+import { AdaptivePanel, AdaptiveSummaryCard } from "./AdaptiveLive";
 import { Btn, Card, Kicker, Note, Small } from "./ui";
 import { TalkButton } from "./TalkSheet";
 import { FeelAfter } from "./Suggest";
@@ -384,6 +385,7 @@ function LiveView() {
               />
             )}
           </dl>
+          {wk.adaptive && <AdaptivePanel live={wk.adaptive} />}
           {gps ? <Small className="mt-2">{gpsLine}</Small> : <Small className="mt-2">{t.workout.noGpsIndoor}</Small>}
           {wk.zoneSource === "speed" && <Small className="mt-1">{t.zones.disclaimer}</Small>}
           {wk.roughGuide && bpm !== null && <Small className="mt-1">{getSportZonesDict(lang).roughGuide}</Small>}
@@ -647,6 +649,7 @@ function SummaryView() {
           </p>
         ) : null}
       </Card>
+      {sm.adaptive && <AdaptiveSummaryCard summary={sm.adaptive.summary} />}
       {sm.splits.length > 0 && (
         <Card>
           <Kicker>{t.workout.splits}</Kicker>
