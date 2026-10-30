@@ -65,6 +65,8 @@ export function CoachPlans({ t, lang }: { t: Dictionary["plusPay"]["plans"]; lan
             </div>
           ))}
         </div>
+        {/* Phone-only points by plan (founder 2026-10-30): progress only, never a rank or a prize share (ADR-0002). */}
+        <p className="mt-4 max-w-3xl text-sm text-muted">{t.pointsNote}</p>
         <h3 className="mt-10 font-display text-xl font-semibold">{t.packsTitle}</h3>
         <p className="mt-2 max-w-3xl text-sm text-muted">{t.packsLead}</p>
         <div className="mt-4 grid grid-cols-3 gap-3 sm:max-w-xl">

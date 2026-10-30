@@ -911,6 +911,11 @@ export const fr: Dictionary = {
         body: "Spotify sur ta montre sans ton téléphone (Spotify Premium requis), activé depuis la montre elle-même.",
       },
       {
+        icon: "🌱",
+        title: "Plus de points par jour pour ta progression",
+        body: "Les marches et courses avec ton téléphone seul comptent jusqu'à 100 points par jour avec VVake Coach Plus et 150 avec VVake Coach Premium (60 en gratuit), pour tes niveaux, ton VVaker et ton parcours. Ligues, défis et classements comptent les mêmes 60 par jour pour tout le monde, et les prix suivent seulement l'effort avec fréquence cardiaque.",
+      },
+      {
         icon: "📅",
         title: "Replanification auto",
         body: "Nouvelle réunion ? Ta séance se déplace toute seule sur ton prochain créneau libre.",
@@ -955,7 +960,7 @@ export const fr: Dictionary = {
     },
     neverTitle: "Jamais dans VVake Coach Plus",
     never: [
-      "Plus d'énergie ou de points",
+      "Plus d'énergie, ou des points qui te classent plus haut : ligues, défis et classements comptent les points au téléphone seul jusqu'à 60 par jour pour tout le monde",
       "Un meilleur classement ou de meilleures stats",
       "Une plus grosse part des prix : les prix suivent l'effort seulement, jamais ce que tu paies",
       "Tes données : ton journal complet et tes exports restent gratuits",
@@ -2256,7 +2261,7 @@ export const fr: Dictionary = {
           ],
         },
       ],
-      note: "Les options payantes débloquent des choses à faire (organiser, créer, accéder), jamais un avantage : elles ne changent jamais les récompenses, l'énergie, les classements, les stats ni ta part de quoi que ce soit. Niveaux et stats ne s'achètent pas.",
+      note: "Les options payantes débloquent des choses à faire (organiser, créer, accéder), jamais un avantage : elles ne changent jamais les récompenses, l'énergie, les classements, les stats ni ta part de quoi que ce soit. Niveaux et stats viennent de tes séances.",
       cta: "Voir les drops",
     },
   },
@@ -2352,6 +2357,11 @@ export const fr: Dictionary = {
         q: "Faut-il une montre pour gagner des points ?",
         a: "Non. Une marche, une course, une rando ou une sortie à vélo avec ton téléphone seul rapporte environ 80 % des points de la même séance avec fréquence cardiaque, bonus de série compris, quand les vérifications du téléphone concordent (des pas qui collent à la distance, aucun passage en véhicule, la vraie app). Avec une montre ou une ceinture cardio, une séance peut aussi compter pour les prix de la semaine ; une séance au téléphone seul, jamais. Les séances de l'app web gardent leur propre règle : des points avec une ceinture cardio, jamais de prix.",
         link: "rewards/",
+      },
+      {
+        q: "Payer me donne un meilleur classement ou plus de prix ?",
+        a: "Non. VVake Coach Plus et VVake Coach Premium font compter plus de points par jour aux marches et courses avec ton téléphone seul, pour ta propre progression (60 en gratuit, 100 avec Plus, 150 avec Premium) : tes niveaux, ton VVaker, ton parcours. Ligues, défis et classements comptent ces points jusqu'à 60 par jour pour tout le monde, et les prix de la semaine suivent seulement l'effort avec fréquence cardiaque, pareil dans toutes les formules. L'argent n'achète jamais un meilleur classement ni une part des prix.",
+        link: "plans/",
       },
       {
         q: "C'est gratuit ? Faut-il un wallet ou des cryptos ?",
@@ -3916,6 +3926,7 @@ export const fr: Dictionary = {
           name: "Gratuit",
           lines: [
             "Toutes les séances, les sports, les points et l'entrée aux prix",
+            "Séances au téléphone seul : jusqu'à 60 points par jour",
             "Chat du coach et annonces en séance avec la voix du coach, même hors ligne",
             "Coach en direct avec des packs de minutes",
           ],
@@ -3927,6 +3938,7 @@ export const fr: Dictionary = {
             "Réponses dans la voix du coach : {chars} nouveaux caractères par jour",
             "Appels du coach, jusqu'à {calls} par semaine",
             "VVaker sur mesure, plan sur 12 semaines, analyses poussées",
+            "Plus de points par jour pour ta progression : séances au téléphone seul jusqu'à 100 par jour",
           ],
         },
         premium: {
@@ -3936,6 +3948,7 @@ export const fr: Dictionary = {
             "Tout VVake Coach Plus",
             "La voix du coach : {chars} nouveaux caractères par jour, tes phrases libres aussi",
             "Appels du coach, jusqu'à {calls} par jour",
+            "Plus de points par jour pour ta progression : séances au téléphone seul jusqu'à 150 par jour",
           ],
         },
       },
@@ -3943,11 +3956,13 @@ export const fr: Dictionary = {
       packsLead:
         "Pour toutes les formules, même gratuite : des minutes de coach en direct utilisées seulement après celles de la semaine, pendant une vraie séance, valables 12 mois.",
       pack: "+{n} min",
+      pointsNote:
+        "Les points en plus chaque jour servent à ta propre progression (niveaux, ton VVaker, ton parcours). Ligues, défis et classements comptent les points au téléphone seul jusqu'à 60 par jour dans toutes les formules, et les prix suivent seulement l'effort avec fréquence cardiaque : payer n'achète jamais un meilleur classement ni une plus grosse part des prix.",
       fine: "Les minutes en direct comptent ce que toi et le coach dites, pas les silences. Pendant la bêta, les testeurs ont VVake Coach Premium pour tout essayer ; rien n'est facturé.",
     },
     kicker: "VVake Coach Plus · optionnel",
     heading: "VVake Coach Plus, payé en $VVAKE",
-    lead: "Plus d'outils, jamais d'avantage : énergie, scores, prix et stats sont les mêmes pour tout le monde. Paie un mois de VVake Coach Plus en $VVAKE depuis ton propre portefeuille, moins cher que le prix affiché.",
+    lead: "Plus d'outils, jamais d'avantage : énergie, classements, prix et stats sont les mêmes pour tout le monde. Paie un mois de VVake Coach Plus en $VVAKE depuis ton propre portefeuille, moins cher que le prix affiché.",
     appStore:
       "Dans l'app iPhone, VVake Coach Plus est un abonnement intégré via l'App Store ; tu le gères ou l'annules dans les réglages de l'App Store. Payer en $VVAKE ici, c'est un paiement séparé d'un mois pour le même compte VVake : pas de renouvellement, rien à annuler. Un abonnement par carte ici se renouvelle chaque mois et se gère sur cette page.",
     testnet: "Testnet : ces tokens n'ont aucune valeur. Rien sur cette page n'est une offre ni un conseil en placement.",
