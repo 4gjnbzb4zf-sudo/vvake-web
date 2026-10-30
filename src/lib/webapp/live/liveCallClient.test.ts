@@ -41,7 +41,9 @@ function rig(o: Partial<LiveClientDeps> & { sttOk?: boolean; ticketOff?: string;
     heard: 1200,
   };
   let idle: (() => void) | null = null;
+  let startCb: ((turn: number) => void) | null = null;
   const player: LivePlayer = {
+    onStart: (cb) => void (startCb = cb),
     push: (turn, seq, _f, data) => {
       play.chunks.push(`${turn}:${seq}:${data}`);
       play.busy = true;
@@ -109,6 +111,7 @@ function rig(o: Partial<LiveClientDeps> & { sttOk?: boolean; ticketOff?: string;
     drop: () => sockEv!.close(),
     stt_: () => sttEv!,
     idle: () => idle?.(),
+    firstSound: (turn: number) => startCb?.(turn),
     fire: (ms?: number) => {
       const due = timers.filter((x) => ms === undefined || x.ms === ms);
       for (const x of due) {
@@ -331,5 +334,119 @@ describe("socket url", () => {
     );
     expect(liveSocketUrl("http://192.168.1.2:8787", { ticket: "abc" })).toBe("ws://192.168.1.2:8787/v1/coach/live-call?ticket=abc");
     expect(liveSocketUrl("https://a", { ticket: "x", url: "wss://b/ws" })).toBe("wss://b/ws");
+  });
+});
+
+describe("talk mode (ADR-0068): pre-warm, start, cards, metrics, to_ptt", () => {
+  const talk = (o: Partial<LiveClientDeps> = {}) =>
+    rig({ mode: "talk", hello: { lang: "en", stt: "cloud", audioFormat: "mp3", device: "web" }, ...o });
+
+  it("pre-warms with hello.wait and opens the mic only on start", async () => {
+    const r = talk();
+    await r.client.prewarm();
+    r.open();
+    expect(r.sent[0]).toMatchObject({ type: "hello", mode: "talk", wait: true, device: "web" });
+    await r.server({ type: "warm", leftS: 540 });
+    expect(r.client.state.warm).toBe(true);
+    expect(r.stt.started).toBe(0);
+    await r.client.start();
+    await new Promise((x) => setTimeout(x, 0));
+    expect(r.sent.find((m) => m.type === "start")).toEqual({ type: "start" });
+    expect(r.stt.started).toBe(1);
+    expect(r.client.state.phase).toBe("listening");
+  });
+
+  it("start before warm: start goes up as soon as the server is warm", async () => {
+    const r = talk();
+    void r.client.prewarm();
+    await new Promise((x) => setTimeout(x, 0));
+    r.open();
+    void r.client.start();
+    expect(r.sent.some((m) => m.type === "start")).toBe(false);
+    await r.server({ type: "warm", leftS: 300 });
+    expect(r.sent.filter((m) => m.type === "start")).toHaveLength(1);
+  });
+
+  it("an older server answers ready to a wait hello: the talk is simply on", async () => {
+    const r = talk();
+    await r.client.prewarm();
+    r.open();
+    await r.server({ type: "ready", callId: "c1", mode: "talk", voice: null, leftS: 300 });
+    expect(r.stt.started).toBe(1);
+    expect(r.client.state.phase).toBe("listening");
+  });
+
+  it("an unused pre-warm closes quietly as `unused`", async () => {
+    const r = talk();
+    await r.client.prewarm();
+    r.open();
+    await r.server({ type: "warm", leftS: 300 });
+    r.drop();
+    expect(r.client.state.fallback).toBe("unused");
+  });
+
+  it("the voice detector cuts the coach at once and the end of speech times the turn", async () => {
+    const r = talk();
+    await r.client.start();
+    r.open();
+    await r.server({ type: "ready", callId: "c1", mode: "talk", voice: null, leftS: 300 });
+    await r.server({ type: "caption", turn: 1, text: "So, about tomorrow", say: "cloud" });
+    await r.server({ type: "audio", turn: 1, seq: 0, format: "mp3", data: "AAA", durMs: 500 });
+    r.stt_().speech!(true);
+    expect(r.play.stops).toEqual([1]);
+    expect(r.sent.find((m) => m.type === "interrupt")).toEqual({ type: "interrupt", heardMs: 1200 });
+    r.tick(900);
+    r.stt_().speech!(false);
+    r.tick(300);
+    await r.server({ type: "heard", text: "what about Thursday", final: true });
+    expect(r.client.state.phase).toBe("thinking");
+    r.tick(700);
+    await r.server({ type: "caption", turn: 2, text: "Thursday works.", say: "cloud" });
+    r.tick(50);
+    r.firstSound(2);
+    expect(r.sent.find((m) => m.type === "metrics")).toEqual({ type: "metrics", turn: 2, sttMs: 300, eosToAudioMs: 1050 });
+    // Once per turn.
+    r.firstSound(2);
+    expect(r.sent.filter((m) => m.type === "metrics")).toHaveLength(1);
+  });
+
+  it("a spoken yes to the card on screen is answered by the app (cloud STT)", async () => {
+    const answered: string[] = [];
+    const r = talk({ answer: (t) => (t === "yes" ? (answered.push(t), true) : false) });
+    await r.client.start();
+    r.open();
+    await r.server({ type: "ready", callId: "c1", mode: "talk", voice: null, leftS: 300 });
+    await r.server({ type: "heard", text: "yes", final: true });
+    expect(answered).toEqual(["yes"]);
+    expect(r.client.state.phase).toBe("listening");
+  });
+
+  it("card states go up; app_action and find_places keep the mic on and return their result", async () => {
+    const r = talk({
+      onTool: async (name) => (name === "find_places" ? [{ name: "Park loop", awayKm: 1.2 }] : { status: "done", line: "Logged." }),
+    });
+    await r.client.start();
+    r.open();
+    await r.server({ type: "ready", callId: "c1", mode: "talk", voice: null, leftS: 300 });
+    r.client.card("a1", "shown");
+    expect(r.sent.find((m) => m.type === "card")).toEqual({ type: "card", id: "a1", state: "shown" });
+    await r.server({ type: "tool_call", id: "t1", name: "find_places", args: { sport: "hike", minutes: 240 } });
+    expect(r.stt.paused).toBe(0);
+    expect(r.sent.find((m) => m.type === "tool_result")).toEqual({
+      type: "tool_result",
+      id: "t1",
+      result: [{ name: "Park loop", awayKm: 1.2 }],
+    });
+  });
+
+  it("minutes used up mid-talk: to_ptt, the screen goes on in push-to-talk", async () => {
+    const r = talk();
+    await r.client.start();
+    r.open();
+    await r.server({ type: "ready", callId: "c1", mode: "talk", voice: null, leftS: 30 });
+    await r.server({ type: "end", reason: "to_ptt" });
+    expect(r.client.state.fallback).toBe("to_ptt");
+    expect(fallbackFor("talk", "cap")).toBe("to_ptt");
+    expect(fallbackFor("workout", "cap")).toBe("cap");
   });
 });

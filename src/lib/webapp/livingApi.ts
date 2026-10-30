@@ -164,10 +164,20 @@ export function livingApi(s: RewardsSession) {
   const fr = (lang: string) => (lang === "fr" ? "fr" : "en");
   return {
     journey: (tz: string, lang: string) => s.call(`/v1/journey?${q({ tz, lang: fr(lang) })}`, GET, journeySchema),
-    pause: (kind: PauseKind, tz: string, until?: string) =>
+    /**
+     * `from`: the first day off (default today); `shiftPlan`: the plan's sessions in those days move back (time off,
+     * ADR-0068; an older API ignores it and only the streak pauses).
+     */
+    pause: (kind: PauseKind, tz: string, until?: string, o: { from?: string; shiftPlan?: boolean } = {}) =>
       s.call(
         `/v1/me/pause?${q({ tz })}`,
-        send("POST", { kind, at: new Date().toISOString(), ...(until ? { until } : {}) }),
+        send("POST", {
+          kind,
+          at: new Date().toISOString(),
+          ...(until ? { until } : {}),
+          ...(o.from ? { from: o.from } : {}),
+          ...(o.shiftPlan ? { shiftPlan: true } : {}),
+        }),
         z.object({ pause: opt(pauseSchema), ignored: bool }),
       ),
     endPause: (tz: string) => s.call(`/v1/me/pause?${q({ tz })}`, send("DELETE"), z.object({ pause: opt(pauseSchema) })),

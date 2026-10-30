@@ -25,6 +25,7 @@ import { useApp } from "./AppContext";
 import { useVVakerSrc } from "./MyVVaker";
 import { useWorkout } from "./WorkoutContext";
 import { Btn, Card, Kicker, Note, Small } from "./ui";
+import { TalkButton } from "./TalkSheet";
 import { FeelAfter } from "./Suggest";
 import { NextStepsRow, Tour, useHasPlan } from "./NextSteps";
 import { SessionCelebration, useLiving, usePrimeMilestones } from "./Journey";
@@ -425,6 +426,8 @@ function LiveView() {
               <Btn big className="flex-1" onClick={askEnd}>
                 ■ {t.workout.end}
               </Btn>
+              {/* The coach, one tap, in the controls' own row (ADR-0068): pause, how am I doing, end it. */}
+              <TalkButton compact className="h-14 shrink-0" />
             </div>
           ) : (
             <Card className="mt-3">

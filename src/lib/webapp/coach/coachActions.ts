@@ -1,4 +1,4 @@
-// Copied from VVFit packages/game-core/src/coachActions.ts (2d942b08 2026-10-29) by scripts/sync-coach-core.ts. Do not edit: re-sync.
+// Copied from VVFit packages/game-core/src/coachActions.ts (c525a71a 2026-10-30) by scripts/sync-coach-core.ts. Do not edit: re-sync.
 /**
  * The coach's app actions (build 55, founder bug: the coach said "I started your workout" and nothing started).
  *
@@ -33,6 +33,13 @@ export const COACH_ACTION_KINDS = [
   "add_to_calendar",
   "pause_streak",
   "open_screen",
+  // Super coach (build 60, ADR-0068): voice-first actions.
+  "log_meal",
+  "correct_data",
+  "control_workout",
+  "music",
+  "show_places",
+  "show_summary",
 ] as const;
 export type CoachActionKind = (typeof COACH_ACTION_KINDS)[number];
 
@@ -59,12 +66,52 @@ export const COACH_ACTIONS: readonly CoachActionSpec[] = [
   { kind: "add_to_calendar", confirm: true, devices: { phone: "run", web: "run", watch: "handoff" } },
   { kind: "pause_streak", confirm: true, devices: { phone: "run", web: "run", watch: "handoff" } },
   { kind: "open_screen", confirm: false, devices: { phone: "run", web: "run", watch: "handoff" } },
+  // Build 60 (ADR-0068). log_meal = the meals habit of the day (habitScore.ts), the watch relays it to the phone/API.
+  { kind: "log_meal", confirm: true, devices: { phone: "run", web: "run", watch: "run" }, legacyRoute: "/habits" },
+  // A correction the athlete states ("I slept 8 h, not 6"): stored next to the Health value, never over it (dataCorrections.ts).
+  { kind: "correct_data", confirm: true, devices: { phone: "run", web: "run", watch: "handoff" }, legacyRoute: "/health" },
+  // Pause / resume run at once (the athlete asked, mid-workout); stop asks first (`needsConfirm`). Allowed in a workout.
+  { kind: "control_workout", confirm: false, devices: { phone: "run", web: "run", watch: "run" } },
+  // Music where VVake already controls it (Spotify direct, the system's now playing). Allowed in a workout.
+  { kind: "music", confirm: false, devices: { phone: "run", web: "none", watch: "run" } },
+  // Nearby places for an outing (Spots / OSM places): the app looks them up with its own location and shows a card.
+  { kind: "show_places", confirm: false, devices: { phone: "run", web: "run", watch: "handoff" }, legacyRoute: "/places" },
+  // A spoken summary's card (the week, the next days, the next hours): the server computed it, nothing changes.
+  { kind: "show_summary", confirm: false, devices: { phone: "run", web: "run", watch: "run" } },
 ];
+
+/** Actions that answer, not start: allowed during a workout (the athlete asked). */
+export const IN_WORKOUT_OK: readonly CoachActionKind[] = ["control_workout", "music", "show_summary", "open_screen"];
+
+/** Whether this action waits for a yes (a tap, or a clear spoken yes with the card on screen). Pure. */
+export function needsConfirm(a: Pick<CoachAppAction, "type" | "op">): boolean {
+  if (a.type === "control_workout") return a.op === "stop";
+  return coachActionSpec(a.type)?.confirm ?? true;
+}
 
 export const coachActionSpec = (kind: unknown): CoachActionSpec | undefined => COACH_ACTIONS.find((a) => a.kind === kind);
 export const isCoachActionKind = (kind: unknown): kind is CoachActionKind => !!coachActionSpec(kind);
 
 export type WorkoutIntensity = "easy" | "moderate" | "hard";
+
+export const MEAL_KINDS = ["breakfast", "lunch", "dinner", "snack"] as const;
+export type MealKind = (typeof MEAL_KINDS)[number];
+/** What an athlete may correct by voice (dataCorrections.ts holds the bounds). */
+export const CORRECTION_METRICS = ["sleep_h", "steps", "resting_hr", "active_min"] as const;
+export type CorrectionMetric = (typeof CORRECTION_METRICS)[number];
+export const WORKOUT_OPS = ["pause", "resume", "stop"] as const;
+export type WorkoutOp = (typeof WORKOUT_OPS)[number];
+export const MUSIC_OPS = ["play", "pause", "next", "previous"] as const;
+export type MusicOp = (typeof MUSIC_OPS)[number];
+export const SUMMARY_SPANS = ["today", "week", "last_week", "next_days", "next_hours"] as const;
+export type SummarySpan = (typeof SUMMARY_SPANS)[number];
+/** Bounds of a correction: [min, max] in the metric's unit (hours, steps, bpm, minutes). */
+export const CORRECTION_BOUNDS: Readonly<Record<CorrectionMetric, readonly [number, number]>> = {
+  sleep_h: [0, 16],
+  steps: [0, 100_000],
+  resting_hr: [30, 120],
+  active_min: [0, 600],
+};
 const INTENSITIES: readonly WorkoutIntensity[] = ["easy", "moderate", "hard"];
 
 /** An action as sent to the app: the kind, its bounded fields, and the confirm card in the athlete's language. */
@@ -97,6 +144,25 @@ export interface CoachAppAction {
   /** open_screen: an allow-listed route (coachScreens.ts) and its label. */
   route?: string;
   label?: string;
+  /** log_meal: which meal (the meals habit counts one per meal); `note` what they ate, ≤ 60 characters (kept on the phone). */
+  meal?: MealKind;
+  note?: string;
+  /** correct_data: what the athlete says is right; `date` = the day it is about (default today). */
+  metric?: CorrectionMetric;
+  value?: number;
+  /** correct_data: what the app showed (for the card: "6 h → 8 h"), when known. */
+  shown?: number;
+  /** pause_streak: the first day (default today), and whether the plan moves back by the paused days (time off). */
+  from?: string;
+  shiftPlan?: boolean;
+  /** control_workout: pause | resume | stop (stop asks first). music: play | pause | next | previous. */
+  op?: WorkoutOp | MusicOp;
+  /** show_places: how long the outing lasts (minutes) or how far (km), the sport (hike, run, ride…), how far away at most. */
+  maxTravelKm?: number;
+  /** show_summary: which span, and how many days or hours; `lines` the server's summary lines, `title` its header. */
+  span?: SummarySpan;
+  count?: number;
+  summary?: { title: string; lines: string[] };
   /** The confirm card (open_screen: the button only). */
   card: { title: string; detail?: string; confirm: string; cancel: string };
   /** The result lines in the athlete's language (`actionLines`), so a watch says the truth without its own copy. */
@@ -112,6 +178,17 @@ export interface CoachActionCtx {
   today?: { rest?: boolean; sport?: string; minutes?: number; intensity?: string };
   /** The Camera & trainings feature (Your VVake); undefined = unknown (on). */
   cameraOn?: boolean;
+  /** The athlete's local hour (0–23): a meal said without its name is the one of that hour. */
+  nowHour?: number;
+}
+
+/** The meal of the hour: before 10:30 breakfast, 11–15 lunch, 18–22 dinner, else a snack. Pure. */
+export function mealAt(hour: number | undefined): MealKind {
+  if (hour === undefined) return "snack";
+  if (hour >= 4 && hour < 11) return "breakfast";
+  if (hour >= 11 && hour < 16) return "lunch";
+  if (hour >= 18 && hour < 23) return "dinner";
+  return "snack";
 }
 
 const HHMM = /^([01]\d|2[0-3]):[0-5]\d$/;
@@ -158,6 +235,50 @@ const fmtKm = (km: number, lang: Lang, units: "metric" | "imperial" = "metric") 
 const routineName = (id: string | undefined, lang: Lang): string => {
   if (!id || id === "last") return lang === "fr" ? "ta dernière séance caméra" : "your last camera workout";
   return CAMERA_ROUTINES.find((r) => r.id === id)?.name[lang] ?? id;
+};
+
+const MEAL_WORD: Record<MealKind, { en: string; fr: string }> = {
+  breakfast: { en: "breakfast", fr: "petit-déjeuner" },
+  lunch: { en: "lunch", fr: "déjeuner" },
+  dinner: { en: "dinner", fr: "dîner" },
+  snack: { en: "snack", fr: "en-cas" },
+};
+export const mealWord = (m: MealKind, lang: Lang) => MEAL_WORD[m][lang];
+
+const METRIC_WORD: Record<CorrectionMetric, { en: string; fr: string }> = {
+  sleep_h: { en: "Sleep", fr: "Sommeil" },
+  steps: { en: "Steps", fr: "Pas" },
+  resting_hr: { en: "Resting heart rate", fr: "Fréquence cardiaque au repos" },
+  active_min: { en: "Active minutes", fr: "Minutes actives" },
+};
+export const metricWord = (m: CorrectionMetric, lang: Lang) => METRIC_WORD[m][lang];
+
+/** "8 h", "7 h 30", "9,500 steps" / « 9 500 pas », "52 bpm", "45 min". Pure. */
+export function metricValue(m: CorrectionMetric, v: number, lang: Lang): string {
+  switch (m) {
+    case "sleep_h": {
+      const h = Math.floor(v);
+      const min = Math.round((v - h) * 60);
+      return min ? `${h} h ${String(min).padStart(2, "0")}` : `${h} h`;
+    }
+    case "steps": {
+      const n = Math.round(v).toLocaleString("en-US");
+      return lang === "fr" ? `${n.replace(/,/g, "\u202f")} pas` : `${n} steps`;
+    }
+    case "resting_hr":
+      return `${Math.round(v)} bpm`;
+    case "active_min":
+      return `${Math.round(v)} min`;
+  }
+}
+
+const OP_WORD: Record<WorkoutOp | MusicOp, { en: string; fr: string }> = {
+  pause: { en: "Pause", fr: "Pause" },
+  resume: { en: "Resume", fr: "Reprendre" },
+  stop: { en: "End workout", fr: "Terminer la séance" },
+  play: { en: "Play music", fr: "Lancer la musique" },
+  next: { en: "Next song", fr: "Morceau suivant" },
+  previous: { en: "Previous song", fr: "Morceau précédent" },
 };
 
 const PAUSE_WORD: Record<PauseKind, { en: string; fr: string }> = {
@@ -240,16 +361,83 @@ export function coachActionCard(a: Omit<CoachAppAction, "card">, lang: Lang, uni
           `Pause your streak: ${PAUSE_WORD[a.pauseKind ?? "sick"].en}`,
           `Mettre ta série en pause : ${PAUSE_WORD[a.pauseKind ?? "sick"].fr}`,
         ),
-        detail: L(
-          `${days} day${days > 1 ? "s" : ""}, from today. Rest is training too.`,
-          `${days} jour${days > 1 ? "s" : ""}, dès aujourd’hui. Le repos, c’est aussi de l’entraînement.`,
-        ),
+        detail: [
+          a.from
+            ? L(`${days} day${days > 1 ? "s" : ""}, from ${a.from}.`, `${days} jour${days > 1 ? "s" : ""}, à partir du ${a.from}.`)
+            : L(`${days} day${days > 1 ? "s" : ""}, from today.`, `${days} jour${days > 1 ? "s" : ""}, dès aujourd’hui.`),
+          a.shiftPlan ? L("Your plan moves back to match.", "Ton plan se décale d’autant.") : "",
+          L("Rest is training too.", "Le repos, c’est aussi de l’entraînement."),
+        ]
+          .filter(Boolean)
+          .join(" "),
         confirm: W.pause[lang],
         cancel,
       };
     }
     case "open_screen":
       return { title: a.label ?? W.open[lang], confirm: W.open[lang], cancel };
+    case "log_meal": {
+      const m = a.meal ?? "snack";
+      return {
+        title: L(`Log ${MEAL_WORD[m].en}`, `Noter : ${MEAL_WORD[m].fr}`),
+        ...(a.note ? { detail: a.note } : {}),
+        confirm: W.log[lang],
+        cancel,
+      };
+    }
+    case "correct_data": {
+      const m = a.metric ?? "sleep_h";
+      const v = a.value ?? 0;
+      const shown = a.shown !== undefined ? `${metricValue(m, a.shown, lang)} → ` : "";
+      const when = a.date ? ` · ${a.date}` : "";
+      return {
+        title: L(
+          `Correct ${METRIC_WORD[m].en.toLowerCase()}: ${shown}${metricValue(m, v, lang)}`,
+          `Corriger ${METRIC_WORD[m].fr.toLowerCase()} : ${shown}${metricValue(m, v, lang)}`,
+        ),
+        detail: L(`Your correction${when}. Health keeps its own value.`, `Ta correction${when}. Santé garde sa propre valeur.`),
+        confirm: L("Correct it", "Corriger"),
+        cancel,
+      };
+    }
+    case "control_workout": {
+      const op = (a.op as WorkoutOp) ?? "pause";
+      return {
+        title: OP_WORD[op][lang],
+        confirm: op === "stop" ? L("End it", "Terminer") : OP_WORD[op][lang],
+        cancel: op === "stop" ? L("Keep going", "Continuer") : cancel,
+      };
+    }
+    case "music": {
+      const op = (a.op as MusicOp) ?? "play";
+      return { title: OP_WORD[op][lang], confirm: OP_WORD[op][lang], cancel };
+    }
+    case "show_places": {
+      const what = a.sport ? titleSport(a.sport, lang) : L("Outing", "Sortie");
+      const detail = [
+        a.minutes
+          ? a.minutes >= 60
+            ? `${Math.floor(a.minutes / 60)} h${a.minutes % 60 ? ` ${String(a.minutes % 60).padStart(2, "0")}` : ""}`
+            : `${a.minutes} ${W.min[lang]}`
+          : "",
+        a.distanceKm ? fmtKm(a.distanceKm, lang, units) : "",
+      ]
+        .filter(Boolean)
+        .join(" · ");
+      return {
+        title: L(`Places near you: ${what}`, `Lieux près de toi : ${what}`),
+        ...(detail ? { detail } : {}),
+        confirm: W.open[lang],
+        cancel: L("Close", "Fermer"),
+      };
+    }
+    case "show_summary":
+      return {
+        title: a.summary?.title ?? L("Summary", "Résumé"),
+        ...(a.summary?.lines?.length ? { detail: a.summary.lines.join("\n") } : {}),
+        confirm: "OK",
+        cancel: L("Close", "Fermer"),
+      };
   }
 }
 
@@ -323,13 +511,71 @@ export function cleanCoachAction(raw: unknown, ctx: CoachActionCtx): CoachAppAct
     case "pause_streak": {
       const pauseKind = PAUSE_KINDS.find((k) => k === r.pauseKind) ?? "sick";
       const days = int(r.days, 1, PAUSE_MAX_DAYS) ?? (pauseKind === "sick" ? 2 : 3);
-      a = { type, pauseKind, days };
+      const from = typeof r.from === "string" && DAY.test(r.from) ? r.from : undefined;
+      a = { type, pauseKind, days, ...(from ? { from } : {}), ...(r.shiftPlan === true ? { shiftPlan: true } : {}) };
       break;
     }
     case "open_screen": {
       const s = coachScreen(r.route);
       if (!s) return null;
       a = { type, route: s.route, label: s.label[lang] };
+      break;
+    }
+    case "log_meal": {
+      const meal = MEAL_KINDS.find((m) => m === r.meal) ?? mealAt(ctx.nowHour);
+      const note = text(r.note, 60);
+      a = { type, meal, ...(note ? { note } : {}) };
+      break;
+    }
+    case "correct_data": {
+      const metric = CORRECTION_METRICS.find((m) => m === r.metric);
+      if (!metric) return null;
+      const [lo, hi] = CORRECTION_BOUNDS[metric];
+      const value = metric === "sleep_h" ? num(r.value, lo, hi) : int(r.value, lo, hi);
+      if (value === undefined) return null;
+      const shown = metric === "sleep_h" ? num(r.shown, lo, hi) : int(r.shown, lo, hi);
+      const date = typeof r.date === "string" && DAY.test(r.date) ? r.date : undefined;
+      a = { type, metric, value, ...(shown !== undefined ? { shown } : {}), ...(date ? { date } : {}) };
+      break;
+    }
+    case "control_workout": {
+      const op = WORKOUT_OPS.find((o) => o === r.op);
+      if (!op) return null;
+      a = { type, op };
+      break;
+    }
+    case "music": {
+      const op = MUSIC_OPS.find((o) => o === r.op);
+      if (!op) return null;
+      a = { type, op };
+      break;
+    }
+    case "show_places": {
+      const sport = sportOf(r.sport);
+      const minutes = int(r.minutes, 10, 720);
+      const distanceKm = num(r.distanceKm, 0.5, 200);
+      const maxTravelKm = num(r.maxTravelKm, 1, 150);
+      a = {
+        type,
+        ...(sport ? { sport } : {}),
+        ...(minutes ? { minutes } : {}),
+        ...(distanceKm ? { distanceKm } : {}),
+        ...(maxTravelKm ? { maxTravelKm } : {}),
+      };
+      break;
+    }
+    case "show_summary": {
+      const span = SUMMARY_SPANS.find((x) => x === r.span) ?? "week";
+      const count = int(r.count, 1, span === "next_hours" ? 24 : 14);
+      const sum = r.summary && typeof r.summary === "object" ? (r.summary as Record<string, unknown>) : undefined;
+      const title = text(sum?.title, 60);
+      const lines = Array.isArray(sum?.lines)
+        ? (sum!.lines as unknown[])
+            .map((l) => text(l, 120))
+            .filter((l): l is string => !!l)
+            .slice(0, 8)
+        : [];
+      a = { type, span, ...(count ? { count } : {}), ...(title || lines.length ? { summary: { title: title ?? "", lines } } : {}) };
       break;
     }
   }
@@ -348,6 +594,9 @@ export type CoachActionFail =
   | "no_plan_today"
   | "no_such_habit"
   | "past_time"
+  | "no_workout"
+  | "no_music"
+  | "no_location"
   | "failed";
 
 export interface GateState {
@@ -368,7 +617,8 @@ export function gateCoachAction(
 ): { ok: true; handoff?: boolean } | { ok: false; reason: CoachActionFail } {
   const spec = coachActionSpec(a.type);
   if (!spec) return { ok: false, reason: "failed" };
-  if (s.inWorkout && spec.confirm) return { ok: false, reason: "in_workout" };
+  if (s.inWorkout && spec.confirm && !IN_WORKOUT_OK.includes(a.type)) return { ok: false, reason: "in_workout" };
+  if (a.type === "control_workout" && !s.inWorkout) return { ok: false, reason: "no_workout" };
   if (a.type === "start_camera_workout" && s.cameraOn === false) return { ok: false, reason: "camera_off" };
   const sup = spec.devices[s.device];
   if (sup === "none") return { ok: false, reason: "not_here" };
@@ -410,6 +660,33 @@ export function coachActionResult(a: Omit<CoachAppAction, "card">, outcome: Acti
       );
     case "open_screen":
       return a.label ?? "";
+    case "log_meal":
+      return L(`Logged: ${MEAL_WORD[a.meal ?? "snack"].en}.`, `Noté : ${MEAL_WORD[a.meal ?? "snack"].fr}.`);
+    case "correct_data":
+      return a.metric && a.value !== undefined
+        ? L(
+            `Corrected: ${METRIC_WORD[a.metric].en.toLowerCase()} ${metricValue(a.metric, a.value, "en")}. I'll use your number.`,
+            `Corrigé : ${METRIC_WORD[a.metric].fr.toLowerCase()} ${metricValue(a.metric, a.value, "fr")}. Je prends ton chiffre.`,
+          )
+        : L("Corrected.", "Corrigé.");
+    case "control_workout":
+      return a.op === "stop"
+        ? L("Workout ended. Nice work.", "Séance terminée. Beau travail.")
+        : a.op === "resume"
+          ? L("Resumed.", "C’est reparti.")
+          : L("Paused.", "En pause.");
+    case "music":
+      return a.op === "pause"
+        ? L("Music paused.", "Musique en pause.")
+        : a.op === "next"
+          ? L("Next song.", "Morceau suivant.")
+          : a.op === "previous"
+            ? L("Previous song.", "Morceau précédent.")
+            : L("Music on.", "Musique lancée.");
+    case "show_places":
+      return L("Here's what's near you.", "Voici ce qu’il y a près de toi.");
+    case "show_summary":
+      return a.summary?.title ?? L("Here it is.", "Voilà.");
   }
 }
 
@@ -452,6 +729,15 @@ export function failLine(reason: CoachActionFail | "cancelled", lang: Lang): str
       return L("I couldn't find that habit. Nothing was logged.", "Je n’ai pas trouvé cette habitude. Rien n’a été noté.");
     case "past_time":
       return L("That time has passed. Pick a later one.", "Cette heure est passée. Choisis-en une plus tard.");
+    case "no_workout":
+      return L("No workout is running right now.", "Aucune séance n’est en cours.");
+    case "no_music":
+      return L("I can't reach your music from here. Nothing changed.", "Je n’arrive pas à joindre ta musique d’ici. Rien n’a changé.");
+    case "no_location":
+      return L(
+        "I need your location to find places near you. Nothing was searched.",
+        "J’ai besoin de ta position pour trouver des lieux près de toi. Rien n’a été cherché.",
+      );
     case "failed":
       return L(
         "That didn't work, so nothing changed. Try again from the app.",
@@ -473,6 +759,9 @@ const LINE_KEYS: readonly ActionLineKey[] = [
   "no_plan_today",
   "no_such_habit",
   "past_time",
+  "no_workout",
+  "no_music",
+  "no_location",
   "failed",
 ];
 
@@ -496,7 +785,7 @@ const norm = (t: string) => t.toLowerCase().replace(/[’‘]/g, "'").replace(/\
 
 /** "I started", "I've set your reminder", "your run is started", « j'ai lancé », « c'est lancé », « ta séance est démarrée ». */
 const CLAIM_EN = [
-  /\b(i|we)('ve| have|'ll have| just)?\s+(just\s+)?(started|launched|kicked off|scheduled|booked|logged|paused|set up|set|added|turned on|turned off|switched on|switched|opened|created|activated|begun|began|changed|updated|moved|swapped)\b/,
+  /\b(i|we)('ve| have|'ll have| just)?\s+(just\s+)?(started|launched|kicked off|scheduled|booked|logged|paused|set up|set|added|turned on|turned off|switched on|switched|opened|created|activated|begun|began|changed|updated|moved|swapped|ended|stopped|finished|corrected|fixed|saved|recorded|noted|resumed|skipped|played)\b/,
   /\b(your|the|today's)\s+([a-z-]+\s+){0,2}(run|ride|walk|hike|swim|workout|session|training|move|timer)\s+(is|has been|'s)\s+(now\s+)?(started|running|underway|launched|on its way)\b/,
   /\b(your|the|a)\s+([a-z-]+\s+){0,2}(reminder|alarm|event|habit|calendar entry)\s+(is|has been|'s)\s+(now\s+)?(set|scheduled|added|logged|booked|on)\b/,
   /\b(your|the)\s+streak\s+(is|has been|'s)\s+(now\s+)?paused\b/,
@@ -505,7 +794,7 @@ const CLAIM_EN = [
   /\b(starting|launching|opening) (it|your|the|a|an)\b[^?]*\bnow\b/,
 ];
 const CLAIM_FR = [
-  /\b(j'ai|je t'ai|on a|je viens de)\s+(bien\s+)?(lancé|lancer|démarré|démarrer|commencé|ajouté|ajouter|programmé|programmer|activé|réglé|régler|ouvert|planifié|créé|mis en pause)(?![\p{L}\p{N}])/u,
+  /\b(j'ai|je t'ai|on a|je viens de)\s+(bien\s+)?(lancé|lancer|démarré|démarrer|commencé|ajouté|ajouter|programmé|programmer|activé|réglé|régler|ouvert|planifié|créé|mis en pause|terminé|arrêté|corrigé|noté|enregistré|repris)(?![\p{L}\p{N}])/u,
   /\bc'est\s+(bien\s+)?(lancé|démarré|fait|réglé|programmé|ajouté|activé|en route)(?![\p{L}\p{N}])/u,
   /\b(ta|ton|la|le)\s+([a-zàâçéèêëîïôûùüÿœ'-]+\s+){0,2}(séance|course|marche|sortie|entraînement|rappel|alarme|habitude|série|événement|mouvement)\s+(est|a été)\s+(maintenant\s+)?(lancée?|démarrée?|en cours|programmée?|ajoutée?|notée?|en pause|réglée?|activée?)(?![\p{L}\p{N}])/u,
   /^(fait|voilà, c'est fait|c'est fait)(?![\p{L}\p{N}])/u,
@@ -565,7 +854,7 @@ export function honestReply(
   units?: "metric" | "imperial",
 ): { reply: string; rewritten: boolean } {
   if (!claimsDone(reply)) return { reply, rewritten: false };
-  if (action && coachActionSpec(action.type)?.confirm) return { reply: offerLine(action, lang, units), rewritten: true };
+  if (action && needsConfirm(action)) return { reply: offerLine(action, lang, units), rewritten: true };
   if (action?.type === "open_screen") return { reply: offerLine(action, lang, units), rewritten: true };
   return { reply: noActionLine(lang), rewritten: true };
 }
@@ -602,6 +891,42 @@ export function spokenConfirm(s: { liveCall: boolean; cardOnScreen: boolean; tex
 }
 
 // ── Older apps (build 54 and before) ──────────────────────────────────────────────────────────────────────────────
+
+/** "no, rather Thursday", "yes but at 7", « non, plutôt jeudi », « oui mais à 7 h »: an answer that changes the offer. */
+const CHANGE_EN =
+  /^(no|nope|yes|yeah|ok|okay)?[ ,]*(but |rather |instead |actually |make it |how about |what about |can we |could we |let's do |change |move it )/;
+const CHANGE_FR =
+  /^(non|oui|ok|ouais)?[ ,]*(mais |plutôt |plutot |plutôt que |en fait |et si |on peut |on pourrait |change |décale |mets-le |mets-la |fais-le )/;
+
+/**
+ * The athlete's answer to a card on screen, in ANY mode (live call, push-to-talk, typed: founder ask 2026-10-30,
+ * ADR-0068 amends ADR-0063's "spoken yes only in a live call"): a clear yes confirms, a clear no cancels, "no, rather
+ * Thursday" / "yes but at 7" is a change (the card is cancelled and the coach makes a new offer from `rest`), anything
+ * else is not an answer to the card (the conversation goes on, the card stays). The app still runs the action and
+ * only the app says it is done (honesty guard). Pure.
+ */
+export function cardDecision(textIn: string): { decision: "confirm" | "cancel" | "change"; rest?: string } | null {
+  const t = norm(textIn)
+    .replace(/[.!¡¿?]+/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+  if (!t) return null;
+  const m = CHANGE_EN.exec(t) ?? CHANGE_FR.exec(t);
+  if (m && m[2]) {
+    const rest = t.slice(m[0].length).trim();
+    if (rest) return { decision: "change", rest };
+  }
+  const yn = yesNo(t);
+  if (yn === "yes") return { decision: "confirm" };
+  if (yn === "no") return { decision: "cancel" };
+  return null;
+}
+
+/** A voiced or typed answer to the card on screen confirms in every mode (ADR-0068). Pure. */
+export function voiceConfirm(s: { cardOnScreen: boolean; text: string }): "confirm" | "cancel" | "change" | null {
+  if (!s.cardOnScreen) return null;
+  return cardDecision(s.text)?.decision ?? null;
+}
 
 /**
  * What an app that does not know the catalog gets: start_workout as it always was (it opens the workout screen),
@@ -646,5 +971,20 @@ export const COACH_ACTION_SCHEMA_PROPS = {
   date: { type: "string", description: "add_to_calendar (or a reminder on another day): YYYY-MM-DD." },
   what: { type: "string", description: "set_reminder: what to remind, a few words." },
   pauseKind: { type: "string", enum: [...PAUSE_KINDS], description: "pause_streak: sick, injured or off." },
-  days: { type: "integer", minimum: 1, maximum: PAUSE_MAX_DAYS, description: "pause_streak: how many days from today." },
+  days: { type: "integer", minimum: 1, maximum: PAUSE_MAX_DAYS, description: "pause_streak: how many days from today (or from `from`)." },
+  from: { type: "string", description: "pause_streak: the first day off, YYYY-MM-DD (default today)." },
+  shiftPlan: { type: "boolean", description: "pause_streak: move the plan back by the days off (sick, injured, time off)." },
+  meal: { type: "string", enum: [...MEAL_KINDS], description: "log_meal: which meal (default: the one of the hour)." },
+  note: { type: "string", description: "log_meal: what they ate, a few words, only if they said it." },
+  metric: { type: "string", enum: [...CORRECTION_METRICS], description: "correct_data: what the athlete says the app has wrong." },
+  value: { type: "number", description: "correct_data: the right value they said (sleep in hours, e.g. 8 or 7.5)." },
+  shown: { type: "number", description: "correct_data: what the app showed, if you know it." },
+  op: {
+    type: "string",
+    enum: [...new Set([...WORKOUT_OPS, ...MUSIC_OPS])],
+    description: "control_workout: pause | resume | stop. music: play | pause | next | previous.",
+  },
+  maxTravelKm: { type: "number", description: "show_places: how far they will travel to start, km." },
+  span: { type: "string", enum: [...SUMMARY_SPANS], description: "show_summary: which span to summarise." },
+  count: { type: "integer", description: "show_summary: how many days (next_days) or hours (next_hours)." },
 } as const;

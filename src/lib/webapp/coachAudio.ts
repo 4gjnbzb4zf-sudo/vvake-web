@@ -548,9 +548,11 @@ function queueLine(o: {
   gender?: CoachVoiceGender;
   /** A "Hear it" preview: not a coach line (not logged, the browser voice may always stand in). */
   preview?: boolean;
+  /** The line finished (played, or skipped): the talk sheet's push-to-talk listens again. */
+  onDone?: () => void;
 }) {
   const c = cfg;
-  if (!c || !o.text) return;
+  if (!c || !o.text) return void o.onDone?.();
   let handle: { stop(): void } | null = null;
   const guarded = !!c.plus && !o.preview;
   queue.speak({
@@ -568,7 +570,12 @@ function queueLine(o: {
           },
           ...(guarded ? { mayFallback: () => deviceAllowed(true, reasonNow()), onSkip: () => note("skipped", reasonNow()) } : {}),
         },
-        done,
+        o.onDone
+          ? () => {
+              done();
+              o.onDone?.();
+            }
+          : done,
       );
     },
     stop: () => handle?.stop(),
@@ -745,9 +752,14 @@ export async function warmCamera(): Promise<void> {
  * A coach reply: its audio (Plus) when the API sent one and the conversation is still in the coach's voice, else the
  * browser voice for this reply and the rest of the conversation.
  */
-export function speakReply(text: string, voice: { url: string; tag?: string | null } | null | undefined, conv: ConversationVoice) {
+export function speakReply(
+  text: string,
+  voice: { url: string; tag?: string | null } | null | undefined,
+  conv: ConversationVoice,
+  onDone?: () => void,
+) {
   const c = cfg;
-  if (!c || c.mode === "off") return;
+  if (!c || c.mode === "off") return void onDone?.();
   // Plus: always the coach's voice (the conversation never stays on the browser voice after an offline moment).
   const tryCloud = c.mode === "coach" && (c.plus || conv.cloud);
   const own = tryCloud && !!voice && conv.accepts(voice.tag);
@@ -771,6 +783,7 @@ export function speakReply(text: string, voice: { url: string; tag?: string | nu
     startMs: cloud ? REPLY_START_MS : 0,
     playCloud: cloud,
     onFallback: () => conv.fellBack(),
+    ...(onDone ? { onDone } : {}),
   });
 }
 

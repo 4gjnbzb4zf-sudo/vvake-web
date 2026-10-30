@@ -1,4 +1,4 @@
-// Copied from VVFit packages/game-core/test/coachActions.test.ts (2d942b08 2026-10-29) by scripts/sync-coach-core.ts. Do not edit: re-sync.
+// Copied from VVFit packages/game-core/test/coachActions.test.ts (c525a71a 2026-10-30) by scripts/sync-coach-core.ts. Do not edit: re-sync.
 import { describe, expect, it } from "vitest";
 import {
   actionLines,
@@ -88,6 +88,12 @@ describe("cleanCoachAction", () => {
       add_to_calendar: { date: "2026-10-30", at: "07:00", sport: "run", minutes: 30 },
       pause_streak: {},
       open_screen: { route: "/habits" },
+      log_meal: { meal: "lunch" },
+      correct_data: { metric: "sleep_h", value: 8, shown: 6 },
+      control_workout: { op: "pause" },
+      music: { op: "next" },
+      show_places: { sport: "hike", minutes: 120 },
+      show_summary: { span: "week", summary: { title: "Your week", lines: ["3 runs"] } },
     };
     for (const kind of COACH_ACTION_KINDS) {
       for (const ctx of [en, fr]) {
@@ -158,7 +164,17 @@ describe("honesty", () => {
     for (const kind of COACH_ACTION_KINDS) {
       for (const lang of ["en", "fr"] as const) {
         const a = cleanCoachAction(
-          { type: kind, sport: "run", habit: "water", at: "18:30", date: "2026-10-30", route: "/habits" },
+          {
+            type: kind,
+            sport: "run",
+            habit: "water",
+            at: "18:30",
+            date: "2026-10-30",
+            route: "/habits",
+            metric: "sleep_h",
+            value: 8,
+            op: "pause",
+          },
           { lang },
         )!;
         expect(claimsDone(offerLine(a, lang)), `${kind} ${lang}: ${offerLine(a, lang)}`).toBe(false);

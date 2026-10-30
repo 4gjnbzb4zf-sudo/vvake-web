@@ -3,8 +3,12 @@
  * session speaks, docs/05-tech/live-call.md). Keep it identical to the source; the phone re-exports the same types.
  */
 
-export const LIVE_CALL_MODES = ["workout", "call", "onboarding"] as const;
-/** workout: live talk the athlete starts during a workout; call: the live part of a coach call; onboarding: day one. */
+export const LIVE_CALL_MODES = ["workout", "call", "onboarding", "talk"] as const;
+/**
+ * workout: live talk the athlete starts during a workout; call: the live part of a coach call; onboarding: day one;
+ * talk: the athlete opened "Talk to your coach" anywhere else (build 60, ADR-0068: VVake Coach Plus / Premium,
+ * hands-free, the same weekly pool).
+ */
 export type LiveCallMode = (typeof LIVE_CALL_MODES)[number];
 
 /** What `show_permission` may ask the app to explain (its PermissionWhy sheet; the OS sheet only on the athlete's tap). */
@@ -42,6 +46,14 @@ export const LIVE_CALL = {
   maxTurnChars: 600,
   /** Misunderstood turns in a row before the day-one call hands over to the cards. */
   missesToCards: 3,
+  /** A pre-warmed call (hello.wait) waits this long for `start`, then closes for free. */
+  prewarmMaxMs: 90_000,
+  /** The athlete-started talk (mode talk): default allowance per conversation when the pool allows more. */
+  talkMaxS: 10 * 60,
+  /** End of turn: silence after the recogniser's last partial before the app sends the final (on-device STT). */
+  endOfTurnMs: 550,
+  /** A tool that takes longer than this gets one short natural filler line ("Let me look."), never more than one. */
+  fillerAfterMs: 700,
 } as const;
 
 // ── Messages ───────────────────────────────────────────────────────────────────────────────────────────────
@@ -64,10 +76,31 @@ export interface LiveHello {
   /** mode workout: the running workout's id (the server must have seen its heartbeat). */
   sessionId?: string;
   units?: "metric" | "imperial";
+  /**
+   * Pre-warm (ADR-0068): the app opened the coach screen; connect, load the athlete and warm the model's cache, but
+   * no greeting and no meter until `start`. A pre-warmed call that never starts closes after `prewarmMaxMs`, free.
+   */
+  wait?: boolean;
+  /** The device and how it hears (for the latency log only). */
+  device?: "iphone" | "android" | "watch" | "wear" | "web";
+  /** The athlete's local hour 0–23 and day YYYY-MM-DD (meals, "next 5 hours", summaries). */
+  localHour?: number;
+  localDay?: string;
+  /** The screen the athlete was on when they opened the coach (context: "this run", "this week"). */
+  screen?: string;
 }
 
 export type LiveClientMsg =
   | LiveHello
+  /** After a `wait` hello: the athlete is here, start (greeting or straight to listening). */
+  | { type: "start"; greet?: boolean }
+  /** A card's state on the app (ADR-0068 voice confirm): shown, confirmed, cancelled, done or failed with a reason. */
+  | { type: "card"; id: string; state: "shown" | "confirmed" | "cancelled" | "done" | "failed"; reason?: string }
+  /**
+   * The app's timings for one turn (latency log, p50/p90): end of the athlete's speech → final text sent (`sttMs`) and
+   * → the coach's first sound actually playing (`eosToAudioMs`).
+   */
+  | { type: "metrics"; turn: number; sttMs?: number; eosToAudioMs?: number }
   /** The athlete's words: partials while they speak, one final when their turn ends. */
   | { type: "text"; final: boolean; text: string }
   /** Base64 PCM16 16 kHz mono, ≤ 1 s a frame (cloud STT only). */
@@ -81,7 +114,21 @@ export type LiveClientMsg =
   | { type: "ping" };
 
 export type LiveEndReason =
-  "bye" | "hangup" | "cap" | "call_max" | "silence" | "scripted" | "summary" | "cards" | "off_topic" | "error" | "turns";
+  | "bye"
+  | "hangup"
+  | "cap"
+  | "call_max"
+  | "silence"
+  | "scripted"
+  | "summary"
+  | "cards"
+  | "off_topic"
+  | "error"
+  | "turns"
+  /** The live minutes ran out: the app moves on to push-to-talk, the conversation goes on (never a dead end). */
+  | "to_ptt"
+  /** A pre-warmed call that never started. */
+  | "unused";
 
 export type LiveServerMsg =
   | { type: "ready"; callId: string; mode: LiveCallMode; voice: string | null; leftS: number }
@@ -96,6 +143,10 @@ export type LiveServerMsg =
   | { type: "heard"; text: string; final: boolean }
   | { type: "tool_call"; id: string; name: string; args: Record<string, unknown> }
   | { type: "meter"; usedS: number; leftS: number; warn: boolean }
+  /** Server timings of a turn (ms from the athlete's final text): first model token, first sentence, first audio sent. */
+  | { type: "timing"; turn: number; firstTokenMs?: number; firstSentenceMs?: number; firstAudioMs?: number }
+  /** Pre-warmed and ready: `start` begins the call at once. */
+  | { type: "warm"; leftS: number }
   | { type: "end"; reason: LiveEndReason }
   | { type: "error"; code: string };
 
@@ -108,7 +159,21 @@ export interface LiveHealthSummary {
   workoutsPerWeek?: [number, number];
 }
 
-const TYPES = new Set(["ready", "caption", "audio", "line", "turn_end", "stop", "heard", "tool_call", "meter", "end", "error"]);
+const TYPES = new Set([
+  "ready",
+  "caption",
+  "audio",
+  "line",
+  "turn_end",
+  "stop",
+  "heard",
+  "tool_call",
+  "meter",
+  "timing",
+  "warm",
+  "end",
+  "error",
+]);
 
 /** One server frame, or null when it isn't one we know (a newer server's message is ignored, never a crash). Pure. */
 export function parseServerMsg(raw: unknown): LiveServerMsg | null {

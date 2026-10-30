@@ -353,7 +353,7 @@ export function webApi(s: RewardsSession) {
      * POST /v1/coach/live-call/ticket: a one-use ticket (60 s) for a live call's WebSocket (monorepo
      * docs/05-tech/live-call.md). A 409 `{ reason }` (off, scripted, used, quiet, day_cap…) means "go on without it".
      */
-    liveCallTicket: (b: { mode: "workout" | "call" | "onboarding"; lang: string; callId?: string; sessionId?: string }) =>
+    liveCallTicket: (b: { mode: "workout" | "call" | "onboarding" | "talk"; lang: string; callId?: string; sessionId?: string }) =>
       s.call(
         "/v1/coach/live-call/ticket",
         send("POST", { ...b, lang: b.lang === "fr" ? "fr" : "en" }),
@@ -368,6 +368,11 @@ export function webApi(s: RewardsSession) {
       clock: string;
       /** The reply in the coach's voice (Plus; counted in the API's daily voice quota). */
       voice?: boolean;
+      /** The coach action card on screen (ADR-0068): "no, rather Thursday" is read against it by the server. */
+      card?: { id: string; type: string };
+      /** The athlete's local hour and day (meals, "the next 5 hours", summaries); the screen the talk was opened on. */
+      localHour?: number;
+      localDay?: string;
     }) =>
       // actions: 2 = this app shows the coach's action cards (ADR-0063); an older API just ignores it.
       s.call("/v1/coach/talk", send("POST", { ...b, voice: b.voice === true, actions: 2 }), coachReplySchema),

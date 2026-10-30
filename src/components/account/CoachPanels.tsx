@@ -14,7 +14,6 @@ import {
   type Athlete,
   type Integrations,
   type LiveStatus,
-  type MemoryItem,
   type PlanChange,
   type SettingsChange,
   type Week,
@@ -24,6 +23,7 @@ import { sports } from "@/lib/sports";
 import { ApiError } from "@/lib/rewardsApi";
 import { Card, linkButton, Pill, Row, smallButton, smallInput, Toggle, useAction, Value } from "./AccountUi";
 import { browserTz, mins, sectionIndex, type PanelProps } from "./shared";
+import { CoachMemoryEditor } from "@/components/webapp/CoachMemory";
 
 /** A sport id as the app names it (catalog names in the page's language; your own sports keep their id). */
 function sportName(id: string, lang: "en" | "fr"): string {
@@ -327,9 +327,7 @@ export function CoachSection(p: PanelProps) {
   const [changes, setChanges] = useState<SettingsChange[] | null | undefined>(undefined);
   // When the changes were read: undo stays offered until undoUntil.
   const [readAt, setReadAt] = useState(0);
-  const [memory, setMemory] = useState<MemoryItem[] | null | undefined>(undefined);
   const change = useAction(errorMsg);
-  const mem = useAction(errorMsg);
 
   const units = coach.units === "imperial" ? "imperial" : "metric";
   const clock = resolveHour12(dates) ? "12h" : "24h";
@@ -349,10 +347,6 @@ export function CoachSection(p: PanelProps) {
       .live(lang)
       .then((l) => live && setLive(l))
       .catch(() => live && setLive(null));
-    api
-      .memory()
-      .then((m) => live && setMemory(m))
-      .catch(() => live && setMemory(null));
     const id = window.setTimeout(loadChanges, 0);
     return () => {
       live = false;
@@ -570,48 +564,10 @@ export function CoachSection(p: PanelProps) {
         </Card>
 
         <Card title={t.coach.memory} lead={t.coach.memoryLead} className="lg:col-span-2">
-          {memory === undefined ? (
-            <p className="mt-4 text-sm text-faint">{t.loading}</p>
-          ) : !memory?.length ? (
-            <p className="mt-4 text-sm text-faint">{memory === null ? t.error : t.coach.memoryEmpty}</p>
-          ) : (
-            <>
-              <ul className="mt-2">
-                {memory.map((m) => (
-                  <li key={m.id} className="flex items-start justify-between gap-3 border-t border-line/60 py-3 first:border-t-0">
-                    <div className="min-w-0">
-                      <p className="text-sm text-text">{m.text}</p>
-                      <p className="mt-1 text-xs text-faint">
-                        {m.source ? ((t.coach.sources as Record<string, string>)[m.source] ?? "") : ""}
-                        {m.createdAt ? ` · ${formatDate(m.createdAt, dates, "short")}` : ""}
-                      </p>
-                    </div>
-                    <button
-                      type="button"
-                      className={linkButton}
-                      disabled={mem.busy}
-                      onClick={() =>
-                        void mem.run(async () => (await api.forget(m.id), setMemory((list) => (list ?? []).filter((x) => x.id !== m.id))))
-                      }
-                    >
-                      {t.coach.forget}
-                    </button>
-                  </li>
-                ))}
-              </ul>
-              <button
-                type="button"
-                className={smallButton("ghost", "mt-3")}
-                disabled={mem.busy}
-                onClick={() => {
-                  if (window.confirm(t.coach.forgetAllConfirm)) void mem.run(async () => (await api.forgetAll(), setMemory([])));
-                }}
-              >
-                {t.coach.forgetAll}
-              </button>
-            </>
-          )}
-          {mem.status}
+          {/* Coach memory v2 (ADR-0068): by kind, edit, delete, delete all, add; the Health corrections with undo. */}
+          <div className="mt-4">
+            <CoachMemoryEditor lang={lang} session={p.session} />
+          </div>
         </Card>
       </div>
     </Section>
