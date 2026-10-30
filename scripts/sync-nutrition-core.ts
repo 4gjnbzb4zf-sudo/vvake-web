@@ -31,7 +31,11 @@ interface Copy {
   imports: Record<string, string>;
 }
 const FILES: Copy[] = [
-  { from: "src/nutrition.ts", to: "nutrition.ts", imports: { "./coachActions.js": "../coach/coachActions" } },
+  {
+    from: "src/nutrition.ts",
+    to: "nutrition.ts",
+    imports: { "./coachActions.js": "../coach/coachActions", "./suggest.js": "../suggest/suggest", "./tailor.js": "../tailor/tailor" },
+  },
   { from: "src/nutritionFoods.ts", to: "nutritionFoods.ts", imports: { "./nutrition.js": "./nutrition" } },
   {
     from: "src/nutritionMeals.ts",

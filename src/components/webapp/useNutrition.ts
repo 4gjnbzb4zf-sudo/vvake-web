@@ -78,3 +78,29 @@ export function useNutrition() {
   return { api, tn, profile, state, load, save, setOn, on, hidden, canShow };
 }
 export type NutritionState = ReturnType<typeof useNutrition>;
+
+/**
+ * Nutrition's on / off from elsewhere (the Your VVake survey's yes, All features): the profile's `on` (read fresh,
+ * newest wins), saved and shown at once. Your VVake's own feature switch is the caller's (it already saves it).
+ */
+export function useNutritionSwitch() {
+  const { session, nutrition, setNutrition } = useApp();
+  return useCallback(
+    async (on: boolean) => {
+      const api = nutritionApi(session);
+      try {
+        const raw = await api.profile();
+        const cur = newerNutritionProfile(nutrition, raw ? cleanNutritionProfile(raw) : null) ?? defaultNutritionProfile();
+        if (cur.on === on) return true;
+        const next = cleanNutritionProfile({ ...cur, on, at: Math.max(Date.now(), cur.at + 1) });
+        setNutrition(next);
+        const back = await api.saveProfile(next);
+        if (back) setNutrition(cleanNutritionProfile(back));
+        return true;
+      } catch {
+        return false;
+      }
+    },
+    [session, nutrition, setNutrition],
+  );
+}

@@ -159,7 +159,7 @@ const statusLine = (tn: NutritionDict, key: string, lang: "en" | "fr") =>
 function TodayView({ n, openLog, photo }: { n: NutritionState; openLog: boolean; photo?: boolean }) {
   const { tn, api, hidden } = n;
   const { lang } = useApp();
-  const today = localDay(Date.now());
+  const [today] = useState(() => localDay(Date.now()));
   const [day, setDay] = useState<NutritionDay | null | undefined>(undefined);
   const [meals, setMeals] = useState<ApiMeal[] | null | undefined>(undefined);
   const [logging, setLogging] = useState(openLog);
@@ -780,7 +780,8 @@ function Review({
 function WeekView({ n }: { n: NutritionState }) {
   const { tn, api, hidden } = n;
   const { lang } = useApp();
-  const [start, setStart] = useState(() => mondayOf(localDay(Date.now())));
+  const [thisWeek] = useState(() => mondayOf(localDay(Date.now())));
+  const [start, setStart] = useState(thisWeek);
   const [week, setWeek] = useState<NutritionWeek | null | undefined>(undefined);
   useEffect(() => {
     let live = true;
@@ -804,7 +805,7 @@ function WeekView({ n }: { n: NutritionState }) {
         <Btn
           variant="ghost"
           aria-label={w.next}
-          disabled={start >= mondayOf(localDay(Date.now()))}
+          disabled={start >= thisWeek}
           onClick={() => (setWeek(undefined), setStart(addDays(start, 7)))}
         >
           ›

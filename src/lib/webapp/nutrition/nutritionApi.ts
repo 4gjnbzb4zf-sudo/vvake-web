@@ -1,5 +1,7 @@
 import * as z from "zod/mini";
 import type { RewardsSession } from "@/lib/rewardsApi";
+import type { MealIdea as CoreMealIdea } from "./nutrition";
+import { AISLES, type Aisle, type FlyerLink, type GroceryItem, type GroceryList, type SavingTip } from "./nutritionGrocery";
 
 /**
  * Nutrition's endpoints on the web (VVFit ADR-0070, docs/05-tech/api-v1.md "Nutrition"): the same /v1/nutrition calls
@@ -194,7 +196,7 @@ const weekSchema = z.object({
 });
 export type NutritionWeek = z.infer<typeof weekSchema>;
 
-const ideaSchema = z.object({
+const ideaRaw = z.object({
   id: z.string(),
   name: z.string(),
   ingredients: rows(z.object({ name: z.string(), qty: str })),
@@ -209,42 +211,73 @@ const ideaSchema = z.object({
   why: z.catch(z.string(), ""),
   meal: str,
 });
-export type MealIdea = z.infer<typeof ideaSchema>;
+export type MealIdea = CoreMealIdea;
+/** An idea as game-core's MealIdea: optional numbers only when they are numbers, a known meal kind only. Pure. */
+const ideaOf = (i: z.infer<typeof ideaRaw>): MealIdea => ({
+  id: i.id,
+  name: i.name,
+  ingredients: i.ingredients.map((x) => ({ name: x.name, qty: x.qty ?? "" })),
+  steps: i.steps,
+  cookMin: i.cookMin,
+  ...(typeof i.kcal === "number" ? { kcal: i.kcal } : {}),
+  ...(typeof i.proteinG === "number" ? { proteinG: i.proteinG } : {}),
+  ...(typeof i.carbsG === "number" ? { carbsG: i.carbsG } : {}),
+  ...(typeof i.fatG === "number" ? { fatG: i.fatG } : {}),
+  allergens: i.allergens,
+  tags: i.tags,
+  why: i.why,
+  ...(i.meal && (MEAL_KINDS as readonly string[]).includes(i.meal) ? { meal: i.meal as MealKind } : {}),
+});
+const ideaSchema = z.pipe(ideaRaw, z.transform(ideaOf));
 const suggestSchema = z.object({ meals: rows(ideaSchema), fallback: str, source: str });
 
 const groceryItemSchema = z.object({
   name: z.string(),
-  qty: z.catch(z.union([z.string(), z.number()]), ""),
+  qty: z.catch(z.union([z.number(), z.string()]), 0),
   unit: str,
+  note: str,
   have: z.catch(z.boolean(), false),
   fromMeals: z.catch(z.array(z.string()), []),
 });
 const aisleSchema = z.object({ aisle: z.string(), items: rows(groceryItemSchema) });
-export type GroceryAisle = { aisle: string; items: { name: string; qty: string; unit?: string; have: boolean; fromMeals: string[] }[] };
-const cleanAisles = (a: readonly z.infer<typeof aisleSchema>[]): GroceryAisle[] =>
-  a
+const UNITS = new Set(["g", "kg", "ml", "l", "pc", ""]);
+/** The API's aisles as game-core's GroceryList (unknown aisles → other, a text quantity kept as the note). Pure. */
+export function groceryListOf(a: readonly z.infer<typeof aisleSchema>[]): GroceryList {
+  const aisles = a
     .map((x) => ({
-      aisle: x.aisle,
-      items: x.items.map((i) => ({
-        name: i.name,
-        qty: String(i.qty),
-        ...(i.unit ? { unit: i.unit } : {}),
-        have: i.have,
-        fromMeals: i.fromMeals,
-      })),
+      aisle: ((AISLES as readonly string[]).includes(x.aisle) ? x.aisle : "other") as Aisle,
+      items: x.items.map((i): GroceryItem => {
+        const n = typeof i.qty === "number" ? i.qty : Number(i.qty);
+        const textQty = typeof i.qty === "string" && i.qty.trim() && !Number.isFinite(n) ? i.qty.trim() : "";
+        const note = [i.note ?? "", textQty].filter(Boolean).join(" + ");
+        return {
+          name: i.name,
+          qty: Number.isFinite(n) && n > 0 ? n : 0,
+          unit: (UNITS.has(i.unit ?? "") ? (i.unit ?? "") : "") as GroceryItem["unit"],
+          ...(note ? { note } : {}),
+          have: i.have,
+          fromMeals: i.fromMeals,
+        };
+      }),
     }))
     .filter((x) => x.items.length);
+  return { aisles, dropped: 0 };
+}
+const groceryField = opt(z.union([rows(aisleSchema), z.object({ aisles: rows(aisleSchema) })]));
+const aislesOf = (g: z.infer<typeof groceryField>): GroceryList => groceryListOf(!g ? [] : Array.isArray(g) ? g : g.aisles);
 
-const tipSchema = z.object({ kind: str, key: str, text: str, title: str, items: opt(z.array(z.string())) });
-export type SavingTip = z.infer<typeof tipSchema>;
-const flyerSchema = z.object({ chain: z.string(), url: z.string() });
-export type FlyerLink = z.infer<typeof flyerSchema>;
+const tipSchema = z.object({
+  kind: z.string(),
+  text: z.string(),
+  links: opt(z.array(z.object({ chain: z.string(), url: z.string(), urlFr: str }))),
+});
+const flyerSchema = z.object({ chain: z.string(), url: z.string(), urlFr: str });
 
 const planDaySchema = z.object({ day: z.string(), load: str, meals: rows(ideaSchema) });
 const planSchema = z.object({
   plan: z.catch(z.nullable(z.object({ weekStart: str, days: rows(planDaySchema) })), null),
   shopping: rows(z.object({ name: z.string(), qty: z.catch(z.string(), "") })),
-  grocery: opt(z.union([rows(aisleSchema), z.object({ aisles: rows(aisleSchema) })])),
+  grocery: groceryField,
   fallback: str,
 });
 export type MealPlanView = {
@@ -254,11 +287,9 @@ export type MealPlanView = {
 export interface PlanResult {
   plan: MealPlanView | null;
   shopping: { name: string; qty: string }[];
-  grocery: GroceryAisle[];
+  grocery: GroceryList;
   fallback?: string;
 }
-const aislesOf = (g: z.infer<typeof planSchema>["grocery"]): GroceryAisle[] =>
-  !g ? [] : Array.isArray(g) ? cleanAisles(g) : cleanAisles(g.aisles);
 const cleanPlan = (p: z.infer<typeof planSchema>): PlanResult => ({
   plan: p.plan ? { ...(p.plan.weekStart ? { weekStart: p.plan.weekStart } : {}), days: p.plan.days } : null,
   shopping: p.shopping,
@@ -268,19 +299,26 @@ const cleanPlan = (p: z.infer<typeof planSchema>): PlanResult => ({
 
 const grocerySchema = z.object({
   aisles: z.optional(rows(aisleSchema)),
-  grocery: opt(z.union([rows(aisleSchema), z.object({ aisles: rows(aisleSchema) })])),
+  grocery: groceryField,
   servings: num,
   tips: z.optional(rows(tipSchema)),
   flyers: z.optional(rows(flyerSchema)),
   slot: opt(z.object({ start: z.number(), durationMin: z.catch(z.number(), 45), reason: z.catch(z.string(), "weekend_default") })),
 });
 export interface GroceryResult {
-  aisles: GroceryAisle[];
+  list: GroceryList;
   servings?: number;
   tips: SavingTip[];
   flyers: FlyerLink[];
   slot?: { start: number; durationMin: number; reason: string };
 }
+const https = (l: { url: string }) => /^https:\/\//.test(l.url);
+const cleanLink = (l: { chain: string; url: string; urlFr?: string | null }): FlyerLink => ({
+  chain: l.chain,
+  url: l.url,
+  ...(l.urlFr && /^https:\/\//.test(l.urlFr) ? { urlFr: l.urlFr } : {}),
+});
+const TIP_KINDS = new Set(["seasonal", "store_brand", "bulk", "freeze", "batch", "leftovers", "flyer"]);
 
 /** The account's nutrition profile as the API sends it; checked with game-core's cleanNutritionProfile by the caller. */
 const profileSchema = z.object({ profile: z.optional(z.unknown()) });
@@ -375,10 +413,16 @@ export function nutritionApi(s: RewardsSession) {
     async grocery(weekStart: string, servings: number, lang: "en" | "fr"): Promise<GroceryResult> {
       const r = await call(`/v1/nutrition/grocery?${q({ weekStart, servings, lang })}`, GET, grocerySchema);
       return {
-        aisles: r.aisles?.length ? cleanAisles(r.aisles) : aislesOf(r.grocery),
+        list: r.aisles?.length ? groceryListOf(r.aisles) : aislesOf(r.grocery),
         ...(typeof r.servings === "number" ? { servings: r.servings } : {}),
-        tips: r.tips ?? [],
-        flyers: (r.flyers ?? []).filter((f) => /^https:\/\//.test(f.url)),
+        tips: (r.tips ?? [])
+          .filter((t) => TIP_KINDS.has(t.kind))
+          .map((t) => ({
+            kind: t.kind as SavingTip["kind"],
+            text: t.text,
+            ...(t.links?.length ? { links: t.links.filter(https).map(cleanLink) } : {}),
+          })),
+        flyers: (r.flyers ?? []).filter(https).map(cleanLink),
         ...(r.slot ? { slot: r.slot } : {}),
       };
     },

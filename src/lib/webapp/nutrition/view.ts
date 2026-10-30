@@ -4,7 +4,7 @@
  * the slots this browser remembers. Pure but where it says.
  */
 import { icsEscape, icsFold } from "../living/icsCore";
-import type { GroceryAisle } from "./nutritionApi";
+import type { GroceryList } from "./nutritionGrocery";
 
 /** The profile fields that decide whether numbers show. */
 export interface NumbersInput {
@@ -52,34 +52,26 @@ export function dayBounds(day: string): { from: number; to: number } {
   return { from: new Date(y, m - 1, d).getTime(), to: new Date(y, m - 1, d + 1).getTime() - 1 };
 }
 
-/** A grocery row's quantity as one short label ("500 g", "2", "1 l"). Pure. */
-export const qtyLabel = (i: { qty: string; unit?: string }) =>
-  [i.qty, i.unit]
-    .filter((x) => x && String(x).trim())
-    .join(" ")
-    .trim();
-
-/** The list as plain text to copy or share: aisles as headings, what's still needed only (ticked items left out). Pure. */
-export function groceryText(
-  aisles: readonly GroceryAisle[],
-  have: ReadonlySet<string>,
-  names: { title: string; aisle: (k: string) => string },
-): string {
-  const out: string[] = [names.title];
-  for (const a of aisles) {
-    const need = a.items.filter((i) => !have.has(i.name.toLowerCase()));
-    if (!need.length) continue;
-    out.push("", names.aisle(a.aisle));
-    for (const i of need) out.push(`- ${i.name}${qtyLabel(i) ? ` (${qtyLabel(i)})` : ""}`);
-  }
-  return out.join("\n");
+/** The list with the athlete's ticks applied (`have` by name, case-insensitive), ready for game-core groceryText. Pure. */
+export function withTicks(list: GroceryList, have: ReadonlySet<string>): GroceryList {
+  return {
+    ...list,
+    aisles: list.aisles.map((a) => ({ ...a, items: a.items.map((i) => ({ ...i, have: have.has(i.name.toLowerCase()) })) })),
+  };
 }
 
-/** The ticked set to start from: the server's `have` and this week's ticks. Pure. */
-export function initialHave(aisles: readonly GroceryAisle[]): Set<string> {
+/** The ticked set to start from: the list's `have` (the server's pantry). Pure. */
+export function initialHave(list: GroceryList): Set<string> {
   const s = new Set<string>();
-  for (const a of aisles) for (const i of a.items) if (i.have) s.add(i.name.toLowerCase());
+  for (const a of list.aisles) for (const i of a.items) if (i.have) s.add(i.name.toLowerCase());
   return s;
+}
+
+/** The pantry after a tick: the item added or removed (lower-case), the newest kept within 60. Pure. */
+export function nextPantry(pantry: readonly string[], name: string, have: boolean): string[] {
+  const k = name.trim().toLowerCase();
+  const rest = pantry.filter((x) => x !== k);
+  return (have ? [...rest, k] : rest).slice(-60);
 }
 
 const icsUtc = (ms: number) =>

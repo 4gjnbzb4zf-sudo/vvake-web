@@ -660,8 +660,9 @@ export function AppProvider({
     return () => window.clearTimeout(id);
   }, [accountStepsRaw, adoptSteps, pushSteps]);
   const steps = useMemo(() => stepsPref?.ledger ?? {}, [stepsPref]);
-  const nutrition = useMemo(() => (me.prefs?.nutrition ? cleanNutritionProfile(me.prefs.nutrition) : null), [me.prefs?.nutrition]);
-  const nutritionIsOn = nutritionOn(nutrition, profile?.features ?? null);
+  const nutritionRaw = me.prefs?.nutrition;
+  const nutrition = useMemo(() => (nutritionRaw ? cleanNutritionProfile(nutritionRaw) : null), [nutritionRaw]);
+  const nutritionIsOn = useMemo(() => nutritionOn(nutrition, profile ? profile.features : null), [nutrition, profile]);
   const setNutrition = useCallback((p: NutritionProfile) => setMe({ ...me, prefs: { ...me.prefs, nutrition: p } }), [me]);
   const featureOn = useCallback(
     (f: TailorFeature) => ((f as string) === "nutrition" ? nutritionIsOn : packOn(profile, f)),

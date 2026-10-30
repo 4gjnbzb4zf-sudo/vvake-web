@@ -13,6 +13,14 @@ import type { CoachActionFail, CoachAppAction } from "@/lib/webapp/coach/coachAc
 import { outingPlaces, placesSportOf, type OutingPlace } from "@/lib/webapp/coach/talkFlow";
 import { talkApi } from "@/lib/webapp/coach/talkApi";
 import {
+  applyNutritionUpdate,
+  cleanNutritionProfile,
+  defaultNutritionProfile,
+  newerNutritionProfile,
+} from "@/lib/webapp/nutrition/nutrition";
+import { nutritionApi } from "@/lib/webapp/nutrition/nutritionApi";
+import { mondayOf } from "@/lib/webapp/nutrition/view";
+import {
   actionIcs,
   cameraRoutineOf,
   pauseUntil,
@@ -87,14 +95,19 @@ const here = (): Promise<{ lat: number; lon: number } | null> =>
 const tapTime = () => Date.now();
 
 export function useCoachRunner(today?: TodayPlan) {
-  const { session, me, apiUrl, featureOn, online } = useApp();
+  const { session, me, apiUrl, featureOn, online, nutrition, setNutrition } = useApp();
   const wk = useWorkout();
   const la = useMemo(() => livingApi(session), [session]);
   const ta = useMemo(() => talkApi(session), [session]);
+  const na = useMemo(() => nutritionApi(session), [session]);
   const cameraOn = featureOn("camera");
+  const nutritionOn = featureOn("nutrition");
   const inWorkout = !!wk.w;
 
-  const plan = useCallback((a: CoachAppAction): WebCardPlan => webCardPlan(a, { inWorkout, cameraOn }), [inWorkout, cameraOn]);
+  const plan = useCallback(
+    (a: CoachAppAction): WebCardPlan => webCardPlan(a, { inWorkout, cameraOn, nutritionOn }),
+    [inWorkout, cameraOn, nutritionOn],
+  );
 
   /** Places for the outing (show_places, the live coach's find_places), after the athlete allowed the location. */
   const findPlaces = useCallback(
@@ -116,7 +129,7 @@ export function useCoachRunner(today?: TodayPlan) {
 
   const run = useCallback(
     async (a: CoachAppAction, o: { lang: "en" | "fr"; source?: "voice" | "chat" | "tap" }): Promise<RunOutcome> => {
-      const p = webCardPlan(a, { inWorkout: !!wk.w, cameraOn });
+      const p = webCardPlan(a, { inWorkout: !!wk.w, cameraOn, nutritionOn });
       if (p.kind === "line") return { ok: false, reason: p.reason };
       switch (a.type) {
         case "start_workout": {
@@ -149,8 +162,30 @@ export function useCoachRunner(today?: TodayPlan) {
             return { ok: false, reason: typeof navigator !== "undefined" && navigator.onLine === false ? "offline" : "failed" };
           }
         }
-        case "log_habit":
-        case "log_meal": {
+        case "log_meal":
+          // Nutrition on (ADR-0070): a photo opens the camera in Nutrition; a text estimate already made is saved.
+          if (a.photo && nutritionOn) return { ok: true, go: { name: "nutrition", view: "log", photo: true } };
+          if (a.items?.length && nutritionOn) {
+            if (!online) return { ok: false, reason: "offline" };
+            try {
+              await na.saveMeal({
+                at: tapTime(),
+                meal: a.meal ?? "snack",
+                source: "text",
+                items: a.items,
+                ...(a.note ? { note: a.note } : {}),
+              });
+            } catch {
+              return { ok: false, reason: "failed" };
+            }
+            const at = tapTime();
+            const latest = readDays(me.id);
+            const next = logHabit(dayOf(latest, at), "meal", at);
+            if (next) writeDays(me.id, withDay(latest, next));
+            return { ok: true };
+          }
+        // falls through: the meals habit, as before
+        case "log_habit": {
           const k = a.type === "log_meal" ? "meal" : webHabitOf(a.habit);
           if (!k) return { ok: false, reason: "not_here" };
           const at = tapTime();
@@ -192,11 +227,39 @@ export function useCoachRunner(today?: TodayPlan) {
         }
         case "show_summary":
           return { ok: true };
+        // Nutrition (ADR-0070): the meal, ideas and the plan open in Nutrition; a constraint the athlete said is added.
+        case "review_meal":
+          return { ok: true, go: { name: "nutrition" } };
+        case "suggest_meals":
+          return { ok: true, go: { name: "nutrition", view: "ideas" } };
+        case "plan_meals": {
+          if (!online) return { ok: false, reason: "offline" };
+          try {
+            await na.plan(a.weekStart ?? mondayOf(localDay(tapTime())), o.lang);
+            return { ok: true, go: { name: "nutrition", view: "plan" } };
+          } catch {
+            return { ok: false, reason: "failed" };
+          }
+        }
+        case "update_nutrition": {
+          if (!a.nutrition) return { ok: false, reason: "failed" };
+          if (!online) return { ok: false, reason: "offline" };
+          try {
+            const raw = await na.profile();
+            const cur = newerNutritionProfile(nutrition, raw ? cleanNutritionProfile(raw) : null) ?? defaultNutritionProfile();
+            const next = applyNutritionUpdate(cur, a.nutrition, Math.max(tapTime(), cur.at + 1));
+            const back = await na.saveProfile(next);
+            setNutrition(back ? cleanNutritionProfile(back) : next);
+            return { ok: true };
+          } catch {
+            return { ok: false, reason: "failed" };
+          }
+        }
         default:
           return { ok: false, reason: "not_here" };
       }
     },
-    [wk, cameraOn, today, online, la, ta, me.id, findPlaces],
+    [wk, cameraOn, nutritionOn, today, online, la, ta, na, me.id, findPlaces, nutrition, setNutrition],
   );
 
   return { plan, run, findPlaces };

@@ -42,6 +42,8 @@ const FILES: Copy[] = [
       "./coachScreens.js": "./coachScreens",
       "./sportCatalog.js": "../living/sportCatalog",
       "./streakCare.js": "../living/streakCare",
+      // Nutrition (ADR-0070): log_meal's items, update_nutrition's terms (scripts/sync-nutrition-core.ts).
+      "./nutrition.js": "../nutrition/nutrition",
     },
   },
   // Super coach (build 60, ADR-0068): the talk modes, the coach's memory (You › Coach memory) and Health corrections.

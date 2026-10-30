@@ -6,23 +6,29 @@ import { localDay } from "@/lib/webapp/format";
 import { downloadText } from "@/lib/webapp/livingApi";
 import {
   bestShopSlot,
+  buildGroceryList,
   fallbackMeals,
   filterSafeMeals,
-  GROCERY_FLYERS,
+  flyersFor,
+  groceryQtyText,
+  groceryText,
   mealIdeaOf,
   savingTips,
+  type FlyerLink,
+  type GroceryList,
   type NutritionProfile,
+  type SavingTip,
 } from "@/lib/webapp/nutrition/core";
-import type { FlyerLink, GroceryResult, MealIdea, MealKind, PlanResult, SavingTip } from "@/lib/webapp/nutrition/nutritionApi";
+import type { MealIdea, MealKind, PlanResult } from "@/lib/webapp/nutrition/nutritionApi";
 import {
   groceryIcs,
-  groceryText,
   initialHave,
   localInput,
   mondayOf,
-  qtyLabel,
+  nextPantry,
   readPastShops,
   rememberShop,
+  withTicks,
 } from "@/lib/webapp/nutrition/view";
 import { uuid } from "@/lib/webapp/workout";
 import { useApp } from "./AppContext";
@@ -175,7 +181,7 @@ export function IdeasView({ n }: { n: NutritionState }) {
 export function PlanView({ n }: { n: NutritionState }) {
   const { tn, api, profile } = n;
   const { lang, go } = useApp();
-  const weekStart = mondayOf(localDay(Date.now()));
+  const [weekStart] = useState(() => mondayOf(localDay(Date.now())));
   const [plan, setPlan] = useState<PlanResult | null | undefined>(undefined);
   const [busy, setBusy] = useState(false);
   const [swapping, setSwapping] = useState<string | null>(null);
@@ -260,47 +266,74 @@ export function PlanView({ n }: { n: NutritionState }) {
 
 // ── Groceries ─────────────────────────────────────────────────────────────────────────────────────────────────────
 
+type GroceryState = {
+  list: GroceryList;
+  tips: SavingTip[];
+  flyers: FlyerLink[];
+  slot?: { start: number; durationMin: number; reason: string };
+};
+
 export function GroceryView({ n }: { n: NutritionState }) {
   const { tn, api, profile, save } = n;
   const { lang } = useApp();
   const g = tn.grocery;
-  const weekStart = mondayOf(localDay(Date.now()));
+  const [weekStart] = useState(() => mondayOf(localDay(Date.now())));
   const [servings, setServings] = useState(() => profile?.servings ?? 1);
-  const [list, setList] = useState<GroceryResult | null | undefined>(undefined);
+  const [data, setData] = useState<GroceryState | null | undefined>(undefined);
   const [have, setHave] = useState<Set<string>>(new Set());
   const [msg, setMsg] = useState<string | null>(null);
 
-  const load = useCallback(() => {
-    api
-      .grocery(weekStart, servings, lang)
-      .then((r) => {
-        setList(r);
-        setHave(initialHave(r.aisles));
-      })
-      .catch(() => setList(null));
-  }, [api, weekStart, servings, lang]);
+  const load = useCallback(async () => {
+    const month = new Date().getMonth() + 1;
+    const region = profile?.region ?? null;
+    try {
+      const r = await api.grocery(weekStart, servings, lang);
+      setData({
+        list: r.list,
+        tips: r.tips.length ? r.tips : savingTips(region, month, lang, null),
+        flyers: r.flyers.length ? r.flyers : flyersFor(region),
+        ...(r.slot ? { slot: r.slot } : {}),
+      });
+      setHave(initialHave(r.list));
+    } catch {
+      // The server can't make the list now: game-core makes it here from this week's plan (same rules, same filter).
+      try {
+        const plan = await api.currentPlan(weekStart);
+        const days = plan?.plan?.days ?? [];
+        const list = buildGroceryList({ days }, { servings, pantry: profile?.pantry ?? [], profile });
+        setData({ list, tips: savingTips(region, month, lang, { days }), flyers: flyersFor(region) });
+        setHave(initialHave(list));
+      } catch {
+        setData(null);
+      }
+    }
+  }, [api, weekStart, servings, lang, profile]);
   useEffect(() => {
-    const id = window.setTimeout(load, 0);
+    const id = window.setTimeout(() => void load(), 0);
     return () => window.clearTimeout(id);
-  }, [load]);
+    // Reload on the week and servings; the profile's other changes don't change the list.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [weekStart, servings, lang, api]);
 
-  const aisleName = (k: string) => (g.aisles as Record<string, string>)[k] ?? g.aisles.other;
-  const text = list ? groceryText(list.aisles, have, { title: g.title, aisle: aisleName }) : "";
+  const list = data ? withTicks(data.list, have) : null;
+  const text = list ? `${g.title}\n\n${groceryText(list, lang)}` : "";
 
   const toggle = (name: string) => {
     const k = name.toLowerCase();
     const next = new Set(have);
-    if (next.has(k)) next.delete(k);
-    else next.add(k);
+    const on = !next.has(k);
+    if (on) next.add(k);
+    else next.delete(k);
     setHave(next);
     // "I have it" is remembered as pantry (≤ 60), so next week's list starts ticked.
-    const pantry = [...new Set([...(profile?.pantry ?? []).filter((x) => x !== k), ...(next.has(k) ? [k] : [])])].slice(-60);
+    const pantry = nextPantry(profile?.pantry ?? [], k, on);
     void api.savePantry(pantry).catch(() => undefined);
+    void save({ pantry });
   };
 
   const share = async () => {
     try {
-      if (navigator.share) await navigator.share({ title: g.title, text });
+      if (typeof navigator.share === "function") await navigator.share({ title: g.title, text });
       else {
         await navigator.clipboard.writeText(text);
         setMsg(g.copied);
@@ -310,23 +343,9 @@ export function GroceryView({ n }: { n: NutritionState }) {
     }
   };
 
-  const tips: SavingTip[] = useMemo(() => {
-    if (list?.tips.length) return list.tips;
-    if (!profile) return [];
-    try {
-      return savingTips(profile.region ?? null, new Date().getMonth() + 1, lang, null) as SavingTip[];
-    } catch {
-      return [];
-    }
-  }, [list, profile, lang]);
-  const flyers: FlyerLink[] = useMemo(() => {
-    if (list?.flyers.length) return list.flyers;
-    const r = profile?.region;
-    if (!r) return [];
-    const byRegion = GROCERY_FLYERS[r.country] as Record<string, { chain: string; url: string }[]> | undefined;
-    return byRegion ? [...(r.region ? (byRegion[r.region] ?? []) : []), ...(byRegion["*"] ?? [])] : [];
-  }, [list, profile]);
-
+  const tips = (data?.tips ?? []).filter((t) => t.kind !== "flyer");
+  const flyers = data?.flyers ?? [];
+  const items = list?.aisles.flatMap((a) => a.items) ?? [];
   return (
     <div className="space-y-4">
       <Small>{g.lead}</Small>
@@ -366,38 +385,35 @@ export function GroceryView({ n }: { n: NutritionState }) {
           </Btn>
         )}
       </Card>
-      {list === undefined && <Small>{tn.loading}</Small>}
-      {list === null && <Small>{tn.error}</Small>}
-      {list && !list.aisles.length && <Note>{g.empty}</Note>}
-      {list && list.aisles.length > 0 && (
+      {data === undefined && <Small>{tn.loading}</Small>}
+      {data === null && <Small>{tn.error}</Small>}
+      {list && !items.length && <Note>{g.empty}</Note>}
+      {list && items.length > 0 && (
         <>
           {list.aisles.map((a) => (
             <Card key={a.aisle}>
-              <H2>{aisleName(a.aisle)}</H2>
+              <H2>{(g.aisles as Record<string, string>)[a.aisle] ?? g.aisles.other}</H2>
               <ul className="mt-2 space-y-1">
-                {a.items.map((i) => {
-                  const on = have.has(i.name.toLowerCase());
-                  return (
-                    <li key={i.name}>
-                      <label className="flex min-h-11 items-center gap-3">
-                        <input
-                          type="checkbox"
-                          className="h-5 w-5 accent-volt"
-                          checked={on}
-                          onChange={() => toggle(i.name)}
-                          aria-label={`${g.have}: ${i.name}`}
-                        />
-                        <span className={`flex-1 ${on ? "text-faint line-through" : ""}`}>{i.name}</span>
-                        <span className="text-sm text-muted">{qtyLabel(i)}</span>
-                      </label>
-                    </li>
-                  );
-                })}
+                {a.items.map((i) => (
+                  <li key={i.name}>
+                    <label className="flex min-h-11 items-center gap-3">
+                      <input
+                        type="checkbox"
+                        className="h-5 w-5 accent-volt"
+                        checked={i.have}
+                        onChange={() => toggle(i.name)}
+                        aria-label={`${g.have}: ${i.name}`}
+                      />
+                      <span className={`flex-1 ${i.have ? "text-faint line-through" : ""}`}>{i.name}</span>
+                      <span className="text-sm text-muted">{groceryQtyText(i, lang)}</span>
+                    </label>
+                  </li>
+                ))}
               </ul>
             </Card>
           ))}
           <Small>{g.haveHint}</Small>
-          {list.aisles.every((a) => a.items.every((i) => have.has(i.name.toLowerCase()))) && <Note>{g.allHave}</Note>}
+          {items.every((i) => i.have) && <Note>{g.allHave}</Note>}
           <div className="grid grid-cols-2 gap-2">
             <Btn
               variant="ghost"
@@ -419,7 +435,7 @@ export function GroceryView({ n }: { n: NutritionState }) {
               {msg}
             </p>
           )}
-          <ShopSlot n={n} text={text} serverSlot={list.slot} />
+          <ShopSlot n={n} text={text} serverSlot={data?.slot} />
         </>
       )}
       {tips.length > 0 && (
@@ -427,11 +443,7 @@ export function GroceryView({ n }: { n: NutritionState }) {
           <H2>{g.tips}</H2>
           <ul className="mt-2 list-disc space-y-1 pl-5 text-sm">
             {tips.map((t, k) => (
-              <li key={k}>
-                {t.title ? <strong>{t.title}: </strong> : null}
-                {t.text ?? ""}
-                {t.items?.length ? ` ${t.items.join(", ")}` : ""}
-              </li>
+              <li key={k}>{t.text}</li>
             ))}
           </ul>
         </Card>
@@ -442,8 +454,13 @@ export function GroceryView({ n }: { n: NutritionState }) {
           <>
             <ul className="mt-2 space-y-1 text-sm">
               {flyers.map((f) => (
-                <li key={f.url}>
-                  <a className="underline" href={f.url} target="_blank" rel="noopener noreferrer nofollow">
+                <li key={f.chain}>
+                  <a
+                    className="underline"
+                    href={lang === "fr" && f.urlFr ? f.urlFr : f.url}
+                    target="_blank"
+                    rel="noopener noreferrer nofollow"
+                  >
                     {f.chain}
                   </a>
                 </li>
@@ -460,9 +477,9 @@ export function GroceryView({ n }: { n: NutritionState }) {
 }
 
 /**
- * The shopping slot (game-core bestShopSlot: the slots you confirmed before, else a weekend morning; the server's when
- * it sends one), proposed, then changed or confirmed: an .ics the athlete opens (the web's add_to_calendar path). The
- * confirmed slot is remembered in this browser so the next proposal learns.
+ * The shopping slot (game-core bestShopSlot: the slots you confirmed before, else a weekend morning, never in Quiet
+ * hours; the server's when it sends one), proposed, then changed or confirmed: an .ics the athlete opens (the web's
+ * add_to_calendar path). The confirmed slot is remembered in this browser so the next proposal learns.
  */
 function ShopSlot({
   n,
@@ -476,19 +493,15 @@ function ShopSlot({
   const { tn } = n;
   const { lang } = useApp();
   const c = tn.grocery.calendar;
+  const [now] = useState(() => Date.now());
   const proposed = useMemo(() => {
-    if (serverSlot && serverSlot.start > Date.now()) return serverSlot;
-    try {
-      return bestShopSlot({ pastShops: readPastShops(), now: Date.now() });
-    } catch {
-      return null;
-    }
-  }, [serverSlot]);
+    if (serverSlot && serverSlot.start > now) return serverSlot;
+    return bestShopSlot({ pastShops: readPastShops(), now, tzOffsetMin: -new Date(now).getTimezoneOffset() });
+  }, [serverSlot, now]);
   const [pick, setPick] = useState<string | null>(null);
   const [msg, setMsg] = useState<string | null>(null);
-  if (!proposed) return null;
   const start = pick ? new Date(pick).getTime() : proposed.start;
-  const when = new Date(start).toLocaleString(lang, { weekday: "long", hour: "2-digit", minute: "2-digit" });
+  const when = Number.isFinite(start) ? new Date(start).toLocaleString(lang, { weekday: "long", hour: "2-digit", minute: "2-digit" }) : "";
   const reason = (c.reasons as Record<string, string>)[proposed.reason] ?? "";
   return (
     <Card>

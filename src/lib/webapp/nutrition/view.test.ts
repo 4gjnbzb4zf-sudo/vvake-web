@@ -6,11 +6,11 @@ import {
   cleanTerm,
   gramsAt,
   groceryIcs,
-  groceryText,
   initialHave,
   mondayOf,
+  nextPantry,
   numbersHidden,
-  qtyLabel,
+  withTicks,
 } from "./view";
 
 const P = (o: Partial<{ hideNumbers: boolean; flagged: boolean; adult: boolean | null }>) => ({
@@ -57,21 +57,34 @@ describe("portions and days", () => {
 });
 
 describe("grocery list", () => {
-  const aisles = [
-    {
-      aisle: "produce",
-      items: [
-        { name: "Spinach", qty: "200", unit: "g", have: false, fromMeals: [] },
-        { name: "Lemon", qty: "1", have: true, fromMeals: [] },
-      ],
-    },
-    { aisle: "pantry", items: [{ name: "Rice", qty: "500", unit: "g", have: true, fromMeals: [] }] },
-  ];
-  it("writes only what is still needed, by aisle", () => {
-    const have = initialHave(aisles);
-    expect([...have]).toEqual(["lemon", "rice"]);
-    expect(groceryText(aisles, have, { title: "List", aisle: (k) => k.toUpperCase() })).toBe("List\n\nPRODUCE\n- Spinach (200 g)");
-    expect(qtyLabel({ qty: "", unit: undefined })).toBe("");
+  const list = {
+    dropped: 0,
+    aisles: [
+      {
+        aisle: "produce" as const,
+        items: [
+          { name: "Spinach", qty: 200, unit: "g" as const, have: false, fromMeals: [] },
+          { name: "Lemon", qty: 1, unit: "pc" as const, have: true, fromMeals: [] },
+        ],
+      },
+    ],
+  };
+  it("starts from the pantry ticks and applies new ones", () => {
+    const have = initialHave(list);
+    expect([...have]).toEqual(["lemon"]);
+    const next = withTicks(list, new Set(["spinach"]));
+    expect(next.aisles[0]!.items.map((i) => i.have)).toEqual([true, false]);
+  });
+  it("remembers pantry items once, newest last, at most 60", () => {
+    expect(nextPantry(["rice"], "Lemon", true)).toEqual(["rice", "lemon"]);
+    expect(nextPantry(["rice", "lemon"], "lemon", false)).toEqual(["rice"]);
+    expect(
+      nextPantry(
+        Array.from({ length: 60 }, (_, i) => `x${i}`),
+        "y",
+        true,
+      ),
+    ).toHaveLength(60);
   });
   it("makes an .ics for a future slot and refuses a past one", () => {
     const now = Date.UTC(2026, 9, 30, 12);
