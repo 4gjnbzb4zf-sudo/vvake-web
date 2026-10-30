@@ -22,6 +22,7 @@ import { getTailorDict } from "@/i18n/tailor";
 import { getTalkDict } from "@/i18n/talk";
 import { adaptiveOn } from "@/lib/webapp/adaptive/progressApi";
 import { ProgressRow } from "./ProgressScreen";
+import { AdaptiveSettings } from "./AdaptiveSettings";
 import { packOn, tailorText, TAILOR_FEATURES, TAILOR_PRESET_TEXT } from "@/lib/webapp/tailor/tailor";
 
 /** The section index at the top of You (the phone's You index), in page order. */
@@ -328,6 +329,7 @@ export function YouScreen({ focus }: { focus?: Section } = {}) {
         />
         <Small className="mt-1">{t.you.duringWorkoutsDetail}</Small>
       </div>
+      <AdaptiveSettings className="mt-5" />
       {packOn(profile, "coach") && (
         <div className="mt-4">
           <p className="mb-1 text-sm font-medium">{t.you.chattinessTitle}</p>

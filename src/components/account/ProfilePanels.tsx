@@ -13,6 +13,9 @@ import { AUTO_START_MODES, autoStartModeOf, type AutoStartMode } from "@/lib/web
 import { nextAutoStart } from "@/lib/webapp/vehicle/autoStartPrefs";
 import { AUTO_PAUSE_MODES, AUTO_PAUSE_SPORTS, type AutoPauseMode } from "@/lib/webapp/vehicle/autoPause";
 import { autoPauseModeFor, nextAutoPause, parseAutoPausePrefs } from "@/lib/webapp/vehicle/workoutAutoPause";
+import { getAdaptiveDict } from "@/i18n/adaptive";
+import { RPE_CHECK_MODES, SESSION_TIMINGS, type RpeCheckMode, type SessionTiming } from "@/lib/webapp/adaptive/adaptiveSession";
+import { adaptiveOn, nextAdaptivePrefs, parseAdaptivePrefs } from "@/lib/webapp/adaptive/progressApi";
 
 /** This browser's device id (src/lib/rewardsApi.ts keeps it), to mark it in the list. */
 function thisDeviceId(): string | null {
@@ -190,6 +193,11 @@ export function AppSection(p: PanelProps) {
   const autoPauseMain = ["run", "walk", "ride", "hike"];
   const autoPauseMore = Object.keys(AUTO_PAUSE_SPORTS).filter((k) => !autoPauseMain.includes(k));
   const units = me.coach?.units === "imperial" || me.coach?.units === "metric" ? t.app.unitsValue[me.coach.units] : t.notSet;
+  // Planned sessions (build 62, prefs.adaptive): Session timing and Effort checks; a change is stamped after the account's.
+  const ad = getAdaptiveDict(p.lang).settings;
+  const adaptivePrefs = parseAdaptivePrefs(prefs.adaptive);
+  const timings: Choice<SessionTiming>[] = SESSION_TIMINGS.map((k) => ({ value: k, label: ad.timings[k] }));
+  const rpeModes: Choice<RpeCheckMode>[] = RPE_CHECK_MODES.map((k) => ({ value: k, label: ad.rpeModes[k] }));
 
   return (
     <Section id="app" index={sectionIndex("app")} kicker={t.sections.app} title={t.sections.app} lead={t.app.lead}>
@@ -267,6 +275,28 @@ export function AppSection(p: PanelProps) {
             {autoPauseMore.map(autoPauseRow)}
           </details>
         </Card>
+        {adaptiveOn(me) && (
+          <Card title={ad.title}>
+            <Row label={ad.timing} hint={ad.timingLead} htmlFor="acct-adaptive-timing">
+              <Select
+                id="acct-adaptive-timing"
+                value={adaptivePrefs?.timing ?? "adaptive"}
+                options={timings}
+                disabled={a.busy}
+                onChange={(timing) => patch({ adaptive: nextAdaptivePrefs(prefs.adaptive, { timing }) })}
+              />
+            </Row>
+            <Row label={ad.rpe} hint={ad.rpeLead} htmlFor="acct-adaptive-rpe">
+              <Select
+                id="acct-adaptive-rpe"
+                value={adaptivePrefs?.rpeChecks ?? "auto"}
+                options={rpeModes}
+                disabled={a.busy}
+                onChange={(rpeChecks) => patch({ adaptive: nextAdaptivePrefs(prefs.adaptive, { rpeChecks }) })}
+              />
+            </Row>
+          </Card>
+        )}
       </div>
     </Section>
   );
