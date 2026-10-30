@@ -1162,6 +1162,10 @@ export const en = {
       { title: "Hydration", body: "Reminders every 90 minutes, every 45 around workouts and on hot days." },
       { title: "Meal rhythm", body: "Only at the times you choose. No calories, no diet." },
       {
+        title: "Nutrition, if you want it",
+        body: "Optional. Snap your meal and get an estimate of what's on the plate, fix it in a tap, and get meal ideas and a grocery list that fit your training, your budget and your allergies. Estimates, not medical advice; numbers hide in one tap.",
+      },
+      {
         title: "Breathing breaks",
         body: "When your heart-rate variability dips below your own baseline, a 60-second breather. Never a diagnosis.",
       },
@@ -1169,7 +1173,7 @@ export const en = {
     ],
     promises: [
       "All opt-in",
-      "No calorie counting",
+      "Calories only if you turn Nutrition on, hidden in one tap",
       "No weight talk unless you set a weight goal yourself",
       "Quiet hours at night",
       "Wellness guidance, not medical advice",
@@ -2651,6 +2655,43 @@ export const en = {
         ],
       },
       {
+        id: "nutrition",
+        h: "Nutrition (optional)",
+        p: [
+          "Nutrition is off unless you turn it on (Your VVake, or Settings › Nutrition). When it is off, nothing below happens: no meal logs, no meal ideas, no food talk from the coach. Calories and nutrients are estimates, not measurements, and nothing in Nutrition is medical or dietary advice: for a health condition, pregnancy or a difficult relationship with food, talk to a doctor or a registered dietitian.",
+        ],
+        list: [
+          {
+            t: "Meal photos are analysed, then deleted.",
+            d: "When you log a meal with a photo, your phone or browser first shrinks it (at most 1024 pixels, a few hundred kilobytes) and sends it to our API, which passes it to our AI provider, Anthropic, to recognise the foods and estimate portions. We do not store the photo on our servers, in our database, our file storage or our logs. Anthropic processes it as our service provider and, under its commercial terms, does not use it to train its models (see AI features). On vvake.com/app, photos are never kept anywhere. In the phone app, Keep photos (off by default) keeps a copy on your phone only, deleted with the meal or the app.",
+          },
+          {
+            t: "What we keep.",
+            d: "Your meal log (time, meal, the foods with their grams and estimated energy, protein, carbohydrates and fat, how it was logged, an optional note), your nutrition profile (goal, diet style, allergies, intolerances, foods you dislike, cooking time, budget, meals a day, servings at home, the foods you already have, whether you are 18 or older, your Hide numbers and calm-mode choices), your meal plans and grocery lists, and a small portion-correction model: when you change a portion the AI guessed, we keep a correction factor per food family (pasta, rice, meat…) so the next guess fits you better. All of it stays with your account and is deleted with it. Fresh start keeps your meal log (like your Health data) and resets plans and ideas.",
+          },
+          {
+            t: "Your area, never your position.",
+            d: "For seasonal produce and links to this week's grocery flyers, the app may use your country and region (like FR, or CA and QC). It is worked out on your device from a location you already allowed, then the coordinates are dropped: we only receive and keep the country and region code. You can clear it in Settings › Nutrition.",
+          },
+          {
+            t: "Allergies and intolerances.",
+            d: "What you list is used only to keep those foods out of every idea, plan, grocery list and coach reply, and to show a calm note when a meal you log contains one. It is never shared, never used for ads and never shown to anyone else. Our checks are careful but can miss an ingredient: always read labels.",
+          },
+          {
+            t: "Calm mode and Hide numbers.",
+            d: "Hide numbers shows how your day is going in words instead of calories, in one tap from every Nutrition screen. If you'd rather not focus on numbers, or if something you say suggests food is a hard topic, VVake keeps numbers hidden, never suggests eating less, and points to a professional once. We never suggest compensating food with exercise.",
+          },
+          {
+            t: "Apple Health and Health Connect (phone).",
+            d: "Writing your meals' energy, nutrients and water to Apple Health or Health Connect is a separate switch, off by default.",
+          },
+          {
+            t: "Grocery slot in your calendar.",
+            d: "On the web, Add to my calendar downloads an .ics file you open yourself; nothing is sent to a calendar service. The time we propose is worked out from the times you chose before.",
+          },
+        ],
+      },
+      {
         id: "strap",
         h: "Heart-rate strap (phone)",
         p: [
@@ -2711,6 +2752,10 @@ export const en = {
           {
             t: "The coach (Anthropic Claude).",
             d: "To write each reply we send Anthropic: your message and the last few turns (up to 6), the live numbers of your session (sport, time, heart rate and zone, distance, pace, cadence, gaps in a race or challenge, your city's clash score), today's plan and your session feedback, and a summary of your profile (display name, level, zones, targets and coach notes, your aim, the pain, low-impact and easy-only choices, streak, points and recent plan decisions). It also gets a short summary of your last 14 days (sessions per sport, minutes, time in zones, distance, average and maximum heart rate, how they felt), this week's planned and done sessions, last night's sleep and your resting-heart trend if you share them, your training settings (resting and maximum heart rate, zones, low impact, easy only, daily rhythm, daily move, focus lock), the settings changes you agreed to and what the coach remembers. Never the name of a health condition. We do not send your e-mail, account ID, location or contacts. Anthropic processes this as our service provider and, under its commercial terms, does not use it to train its models. Anthropic deletes it within 30 days, unless it must keep it longer to enforce its usage policy (up to 2 years for flagged content) or to comply with the law.",
+          },
+          {
+            t: "Meal photos and meal ideas (Anthropic Claude).",
+            d: "Only if you turn Nutrition on. For a meal photo, Anthropic receives the shrunk photo, the meal (breakfast, lunch…), the hour and your language; for a meal you type or say, the text. For meal ideas and weekly plans, it receives your nutrition goal, diet style, allergies, intolerances and dislikes (to leave them out), cooking time, budget, the season and how hard your training days are. Never your name, e-mail, location or a health condition. Same terms as the coach: not used to train models; the photo is not stored by us.",
           },
           {
             t: "Plan and settings changes.",
@@ -2804,7 +2849,10 @@ export const en = {
             t: "Cloudflare (United States; our data is stored in the EU).",
             d: "Hosts the VVake API, the database and file storage, the waitlist, and the bot check on the website's signup form (Turnstile).",
           },
-          { t: "Anthropic (United States).", d: "Writes the coach's replies (see AI features)." },
+          {
+            t: "Anthropic (United States).",
+            d: "Writes the coach's replies and, if you use Nutrition, reads meal photos and writes meal ideas (see AI features).",
+          },
           {
             t: "ElevenLabs (Eleven Labs Inc., United States; data stored in the United States).",
             d: "Turns coach lines into speech, and what you say to the coach on a watch into text.",
@@ -2941,7 +2989,7 @@ export const en = {
         list: [
           {
             t: "Delete everything.",
-            d: "Delete your account in the app (You > Your account > Delete my account, guest accounts included) or by writing to {email}. This deletes your account, sessions, Move Quests, survey and health fields, devices, plan changes, challenges, crew quest memberships, My Pulse settings, VVaker images, your encrypted route backups, the coach audio only you had, your Claude Code links and your wallet link, and revokes Google access first. Data in Apple Health and on your devices stays under your control. Weekly prize lists already published and blockchain records can't be erased (see $VVAKE prizes and your wallet).",
+            d: "Delete your account in the app (You > Your account > Delete my account, guest accounts included) or by writing to {email}. This deletes your account, sessions, Move Quests, survey and health fields, devices, plan changes, challenges, crew quest memberships, My Pulse settings, VVaker images, your encrypted route backups, the coach audio only you had, your Claude Code links, your meal log, nutrition profile, meal plans and portion corrections, and your wallet link, and revokes Google access first. Data in Apple Health and on your devices stays under your control. Weekly prize lists already published and blockchain records can't be erased (see $VVAKE prizes and your wallet).",
           },
           {
             t: "Sign out, discard a session.",
