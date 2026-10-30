@@ -7,6 +7,8 @@ import { sportLabel } from "@/lib/webapp/workout";
 import { getSeasonDict } from "@/i18n/season";
 import { useApp } from "./AppContext";
 import { SkippedCard } from "./PlanEdit";
+import { ProgressRow } from "./ProgressScreen";
+import { adaptiveOn } from "@/lib/webapp/adaptive/progressApi";
 import { JourneyPath } from "./Journey";
 import { SeasonWeekEditor } from "./SeasonWeek";
 import { useSeason } from "./useSeason";
@@ -107,6 +109,7 @@ function PlanBody() {
             detail={season.goals[0] ? `${season.goals[0].name}${season.week?.label ? ` · ${season.week.label}` : ""}` : s.lead}
             onClick={() => go({ name: "season" })}
           />
+          <ProgressRow />
         </List>
         <SeasonWeekEditor />
         <List>
@@ -128,7 +131,7 @@ function PlanBody() {
  * a season's week, below the invitation to plan a season.
  */
 function WeekPlan({ seasonInvite, basic }: { seasonInvite: boolean; basic: boolean }) {
-  const { t, lang, api, go } = useApp();
+  const { t, lang, api, go, me } = useApp();
   const se = getSeasonDict(lang);
   const wk = useWorkout();
   const [week, setWeek] = useState<Week | null>(null);
@@ -167,6 +170,11 @@ function WeekPlan({ seasonInvite, basic }: { seasonInvite: boolean; basic: boole
     <div className="space-y-4">
       <H1>{t.plan.title}</H1>
       <Small>{t.plan.lead}</Small>
+      {adaptiveOn(me) && (
+        <List>
+          <ProgressRow />
+        </List>
+      )}
       {basic && <SkippedCard />}
       {seasonInvite && (
         <Card tone="volt">

@@ -18,6 +18,7 @@ import { PlacesScreen } from "./PlacesScreen";
 import { PlaceNoteScreen } from "./PlaceNote";
 import { MeetupNewScreen, MeetupScreen } from "./Meetups";
 import { PlanScreen } from "./PlanScreen";
+import { ProgressScreen } from "./ProgressScreen";
 import { RhythmScreen } from "./RhythmScreen";
 import { SeasonGoalScreen, SeasonHealthScreen, SeasonHistoryScreen, SeasonScreen, SeasonSportsScreen } from "./SeasonScreen";
 import { SensorScreen } from "./SensorScreen";
@@ -163,7 +164,7 @@ function Shell() {
       : (route.name === "places" || route.name === "place-note" || route.name === "meetup" || route.name === "meetup-new") &&
           tabs.includes("crew")
         ? "crew"
-        : route.name.startsWith("season")
+        : route.name.startsWith("season") || route.name === "progress"
           ? "plan"
           : LIBRARY_ROUTES.has(route.name)
             ? tabs.includes("plan")
@@ -188,6 +189,7 @@ function Shell() {
             {(route.name === "today" || route.name === "talk") && (profile ? <TodayLean /> : <TodayScreen />)}
             {route.name === "coach-memory" && <CoachMemoryScreen />}
             {route.name === "plan" && <PlanScreen />}
+            {route.name === "progress" && <ProgressScreen />}
             {route.name === "crew" && <CrewScreen />}
             {route.name === "coach" && <CoachScreen />}
             {route.name === "you" && <YouScreen />}

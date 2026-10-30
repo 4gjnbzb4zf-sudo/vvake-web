@@ -20,6 +20,8 @@ import { TailorDevCard } from "./TailorScreen";
 import { ReplayTours, SuggestPicker } from "./Suggest";
 import { getTailorDict } from "@/i18n/tailor";
 import { getTalkDict } from "@/i18n/talk";
+import { adaptiveOn } from "@/lib/webapp/adaptive/progressApi";
+import { ProgressRow } from "./ProgressScreen";
 import { packOn, tailorText, TAILOR_FEATURES, TAILOR_PRESET_TEXT } from "@/lib/webapp/tailor/tailor";
 
 /** The section index at the top of You (the phone's You index), in page order. */
@@ -266,6 +268,13 @@ export function YouScreen({ focus }: { focus?: Section } = {}) {
     </List>
   );
 
+  // Your progress (ADR-0069): readiness, goal trends, what changed and why; only when the API has it.
+  const progressRow = adaptiveOn(me) ? (
+    <List>
+      <ProgressRow />
+    </List>
+  ) : null;
+
   const habitsList = (
     <List>
       <Row tone="sky" icon="💧" title={t.rhythm.title} onClick={() => go({ name: "rhythm" })} />
@@ -404,6 +413,7 @@ export function YouScreen({ focus }: { focus?: Section } = {}) {
       <div className="space-y-5">
         {header}
         {statsCard}
+        {progressRow}
         <div id={sectionId("points")}>{pointsCard}</div>
         {history}
         <WaysToTrain />
@@ -483,6 +493,7 @@ export function YouScreen({ focus }: { focus?: Section } = {}) {
 
       <SectionTitle id={sectionId("progress")}>{t.you.sections.progress}</SectionTitle>
       {statsCard}
+      {progressRow}
       {history}
 
       <SectionTitle id={sectionId("devices")}>{t.you.sections.devices}</SectionTitle>

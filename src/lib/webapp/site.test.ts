@@ -40,6 +40,7 @@ describe("the web app on the site", () => {
     expect(parseRoute("#/coach")).toEqual({ name: "coach" });
     expect(parseRoute("#/session/abc-1")).toEqual({ name: "session", id: "abc-1" });
     expect(parseRoute("#coach")).toEqual({ name: "coach" });
+    expect(parseRoute("#/progress")).toEqual({ name: "progress" });
     expect(parseRoute("")).toEqual({ name: "today" });
     expect(parseRoute("#/nope")).toEqual({ name: "today" });
     expect(parseRoute("#/points")).toEqual({ name: "points" });

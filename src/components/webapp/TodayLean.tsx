@@ -17,6 +17,7 @@ import { ComebackCard } from "./Journey";
 import { VVakerImg } from "./MyVVaker";
 import { useSeason } from "./useSeason";
 import { useWorkout } from "./WorkoutContext";
+import { ProgressLine } from "./ProgressScreen";
 import { EntryChoice } from "./WorkoutScreen";
 import { Btn, Card, Kicker, Small } from "./ui";
 import { useNow } from "./useNow";
@@ -177,6 +178,8 @@ export function TodayLean() {
         </button>
       </header>
       {!wk.w && <ComebackCard />}
+      {/* How ready you are today (ADR-0069): one line, Your progress a tap away. */}
+      {!wk.w && <ProgressLine />}
 
       {/* 1. Next: the one action. */}
       <Card>

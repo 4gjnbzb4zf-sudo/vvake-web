@@ -103,9 +103,13 @@ export const appMeSchema = z.object({
       steps: z.optional(z.unknown()),
       /** Auto-pause (build 59, ADR-0065): `{ bySport, at }`, checked by vehicle/workoutAutoPause.ts; absent until set. */
       autoPause: z.optional(z.unknown()),
+      /** Adaptive coaching (build 62, ADR-0069): `{ timing, rpeChecks, at }`, checked by adaptive/progressApi.ts. */
+      adaptive: z.optional(z.unknown()),
     }),
   ),
   consents: opt(z.object({ disclaimer: opt(z.object({ version: z.number(), acceptedAt: z.string() })) })),
+  /** What this API offers (`adaptive: true` from build 62, ADR-0069); read with featureOfMe, absent on older APIs. */
+  features: z.optional(z.unknown()),
 });
 export type AppMe = z.infer<typeof appMeSchema>;
 

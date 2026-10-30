@@ -18,6 +18,7 @@ import { rhythmToday } from "./RhythmScreen";
 import { HabitsToday } from "./HabitsToday";
 import { ComebackCard } from "./Journey";
 import { useWorkout } from "./WorkoutContext";
+import { ProgressLine } from "./ProgressScreen";
 import { EntryChoice } from "./WorkoutScreen";
 import { cameraSport } from "@/lib/webapp/camera/webSetup";
 import { hasPlaces } from "@/lib/webapp/places";
@@ -128,6 +129,9 @@ export function TodayScreen() {
           </Btn>
         </Card>
       )}
+
+      {/* How ready you are today (ADR-0069): one line, Your progress a tap away. */}
+      {!wk.w && <ProgressLine />}
 
       {/* Train now: today's session with one Start, or another sport. */}
       <Card>

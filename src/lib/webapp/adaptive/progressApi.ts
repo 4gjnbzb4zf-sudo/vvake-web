@@ -188,3 +188,7 @@ export function nextAdaptivePrefs(
     at: new Date(Math.max(now, Number.isFinite(at) ? at + 1 : 0)).toISOString(),
   };
 }
+
+/** The API has adaptive coaching (`/v1/me` `features.adaptive: true`, build 62): the screens and the upload fields show. */
+export const adaptiveOn = (me: { features?: unknown }): boolean =>
+  !!me.features && typeof me.features === "object" && (me.features as { adaptive?: unknown }).adaptive === true;
