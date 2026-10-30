@@ -4,7 +4,6 @@ import { useCallback, useEffect, useMemo, useRef, useState, type ChangeEvent, ty
 import { fmt } from "@/i18n/webapp";
 import type { NutritionDict } from "@/i18n/nutrition";
 import { cn } from "@/lib/cn";
-import { localTz } from "@/lib/webapp/api";
 import { localDay } from "@/lib/webapp/format";
 import { shrinkPhoto } from "@/lib/webapp/nutrition/image";
 import {
@@ -28,7 +27,7 @@ import {
   type NutritionDay,
   type NutritionWeek,
 } from "@/lib/webapp/nutrition/nutritionApi";
-import { addDays, dayBounds, gramsAt, mondayOf, PORTION_MAX, PORTION_MIN, PORTION_STEP } from "@/lib/webapp/nutrition/view";
+import { addDays, gramsAt, mondayOf, PORTION_MAX, PORTION_MIN, PORTION_STEP } from "@/lib/webapp/nutrition/view";
 import { dayOf, logHabit, readDays, withDay, writeDays } from "@/lib/webapp/rhythm";
 import { useApp, type NutritionView } from "./AppContext";
 import { GroceryView, IdeasView, PlanView } from "./NutritionPlan";
@@ -166,13 +165,12 @@ function TodayView({ n, openLog, photo }: { n: NutritionState; openLog: boolean;
   const [msg, setMsg] = useState<string | null>(null);
 
   const load = useCallback(() => {
-    const { from, to } = dayBounds(today);
     api
-      .day(today, localTz())
+      .day(today)
       .then(setDay)
       .catch(() => setDay(null));
     api
-      .meals(from, to)
+      .meals(today, today)
       .then(setMeals)
       .catch(() => setMeals(null));
   }, [api, today]);
@@ -419,7 +417,7 @@ function LogMeal({ n, photo, onDone }: { n: NutritionState; photo?: boolean; onD
       const items = r.estimate.items as MealItem[];
       setDraft({
         items,
-        aiItems: items,
+        aiItems: (r.aiItems as MealItem[] | undefined) ?? items,
         meal,
         source: body.image ? "photo" : "text",
         confidence: r.estimate.confidence,
@@ -756,7 +754,7 @@ function Review({
       )}
       <label className="mt-3 block">
         <span className="mb-1 block text-sm">{r.note}</span>
-        <input className={inputCls} value={note} maxLength={200} onChange={(e) => setNote(e.target.value)} />
+        <input className={inputCls} value={note} maxLength={120} onChange={(e) => setNote(e.target.value)} />
       </label>
       {err && (
         <p role="alert" className="mt-2 text-sm text-down-fg">
@@ -786,7 +784,7 @@ function WeekView({ n }: { n: NutritionState }) {
   useEffect(() => {
     let live = true;
     api
-      .week(start, localTz())
+      .week(start)
       .then((w) => live && setWeek(w))
       .catch(() => live && setWeek(null));
     return () => {
@@ -813,7 +811,7 @@ function WeekView({ n }: { n: NutritionState }) {
       </div>
       {week === undefined && <Small>{tn.loading}</Small>}
       {week === null && <Small>{tn.error}</Small>}
-      {week && !week.days.some((d) => d.totals.kcal > 0) && <Small>{w.none}</Small>}
+      {week && !week.days.some((d) => (d.logged ?? 0) > 0 || d.totals.kcal > 0) && <Small>{w.none}</Small>}
       {week && (
         <>
           {typeof week.proteinDaysOk === "number" && (

@@ -1,4 +1,4 @@
-// Copied from VVFit packages/game-core/src/nutrition.ts (bcd38837 2026-10-30) by scripts/sync-nutrition-core.ts. Do not edit: re-sync.
+// Copied from VVFit packages/game-core/src/nutrition.ts (67ff6bd3 2026-10-30) by scripts/sync-nutrition-core.ts. Do not edit: re-sync.
 /**
  * VVake Nutrition (ADR-0070, docs/02-product/nutrition.md): OPTIONAL, opt-in through Tailor ("Your VVake" feature
  * `nutrition`, default off, never inferred from use).
@@ -2346,7 +2346,7 @@ export const NUTRITION_TEXT: Readonly<Record<string, { en: string; fr: string }>
   "nutrition.status.on_track": { en: "Nicely fuelled today", fr: "Bien alimenté aujourd’hui" },
   "nutrition.status.fuelled_long": { en: "Good fuel for a long session", fr: "Du bon carburant pour une longue séance" },
   "nutrition.status.fuel_up": { en: "A bit more fuel would help your training", fr: "Un peu plus d’énergie aiderait ton entraînement" },
-  "nutrition.status.protein_light": { en: "Protein a bit light today", fr: "Un peu peu de protéines aujourd’hui" },
+  "nutrition.status.protein_light": { en: "Protein a bit light today", fr: "Un peu léger en protéines aujourd’hui" },
   "nutrition.status.energy_light": { en: "A little light on energy today", fr: "Un peu léger en énergie aujourd’hui" },
   "nutrition.status.plenty": { en: "Plenty of fuel today", fr: "Bien rechargé aujourd’hui" },
   "nutrition.tip.recovery": {

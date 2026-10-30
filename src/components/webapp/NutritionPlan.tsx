@@ -242,13 +242,7 @@ export function PlanView({ n }: { n: NutritionState }) {
             </div>
             <ul className="mt-2 space-y-2">
               {meals.map((m) => (
-                <IdeaCard
-                  key={m.id}
-                  idea={m}
-                  n={n}
-                  swapping={swapping === `${d.day}/${m.meal ?? m.id}`}
-                  onSwap={() => void swap(d.day, m.meal ?? m.id)}
-                />
+                <IdeaCard key={m.id} idea={m} n={n} swapping={swapping === `${d.day}/${m.id}`} onSwap={() => void swap(d.day, m.id)} />
               ))}
             </ul>
           </Card>

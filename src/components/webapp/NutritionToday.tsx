@@ -2,7 +2,6 @@
 
 import { useEffect, useMemo, useState } from "react";
 import { getNutritionDict } from "@/i18n/nutrition";
-import { localTz } from "@/lib/webapp/api";
 import { localDay } from "@/lib/webapp/format";
 import { dayLoadOf, NUTRITION_TEXT, nutritionText, recoveryTipAllowed } from "@/lib/webapp/nutrition/core";
 import { nutritionApi, type NutritionDay } from "@/lib/webapp/nutrition/nutritionApi";
@@ -23,7 +22,7 @@ export function FuelRow() {
     if (!on) return;
     let live = true;
     api
-      .day(localDay(Date.now()), localTz())
+      .day(localDay(Date.now()))
       .then((d) => live && setDay(d))
       .catch(() => undefined);
     return () => {

@@ -111,12 +111,15 @@ export type NutritionLimits = z.infer<typeof limitsSchema>;
 
 const analyzeSchema = z.object({
   estimate: z.catch(z.nullable(estimateSchema), null),
+  /** The model's own items before the athlete's portion bias: sent back with the save so corrections teach it. */
+  aiItems: z.optional(rows(itemSchema)),
   limits: opt(z.object({ photosLeft: num, textLeft: num })),
   fallback: str,
 });
 export type AnalyzeFallback = "limit" | "unavailable" | "unreadable";
 export interface AnalyzeResult {
   estimate: ApiEstimate | null;
+  aiItems?: ApiMealItem[];
   photosLeft?: number;
   textLeft?: number;
   fallback?: AnalyzeFallback;
@@ -184,7 +187,8 @@ const daySchema = z.object({
   waterMl: num,
   carbTiming: str,
   tip: str,
-  hideNumbers: opt(z.boolean()),
+  /** week: how many meals were logged that day (numbers may be hidden). */
+  logged: num,
 });
 export type NutritionDay = z.infer<typeof daySchema>;
 
@@ -355,6 +359,7 @@ export function nutritionApi(s: RewardsSession) {
       const r = await call("/v1/nutrition/analyze", send("POST", body), analyzeSchema);
       return {
         estimate: r.estimate ? cleanEstimate(r.estimate) : null,
+        ...(r.aiItems?.length ? { aiItems: r.aiItems.map(cleanItem) } : {}),
         ...(typeof r.limits?.photosLeft === "number" ? { photosLeft: r.limits.photosLeft } : {}),
         ...(typeof r.limits?.textLeft === "number" ? { textLeft: r.limits.textLeft } : {}),
         ...(r.fallback && FALLBACKS.has(r.fallback) ? { fallback: r.fallback as AnalyzeFallback } : {}),
@@ -371,7 +376,8 @@ export function nutritionApi(s: RewardsSession) {
     }): Promise<ApiMeal> {
       return cleanMeal((await call("/v1/nutrition/meals", send("POST", body), z.object({ meal: mealSchema }))).meal);
     },
-    async meals(from: number, to: number): Promise<ApiMeal[]> {
+    /** Meals from one local day to another (YYYY-MM-DD, at most 62 days). */
+    async meals(from: string, to: string): Promise<ApiMeal[]> {
       return (await call(`/v1/nutrition/meals?${q({ from, to })}`, GET, z.object({ meals: rows(mealSchema) }))).meals.map(cleanMeal);
     },
     async editMeal(id: string, patch: { meal?: MealKind; items?: ApiMealItem[]; note?: string; at?: number }): Promise<ApiMeal | null> {
@@ -381,11 +387,11 @@ export function nutritionApi(s: RewardsSession) {
     async deleteMeal(id: string): Promise<void> {
       await call(`/v1/nutrition/meals/${encodeURIComponent(id)}`, send("DELETE"), null);
     },
-    async day(day: string, tz?: string): Promise<NutritionDay> {
-      return call(`/v1/nutrition/day?${q({ day, tz })}`, GET, daySchema);
+    async day(day: string): Promise<NutritionDay> {
+      return call(`/v1/nutrition/day?${q({ day })}`, GET, daySchema);
     },
-    async week(start: string, tz?: string): Promise<NutritionWeek> {
-      return call(`/v1/nutrition/week?${q({ start, tz })}`, GET, weekSchema);
+    async week(start: string): Promise<NutritionWeek> {
+      return call(`/v1/nutrition/week?${q({ start })}`, GET, weekSchema);
     },
     async suggest(body: {
       meal?: MealKind;
@@ -399,9 +405,10 @@ export function nutritionApi(s: RewardsSession) {
     async plan(weekStart: string, lang: "en" | "fr", days?: number): Promise<PlanResult> {
       return cleanPlan(await call("/v1/nutrition/plan", send("POST", { weekStart, lang, ...(days ? { days } : {}) }), planSchema));
     },
-    async currentPlan(weekStart: string): Promise<PlanResult | null> {
+    /** This week's stored plan, or null (the API answers 404 when there is none). */
+    async currentPlan(weekStart: string, lang: "en" | "fr" = "en"): Promise<PlanResult | null> {
       try {
-        return cleanPlan(await call(`/v1/nutrition/plan?${q({ weekStart })}`, GET, planSchema));
+        return cleanPlan(await call(`/v1/nutrition/plan?${q({ weekStart, lang })}`, GET, planSchema));
       } catch (e) {
         if (e instanceof NutritionUnavailable) return null;
         throw e;
