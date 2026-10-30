@@ -19,6 +19,44 @@ export interface Release {
 
 export const releases: Release[] = [
   {
+    version: "1.0.0 (62)",
+    date: "2026-10-30",
+    channel: "beta",
+    devices: ["iphone", "watch", "android", "wear"],
+    notes: {
+      en: {
+        added: [
+          "Your progress: what VVake has learned about you, in plain words. How ready you are today and why (sleep, resting heart rate, HRV, a big week), where each goal is heading with a simple chart and how ready you'll be on the day, and what changed in your zones or paces, and why. On the phone, both watches and the web app.",
+          "VVake suggests changes when they help: a lighter week when fatigue builds up, a little more when you're fresh and your goal needs it, new heart rates or paces from your own sessions, a later date or a shorter race when a goal gets out of reach. Nothing changes until you accept, and you can undo for 30 days.",
+          'At most one question a day, only when your answer changes something: "Was 191 really your max?" or "How hard was that walk?".',
+          'Planned sessions adapt as you train: a recovery ends when your heart has come down, a rep held well makes the next one a little longer, a rep that is too hard ends early, two slow recoveries drop the last rep, and a heart drifting up on a long run gets a gentle "slow a little".',
+          'Tell your coach "too hard", "feels easy" or "pain" during a session: it adapts. "Pain" stops the hard part at once.',
+          "Without heart rate, VVake may ask how it feels (easy, moderate or hard) at most twice a session, never during a hard rep, and never in Quiet unless you turn it on.",
+          "New setting: Session timing, Adaptive or Fixed, and Effort checks, Auto, On or Off. Change it on the phone, either watch, the web app or vvake.com/account.",
+        ],
+        improved: [
+          "After a planned session, the summary shows your time in target against the plan and what was adjusted.",
+          "Talk to your coach hands-free is now on for every VVake Coach Plus and Premium account, with live minutes counted by the month: 60 with Plus, 120 with Premium.",
+        ],
+      },
+      fr: {
+        added: [
+          "Ta progression : ce que VVake a appris sur toi, en mots simples. Ta forme du jour et pourquoi (sommeil, cœur au repos, VFC, une grosse semaine), où va chaque objectif avec un graphique simple et ta forme prévue le jour J, et ce qui a changé dans tes zones ou tes allures, avec la raison. Sur le téléphone, les deux montres et l'app web.",
+          "VVake te propose des changements quand ils t'aident : une semaine plus légère quand la fatigue s'accumule, un peu plus quand tu es frais et que ton objectif le demande, de nouvelles fréquences cardiaques ou allures tirées de tes séances, une date plus tard ou une course plus courte quand un objectif s'éloigne. Rien ne change sans ton accord, et tu peux annuler pendant 30 jours.",
+          "Une question par jour au plus, seulement quand ta réponse change quelque chose : « 191, c'est bien ton max ? » ou « Cette marche, c'était dur ? ».",
+          "Les séances prévues s'adaptent pendant l'effort : une récup se termine quand ton cœur est redescendu, une fraction bien tenue allonge un peu la suivante, une fraction trop dure s'arrête plus tôt, deux récups trop lentes enlèvent la dernière fraction, et un cœur qui dérive sur une sortie longue te vaut un « ralentis un peu ».",
+          "Dis « trop dur », « facile » ou « douleur » à ton coach pendant la séance : elle s'adapte. « Douleur » arrête l'intensité tout de suite.",
+          "Sans fréquence cardiaque, VVake peut te demander comment tu te sens (facile, moyen ou dur) deux fois par séance au plus, jamais pendant une fraction dure, et jamais en mode Discret sauf si tu l'actives.",
+          "Nouveau réglage : Rythme des séances, Adaptatif ou Fixe, et Questions d'effort, Auto, Activé ou Désactivé. Change-le sur le téléphone, une montre, l'app web ou vvake.com/account.",
+        ],
+        improved: [
+          "Après une séance prévue, le résumé montre ton temps dans la cible face au plan et ce qui a été ajusté.",
+          "Parler à ton coach mains libres est maintenant ouvert à tous les comptes VVake Coach Plus et Premium, avec des minutes en direct comptées au mois : 60 avec Plus, 120 avec Premium.",
+        ],
+      },
+    },
+  },
+  {
     version: "1.0.0 (61)",
     date: "2026-10-30",
     channel: "beta",
