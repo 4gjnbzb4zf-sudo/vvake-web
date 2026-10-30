@@ -488,8 +488,8 @@ const en = {
     trustDuplicate: "This walk was also recorded on another account linked to this one: it counts once.",
     trustReview: "Being checked: it counts for you now, and for leagues and challenges once checked.",
     trustCleared: "Checked: all its points count.",
-    indoorSteps: "No GPS distance: your steps count under the indoor rules (up to 60 phone points a day).",
-    indoorBudget: "Today's 60 indoor phone points are already earned.",
+    indoorSteps: "No GPS distance: your steps count under the indoor rules (up to your plan's phone points a day).",
+    indoorBudget: "Today's indoor phone points are already earned.",
     vehicleNotCounted: "Not counted: vehicle detected",
     vehicleLeftOut: "Vehicle stretch left out: {n} min",
     // A workout continued on another device (build 58, watch takeover): its sources in order.
@@ -1422,8 +1422,9 @@ const fr: WebAppDict = {
     trustDuplicate: "Cette sortie est aussi enregistrée sur un autre compte lié à celui-ci : elle compte une seule fois.",
     trustReview: "En vérification : elle compte pour toi dès maintenant, et pour les ligues et les défis une fois vérifiée.",
     trustCleared: "Vérifiée : tous ses points comptent.",
-    indoorSteps: "Pas de distance GPS : tes pas comptent avec les règles intérieur (jusqu'à 60 points téléphone par jour).",
-    indoorBudget: "Les 60 points téléphone en intérieur d'aujourd'hui sont déjà gagnés.",
+    indoorSteps:
+      "Pas de distance GPS : tes pas comptent avec les règles intérieur (dans la limite des points téléphone par jour de ta formule).",
+    indoorBudget: "Les points téléphone en intérieur d'aujourd'hui sont déjà gagnés.",
     autoStopped: "Arrêté ?",
     autoMoving: "Tu repars ?",
     autoNotNow: "Pas maintenant",
