@@ -4,7 +4,7 @@ import { useEffect, useMemo, useState } from "react";
 import { getNutritionDict } from "@/i18n/nutrition";
 import { localTz } from "@/lib/webapp/api";
 import { localDay } from "@/lib/webapp/format";
-import { dayLoadOf, NUTRITION_TEXT, nutritionText } from "@/lib/webapp/nutrition/core";
+import { dayLoadOf, NUTRITION_TEXT, nutritionText, recoveryTipAllowed } from "@/lib/webapp/nutrition/core";
 import { nutritionApi, type NutritionDay } from "@/lib/webapp/nutrition/nutritionApi";
 import { useApp } from "./AppContext";
 import { Row } from "./ui";
@@ -48,10 +48,11 @@ export function FuelRow() {
  * workout: the summary comes after it). One calm line, a door to ideas, dismissed for this visit with one tap.
  */
 export function RecoveryTip({ minutes, feltHard }: { minutes: number; feltHard: boolean }) {
-  const { featureOn, suggests, lang, go } = useApp();
+  const { nutrition, profile, suggestLevel, lang, go } = useApp();
   const [gone, setGone] = useState(false);
   const load = dayLoadOf({ doneMin: minutes, doneHard: feltHard });
-  if (gone || !featureOn("nutrition") || (load !== "hard" && load !== "long") || !suggests("recovery_meal")) return null;
+  // game-core's gate: Nutrition on (opt-in), a hard or long session, Quiet allows it, never during a workout.
+  if (gone || !recoveryTipAllowed(nutrition, { tailor: profile, load, suggestLevel, inWorkout: false })) return null;
   const r = getNutritionDict(lang).recovery;
   return (
     <section className="rounded-2xl border border-mint-fg/40 bg-surface p-4">

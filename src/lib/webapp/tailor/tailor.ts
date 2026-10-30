@@ -1,4 +1,4 @@
-// Copied from VVFit packages/game-core/src/tailor.ts (d9c6a8a3 2026-10-29) by scripts/sync-tailor-core.ts. Do not edit: re-sync.
+// Copied from VVFit packages/game-core/src/tailor.ts (bcd38837 2026-10-30) by scripts/sync-tailor-core.ts. Do not edit: re-sync.
 /**
  * "Your VVake": the lean, tailored app (ADR-0059, docs/02-product/lean-tailored-experience.md, founder survey GO
  * 2026-10-27). Ten one-tap questions give a profile that switches nine features on or off for one athlete, on every
@@ -24,7 +24,8 @@ import { sportEntry } from "./tailorSports";
 export const TAILOR_VERSION = 1 as const;
 
 /** The nine switchable features, in the order of the "Your VVake" summary and the All features grid. */
-export const TAILOR_FEATURES = ["plan", "coach", "habits", "music", "outdoor", "camera", "social", "rewards", "desk"] as const;
+/** `nutrition` (ADR-0070) is opt-in: off unless the athlete said yes, never inferred from use, never on without a profile. */
+export const TAILOR_FEATURES = ["plan", "coach", "habits", "music", "outdoor", "camera", "social", "rewards", "desk", "nutrition"] as const;
 export type TailorFeature = (typeof TAILOR_FEATURES)[number];
 export type TailorFeatures = Record<TailorFeature, boolean>;
 
@@ -47,6 +48,9 @@ export const TAILOR_STYLE = ["calm", "motivating", "direct"] as const;
 export type TailorStyle = (typeof TAILOR_STYLE)[number];
 export const TAILOR_HABITS = ["yes", "move", "no"] as const;
 export type TailorHabits = (typeof TAILOR_HABITS)[number];
+/** 8b. Help with food and fuel (Nutrition, ADR-0070)? 'later' and 'no' keep it off. */
+export const TAILOR_NUTRITION = ["yes", "later", "no"] as const;
+export type TailorNutrition = (typeof TAILOR_NUTRITION)[number];
 export const TAILOR_MUSIC = ["spotify", "apple", "mixes", "own", "none"] as const;
 export type TailorMusic = (typeof TAILOR_MUSIC)[number];
 export const TAILOR_NOTIFY = ["few", "more", "all"] as const;
@@ -105,6 +109,8 @@ export interface TailorAnswers {
   style: TailorStyle;
   /** 8. Daily habits help? */
   habits: TailorHabits;
+  /** 8b. Help with food and fuel? Absent = not asked ('no': Nutrition stays off). */
+  nutrition?: TailorNutrition;
   /** 9. Music while you train? */
   music: TailorMusic;
   /** 10. How many notifications? */
@@ -124,6 +130,7 @@ export const TAILOR_STEPS = [
   "coaching",
   "voice",
   "habits",
+  "nutrition",
   "music",
   "notifications",
   "summary",
@@ -155,8 +162,9 @@ export const TAILOR_QUESTIONS: readonly TailorQuestion[] = [
   { id: "coaching", n: 6, multi: false, answers: TAILOR_COACHING, sets: ["coach"] },
   { id: "voice", n: 7, multi: false, answers: TAILOR_VOICE, answers2: TAILOR_STYLE, sets: [] },
   { id: "habits", n: 8, multi: false, answers: TAILOR_HABITS, sets: ["habits"] },
-  { id: "music", n: 9, multi: false, answers: TAILOR_MUSIC, sets: ["music"] },
-  { id: "notifications", n: 10, multi: false, answers: TAILOR_NOTIFY, sets: [] },
+  { id: "nutrition", n: 9, multi: false, answers: TAILOR_NUTRITION, sets: ["nutrition"] },
+  { id: "music", n: 10, multi: false, answers: TAILOR_MUSIC, sets: ["music"] },
+  { id: "notifications", n: 11, multi: false, answers: TAILOR_NOTIFY, sets: [] },
 ];
 
 /** What the device knows before the survey: a paired watch preselects "Anywhere, with my watch". */
@@ -230,12 +238,14 @@ export const cameraOnly = (a: Pick<TailorAnswers, "where" | "goals">): boolean =
  * topic. Pure data.
  */
 export const TAILOR_REDO: Readonly<
-  Record<"event" | "sports" | "coach" | "habits" | "music" | "social" | "notifications" | "where", readonly TailorStep[]>
+  Record<"event" | "sports" | "coach" | "habits" | "nutrition" | "music" | "social" | "notifications" | "where", readonly TailorStep[]>
 > = {
   event: ["event", "eventDetails", "sports"],
   sports: ["sports", "where"],
   coach: ["coaching", "voice"],
   habits: ["habits"],
+  /** Existing users who took the survey before Nutrition existed: the one question, once (a next-step card, not a push). */
+  nutrition: ["nutrition"],
   music: ["music"],
   social: ["challenge"],
   notifications: ["notifications"],
@@ -308,6 +318,8 @@ export function cleanAnswers(raw: unknown): TailorAnswers {
     music: pick(r.music, TAILOR_MUSIC, d.music),
     notifications: pick(r.notifications, TAILOR_NOTIFY, d.notifications),
   };
+  if (typeof r.nutrition === "string" && (TAILOR_NUTRITION as readonly string[]).includes(r.nutrition))
+    out.nutrition = r.nutrition as TailorNutrition;
   if (event === "yes") {
     if (typeof r.eventType === "string" && TAILOR_EVENT_TYPE.test(r.eventType)) out.eventType = r.eventType;
     if (typeof r.eventDate === "string" && DAY.test(r.eventDate)) out.eventDate = r.eventDate;
@@ -396,6 +408,12 @@ export const TAILOR_NOTIFY_KINDS = {
   coach_call_update: { feature: null, level: "few", late: "drop", exempt: true },
   /** A reminder the athlete just asked for ("remind me to move in 30 minutes", a reminder's "In 15 min"): their own action. */
   asked_reminder: { feature: null, level: "few", late: "drop", exempt: true },
+  /** "Looks like a walk, start it?" (autoStart.ts, mode Ask me): held → a silent notification, never a sound. */
+  workout_detected: { feature: null, level: "few", late: "drop" },
+  /** The coach asks for a meal photo (ADR-0070): only with Nutrition on + the athlete's "coach photo asks", ≤ 2 a week (nutrition.ts mealPhotoAskAllowed). */
+  meal_photo_ask: { feature: "nutrition", level: "few", late: "drop" },
+  /** A workout started by itself (mode Start automatically, the athlete's own choice): its Stop / Discard notice. */
+  auto_workout: { feature: null, level: "few", late: "drop", exempt: true },
 } as const satisfies Record<
   string,
   { feature: TailorFeature | null; level: TailorNotify; priority?: number; late: "digest" | "drop"; exempt?: boolean }
@@ -492,12 +510,14 @@ export function featuresFromAnswers(raw: TailorAnswers, opts: Pick<TailorOptions
     rewards: g("earn"),
     // Decision 9: off unless a Mac / Claude link exists.
     desk: !!opts.deskLinked,
+    // ADR-0070: only an explicit yes (the summary's toggle can still flip it).
+    nutrition: a.nutrition === "yes",
   };
 }
 
 /** The closest preset for these features (doc §3.2). Pure. */
 export function tailorPresetFor(f: TailorFeatures, a: Pick<TailorAnswers, "sports" | "goals">): TailorPreset {
-  const on = TAILOR_FEATURES.filter((k) => k !== "desk" && f[k]).length;
+  const on = TAILOR_FEATURES.filter((k) => k !== "desk" && k !== "nutrition" && f[k]).length;
   if (on >= 7) return "everything";
   if (f.plan && a.sports.length >= 3 && (f.outdoor || f.camera)) return "multisport_pro";
   if (f.plan) return "event_prep";
@@ -883,7 +903,8 @@ export interface TailorChanges {
 
 /** The preview on Settings › Your VVake before saving: which features turn on and off. Pure. */
 export function previewChanges(before: TailorProfile | null | undefined, after: TailorProfile): TailorChanges {
-  const was = (k: TailorFeature) => (before ? before.features[k] : true);
+  // No profile = today's app: every feature on, but Nutrition (opt-in) was off.
+  const was = (k: TailorFeature) => (before ? before.features[k] : k !== "nutrition");
   const on = TAILOR_FEATURES.filter((k) => after.features[k] && !was(k));
   const off = TAILOR_FEATURES.filter((k) => !after.features[k] && was(k));
   const tabsChanged = (before?.tabs ?? ["today", "plan", "crew", "coach", "you"]).join() !== after.tabs.join();
@@ -1001,6 +1022,8 @@ export function usedFeatures(u: TailorUsage30): TailorFeatures {
     social: socialCount(u) > 0,
     rewards: u.rewards.walletLinked || u.rewards.pulsePicks > 0,
     desk: u.desk.linked,
+    // Never inferred (opt-in, ADR-0070).
+    nutrition: false,
   };
 }
 
@@ -1155,6 +1178,7 @@ export const TAILOR_FEATURE_NAMES: Readonly<Record<TailorFeature, { en: string; 
   social: { en: "Friends & city", fr: "Amis et ville" },
   rewards: { en: "Rewards & $VVAKE", fr: "Récompenses et $VVAKE" },
   desk: { en: "Desk", fr: "Bureau" },
+  nutrition: { en: "Nutrition", fr: "Nutrition" },
 };
 
 /** The presets' names on the summary. */
@@ -1220,6 +1244,14 @@ export const TAILOR_TEXT: Readonly<Record<string, { en: string; fr: string }>> =
   "tailor.habits.yes": { en: "Yes, remind me", fr: "Oui, rappelle-moi" },
   "tailor.habits.move": { en: "Only move reminders", fr: "Seulement les rappels pour bouger" },
   "tailor.habits.no": { en: "No", fr: "Non" },
+  "tailor.nutrition.title": { en: "Want help with food and fuel?", fr: "Un coup de main pour ton alimentation ?" },
+  "tailor.nutrition.hint": {
+    en: "Optional: meal photos and ideas around your training. Off any time.",
+    fr: "En option : photos de repas et idées selon ton entraînement. Désactivable à tout moment.",
+  },
+  "tailor.nutrition.yes": { en: "Yes, set it up", fr: "Oui, on s’y met" },
+  "tailor.nutrition.later": { en: "Maybe later", fr: "Peut-être plus tard" },
+  "tailor.nutrition.no": { en: "No thanks", fr: "Non merci" },
   "tailor.music.title": { en: "Music while you train?", fr: "De la musique pendant le sport ?" },
   "tailor.music.spotify": { en: "Spotify", fr: "Spotify" },
   "tailor.music.apple": { en: "Apple Music", fr: "Apple Music" },

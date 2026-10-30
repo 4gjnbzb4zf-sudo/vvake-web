@@ -30,6 +30,7 @@
     "coaching",
     "voice",
     "habits",
+    "nutrition",
     "music",
     "notifications",
     "summary"
@@ -46,7 +47,8 @@
      "camera": false,
      "social": false,
      "rewards": false,
-     "desk": false
+     "desk": false,
+     "nutrition": false
     },
     "rewardsVisible": false,
     "tabs": [
@@ -86,7 +88,9 @@
       "account",
       "device_link",
       "coach_call_update",
-      "asked_reminder"
+      "asked_reminder",
+      "workout_detected",
+      "auto_workout"
      ],
      "quiet": [
       1290,
@@ -143,6 +147,7 @@
     "coaching",
     "voice",
     "habits",
+    "nutrition",
     "music",
     "notifications",
     "summary"
@@ -159,7 +164,8 @@
      "camera": false,
      "social": false,
      "rewards": false,
-     "desk": false
+     "desk": false,
+     "nutrition": false
     },
     "rewardsVisible": false,
     "tabs": [
@@ -199,7 +205,9 @@
       "account",
       "device_link",
       "coach_call_update",
-      "asked_reminder"
+      "asked_reminder",
+      "workout_detected",
+      "auto_workout"
      ],
      "quiet": [
       1290,
@@ -257,6 +265,7 @@
     "challenge",
     "coaching",
     "habits",
+    "nutrition",
     "music",
     "notifications",
     "summary"
@@ -273,7 +282,8 @@
      "camera": false,
      "social": false,
      "rewards": false,
-     "desk": false
+     "desk": false,
+     "nutrition": false
     },
     "rewardsVisible": false,
     "tabs": [
@@ -307,7 +317,9 @@
       "account",
       "device_link",
       "coach_call_update",
-      "asked_reminder"
+      "asked_reminder",
+      "workout_detected",
+      "auto_workout"
      ],
      "quiet": [
       1290,
@@ -365,6 +377,7 @@
     "coaching",
     "voice",
     "habits",
+    "nutrition",
     "music",
     "notifications",
     "summary"
@@ -381,7 +394,8 @@
      "camera": false,
      "social": false,
      "rewards": false,
-     "desk": false
+     "desk": false,
+     "nutrition": false
     },
     "rewardsVisible": false,
     "tabs": [
@@ -421,7 +435,9 @@
       "account",
       "device_link",
       "coach_call_update",
-      "asked_reminder"
+      "asked_reminder",
+      "workout_detected",
+      "auto_workout"
      ],
      "quiet": [
       1290,
@@ -479,6 +495,7 @@
     "coaching",
     "voice",
     "habits",
+    "nutrition",
     "music",
     "notifications",
     "summary"
@@ -495,7 +512,8 @@
      "camera": true,
      "social": false,
      "rewards": false,
-     "desk": false
+     "desk": false,
+     "nutrition": false
     },
     "rewardsVisible": false,
     "tabs": [
@@ -533,7 +551,9 @@
       "account",
       "device_link",
       "coach_call_update",
-      "asked_reminder"
+      "asked_reminder",
+      "workout_detected",
+      "auto_workout"
      ],
      "quiet": [
       1290,
@@ -590,6 +610,7 @@
     "coaching",
     "voice",
     "habits",
+    "nutrition",
     "music",
     "notifications",
     "summary"
@@ -606,7 +627,8 @@
      "camera": false,
      "social": false,
      "rewards": false,
-     "desk": false
+     "desk": false,
+     "nutrition": false
     },
     "rewardsVisible": false,
     "tabs": [
@@ -646,7 +668,9 @@
       "account",
       "device_link",
       "coach_call_update",
-      "asked_reminder"
+      "asked_reminder",
+      "workout_detected",
+      "auto_workout"
      ],
      "quiet": [
       1290,
@@ -703,6 +727,7 @@
     "challenge",
     "coaching",
     "habits",
+    "nutrition",
     "music",
     "notifications",
     "summary"
@@ -719,7 +744,8 @@
      "camera": false,
      "social": true,
      "rewards": false,
-     "desk": false
+     "desk": false,
+     "nutrition": false
     },
     "rewardsVisible": false,
     "tabs": [
@@ -759,7 +785,9 @@
       "account",
       "device_link",
       "coach_call_update",
-      "asked_reminder"
+      "asked_reminder",
+      "workout_detected",
+      "auto_workout"
      ],
      "quiet": [
       1290,
@@ -816,6 +844,7 @@
     "challenge",
     "coaching",
     "habits",
+    "nutrition",
     "music",
     "notifications",
     "summary"
@@ -832,7 +861,8 @@
      "camera": false,
      "social": true,
      "rewards": true,
-     "desk": false
+     "desk": false,
+     "nutrition": false
     },
     "rewardsVisible": true,
     "tabs": [
@@ -871,7 +901,9 @@
       "account",
       "device_link",
       "coach_call_update",
-      "asked_reminder"
+      "asked_reminder",
+      "workout_detected",
+      "auto_workout"
      ],
      "quiet": [
       1290,
@@ -934,6 +966,7 @@
     "coaching",
     "voice",
     "habits",
+    "nutrition",
     "music",
     "notifications",
     "summary"
@@ -950,7 +983,8 @@
      "camera": true,
      "social": false,
      "rewards": false,
-     "desk": false
+     "desk": false,
+     "nutrition": false
     },
     "rewardsVisible": false,
     "tabs": [
@@ -990,7 +1024,9 @@
       "account",
       "device_link",
       "coach_call_update",
-      "asked_reminder"
+      "asked_reminder",
+      "workout_detected",
+      "auto_workout"
      ],
      "quiet": [
       1290,
@@ -1058,6 +1094,7 @@
     "coaching",
     "voice",
     "habits",
+    "nutrition",
     "music",
     "notifications",
     "summary"
@@ -1074,7 +1111,8 @@
      "camera": true,
      "social": true,
      "rewards": true,
-     "desk": false
+     "desk": false,
+     "nutrition": false
     },
     "rewardsVisible": true,
     "tabs": [
@@ -1130,7 +1168,9 @@
       "account",
       "device_link",
       "coach_call_update",
-      "asked_reminder"
+      "asked_reminder",
+      "workout_detected",
+      "auto_workout"
      ],
      "quiet": [
       1290,
@@ -1195,6 +1235,7 @@
     "coaching",
     "voice",
     "habits",
+    "nutrition",
     "music",
     "notifications",
     "summary"
@@ -1211,7 +1252,8 @@
      "camera": false,
      "social": false,
      "rewards": false,
-     "desk": false
+     "desk": false,
+     "nutrition": false
     },
     "rewardsVisible": false,
     "tabs": [
@@ -1253,7 +1295,9 @@
       "account",
       "device_link",
       "coach_call_update",
-      "asked_reminder"
+      "asked_reminder",
+      "workout_detected",
+      "auto_workout"
      ],
      "quiet": [
       1290,
@@ -1313,6 +1357,7 @@
     "coaching",
     "voice",
     "habits",
+    "nutrition",
     "music",
     "notifications",
     "summary"
@@ -1329,7 +1374,8 @@
      "camera": true,
      "social": false,
      "rewards": false,
-     "desk": false
+     "desk": false,
+     "nutrition": false
     },
     "rewardsVisible": false,
     "tabs": [
@@ -1366,7 +1412,9 @@
       "account",
       "device_link",
       "coach_call_update",
-      "asked_reminder"
+      "asked_reminder",
+      "workout_detected",
+      "auto_workout"
      ],
      "quiet": [
       1290,
@@ -1421,6 +1469,7 @@
     "coaching",
     "voice",
     "habits",
+    "nutrition",
     "music",
     "notifications",
     "summary"
@@ -1437,7 +1486,8 @@
      "camera": false,
      "social": false,
      "rewards": false,
-     "desk": false
+     "desk": false,
+     "nutrition": false
     },
     "rewardsVisible": false,
     "tabs": [
@@ -1473,7 +1523,9 @@
       "account",
       "device_link",
       "coach_call_update",
-      "asked_reminder"
+      "asked_reminder",
+      "workout_detected",
+      "auto_workout"
      ],
      "quiet": [
       1290,
@@ -1530,6 +1582,7 @@
     "coaching",
     "voice",
     "habits",
+    "nutrition",
     "music",
     "notifications",
     "summary"
@@ -1546,7 +1599,8 @@
      "camera": false,
      "social": false,
      "rewards": false,
-     "desk": false
+     "desk": false,
+     "nutrition": false
     },
     "rewardsVisible": false,
     "tabs": [
@@ -1583,7 +1637,9 @@
       "account",
       "device_link",
       "coach_call_update",
-      "asked_reminder"
+      "asked_reminder",
+      "workout_detected",
+      "auto_workout"
      ],
      "quiet": [
       1290,
@@ -1641,6 +1697,7 @@
     "coaching",
     "voice",
     "habits",
+    "nutrition",
     "music",
     "notifications",
     "summary"
@@ -1657,7 +1714,8 @@
      "camera": false,
      "social": false,
      "rewards": false,
-     "desk": false
+     "desk": false,
+     "nutrition": false
     },
     "rewardsVisible": false,
     "tabs": [
@@ -1697,7 +1755,9 @@
       "account",
       "device_link",
       "coach_call_update",
-      "asked_reminder"
+      "asked_reminder",
+      "workout_detected",
+      "auto_workout"
      ],
      "quiet": [
       1290,
@@ -1752,6 +1812,7 @@
     "coaching",
     "voice",
     "habits",
+    "nutrition",
     "music",
     "notifications",
     "summary"
@@ -1768,7 +1829,8 @@
      "camera": false,
      "social": true,
      "rewards": true,
-     "desk": false
+     "desk": false,
+     "nutrition": false
     },
     "rewardsVisible": true,
     "tabs": [
@@ -1814,7 +1876,9 @@
       "account",
       "device_link",
       "coach_call_update",
-      "asked_reminder"
+      "asked_reminder",
+      "workout_detected",
+      "auto_workout"
      ],
      "quiet": [
       1290,
@@ -1868,6 +1932,7 @@
     "coaching",
     "voice",
     "habits",
+    "nutrition",
     "music",
     "notifications",
     "summary"
@@ -1884,7 +1949,8 @@
      "camera": true,
      "social": false,
      "rewards": false,
-     "desk": false
+     "desk": false,
+     "nutrition": false
     },
     "rewardsVisible": false,
     "tabs": [
@@ -1921,7 +1987,9 @@
       "account",
       "device_link",
       "coach_call_update",
-      "asked_reminder"
+      "asked_reminder",
+      "workout_detected",
+      "auto_workout"
      ],
      "quiet": [
       1290,
@@ -1975,6 +2043,7 @@
     "coaching",
     "voice",
     "habits",
+    "nutrition",
     "music",
     "notifications",
     "summary"
@@ -1991,7 +2060,8 @@
      "camera": false,
      "social": true,
      "rewards": false,
-     "desk": false
+     "desk": false,
+     "nutrition": false
     },
     "rewardsVisible": false,
     "tabs": [
@@ -2046,7 +2116,9 @@
       "account",
       "device_link",
       "coach_call_update",
-      "asked_reminder"
+      "asked_reminder",
+      "workout_detected",
+      "auto_workout"
      ],
      "quiet": [
       1290,
@@ -2105,6 +2177,7 @@
     "coaching",
     "voice",
     "habits",
+    "nutrition",
     "music",
     "notifications",
     "summary"
@@ -2121,7 +2194,8 @@
      "camera": false,
      "social": false,
      "rewards": false,
-     "desk": false
+     "desk": false,
+     "nutrition": false
     },
     "rewardsVisible": false,
     "tabs": [
@@ -2163,7 +2237,9 @@
       "account",
       "device_link",
       "coach_call_update",
-      "asked_reminder"
+      "asked_reminder",
+      "workout_detected",
+      "auto_workout"
      ],
      "quiet": [
       1290,
@@ -2225,6 +2301,7 @@
     "coaching",
     "voice",
     "habits",
+    "nutrition",
     "music",
     "notifications",
     "summary"
@@ -2241,7 +2318,8 @@
      "camera": false,
      "social": false,
      "rewards": false,
-     "desk": false
+     "desk": false,
+     "nutrition": false
     },
     "rewardsVisible": false,
     "tabs": [
@@ -2283,7 +2361,9 @@
       "account",
       "device_link",
       "coach_call_update",
-      "asked_reminder"
+      "asked_reminder",
+      "workout_detected",
+      "auto_workout"
      ],
      "quiet": [
       1290,
@@ -2340,6 +2420,7 @@
     "challenge",
     "coaching",
     "habits",
+    "nutrition",
     "music",
     "notifications",
     "summary"
@@ -2356,7 +2437,8 @@
      "camera": false,
      "social": false,
      "rewards": false,
-     "desk": false
+     "desk": false,
+     "nutrition": false
     },
     "rewardsVisible": false,
     "tabs": [
@@ -2392,7 +2474,9 @@
       "account",
       "device_link",
       "coach_call_update",
-      "asked_reminder"
+      "asked_reminder",
+      "workout_detected",
+      "auto_workout"
      ],
      "quiet": [
       1290,
@@ -2454,6 +2538,7 @@
     "coaching",
     "voice",
     "habits",
+    "nutrition",
     "music",
     "notifications",
     "summary"
@@ -2470,7 +2555,8 @@
      "camera": false,
      "social": false,
      "rewards": true,
-     "desk": false
+     "desk": false,
+     "nutrition": false
     },
     "rewardsVisible": true,
     "tabs": [
@@ -2506,7 +2592,9 @@
       "account",
       "device_link",
       "coach_call_update",
-      "asked_reminder"
+      "asked_reminder",
+      "workout_detected",
+      "auto_workout"
      ],
      "quiet": [
       1290,
@@ -2564,6 +2652,7 @@
     "challenge",
     "coaching",
     "habits",
+    "nutrition",
     "music",
     "notifications",
     "summary"
@@ -2580,7 +2669,8 @@
      "camera": false,
      "social": false,
      "rewards": false,
-     "desk": false
+     "desk": false,
+     "nutrition": false
     },
     "rewardsVisible": false,
     "tabs": [
@@ -2620,7 +2710,9 @@
       "account",
       "device_link",
       "coach_call_update",
-      "asked_reminder"
+      "asked_reminder",
+      "workout_detected",
+      "auto_workout"
      ],
      "quiet": [
       1290,
@@ -2677,6 +2769,7 @@
     "coaching",
     "voice",
     "habits",
+    "nutrition",
     "music",
     "notifications",
     "summary"
@@ -2693,7 +2786,8 @@
      "camera": false,
      "social": false,
      "rewards": false,
-     "desk": true
+     "desk": true,
+     "nutrition": false
     },
     "rewardsVisible": false,
     "tabs": [
@@ -2734,7 +2828,9 @@
       "account",
       "device_link",
       "coach_call_update",
-      "asked_reminder"
+      "asked_reminder",
+      "workout_detected",
+      "auto_workout"
      ],
      "quiet": [
       1290,
@@ -2788,6 +2884,7 @@
     "coaching",
     "voice",
     "habits",
+    "nutrition",
     "music",
     "notifications",
     "summary"
@@ -2804,7 +2901,8 @@
      "camera": false,
      "social": false,
      "rewards": false,
-     "desk": false
+     "desk": false,
+     "nutrition": false
     },
     "rewardsVisible": false,
     "tabs": [
@@ -2844,7 +2942,9 @@
       "account",
       "device_link",
       "coach_call_update",
-      "asked_reminder"
+      "asked_reminder",
+      "workout_detected",
+      "auto_workout"
      ],
      "quiet": [
       1290,
@@ -2904,6 +3004,7 @@
     "coaching",
     "voice",
     "habits",
+    "nutrition",
     "music",
     "notifications",
     "summary"
@@ -2920,7 +3021,8 @@
      "camera": false,
      "social": true,
      "rewards": true,
-     "desk": false
+     "desk": false,
+     "nutrition": false
     },
     "rewardsVisible": true,
     "tabs": [
@@ -2966,7 +3068,9 @@
       "account",
       "device_link",
       "coach_call_update",
-      "asked_reminder"
+      "asked_reminder",
+      "workout_detected",
+      "auto_workout"
      ],
      "quiet": [
       1290,
@@ -5197,6 +5301,306 @@
    "decision": "send"
   },
   {
+   "profile": "defaults",
+   "kind": "workout_detected",
+   "sentToday": 0,
+   "decision": "send"
+  },
+  {
+   "profile": "defaults",
+   "kind": "workout_detected",
+   "sentToday": 0,
+   "localMinute": 720,
+   "decision": "send"
+  },
+  {
+   "profile": "defaults",
+   "kind": "workout_detected",
+   "sentToday": 0,
+   "localMinute": 1320,
+   "decision": "drop"
+  },
+  {
+   "profile": "defaults",
+   "kind": "workout_detected",
+   "sentToday": 2,
+   "decision": "send"
+  },
+  {
+   "profile": "defaults",
+   "kind": "workout_detected",
+   "sentToday": 2,
+   "localMinute": 720,
+   "decision": "send"
+  },
+  {
+   "profile": "defaults",
+   "kind": "workout_detected",
+   "sentToday": 2,
+   "localMinute": 1320,
+   "decision": "drop"
+  },
+  {
+   "profile": "defaults",
+   "kind": "workout_detected",
+   "sentToday": 3,
+   "decision": "drop"
+  },
+  {
+   "profile": "defaults",
+   "kind": "workout_detected",
+   "sentToday": 3,
+   "localMinute": 720,
+   "decision": "drop"
+  },
+  {
+   "profile": "defaults",
+   "kind": "workout_detected",
+   "sentToday": 3,
+   "localMinute": 1320,
+   "decision": "drop"
+  },
+  {
+   "profile": "defaults",
+   "kind": "workout_detected",
+   "sentToday": 5,
+   "decision": "drop"
+  },
+  {
+   "profile": "defaults",
+   "kind": "workout_detected",
+   "sentToday": 5,
+   "localMinute": 720,
+   "decision": "drop"
+  },
+  {
+   "profile": "defaults",
+   "kind": "workout_detected",
+   "sentToday": 5,
+   "localMinute": 1320,
+   "decision": "drop"
+  },
+  {
+   "profile": "defaults",
+   "kind": "workout_detected",
+   "sentToday": 6,
+   "decision": "drop"
+  },
+  {
+   "profile": "defaults",
+   "kind": "workout_detected",
+   "sentToday": 6,
+   "localMinute": 720,
+   "decision": "drop"
+  },
+  {
+   "profile": "defaults",
+   "kind": "workout_detected",
+   "sentToday": 6,
+   "localMinute": 1320,
+   "decision": "drop"
+  },
+  {
+   "profile": "defaults",
+   "kind": "meal_photo_ask",
+   "sentToday": 0,
+   "decision": "drop"
+  },
+  {
+   "profile": "defaults",
+   "kind": "meal_photo_ask",
+   "sentToday": 0,
+   "localMinute": 720,
+   "decision": "drop"
+  },
+  {
+   "profile": "defaults",
+   "kind": "meal_photo_ask",
+   "sentToday": 0,
+   "localMinute": 1320,
+   "decision": "drop"
+  },
+  {
+   "profile": "defaults",
+   "kind": "meal_photo_ask",
+   "sentToday": 2,
+   "decision": "drop"
+  },
+  {
+   "profile": "defaults",
+   "kind": "meal_photo_ask",
+   "sentToday": 2,
+   "localMinute": 720,
+   "decision": "drop"
+  },
+  {
+   "profile": "defaults",
+   "kind": "meal_photo_ask",
+   "sentToday": 2,
+   "localMinute": 1320,
+   "decision": "drop"
+  },
+  {
+   "profile": "defaults",
+   "kind": "meal_photo_ask",
+   "sentToday": 3,
+   "decision": "drop"
+  },
+  {
+   "profile": "defaults",
+   "kind": "meal_photo_ask",
+   "sentToday": 3,
+   "localMinute": 720,
+   "decision": "drop"
+  },
+  {
+   "profile": "defaults",
+   "kind": "meal_photo_ask",
+   "sentToday": 3,
+   "localMinute": 1320,
+   "decision": "drop"
+  },
+  {
+   "profile": "defaults",
+   "kind": "meal_photo_ask",
+   "sentToday": 5,
+   "decision": "drop"
+  },
+  {
+   "profile": "defaults",
+   "kind": "meal_photo_ask",
+   "sentToday": 5,
+   "localMinute": 720,
+   "decision": "drop"
+  },
+  {
+   "profile": "defaults",
+   "kind": "meal_photo_ask",
+   "sentToday": 5,
+   "localMinute": 1320,
+   "decision": "drop"
+  },
+  {
+   "profile": "defaults",
+   "kind": "meal_photo_ask",
+   "sentToday": 6,
+   "decision": "drop"
+  },
+  {
+   "profile": "defaults",
+   "kind": "meal_photo_ask",
+   "sentToday": 6,
+   "localMinute": 720,
+   "decision": "drop"
+  },
+  {
+   "profile": "defaults",
+   "kind": "meal_photo_ask",
+   "sentToday": 6,
+   "localMinute": 1320,
+   "decision": "drop"
+  },
+  {
+   "profile": "defaults",
+   "kind": "auto_workout",
+   "sentToday": 0,
+   "decision": "send"
+  },
+  {
+   "profile": "defaults",
+   "kind": "auto_workout",
+   "sentToday": 0,
+   "localMinute": 720,
+   "decision": "send"
+  },
+  {
+   "profile": "defaults",
+   "kind": "auto_workout",
+   "sentToday": 0,
+   "localMinute": 1320,
+   "decision": "send"
+  },
+  {
+   "profile": "defaults",
+   "kind": "auto_workout",
+   "sentToday": 2,
+   "decision": "send"
+  },
+  {
+   "profile": "defaults",
+   "kind": "auto_workout",
+   "sentToday": 2,
+   "localMinute": 720,
+   "decision": "send"
+  },
+  {
+   "profile": "defaults",
+   "kind": "auto_workout",
+   "sentToday": 2,
+   "localMinute": 1320,
+   "decision": "send"
+  },
+  {
+   "profile": "defaults",
+   "kind": "auto_workout",
+   "sentToday": 3,
+   "decision": "send"
+  },
+  {
+   "profile": "defaults",
+   "kind": "auto_workout",
+   "sentToday": 3,
+   "localMinute": 720,
+   "decision": "send"
+  },
+  {
+   "profile": "defaults",
+   "kind": "auto_workout",
+   "sentToday": 3,
+   "localMinute": 1320,
+   "decision": "send"
+  },
+  {
+   "profile": "defaults",
+   "kind": "auto_workout",
+   "sentToday": 5,
+   "decision": "send"
+  },
+  {
+   "profile": "defaults",
+   "kind": "auto_workout",
+   "sentToday": 5,
+   "localMinute": 720,
+   "decision": "send"
+  },
+  {
+   "profile": "defaults",
+   "kind": "auto_workout",
+   "sentToday": 5,
+   "localMinute": 1320,
+   "decision": "send"
+  },
+  {
+   "profile": "defaults",
+   "kind": "auto_workout",
+   "sentToday": 6,
+   "decision": "send"
+  },
+  {
+   "profile": "defaults",
+   "kind": "auto_workout",
+   "sentToday": 6,
+   "localMinute": 720,
+   "decision": "send"
+  },
+  {
+   "profile": "defaults",
+   "kind": "auto_workout",
+   "sentToday": 6,
+   "localMinute": 1320,
+   "decision": "send"
+  },
+  {
    "profile": "preset-everything",
    "kind": "coach_call",
    "sentToday": 0,
@@ -7397,6 +7801,306 @@
    "decision": "send"
   },
   {
+   "profile": "preset-everything",
+   "kind": "workout_detected",
+   "sentToday": 0,
+   "decision": "send"
+  },
+  {
+   "profile": "preset-everything",
+   "kind": "workout_detected",
+   "sentToday": 0,
+   "localMinute": 720,
+   "decision": "send"
+  },
+  {
+   "profile": "preset-everything",
+   "kind": "workout_detected",
+   "sentToday": 0,
+   "localMinute": 1320,
+   "decision": "drop"
+  },
+  {
+   "profile": "preset-everything",
+   "kind": "workout_detected",
+   "sentToday": 2,
+   "decision": "send"
+  },
+  {
+   "profile": "preset-everything",
+   "kind": "workout_detected",
+   "sentToday": 2,
+   "localMinute": 720,
+   "decision": "send"
+  },
+  {
+   "profile": "preset-everything",
+   "kind": "workout_detected",
+   "sentToday": 2,
+   "localMinute": 1320,
+   "decision": "drop"
+  },
+  {
+   "profile": "preset-everything",
+   "kind": "workout_detected",
+   "sentToday": 3,
+   "decision": "send"
+  },
+  {
+   "profile": "preset-everything",
+   "kind": "workout_detected",
+   "sentToday": 3,
+   "localMinute": 720,
+   "decision": "send"
+  },
+  {
+   "profile": "preset-everything",
+   "kind": "workout_detected",
+   "sentToday": 3,
+   "localMinute": 1320,
+   "decision": "drop"
+  },
+  {
+   "profile": "preset-everything",
+   "kind": "workout_detected",
+   "sentToday": 5,
+   "decision": "send"
+  },
+  {
+   "profile": "preset-everything",
+   "kind": "workout_detected",
+   "sentToday": 5,
+   "localMinute": 720,
+   "decision": "send"
+  },
+  {
+   "profile": "preset-everything",
+   "kind": "workout_detected",
+   "sentToday": 5,
+   "localMinute": 1320,
+   "decision": "drop"
+  },
+  {
+   "profile": "preset-everything",
+   "kind": "workout_detected",
+   "sentToday": 6,
+   "decision": "drop"
+  },
+  {
+   "profile": "preset-everything",
+   "kind": "workout_detected",
+   "sentToday": 6,
+   "localMinute": 720,
+   "decision": "drop"
+  },
+  {
+   "profile": "preset-everything",
+   "kind": "workout_detected",
+   "sentToday": 6,
+   "localMinute": 1320,
+   "decision": "drop"
+  },
+  {
+   "profile": "preset-everything",
+   "kind": "meal_photo_ask",
+   "sentToday": 0,
+   "decision": "drop"
+  },
+  {
+   "profile": "preset-everything",
+   "kind": "meal_photo_ask",
+   "sentToday": 0,
+   "localMinute": 720,
+   "decision": "drop"
+  },
+  {
+   "profile": "preset-everything",
+   "kind": "meal_photo_ask",
+   "sentToday": 0,
+   "localMinute": 1320,
+   "decision": "drop"
+  },
+  {
+   "profile": "preset-everything",
+   "kind": "meal_photo_ask",
+   "sentToday": 2,
+   "decision": "drop"
+  },
+  {
+   "profile": "preset-everything",
+   "kind": "meal_photo_ask",
+   "sentToday": 2,
+   "localMinute": 720,
+   "decision": "drop"
+  },
+  {
+   "profile": "preset-everything",
+   "kind": "meal_photo_ask",
+   "sentToday": 2,
+   "localMinute": 1320,
+   "decision": "drop"
+  },
+  {
+   "profile": "preset-everything",
+   "kind": "meal_photo_ask",
+   "sentToday": 3,
+   "decision": "drop"
+  },
+  {
+   "profile": "preset-everything",
+   "kind": "meal_photo_ask",
+   "sentToday": 3,
+   "localMinute": 720,
+   "decision": "drop"
+  },
+  {
+   "profile": "preset-everything",
+   "kind": "meal_photo_ask",
+   "sentToday": 3,
+   "localMinute": 1320,
+   "decision": "drop"
+  },
+  {
+   "profile": "preset-everything",
+   "kind": "meal_photo_ask",
+   "sentToday": 5,
+   "decision": "drop"
+  },
+  {
+   "profile": "preset-everything",
+   "kind": "meal_photo_ask",
+   "sentToday": 5,
+   "localMinute": 720,
+   "decision": "drop"
+  },
+  {
+   "profile": "preset-everything",
+   "kind": "meal_photo_ask",
+   "sentToday": 5,
+   "localMinute": 1320,
+   "decision": "drop"
+  },
+  {
+   "profile": "preset-everything",
+   "kind": "meal_photo_ask",
+   "sentToday": 6,
+   "decision": "drop"
+  },
+  {
+   "profile": "preset-everything",
+   "kind": "meal_photo_ask",
+   "sentToday": 6,
+   "localMinute": 720,
+   "decision": "drop"
+  },
+  {
+   "profile": "preset-everything",
+   "kind": "meal_photo_ask",
+   "sentToday": 6,
+   "localMinute": 1320,
+   "decision": "drop"
+  },
+  {
+   "profile": "preset-everything",
+   "kind": "auto_workout",
+   "sentToday": 0,
+   "decision": "send"
+  },
+  {
+   "profile": "preset-everything",
+   "kind": "auto_workout",
+   "sentToday": 0,
+   "localMinute": 720,
+   "decision": "send"
+  },
+  {
+   "profile": "preset-everything",
+   "kind": "auto_workout",
+   "sentToday": 0,
+   "localMinute": 1320,
+   "decision": "send"
+  },
+  {
+   "profile": "preset-everything",
+   "kind": "auto_workout",
+   "sentToday": 2,
+   "decision": "send"
+  },
+  {
+   "profile": "preset-everything",
+   "kind": "auto_workout",
+   "sentToday": 2,
+   "localMinute": 720,
+   "decision": "send"
+  },
+  {
+   "profile": "preset-everything",
+   "kind": "auto_workout",
+   "sentToday": 2,
+   "localMinute": 1320,
+   "decision": "send"
+  },
+  {
+   "profile": "preset-everything",
+   "kind": "auto_workout",
+   "sentToday": 3,
+   "decision": "send"
+  },
+  {
+   "profile": "preset-everything",
+   "kind": "auto_workout",
+   "sentToday": 3,
+   "localMinute": 720,
+   "decision": "send"
+  },
+  {
+   "profile": "preset-everything",
+   "kind": "auto_workout",
+   "sentToday": 3,
+   "localMinute": 1320,
+   "decision": "send"
+  },
+  {
+   "profile": "preset-everything",
+   "kind": "auto_workout",
+   "sentToday": 5,
+   "decision": "send"
+  },
+  {
+   "profile": "preset-everything",
+   "kind": "auto_workout",
+   "sentToday": 5,
+   "localMinute": 720,
+   "decision": "send"
+  },
+  {
+   "profile": "preset-everything",
+   "kind": "auto_workout",
+   "sentToday": 5,
+   "localMinute": 1320,
+   "decision": "send"
+  },
+  {
+   "profile": "preset-everything",
+   "kind": "auto_workout",
+   "sentToday": 6,
+   "decision": "send"
+  },
+  {
+   "profile": "preset-everything",
+   "kind": "auto_workout",
+   "sentToday": 6,
+   "localMinute": 720,
+   "decision": "send"
+  },
+  {
+   "profile": "preset-everything",
+   "kind": "auto_workout",
+   "sentToday": 6,
+   "localMinute": 1320,
+   "decision": "send"
+  },
+  {
    "profile": "preset-social_competitor",
    "kind": "coach_call",
    "sentToday": 0,
@@ -9597,6 +10301,306 @@
    "decision": "send"
   },
   {
+   "profile": "preset-social_competitor",
+   "kind": "workout_detected",
+   "sentToday": 0,
+   "decision": "send"
+  },
+  {
+   "profile": "preset-social_competitor",
+   "kind": "workout_detected",
+   "sentToday": 0,
+   "localMinute": 720,
+   "decision": "send"
+  },
+  {
+   "profile": "preset-social_competitor",
+   "kind": "workout_detected",
+   "sentToday": 0,
+   "localMinute": 1320,
+   "decision": "drop"
+  },
+  {
+   "profile": "preset-social_competitor",
+   "kind": "workout_detected",
+   "sentToday": 2,
+   "decision": "send"
+  },
+  {
+   "profile": "preset-social_competitor",
+   "kind": "workout_detected",
+   "sentToday": 2,
+   "localMinute": 720,
+   "decision": "send"
+  },
+  {
+   "profile": "preset-social_competitor",
+   "kind": "workout_detected",
+   "sentToday": 2,
+   "localMinute": 1320,
+   "decision": "drop"
+  },
+  {
+   "profile": "preset-social_competitor",
+   "kind": "workout_detected",
+   "sentToday": 3,
+   "decision": "drop"
+  },
+  {
+   "profile": "preset-social_competitor",
+   "kind": "workout_detected",
+   "sentToday": 3,
+   "localMinute": 720,
+   "decision": "drop"
+  },
+  {
+   "profile": "preset-social_competitor",
+   "kind": "workout_detected",
+   "sentToday": 3,
+   "localMinute": 1320,
+   "decision": "drop"
+  },
+  {
+   "profile": "preset-social_competitor",
+   "kind": "workout_detected",
+   "sentToday": 5,
+   "decision": "drop"
+  },
+  {
+   "profile": "preset-social_competitor",
+   "kind": "workout_detected",
+   "sentToday": 5,
+   "localMinute": 720,
+   "decision": "drop"
+  },
+  {
+   "profile": "preset-social_competitor",
+   "kind": "workout_detected",
+   "sentToday": 5,
+   "localMinute": 1320,
+   "decision": "drop"
+  },
+  {
+   "profile": "preset-social_competitor",
+   "kind": "workout_detected",
+   "sentToday": 6,
+   "decision": "drop"
+  },
+  {
+   "profile": "preset-social_competitor",
+   "kind": "workout_detected",
+   "sentToday": 6,
+   "localMinute": 720,
+   "decision": "drop"
+  },
+  {
+   "profile": "preset-social_competitor",
+   "kind": "workout_detected",
+   "sentToday": 6,
+   "localMinute": 1320,
+   "decision": "drop"
+  },
+  {
+   "profile": "preset-social_competitor",
+   "kind": "meal_photo_ask",
+   "sentToday": 0,
+   "decision": "drop"
+  },
+  {
+   "profile": "preset-social_competitor",
+   "kind": "meal_photo_ask",
+   "sentToday": 0,
+   "localMinute": 720,
+   "decision": "drop"
+  },
+  {
+   "profile": "preset-social_competitor",
+   "kind": "meal_photo_ask",
+   "sentToday": 0,
+   "localMinute": 1320,
+   "decision": "drop"
+  },
+  {
+   "profile": "preset-social_competitor",
+   "kind": "meal_photo_ask",
+   "sentToday": 2,
+   "decision": "drop"
+  },
+  {
+   "profile": "preset-social_competitor",
+   "kind": "meal_photo_ask",
+   "sentToday": 2,
+   "localMinute": 720,
+   "decision": "drop"
+  },
+  {
+   "profile": "preset-social_competitor",
+   "kind": "meal_photo_ask",
+   "sentToday": 2,
+   "localMinute": 1320,
+   "decision": "drop"
+  },
+  {
+   "profile": "preset-social_competitor",
+   "kind": "meal_photo_ask",
+   "sentToday": 3,
+   "decision": "drop"
+  },
+  {
+   "profile": "preset-social_competitor",
+   "kind": "meal_photo_ask",
+   "sentToday": 3,
+   "localMinute": 720,
+   "decision": "drop"
+  },
+  {
+   "profile": "preset-social_competitor",
+   "kind": "meal_photo_ask",
+   "sentToday": 3,
+   "localMinute": 1320,
+   "decision": "drop"
+  },
+  {
+   "profile": "preset-social_competitor",
+   "kind": "meal_photo_ask",
+   "sentToday": 5,
+   "decision": "drop"
+  },
+  {
+   "profile": "preset-social_competitor",
+   "kind": "meal_photo_ask",
+   "sentToday": 5,
+   "localMinute": 720,
+   "decision": "drop"
+  },
+  {
+   "profile": "preset-social_competitor",
+   "kind": "meal_photo_ask",
+   "sentToday": 5,
+   "localMinute": 1320,
+   "decision": "drop"
+  },
+  {
+   "profile": "preset-social_competitor",
+   "kind": "meal_photo_ask",
+   "sentToday": 6,
+   "decision": "drop"
+  },
+  {
+   "profile": "preset-social_competitor",
+   "kind": "meal_photo_ask",
+   "sentToday": 6,
+   "localMinute": 720,
+   "decision": "drop"
+  },
+  {
+   "profile": "preset-social_competitor",
+   "kind": "meal_photo_ask",
+   "sentToday": 6,
+   "localMinute": 1320,
+   "decision": "drop"
+  },
+  {
+   "profile": "preset-social_competitor",
+   "kind": "auto_workout",
+   "sentToday": 0,
+   "decision": "send"
+  },
+  {
+   "profile": "preset-social_competitor",
+   "kind": "auto_workout",
+   "sentToday": 0,
+   "localMinute": 720,
+   "decision": "send"
+  },
+  {
+   "profile": "preset-social_competitor",
+   "kind": "auto_workout",
+   "sentToday": 0,
+   "localMinute": 1320,
+   "decision": "send"
+  },
+  {
+   "profile": "preset-social_competitor",
+   "kind": "auto_workout",
+   "sentToday": 2,
+   "decision": "send"
+  },
+  {
+   "profile": "preset-social_competitor",
+   "kind": "auto_workout",
+   "sentToday": 2,
+   "localMinute": 720,
+   "decision": "send"
+  },
+  {
+   "profile": "preset-social_competitor",
+   "kind": "auto_workout",
+   "sentToday": 2,
+   "localMinute": 1320,
+   "decision": "send"
+  },
+  {
+   "profile": "preset-social_competitor",
+   "kind": "auto_workout",
+   "sentToday": 3,
+   "decision": "send"
+  },
+  {
+   "profile": "preset-social_competitor",
+   "kind": "auto_workout",
+   "sentToday": 3,
+   "localMinute": 720,
+   "decision": "send"
+  },
+  {
+   "profile": "preset-social_competitor",
+   "kind": "auto_workout",
+   "sentToday": 3,
+   "localMinute": 1320,
+   "decision": "send"
+  },
+  {
+   "profile": "preset-social_competitor",
+   "kind": "auto_workout",
+   "sentToday": 5,
+   "decision": "send"
+  },
+  {
+   "profile": "preset-social_competitor",
+   "kind": "auto_workout",
+   "sentToday": 5,
+   "localMinute": 720,
+   "decision": "send"
+  },
+  {
+   "profile": "preset-social_competitor",
+   "kind": "auto_workout",
+   "sentToday": 5,
+   "localMinute": 1320,
+   "decision": "send"
+  },
+  {
+   "profile": "preset-social_competitor",
+   "kind": "auto_workout",
+   "sentToday": 6,
+   "decision": "send"
+  },
+  {
+   "profile": "preset-social_competitor",
+   "kind": "auto_workout",
+   "sentToday": 6,
+   "localMinute": 720,
+   "decision": "send"
+  },
+  {
+   "profile": "preset-social_competitor",
+   "kind": "auto_workout",
+   "sentToday": 6,
+   "localMinute": 1320,
+   "decision": "send"
+  },
+  {
    "profile": "compete-spotify",
    "kind": "coach_call",
    "sentToday": 0,
@@ -11792,6 +12796,306 @@
   {
    "profile": "compete-spotify",
    "kind": "asked_reminder",
+   "sentToday": 6,
+   "localMinute": 1320,
+   "decision": "send"
+  },
+  {
+   "profile": "compete-spotify",
+   "kind": "workout_detected",
+   "sentToday": 0,
+   "decision": "send"
+  },
+  {
+   "profile": "compete-spotify",
+   "kind": "workout_detected",
+   "sentToday": 0,
+   "localMinute": 720,
+   "decision": "send"
+  },
+  {
+   "profile": "compete-spotify",
+   "kind": "workout_detected",
+   "sentToday": 0,
+   "localMinute": 1320,
+   "decision": "drop"
+  },
+  {
+   "profile": "compete-spotify",
+   "kind": "workout_detected",
+   "sentToday": 2,
+   "decision": "send"
+  },
+  {
+   "profile": "compete-spotify",
+   "kind": "workout_detected",
+   "sentToday": 2,
+   "localMinute": 720,
+   "decision": "send"
+  },
+  {
+   "profile": "compete-spotify",
+   "kind": "workout_detected",
+   "sentToday": 2,
+   "localMinute": 1320,
+   "decision": "drop"
+  },
+  {
+   "profile": "compete-spotify",
+   "kind": "workout_detected",
+   "sentToday": 3,
+   "decision": "send"
+  },
+  {
+   "profile": "compete-spotify",
+   "kind": "workout_detected",
+   "sentToday": 3,
+   "localMinute": 720,
+   "decision": "send"
+  },
+  {
+   "profile": "compete-spotify",
+   "kind": "workout_detected",
+   "sentToday": 3,
+   "localMinute": 1320,
+   "decision": "drop"
+  },
+  {
+   "profile": "compete-spotify",
+   "kind": "workout_detected",
+   "sentToday": 5,
+   "decision": "send"
+  },
+  {
+   "profile": "compete-spotify",
+   "kind": "workout_detected",
+   "sentToday": 5,
+   "localMinute": 720,
+   "decision": "send"
+  },
+  {
+   "profile": "compete-spotify",
+   "kind": "workout_detected",
+   "sentToday": 5,
+   "localMinute": 1320,
+   "decision": "drop"
+  },
+  {
+   "profile": "compete-spotify",
+   "kind": "workout_detected",
+   "sentToday": 6,
+   "decision": "drop"
+  },
+  {
+   "profile": "compete-spotify",
+   "kind": "workout_detected",
+   "sentToday": 6,
+   "localMinute": 720,
+   "decision": "drop"
+  },
+  {
+   "profile": "compete-spotify",
+   "kind": "workout_detected",
+   "sentToday": 6,
+   "localMinute": 1320,
+   "decision": "drop"
+  },
+  {
+   "profile": "compete-spotify",
+   "kind": "meal_photo_ask",
+   "sentToday": 0,
+   "decision": "drop"
+  },
+  {
+   "profile": "compete-spotify",
+   "kind": "meal_photo_ask",
+   "sentToday": 0,
+   "localMinute": 720,
+   "decision": "drop"
+  },
+  {
+   "profile": "compete-spotify",
+   "kind": "meal_photo_ask",
+   "sentToday": 0,
+   "localMinute": 1320,
+   "decision": "drop"
+  },
+  {
+   "profile": "compete-spotify",
+   "kind": "meal_photo_ask",
+   "sentToday": 2,
+   "decision": "drop"
+  },
+  {
+   "profile": "compete-spotify",
+   "kind": "meal_photo_ask",
+   "sentToday": 2,
+   "localMinute": 720,
+   "decision": "drop"
+  },
+  {
+   "profile": "compete-spotify",
+   "kind": "meal_photo_ask",
+   "sentToday": 2,
+   "localMinute": 1320,
+   "decision": "drop"
+  },
+  {
+   "profile": "compete-spotify",
+   "kind": "meal_photo_ask",
+   "sentToday": 3,
+   "decision": "drop"
+  },
+  {
+   "profile": "compete-spotify",
+   "kind": "meal_photo_ask",
+   "sentToday": 3,
+   "localMinute": 720,
+   "decision": "drop"
+  },
+  {
+   "profile": "compete-spotify",
+   "kind": "meal_photo_ask",
+   "sentToday": 3,
+   "localMinute": 1320,
+   "decision": "drop"
+  },
+  {
+   "profile": "compete-spotify",
+   "kind": "meal_photo_ask",
+   "sentToday": 5,
+   "decision": "drop"
+  },
+  {
+   "profile": "compete-spotify",
+   "kind": "meal_photo_ask",
+   "sentToday": 5,
+   "localMinute": 720,
+   "decision": "drop"
+  },
+  {
+   "profile": "compete-spotify",
+   "kind": "meal_photo_ask",
+   "sentToday": 5,
+   "localMinute": 1320,
+   "decision": "drop"
+  },
+  {
+   "profile": "compete-spotify",
+   "kind": "meal_photo_ask",
+   "sentToday": 6,
+   "decision": "drop"
+  },
+  {
+   "profile": "compete-spotify",
+   "kind": "meal_photo_ask",
+   "sentToday": 6,
+   "localMinute": 720,
+   "decision": "drop"
+  },
+  {
+   "profile": "compete-spotify",
+   "kind": "meal_photo_ask",
+   "sentToday": 6,
+   "localMinute": 1320,
+   "decision": "drop"
+  },
+  {
+   "profile": "compete-spotify",
+   "kind": "auto_workout",
+   "sentToday": 0,
+   "decision": "send"
+  },
+  {
+   "profile": "compete-spotify",
+   "kind": "auto_workout",
+   "sentToday": 0,
+   "localMinute": 720,
+   "decision": "send"
+  },
+  {
+   "profile": "compete-spotify",
+   "kind": "auto_workout",
+   "sentToday": 0,
+   "localMinute": 1320,
+   "decision": "send"
+  },
+  {
+   "profile": "compete-spotify",
+   "kind": "auto_workout",
+   "sentToday": 2,
+   "decision": "send"
+  },
+  {
+   "profile": "compete-spotify",
+   "kind": "auto_workout",
+   "sentToday": 2,
+   "localMinute": 720,
+   "decision": "send"
+  },
+  {
+   "profile": "compete-spotify",
+   "kind": "auto_workout",
+   "sentToday": 2,
+   "localMinute": 1320,
+   "decision": "send"
+  },
+  {
+   "profile": "compete-spotify",
+   "kind": "auto_workout",
+   "sentToday": 3,
+   "decision": "send"
+  },
+  {
+   "profile": "compete-spotify",
+   "kind": "auto_workout",
+   "sentToday": 3,
+   "localMinute": 720,
+   "decision": "send"
+  },
+  {
+   "profile": "compete-spotify",
+   "kind": "auto_workout",
+   "sentToday": 3,
+   "localMinute": 1320,
+   "decision": "send"
+  },
+  {
+   "profile": "compete-spotify",
+   "kind": "auto_workout",
+   "sentToday": 5,
+   "decision": "send"
+  },
+  {
+   "profile": "compete-spotify",
+   "kind": "auto_workout",
+   "sentToday": 5,
+   "localMinute": 720,
+   "decision": "send"
+  },
+  {
+   "profile": "compete-spotify",
+   "kind": "auto_workout",
+   "sentToday": 5,
+   "localMinute": 1320,
+   "decision": "send"
+  },
+  {
+   "profile": "compete-spotify",
+   "kind": "auto_workout",
+   "sentToday": 6,
+   "decision": "send"
+  },
+  {
+   "profile": "compete-spotify",
+   "kind": "auto_workout",
+   "sentToday": 6,
+   "localMinute": 720,
+   "decision": "send"
+  },
+  {
+   "profile": "compete-spotify",
+   "kind": "auto_workout",
    "sentToday": 6,
    "localMinute": 1320,
    "decision": "send"
@@ -11860,6 +13164,11 @@
    "allowed": false
   },
   {
+   "profile": "defaults",
+   "surface": "nutrition",
+   "allowed": false
+  },
+  {
    "profile": "defaults-watch",
    "surface": "you",
    "allowed": true
@@ -11915,6 +13224,11 @@
    "allowed": false
   },
   {
+   "profile": "defaults-watch",
+   "surface": "nutrition",
+   "allowed": false
+  },
+  {
    "profile": "preset-just_run",
    "surface": "you",
    "allowed": true
@@ -11970,6 +13284,11 @@
    "allowed": false
   },
   {
+   "profile": "preset-just_run",
+   "surface": "nutrition",
+   "allowed": false
+  },
+  {
    "profile": "preset-event_prep",
    "surface": "you",
    "allowed": true
@@ -12025,6 +13344,11 @@
    "allowed": false
   },
   {
+   "profile": "preset-event_prep",
+   "surface": "nutrition",
+   "allowed": false
+  },
+  {
    "profile": "preset-home_workouts",
    "surface": "you",
    "allowed": true
@@ -12080,6 +13404,11 @@
    "allowed": false
   },
   {
+   "profile": "preset-home_workouts",
+   "surface": "nutrition",
+   "allowed": false
+  },
+  {
    "profile": "preset-daily_mover",
    "surface": "you",
    "allowed": true
@@ -12132,6 +13461,11 @@
   {
    "profile": "preset-daily_mover",
    "surface": "desk",
+   "allowed": false
+  },
+  {
+   "profile": "preset-daily_mover",
+   "surface": "nutrition",
    "allowed": false
   }
  ],
@@ -12912,7 +14246,8 @@
      "camera": false,
      "social": false,
      "rewards": false,
-     "desk": false
+     "desk": false,
+     "nutrition": false
     },
     "rewardsVisible": false,
     "tabs": [
@@ -12949,7 +14284,9 @@
       "account",
       "device_link",
       "coach_call_update",
-      "asked_reminder"
+      "asked_reminder",
+      "workout_detected",
+      "auto_workout"
      ],
      "quiet": [
       1290,
@@ -13073,7 +14410,8 @@
      "camera": false,
      "social": false,
      "rewards": false,
-     "desk": false
+     "desk": false,
+     "nutrition": false
     },
     "rewardsVisible": false,
     "tabs": [
@@ -13111,7 +14449,9 @@
       "account",
       "device_link",
       "coach_call_update",
-      "asked_reminder"
+      "asked_reminder",
+      "workout_detected",
+      "auto_workout"
      ],
      "quiet": [
       1290,
@@ -13236,7 +14576,8 @@
      "camera": true,
      "social": false,
      "rewards": false,
-     "desk": false
+     "desk": false,
+     "nutrition": false
     },
     "rewardsVisible": false,
     "tabs": [
@@ -13273,7 +14614,9 @@
       "account",
       "device_link",
       "coach_call_update",
-      "asked_reminder"
+      "asked_reminder",
+      "workout_detected",
+      "auto_workout"
      ],
      "quiet": [
       1290,
@@ -13403,7 +14746,8 @@
      "camera": true,
      "social": true,
      "rewards": true,
-     "desk": true
+     "desk": true,
+     "nutrition": false
     },
     "rewardsVisible": true,
     "tabs": [
@@ -13460,7 +14804,9 @@
       "account",
       "device_link",
       "coach_call_update",
-      "asked_reminder"
+      "asked_reminder",
+      "workout_detected",
+      "auto_workout"
      ],
      "quiet": [
       1290,
@@ -13590,7 +14936,8 @@
      "camera": false,
      "social": false,
      "rewards": false,
-     "desk": false
+     "desk": false,
+     "nutrition": false
     },
     "rewardsVisible": false,
     "tabs": [
@@ -13626,7 +14973,9 @@
       "account",
       "device_link",
       "coach_call_update",
-      "asked_reminder"
+      "asked_reminder",
+      "workout_detected",
+      "auto_workout"
      ],
      "quiet": [
       1290,
@@ -15954,107 +17303,107 @@
  "coachLine": [
   {
    "profile": "defaults",
-   "line": "- VVake profile (\"Tailor my app\"): Daily mover. Features on: coach, habits, outdoor. Off: plan, music, camera, social, rewards, desk: never suggest or mention them unless the athlete asks (then say they can turn it on in Settings › Tailor my app). Style: motivating and upbeat."
+   "line": "- VVake profile (\"Tailor my app\"): Daily mover. Features on: coach, habits, outdoor. Off: plan, music, camera, social, rewards, desk, nutrition: never suggest or mention them unless the athlete asks (then say they can turn it on in Settings › Tailor my app). Style: motivating and upbeat."
   },
   {
    "profile": "defaults-watch",
-   "line": "- VVake profile (\"Tailor my app\"): Daily mover. Features on: coach, habits, outdoor. Off: plan, music, camera, social, rewards, desk: never suggest or mention them unless the athlete asks (then say they can turn it on in Settings › Tailor my app). Style: motivating and upbeat."
+   "line": "- VVake profile (\"Tailor my app\"): Daily mover. Features on: coach, habits, outdoor. Off: plan, music, camera, social, rewards, desk, nutrition: never suggest or mention them unless the athlete asks (then say they can turn it on in Settings › Tailor my app). Style: motivating and upbeat."
   },
   {
    "profile": "preset-just_run",
-   "line": "- VVake profile (\"Tailor my app\"): Just train. Features on: music, outdoor. Off: plan, coach, habits, camera, social, rewards, desk: never suggest or mention them unless the athlete asks (then say they can turn it on in Settings › Tailor my app). Style: motivating and upbeat, cues only (they chose no coaching: answer when asked, never start a topic)."
+   "line": "- VVake profile (\"Tailor my app\"): Just train. Features on: music, outdoor. Off: plan, coach, habits, camera, social, rewards, desk, nutrition: never suggest or mention them unless the athlete asks (then say they can turn it on in Settings › Tailor my app). Style: motivating and upbeat, cues only (they chose no coaching: answer when asked, never start a topic)."
   },
   {
    "profile": "preset-event_prep",
-   "line": "- VVake profile (\"Tailor my app\"): Event prep. Features on: plan, coach, music, outdoor. Off: habits, camera, social, rewards, desk: never suggest or mention them unless the athlete asks (then say they can turn it on in Settings › Tailor my app). Style: motivating and upbeat."
+   "line": "- VVake profile (\"Tailor my app\"): Event prep. Features on: plan, coach, music, outdoor. Off: habits, camera, social, rewards, desk, nutrition: never suggest or mention them unless the athlete asks (then say they can turn it on in Settings › Tailor my app). Style: motivating and upbeat."
   },
   {
    "profile": "preset-home_workouts",
-   "line": "- VVake profile (\"Tailor my app\"): Home workouts. Features on: coach, music, camera. Off: plan, habits, outdoor, social, rewards, desk: never suggest or mention them unless the athlete asks (then say they can turn it on in Settings › Tailor my app). Style: motivating and upbeat."
+   "line": "- VVake profile (\"Tailor my app\"): Home workouts. Features on: coach, music, camera. Off: plan, habits, outdoor, social, rewards, desk, nutrition: never suggest or mention them unless the athlete asks (then say they can turn it on in Settings › Tailor my app). Style: motivating and upbeat."
   },
   {
    "profile": "preset-daily_mover",
-   "line": "- VVake profile (\"Tailor my app\"): Daily mover. Features on: coach, habits, outdoor. Off: plan, music, camera, social, rewards, desk: never suggest or mention them unless the athlete asks (then say they can turn it on in Settings › Tailor my app). Style: motivating and upbeat."
+   "line": "- VVake profile (\"Tailor my app\"): Daily mover. Features on: coach, habits, outdoor. Off: plan, music, camera, social, rewards, desk, nutrition: never suggest or mention them unless the athlete asks (then say they can turn it on in Settings › Tailor my app). Style: motivating and upbeat."
   },
   {
    "profile": "preset-social_competitor",
-   "line": "- VVake profile (\"Tailor my app\"): Social competitor. Features on: music, outdoor, social. Off: plan, coach, habits, camera, rewards, desk: never suggest or mention them unless the athlete asks (then say they can turn it on in Settings › Tailor my app). Style: motivating and upbeat, cues only (they chose no coaching: answer when asked, never start a topic)."
+   "line": "- VVake profile (\"Tailor my app\"): Social competitor. Features on: music, outdoor, social. Off: plan, coach, habits, camera, rewards, desk, nutrition: never suggest or mention them unless the athlete asks (then say they can turn it on in Settings › Tailor my app). Style: motivating and upbeat, cues only (they chose no coaching: answer when asked, never start a topic)."
   },
   {
    "profile": "preset-web3_earner",
-   "line": "- VVake profile (\"Tailor my app\"): Rewards earner. Features on: outdoor, social, rewards. Off: plan, coach, habits, music, camera, desk: never suggest or mention them unless the athlete asks (then say they can turn it on in Settings › Tailor my app). Style: motivating and upbeat, cues only (they chose no coaching: answer when asked, never start a topic)."
+   "line": "- VVake profile (\"Tailor my app\"): Rewards earner. Features on: outdoor, social, rewards. Off: plan, coach, habits, music, camera, desk, nutrition: never suggest or mention them unless the athlete asks (then say they can turn it on in Settings › Tailor my app). Style: motivating and upbeat, cues only (they chose no coaching: answer when asked, never start a topic)."
   },
   {
    "profile": "preset-multisport_pro",
-   "line": "- VVake profile (\"Tailor my app\"): Multisport. Features on: plan, coach, music, outdoor, camera. Off: habits, social, rewards, desk: never suggest or mention them unless the athlete asks (then say they can turn it on in Settings › Tailor my app). Style: motivating and upbeat."
+   "line": "- VVake profile (\"Tailor my app\"): Multisport. Features on: plan, coach, music, outdoor, camera. Off: habits, social, rewards, desk, nutrition: never suggest or mention them unless the athlete asks (then say they can turn it on in Settings › Tailor my app). Style: motivating and upbeat."
   },
   {
    "profile": "preset-everything",
-   "line": "- VVake profile (\"Tailor my app\"): Everything. Features on: plan, coach, habits, music, outdoor, camera, social, rewards. Off: desk: never suggest or mention them unless the athlete asks (then say they can turn it on in Settings › Tailor my app). Style: motivating and upbeat."
+   "line": "- VVake profile (\"Tailor my app\"): Everything. Features on: plan, coach, habits, music, outdoor, camera, social, rewards. Off: desk, nutrition: never suggest or mention them unless the athlete asks (then say they can turn it on in Settings › Tailor my app). Style: motivating and upbeat."
   },
   {
    "profile": "event-10k",
-   "line": "- VVake profile (\"Tailor my app\"): Event prep. Features on: plan, coach, habits, outdoor. Off: music, camera, social, rewards, desk: never suggest or mention them unless the athlete asks (then say they can turn it on in Settings › Tailor my app). Style: straight to the point. Event: 10k on 2027-03-14."
+   "line": "- VVake profile (\"Tailor my app\"): Event prep. Features on: plan, coach, habits, outdoor. Off: music, camera, social, rewards, desk, nutrition: never suggest or mention them unless the athlete asks (then say they can turn it on in Settings › Tailor my app). Style: straight to the point. Event: 10k on 2027-03-14."
   },
   {
    "profile": "camera-only",
-   "line": "- VVake profile (\"Tailor my app\"): Home workouts. Features on: coach, camera. Off: plan, habits, music, outdoor, social, rewards, desk: never suggest or mention them unless the athlete asks (then say they can turn it on in Settings › Tailor my app). Style: motivating and upbeat."
+   "line": "- VVake profile (\"Tailor my app\"): Home workouts. Features on: coach, camera. Off: plan, habits, music, outdoor, social, rewards, desk, nutrition: never suggest or mention them unless the athlete asks (then say they can turn it on in Settings › Tailor my app). Style: motivating and upbeat."
   },
   {
    "profile": "watch-swim",
-   "line": "- VVake profile (\"Tailor my app\"): Daily mover. Features on: coach. Off: plan, habits, music, outdoor, camera, social, rewards, desk: never suggest or mention them unless the athlete asks (then say they can turn it on in Settings › Tailor my app). Style: motivating and upbeat."
+   "line": "- VVake profile (\"Tailor my app\"): Daily mover. Features on: coach. Off: plan, habits, music, outdoor, camera, social, rewards, desk, nutrition: never suggest or mention them unless the athlete asks (then say they can turn it on in Settings › Tailor my app). Style: motivating and upbeat."
   },
   {
    "profile": "watch-run",
-   "line": "- VVake profile (\"Tailor my app\"): Daily mover. Features on: coach, outdoor. Off: plan, habits, music, camera, social, rewards, desk: never suggest or mention them unless the athlete asks (then say they can turn it on in Settings › Tailor my app). Style: motivating and upbeat."
+   "line": "- VVake profile (\"Tailor my app\"): Daily mover. Features on: coach, outdoor. Off: plan, habits, music, camera, social, rewards, desk, nutrition: never suggest or mention them unless the athlete asks (then say they can turn it on in Settings › Tailor my app). Style: motivating and upbeat."
   },
   {
    "profile": "gym-strength",
-   "line": "- VVake profile (\"Tailor my app\"): Daily mover. Features on: coach, habits, music. Off: plan, outdoor, camera, social, rewards, desk: never suggest or mention them unless the athlete asks (then say they can turn it on in Settings › Tailor my app). Style: motivating and upbeat."
+   "line": "- VVake profile (\"Tailor my app\"): Daily mover. Features on: coach, habits, music. Off: plan, outdoor, camera, social, rewards, desk, nutrition: never suggest or mention them unless the athlete asks (then say they can turn it on in Settings › Tailor my app). Style: motivating and upbeat."
   },
   {
    "profile": "earn-only",
-   "line": "- VVake profile (\"Tailor my app\"): Rewards earner. Features on: coach, habits, outdoor, social, rewards. Off: plan, music, camera, desk: never suggest or mention them unless the athlete asks (then say they can turn it on in Settings › Tailor my app). Style: motivating and upbeat."
+   "line": "- VVake profile (\"Tailor my app\"): Rewards earner. Features on: coach, habits, outdoor, social, rewards. Off: plan, music, camera, desk, nutrition: never suggest or mention them unless the athlete asks (then say they can turn it on in Settings › Tailor my app). Style: motivating and upbeat."
   },
   {
    "profile": "skill",
-   "line": "- VVake profile (\"Tailor my app\"): Home workouts. Features on: coach, camera. Off: plan, habits, music, outdoor, social, rewards, desk: never suggest or mention them unless the athlete asks (then say they can turn it on in Settings › Tailor my app). Style: motivating and upbeat."
+   "line": "- VVake profile (\"Tailor my app\"): Home workouts. Features on: coach, camera. Off: plan, habits, music, outdoor, social, rewards, desk, nutrition: never suggest or mention them unless the athlete asks (then say they can turn it on in Settings › Tailor my app). Style: motivating and upbeat."
   },
   {
    "profile": "compete-spotify",
-   "line": "- VVake profile (\"Tailor my app\"): Social competitor. Features on: coach, habits, music, outdoor, social. Off: plan, camera, rewards, desk: never suggest or mention them unless the athlete asks (then say they can turn it on in Settings › Tailor my app). Style: motivating and upbeat."
+   "line": "- VVake profile (\"Tailor my app\"): Social competitor. Features on: coach, habits, music, outdoor, social. Off: plan, camera, rewards, desk, nutrition: never suggest or mention them unless the athlete asks (then say they can turn it on in Settings › Tailor my app). Style: motivating and upbeat."
   },
   {
    "profile": "few-sports-no-event",
-   "line": "- VVake profile (\"Tailor my app\"): Multisport. Features on: plan, coach, habits, outdoor. Off: music, camera, social, rewards, desk: never suggest or mention them unless the athlete asks (then say they can turn it on in Settings › Tailor my app). Style: motivating and upbeat."
+   "line": "- VVake profile (\"Tailor my app\"): Multisport. Features on: plan, coach, habits, outdoor. Off: music, camera, social, rewards, desk, nutrition: never suggest or mention them unless the athlete asks (then say they can turn it on in Settings › Tailor my app). Style: motivating and upbeat."
   },
   {
    "profile": "sports-tap-order",
-   "line": "- VVake profile (\"Tailor my app\"): Multisport. Features on: plan, coach, habits, outdoor. Off: music, camera, social, rewards, desk: never suggest or mention them unless the athlete asks (then say they can turn it on in Settings › Tailor my app). Style: motivating and upbeat."
+   "line": "- VVake profile (\"Tailor my app\"): Multisport. Features on: plan, coach, habits, outdoor. Off: music, camera, social, rewards, desk, nutrition: never suggest or mention them unless the athlete asks (then say they can turn it on in Settings › Tailor my app). Style: motivating and upbeat."
   },
   {
    "profile": "no-coach",
-   "line": "- VVake profile (\"Tailor my app\"): Daily mover. Features on: habits, outdoor. Off: plan, coach, music, camera, social, rewards, desk: never suggest or mention them unless the athlete asks (then say they can turn it on in Settings › Tailor my app). Style: motivating and upbeat, cues only (they chose no coaching: answer when asked, never start a topic)."
+   "line": "- VVake profile (\"Tailor my app\"): Daily mover. Features on: habits, outdoor. Off: plan, coach, music, camera, social, rewards, desk, nutrition: never suggest or mention them unless the athlete asks (then say they can turn it on in Settings › Tailor my app). Style: motivating and upbeat, cues only (they chose no coaching: answer when asked, never start a topic)."
   },
   {
    "profile": "overrides",
-   "line": "- VVake profile (\"Tailor my app\"): Event prep. Features on: plan, outdoor, rewards. Off: coach, habits, music, camera, social, desk: never suggest or mention them unless the athlete asks (then say they can turn it on in Settings › Tailor my app). Style: motivating and upbeat, cues only (they chose no coaching: answer when asked, never start a topic)."
+   "line": "- VVake profile (\"Tailor my app\"): Event prep. Features on: plan, outdoor, rewards. Off: coach, habits, music, camera, social, desk, nutrition: never suggest or mention them unless the athlete asks (then say they can turn it on in Settings › Tailor my app). Style: motivating and upbeat, cues only (they chose no coaching: answer when asked, never start a topic)."
   },
   {
    "profile": "override-coach-on",
-   "line": "- VVake profile (\"Tailor my app\"): Daily mover. Features on: coach, habits, outdoor. Off: plan, music, camera, social, rewards, desk: never suggest or mention them unless the athlete asks (then say they can turn it on in Settings › Tailor my app). Style: motivating and upbeat."
+   "line": "- VVake profile (\"Tailor my app\"): Daily mover. Features on: coach, habits, outdoor. Off: plan, music, camera, social, rewards, desk, nutrition: never suggest or mention them unless the athlete asks (then say they can turn it on in Settings › Tailor my app). Style: motivating and upbeat."
   },
   {
    "profile": "desk-linked",
-   "line": "- VVake profile (\"Tailor my app\"): Daily mover. Features on: coach, habits, outdoor, desk. Off: plan, music, camera, social, rewards: never suggest or mention them unless the athlete asks (then say they can turn it on in Settings › Tailor my app). Style: motivating and upbeat."
+   "line": "- VVake profile (\"Tailor my app\"): Daily mover. Features on: coach, habits, outdoor, desk. Off: plan, music, camera, social, rewards, nutrition: never suggest or mention them unless the athlete asks (then say they can turn it on in Settings › Tailor my app). Style: motivating and upbeat."
   },
   {
    "profile": "desk-offer",
-   "line": "- VVake profile (\"Tailor my app\"): Daily mover. Features on: coach, habits, outdoor. Off: plan, music, camera, social, rewards, desk: never suggest or mention them unless the athlete asks (then say they can turn it on in Settings › Tailor my app). Style: motivating and upbeat."
+   "line": "- VVake profile (\"Tailor my app\"): Daily mover. Features on: coach, habits, outdoor. Off: plan, music, camera, social, rewards, desk, nutrition: never suggest or mention them unless the athlete asks (then say they can turn it on in Settings › Tailor my app). Style: motivating and upbeat."
   },
   {
    "profile": "dirty",
-   "line": "- VVake profile (\"Tailor my app\"): Rewards earner. Features on: coach, habits, outdoor, social, rewards. Off: plan, music, camera, desk: never suggest or mention them unless the athlete asks (then say they can turn it on in Settings › Tailor my app). Style: motivating and upbeat."
+   "line": "- VVake profile (\"Tailor my app\"): Rewards earner. Features on: coach, habits, outdoor, social, rewards. Off: plan, music, camera, desk, nutrition: never suggest or mention them unless the athlete asks (then say they can turn it on in Settings › Tailor my app). Style: motivating and upbeat."
   }
  ]
 }

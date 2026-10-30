@@ -1,4 +1,4 @@
-// Copied from VVFit packages/game-core/src/coachActions.ts (c525a71a 2026-10-30) by scripts/sync-coach-core.ts. Do not edit: re-sync.
+// Copied from VVFit packages/game-core/src/coachActions.ts (bcd38837 2026-10-30) by scripts/sync-coach-core.ts. Do not edit: re-sync.
 /**
  * The coach's app actions (build 55, founder bug: the coach said "I started your workout" and nothing started).
  *
@@ -20,6 +20,26 @@ import { CAMERA_ROUTINES } from "../camera/cameraSession";
 import { COACH_SCREENS, coachScreen } from "./coachScreens";
 import { SPORT_KEYS, sportName } from "../living/sportCatalog";
 import { PAUSE_KINDS, PAUSE_MAX_DAYS, type PauseKind } from "../living/streakCare";
+import {
+  cleanMealItem,
+  cleanTerms,
+  DIET_NAMES,
+  DIET_STYLES,
+  NUTRITION_GOAL_NAMES,
+  NUTRITION_GOALS,
+  type DietStyle,
+  type MealItem,
+  type NutritionGoal,
+} from "../nutrition/nutrition";
+
+/**
+ * The catalog version an app speaks (POST /v1/coach/talk and /live/turn `actions`): 2 = the build-55 kinds, 3 = the
+ * build-60 kinds (ADR-0068), 4 = the Nutrition kinds (review_meal, suggest_meals, plan_meals, update_nutrition, and
+ * log_meal's photo / items; ADR-0070). The API offers a kind only to apps that speak its version.
+ */
+export const COACH_ACTIONS_VERSION = 4;
+/** The kinds of version 4 (Nutrition): offered only when Nutrition is on for the account. */
+export const NUTRITION_ACTION_KINDS = ["review_meal", "suggest_meals", "plan_meals", "update_nutrition"] as const;
 
 type Lang = "en" | "fr";
 
@@ -40,6 +60,11 @@ export const COACH_ACTION_KINDS = [
   "music",
   "show_places",
   "show_summary",
+  // Nutrition (build 62, ADR-0070): only when Nutrition is on.
+  "review_meal",
+  "suggest_meals",
+  "plan_meals",
+  "update_nutrition",
 ] as const;
 export type CoachActionKind = (typeof COACH_ACTION_KINDS)[number];
 
@@ -78,6 +103,12 @@ export const COACH_ACTIONS: readonly CoachActionSpec[] = [
   { kind: "show_places", confirm: false, devices: { phone: "run", web: "run", watch: "handoff" }, legacyRoute: "/places" },
   // A spoken summary's card (the week, the next days, the next hours): the server computed it, nothing changes.
   { kind: "show_summary", confirm: false, devices: { phone: "run", web: "run", watch: "run" } },
+  // ADR-0070. review_meal opens the meal with the coach's note; suggest_meals shows ideas (nothing changes);
+  // plan_meals makes this week's plan (replaces one); update_nutrition adds what the athlete said (always confirmed).
+  { kind: "review_meal", confirm: false, devices: { phone: "run", web: "run", watch: "handoff" } },
+  { kind: "suggest_meals", confirm: false, devices: { phone: "run", web: "run", watch: "handoff" } },
+  { kind: "plan_meals", confirm: true, devices: { phone: "run", web: "run", watch: "handoff" } },
+  { kind: "update_nutrition", confirm: true, devices: { phone: "run", web: "run", watch: "handoff" } },
 ];
 
 /** Actions that answer, not start: allowed during a workout (the athlete asked). */
@@ -147,6 +178,17 @@ export interface CoachAppAction {
   /** log_meal: which meal (the meals habit counts one per meal); `note` what they ate, ≤ 60 characters (kept on the phone). */
   meal?: MealKind;
   note?: string;
+  /** log_meal (v4): open the camera to log it; `items` = a text estimate already made (the confirm card lists them). */
+  photo?: boolean;
+  items?: MealItem[];
+  /** review_meal: the logged meal's id (GET /v1/nutrition/meals). */
+  mealId?: string;
+  /** plan_meals: the week's Monday, YYYY-MM-DD (default this week). suggest_meals: `meal`, `count` 1–5. */
+  weekStart?: string;
+  /** suggest_meals: the ideas' names when the server already has them (the watch shows names only). */
+  ideas?: string[];
+  /** update_nutrition: what the athlete said, added to the profile once they confirm. */
+  nutrition?: { allergies?: string[]; intolerances?: string[]; dislikes?: string[]; diet?: DietStyle; goal?: NutritionGoal };
   /** correct_data: what the athlete says is right; `date` = the day it is about (default today). */
   metric?: CorrectionMetric;
   value?: number;
@@ -180,6 +222,8 @@ export interface CoachActionCtx {
   cameraOn?: boolean;
   /** The athlete's local hour (0–23): a meal said without its name is the one of that hour. */
   nowHour?: number;
+  /** Nutrition (ADR-0070) on for the account; false: the nutrition kinds are dropped and log_meal is the habit only. */
+  nutritionOn?: boolean;
 }
 
 /** The meal of the hour: before 10:30 breakfast, 11–15 lunch, 18–22 dinner, else a snack. Pure. */
@@ -378,9 +422,17 @@ export function coachActionCard(a: Omit<CoachAppAction, "card">, lang: Lang, uni
       return { title: a.label ?? W.open[lang], confirm: W.open[lang], cancel };
     case "log_meal": {
       const m = a.meal ?? "snack";
+      if (a.photo)
+        return {
+          title: L(`Snap your ${MEAL_WORD[m].en}`, `Prends ton ${MEAL_WORD[m].fr} en photo`),
+          ...(a.note ? { detail: a.note } : {}),
+          confirm: L("Open camera", "Ouvrir l’appareil photo"),
+          cancel,
+        };
+      const detail = a.items?.length ? a.items.map((i) => `${i.name} ${i.grams} g`).join(" · ") : a.note;
       return {
         title: L(`Log ${MEAL_WORD[m].en}`, `Noter : ${MEAL_WORD[m].fr}`),
-        ...(a.note ? { detail: a.note } : {}),
+        ...(detail ? { detail } : {}),
         confirm: W.log[lang],
         cancel,
       };
@@ -438,6 +490,45 @@ export function coachActionCard(a: Omit<CoachAppAction, "card">, lang: Lang, uni
         confirm: "OK",
         cancel: L("Close", "Fermer"),
       };
+    case "review_meal":
+      return {
+        title: L("Look at this meal together", "Revoir ce repas ensemble"),
+        ...(a.note ? { detail: a.note } : {}),
+        confirm: W.open[lang],
+        cancel,
+      };
+    case "suggest_meals": {
+      const m = a.meal ? MEAL_WORD[a.meal][lang] : "";
+      return {
+        title: m ? L(`Ideas for ${m}`, `Des idées pour le ${m}`) : L("Meal ideas", "Idées de repas"),
+        ...(a.ideas?.length ? { detail: a.ideas.join(" · ") } : {}),
+        confirm: L("Show me", "Voir"),
+        cancel,
+      };
+    }
+    case "plan_meals":
+      return {
+        title: L("Plan my meals this week", "Planifier mes repas de la semaine"),
+        detail: L("Around your training, with a grocery list", "Selon ton entraînement, avec une liste de courses"),
+        confirm: L("Plan it", "Planifier"),
+        cancel,
+      };
+    case "update_nutrition": {
+      const n = a.nutrition ?? {};
+      const parts = [
+        ...(n.allergies ?? []).map((x) => L(`Allergy: ${x}`, `Allergie : ${x}`)),
+        ...(n.intolerances ?? []).map((x) => L(`Intolerance: ${x}`, `Intolérance : ${x}`)),
+        ...(n.dislikes ?? []).map((x) => L(`Leave out: ${x}`, `Sans : ${x}`)),
+        ...(n.diet ? [L(`Diet: ${DIET_NAMES[n.diet].en}`, `Régime : ${DIET_NAMES[n.diet].fr}`)] : []),
+        ...(n.goal ? [L(`Goal: ${NUTRITION_GOAL_NAMES[n.goal].en}`, `Objectif : ${NUTRITION_GOAL_NAMES[n.goal].fr}`)] : []),
+      ];
+      return {
+        title: L("Update your food settings", "Mettre à jour tes préférences alimentaires"),
+        detail: parts.join(" · "),
+        confirm: L("Save it", "Enregistrer"),
+        cancel,
+      };
+    }
   }
 }
 
@@ -524,7 +615,70 @@ export function cleanCoachAction(raw: unknown, ctx: CoachActionCtx): CoachAppAct
     case "log_meal": {
       const meal = MEAL_KINDS.find((m) => m === r.meal) ?? mealAt(ctx.nowHour);
       const note = text(r.note, 60);
-      a = { type, meal, ...(note ? { note } : {}) };
+      // Photo and items need Nutrition on; without it, log_meal is the meals habit as before.
+      const nOn = ctx.nutritionOn === true;
+      const items =
+        nOn && Array.isArray(r.items)
+          ? (r.items as unknown[])
+              .map(cleanMealItem)
+              .filter((i): i is MealItem => !!i)
+              .slice(0, 12)
+          : [];
+      a = {
+        type,
+        meal,
+        ...(note ? { note } : {}),
+        ...(nOn && r.photo === true ? { photo: true } : {}),
+        ...(items.length ? { items } : {}),
+      };
+      break;
+    }
+    case "review_meal": {
+      if (ctx.nutritionOn !== true) return null;
+      const mealId = typeof r.mealId === "string" && /^[A-Za-z0-9_-]{1,64}$/.test(r.mealId) ? r.mealId : undefined;
+      const note = text(r.note, 120);
+      a = { type, ...(mealId ? { mealId } : {}), ...(note ? { note } : {}) };
+      break;
+    }
+    case "suggest_meals": {
+      if (ctx.nutritionOn !== true) return null;
+      const meal = MEAL_KINDS.find((m) => m === r.meal);
+      const count = int(r.count, 1, 5);
+      const ideas = Array.isArray(r.ideas)
+        ? (r.ideas as unknown[])
+            .map((x) => text(x, 60))
+            .filter((x): x is string => !!x)
+            .slice(0, 5)
+        : [];
+      a = { type, ...(meal ? { meal } : {}), ...(count ? { count } : {}), ...(ideas.length ? { ideas } : {}) };
+      break;
+    }
+    case "plan_meals": {
+      if (ctx.nutritionOn !== true) return null;
+      const weekStart = typeof r.weekStart === "string" && DAY.test(r.weekStart) ? r.weekStart : undefined;
+      a = { type, ...(weekStart ? { weekStart } : {}) };
+      break;
+    }
+    case "update_nutrition": {
+      if (ctx.nutritionOn !== true) return null;
+      const n = r.nutrition && typeof r.nutrition === "object" ? (r.nutrition as Record<string, unknown>) : r;
+      const allergies = cleanTerms(n.allergies, 5);
+      const intolerances = cleanTerms(n.intolerances, 5);
+      const dislikes = cleanTerms(n.dislikes, 5);
+      const diet = DIET_STYLES.find((d) => d === n.diet);
+      // 'lean' is never proposed by the coach (minors / ED-safe rules decide it in Settings only).
+      const goal = NUTRITION_GOALS.find((g) => g === n.goal && g !== "lean");
+      if (!allergies.length && !intolerances.length && !dislikes.length && !diet && !goal) return null;
+      a = {
+        type,
+        nutrition: {
+          ...(allergies.length ? { allergies } : {}),
+          ...(intolerances.length ? { intolerances } : {}),
+          ...(dislikes.length ? { dislikes } : {}),
+          ...(diet ? { diet } : {}),
+          ...(goal ? { goal } : {}),
+        },
+      };
       break;
     }
     case "correct_data": {
@@ -597,6 +751,7 @@ export type CoachActionFail =
   | "no_workout"
   | "no_music"
   | "no_location"
+  | "nutrition_off"
   | "failed";
 
 export interface GateState {
@@ -605,6 +760,8 @@ export interface GateState {
   inWorkout: boolean;
   /** The Camera & trainings feature (Your VVake). */
   cameraOn?: boolean;
+  /** Nutrition on for the account (ADR-0070); false: its kinds can't run. */
+  nutritionOn?: boolean;
 }
 
 /**
@@ -620,6 +777,8 @@ export function gateCoachAction(
   if (s.inWorkout && spec.confirm && !IN_WORKOUT_OK.includes(a.type)) return { ok: false, reason: "in_workout" };
   if (a.type === "control_workout" && !s.inWorkout) return { ok: false, reason: "no_workout" };
   if (a.type === "start_camera_workout" && s.cameraOn === false) return { ok: false, reason: "camera_off" };
+  if ((NUTRITION_ACTION_KINDS as readonly string[]).includes(a.type) && s.nutritionOn === false)
+    return { ok: false, reason: "nutrition_off" };
   const sup = spec.devices[s.device];
   if (sup === "none") return { ok: false, reason: "not_here" };
   return sup === "handoff" ? { ok: true, handoff: true } : { ok: true };
@@ -661,6 +820,7 @@ export function coachActionResult(a: Omit<CoachAppAction, "card">, outcome: Acti
     case "open_screen":
       return a.label ?? "";
     case "log_meal":
+      if (a.photo) return L("Camera open: snap your plate.", "Appareil photo ouvert : prends ton assiette.");
       return L(`Logged: ${MEAL_WORD[a.meal ?? "snack"].en}.`, `Noté : ${MEAL_WORD[a.meal ?? "snack"].fr}.`);
     case "correct_data":
       return a.metric && a.value !== undefined
@@ -687,6 +847,14 @@ export function coachActionResult(a: Omit<CoachAppAction, "card">, outcome: Acti
       return L("Here's what's near you.", "Voici ce qu’il y a près de toi.");
     case "show_summary":
       return a.summary?.title ?? L("Here it is.", "Voilà.");
+    case "review_meal":
+      return L("Here’s your meal.", "Voici ton repas.");
+    case "suggest_meals":
+      return L("Here are a few ideas.", "Voici quelques idées.");
+    case "plan_meals":
+      return L("Your week of meals is ready, with the grocery list.", "Ta semaine de repas est prête, avec la liste de courses.");
+    case "update_nutrition":
+      return L("Saved. I’ll keep that out of every idea and plan.", "Enregistré. Je l’écarte de toutes les idées et de tous les plans.");
   }
 }
 
@@ -738,6 +906,11 @@ export function failLine(reason: CoachActionFail | "cancelled", lang: Lang): str
         "I need your location to find places near you. Nothing was searched.",
         "J’ai besoin de ta position pour trouver des lieux près de toi. Rien n’a été cherché.",
       );
+    case "nutrition_off":
+      return L(
+        "Nutrition is off. Turn it on in Settings › Tailor my app to use it.",
+        "La nutrition est désactivée. Active-la dans Réglages › Personnaliser mon app pour l’utiliser.",
+      );
     case "failed":
       return L(
         "That didn't work, so nothing changed. Try again from the app.",
@@ -762,6 +935,7 @@ const LINE_KEYS: readonly ActionLineKey[] = [
   "no_workout",
   "no_music",
   "no_location",
+  "nutrition_off",
   "failed",
 ];
 
@@ -916,9 +1090,26 @@ export function cardDecision(textIn: string): { decision: "confirm" | "cancel" |
     const rest = t.slice(m[0].length).trim();
     if (rest) return { decision: "change", rest };
   }
-  const yn = yesNo(t);
+  const yn = yesNo(t) ?? yesNoPair(t);
   if (yn === "yes") return { decision: "confirm" };
   if (yn === "no") return { decision: "cancel" };
+  return null;
+}
+
+/** Two short answers in a row ("yes, do it", « oui vas-y », "no, not now"): the same answer. Pure. */
+function yesNoPair(t: string): "yes" | "no" | null {
+  const c = t
+    .replace(/[,;:]+/g, " ")
+    .replace(/\b(please|coach|merci|thanks|stp)\b/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+  const words = c.split(" ");
+  if (words.length < 2 || words.length > 5) return null;
+  for (let i = 1; i < words.length; i++) {
+    const a = yesNo(words.slice(0, i).join(" "));
+    const b = yesNo(words.slice(i).join(" "));
+    if (a && a === b) return a;
+  }
   return null;
 }
 
@@ -986,5 +1177,26 @@ export const COACH_ACTION_SCHEMA_PROPS = {
   },
   maxTravelKm: { type: "number", description: "show_places: how far they will travel to start, km." },
   span: { type: "string", enum: [...SUMMARY_SPANS], description: "show_summary: which span to summarise." },
-  count: { type: "integer", description: "show_summary: how many days (next_days) or hours (next_hours)." },
+  count: {
+    type: "integer",
+    description: "show_summary: how many days (next_days) or hours (next_hours). suggest_meals: how many ideas (1–5).",
+  },
+} as const;
+
+/** The Nutrition fields of the action schema (ADR-0070): added to the tool only when Nutrition is on. */
+export const COACH_NUTRITION_SCHEMA_PROPS = {
+  photo: { type: "boolean", description: "log_meal: open the camera to log it with a photo." },
+  mealId: { type: "string", description: "review_meal: the logged meal id." },
+  weekStart: { type: "string", description: "plan_meals: the Monday of the week, YYYY-MM-DD." },
+  nutrition: {
+    type: "object",
+    description: "update_nutrition: only what the athlete said just now (an allergy, intolerance, food to leave out, diet style).",
+    properties: {
+      allergies: { type: "array", items: { type: "string" } },
+      intolerances: { type: "array", items: { type: "string" } },
+      dislikes: { type: "array", items: { type: "string" } },
+      diet: { type: "string", enum: [...DIET_STYLES] },
+      goal: { type: "string", enum: NUTRITION_GOALS.filter((g) => g !== "lean") },
+    },
+  },
 } as const;

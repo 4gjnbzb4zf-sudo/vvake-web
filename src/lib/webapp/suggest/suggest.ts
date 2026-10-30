@@ -1,4 +1,4 @@
-// Copied from VVFit packages/game-core/src/suggest.ts (f1594c6b 2026-10-28) by scripts/sync-suggest-core.ts. Do not edit: re-sync.
+// Copied from VVFit packages/game-core/src/suggest.ts (bcd38837 2026-10-30) by scripts/sync-suggest-core.ts. Do not edit: re-sync.
 /**
  * How much VVake suggests (living app, ADR-0062 §4.4): one level per account, on every device, whether the tailored
  * app (ADR-0059) is on or not. Synced as `prefs.suggest = { level, at }` (newest `at` wins, ADR-0044's rule).
@@ -31,6 +31,7 @@ export const SUGGEST_KINDS = [
   "coach_nudge", // the coach starting a topic on its own (proposals, check-ins, offers)
   "push_suggestion", // a push that suggests something (next step, coach check-in, referral, comeback)
   "celebration", // a milestone moment: a result, not a suggestion
+  "recovery_meal", // a recovery-meal tip after a hard / long session (Nutrition on only, ADR-0070)
 ] as const;
 export type SuggestionKind = (typeof SUGGEST_KINDS)[number];
 
