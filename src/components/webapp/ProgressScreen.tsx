@@ -126,7 +126,7 @@ export function ProgressScreen() {
             )}
           </section>
 
-          <a className="inline-flex min-h-11 items-center text-sm font-semibold text-sky-fg underline" href={`/${lang}/privacy/#adaptive`}>
+          <a className="inline-flex min-h-11 items-center text-sm font-semibold text-sky-fg underline" href={`/${lang}/privacy/#health`}>
             {x.progress.privacy}
           </a>
         </>

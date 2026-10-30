@@ -795,6 +795,10 @@ export const en = {
     kicker: "Your plan",
     title: "A plan that fits your real week.",
     body: "Tell VVake when you're free, how long you have and what you enjoy. It builds your week around your crew sessions, keeps your recurring slots, and adapts to what you actually did: a bit more when it's going well, lighter when life gets busy. No guilt.",
+    adapts: {
+      title: "VVake adapts to you",
+      body: "It learns from your sessions and, if you share it, your Health data: how rested you are, the paces and heart rates that suit you, how you're tracking toward your goals. When your plan should change, it proposes and says why; you accept or say not now, and can undo for 30 days. In a planned session, rests end when your heart has come down and reps adjust to how you're doing; choose Fixed timing if you'd rather follow the clock.",
+    },
     example: "Try it",
     labels: {
       goal: "Goal",
@@ -2191,8 +2195,12 @@ export const en = {
         a: "No. Walking, cycling, swimming, strength and yoga all count, at your pace. Your plan starts from where you are: your days, your minutes, your level. Sessions are scored on effort for your heart, not speed, and if something hurts the plan goes lighter and low-impact. VVake isn't medical advice: check with a doctor if in doubt.",
       },
       {
+        q: "Does VVake adapt to me?",
+        a: "Yes, and never behind your back. VVake learns from your sessions (and from Apple Health or Health Connect if you share it): how rested you are, the paces and heart rates that suit you, and how you're tracking toward your goals, shown in Your progress with the reason for every change. When something should change (a lighter week, new heart zones, a later date for a goal), it proposes it: you accept or say not now, and you can undo for 30 days. During a planned session it reacts to where you are, not to a fixed clock: a rest ends when your heart has come down, a rep stops early when it's too much or gets a little longer when you're fresh. Prefer the plan as written? Choose Fixed timing in your settings. Until it has a few weeks of your data it says it's still learning instead of guessing. In the beta from build 62.",
+      },
+      {
         q: "Can I start over after a break?",
-        a: "Yes. Fresh start (Settings, on the phone or the watch) resets your plan and schedule, your streak, your daily habits, your custom health settings (heart zones, resting and max heart rate), focus lock and the coach's memory, so you begin again at day 1. Your VVaker, your sessions, your scores, points and prizes, your wallet, VVake Coach Plus, your friends and your Apple Health or Health Connect data all stay: nothing is deleted from them. You hold the button to confirm, so it never happens by accident.",
+        a: "Yes. Fresh start (Settings, on the phone or the watch) resets your plan and schedule, your streak, your daily habits, your custom health settings (heart zones, resting and max heart rate), focus lock, the coach's memory and what VVake learned about your training (the daily Health numbers it kept and your progress, which it starts learning again), so you begin again at day 1. Your VVaker, your sessions, your scores, points and prizes, your wallet, VVake Coach Plus, your friends and your Apple Health or Health Connect data all stay: nothing is deleted from them. You hold the button to confirm, so it never happens by accident.",
       },
       {
         q: "Do I need a watch to earn points?",
@@ -2464,7 +2472,7 @@ export const en = {
           },
           {
             t: "What reaches our servers.",
-            d: "The session data listed above, and the health fields you tick to size your plan: age, sex, weight, height, resting and maximum heart rate, average sleep, and two choices you make yourself (low-impact only; easy effort only, for example during pregnancy or on a professional's advice). Heart-rate variability and VO2 max are used on your device only.",
+            d: "The session data listed above, and the health fields you tick to size your plan: age, sex, weight, height, resting and maximum heart rate, average sleep, and two choices you make yourself (low-impact only; easy effort only, for example during pregnancy or on a professional's advice). When you share Health with VVake (build 62), also one set of numbers a day: resting heart rate, heart-rate variability, VO2 max, hours of sleep and a maximum heart rate Health measured. Numbers only, never a condition.",
           },
           {
             t: "Start workouts for me.",
@@ -2477,6 +2485,10 @@ export const en = {
           {
             t: "Fair points (anti-fraud checks).",
             d: "To keep points, leagues and challenges fair, each workout recorded with the phone alone is checked when it reaches us. Your phone adds a few facts about its own sensors: how many GPS fixes it got and how many were precise, whether the phone's system marked some locations as simulated (a mock-location app), how much the reported accuracy and altitude varied, how many seconds the motion chip said walking, running, still or vehicle, whether the phone looks like an emulator or is rooted or jailbroken, and whether the route is a point-for-point copy of one of your earlier routes (compared on your phone only). These are counts and yes/no answers, never a position. Our server compares them with the session's distance and steps it already receives. To spot one person recording the same walk on several accounts, it also compares, minute by minute, the distance and steps of sessions that started within a few minutes of each other, and keeps a salted hash of the network a session was sent from for 30 days. A session that can't be verified earns fewer points or none for now; it always stays in your journal and your streak, and a person reviews it. Nothing here leads to an automatic ban. Legal basis: our legitimate interest in preventing fraud. Matches are kept 30 days, reviews until they are decided; all of it is deleted with your account.",
+          },
+          {
+            t: "Adaptive coaching (build 62).",
+            d: 'From your sessions and these daily numbers, VVake works out how fit and how rested you are, the paces and heart rates that suit you and how you are progressing toward your goals, and keeps a history of what it learned and why. It also keeps your answers to its occasional questions ("How hard was that walk?", "Was that really your max heart rate?") with the session they are about, and for a planned session, its segments and targets and what was adjusted during it (a rest made longer, a rep shortened). This is used only to tailor your training, on the apps and on vvake.com: nothing changes without your tap, every change can be undone for 30 days, and you can keep every session on Fixed timing. Never for advertising, never sold, never shown to other people. The daily numbers are kept 400 days; Fresh start deletes them with what VVake learned (your sessions and their effort answers stay); deleting your account deletes everything.',
           },
           {
             t: "What we write to Apple Health.",
@@ -2553,6 +2565,10 @@ export const en = {
           {
             t: "A vehicle check, in your browser.",
             d: "During an outdoor walk, run or hike, the page checks your GPS speed (a browser has no step count) and pauses a stretch that looks like a car, bus or train. This runs in the page itself; we receive only the session's mark that a vehicle was detected and the seconds left out, never a position.",
+          },
+          {
+            t: "A planned session, adapted in your browser.",
+            d: "When you start today's planned session (build 62), the page adapts it as you go, from your heart rate (with a strap) or your GPS pace: a rest ends when your heart has come down, a rep can stop early or get a little longer. It all runs in the page; with the workout we receive the session's segments and targets, what was adjusted, and your Easy / Moderate / Hard answers if the page asked, never a position. Choose Fixed timing in your settings to keep every part at its planned length (see Adaptive coaching under Health data).",
           },
           {
             t: "Bluetooth heart rate, read in your browser.",
@@ -2897,6 +2913,10 @@ export const en = {
           {
             t: "What the coach remembers and its settings changes:",
             d: "with your account, until you delete a line, use Fresh start (memory, feelings and proposals) or delete your account (everything, including the before and after record). Your corrections of Health numbers: 60 days, or until you undo them, Fresh start or deleting your account.",
+          },
+          {
+            t: "Daily health numbers for adaptive coaching (resting heart rate, heart-rate variability, VO2 max, sleep hours, a measured max heart rate):",
+            d: "400 days, or until Fresh start or you delete your account. What VVake learned from them and its history: until Fresh start or you delete your account. Effort answers: with their session.",
           },
           {
             t: "Spotify on my watch:",

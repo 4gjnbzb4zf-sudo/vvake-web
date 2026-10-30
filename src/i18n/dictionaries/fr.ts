@@ -810,6 +810,10 @@ export const fr: Dictionary = {
     kicker: "Ton plan",
     title: "Un plan qui colle à ta vraie semaine.",
     body: "Dis à VVake quand tu es libre, combien de temps tu as et ce que tu aimes. Il construit ta semaine autour de tes séances de crew, garde tes créneaux récurrents, et s'adapte à ce que tu as vraiment fait : un peu plus quand ça roule, plus léger quand la vie s'emballe. Zéro culpabilité.",
+    adapts: {
+      title: "VVake s'adapte à toi",
+      body: "Il apprend de tes séances et, si tu les partages, de tes données Santé : ta récupération, les allures et fréquences cardiaques qui te conviennent, où tu en es vers tes objectifs. Quand ton plan devrait changer, il te le propose et dit pourquoi ; tu acceptes ou tu dis pas maintenant, et tu peux annuler pendant 30 jours. Pendant une séance prévue, la récup se termine quand ton cœur est redescendu et les fractions s'ajustent à ta forme ; choisis la durée fixe si tu préfères suivre le chrono.",
+    },
     example: "Essaie",
     labels: {
       goal: "Objectif",
@@ -2350,8 +2354,12 @@ export const fr: Dictionary = {
         a: "Non. La marche, le vélo, la natation, le renfort musculaire et le yoga comptent tous, à ton rythme. Ton plan part de là où tu en es : tes jours, tes minutes, ton niveau. Les séances comptent sur l'effort de ton cœur, pas sur la vitesse, et si quelque chose fait mal, le plan s'allège et passe en faible impact. VVake n'est pas un avis médical : en cas de doute, parles-en à un médecin.",
       },
       {
+        q: "VVake s'adapte à moi ?",
+        a: "Oui, et jamais dans ton dos. VVake apprend de tes séances (et d'Apple Santé ou Health Connect si tu les partages) : ta récupération, les allures et fréquences cardiaques qui te conviennent, et où tu en es vers tes objectifs, visible dans Ta progression avec la raison de chaque changement. Quand quelque chose devrait changer (une semaine plus légère, de nouvelles zones cardiaques, une date plus tard pour un objectif), il te le propose : tu acceptes ou tu dis pas maintenant, et tu peux annuler pendant 30 jours. Pendant une séance prévue, il réagit à là où tu en es, pas à un chrono fixe : la récup se termine quand ton cœur est redescendu, une fraction s'arrête plus tôt si c'est trop ou s'allonge un peu quand tu es frais. Tu préfères le plan tel quel ? Choisis la durée fixe dans tes réglages. Tant qu'il n'a pas quelques semaines de données, il dit qu'il apprend encore au lieu de deviner. Dans la bêta à partir de la version 62.",
+      },
+      {
         q: "Je peux repartir à zéro après une pause ?",
-        a: "Oui. « Repartir à zéro » (dans les réglages, sur le téléphone ou la montre) remet à zéro ton plan et ton programme, ta série, tes habitudes du jour, tes réglages santé perso (zones cardiaques, FC de repos et max), le verrou de concentration et la mémoire du coach : tu recommences au jour 1. Ton VVaker, tes séances, tes scores, points et prix, ton portefeuille, VVake Coach Plus, tes amis et tes données Apple Santé ou Health Connect restent : rien n'y est supprimé. Tu maintiens le bouton pour confirmer, donc ça n'arrive jamais par erreur.",
+        a: "Oui. « Repartir à zéro » (dans les réglages, sur le téléphone ou la montre) remet à zéro ton plan et ton programme, ta série, tes habitudes du jour, tes réglages santé perso (zones cardiaques, FC de repos et max), le verrou de concentration, la mémoire du coach et ce que VVake a appris de ton entraînement (les chiffres Santé quotidiens qu'il gardait et ta progression, qu'il recommence à apprendre) : tu recommences au jour 1. Ton VVaker, tes séances, tes scores, points et prix, ton portefeuille, VVake Coach Plus, tes amis et tes données Apple Santé ou Health Connect restent : rien n'y est supprimé. Tu maintiens le bouton pour confirmer, donc ça n'arrive jamais par erreur.",
       },
       {
         q: "Faut-il une montre pour gagner des points ?",
@@ -2623,7 +2631,7 @@ export const fr: Dictionary = {
           },
           {
             t: "Ce qui se rend à nos serveurs.",
-            d: "Les données de séance décrites plus haut, et les données de santé que vous cochez pour doser votre plan : âge, sexe, poids, taille, fréquence cardiaque au repos et maximale, sommeil moyen, et deux choix que vous faites vous-même (faible impact seulement ; effort léger seulement, par exemple pendant une grossesse ou sur l'avis d'un professionnel). La variabilité cardiaque et le VO2 max sont utilisés sur votre appareil seulement.",
+            d: "Les données de séance décrites plus haut, et les données de santé que vous cochez pour doser votre plan : âge, sexe, poids, taille, fréquence cardiaque au repos et maximale, sommeil moyen, et deux choix que vous faites vous-même (faible impact seulement ; effort léger seulement, par exemple pendant une grossesse ou sur l'avis d'un professionnel). Quand vous partagez Santé avec VVake (version 62), aussi une série de chiffres par jour : fréquence cardiaque au repos, variabilité de la fréquence cardiaque, VO2 max, heures de sommeil et une fréquence cardiaque maximale mesurée par Santé. Des chiffres seulement, jamais une maladie.",
           },
           {
             t: "Lancer mes séances pour moi.",
@@ -2636,6 +2644,10 @@ export const fr: Dictionary = {
           {
             t: "Des points justes (contrôles anti-fraude).",
             d: "Pour que les points, les ligues et les défis restent justes, chaque séance enregistrée avec le téléphone seul est vérifiée à son arrivée chez nous. Votre téléphone ajoute quelques informations sur ses propres capteurs : combien de positions GPS il a reçues et combien étaient précises, si le système du téléphone a marqué des positions comme simulées (une app de fausse position), combien la précision et l'altitude annoncées ont varié, combien de secondes la puce de mouvement a indiqué marche, course, immobile ou véhicule, si le téléphone ressemble à un émulateur ou est rooté ou jailbreaké, et si le parcours est une copie point par point d'un de vos parcours précédents (comparé sur votre téléphone seulement). Ce sont des nombres et des oui/non, jamais une position. Notre serveur les compare avec la distance et les pas de la séance qu'il reçoit déjà. Pour repérer une même personne qui enregistre la même sortie sur plusieurs comptes, il compare aussi, minute par minute, la distance et les pas des séances commencées à quelques minutes d'écart, et garde 30 jours une empreinte salée du réseau depuis lequel une séance a été envoyée. Une séance qui ne peut pas être vérifiée rapporte moins de points ou aucun pour l'instant ; elle reste toujours dans votre journal et votre série, et une personne la revoit. Rien de tout cela ne mène à une exclusion automatique. Base légale : notre intérêt légitime à prévenir la fraude. Les correspondances sont gardées 30 jours, les revues jusqu'à leur décision ; tout est supprimé avec votre compte.",
+          },
+          {
+            t: "Coaching adaptatif (version 62).",
+            d: "À partir de vos séances et de ces chiffres quotidiens, VVake estime votre condition et votre récupération, les allures et fréquences cardiaques qui vous conviennent et votre progression vers vos objectifs, et garde l'historique de ce qu'il a appris et pourquoi. Il garde aussi vos réponses à ses rares questions (« Cette marche, c'était facile, moyen ou dur ? », « C'est bien ta fréquence cardiaque max ? ») avec la séance concernée et, pour une séance prévue, ses blocs, ses cibles et ce qui a été ajusté pendant la séance (une récup prolongée, une fraction raccourcie). Cela sert uniquement à adapter votre entraînement, dans les apps et sur vvake.com : rien ne change sans votre accord, chaque changement peut être annulé pendant 30 jours, et vous pouvez garder toutes vos séances en durée fixe. Jamais pour la publicité, jamais vendu, jamais montré aux autres. Les chiffres quotidiens sont gardés 400 jours ; Repartir à zéro les supprime avec ce que VVake a appris (vos séances et leurs réponses d'effort restent) ; supprimer votre compte supprime tout.",
           },
           {
             t: "Ce que nous écrivons dans l'app Santé.",
@@ -2712,6 +2724,10 @@ export const fr: Dictionary = {
           {
             t: "Une vérification véhicule, dans ton navigateur.",
             d: "Pendant une marche, une course ou une randonnée en extérieur, la page vérifie ta vitesse GPS (un navigateur ne compte pas les pas) et met en pause un passage qui ressemble à une voiture, un bus ou un train. Cela se fait dans la page elle-même ; nous recevons seulement la marque de la séance indiquant qu'un véhicule a été détecté et les secondes retirées, jamais une position.",
+          },
+          {
+            t: "Une séance prévue, adaptée dans ton navigateur.",
+            d: "Quand tu lances la séance prévue du jour (version 62), la page l'adapte au fil de la séance, d'après ta fréquence cardiaque (avec une ceinture) ou ton allure GPS : une récup se termine quand ton cœur est redescendu, une fraction peut s'arrêter plus tôt ou s'allonger un peu. Tout se passe dans la page ; avec la séance, nous recevons ses blocs et ses cibles, ce qui a été ajusté, et tes réponses Facile / Moyen / Dur si la page t'a demandé, jamais une position. Choisis la durée fixe dans tes réglages pour garder chaque partie à sa durée prévue (voir Coaching adaptatif dans Données de santé).",
           },
           {
             t: "La fréquence cardiaque Bluetooth, lue dans ton navigateur.",
@@ -3068,6 +3084,10 @@ export const fr: Dictionary = {
           {
             t: "Ce que le coach retient et ses changements de réglages :",
             d: "avec votre compte, jusqu'à ce que vous supprimiez une ligne, utilisiez Repartir à zéro (mémoire, ressentis et propositions) ou supprimiez votre compte (tout, y compris le relevé avant et après). Vos corrections de chiffres Santé : 60 jours, ou jusqu'à ce que vous les annuliez, utilisiez Repartir à zéro ou supprimiez votre compte.",
+          },
+          {
+            t: "Chiffres de santé quotidiens du coaching adaptatif (fréquence cardiaque au repos, variabilité cardiaque, VO2 max, heures de sommeil, fréquence cardiaque max mesurée) :",
+            d: "400 jours, ou jusqu'à Repartir à zéro ou la suppression de votre compte. Ce que VVake en a appris et son historique : jusqu'à Repartir à zéro ou la suppression de votre compte. Réponses d'effort : avec leur séance.",
           },
           {
             t: "Spotify sur ma montre :",

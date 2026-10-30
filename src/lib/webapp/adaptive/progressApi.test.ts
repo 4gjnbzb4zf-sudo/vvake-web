@@ -113,9 +113,11 @@ describe("athlete progress on the web", () => {
 
   it("features.adaptive from GET survives a PATCH answer without it", () => {
     const got = { id: "u", features: { adaptive: true } };
-    const patched = keepFeatures(got, { id: "u" });
+    const bare: { id: string; features?: unknown } = { id: "u" };
+    const patched = keepFeatures(got, bare);
     expect(adaptiveOn(patched)).toBe(true);
-    expect(adaptiveOn({ id: "u" })).toBe(false);
-    expect(keepFeatures(got, { id: "u", features: { adaptive: false } }).features).toEqual({ adaptive: false });
+    expect(adaptiveOn(bare)).toBe(false);
+    const off: { id: string; features?: unknown } = { id: "u", features: { adaptive: false } };
+    expect(keepFeatures(got, off).features).toEqual({ adaptive: false });
   });
 });

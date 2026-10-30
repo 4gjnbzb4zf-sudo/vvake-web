@@ -51,6 +51,10 @@ export default async function AppPage({ params }: { params: Params }) {
     <Subpage lang={lang} page="tour/">
       <Section id="plan" index="01" kicker={dict.plan.kicker} title={dict.plan.title} lead={dict.plan.body}>
         <Planner dict={dict.plan} sportNames={dict.multisport.sports} />
+        <div className="mt-10 max-w-3xl rounded-3xl border border-line bg-surface/70 p-5 sm:p-6">
+          <h3 className="font-display text-xl font-semibold">{dict.plan.adapts.title}</h3>
+          <p className="mt-2 leading-relaxed text-muted">{dict.plan.adapts.body}</p>
+        </div>
       </Section>
       <Coach dict={dict.coach} index="02" />
       <AppPreview locale={lang} dict={dict.app} index="03" />
