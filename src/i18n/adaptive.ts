@@ -146,10 +146,10 @@ const fr: AdaptiveDict = {
   },
   settings: {
     title: "Séances prévues",
-    timing: "Durée des blocs",
+    timing: "Rythme des séances",
     timingLead:
       "Adaptative : la récup se termine quand ton cœur est redescendu, une fraction peut s’arrêter plus tôt si c’est trop ou s’allonger un peu quand tu es frais. Fixe : chaque partie dure le temps prévu.",
-    timings: { adaptive: "Adaptative", fixed: "Fixe" },
+    timings: { adaptive: "Adaptatif", fixed: "Fixe" },
     rpe: "Questions d’effort",
     rpeLead:
       "Sans cardio, VVake peut demander « facile, moyen ou dur ? » deux fois par séance au plus, jamais pendant une fraction dure. Auto : activées, sauf en mode Silence.",
@@ -173,7 +173,7 @@ const fr: AdaptiveDict = {
       tired: "Un peu allégée aujourd’hui : tu sembles un peu fatigué.",
       strained: "En facile aujourd’hui : ton corps a d’abord besoin de repos.",
     },
-    fixed: "Durée fixe",
+    fixed: "Rythme fixe",
     done: "Séance terminée : continue tranquille ou arrête-la.",
     askTitle: "Comment tu te sens ?",
     ask: { easy: "Facile", moderate: "Moyen", hard: "Dur" },
@@ -185,7 +185,7 @@ const fr: AdaptiveDict = {
     adjust: "Ajustée pour toi : {line}",
     none: "Faite comme prévu.",
     effort: "Tes réponses d’effort : {list}",
-    fixed: "Durée fixe : chaque partie a duré le temps prévu.",
+    fixed: "Rythme fixe : chaque partie a duré le temps prévu.",
   },
 };
 
