@@ -1,6 +1,15 @@
 import { describe, expect, it } from "vitest";
 import * as z from "zod/mini";
-import { goalChart, nextAdaptivePrefs, parseAdaptivePrefs, progressSchema, questionRef, undoable } from "./progressApi";
+import {
+  adaptiveOn,
+  goalChart,
+  keepFeatures,
+  nextAdaptivePrefs,
+  parseAdaptivePrefs,
+  progressSchema,
+  questionRef,
+  undoable,
+} from "./progressApi";
 
 describe("athlete progress on the web", () => {
   it("reads the contract's answer, leniently", () => {
@@ -100,5 +109,13 @@ describe("athlete progress on the web", () => {
     expect(n.rpeChecks).toBe("on");
     expect(Date.parse(n.at)).toBeGreaterThan(Date.parse(prev.at));
     expect(nextAdaptivePrefs(null, { timing: "fixed" }, 0).rpeChecks).toBe("auto");
+  });
+
+  it("features.adaptive from GET survives a PATCH answer without it", () => {
+    const got = { id: "u", features: { adaptive: true } };
+    const patched = keepFeatures(got, { id: "u" });
+    expect(adaptiveOn(patched)).toBe(true);
+    expect(adaptiveOn({ id: "u" })).toBe(false);
+    expect(keepFeatures(got, { id: "u", features: { adaptive: false } }).features).toEqual({ adaptive: false });
   });
 });

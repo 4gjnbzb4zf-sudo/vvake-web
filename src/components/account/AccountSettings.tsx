@@ -20,6 +20,7 @@ import { ACCOUNT_SECTIONS, sectionIndex, type AccountSectionKey, type PanelProps
 import { ZonesSection } from "./ZonesPanel";
 import { OffSections, TailorSection } from "./TailorPanel";
 import { profileFromPrefs } from "@/lib/webapp/tailor/tailor";
+import { keepFeatures } from "@/lib/webapp/adaptive/progressApi";
 import { ACCOUNT_SECTION_FEATURE, parseTailorPrefs } from "@/lib/webapp/tailor/prefs";
 
 /**
@@ -30,7 +31,11 @@ export function AccountSettings({ dict, t, lang, apiUrl }: { dict: Dictionary["r
   const [session] = useState(() => new RewardsSession(apiUrl));
   const api = useMemo(() => accountApi(session), [session]);
   const [auth, setAuth] = useState<"checking" | "out" | "in">("checking");
-  const [me, setMe] = useState<Me | null>(null);
+  const [meRaw, setMe] = useState<Me | null>(null);
+  // Only GET /v1/me says what the API offers (`features`); a PATCH answer without it keeps what GET said.
+  const [features, setFeatures] = useState<unknown>(undefined);
+  if (meRaw?.features !== undefined && meRaw.features !== features) setFeatures(meRaw.features);
+  const me = useMemo(() => (meRaw ? keepFeatures({ features }, meRaw) : null), [features, meRaw]);
   const [loadError, setLoadError] = useState<string | null>(null);
   const [notice, setNotice] = useState<ConnectNotice | null>(null);
   const [gone, setGone] = useState(false);

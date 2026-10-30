@@ -37,6 +37,7 @@ import { recordStep, type StepEvent, type StepLedger } from "@/lib/webapp/sugges
 import { packOn, type TailorFeature } from "@/lib/webapp/tailor/tailor";
 import { canHideWay, cleanStartWays, homeWays, setStartWay, type StartWay, type StartWaysPrefs } from "@/lib/webapp/startWays";
 import type { CoachWhere } from "@/lib/webapp/api";
+import { keepFeatures } from "@/lib/webapp/adaptive/progressApi";
 import {
   accountBehind,
   mergeStepsPrefs,
@@ -332,6 +333,10 @@ export function AppProvider({
 }) {
   const api = useMemo(() => webApi(session), [session]);
   const [me, setMe] = useState<AppMe>(initialMe);
+  // Only GET /v1/me says what the API offers (`features`); a PATCH answer without it keeps what GET said.
+  const [features, setFeatures] = useState<unknown>(initialMe.features);
+  if (me.features !== undefined && me.features !== features) setFeatures(me.features);
+  const meShown = useMemo(() => keepFeatures({ features }, me), [features, me]);
   const [athlete, setAthlete] = useState<AppAthlete | null>(null);
   const [stats, setStats] = useState<Stats | null>(null);
   const [streak, setStreak] = useState<Streak | null>(null);
@@ -819,7 +824,7 @@ export function AppProvider({
     session,
     api,
     deviceKey,
-    me,
+    me: meShown,
     setMe,
     athlete,
     setAthlete,

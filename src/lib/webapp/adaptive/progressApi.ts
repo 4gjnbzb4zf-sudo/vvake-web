@@ -192,3 +192,8 @@ export function nextAdaptivePrefs(
 /** The API has adaptive coaching (`/v1/me` `features.adaptive: true`, build 62): the screens and the upload fields show. */
 export const adaptiveOn = (me: { features?: unknown }): boolean =>
   !!me.features && typeof me.features === "object" && (me.features as { adaptive?: unknown }).adaptive === true;
+
+/** The account's new answer, with `features` kept from the last GET when the answer has none (PATCH /v1/me). Pure. */
+export function keepFeatures<T extends { features?: unknown }>(prev: { features?: unknown } | null, next: T): T {
+  return next.features === undefined && prev?.features !== undefined ? { ...next, features: prev.features } : next;
+}
