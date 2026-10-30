@@ -2,9 +2,11 @@
  * The vehicle guard, Start workouts for me and the watch takeover summary on the web (VVFit build 58, ADR-0064):
  * game-core's vehicleGuard.ts (a foot workout in a car, bus or train: paused from where it began, mostly-vehicle →
  * "Not counted: vehicle detected"), autoStart.ts (the off / ask / auto modes and newest-wins prefs.autoStart, shown on
- * vvake.com/account) and handover.ts (the parts of one workout as one summary) are copied here unchanged, so the
- * browser judges exactly as the phone, the watches and the server do. Checked by the golden cases the watches check
- * (vehicle-golden.json, in src/lib/webapp/vehicle/parity.test.ts). Same method as sync-suggest-core.ts.
+ * vvake.com/account), handover.ts (the parts of one workout as one summary) and, from build 59 (ADR-0065), autoPause.ts
+ * (auto-pause / auto-resume per sport, prefs.autoPause) are copied here unchanged, so the browser judges exactly as the
+ * phone, the watches and the server do. Checked by the golden cases the watches check (vehicle-golden.json and
+ * auto-pause-golden.json, in src/lib/webapp/vehicle/parity.test.ts and autoPauseParity.test.ts). Same method as
+ * sync-suggest-core.ts.
  *
  *   tsx scripts/sync-vehicle-core.ts <path to the monorepo's packages/game-core>           copy
  *   tsx scripts/sync-vehicle-core.ts <path to the monorepo's packages/game-core> --check   exit 1 when a copy differs
@@ -33,11 +35,14 @@ const FILES: Copy[] = [
   { from: "src/vehicleGuard.ts", to: "vehicleGuard.ts", imports: {} },
   { from: "src/autoStart.ts", to: "autoStart.ts", imports: { "./vehicleGuard.js": "./vehicleGuard" } },
   { from: "src/handover.ts", to: "handover.ts", imports: {} },
+  // Auto-pause and auto-resume (build 59, ADR-0065): the per-sport modes, newest-wins prefs.autoPause and the stop/go machine.
+  { from: "src/autoPause.ts", to: "autoPause.ts", imports: {} },
 ];
-const GOLDEN = {
-  from: join(core, "test", "fixtures", "vehicle-golden.json"),
-  to: join(process.cwd(), "src", "lib", "webapp", "fixtures", "vehicle-golden.json"),
-};
+const GOLDENS = ["vehicle-golden.json", "auto-pause-golden.json"].map((name) => ({
+  name,
+  from: join(core, "test", "fixtures", name),
+  to: join(process.cwd(), "src", "lib", "webapp", "fixtures", name),
+}));
 
 const revOf = (path: string) => {
   try {
@@ -78,19 +83,21 @@ async function main() {
     } else writeFileSync(target, text);
   }
 
-  const golden = readFileSync(GOLDEN.from, "utf8");
-  if (check) {
-    let have = "";
-    try {
-      have = readFileSync(GOLDEN.to, "utf8");
-    } catch {
-      // missing
-    }
-    if (have !== golden) {
-      differs++;
-      console.error("✗ vehicle-golden.json differs");
-    }
-  } else writeFileSync(GOLDEN.to, golden);
+  for (const g of GOLDENS) {
+    const golden = readFileSync(g.from, "utf8");
+    if (check) {
+      let have = "";
+      try {
+        have = readFileSync(g.to, "utf8");
+      } catch {
+        // missing
+      }
+      if (have !== golden) {
+        differs++;
+        console.error(`✗ ${g.name} differs`);
+      }
+    } else writeFileSync(g.to, golden);
+  }
 
   if (check) {
     if (differs) process.exit(1);

@@ -1,0 +1,1124 @@
+{
+ "timelines": [
+  {
+   "name": "run: traffic light 6 s never pauses",
+   "sport": "run",
+   "mode": "auto",
+   "step": 2,
+   "rows": [
+    {
+     "speedMs": 3,
+     "cadenceSpm": 165
+    },
+    {
+     "speedMs": 3,
+     "cadenceSpm": 165
+    },
+    {
+     "speedMs": 3,
+     "cadenceSpm": 165
+    },
+    {
+     "speedMs": 3,
+     "cadenceSpm": 165
+    },
+    {
+     "speedMs": 3,
+     "cadenceSpm": 165
+    },
+    {
+     "speedMs": 3,
+     "cadenceSpm": 165
+    },
+    {
+     "speedMs": 3,
+     "cadenceSpm": 165
+    },
+    {
+     "speedMs": 3,
+     "cadenceSpm": 165
+    },
+    {
+     "speedMs": 3,
+     "cadenceSpm": 165
+    },
+    {
+     "speedMs": 3,
+     "cadenceSpm": 165
+    },
+    {
+     "speedMs": 0,
+     "cadenceSpm": 0
+    },
+    {
+     "speedMs": 0,
+     "cadenceSpm": 0
+    },
+    {
+     "speedMs": 0,
+     "cadenceSpm": 0
+    },
+    {
+     "speedMs": 3,
+     "cadenceSpm": 165
+    },
+    {
+     "speedMs": 3,
+     "cadenceSpm": 165
+    },
+    {
+     "speedMs": 3,
+     "cadenceSpm": 165
+    },
+    {
+     "speedMs": 3,
+     "cadenceSpm": 165
+    },
+    {
+     "speedMs": 3,
+     "cadenceSpm": 165
+    },
+    {
+     "speedMs": 3,
+     "cadenceSpm": 165
+    },
+    {
+     "speedMs": 3,
+     "cadenceSpm": 165
+    },
+    {
+     "speedMs": 3,
+     "cadenceSpm": 165
+    },
+    {
+     "speedMs": 3,
+     "cadenceSpm": 165
+    },
+    {
+     "speedMs": 3,
+     "cadenceSpm": 165
+    }
+   ],
+   "actions": [],
+   "pausedBy": null
+  },
+  {
+   "name": "run: 20 s stop pauses back-dated and resumes back-dated",
+   "sport": "run",
+   "mode": "auto",
+   "step": 2,
+   "rows": [
+    {
+     "speedMs": 3,
+     "cadenceSpm": 165
+    },
+    {
+     "speedMs": 3,
+     "cadenceSpm": 165
+    },
+    {
+     "speedMs": 3,
+     "cadenceSpm": 165
+    },
+    {
+     "speedMs": 3,
+     "cadenceSpm": 165
+    },
+    {
+     "speedMs": 3,
+     "cadenceSpm": 165
+    },
+    {
+     "speedMs": 3,
+     "cadenceSpm": 165
+    },
+    {
+     "speedMs": 3,
+     "cadenceSpm": 165
+    },
+    {
+     "speedMs": 3,
+     "cadenceSpm": 165
+    },
+    {
+     "speedMs": 3,
+     "cadenceSpm": 165
+    },
+    {
+     "speedMs": 3,
+     "cadenceSpm": 165
+    },
+    {
+     "speedMs": 0,
+     "cadenceSpm": 0
+    },
+    {
+     "speedMs": 0,
+     "cadenceSpm": 0
+    },
+    {
+     "speedMs": 0,
+     "cadenceSpm": 0
+    },
+    {
+     "speedMs": 0,
+     "cadenceSpm": 0
+    },
+    {
+     "speedMs": 0,
+     "cadenceSpm": 0
+    },
+    {
+     "speedMs": 0,
+     "cadenceSpm": 0
+    },
+    {
+     "speedMs": 0,
+     "cadenceSpm": 0
+    },
+    {
+     "speedMs": 0,
+     "cadenceSpm": 0
+    },
+    {
+     "speedMs": 0,
+     "cadenceSpm": 0
+    },
+    {
+     "speedMs": 0,
+     "cadenceSpm": 0
+    },
+    {
+     "speedMs": 3,
+     "cadenceSpm": 165
+    },
+    {
+     "speedMs": 3,
+     "cadenceSpm": 165
+    },
+    {
+     "speedMs": 3,
+     "cadenceSpm": 165
+    },
+    {
+     "speedMs": 3,
+     "cadenceSpm": 165
+    },
+    {
+     "speedMs": 3,
+     "cadenceSpm": 165
+    }
+   ],
+   "actions": [
+    {
+     "i": 15,
+     "kind": "pause",
+     "from": 20
+    },
+    {
+     "i": 22,
+     "kind": "resume",
+     "at": 40
+    }
+   ],
+   "pausedBy": null
+  },
+  {
+   "name": "walk suggest: one suggestion, withdrawn when walking again",
+   "sport": "walk",
+   "mode": "suggest",
+   "step": 2,
+   "rows": [
+    {
+     "speedMs": 1.3,
+     "cadenceSpm": 105
+    },
+    {
+     "speedMs": 1.3,
+     "cadenceSpm": 105
+    },
+    {
+     "speedMs": 1.3,
+     "cadenceSpm": 105
+    },
+    {
+     "speedMs": 1.3,
+     "cadenceSpm": 105
+    },
+    {
+     "speedMs": 1.3,
+     "cadenceSpm": 105
+    },
+    {
+     "speedMs": 0,
+     "cadenceSpm": 0
+    },
+    {
+     "speedMs": 0,
+     "cadenceSpm": 0
+    },
+    {
+     "speedMs": 0,
+     "cadenceSpm": 0
+    },
+    {
+     "speedMs": 0,
+     "cadenceSpm": 0
+    },
+    {
+     "speedMs": 0,
+     "cadenceSpm": 0
+    },
+    {
+     "speedMs": 0,
+     "cadenceSpm": 0
+    },
+    {
+     "speedMs": 0,
+     "cadenceSpm": 0
+    },
+    {
+     "speedMs": 0,
+     "cadenceSpm": 0
+    },
+    {
+     "speedMs": 0,
+     "cadenceSpm": 0
+    },
+    {
+     "speedMs": 0,
+     "cadenceSpm": 0
+    },
+    {
+     "speedMs": 0,
+     "cadenceSpm": 0
+    },
+    {
+     "speedMs": 0,
+     "cadenceSpm": 0
+    },
+    {
+     "speedMs": 1.3,
+     "cadenceSpm": 105
+    },
+    {
+     "speedMs": 1.3,
+     "cadenceSpm": 105
+    },
+    {
+     "speedMs": 1.3,
+     "cadenceSpm": 105
+    },
+    {
+     "speedMs": 1.3,
+     "cadenceSpm": 105
+    },
+    {
+     "speedMs": 1.3,
+     "cadenceSpm": 105
+    },
+    {
+     "speedMs": 0,
+     "cadenceSpm": 0
+    },
+    {
+     "speedMs": 0,
+     "cadenceSpm": 0
+    },
+    {
+     "speedMs": 0,
+     "cadenceSpm": 0
+    },
+    {
+     "speedMs": 0,
+     "cadenceSpm": 0
+    },
+    {
+     "speedMs": 0,
+     "cadenceSpm": 0
+    },
+    {
+     "speedMs": 0,
+     "cadenceSpm": 0
+    },
+    {
+     "speedMs": 0,
+     "cadenceSpm": 0
+    },
+    {
+     "speedMs": 0,
+     "cadenceSpm": 0
+    },
+    {
+     "speedMs": 0,
+     "cadenceSpm": 0
+    },
+    {
+     "speedMs": 0,
+     "cadenceSpm": 0
+    },
+    {
+     "speedMs": 0,
+     "cadenceSpm": 0
+    },
+    {
+     "speedMs": 0,
+     "cadenceSpm": 0
+    },
+    {
+     "speedMs": 1.3,
+     "cadenceSpm": 105
+    },
+    {
+     "speedMs": 1.3,
+     "cadenceSpm": 105
+    },
+    {
+     "speedMs": 1.3,
+     "cadenceSpm": 105
+    },
+    {
+     "speedMs": 1.3,
+     "cadenceSpm": 105
+    },
+    {
+     "speedMs": 1.3,
+     "cadenceSpm": 105
+    }
+   ],
+   "actions": [
+    {
+     "i": 15,
+     "kind": "suggest_pause",
+     "from": 10
+    },
+    {
+     "i": 17,
+     "kind": "withdraw"
+    }
+   ],
+   "pausedBy": null
+  },
+  {
+   "name": "walk suggest: accepted (user pause), then Resume? when walking",
+   "sport": "walk",
+   "mode": "suggest",
+   "step": 2,
+   "rows": [
+    {
+     "speedMs": 1.3,
+     "cadenceSpm": 105
+    },
+    {
+     "speedMs": 1.3,
+     "cadenceSpm": 105
+    },
+    {
+     "speedMs": 1.3,
+     "cadenceSpm": 105
+    },
+    {
+     "speedMs": 1.3,
+     "cadenceSpm": 105
+    },
+    {
+     "speedMs": 1.3,
+     "cadenceSpm": 105
+    },
+    {
+     "speedMs": 0,
+     "cadenceSpm": 0
+    },
+    {
+     "speedMs": 0,
+     "cadenceSpm": 0
+    },
+    {
+     "speedMs": 0,
+     "cadenceSpm": 0
+    },
+    {
+     "speedMs": 0,
+     "cadenceSpm": 0
+    },
+    {
+     "speedMs": 0,
+     "cadenceSpm": 0
+    },
+    {
+     "speedMs": 0,
+     "cadenceSpm": 0
+    },
+    {
+     "speedMs": 0,
+     "cadenceSpm": 0
+    },
+    {
+     "speedMs": 0,
+     "cadenceSpm": 0
+    },
+    {
+     "speedMs": 0,
+     "cadenceSpm": 0
+    },
+    {
+     "speedMs": 0,
+     "cadenceSpm": 0
+    },
+    {
+     "speedMs": 0,
+     "cadenceSpm": 0
+    },
+    {
+     "speedMs": 0,
+     "cadenceSpm": 0
+    },
+    {
+     "speedMs": 0,
+     "cadenceSpm": 0,
+     "user": "pause"
+    },
+    {
+     "speedMs": 0,
+     "cadenceSpm": 0
+    },
+    {
+     "speedMs": 0,
+     "cadenceSpm": 0
+    },
+    {
+     "speedMs": 0,
+     "cadenceSpm": 0
+    },
+    {
+     "speedMs": 0,
+     "cadenceSpm": 0
+    },
+    {
+     "speedMs": 0,
+     "cadenceSpm": 0
+    },
+    {
+     "speedMs": 1.3,
+     "cadenceSpm": 105
+    },
+    {
+     "speedMs": 1.3,
+     "cadenceSpm": 105
+    },
+    {
+     "speedMs": 1.3,
+     "cadenceSpm": 105
+    },
+    {
+     "speedMs": 1.3,
+     "cadenceSpm": 105
+    },
+    {
+     "speedMs": 1.3,
+     "cadenceSpm": 105
+    }
+   ],
+   "actions": [
+    {
+     "i": 15,
+     "kind": "suggest_pause",
+     "from": 10
+    },
+    {
+     "i": 17,
+     "kind": "withdraw"
+    },
+    {
+     "i": 25,
+     "kind": "suggest_resume"
+    }
+   ],
+   "pausedBy": "user"
+  },
+  {
+   "name": "run auto: a pause of yours is never resumed by itself",
+   "sport": "run",
+   "mode": "auto",
+   "step": 2,
+   "rows": [
+    {
+     "speedMs": 3,
+     "cadenceSpm": 165
+    },
+    {
+     "speedMs": 3,
+     "cadenceSpm": 165
+    },
+    {
+     "speedMs": 3,
+     "cadenceSpm": 165
+    },
+    {
+     "speedMs": 3,
+     "cadenceSpm": 165
+    },
+    {
+     "speedMs": 3,
+     "cadenceSpm": 165
+    },
+    {
+     "speedMs": 3,
+     "cadenceSpm": 165,
+     "user": "pause"
+    },
+    {
+     "speedMs": 3,
+     "cadenceSpm": 165
+    },
+    {
+     "speedMs": 3,
+     "cadenceSpm": 165
+    },
+    {
+     "speedMs": 3,
+     "cadenceSpm": 165
+    },
+    {
+     "speedMs": 3,
+     "cadenceSpm": 165
+    },
+    {
+     "speedMs": 3,
+     "cadenceSpm": 165
+    }
+   ],
+   "actions": [
+    {
+     "i": 7,
+     "kind": "suggest_resume"
+    }
+   ],
+   "pausedBy": "user"
+  },
+  {
+   "name": "ride: speed only",
+   "sport": "ride",
+   "mode": "auto",
+   "step": 2,
+   "rows": [
+    {
+     "speedMs": 6,
+     "cadenceSpm": null
+    },
+    {
+     "speedMs": 6,
+     "cadenceSpm": null
+    },
+    {
+     "speedMs": 6,
+     "cadenceSpm": null
+    },
+    {
+     "speedMs": 6,
+     "cadenceSpm": null
+    },
+    {
+     "speedMs": 6,
+     "cadenceSpm": null
+    },
+    {
+     "speedMs": 0.2,
+     "cadenceSpm": null
+    },
+    {
+     "speedMs": 0.2,
+     "cadenceSpm": null
+    },
+    {
+     "speedMs": 0.2,
+     "cadenceSpm": null
+    },
+    {
+     "speedMs": 0.2,
+     "cadenceSpm": null
+    },
+    {
+     "speedMs": 0.2,
+     "cadenceSpm": null
+    },
+    {
+     "speedMs": 0.2,
+     "cadenceSpm": null
+    },
+    {
+     "speedMs": 6,
+     "cadenceSpm": null
+    },
+    {
+     "speedMs": 6,
+     "cadenceSpm": null
+    },
+    {
+     "speedMs": 6,
+     "cadenceSpm": null
+    },
+    {
+     "speedMs": 6,
+     "cadenceSpm": null
+    },
+    {
+     "speedMs": 6,
+     "cadenceSpm": null
+    }
+   ],
+   "actions": [
+    {
+     "i": 9,
+     "kind": "pause",
+     "from": 10
+    },
+    {
+     "i": 13,
+     "kind": "resume",
+     "at": 22
+    }
+   ],
+   "pausedBy": null
+  },
+  {
+   "name": "vehicle stretch: nothing",
+   "sport": "walk",
+   "mode": "auto",
+   "step": 2,
+   "rows": [
+    {
+     "speedMs": 1.3,
+     "cadenceSpm": 105
+    },
+    {
+     "speedMs": 1.3,
+     "cadenceSpm": 105
+    },
+    {
+     "speedMs": 1.3,
+     "cadenceSpm": 105
+    },
+    {
+     "speedMs": 1.3,
+     "cadenceSpm": 105
+    },
+    {
+     "speedMs": 1.3,
+     "cadenceSpm": 105
+    },
+    {
+     "speedMs": 0,
+     "cadenceSpm": 0,
+     "user": "vehicle"
+    },
+    {
+     "speedMs": 0,
+     "cadenceSpm": 0
+    },
+    {
+     "speedMs": 0,
+     "cadenceSpm": 0
+    },
+    {
+     "speedMs": 0,
+     "cadenceSpm": 0
+    },
+    {
+     "speedMs": 0,
+     "cadenceSpm": 0
+    },
+    {
+     "speedMs": 0,
+     "cadenceSpm": 0
+    },
+    {
+     "speedMs": 0,
+     "cadenceSpm": 0
+    },
+    {
+     "speedMs": 0,
+     "cadenceSpm": 0
+    },
+    {
+     "speedMs": 0,
+     "cadenceSpm": 0
+    },
+    {
+     "speedMs": 0,
+     "cadenceSpm": 0
+    },
+    {
+     "speedMs": 0,
+     "cadenceSpm": 0
+    },
+    {
+     "speedMs": 0,
+     "cadenceSpm": 0
+    },
+    {
+     "speedMs": 0,
+     "cadenceSpm": 0
+    },
+    {
+     "speedMs": 0,
+     "cadenceSpm": 0
+    },
+    {
+     "speedMs": 0,
+     "cadenceSpm": 0
+    },
+    {
+     "speedMs": 0,
+     "cadenceSpm": 0
+    },
+    {
+     "speedMs": 1.3,
+     "cadenceSpm": 105
+    },
+    {
+     "speedMs": 1.3,
+     "cadenceSpm": 105
+    },
+    {
+     "speedMs": 1.3,
+     "cadenceSpm": 105
+    },
+    {
+     "speedMs": 1.3,
+     "cadenceSpm": 105
+    },
+    {
+     "speedMs": 1.3,
+     "cadenceSpm": 105
+    },
+    {
+     "speedMs": 1.3,
+     "cadenceSpm": 105,
+     "user": "vehicle_end"
+    },
+    {
+     "speedMs": 1.3,
+     "cadenceSpm": 105
+    },
+    {
+     "speedMs": 1.3,
+     "cadenceSpm": 105
+    },
+    {
+     "speedMs": 1.3,
+     "cadenceSpm": 105
+    }
+   ],
+   "actions": [],
+   "pausedBy": null
+  },
+  {
+   "name": "off",
+   "sport": "run",
+   "mode": "off",
+   "step": 2,
+   "rows": [
+    {
+     "speedMs": 3,
+     "cadenceSpm": 165
+    },
+    {
+     "speedMs": 3,
+     "cadenceSpm": 165
+    },
+    {
+     "speedMs": 3,
+     "cadenceSpm": 165
+    },
+    {
+     "speedMs": 3,
+     "cadenceSpm": 165
+    },
+    {
+     "speedMs": 3,
+     "cadenceSpm": 165
+    },
+    {
+     "speedMs": 0,
+     "cadenceSpm": 0
+    },
+    {
+     "speedMs": 0,
+     "cadenceSpm": 0
+    },
+    {
+     "speedMs": 0,
+     "cadenceSpm": 0
+    },
+    {
+     "speedMs": 0,
+     "cadenceSpm": 0
+    },
+    {
+     "speedMs": 0,
+     "cadenceSpm": 0
+    },
+    {
+     "speedMs": 0,
+     "cadenceSpm": 0
+    },
+    {
+     "speedMs": 0,
+     "cadenceSpm": 0
+    },
+    {
+     "speedMs": 0,
+     "cadenceSpm": 0
+    },
+    {
+     "speedMs": 0,
+     "cadenceSpm": 0
+    },
+    {
+     "speedMs": 0,
+     "cadenceSpm": 0
+    },
+    {
+     "speedMs": 0,
+     "cadenceSpm": 0
+    },
+    {
+     "speedMs": 0,
+     "cadenceSpm": 0
+    },
+    {
+     "speedMs": 0,
+     "cadenceSpm": 0
+    },
+    {
+     "speedMs": 0,
+     "cadenceSpm": 0
+    },
+    {
+     "speedMs": 0,
+     "cadenceSpm": 0
+    },
+    {
+     "speedMs": 3,
+     "cadenceSpm": 165
+    },
+    {
+     "speedMs": 3,
+     "cadenceSpm": 165
+    },
+    {
+     "speedMs": 3,
+     "cadenceSpm": 165
+    },
+    {
+     "speedMs": 3,
+     "cadenceSpm": 165
+    },
+    {
+     "speedMs": 3,
+     "cadenceSpm": 165
+    }
+   ],
+   "actions": [],
+   "pausedBy": null
+  },
+  {
+   "name": "yoga never",
+   "sport": "yoga",
+   "mode": "auto",
+   "step": 2,
+   "rows": [
+    {
+     "speedMs": 0,
+     "cadenceSpm": 0
+    },
+    {
+     "speedMs": 0,
+     "cadenceSpm": 0
+    },
+    {
+     "speedMs": 0,
+     "cadenceSpm": 0
+    },
+    {
+     "speedMs": 0,
+     "cadenceSpm": 0
+    },
+    {
+     "speedMs": 0,
+     "cadenceSpm": 0
+    },
+    {
+     "speedMs": 0,
+     "cadenceSpm": 0
+    },
+    {
+     "speedMs": 0,
+     "cadenceSpm": 0
+    },
+    {
+     "speedMs": 0,
+     "cadenceSpm": 0
+    },
+    {
+     "speedMs": 0,
+     "cadenceSpm": 0
+    },
+    {
+     "speedMs": 0,
+     "cadenceSpm": 0
+    },
+    {
+     "speedMs": 0,
+     "cadenceSpm": 0
+    },
+    {
+     "speedMs": 0,
+     "cadenceSpm": 0
+    },
+    {
+     "speedMs": 0,
+     "cadenceSpm": 0
+    },
+    {
+     "speedMs": 0,
+     "cadenceSpm": 0
+    },
+    {
+     "speedMs": 0,
+     "cadenceSpm": 0
+    }
+   ],
+   "actions": [],
+   "pausedBy": null
+  },
+  {
+   "name": "no GPS, steps only (tunnel): steps decide",
+   "sport": "run",
+   "mode": "auto",
+   "step": 2,
+   "rows": [
+    {
+     "speedMs": null,
+     "cadenceSpm": 165
+    },
+    {
+     "speedMs": null,
+     "cadenceSpm": 165
+    },
+    {
+     "speedMs": null,
+     "cadenceSpm": 165
+    },
+    {
+     "speedMs": null,
+     "cadenceSpm": 165
+    },
+    {
+     "speedMs": null,
+     "cadenceSpm": 165
+    },
+    {
+     "speedMs": null,
+     "cadenceSpm": 0
+    },
+    {
+     "speedMs": null,
+     "cadenceSpm": 0
+    },
+    {
+     "speedMs": null,
+     "cadenceSpm": 0
+    },
+    {
+     "speedMs": null,
+     "cadenceSpm": 0
+    },
+    {
+     "speedMs": null,
+     "cadenceSpm": 0
+    },
+    {
+     "speedMs": null,
+     "cadenceSpm": 0
+    },
+    {
+     "speedMs": null,
+     "cadenceSpm": 0
+    },
+    {
+     "speedMs": null,
+     "cadenceSpm": 0
+    },
+    {
+     "speedMs": null,
+     "cadenceSpm": 165
+    },
+    {
+     "speedMs": null,
+     "cadenceSpm": 165
+    },
+    {
+     "speedMs": null,
+     "cadenceSpm": 165
+    }
+   ],
+   "actions": [
+    {
+     "i": 10,
+     "kind": "pause",
+     "from": 10
+    },
+    {
+     "i": 15,
+     "kind": "resume",
+     "at": 26
+    }
+   ],
+   "pausedBy": null
+  }
+ ],
+ "modes": [
+  {
+   "sport": "run",
+   "def": "auto",
+   "set": "off"
+  },
+  {
+   "sport": "walk",
+   "def": "suggest",
+   "set": "off"
+  },
+  {
+   "sport": "hike",
+   "def": "suggest",
+   "set": "off"
+  },
+  {
+   "sport": "ride",
+   "def": "auto",
+   "set": "off"
+  },
+  {
+   "sport": "yoga",
+   "def": "off",
+   "set": "off"
+  },
+  {
+   "sport": "swim",
+   "def": "off",
+   "set": "off"
+  },
+  {
+   "sport": "strength",
+   "def": "off",
+   "set": "off"
+  },
+  {
+   "sport": "skate",
+   "def": "suggest",
+   "set": "off"
+  }
+ ]
+}
