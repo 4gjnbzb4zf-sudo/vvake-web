@@ -1,4 +1,4 @@
-// Copied from VVFit packages/game-core/src/meetups.ts (d5cab170 2026-10-28) by scripts/sync-living-core.ts. Do not edit: re-sync.
+// Copied from VVFit packages/game-core/src/meetups.ts (3e812ccd 2026-10-30) by scripts/sync-living-core.ts. Do not edit: re-sync.
 /**
  * Training meetups (docs/02-product/living-app.md §14 "Meetups on the map", docs/05-tech/places-and-meetups.md):
  * a sport, a start time (in the future, at most 30 days ahead), a duration, a meeting point, a pace/level line, a
@@ -17,7 +17,9 @@
 import { icsEscape, icsFold } from "./icsCore";
 import { QUIET_HOURS } from "./quietHours";
 import { osmPlaceKey, parsePlaceKey } from "./placeNotes";
+import { PIN_POINT_KEY } from "./meetupPins";
 import { PLACE_SETS, type PlaceKind, type PlaceSet } from "./places";
+import type { MeetupMode } from "./trainCall";
 import { sportName } from "./sportCatalog";
 import { ugcProblem, type UgcProblem } from "../camera/ugc";
 
@@ -91,8 +93,13 @@ export interface MeetupInput {
   sport: string;
   startMs: number;
   durationMin: number;
-  /** The meeting point: an OSM place id ("n123", "osm:node/123") or a public place-note key ("gh:…"). */
+  /**
+   * The meeting point: an OSM place id ("n123", "osm:node/123"), a public place-note key ("gh:…") or "pin" (a custom
+   * pin, meetupPins.ts; its fields are checked there). Ignored in mode "call".
+   */
   pointKey: string;
+  /** "place" (default) or "call": train together over a call, no meeting point (trainCall.ts). */
+  mode?: MeetupMode;
   level?: string | null;
   maxPeople: number;
   invitees: readonly string[];
@@ -108,7 +115,7 @@ export const cleanLevel = (t: string | null | undefined): string => (t ?? "").no
 export function checkMeetup(
   i: MeetupInput,
   nowMs: number,
-): { ok: true; pointKey: string; level: string | null; invitees: string[] } | { ok: false; problem: MeetupProblem } {
+): { ok: true; pointKey: string; mode: MeetupMode; level: string | null; invitees: string[] } | { ok: false; problem: MeetupProblem } {
   if (!SPORT_KEY.test(i.sport)) return { ok: false, problem: "sport" };
   if (!Number.isFinite(i.startMs) || i.startMs < nowMs + MEETUP_MIN_LEAD_MIN * MIN) return { ok: false, problem: "start_past" };
   if (i.startMs > nowMs + MEETUP_MAX_AHEAD_DAYS * DAY) return { ok: false, problem: "start_far" };
@@ -118,15 +125,17 @@ export function checkMeetup(
     return { ok: false, problem: "people" };
   const invitees = [...new Set(i.invitees)];
   if (!invitees.length || invitees.length > MEETUP_PEOPLE.max - 1) return { ok: false, problem: "invitees" };
-  const pointKey = parsePlaceKey(i.pointKey) ? i.pointKey : osmPlaceKey(i.pointKey);
-  if (!pointKey) return { ok: false, problem: "point" };
+  const mode: MeetupMode = i.mode === "call" ? "call" : "place";
+  const pointKey =
+    mode === "call" ? "" : i.pointKey === PIN_POINT_KEY ? PIN_POINT_KEY : parsePlaceKey(i.pointKey) ? i.pointKey : osmPlaceKey(i.pointKey);
+  if (pointKey === null || (mode === "place" && !pointKey)) return { ok: false, problem: "point" };
   const level = cleanLevel(i.level);
   if ([...level].length > MEETUP_LEVEL_MAX) return { ok: false, problem: "level_long" };
   if (level) {
     const p = ugcProblem(level);
     if (p) return { ok: false, problem: p };
   }
-  return { ok: true, pointKey, level: level || null, invitees };
+  return { ok: true, pointKey, mode, level: level || null, invitees };
 }
 
 /** Who may be invited: someone the host has faced (friends, crew, challenge rivals), not blocked either way. */

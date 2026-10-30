@@ -40,6 +40,8 @@ const SHARED: Record<string, string> = {
 const WHOLE = [
   "placeNotes.ts",
   "meetups.ts",
+  "meetupPins.ts",
+  "trainCall.ts",
   "celebrations.ts",
   "leagues.ts",
   "streakCare.ts",
@@ -62,6 +64,7 @@ const FILES: Copy[] = [
   ...WHOLE.map((f) => ({ from: `src/${f}`, to: f, imports: { ...local, ...SHARED } })),
   { from: "test/placeNotes.test.ts", to: "placeNotes.core.test.ts", imports: TEST_IMPORTS },
   { from: "test/meetups.test.ts", to: "meetups.core.test.ts", imports: TEST_IMPORTS },
+  { from: "test/trainCall.test.ts", to: "trainCall.core.test.ts", imports: TEST_IMPORTS },
   { from: "test/leagues.test.ts", to: "leagues.core.test.ts", imports: TEST_IMPORTS },
 ];
 /** Single helpers cut from bigger game-core files whose other imports the web doesn't carry. */

@@ -141,8 +141,24 @@ export const meetupSchema = z.object({
   host: z.object({ id: z.string(), name: str, castId: str }),
   me: z.object({ role: z.string(), answer: z.string(), here: bool, canHere: bool }),
   people: z.catch(z.array(personSchema), []),
-  point: z.object({ key: z.string(), kind: str, name: str, lat: num, lon: num, id: str, unavailable: bool }),
+  point: z.object({
+    key: z.string(),
+    kind: str,
+    name: str,
+    lat: num,
+    lon: num,
+    id: str,
+    unavailable: bool,
+    note: str,
+    photo: bool,
+    gone: bool,
+  }),
   attribution: str,
+  /** Build 63 (ADR-0071): "call" (train together over a call), the coach's lines, the countdown's end; a pin's expiry. */
+  mode: str,
+  coach: bool,
+  goAt: str,
+  pinExpiresAt: str,
 });
 export type MeetupView = z.infer<typeof meetupSchema>;
 const friendSchema = z.object({ id: z.string(), displayName: str, castId: str, lastChallengeAt: str });
@@ -153,12 +169,57 @@ export interface MeetupCreate {
   sport: string;
   startsAt: string;
   durationMin: number;
-  point: { key: string; set?: string; near?: { lat: number; lon: number } };
+  /** Absent for a call; `key: "pin"` with `pin`: a custom meeting point (members only). */
+  point?: { key: string; set?: string; near?: { lat: number; lon: number } };
+  pin?: { name: string; note?: string; lat: number; lon: number };
+  mode?: "place" | "call";
+  coach?: boolean;
   level?: string;
   maxPeople: number;
   invitees: string[];
 }
 export type MeetupReport = { reason: string; personId?: string; note?: string; block?: boolean };
+
+const boardRowSchema = z.object({
+  userId: z.string(),
+  name: z.string(),
+  state: z.string(),
+  elapsedS: num,
+  atMs: num,
+  distanceM: num,
+  reps: num,
+  zone: num,
+  audio: bool,
+  me: z.boolean(),
+  stale: bool,
+  elapsedNowS: z.number(),
+});
+/** GET/POST /v1/meetups/:id/call…: the train-together board (ADR-0071). */
+export const callBoardSchema = z.object({
+  meetupId: z.string(),
+  sport: z.string(),
+  durationMin: z.number(),
+  open: z.boolean(),
+  goAt: str,
+  coach: bool,
+  host: bool,
+  beatS: num,
+  board: z.catch(z.array(boardRowSchema), []),
+  cheers: z.catch(z.array(z.object({ fromId: z.string(), from: z.string(), kind: z.string(), atMs: z.number() })), []),
+  audio: z.object({ state: z.string(), inCall: bool, minutesLeft: num, text: str }),
+  serverMs: z.number(),
+});
+export type CallBoardView = z.infer<typeof callBoardSchema>;
+export interface CallBeat {
+  state: "waiting" | "running" | "paused" | "done";
+  elapsedS?: number;
+  distanceM?: number;
+  reps?: number;
+  zone?: number;
+  audio?: boolean;
+}
+const sdpSchema = z.object({ type: z.string(), sdp: z.string() });
+export type SdpView = { type: "offer" | "answer"; sdp: string };
 
 export function livingApi(s: RewardsSession) {
   const fr = (lang: string) => (lang === "fr" ? "fr" : "en");
@@ -201,6 +262,45 @@ export function livingApi(s: RewardsSession) {
     meetupAct: (id: string, act: "join" | "leave" | "here") =>
       s.call(`/v1/meetups/${encodeURIComponent(id)}/${act}`, send("POST", {}), meetupSchema),
     reportMeetup: (id: string, b: MeetupReport) => s.call(`/v1/meetups/${encodeURIComponent(id)}/report`, send("POST", b), null),
+    /** A custom pin's photo: a JPEG re-encoded in this page (no EXIF), and read back as a data: URL (members only). */
+    putPinPhoto: (id: string, jpeg: Uint8Array) =>
+      s.call(`/v1/meetups/${encodeURIComponent(id)}/pin/photo`, { method: "PUT", body: jpeg as unknown as BodyInit }, null),
+    pinPhoto: async (id: string) => {
+      const r = await s.call(
+        `/v1/meetups/${encodeURIComponent(id)}/pin/photo?format=b64`,
+        GET,
+        z.object({ mediaType: z.string(), data: z.string() }),
+      );
+      return `data:${r.mediaType};base64,${r.data}`;
+    },
+    // Train together over a call (ADR-0071): the board every 10 s, the countdown, cheers, leave quietly, audio.
+    callBeat: (id: string, b: CallBeat, lang: string) =>
+      s.call(`/v1/meetups/${encodeURIComponent(id)}/call/beat?${q({ lang: fr(lang) })}`, send("POST", b), callBoardSchema),
+    callGo: (id: string, lang: string) =>
+      s.call(`/v1/meetups/${encodeURIComponent(id)}/call/go?${q({ lang: fr(lang) })}`, send("POST", {}), callBoardSchema),
+    callCheer: (id: string, to: string, kind: string, lang: string) =>
+      s.call(`/v1/meetups/${encodeURIComponent(id)}/call/cheer?${q({ lang: fr(lang) })}`, send("POST", { to, kind }), callBoardSchema),
+    callLeave: (id: string, lang: string) =>
+      s.call(`/v1/meetups/${encodeURIComponent(id)}/call/leave?${q({ lang: fr(lang) })}`, send("POST", {}), callBoardSchema),
+    callAudioJoin: async (id: string, offer: SdpView, mid: string) => {
+      const r = await s.call(
+        `/v1/meetups/${encodeURIComponent(id)}/call/audio`,
+        send("POST", { offer, mid }),
+        z.object({ sessionId: z.string(), answer: opt(sdpSchema), iceServers: z.catch(z.array(z.unknown()), []) }),
+      );
+      return { sessionId: r.sessionId, answer: (r.answer ?? null) as SdpView | null, iceServers: r.iceServers };
+    },
+    callAudioPull: async (id: string, sessionId: string, userIds: string[]) => {
+      const r = await s.call(
+        `/v1/meetups/${encodeURIComponent(id)}/call/audio/pull`,
+        send("POST", { sessionId, userIds }),
+        z.object({ offer: opt(sdpSchema), tracks: z.catch(z.array(z.object({ userId: z.string(), mid: str })), []) }),
+      );
+      return { offer: (r.offer ?? null) as SdpView | null, tracks: r.tracks.map((t) => ({ userId: t.userId, mid: t.mid ?? null })) };
+    },
+    callAudioRenegotiate: (id: string, sessionId: string, answer: SdpView) =>
+      s.call(`/v1/meetups/${encodeURIComponent(id)}/call/audio/renegotiate`, send("PUT", { sessionId, answer }), null),
+    callAudioLeave: (id: string) => s.call(`/v1/meetups/${encodeURIComponent(id)}/call/audio`, send("DELETE"), null),
   };
 }
 export type LivingApi = ReturnType<typeof livingApi>;
