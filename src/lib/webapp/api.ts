@@ -366,6 +366,11 @@ export function webApi(s: RewardsSession) {
       clock: string;
       /** The reply in the coach's voice (Plus; counted in the API's daily voice quota). */
       voice?: boolean;
+      /** The coach action card on screen (ADR-0068): "no, rather Thursday" is read against it by the server. */
+      card?: { id: string; type: string };
+      /** The athlete's local hour and day (meals, "the next 5 hours", summaries); the screen the talk was opened on. */
+      localHour?: number;
+      localDay?: string;
     }) =>
       // actions: 2 = this app shows the coach's action cards (ADR-0063); an older API just ignores it.
       s.call("/v1/coach/talk", send("POST", { ...b, voice: b.voice === true, actions: 2 }), coachReplySchema),
