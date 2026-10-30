@@ -36,7 +36,19 @@ export type CardState = "pending" | "busy" | "done" | "cancelled" | "failed" | "
 export interface CardTurn {
   action: CoachAppAction;
   state: CardState;
+  /** The live call's id for this card (app_action's tool call): `card{id,state}` and answer_card use it. */
+  id?: string;
+  /** show_places: where the search stands, then the places found (ADR-0068). */
+  places?: PlacesView;
 }
+
+/** A places card: the location ask, the search, the places, or why there are none. */
+export type PlacesView =
+  | { kind: "ask" }
+  | { kind: "searching" }
+  | { kind: "busy" }
+  | { kind: "none" }
+  | { kind: "list"; items: { name: string; awayKm: number; loopKm?: number; minutes?: number; lat: number; lon: number }[] };
 
 const LINE_KEYS: readonly ActionLineKey[] = [
   "done",
@@ -51,6 +63,9 @@ const LINE_KEYS: readonly ActionLineKey[] = [
   "no_plan_today",
   "no_such_habit",
   "past_time",
+  "no_workout",
+  "no_music",
+  "no_location",
   "failed",
 ];
 const line = (v: unknown, max: number) => (typeof v === "string" && v.trim() ? v.trim().slice(0, max) : undefined);

@@ -4,7 +4,9 @@
  * which the catalog imports) are copied here unchanged, so the web shows the same cards and says the same truth as the
  * phone, the watches and the server. Checked by game-core's own coachActions tests, copied with them
  * (coachActions.core.test.ts). The catalog's other imports come from copies the web already holds (the camera
- * routines, the sport catalog, the streak pause). Same method as sync-suggest-core.ts.
+ * routines, the sport catalog, the streak pause). Same method as sync-suggest-core.ts. Build 60 (ADR-0068) adds
+ * coachTalk.ts (talk modes), coachMemory.ts (what the coach remembers) and dataCorrections.ts (Health corrections);
+ * coachTalk's plan tier type comes from coachPlans.ts beside the copies (the web's CoachTierKey).
  *
  *   tsx scripts/sync-coach-core.ts <path to the monorepo's packages/game-core>           copy
  *   tsx scripts/sync-coach-core.ts <path to the monorepo's packages/game-core> --check   exit 1 when a copy differs
@@ -42,6 +44,10 @@ const FILES: Copy[] = [
       "./streakCare.js": "../living/streakCare",
     },
   },
+  // Super coach (build 60, ADR-0068): the talk modes, the coach's memory (You › Coach memory) and Health corrections.
+  { from: "src/coachTalk.ts", to: "coachTalk.ts", imports: { "./coachPlans.js": "./coachPlans" } },
+  { from: "src/coachMemory.ts", to: "coachMemory.ts", imports: {} },
+  { from: "src/dataCorrections.ts", to: "dataCorrections.ts", imports: { "./coachActions.js": "./coachActions" } },
   {
     from: "test/coachActions.test.ts",
     to: "coachActions.core.test.ts",

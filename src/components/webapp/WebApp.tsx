@@ -34,6 +34,8 @@ import { FeaturesScreen, TailorScreen } from "./TailorScreen";
 import { TodayLean } from "./TodayLean";
 import { VoiceTipToast } from "./VoiceTip";
 import { WorkoutProvider } from "./WorkoutContext";
+import { TalkButton, TalkProvider } from "./TalkSheet";
+import { CoachMemoryScreen } from "./CoachMemory";
 import { Btn, Field, inputCls, Kicker, Small } from "./ui";
 
 /**
@@ -126,7 +128,9 @@ export function WebApp({ lang, t, apiUrl, legacyTour }: { lang: Locale; t: WebAp
   return (
     <AppProvider lang={lang} t={t} apiUrl={apiUrl} session={session} me={me} onSignedOut={signedOut}>
       <WorkoutProvider>
-        <Shell />
+        <TalkProvider>
+          <Shell />
+        </TalkProvider>
       </WorkoutProvider>
     </AppProvider>
   );
@@ -154,7 +158,7 @@ function Shell() {
   if (!onboarded) return <Onboarding onDone={() => setOnboarded(true)} />;
 
   const tab =
-    route.name === "points" || route.name === "your-vvake" || route.name === "features"
+    route.name === "points" || route.name === "your-vvake" || route.name === "features" || route.name === "coach-memory"
       ? "you"
       : (route.name === "places" || route.name === "place-note" || route.name === "meetup" || route.name === "meetup-new") &&
           tabs.includes("crew")
@@ -181,7 +185,8 @@ function Shell() {
             </p>
           )}
           <main id="main">
-            {route.name === "today" && (profile ? <TodayLean /> : <TodayScreen />)}
+            {(route.name === "today" || route.name === "talk") && (profile ? <TodayLean /> : <TodayScreen />)}
+            {route.name === "coach-memory" && <CoachMemoryScreen />}
             {route.name === "plan" && <PlanScreen />}
             {route.name === "crew" && <CrewScreen />}
             {route.name === "coach" && <CoachScreen />}
@@ -244,6 +249,10 @@ function Shell() {
                 </button>
               </li>
             ))}
+            {/* Talk to your coach (ADR-0068): its own button, there even when the Coach tab is hidden; never navigates. */}
+            <li className="flex-1">
+              <TalkButton />
+            </li>
           </ul>
         </nav>
       )}

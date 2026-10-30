@@ -79,13 +79,60 @@ export function toPcm16k(input: Float32Array, from: number): Int16Array {
   return out;
 }
 
+/** Root mean square of a frame of float samples (0–1). Pure. */
+export function rms(input: Float32Array): number {
+  if (!input.length) return 0;
+  let sum = 0;
+  for (let i = 0; i < input.length; i++) sum += input[i]! * input[i]!;
+  return Math.sqrt(sum / input.length);
+}
+
+/**
+ * A small voice detector for cloud STT (ADR-0068 barge-in): the frame's loudness against a slowly tracked noise floor.
+ * Talking = louder than 3× the floor and than about -40 dBFS for `onMs`; quiet again after `offMs` under it. The
+ * browser's echo cancellation removes most of the coach's own voice; the bar is higher while the coach speaks
+ * (`strict`), so its remainder doesn't cut it. Pure (fed frame by frame).
+ */
+export class VoiceDetector {
+  private floor = 0.004;
+  private loudMs = 0;
+  private quietMs = 0;
+  on = false;
+  constructor(private o: { onMs?: number; offMs?: number; min?: number } = {}) {}
+
+  /** One frame: its RMS and length. Returns true / false when talking starts / stops, else null. */
+  push(level: number, ms: number, strict = false): boolean | null {
+    const min = (this.o.min ?? 0.01) * (strict ? 2 : 1);
+    const loud = level > Math.max(this.floor * (strict ? 5 : 3), min);
+    // The floor follows quiet frames quickly and loud ones very slowly (a long sentence never becomes "noise").
+    if (!loud) this.floor = level < this.floor ? this.floor * 0.7 + level * 0.3 : this.floor + (level - this.floor) * 0.05;
+    else this.floor += (level - this.floor) * 0.002;
+    this.floor = Math.min(0.05, Math.max(0.0005, this.floor));
+    if (loud) {
+      this.loudMs += ms;
+      this.quietMs = 0;
+      if (!this.on && this.loudMs >= (this.o.onMs ?? 160)) return (this.on = true);
+    } else {
+      this.quietMs += ms;
+      this.loudMs = 0;
+      if (this.on && this.quietMs >= (this.o.offMs ?? 450)) return (this.on = false);
+    }
+    return null;
+  }
+}
+
 export function b64(bytes: Uint8Array): string {
   let bin = "";
   for (let i = 0; i < bytes.length; i += 0x8000) bin += String.fromCharCode(...bytes.subarray(i, i + 0x8000));
   return btoa(bin);
 }
 
-export function cloudStt(): LiveStt {
+/**
+ * `coachSpeaking`: the call's player is busy (the voice detector is stricter then, so the echo of the coach's own
+ * voice doesn't cut it).
+ */
+export function cloudStt(coachSpeaking: () => boolean = () => false): LiveStt {
+  const vad = new VoiceDetector();
   let stream: MediaStream | null = null;
   let ctx: AudioContext | null = null;
   let node: ScriptProcessorNode | null = null;
@@ -110,7 +157,10 @@ export function cloudStt(): LiveStt {
         const rate = ctx.sampleRate;
         node.onaudioprocess = (e) => {
           if (paused) return;
-          const pcm = toPcm16k(e.inputBuffer.getChannelData(0), rate);
+          const frame = e.inputBuffer.getChannelData(0);
+          const turn = vad.push(rms(frame), (frame.length / rate) * 1000, coachSpeaking());
+          if (turn !== null) ev.speech?.(turn);
+          const pcm = toPcm16k(frame, rate);
           buf.push(pcm);
           len += pcm.length;
           // A quarter of a second a frame (4,000 samples).
@@ -130,6 +180,8 @@ export function cloudStt(): LiveStt {
         // Some browsers only run the processor when it is connected; it writes silence.
         node.connect(ctx.destination);
         stream.getAudioTracks()[0]?.addEventListener("ended", () => ev.failed("ended"));
+        // A context made after the tap may start suspended (Safari): ask it to run.
+        void ctx.resume?.().catch(() => undefined);
         return true;
       } catch {
         this.stop();
@@ -181,6 +233,7 @@ export function blobPlayer(session: RewardsSession, lang: "en" | "fr"): LivePlay
   let speaking = false;
   const heard = new Map<number, number>();
   let idle: (() => void) | null = null;
+  let started: ((turn: number) => void) | null = null;
 
   const release = () => {
     if (el) {
@@ -199,10 +252,11 @@ export function blobPlayer(session: RewardsSession, lang: "en" | "fr"): LivePlay
     release();
     next();
   };
-  const playBlob = (b: Blob) => {
+  const playBlob = (b: Blob, turn: number) => {
     objectUrl = URL.createObjectURL(b);
     const a = new Audio(objectUrl);
     el = a;
+    a.onplaying = () => el === a && started?.(turn);
     a.onended = () => el === a && done();
     a.onerror = () => el === a && done();
     void a.play().catch(() => el === a && done());
@@ -219,11 +273,11 @@ export function blobPlayer(session: RewardsSession, lang: "en" | "fr"): LivePlay
       return;
     }
     playing = it;
-    if (it.kind === "blob") playBlob(new Blob(it.parts as BlobPart[], { type: "audio/mpeg" }));
+    if (it.kind === "blob") playBlob(new Blob(it.parts as BlobPart[], { type: "audio/mpeg" }), it.turn);
     else if (it.kind === "url")
       void session.voiceAudio(it.url).then((b) => {
         if (playing !== it) return;
-        if (b) playBlob(b);
+        if (b) playBlob(b, it.turn);
         else sayNow(it);
       });
     else sayNow(it);
@@ -231,6 +285,7 @@ export function blobPlayer(session: RewardsSession, lang: "en" | "fr"): LivePlay
   let voice: { stop(): void } | null = null;
   const sayNow = (it: Item & { text: string }) => {
     speaking = true;
+    started?.(it.turn);
     voice = sayLiveDevice(it.text, lang, () => {
       speaking = false;
       voice = null;
@@ -279,6 +334,9 @@ export function blobPlayer(session: RewardsSession, lang: "en" | "fr"): LivePlay
     busy: () => !!playing || queue.length > 0 || !!filling || speaking,
     onIdle(cb) {
       idle = cb;
+    },
+    onStart(cb) {
+      started = cb;
     },
   };
 }

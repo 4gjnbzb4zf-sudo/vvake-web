@@ -214,7 +214,8 @@ const en = {
     undo: "Undo",
     undoUntil: "Undo until {date}",
     memory: "What your coach remembers",
-    memoryLead: "Up to 20 short lines, from what you agreed or said. Forget any of them.",
+    memoryLead:
+      "What your coach keeps in mind to coach you, by kind (never a diagnosis): correct, delete or add any line. Fresh start clears it; deleting your account deletes it.",
     memoryEmpty: "Nothing yet.",
     forget: "Forget",
     forgetAll: "Forget all",
@@ -595,7 +596,8 @@ const fr: AccountDict = {
     undo: "Annuler",
     undoUntil: "Annulable jusqu'au {date}",
     memory: "Ce que ton coach retient",
-    memoryLead: "Jusqu'à 20 lignes courtes, d'après ce que tu as accepté ou dit. Efface celles que tu veux.",
+    memoryLead:
+      "Ce que ton coach garde en tête pour te coacher, par type (jamais un diagnostic) : corrige, supprime ou ajoute n'importe quelle ligne. Repartir à zéro l'efface ; supprimer ton compte la supprime.",
     memoryEmpty: "Rien pour l'instant.",
     forget: "Oublier",
     forgetAll: "Tout oublier",

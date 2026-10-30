@@ -1,4 +1,4 @@
-// Copied from VVFit packages/game-core/src/coachScreens.ts (c18fa26b 2026-10-29) by scripts/sync-coach-core.ts. Do not edit: re-sync.
+// Copied from VVFit packages/game-core/src/coachScreens.ts (c525a71a 2026-10-30) by scripts/sync-coach-core.ts. Do not edit: re-sync.
 /**
  * The screens the coach may open (living app, ADR-0062 §5 "Helps navigate"): "where are my moves?" is answered in one
  * line plus a button. The coach's `open_screen` action names one of these routes; anything else is dropped. The
