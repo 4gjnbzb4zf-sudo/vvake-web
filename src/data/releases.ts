@@ -19,6 +19,30 @@ export interface Release {
 
 export const releases: Release[] = [
   {
+    version: "1.0.0 (60)",
+    date: "2026-10-30",
+    channel: "beta",
+    devices: ["iphone", "watch", "android"],
+    notes: {
+      en: {
+        improved: [
+          "Phone-only points stay fair for everyone: each phone workout is checked once it's uploaded (GPS, steps and motion that agree with each other). If part of it can't be verified, it earns part of its points, or none for now, with a calm line in the journal. It always stays in your journal and your streak, and a person looks at any session held back. Never an automatic ban.",
+          "Walking with friends is never a problem. The same walk recorded on several accounts of the same person counts once.",
+          "Phone-only sessions without GPS distance (a treadmill, GPS off) count your steps under the indoor rules: up to 60 phone points a day.",
+          "On the Apple Watch, a workout with simulated locations doesn't count toward prizes, leagues or challenges. Its heart-rate points stay.",
+        ],
+      },
+      fr: {
+        improved: [
+          "Les points du téléphone restent justes pour tout le monde : chaque séance avec le téléphone est vérifiée une fois envoyée (GPS, pas et mouvement qui concordent). Si une partie ne peut pas être vérifiée, elle rapporte une partie de ses points, ou aucun pour l'instant, avec une phrase calme dans le journal. Elle reste toujours dans votre journal et votre série, et une personne regarde toute séance mise de côté. Jamais d'exclusion automatique.",
+          "Marcher avec des amis ne pose jamais de problème. La même sortie enregistrée sur plusieurs comptes d'une même personne compte une seule fois.",
+          "Les séances avec le téléphone seul sans distance GPS (tapis de course, GPS coupé) comptent vos pas avec les règles intérieur : jusqu'à 60 points téléphone par jour.",
+          "Sur l'Apple Watch, une séance avec des positions simulées ne compte pas pour les prix, les ligues ni les défis. Ses points de fréquence cardiaque restent.",
+        ],
+      },
+    },
+  },
+  {
     version: "1.0.0 (59)",
     date: "2026-10-30",
     channel: "beta",
