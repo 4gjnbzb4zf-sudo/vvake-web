@@ -73,7 +73,7 @@ export type WebTab = "today" | "plan" | "trainings" | "crew" | "coach" | "you";
 export const webTabs = (tabs: readonly TailorTab[]): WebTab[] => tabs.map((t) => (t === "train" ? "trainings" : t));
 
 /** Where each feature opens in the web app (All features): a route of the app, or a page of the site. */
-export type FeatureTarget = { route: "season" | "coach" | "rhythm" | "places" | "trainings" | "crew" } | { page: string };
+export type FeatureTarget = { route: "season" | "coach" | "rhythm" | "places" | "trainings" | "crew" | "nutrition" } | { page: string };
 export const FEATURE_TARGET: Readonly<Record<TailorFeature, FeatureTarget>> = {
   plan: { route: "season" },
   coach: { route: "coach" },
@@ -84,6 +84,7 @@ export const FEATURE_TARGET: Readonly<Record<TailorFeature, FeatureTarget>> = {
   social: { route: "crew" },
   rewards: { page: "rewards/" },
   desk: { page: "account/#connections" },
+  nutrition: { route: "nutrition" },
 };
 
 /**
@@ -99,6 +100,7 @@ export const ACCOUNT_SECTION_FEATURE = {
   health: null,
   zones: null,
   goals: "plan",
+  nutrition: "nutrition",
   connections: null,
   pulse: "rewards",
   plus: "coach",

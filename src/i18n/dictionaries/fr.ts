@@ -1207,6 +1207,10 @@ export const fr: Dictionary = {
       { title: "Hydratation", body: "Rappels toutes les 90 minutes, toutes les 45 autour des séances et les jours de chaleur." },
       { title: "Rythme des repas", body: "Seulement aux heures que tu choisis. Jamais de calories, jamais de régime." },
       {
+        title: "La nutrition, si tu veux",
+        body: "Facultative. Prends ton repas en photo pour une estimation de ton assiette, corrige-la d'un geste, et reçois des idées de repas et une liste de courses adaptées à ton entraînement, ton budget et tes allergies. Des estimations, pas un avis médical ; les chiffres se masquent d'un geste.",
+      },
+      {
         title: "Pauses respiration",
         body: "Quand ta variabilité cardiaque passe sous ta propre base, 60 secondes pour respirer. Jamais un diagnostic.",
       },
@@ -1217,7 +1221,7 @@ export const fr: Dictionary = {
     ],
     promises: [
       "Tout est optionnel",
-      "Aucun comptage de calories",
+      "Des calories seulement si tu actives la nutrition, masquables d'un geste",
       "Aucune question de poids, sauf si tu te fixes un objectif de poids",
       "Heures calmes la nuit",
       "Conseils bien-être, pas médicaux",
@@ -2826,6 +2830,43 @@ export const fr: Dictionary = {
         ],
       },
       {
+        id: "nutrition",
+        h: "Nutrition (facultative)",
+        p: [
+          "La nutrition est désactivée tant que vous ne l'activez pas (Ton VVake, ou Réglages › Nutrition). Désactivée, rien de ce qui suit n'a lieu : pas de journal des repas, pas d'idées de repas, pas de conseils alimentaires du coach. Les calories et les nutriments sont des estimations, pas des mesures, et rien dans la nutrition n'est un avis médical ou diététique : pour un problème de santé, une grossesse ou une relation difficile avec la nourriture, parlez-en à un médecin ou à un·e diététicien·ne.",
+        ],
+        list: [
+          {
+            t: "Les photos de repas sont analysées, puis effacées.",
+            d: "Quand vous ajoutez un repas avec une photo, votre téléphone ou votre navigateur la réduit d'abord (1024 pixels au plus, quelques centaines de kilo-octets) et l'envoie à notre API, qui la transmet à notre fournisseur d'IA, Anthropic, pour reconnaître les aliments et estimer les portions. Nous ne conservons pas la photo sur nos serveurs, ni dans notre base de données, notre stockage de fichiers ou nos journaux. Anthropic la traite en tant que fournisseur de services et, selon ses conditions commerciales, ne l'utilise pas pour entraîner ses modèles (voir Fonctions d'IA). Sur vvake.com/app, les photos ne sont jamais conservées. Dans l'application mobile, Garder les photos (désactivé par défaut) en garde une copie sur votre téléphone seulement, effacée avec le repas ou l'application.",
+          },
+          {
+            t: "Ce que nous conservons.",
+            d: "Votre journal des repas (heure, repas, les aliments avec leurs grammes et l'énergie, les protéines, les glucides et les lipides estimés, la façon dont le repas a été ajouté, une note facultative), votre profil nutrition (objectif, style d'alimentation, allergies, intolérances, aliments que vous n'aimez pas, temps de cuisine, budget, repas par jour, nombre de portions à la maison, les aliments que vous avez déjà, si vous avez 18 ans ou plus, vos choix Masquer les chiffres et mode serein), vos plans de repas et listes de courses, et un petit modèle de correction des portions : quand vous corrigez une portion estimée par l'IA, nous gardons un facteur de correction par famille d'aliments (pâtes, riz, viande…) pour que la prochaine estimation vous corresponde mieux. Tout cela reste avec votre compte et est supprimé avec lui. Le nouveau départ garde votre journal des repas (comme vos données Santé) et remet à zéro les plans et les idées.",
+          },
+          {
+            t: "Votre région, jamais votre position.",
+            d: "Pour les produits de saison et les liens vers les circulaires de la semaine, l'application peut utiliser votre pays et votre région (par exemple FR, ou CA et QC). Ils sont déduits sur votre appareil à partir d'une localisation que vous avez déjà autorisée, puis les coordonnées sont abandonnées : nous ne recevons et ne gardons que le code du pays et de la région. Vous pouvez l'effacer dans Réglages › Nutrition.",
+          },
+          {
+            t: "Allergies et intolérances.",
+            d: "Ce que vous indiquez sert uniquement à écarter ces aliments de chaque idée, plan, liste de courses et réponse du coach, et à afficher une note calme quand un repas que vous ajoutez en contient. Ce n'est jamais partagé, jamais utilisé pour la publicité ni montré à qui que ce soit. Nos vérifications sont soigneuses mais peuvent manquer un ingrédient : lisez toujours les étiquettes.",
+          },
+          {
+            t: "Mode serein et Masquer les chiffres.",
+            d: "Masquer les chiffres montre votre journée en mots plutôt qu'en calories, en un geste depuis chaque écran Nutrition. Si vous préférez ne pas vous concentrer sur les chiffres, ou si ce que vous dites laisse penser que la nourriture est un sujet difficile, VVake garde les chiffres masqués, ne suggère jamais de manger moins et vous oriente une fois vers un·e professionnel·le. Nous ne suggérons jamais de compenser un repas par de l'exercice.",
+          },
+          {
+            t: "Santé Apple et Health Connect (téléphone).",
+            d: "Écrire l'énergie, les nutriments et l'eau de vos repas dans Santé ou Health Connect est un réglage distinct, désactivé par défaut.",
+          },
+          {
+            t: "Créneau de courses dans votre calendrier.",
+            d: "Sur le Web, Ajouter à mon calendrier télécharge un fichier .ics que vous ouvrez vous-même ; rien n'est envoyé à un service de calendrier. L'heure proposée est calculée à partir des créneaux que vous avez choisis auparavant.",
+          },
+        ],
+      },
+      {
         id: "strap",
         h: "Ceinture cardio (téléphone)",
         p: [
@@ -2886,6 +2927,10 @@ export const fr: Dictionary = {
           {
             t: "Le coach (Claude d'Anthropic).",
             d: "Pour rédiger chaque réponse, nous transmettons à Anthropic : votre message et les derniers échanges (6 au maximum), les données en direct de votre séance (sport, temps, fréquence cardiaque et zone, distance, allure, cadence, écarts dans une course ou un défi, pointage de l'affrontement de votre ville), le plan du jour et votre rétroaction après la séance, et un résumé de votre profil (nom d'affichage, niveau, zones, objectifs et notes du coach, votre objectif, vos choix douleur, faible impact et effort léger, série, points et décisions récentes sur le plan). Il reçoit aussi un court résumé de vos 14 derniers jours (séances par sport, minutes, temps dans les zones, distance, fréquence cardiaque moyenne et maximale, ressenti), les séances prévues et faites de la semaine, votre sommeil de la nuit et la tendance de votre fréquence cardiaque au repos si vous les partagez, vos réglages d'entraînement (fréquence cardiaque au repos et maximale, zones, faible impact, effort léger, rythme quotidien, mouvement du jour, verrou de concentration), les changements de réglages acceptés et ce que le coach retient. Jamais le nom d'un problème de santé. Nous ne transmettons pas votre courriel, votre identifiant de compte, votre position ni vos contacts. Anthropic traite ces données comme notre fournisseur de services et, selon ses conditions commerciales, ne s'en sert pas pour entraîner ses modèles. Anthropic les supprime dans les 30 jours, sauf s'il doit les garder plus longtemps pour faire respecter sa politique d'utilisation (jusqu'à 2 ans pour un contenu signalé) ou pour se conformer à la loi.",
+          },
+          {
+            t: "Photos de repas et idées de repas (Anthropic Claude).",
+            d: "Seulement si vous activez la nutrition. Pour une photo de repas, Anthropic reçoit la photo réduite, le repas (déjeuner, dîner…), l'heure et votre langue ; pour un repas tapé ou dicté, le texte. Pour les idées de repas et les plans de la semaine, il reçoit votre objectif nutrition, votre style d'alimentation, vos allergies, intolérances et aliments écartés (pour les exclure), votre temps de cuisine, votre budget, la saison et l'intensité de vos jours d'entraînement. Jamais votre nom, votre courriel, votre position ni un problème de santé. Mêmes conditions que pour le coach : pas d'entraînement des modèles ; la photo n'est pas conservée chez nous.",
           },
           {
             t: "Changements de plan et de réglages.",
@@ -2979,7 +3024,10 @@ export const fr: Dictionary = {
             t: "Cloudflare (États-Unis; nos données sont stockées dans l'UE).",
             d: "Héberge l'API VVake, la base de données et le stockage de fichiers, la liste d'attente, et la vérification anti-robots du formulaire d'inscription du site (Turnstile).",
           },
-          { t: "Anthropic (États-Unis).", d: "Rédige les réponses du coach (voir Fonctions d'IA)." },
+          {
+            t: "Anthropic (États-Unis).",
+            d: "Rédige les réponses du coach et, si vous utilisez la nutrition, lit les photos de repas et rédige les idées de repas (voir Fonctions d'IA).",
+          },
           {
             t: "ElevenLabs (Eleven Labs Inc., États-Unis ; données stockées aux États-Unis).",
             d: "Transforme les répliques du coach en voix, et ce que vous dites au coach sur une montre en texte.",
@@ -3138,7 +3186,7 @@ export const fr: Dictionary = {
         list: [
           {
             t: "Tout supprimer.",
-            d: "Supprimez votre compte dans l'application (Toi > Ton compte > Supprimer mon compte, comptes invités compris) ou en écrivant à {email}. Cela supprime votre compte, vos séances, vos Move Quests, votre questionnaire et vos données de santé, vos appareils, les changements de plan, les défis, votre participation aux quêtes d'équipe, vos réglages My Pulse, vos images VVaker, les sauvegardes chiffrées de vos parcours, l'audio du coach qui n'appartenait qu'à vous, vos liens Claude Code et le lien de votre portefeuille, après avoir révoqué l'accès Google. Les données de l'app Santé et de vos appareils restent sous votre contrôle. Les listes hebdomadaires de prix déjà publiées et les inscriptions sur la blockchain ne peuvent pas être effacées (voir Prix $VVAKE et votre portefeuille).",
+            d: "Supprimez votre compte dans l'application (Toi > Ton compte > Supprimer mon compte, comptes invités compris) ou en écrivant à {email}. Cela supprime votre compte, vos séances, vos Move Quests, votre questionnaire et vos données de santé, vos appareils, les changements de plan, les défis, votre participation aux quêtes d'équipe, vos réglages My Pulse, vos images VVaker, les sauvegardes chiffrées de vos parcours, l'audio du coach qui n'appartenait qu'à vous, vos liens Claude Code, votre journal des repas, votre profil nutrition, vos plans de repas et vos corrections de portions, et le lien de votre portefeuille, après avoir révoqué l'accès Google. Les données de l'app Santé et de vos appareils restent sous votre contrôle. Les listes hebdomadaires de prix déjà publiées et les inscriptions sur la blockchain ne peuvent pas être effacées (voir Prix $VVAKE et votre portefeuille).",
           },
           {
             t: "Se déconnecter, supprimer une séance.",

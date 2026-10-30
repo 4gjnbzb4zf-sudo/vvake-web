@@ -23,6 +23,7 @@ import { getTalkDict } from "@/i18n/talk";
 import { adaptiveOn } from "@/lib/webapp/adaptive/progressApi";
 import { ProgressRow } from "./ProgressScreen";
 import { AdaptiveSettings } from "./AdaptiveSettings";
+import { getNutritionDict } from "@/i18n/nutrition";
 import { packOn, tailorText, TAILOR_FEATURES, TAILOR_PRESET_TEXT } from "@/lib/webapp/tailor/tailor";
 
 /** The section index at the top of You (the phone's You index), in page order. */
@@ -60,6 +61,7 @@ export function YouScreen({ focus }: { focus?: Section } = {}) {
     setWorkoutVoice,
     profile,
     suggests,
+    featureOn,
   } = useApp();
   const lean = getTailorDict(lang);
   const [settingsOpen, setSettingsOpen] = useState(focus !== undefined && focus !== "points" && focus !== "progress");
@@ -282,6 +284,14 @@ export function YouScreen({ focus }: { focus?: Section } = {}) {
     </List>
   );
 
+  // Nutrition (ADR-0070, optional): only once turned on; otherwise it lives in All features, never pushed here.
+  const tnu = getNutritionDict(lang);
+  const nutritionList = featureOn("nutrition") ? (
+    <List>
+      <Row tone="mint" icon="🍽" title={tnu.title} detail={tnu.lead} onClick={() => go({ name: "nutrition" })} />
+    </List>
+  ) : null;
+
   /* VV points explained: this week's from the loaded history, the streak bonus, how points work. Points only. */
   const pointsCard = (
     <Card>
@@ -458,8 +468,8 @@ export function YouScreen({ focus }: { focus?: Section } = {}) {
             {devices}
             {sportsList}
             {coachList}
-            {coachList}
             {packOn(profile, "habits") && habitsList}
+            {nutritionList}
             {appCard}
             {accountRows}
             {privacy}
@@ -506,6 +516,7 @@ export function YouScreen({ focus }: { focus?: Section } = {}) {
 
       <SectionTitle id={sectionId("habits")}>{t.you.sections.habits}</SectionTitle>
       {habitsList}
+      {nutritionList}
 
       <SectionTitle id={sectionId("points")}>{t.you.sections.points}</SectionTitle>
       {pointsCard}

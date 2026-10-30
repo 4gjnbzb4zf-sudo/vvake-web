@@ -16,6 +16,7 @@ import {
 } from "./season";
 import { editBody, editsBody } from "./planEdit";
 import { coachVoiceGender, coachVoicesSchema, type CoachVoiceGender } from "@/lib/coachVoices";
+import { COACH_ACTIONS_VERSION } from "./coach/coachActions";
 
 /**
  * The web app's API calls (vvake.com/app): the same endpoints the phone uses (monorepo docs/05-tech/api-v1.md), on the
@@ -105,6 +106,8 @@ export const appMeSchema = z.object({
       autoPause: z.optional(z.unknown()),
       /** Adaptive coaching (build 62, ADR-0069): `{ timing, rpeChecks, at }`, checked by adaptive/progressApi.ts. */
       adaptive: z.optional(z.unknown()),
+      /** Nutrition (ADR-0070): the nutrition profile `{ v, on, goal, diet, … at }`, checked by game-core cleanNutritionProfile. */
+      nutrition: z.optional(z.unknown()),
     }),
   ),
   consents: opt(z.object({ disclaimer: opt(z.object({ version: z.number(), acceptedAt: z.string() })) })),
@@ -378,8 +381,9 @@ export function webApi(s: RewardsSession) {
       localHour?: number;
       localDay?: string;
     }) =>
-      // actions: 2 = this app shows the coach's action cards (ADR-0063); an older API just ignores it.
-      s.call("/v1/coach/talk", send("POST", { ...b, voice: b.voice === true, actions: 2 }), coachReplySchema),
+      // `actions`: the catalog version this app runs (game-core COACH_ACTIONS_VERSION: 2 = the cards of ADR-0063, 3 = the
+      // super coach's kinds, 4 = Nutrition's, ADR-0070); the API sends an older app what it can show.
+      s.call("/v1/coach/talk", send("POST", { ...b, voice: b.voice === true, actions: COACH_ACTIONS_VERSION }), coachReplySchema),
     // Every voice fetch names the coach voice (ADR-0056: `voice=woman|man`), never left to the account's setting.
     voicePack: (lang: string, voice: CoachVoiceGender) => s.call(`/v1/voice/pack?${voiceQ(lang, voice)}`, GET, voiceSetSchema),
     voiceLibrary: (lang: string, imperial: boolean, voice: CoachVoiceGender) =>

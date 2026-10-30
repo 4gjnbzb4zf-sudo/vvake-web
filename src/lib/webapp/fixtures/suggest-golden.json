@@ -145,6 +145,18 @@
    "ok": false
   },
   {
+   "kind": "recovery_meal",
+   "level": "guide",
+   "inWorkout": false,
+   "ok": true
+  },
+  {
+   "kind": "recovery_meal",
+   "level": "guide",
+   "inWorkout": true,
+   "ok": false
+  },
+  {
    "kind": "next_step",
    "level": "essentials",
    "inWorkout": false,
@@ -289,6 +301,18 @@
    "ok": false
   },
   {
+   "kind": "recovery_meal",
+   "level": "essentials",
+   "inWorkout": false,
+   "ok": true
+  },
+  {
+   "kind": "recovery_meal",
+   "level": "essentials",
+   "inWorkout": true,
+   "ok": false
+  },
+  {
    "kind": "next_step",
    "level": "quiet",
    "inWorkout": false,
@@ -428,6 +452,18 @@
   },
   {
    "kind": "celebration",
+   "level": "quiet",
+   "inWorkout": true,
+   "ok": false
+  },
+  {
+   "kind": "recovery_meal",
+   "level": "quiet",
+   "inWorkout": false,
+   "ok": false
+  },
+  {
+   "kind": "recovery_meal",
    "level": "quiet",
    "inWorkout": true,
    "ok": false

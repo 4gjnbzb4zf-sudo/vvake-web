@@ -56,6 +56,8 @@ const prefsSchema = z.object({
   autoPause: z.optional(z.unknown()),
   /** Adaptive coaching (VVFit build 62, ADR-0069): `{ timing, rpeChecks, at }`, read with parseAdaptivePrefs (webapp/adaptive/progressApi.ts). */
   adaptive: z.optional(z.unknown()),
+  /** Nutrition (ADR-0070): the nutrition profile, checked by game-core cleanNutritionProfile (webapp/nutrition). */
+  nutrition: z.optional(z.unknown()),
 });
 export type Prefs = z.infer<typeof prefsSchema>;
 

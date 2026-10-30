@@ -28,6 +28,7 @@ import {
 } from "@/lib/webapp/tailor/tailor";
 import { cleanOverrides, FEATURE_TARGET, nextTailorPrefs, webTabs } from "@/lib/webapp/tailor/prefs";
 import { coachVoiceGender } from "@/lib/coachVoices";
+import { useNutritionSwitch } from "./useNutrition";
 import { useApp } from "./AppContext";
 import { CoachVoicePicker } from "./CoachVoicePicker";
 import { useDayOneCall } from "./LiveCall";
@@ -45,6 +46,7 @@ import { Btn, Card, H1, H2, inputCls, Kicker, List, Row, Segmented, Small, Toggl
  */
 export function TailorScreen() {
   const { t, lang, api, go, me, setMe, sessions, tailor, profile, saveTailor, tailorDev, deskLinked } = useApp();
+  const nutritionSwitch = useNutritionSwitch();
   const x = getTailorDict(lang).survey;
   const L = lang === "fr" ? "fr" : "en";
   const allowed = tailorDev || !!profile;
@@ -134,7 +136,9 @@ export function TailorScreen() {
           .then(setMe)
           .catch(() => undefined);
       setState("idle");
-      go({ name: "today" });
+      // Nutrition (ADR-0070): a yes turns it on and opens its setup (the profile); "later" / "no" leave it off.
+      if (answers.nutrition === "yes" && (await nutritionSwitch(true))) go({ name: "nutrition", view: "settings" });
+      else go({ name: "today" });
     } catch {
       setState("error");
     }
@@ -559,7 +563,8 @@ function Summary({
  * removed); the switch turns it on or off for every device (the summary's toggles, prefs.tailor.overrides).
  */
 export function FeaturesScreen() {
-  const { t, lang, go, tailor, profile, saveTailor, deskLinked } = useApp();
+  const { t, lang, go, tailor, profile, saveTailor, deskLinked, featureOn } = useApp();
+  const nutritionSwitch = useNutritionSwitch();
   const L = lang === "fr" ? "fr" : "en";
   const x = getTailorDict(lang).features;
   const [msg, setMsg] = useState<string | null>(null);
@@ -572,6 +577,8 @@ export function FeaturesScreen() {
     setMsg(null);
     try {
       await saveTailor(nextTailorPrefs(tailor, { overrides: o }));
+      // Nutrition (ADR-0070) is on only with its profile on too: the switch sets both.
+      if (k === "nutrition") await nutritionSwitch(v);
       setMsg(x.turned);
     } catch {
       setMsg(getTailorDict(lang).survey.error);
@@ -585,7 +592,7 @@ export function FeaturesScreen() {
       </div>
       <List>
         {TAILOR_FEATURES.map((k) => {
-          const on = profile ? profile.features[k] : true;
+          const on = k === "nutrition" ? featureOn("nutrition") : profile ? profile.features[k] : true;
           const to = FEATURE_TARGET[k];
           return (
             <div key={k} className="flex items-center gap-2 pr-4">

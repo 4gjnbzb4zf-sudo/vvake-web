@@ -16,6 +16,7 @@ import { goalTitle } from "./GoalsScreen";
 import { VVakerImg } from "./MyVVaker";
 import { rhythmToday } from "./RhythmScreen";
 import { HabitsToday } from "./HabitsToday";
+import { FuelRow } from "./NutritionToday";
 import { ComebackCard } from "./Journey";
 import { useWorkout } from "./WorkoutContext";
 import { ProgressLine } from "./ProgressScreen";
@@ -337,6 +338,7 @@ export function TodayScreen() {
 
       {/* Today's habits, one tap each (water, meals, bedtime). */}
       <HabitsToday />
+      <FuelRow />
 
       <h2 className="pt-2 font-display text-[17px] font-semibold">{t.today.moreToday}</h2>
       <List>

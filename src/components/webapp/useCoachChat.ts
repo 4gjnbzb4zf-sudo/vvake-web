@@ -65,7 +65,8 @@ export interface ChatOptions {
 }
 
 export function useCoachChat(o: ChatOptions) {
-  const { t, lang, api, goals, sessions, prefs, go, me, lastMoment } = useApp();
+  const { t, lang, api, goals, sessions, prefs, go, me, lastMoment, featureOn } = useApp();
+  const nutritionOn = featureOn("nutrition");
   const L = lang === "fr" ? "fr" : "en";
   const today = useTodayPlan();
   const runner = useCoachRunner(today);
@@ -250,6 +251,8 @@ export function useCoachChat(o: ChatOptions) {
       setTurns((x) => [...x, turn]);
       if (!act) return;
       if (id) opts.current.onCardState?.(id, "shown");
+      // Nutrition's review_meal / suggest_meals open a screen: never on arrival (it would leave the talk), on the tap only.
+      if (act.action.type === "review_meal" || act.action.type === "suggest_meals") return;
       if (!runsOnArrival(act.action) || runner.plan(act.action).kind !== "run") return;
       void (async () => {
         // Let the turn land first (its index), then run it.
@@ -321,7 +324,7 @@ export function useCoachChat(o: ChatOptions) {
         });
         const proposal = r.action?.type === "propose_plan";
         const open = openScreenOf(r.action);
-        const action = cardActionOf(r.action, L, today);
+        const action = cardActionOf(r.action, L, today, nutritionOn);
         showCard({
           role: "coach",
           text: r.reply,
@@ -346,20 +349,20 @@ export function useCoachChat(o: ChatOptions) {
         setBusy(false);
       }
     },
-    [answerCard, pendingIndex, patchCard, api, context, lang, prefs.units, L, today, showCard],
+    [answerCard, pendingIndex, patchCard, api, context, lang, prefs.units, L, today, showCard, nutritionOn],
   );
 
   /** The live coach's app_action: its card on screen; resolves with what really happened (tap, yes, no, or gone). */
   const liveCard = useCallback(
     (args: Record<string, unknown>, id: string, at?: number): Promise<CardResult> => {
-      const action: CoachAppAction | null = cardActionOf(args, L, today);
+      const action: CoachAppAction | null = cardActionOf(args, L, today, nutritionOn);
       if (!action) return Promise.resolve({ status: "failed", reason: "failed", line: "" });
       return new Promise((resolve) => {
         waiting.current.set(id, resolve);
         showCard({ role: "coach", text: "", act: { action, state: "pending", id }, ...(at !== undefined ? { at } : {}) }, id);
       });
     },
-    [L, today, showCard],
+    [L, today, showCard, nutritionOn],
   );
 
   /** The live server read a yes / no to card `id` (answer_card): the same as the tap. */

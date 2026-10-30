@@ -29,6 +29,7 @@ import {
 } from "@/lib/webapp/workoutPrefs";
 import { maxEnergy, refill, type EnergyState, type WebSession } from "@/lib/webapp/workout";
 import { useNow } from "./useNow";
+import { cleanNutritionProfile, nutritionOn, type NutritionProfile } from "@/lib/webapp/nutrition/nutrition";
 import { profileFromPrefs, type TailorPrefs, type TailorProfile } from "@/lib/webapp/tailor/tailor";
 import { parseTailorPrefs, readTailorDev, webTabs, type WebTab } from "@/lib/webapp/tailor/prefs";
 import { suggestAllowed, suggestLevelOf, type SuggestionKind, type SuggestLevel, type SuggestPrefs } from "@/lib/webapp/suggest/suggest";
@@ -89,7 +90,16 @@ export type Route =
    */
   | { name: "place-note"; key: string; sport: string; fresh?: boolean }
   | { name: "meetup"; id: string }
-  | { name: "meetup-new"; sport?: string };
+  | { name: "meetup-new"; sport?: string }
+  /**
+   * Nutrition (ADR-0070, optional): a view (#/nutrition/week …); `photo` opens the log with the camera at once (the
+   * coach's log_meal with a photo, #/nutrition/log/photo).
+   */
+  | { name: "nutrition"; view?: NutritionView; photo?: boolean };
+
+/** Nutrition's views: today (default), logging a meal, the week, ideas, the week plan, groceries, settings. */
+export const NUTRITION_VIEWS = ["today", "log", "week", "ideas", "plan", "grocery", "settings"] as const;
+export type NutritionView = (typeof NUTRITION_VIEWS)[number];
 
 /**
  * The tabs while the tailored app is off: the phone's five. Plan is labelled Train (living app decision 2) and holds
@@ -123,6 +133,11 @@ export function parseRoute(hash: string): Route {
     return arg && /^[a-z0-9_]{3,20}$/i.test(arg) ? { name: "creator", handle: arg.toLowerCase() } : { name: "trainings" };
   if (name === "trainings" || name === "teach" || name === "coach-profile") return { name };
   if (name === "season-goal") return arg && /^sg[a-z0-9]{4,24}$/.test(arg) ? { name, id: arg } : { name };
+  if (name === "nutrition") {
+    const view = (NUTRITION_VIEWS as readonly string[]).includes(arg ?? "") ? (arg as NutritionView) : undefined;
+    if (view === "log" && h.split("/")[2] === "photo") return { name, view, photo: true };
+    return view && view !== "today" ? { name, view } : { name };
+  }
   if (name === "season" || name === "season-sports" || name === "season-health" || name === "season-history") return { name };
   if (name === "meetup") return arg && /^[A-Za-z0-9_-]{4,64}$/.test(arg) ? { name, id: arg } : { name: "crew" };
   if (name === "meetup-new") return arg && /^[a-z0-9_-]{2,30}$/.test(arg) ? { name, sport: arg } : { name };
@@ -174,15 +189,17 @@ export const routeHash = (r: Route) =>
             ? `#/build${r.id ? `/${r.id}` : ""}`
             : r.name === "creator"
               ? `#/creator/${r.handle}`
-              : r.name === "season-goal"
-                ? `#/season-goal${r.id ? `/${r.id}` : ""}`
-                : r.name === "meetup"
-                  ? `#/meetup/${r.id}`
-                  : r.name === "meetup-new"
-                    ? `#/meetup-new${r.sport ? `/${r.sport}` : ""}`
-                    : r.name === "place-note"
-                      ? `#/place-note/${encodeURIComponent(r.key)}/${r.sport}${r.fresh ? "/new" : ""}`
-                      : `#/${r.name}`;
+              : r.name === "nutrition"
+                ? `#/nutrition${r.view && r.view !== "today" ? `/${r.view}${r.view === "log" && r.photo ? "/photo" : ""}` : ""}`
+                : r.name === "season-goal"
+                  ? `#/season-goal${r.id ? `/${r.id}` : ""}`
+                  : r.name === "meetup"
+                    ? `#/meetup/${r.id}`
+                    : r.name === "meetup-new"
+                      ? `#/meetup-new${r.sport ? `/${r.sport}` : ""}`
+                      : r.name === "place-note"
+                        ? `#/place-note/${encodeURIComponent(r.key)}/${r.sport}${r.fresh ? "/new" : ""}`
+                        : `#/${r.name}`;
 
 export interface Prefs {
   units: Units;
@@ -301,6 +318,14 @@ export interface AppState {
   recordSteps: (events: { id: string; ev: StepEvent }[]) => void;
   replayTours: () => void;
   featureOn: (f: TailorFeature) => boolean;
+  /**
+   * Nutrition (ADR-0070): the account's prefs.nutrition (cleaned by game-core), null before it was ever set. On only
+   * when the profile says on and Your VVake's `nutrition` feature isn't off (game-core nutritionOn: opt-in, never on by
+   * default, unlike the other features); `featureOn("nutrition")` answers the same. `setNutrition` shows a saved
+   * profile at once (the screens save it with PUT /v1/nutrition/profile).
+   */
+  nutrition: NutritionProfile | null;
+  setNutrition: (p: NutritionProfile) => void;
   /** What the athlete just finished (a summary seen this visit), for the coach's `context.where.last`. */
   lastMoment: CoachWhere["last"] | null;
   setLastMoment: (m: CoachWhere["last"] | null) => void;
@@ -643,7 +668,14 @@ export function AppProvider({
     return () => window.clearTimeout(id);
   }, [accountStepsRaw, adoptSteps, pushSteps]);
   const steps = useMemo(() => stepsPref?.ledger ?? {}, [stepsPref]);
-  const featureOn = useCallback((f: TailorFeature) => packOn(profile, f), [profile]);
+  const nutritionRaw = me.prefs?.nutrition;
+  const nutrition = useMemo(() => (nutritionRaw ? cleanNutritionProfile(nutritionRaw) : null), [nutritionRaw]);
+  const nutritionIsOn = useMemo(() => nutritionOn(nutrition, profile ? profile.features : null), [nutrition, profile]);
+  const setNutrition = useCallback((p: NutritionProfile) => setMe({ ...me, prefs: { ...me.prefs, nutrition: p } }), [me]);
+  const featureOn = useCallback(
+    (f: TailorFeature) => ((f as string) === "nutrition" ? nutritionIsOn : packOn(profile, f)),
+    [profile, nutritionIsOn],
+  );
 
   // ── Show on Home (build 54): prefs.startWays, ours per account, the account's adopted when newer ──
   const [waysPref, setWaysPref] = useState<StartWaysPrefs | null>(() => readStored(`vvake-app-startways:${me.id}`, cleanStartWays));
@@ -874,6 +906,8 @@ export function AppProvider({
     recordSteps,
     replayTours,
     featureOn,
+    nutrition,
+    setNutrition,
     lastMoment,
     setLastMoment,
   };

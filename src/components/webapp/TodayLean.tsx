@@ -13,6 +13,7 @@ import { getTailorDict } from "@/i18n/tailor";
 import { useApp } from "./AppContext";
 import { SkippedCard } from "./PlanEdit";
 import { HabitsToday } from "./HabitsToday";
+import { FuelRow } from "./NutritionToday";
 import { ComebackCard } from "./Journey";
 import { VVakerImg } from "./MyVVaker";
 import { useSeason } from "./useSeason";
@@ -270,6 +271,8 @@ export function TodayLean() {
 
       {/* 4. The one thing waiting for an answer. */}
       {p.habits.rhythm ? <HabitsToday /> : p.features.plan ? <SkippedCard /> : null}
+      {/* Nutrition's Fuel line (ADR-0070), only when turned on: part of the last slot. */}
+      <FuelRow />
 
       <p className="pt-2 text-center">
         <button type="button" className="min-h-11 text-sm font-semibold text-sky-fg" onClick={() => go({ name: "features" })}>

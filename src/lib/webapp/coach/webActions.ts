@@ -66,6 +66,7 @@ const LINE_KEYS: readonly ActionLineKey[] = [
   "no_workout",
   "no_music",
   "no_location",
+  "nutrition_off",
   "failed",
 ];
 const line = (v: unknown, max: number) => (typeof v === "string" && v.trim() ? v.trim().slice(0, max) : undefined);
@@ -75,11 +76,12 @@ const line = (v: unknown, max: number) => (typeof v === "string" && v.trim() ? v
  * existing button): its fields checked and bounded again by game-core (`cleanCoachAction`), `planned` kept, and the
  * server's card and result lines (already in the athlete's language) kept over ours. Null for anything else. Pure.
  */
-export function cardActionOf(raw: unknown, lang: Lang, today?: TodayPlan): CoachAppAction | null {
+export function cardActionOf(raw: unknown, lang: Lang, today?: TodayPlan, nutritionOn?: boolean): CoachAppAction | null {
   if (!raw || typeof raw !== "object") return null;
   const r = raw as Record<string, unknown>;
   if (!isCoachActionKind(r.type) || r.type === "open_screen") return null;
-  const clean = cleanCoachAction(r, { lang, ...(today ? { today } : {}) });
+  // Nutrition (ADR-0070): its kinds, log_meal's photo and items only when Nutrition is on here.
+  const clean = cleanCoachAction(r, { lang, ...(today ? { today } : {}), ...(nutritionOn !== undefined ? { nutritionOn } : {}) });
   if (!clean) return null;
   const c = (r.card ?? {}) as Record<string, unknown>;
   const title = line(c.title, 80);
@@ -114,8 +116,13 @@ export type WebCardPlan = { kind: "run" } | { kind: "line"; reason: CoachActionF
  * `in_workout` while a workout runs here, `camera_off` (with a button to turn Camera & trainings on), `not_here` for
  * what starts on the phone. Quiet never blocks it (the athlete asked). Pure.
  */
-export function webCardPlan(a: CoachAppAction, s: { inWorkout: boolean; cameraOn: boolean }): WebCardPlan {
-  const g = gateCoachAction(a, { device: "web", inWorkout: s.inWorkout, cameraOn: s.cameraOn });
+export function webCardPlan(a: CoachAppAction, s: { inWorkout: boolean; cameraOn: boolean; nutritionOn?: boolean }): WebCardPlan {
+  const g = gateCoachAction(a, {
+    device: "web",
+    inWorkout: s.inWorkout,
+    cameraOn: s.cameraOn,
+    ...(s.nutritionOn !== undefined ? { nutritionOn: s.nutritionOn } : {}),
+  });
   if (!g.ok) return { kind: "line", reason: g.reason, ...(g.reason === "camera_off" ? { turnOnCamera: true } : {}) };
   // The catalog hands log_habit to the phone; the web keeps water, meals and bedtime itself, so it logs those here.
   if (g.handoff) return a.type === "log_habit" && webHabitOf(a.habit) ? { kind: "run" } : { kind: "line", reason: "not_here" };

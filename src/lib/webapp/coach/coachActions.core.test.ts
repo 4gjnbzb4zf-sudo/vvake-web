@@ -1,4 +1,4 @@
-// Copied from VVFit packages/game-core/test/coachActions.test.ts (c525a71a 2026-10-30) by scripts/sync-coach-core.ts. Do not edit: re-sync.
+// Copied from VVFit packages/game-core/test/coachActions.test.ts (bcd38837 2026-10-30) by scripts/sync-coach-core.ts. Do not edit: re-sync.
 import { describe, expect, it } from "vitest";
 import {
   actionLines,
@@ -94,9 +94,16 @@ describe("cleanCoachAction", () => {
       music: { op: "next" },
       show_places: { sport: "hike", minutes: 120 },
       show_summary: { span: "week", summary: { title: "Your week", lines: ["3 runs"] } },
+      review_meal: { mealId: "m_1", note: "Nice protein" },
+      suggest_meals: { meal: "dinner", count: 3 },
+      plan_meals: { weekStart: "2026-11-02" },
+      update_nutrition: { nutrition: { dislikes: ["cinnamon"] } },
     };
     for (const kind of COACH_ACTION_KINDS) {
-      for (const ctx of [en, fr]) {
+      for (const ctx of [
+        { ...en, nutritionOn: true },
+        { ...fr, nutritionOn: true },
+      ]) {
         const a = cleanCoachAction({ type: kind, ...raw[kind] }, ctx);
         expect(a, kind).not.toBeNull();
         expect(a!.card.title.length).toBeGreaterThan(2);
@@ -174,8 +181,9 @@ describe("honesty", () => {
             metric: "sleep_h",
             value: 8,
             op: "pause",
+            nutrition: { allergies: ["peanuts"] },
           },
-          { lang },
+          { lang, nutritionOn: true },
         )!;
         expect(claimsDone(offerLine(a, lang)), `${kind} ${lang}: ${offerLine(a, lang)}`).toBe(false);
       }
