@@ -16,6 +16,7 @@ import { cn } from "@/lib/cn";
 import { AppSection, ProfileSection, RemindersSection } from "./ProfilePanels";
 import { CoachSection, HealthSection, GoalsSection, PlanSection } from "./CoachPanels";
 import { ConnectionsSection, DataSection, PlusSection, PulseSection } from "./ConnectionPanels";
+import { NutritionSection } from "./NutritionPanel";
 import { ACCOUNT_SECTIONS, sectionIndex, type AccountSectionKey, type PanelProps } from "./shared";
 import { ZonesSection } from "./ZonesPanel";
 import { OffSections, TailorSection } from "./TailorPanel";
@@ -185,6 +186,7 @@ export function AccountSettings({ dict, t, lang, apiUrl }: { dict: Dictionary["r
           health: <HealthSection key="health" {...p} />,
           zones: <ZonesSection key="zones" {...p} />,
           goals: <GoalsSection key="goals" {...p} />,
+          nutrition: <NutritionSection key="nutrition" {...p} />,
           connections: <ConnectionsSection key="connections" {...p} />,
           pulse: <PulseSection key="pulse" {...p} />,
           plus: <PlusSection key="plus" {...p} />,

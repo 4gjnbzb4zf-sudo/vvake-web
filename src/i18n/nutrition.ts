@@ -294,6 +294,8 @@ const en = {
     disclaimer:
       "VVake gives estimates and general guidance, not medical or dietary advice. For a health condition, pregnancy, or if food feels hard right now, talk to a doctor or a registered dietitian.",
     privacy: "How we handle meal photos",
+    turnOff: "Turn off Nutrition",
+    offNote: "Your meal log stays with your account. Nothing about food is shown or suggested while it's off.",
   },
   referral:
     "It sounds like food has been hard lately. You deserve support: a doctor or a registered dietitian can help. I'll keep numbers out of it.",
@@ -601,6 +603,8 @@ const fr: NutritionDict = {
     disclaimer:
       "VVake donne des estimations et des repères généraux, pas un avis médical ou diététique. Pour un problème de santé, une grossesse, ou si la nourriture est difficile en ce moment, parles-en à un médecin ou à un·e diététicien·ne.",
     privacy: "Ce qu'on fait des photos de repas",
+    turnOff: "Désactiver la nutrition",
+    offNote: "Ton journal des repas reste avec ton compte. Rien sur l'alimentation n'est montré ni suggéré tant que c'est désactivé.",
   },
   referral:
     "On dirait que la nourriture est difficile en ce moment. Tu mérites du soutien : un médecin ou un·e diététicien·ne peut t'aider. Je laisse les chiffres de côté.",

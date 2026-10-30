@@ -53,6 +53,8 @@ const prefsSchema = z.object({
   autoStart: z.optional(z.unknown()),
   /** Auto-pause per sport (VVFit build 59): `{ bySport, at }`, read with parseAutoPausePrefs (webapp/vehicle/workoutAutoPause.ts). */
   autoPause: z.optional(z.unknown()),
+  /** Nutrition (ADR-0070): the nutrition profile, checked by game-core cleanNutritionProfile (webapp/nutrition). */
+  nutrition: z.optional(z.unknown()),
 });
 export type Prefs = z.infer<typeof prefsSchema>;
 

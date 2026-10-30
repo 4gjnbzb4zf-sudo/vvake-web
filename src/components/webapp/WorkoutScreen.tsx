@@ -31,6 +31,7 @@ import { NextStepsRow, Tour, useHasPlan } from "./NextSteps";
 import { SessionCelebration, useLiving, usePrimeMilestones } from "./Journey";
 import { gpsMoment, sessionsLast7 } from "@/lib/webapp/suggest/steps";
 import type { SessionFeel } from "@/lib/webapp/api";
+import { RecoveryTip } from "./NutritionToday";
 
 const LiveMap = dynamic(() => import("./LiveMap").then((m) => m.LiveMap), { ssr: false });
 
@@ -687,6 +688,7 @@ function SummaryView() {
           />
         </Card>
       )}
+      {saved && <RecoveryTip minutes={s.activeS / 60} feltHard={feel === "hard"} />}
       {saved && (
         <NextStepsRow
           moment={

@@ -36,6 +36,7 @@ import { VoiceTipToast } from "./VoiceTip";
 import { WorkoutProvider } from "./WorkoutContext";
 import { TalkButton, TalkProvider } from "./TalkSheet";
 import { CoachMemoryScreen } from "./CoachMemory";
+import { NutritionScreen } from "./NutritionScreen";
 import { Btn, Field, inputCls, Kicker, Small } from "./ui";
 
 /**
@@ -158,7 +159,11 @@ function Shell() {
   if (!onboarded) return <Onboarding onDone={() => setOnboarded(true)} />;
 
   const tab =
-    route.name === "points" || route.name === "your-vvake" || route.name === "features" || route.name === "coach-memory"
+    route.name === "points" ||
+    route.name === "your-vvake" ||
+    route.name === "features" ||
+    route.name === "coach-memory" ||
+    route.name === "nutrition"
       ? "you"
       : (route.name === "places" || route.name === "place-note" || route.name === "meetup" || route.name === "meetup-new") &&
           tabs.includes("crew")
@@ -187,6 +192,9 @@ function Shell() {
           <main id="main">
             {(route.name === "today" || route.name === "talk") && (profile ? <TodayLean /> : <TodayScreen />)}
             {route.name === "coach-memory" && <CoachMemoryScreen />}
+            {route.name === "nutrition" && (
+              <NutritionScreen key={`${route.view ?? "today"}/${route.photo ? 1 : 0}`} view={route.view} photo={route.photo} />
+            )}
             {route.name === "plan" && <PlanScreen />}
             {route.name === "crew" && <CrewScreen />}
             {route.name === "coach" && <CoachScreen />}

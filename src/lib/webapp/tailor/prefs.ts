@@ -99,6 +99,7 @@ export const ACCOUNT_SECTION_FEATURE = {
   health: null,
   zones: null,
   goals: "plan",
+  nutrition: "nutrition",
   connections: null,
   pulse: "rewards",
   plus: "coach",

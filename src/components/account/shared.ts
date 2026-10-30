@@ -28,6 +28,7 @@ export const ACCOUNT_SECTIONS = [
   "health",
   "zones",
   "goals",
+  "nutrition",
   "connections",
   "pulse",
   "plus",
