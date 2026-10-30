@@ -30,3 +30,5 @@ src/lib/webapp/fixtures/journey-golden.json
 src/lib/webapp/fixtures/vehicle-golden.json
 # Copied byte for byte from the VVFit monorepo (packages/game-core/test/fixtures/auto-pause-golden.json) by scripts/sync-vehicle-core.ts
 src/lib/webapp/fixtures/auto-pause-golden.json
+# Copied byte for byte from the VVFit monorepo (packages/game-core/test/fixtures/adaptive-session-golden.json) by scripts/sync-adaptive-core.ts
+src/lib/webapp/fixtures/adaptive-session-golden.json

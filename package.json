@@ -34,7 +34,9 @@
     "sync:coach": "tsx scripts/sync-coach-core.ts",
     "check:coach": "tsx scripts/sync-coach-core.ts --check",
     "sync:vehicle": "tsx scripts/sync-vehicle-core.ts",
-    "check:vehicle": "tsx scripts/sync-vehicle-core.ts --check"
+    "check:vehicle": "tsx scripts/sync-vehicle-core.ts --check",
+    "sync:adaptive": "tsx scripts/sync-adaptive-core.ts",
+    "check:adaptive": "tsx scripts/sync-adaptive-core.ts --check"
   },
   "dependencies": {
     "@mediapipe/tasks-vision": "0.10.35",
