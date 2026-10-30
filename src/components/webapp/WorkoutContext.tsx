@@ -32,6 +32,15 @@ import {
   type WebSession,
   type WorkoutSnapshot,
 } from "@/lib/webapp/workout";
+import {
+  distanceCapKmh,
+  inVehicle,
+  speedReading,
+  vehicleOutcome,
+  vehicleResumeNow,
+  vehicleStep,
+  type SpeedFix,
+} from "@/lib/webapp/vehicle/workoutVehicle";
 import { useApp } from "./AppContext";
 
 /**
@@ -45,6 +54,10 @@ import { useApp } from "./AppContext";
  * the distance over the last 30 s against your speed zones for the sport): the zone shown and the zone cues only.
  * It never goes into the session (no zone seconds, no heart samples): no heart rate, no points, as before. The
  * workout voice switch (on, essential, off) decides what is said.
+ *
+ * Foot sports (walk, run, hike…) run the vehicle guard on the GPS speed (build 58, vehicle/workoutVehicle.ts): in a
+ * car, bus or train the workout pauses from where the ride began and resumes by itself on foot; a session that was
+ * mostly a ride is saved with the flag "vehicle" (not counted). The browser has no step count: speed alone judges.
  */
 
 export type GpsState = "off" | "searching" | "live" | "denied" | "unsupported";
@@ -85,6 +98,8 @@ interface WorkoutApi {
   heart: HeartProfile;
   wakeLock: boolean | null;
   gap: boolean;
+  /** Paused by the vehicle guard: the banner shows (Resume / End). */
+  vehicle: boolean;
   summary: Summary | null;
   start: (sport: string) => void;
   pause: () => void;
@@ -273,21 +288,30 @@ export function WorkoutProvider({ children }: { children: ReactNode }) {
     prevSensor.current = sensorState;
   }, [sensorState, summary, speak, lang]);
 
+  const speedFixes = useRef<SpeedFix[]>([]);
   // ── GPS ──────────────────────────────────────────────────────────────────────────────────────────────────────
   useEffect(() => {
     if (!w || !gpsOn || summary || restored || !("geolocation" in navigator)) return;
-    const cap = sport?.capKmh ?? null;
+    // A foot sport never adds a fix-to-fix step faster than a person moves (the vehicle guard's hard maximum).
+    const cap = sport ? distanceCapKmh(sport.key, sport.capKmh) : null;
+    speedFixes.current = [];
     const id = navigator.geolocation.watchPosition(
       (p) => {
         setGps("live");
         const t = Date.now();
+        const fix = {
+          lat: p.coords.latitude,
+          lon: p.coords.longitude,
+          acc: p.coords.accuracy,
+          alt: p.coords.altitude,
+          at: p.timestamp || t,
+        };
+        const sp = speedReading(speedFixes.current, { ...fix, speed: p.coords.speed });
+        speedFixes.current = sp.buffer;
         update((x) => {
-          const r = addFix(
-            x.track,
-            { lat: p.coords.latitude, lon: p.coords.longitude, acc: p.coords.accuracy, alt: p.coords.altitude, at: p.timestamp || t },
-            { t: elapsedS(x, t), now: t, capKmh: cap, paused: isPaused(x) },
-          );
-          return { ...x, track: r.state };
+          const r = addFix(x.track, fix, { t: elapsedS(x, t), now: t, capKmh: cap, paused: isPaused(x) });
+          // The vehicle guard (foot sports): paused from where a ride began, resumed on foot.
+          return vehicleStep({ ...x, track: r.state }, { now: t, speedMs: sp.speedMs }).w;
         });
       },
       (e) => setGps(e.code === e.PERMISSION_DENIED ? "denied" : "searching"),
@@ -369,7 +393,7 @@ export function WorkoutProvider({ children }: { children: ReactNode }) {
   }, [update, speak, lang]);
   const resume = useCallback(() => {
     unlockAudio();
-    update((x) => resumeW(x, Date.now()));
+    update((x) => (inVehicle(x) ? vehicleResumeNow(x, Date.now()) : resumeW(x, Date.now())));
     speak(cueSpoken.resumed(lang), true);
   }, [update, speak, lang]);
   const confirmRestore = useCallback(() => {
@@ -405,13 +429,15 @@ export function WorkoutProvider({ children }: { children: ReactNode }) {
     const unit = prefs.units === "imperial" ? MILE_M : 1000;
     const splits = splitsOf(done.track.route, unit);
     const gpsUsed = usesGps(sportOf(done.sport));
-    if (emptyReason(activeS, done.track.metres, hrSamples)) {
+    // Mostly a ride (build 58): saved for the journal, "Not counted: vehicle detected", never discarded as empty.
+    const vehicle = vehicleOutcome(done, activeS, t);
+    if (vehicle.verdict !== "vehicle" && emptyReason(activeS, done.track.metres, hrSamples)) {
       hush();
       clear();
       setSummary({ session: null, discarded: true, reply: null, uploading: false, queued: false, splits: [], gainM: 0 });
       return;
     }
-    const session = buildSession(done, { now: t, deviceKey, heart, gps: gpsUsed });
+    const session = buildSession(done, { now: t, deviceKey, heart, gps: gpsUsed, vehicle });
     // Scored minutes spend energy (what's left refills four times a day).
     if (session.energyUsed) setEnergy(spend(energy, session.energyUsed));
     const q = enqueue(queueRef.current, me.id, session);
@@ -469,6 +495,7 @@ export function WorkoutProvider({ children }: { children: ReactNode }) {
     heart,
     wakeLock,
     gap,
+    vehicle: inVehicle(w),
     summary,
     start,
     pause,

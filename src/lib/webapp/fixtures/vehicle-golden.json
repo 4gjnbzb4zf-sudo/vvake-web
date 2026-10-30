@@ -1,0 +1,7386 @@
+{
+ "suspicion": [
+  {
+   "sport": "walk",
+   "speedMs": null,
+   "cadenceSpm": null,
+   "activity": "unknown",
+   "why": null
+  },
+  {
+   "sport": "walk",
+   "speedMs": null,
+   "cadenceSpm": null,
+   "activity": "walking",
+   "why": null
+  },
+  {
+   "sport": "walk",
+   "speedMs": null,
+   "cadenceSpm": null,
+   "activity": "running",
+   "why": null
+  },
+  {
+   "sport": "walk",
+   "speedMs": null,
+   "cadenceSpm": null,
+   "activity": "automotive",
+   "why": "activity"
+  },
+  {
+   "sport": "walk",
+   "speedMs": null,
+   "cadenceSpm": 0,
+   "activity": "unknown",
+   "why": null
+  },
+  {
+   "sport": "walk",
+   "speedMs": null,
+   "cadenceSpm": 0,
+   "activity": "walking",
+   "why": null
+  },
+  {
+   "sport": "walk",
+   "speedMs": null,
+   "cadenceSpm": 0,
+   "activity": "running",
+   "why": null
+  },
+  {
+   "sport": "walk",
+   "speedMs": null,
+   "cadenceSpm": 0,
+   "activity": "automotive",
+   "why": "activity"
+  },
+  {
+   "sport": "walk",
+   "speedMs": null,
+   "cadenceSpm": 20,
+   "activity": "unknown",
+   "why": null
+  },
+  {
+   "sport": "walk",
+   "speedMs": null,
+   "cadenceSpm": 20,
+   "activity": "walking",
+   "why": null
+  },
+  {
+   "sport": "walk",
+   "speedMs": null,
+   "cadenceSpm": 20,
+   "activity": "running",
+   "why": null
+  },
+  {
+   "sport": "walk",
+   "speedMs": null,
+   "cadenceSpm": 20,
+   "activity": "automotive",
+   "why": "activity"
+  },
+  {
+   "sport": "walk",
+   "speedMs": null,
+   "cadenceSpm": 100,
+   "activity": "unknown",
+   "why": null
+  },
+  {
+   "sport": "walk",
+   "speedMs": null,
+   "cadenceSpm": 100,
+   "activity": "walking",
+   "why": null
+  },
+  {
+   "sport": "walk",
+   "speedMs": null,
+   "cadenceSpm": 100,
+   "activity": "running",
+   "why": null
+  },
+  {
+   "sport": "walk",
+   "speedMs": null,
+   "cadenceSpm": 100,
+   "activity": "automotive",
+   "why": "activity"
+  },
+  {
+   "sport": "walk",
+   "speedMs": null,
+   "cadenceSpm": 170,
+   "activity": "unknown",
+   "why": null
+  },
+  {
+   "sport": "walk",
+   "speedMs": null,
+   "cadenceSpm": 170,
+   "activity": "walking",
+   "why": null
+  },
+  {
+   "sport": "walk",
+   "speedMs": null,
+   "cadenceSpm": 170,
+   "activity": "running",
+   "why": null
+  },
+  {
+   "sport": "walk",
+   "speedMs": null,
+   "cadenceSpm": 170,
+   "activity": "automotive",
+   "why": "activity"
+  },
+  {
+   "sport": "walk",
+   "speedMs": 0,
+   "cadenceSpm": null,
+   "activity": "unknown",
+   "why": null
+  },
+  {
+   "sport": "walk",
+   "speedMs": 0,
+   "cadenceSpm": null,
+   "activity": "walking",
+   "why": null
+  },
+  {
+   "sport": "walk",
+   "speedMs": 0,
+   "cadenceSpm": null,
+   "activity": "running",
+   "why": null
+  },
+  {
+   "sport": "walk",
+   "speedMs": 0,
+   "cadenceSpm": null,
+   "activity": "automotive",
+   "why": "activity"
+  },
+  {
+   "sport": "walk",
+   "speedMs": 0,
+   "cadenceSpm": 0,
+   "activity": "unknown",
+   "why": null
+  },
+  {
+   "sport": "walk",
+   "speedMs": 0,
+   "cadenceSpm": 0,
+   "activity": "walking",
+   "why": null
+  },
+  {
+   "sport": "walk",
+   "speedMs": 0,
+   "cadenceSpm": 0,
+   "activity": "running",
+   "why": null
+  },
+  {
+   "sport": "walk",
+   "speedMs": 0,
+   "cadenceSpm": 0,
+   "activity": "automotive",
+   "why": "activity"
+  },
+  {
+   "sport": "walk",
+   "speedMs": 0,
+   "cadenceSpm": 20,
+   "activity": "unknown",
+   "why": null
+  },
+  {
+   "sport": "walk",
+   "speedMs": 0,
+   "cadenceSpm": 20,
+   "activity": "walking",
+   "why": null
+  },
+  {
+   "sport": "walk",
+   "speedMs": 0,
+   "cadenceSpm": 20,
+   "activity": "running",
+   "why": null
+  },
+  {
+   "sport": "walk",
+   "speedMs": 0,
+   "cadenceSpm": 20,
+   "activity": "automotive",
+   "why": "activity"
+  },
+  {
+   "sport": "walk",
+   "speedMs": 0,
+   "cadenceSpm": 100,
+   "activity": "unknown",
+   "why": null
+  },
+  {
+   "sport": "walk",
+   "speedMs": 0,
+   "cadenceSpm": 100,
+   "activity": "walking",
+   "why": null
+  },
+  {
+   "sport": "walk",
+   "speedMs": 0,
+   "cadenceSpm": 100,
+   "activity": "running",
+   "why": null
+  },
+  {
+   "sport": "walk",
+   "speedMs": 0,
+   "cadenceSpm": 100,
+   "activity": "automotive",
+   "why": "activity"
+  },
+  {
+   "sport": "walk",
+   "speedMs": 0,
+   "cadenceSpm": 170,
+   "activity": "unknown",
+   "why": null
+  },
+  {
+   "sport": "walk",
+   "speedMs": 0,
+   "cadenceSpm": 170,
+   "activity": "walking",
+   "why": null
+  },
+  {
+   "sport": "walk",
+   "speedMs": 0,
+   "cadenceSpm": 170,
+   "activity": "running",
+   "why": null
+  },
+  {
+   "sport": "walk",
+   "speedMs": 0,
+   "cadenceSpm": 170,
+   "activity": "automotive",
+   "why": "activity"
+  },
+  {
+   "sport": "walk",
+   "speedMs": 1.5,
+   "cadenceSpm": null,
+   "activity": "unknown",
+   "why": null
+  },
+  {
+   "sport": "walk",
+   "speedMs": 1.5,
+   "cadenceSpm": null,
+   "activity": "walking",
+   "why": null
+  },
+  {
+   "sport": "walk",
+   "speedMs": 1.5,
+   "cadenceSpm": null,
+   "activity": "running",
+   "why": null
+  },
+  {
+   "sport": "walk",
+   "speedMs": 1.5,
+   "cadenceSpm": null,
+   "activity": "automotive",
+   "why": "activity"
+  },
+  {
+   "sport": "walk",
+   "speedMs": 1.5,
+   "cadenceSpm": 0,
+   "activity": "unknown",
+   "why": null
+  },
+  {
+   "sport": "walk",
+   "speedMs": 1.5,
+   "cadenceSpm": 0,
+   "activity": "walking",
+   "why": null
+  },
+  {
+   "sport": "walk",
+   "speedMs": 1.5,
+   "cadenceSpm": 0,
+   "activity": "running",
+   "why": null
+  },
+  {
+   "sport": "walk",
+   "speedMs": 1.5,
+   "cadenceSpm": 0,
+   "activity": "automotive",
+   "why": "activity"
+  },
+  {
+   "sport": "walk",
+   "speedMs": 1.5,
+   "cadenceSpm": 20,
+   "activity": "unknown",
+   "why": null
+  },
+  {
+   "sport": "walk",
+   "speedMs": 1.5,
+   "cadenceSpm": 20,
+   "activity": "walking",
+   "why": null
+  },
+  {
+   "sport": "walk",
+   "speedMs": 1.5,
+   "cadenceSpm": 20,
+   "activity": "running",
+   "why": null
+  },
+  {
+   "sport": "walk",
+   "speedMs": 1.5,
+   "cadenceSpm": 20,
+   "activity": "automotive",
+   "why": "activity"
+  },
+  {
+   "sport": "walk",
+   "speedMs": 1.5,
+   "cadenceSpm": 100,
+   "activity": "unknown",
+   "why": null
+  },
+  {
+   "sport": "walk",
+   "speedMs": 1.5,
+   "cadenceSpm": 100,
+   "activity": "walking",
+   "why": null
+  },
+  {
+   "sport": "walk",
+   "speedMs": 1.5,
+   "cadenceSpm": 100,
+   "activity": "running",
+   "why": null
+  },
+  {
+   "sport": "walk",
+   "speedMs": 1.5,
+   "cadenceSpm": 100,
+   "activity": "automotive",
+   "why": "activity"
+  },
+  {
+   "sport": "walk",
+   "speedMs": 1.5,
+   "cadenceSpm": 170,
+   "activity": "unknown",
+   "why": null
+  },
+  {
+   "sport": "walk",
+   "speedMs": 1.5,
+   "cadenceSpm": 170,
+   "activity": "walking",
+   "why": null
+  },
+  {
+   "sport": "walk",
+   "speedMs": 1.5,
+   "cadenceSpm": 170,
+   "activity": "running",
+   "why": null
+  },
+  {
+   "sport": "walk",
+   "speedMs": 1.5,
+   "cadenceSpm": 170,
+   "activity": "automotive",
+   "why": "activity"
+  },
+  {
+   "sport": "walk",
+   "speedMs": 2.9,
+   "cadenceSpm": null,
+   "activity": "unknown",
+   "why": null
+  },
+  {
+   "sport": "walk",
+   "speedMs": 2.9,
+   "cadenceSpm": null,
+   "activity": "walking",
+   "why": null
+  },
+  {
+   "sport": "walk",
+   "speedMs": 2.9,
+   "cadenceSpm": null,
+   "activity": "running",
+   "why": null
+  },
+  {
+   "sport": "walk",
+   "speedMs": 2.9,
+   "cadenceSpm": null,
+   "activity": "automotive",
+   "why": "activity"
+  },
+  {
+   "sport": "walk",
+   "speedMs": 2.9,
+   "cadenceSpm": 0,
+   "activity": "unknown",
+   "why": "speed"
+  },
+  {
+   "sport": "walk",
+   "speedMs": 2.9,
+   "cadenceSpm": 0,
+   "activity": "walking",
+   "why": "speed"
+  },
+  {
+   "sport": "walk",
+   "speedMs": 2.9,
+   "cadenceSpm": 0,
+   "activity": "running",
+   "why": "speed"
+  },
+  {
+   "sport": "walk",
+   "speedMs": 2.9,
+   "cadenceSpm": 0,
+   "activity": "automotive",
+   "why": "activity"
+  },
+  {
+   "sport": "walk",
+   "speedMs": 2.9,
+   "cadenceSpm": 20,
+   "activity": "unknown",
+   "why": "speed"
+  },
+  {
+   "sport": "walk",
+   "speedMs": 2.9,
+   "cadenceSpm": 20,
+   "activity": "walking",
+   "why": "speed"
+  },
+  {
+   "sport": "walk",
+   "speedMs": 2.9,
+   "cadenceSpm": 20,
+   "activity": "running",
+   "why": "speed"
+  },
+  {
+   "sport": "walk",
+   "speedMs": 2.9,
+   "cadenceSpm": 20,
+   "activity": "automotive",
+   "why": "activity"
+  },
+  {
+   "sport": "walk",
+   "speedMs": 2.9,
+   "cadenceSpm": 100,
+   "activity": "unknown",
+   "why": null
+  },
+  {
+   "sport": "walk",
+   "speedMs": 2.9,
+   "cadenceSpm": 100,
+   "activity": "walking",
+   "why": null
+  },
+  {
+   "sport": "walk",
+   "speedMs": 2.9,
+   "cadenceSpm": 100,
+   "activity": "running",
+   "why": null
+  },
+  {
+   "sport": "walk",
+   "speedMs": 2.9,
+   "cadenceSpm": 100,
+   "activity": "automotive",
+   "why": "activity"
+  },
+  {
+   "sport": "walk",
+   "speedMs": 2.9,
+   "cadenceSpm": 170,
+   "activity": "unknown",
+   "why": null
+  },
+  {
+   "sport": "walk",
+   "speedMs": 2.9,
+   "cadenceSpm": 170,
+   "activity": "walking",
+   "why": null
+  },
+  {
+   "sport": "walk",
+   "speedMs": 2.9,
+   "cadenceSpm": 170,
+   "activity": "running",
+   "why": null
+  },
+  {
+   "sport": "walk",
+   "speedMs": 2.9,
+   "cadenceSpm": 170,
+   "activity": "automotive",
+   "why": "activity"
+  },
+  {
+   "sport": "walk",
+   "speedMs": 3.5,
+   "cadenceSpm": null,
+   "activity": "unknown",
+   "why": null
+  },
+  {
+   "sport": "walk",
+   "speedMs": 3.5,
+   "cadenceSpm": null,
+   "activity": "walking",
+   "why": null
+  },
+  {
+   "sport": "walk",
+   "speedMs": 3.5,
+   "cadenceSpm": null,
+   "activity": "running",
+   "why": null
+  },
+  {
+   "sport": "walk",
+   "speedMs": 3.5,
+   "cadenceSpm": null,
+   "activity": "automotive",
+   "why": "activity"
+  },
+  {
+   "sport": "walk",
+   "speedMs": 3.5,
+   "cadenceSpm": 0,
+   "activity": "unknown",
+   "why": "speed"
+  },
+  {
+   "sport": "walk",
+   "speedMs": 3.5,
+   "cadenceSpm": 0,
+   "activity": "walking",
+   "why": "speed"
+  },
+  {
+   "sport": "walk",
+   "speedMs": 3.5,
+   "cadenceSpm": 0,
+   "activity": "running",
+   "why": "speed"
+  },
+  {
+   "sport": "walk",
+   "speedMs": 3.5,
+   "cadenceSpm": 0,
+   "activity": "automotive",
+   "why": "activity"
+  },
+  {
+   "sport": "walk",
+   "speedMs": 3.5,
+   "cadenceSpm": 20,
+   "activity": "unknown",
+   "why": "speed"
+  },
+  {
+   "sport": "walk",
+   "speedMs": 3.5,
+   "cadenceSpm": 20,
+   "activity": "walking",
+   "why": "speed"
+  },
+  {
+   "sport": "walk",
+   "speedMs": 3.5,
+   "cadenceSpm": 20,
+   "activity": "running",
+   "why": "speed"
+  },
+  {
+   "sport": "walk",
+   "speedMs": 3.5,
+   "cadenceSpm": 20,
+   "activity": "automotive",
+   "why": "activity"
+  },
+  {
+   "sport": "walk",
+   "speedMs": 3.5,
+   "cadenceSpm": 100,
+   "activity": "unknown",
+   "why": null
+  },
+  {
+   "sport": "walk",
+   "speedMs": 3.5,
+   "cadenceSpm": 100,
+   "activity": "walking",
+   "why": null
+  },
+  {
+   "sport": "walk",
+   "speedMs": 3.5,
+   "cadenceSpm": 100,
+   "activity": "running",
+   "why": null
+  },
+  {
+   "sport": "walk",
+   "speedMs": 3.5,
+   "cadenceSpm": 100,
+   "activity": "automotive",
+   "why": "activity"
+  },
+  {
+   "sport": "walk",
+   "speedMs": 3.5,
+   "cadenceSpm": 170,
+   "activity": "unknown",
+   "why": null
+  },
+  {
+   "sport": "walk",
+   "speedMs": 3.5,
+   "cadenceSpm": 170,
+   "activity": "walking",
+   "why": null
+  },
+  {
+   "sport": "walk",
+   "speedMs": 3.5,
+   "cadenceSpm": 170,
+   "activity": "running",
+   "why": null
+  },
+  {
+   "sport": "walk",
+   "speedMs": 3.5,
+   "cadenceSpm": 170,
+   "activity": "automotive",
+   "why": "activity"
+  },
+  {
+   "sport": "walk",
+   "speedMs": 4.5,
+   "cadenceSpm": null,
+   "activity": "unknown",
+   "why": "speed"
+  },
+  {
+   "sport": "walk",
+   "speedMs": 4.5,
+   "cadenceSpm": null,
+   "activity": "walking",
+   "why": "speed"
+  },
+  {
+   "sport": "walk",
+   "speedMs": 4.5,
+   "cadenceSpm": null,
+   "activity": "running",
+   "why": "speed"
+  },
+  {
+   "sport": "walk",
+   "speedMs": 4.5,
+   "cadenceSpm": null,
+   "activity": "automotive",
+   "why": "activity"
+  },
+  {
+   "sport": "walk",
+   "speedMs": 4.5,
+   "cadenceSpm": 0,
+   "activity": "unknown",
+   "why": "speed"
+  },
+  {
+   "sport": "walk",
+   "speedMs": 4.5,
+   "cadenceSpm": 0,
+   "activity": "walking",
+   "why": "speed"
+  },
+  {
+   "sport": "walk",
+   "speedMs": 4.5,
+   "cadenceSpm": 0,
+   "activity": "running",
+   "why": "speed"
+  },
+  {
+   "sport": "walk",
+   "speedMs": 4.5,
+   "cadenceSpm": 0,
+   "activity": "automotive",
+   "why": "activity"
+  },
+  {
+   "sport": "walk",
+   "speedMs": 4.5,
+   "cadenceSpm": 20,
+   "activity": "unknown",
+   "why": "speed"
+  },
+  {
+   "sport": "walk",
+   "speedMs": 4.5,
+   "cadenceSpm": 20,
+   "activity": "walking",
+   "why": "speed"
+  },
+  {
+   "sport": "walk",
+   "speedMs": 4.5,
+   "cadenceSpm": 20,
+   "activity": "running",
+   "why": "speed"
+  },
+  {
+   "sport": "walk",
+   "speedMs": 4.5,
+   "cadenceSpm": 20,
+   "activity": "automotive",
+   "why": "activity"
+  },
+  {
+   "sport": "walk",
+   "speedMs": 4.5,
+   "cadenceSpm": 100,
+   "activity": "unknown",
+   "why": "stride"
+  },
+  {
+   "sport": "walk",
+   "speedMs": 4.5,
+   "cadenceSpm": 100,
+   "activity": "walking",
+   "why": "stride"
+  },
+  {
+   "sport": "walk",
+   "speedMs": 4.5,
+   "cadenceSpm": 100,
+   "activity": "running",
+   "why": "stride"
+  },
+  {
+   "sport": "walk",
+   "speedMs": 4.5,
+   "cadenceSpm": 100,
+   "activity": "automotive",
+   "why": "activity"
+  },
+  {
+   "sport": "walk",
+   "speedMs": 4.5,
+   "cadenceSpm": 170,
+   "activity": "unknown",
+   "why": null
+  },
+  {
+   "sport": "walk",
+   "speedMs": 4.5,
+   "cadenceSpm": 170,
+   "activity": "walking",
+   "why": null
+  },
+  {
+   "sport": "walk",
+   "speedMs": 4.5,
+   "cadenceSpm": 170,
+   "activity": "running",
+   "why": null
+  },
+  {
+   "sport": "walk",
+   "speedMs": 4.5,
+   "cadenceSpm": 170,
+   "activity": "automotive",
+   "why": "activity"
+  },
+  {
+   "sport": "walk",
+   "speedMs": 7.5,
+   "cadenceSpm": null,
+   "activity": "unknown",
+   "why": "speed"
+  },
+  {
+   "sport": "walk",
+   "speedMs": 7.5,
+   "cadenceSpm": null,
+   "activity": "walking",
+   "why": "speed"
+  },
+  {
+   "sport": "walk",
+   "speedMs": 7.5,
+   "cadenceSpm": null,
+   "activity": "running",
+   "why": "speed"
+  },
+  {
+   "sport": "walk",
+   "speedMs": 7.5,
+   "cadenceSpm": null,
+   "activity": "automotive",
+   "why": "activity"
+  },
+  {
+   "sport": "walk",
+   "speedMs": 7.5,
+   "cadenceSpm": 0,
+   "activity": "unknown",
+   "why": "speed"
+  },
+  {
+   "sport": "walk",
+   "speedMs": 7.5,
+   "cadenceSpm": 0,
+   "activity": "walking",
+   "why": "speed"
+  },
+  {
+   "sport": "walk",
+   "speedMs": 7.5,
+   "cadenceSpm": 0,
+   "activity": "running",
+   "why": "speed"
+  },
+  {
+   "sport": "walk",
+   "speedMs": 7.5,
+   "cadenceSpm": 0,
+   "activity": "automotive",
+   "why": "activity"
+  },
+  {
+   "sport": "walk",
+   "speedMs": 7.5,
+   "cadenceSpm": 20,
+   "activity": "unknown",
+   "why": "speed"
+  },
+  {
+   "sport": "walk",
+   "speedMs": 7.5,
+   "cadenceSpm": 20,
+   "activity": "walking",
+   "why": "speed"
+  },
+  {
+   "sport": "walk",
+   "speedMs": 7.5,
+   "cadenceSpm": 20,
+   "activity": "running",
+   "why": "speed"
+  },
+  {
+   "sport": "walk",
+   "speedMs": 7.5,
+   "cadenceSpm": 20,
+   "activity": "automotive",
+   "why": "activity"
+  },
+  {
+   "sport": "walk",
+   "speedMs": 7.5,
+   "cadenceSpm": 100,
+   "activity": "unknown",
+   "why": "stride"
+  },
+  {
+   "sport": "walk",
+   "speedMs": 7.5,
+   "cadenceSpm": 100,
+   "activity": "walking",
+   "why": "stride"
+  },
+  {
+   "sport": "walk",
+   "speedMs": 7.5,
+   "cadenceSpm": 100,
+   "activity": "running",
+   "why": "stride"
+  },
+  {
+   "sport": "walk",
+   "speedMs": 7.5,
+   "cadenceSpm": 100,
+   "activity": "automotive",
+   "why": "activity"
+  },
+  {
+   "sport": "walk",
+   "speedMs": 7.5,
+   "cadenceSpm": 170,
+   "activity": "unknown",
+   "why": "stride"
+  },
+  {
+   "sport": "walk",
+   "speedMs": 7.5,
+   "cadenceSpm": 170,
+   "activity": "walking",
+   "why": "stride"
+  },
+  {
+   "sport": "walk",
+   "speedMs": 7.5,
+   "cadenceSpm": 170,
+   "activity": "running",
+   "why": "stride"
+  },
+  {
+   "sport": "walk",
+   "speedMs": 7.5,
+   "cadenceSpm": 170,
+   "activity": "automotive",
+   "why": "activity"
+  },
+  {
+   "sport": "walk",
+   "speedMs": 9.5,
+   "cadenceSpm": null,
+   "activity": "unknown",
+   "why": "speed"
+  },
+  {
+   "sport": "walk",
+   "speedMs": 9.5,
+   "cadenceSpm": null,
+   "activity": "walking",
+   "why": "speed"
+  },
+  {
+   "sport": "walk",
+   "speedMs": 9.5,
+   "cadenceSpm": null,
+   "activity": "running",
+   "why": "speed"
+  },
+  {
+   "sport": "walk",
+   "speedMs": 9.5,
+   "cadenceSpm": null,
+   "activity": "automotive",
+   "why": "activity"
+  },
+  {
+   "sport": "walk",
+   "speedMs": 9.5,
+   "cadenceSpm": 0,
+   "activity": "unknown",
+   "why": "speed"
+  },
+  {
+   "sport": "walk",
+   "speedMs": 9.5,
+   "cadenceSpm": 0,
+   "activity": "walking",
+   "why": "speed"
+  },
+  {
+   "sport": "walk",
+   "speedMs": 9.5,
+   "cadenceSpm": 0,
+   "activity": "running",
+   "why": "speed"
+  },
+  {
+   "sport": "walk",
+   "speedMs": 9.5,
+   "cadenceSpm": 0,
+   "activity": "automotive",
+   "why": "activity"
+  },
+  {
+   "sport": "walk",
+   "speedMs": 9.5,
+   "cadenceSpm": 20,
+   "activity": "unknown",
+   "why": "speed"
+  },
+  {
+   "sport": "walk",
+   "speedMs": 9.5,
+   "cadenceSpm": 20,
+   "activity": "walking",
+   "why": "speed"
+  },
+  {
+   "sport": "walk",
+   "speedMs": 9.5,
+   "cadenceSpm": 20,
+   "activity": "running",
+   "why": "speed"
+  },
+  {
+   "sport": "walk",
+   "speedMs": 9.5,
+   "cadenceSpm": 20,
+   "activity": "automotive",
+   "why": "activity"
+  },
+  {
+   "sport": "walk",
+   "speedMs": 9.5,
+   "cadenceSpm": 100,
+   "activity": "unknown",
+   "why": "speed"
+  },
+  {
+   "sport": "walk",
+   "speedMs": 9.5,
+   "cadenceSpm": 100,
+   "activity": "walking",
+   "why": "speed"
+  },
+  {
+   "sport": "walk",
+   "speedMs": 9.5,
+   "cadenceSpm": 100,
+   "activity": "running",
+   "why": "speed"
+  },
+  {
+   "sport": "walk",
+   "speedMs": 9.5,
+   "cadenceSpm": 100,
+   "activity": "automotive",
+   "why": "activity"
+  },
+  {
+   "sport": "walk",
+   "speedMs": 9.5,
+   "cadenceSpm": 170,
+   "activity": "unknown",
+   "why": "speed"
+  },
+  {
+   "sport": "walk",
+   "speedMs": 9.5,
+   "cadenceSpm": 170,
+   "activity": "walking",
+   "why": "speed"
+  },
+  {
+   "sport": "walk",
+   "speedMs": 9.5,
+   "cadenceSpm": 170,
+   "activity": "running",
+   "why": "speed"
+  },
+  {
+   "sport": "walk",
+   "speedMs": 9.5,
+   "cadenceSpm": 170,
+   "activity": "automotive",
+   "why": "activity"
+  },
+  {
+   "sport": "walk",
+   "speedMs": 15,
+   "cadenceSpm": null,
+   "activity": "unknown",
+   "why": "speed"
+  },
+  {
+   "sport": "walk",
+   "speedMs": 15,
+   "cadenceSpm": null,
+   "activity": "walking",
+   "why": "speed"
+  },
+  {
+   "sport": "walk",
+   "speedMs": 15,
+   "cadenceSpm": null,
+   "activity": "running",
+   "why": "speed"
+  },
+  {
+   "sport": "walk",
+   "speedMs": 15,
+   "cadenceSpm": null,
+   "activity": "automotive",
+   "why": "activity"
+  },
+  {
+   "sport": "walk",
+   "speedMs": 15,
+   "cadenceSpm": 0,
+   "activity": "unknown",
+   "why": "speed"
+  },
+  {
+   "sport": "walk",
+   "speedMs": 15,
+   "cadenceSpm": 0,
+   "activity": "walking",
+   "why": "speed"
+  },
+  {
+   "sport": "walk",
+   "speedMs": 15,
+   "cadenceSpm": 0,
+   "activity": "running",
+   "why": "speed"
+  },
+  {
+   "sport": "walk",
+   "speedMs": 15,
+   "cadenceSpm": 0,
+   "activity": "automotive",
+   "why": "activity"
+  },
+  {
+   "sport": "walk",
+   "speedMs": 15,
+   "cadenceSpm": 20,
+   "activity": "unknown",
+   "why": "speed"
+  },
+  {
+   "sport": "walk",
+   "speedMs": 15,
+   "cadenceSpm": 20,
+   "activity": "walking",
+   "why": "speed"
+  },
+  {
+   "sport": "walk",
+   "speedMs": 15,
+   "cadenceSpm": 20,
+   "activity": "running",
+   "why": "speed"
+  },
+  {
+   "sport": "walk",
+   "speedMs": 15,
+   "cadenceSpm": 20,
+   "activity": "automotive",
+   "why": "activity"
+  },
+  {
+   "sport": "walk",
+   "speedMs": 15,
+   "cadenceSpm": 100,
+   "activity": "unknown",
+   "why": "speed"
+  },
+  {
+   "sport": "walk",
+   "speedMs": 15,
+   "cadenceSpm": 100,
+   "activity": "walking",
+   "why": "speed"
+  },
+  {
+   "sport": "walk",
+   "speedMs": 15,
+   "cadenceSpm": 100,
+   "activity": "running",
+   "why": "speed"
+  },
+  {
+   "sport": "walk",
+   "speedMs": 15,
+   "cadenceSpm": 100,
+   "activity": "automotive",
+   "why": "activity"
+  },
+  {
+   "sport": "walk",
+   "speedMs": 15,
+   "cadenceSpm": 170,
+   "activity": "unknown",
+   "why": "speed"
+  },
+  {
+   "sport": "walk",
+   "speedMs": 15,
+   "cadenceSpm": 170,
+   "activity": "walking",
+   "why": "speed"
+  },
+  {
+   "sport": "walk",
+   "speedMs": 15,
+   "cadenceSpm": 170,
+   "activity": "running",
+   "why": "speed"
+  },
+  {
+   "sport": "walk",
+   "speedMs": 15,
+   "cadenceSpm": 170,
+   "activity": "automotive",
+   "why": "activity"
+  },
+  {
+   "sport": "run",
+   "speedMs": null,
+   "cadenceSpm": null,
+   "activity": "unknown",
+   "why": null
+  },
+  {
+   "sport": "run",
+   "speedMs": null,
+   "cadenceSpm": null,
+   "activity": "walking",
+   "why": null
+  },
+  {
+   "sport": "run",
+   "speedMs": null,
+   "cadenceSpm": null,
+   "activity": "running",
+   "why": null
+  },
+  {
+   "sport": "run",
+   "speedMs": null,
+   "cadenceSpm": null,
+   "activity": "automotive",
+   "why": "activity"
+  },
+  {
+   "sport": "run",
+   "speedMs": null,
+   "cadenceSpm": 0,
+   "activity": "unknown",
+   "why": null
+  },
+  {
+   "sport": "run",
+   "speedMs": null,
+   "cadenceSpm": 0,
+   "activity": "walking",
+   "why": null
+  },
+  {
+   "sport": "run",
+   "speedMs": null,
+   "cadenceSpm": 0,
+   "activity": "running",
+   "why": null
+  },
+  {
+   "sport": "run",
+   "speedMs": null,
+   "cadenceSpm": 0,
+   "activity": "automotive",
+   "why": "activity"
+  },
+  {
+   "sport": "run",
+   "speedMs": null,
+   "cadenceSpm": 20,
+   "activity": "unknown",
+   "why": null
+  },
+  {
+   "sport": "run",
+   "speedMs": null,
+   "cadenceSpm": 20,
+   "activity": "walking",
+   "why": null
+  },
+  {
+   "sport": "run",
+   "speedMs": null,
+   "cadenceSpm": 20,
+   "activity": "running",
+   "why": null
+  },
+  {
+   "sport": "run",
+   "speedMs": null,
+   "cadenceSpm": 20,
+   "activity": "automotive",
+   "why": "activity"
+  },
+  {
+   "sport": "run",
+   "speedMs": null,
+   "cadenceSpm": 100,
+   "activity": "unknown",
+   "why": null
+  },
+  {
+   "sport": "run",
+   "speedMs": null,
+   "cadenceSpm": 100,
+   "activity": "walking",
+   "why": null
+  },
+  {
+   "sport": "run",
+   "speedMs": null,
+   "cadenceSpm": 100,
+   "activity": "running",
+   "why": null
+  },
+  {
+   "sport": "run",
+   "speedMs": null,
+   "cadenceSpm": 100,
+   "activity": "automotive",
+   "why": "activity"
+  },
+  {
+   "sport": "run",
+   "speedMs": null,
+   "cadenceSpm": 170,
+   "activity": "unknown",
+   "why": null
+  },
+  {
+   "sport": "run",
+   "speedMs": null,
+   "cadenceSpm": 170,
+   "activity": "walking",
+   "why": null
+  },
+  {
+   "sport": "run",
+   "speedMs": null,
+   "cadenceSpm": 170,
+   "activity": "running",
+   "why": null
+  },
+  {
+   "sport": "run",
+   "speedMs": null,
+   "cadenceSpm": 170,
+   "activity": "automotive",
+   "why": "activity"
+  },
+  {
+   "sport": "run",
+   "speedMs": 0,
+   "cadenceSpm": null,
+   "activity": "unknown",
+   "why": null
+  },
+  {
+   "sport": "run",
+   "speedMs": 0,
+   "cadenceSpm": null,
+   "activity": "walking",
+   "why": null
+  },
+  {
+   "sport": "run",
+   "speedMs": 0,
+   "cadenceSpm": null,
+   "activity": "running",
+   "why": null
+  },
+  {
+   "sport": "run",
+   "speedMs": 0,
+   "cadenceSpm": null,
+   "activity": "automotive",
+   "why": "activity"
+  },
+  {
+   "sport": "run",
+   "speedMs": 0,
+   "cadenceSpm": 0,
+   "activity": "unknown",
+   "why": null
+  },
+  {
+   "sport": "run",
+   "speedMs": 0,
+   "cadenceSpm": 0,
+   "activity": "walking",
+   "why": null
+  },
+  {
+   "sport": "run",
+   "speedMs": 0,
+   "cadenceSpm": 0,
+   "activity": "running",
+   "why": null
+  },
+  {
+   "sport": "run",
+   "speedMs": 0,
+   "cadenceSpm": 0,
+   "activity": "automotive",
+   "why": "activity"
+  },
+  {
+   "sport": "run",
+   "speedMs": 0,
+   "cadenceSpm": 20,
+   "activity": "unknown",
+   "why": null
+  },
+  {
+   "sport": "run",
+   "speedMs": 0,
+   "cadenceSpm": 20,
+   "activity": "walking",
+   "why": null
+  },
+  {
+   "sport": "run",
+   "speedMs": 0,
+   "cadenceSpm": 20,
+   "activity": "running",
+   "why": null
+  },
+  {
+   "sport": "run",
+   "speedMs": 0,
+   "cadenceSpm": 20,
+   "activity": "automotive",
+   "why": "activity"
+  },
+  {
+   "sport": "run",
+   "speedMs": 0,
+   "cadenceSpm": 100,
+   "activity": "unknown",
+   "why": null
+  },
+  {
+   "sport": "run",
+   "speedMs": 0,
+   "cadenceSpm": 100,
+   "activity": "walking",
+   "why": null
+  },
+  {
+   "sport": "run",
+   "speedMs": 0,
+   "cadenceSpm": 100,
+   "activity": "running",
+   "why": null
+  },
+  {
+   "sport": "run",
+   "speedMs": 0,
+   "cadenceSpm": 100,
+   "activity": "automotive",
+   "why": "activity"
+  },
+  {
+   "sport": "run",
+   "speedMs": 0,
+   "cadenceSpm": 170,
+   "activity": "unknown",
+   "why": null
+  },
+  {
+   "sport": "run",
+   "speedMs": 0,
+   "cadenceSpm": 170,
+   "activity": "walking",
+   "why": null
+  },
+  {
+   "sport": "run",
+   "speedMs": 0,
+   "cadenceSpm": 170,
+   "activity": "running",
+   "why": null
+  },
+  {
+   "sport": "run",
+   "speedMs": 0,
+   "cadenceSpm": 170,
+   "activity": "automotive",
+   "why": "activity"
+  },
+  {
+   "sport": "run",
+   "speedMs": 1.5,
+   "cadenceSpm": null,
+   "activity": "unknown",
+   "why": null
+  },
+  {
+   "sport": "run",
+   "speedMs": 1.5,
+   "cadenceSpm": null,
+   "activity": "walking",
+   "why": null
+  },
+  {
+   "sport": "run",
+   "speedMs": 1.5,
+   "cadenceSpm": null,
+   "activity": "running",
+   "why": null
+  },
+  {
+   "sport": "run",
+   "speedMs": 1.5,
+   "cadenceSpm": null,
+   "activity": "automotive",
+   "why": "activity"
+  },
+  {
+   "sport": "run",
+   "speedMs": 1.5,
+   "cadenceSpm": 0,
+   "activity": "unknown",
+   "why": null
+  },
+  {
+   "sport": "run",
+   "speedMs": 1.5,
+   "cadenceSpm": 0,
+   "activity": "walking",
+   "why": null
+  },
+  {
+   "sport": "run",
+   "speedMs": 1.5,
+   "cadenceSpm": 0,
+   "activity": "running",
+   "why": null
+  },
+  {
+   "sport": "run",
+   "speedMs": 1.5,
+   "cadenceSpm": 0,
+   "activity": "automotive",
+   "why": "activity"
+  },
+  {
+   "sport": "run",
+   "speedMs": 1.5,
+   "cadenceSpm": 20,
+   "activity": "unknown",
+   "why": null
+  },
+  {
+   "sport": "run",
+   "speedMs": 1.5,
+   "cadenceSpm": 20,
+   "activity": "walking",
+   "why": null
+  },
+  {
+   "sport": "run",
+   "speedMs": 1.5,
+   "cadenceSpm": 20,
+   "activity": "running",
+   "why": null
+  },
+  {
+   "sport": "run",
+   "speedMs": 1.5,
+   "cadenceSpm": 20,
+   "activity": "automotive",
+   "why": "activity"
+  },
+  {
+   "sport": "run",
+   "speedMs": 1.5,
+   "cadenceSpm": 100,
+   "activity": "unknown",
+   "why": null
+  },
+  {
+   "sport": "run",
+   "speedMs": 1.5,
+   "cadenceSpm": 100,
+   "activity": "walking",
+   "why": null
+  },
+  {
+   "sport": "run",
+   "speedMs": 1.5,
+   "cadenceSpm": 100,
+   "activity": "running",
+   "why": null
+  },
+  {
+   "sport": "run",
+   "speedMs": 1.5,
+   "cadenceSpm": 100,
+   "activity": "automotive",
+   "why": "activity"
+  },
+  {
+   "sport": "run",
+   "speedMs": 1.5,
+   "cadenceSpm": 170,
+   "activity": "unknown",
+   "why": null
+  },
+  {
+   "sport": "run",
+   "speedMs": 1.5,
+   "cadenceSpm": 170,
+   "activity": "walking",
+   "why": null
+  },
+  {
+   "sport": "run",
+   "speedMs": 1.5,
+   "cadenceSpm": 170,
+   "activity": "running",
+   "why": null
+  },
+  {
+   "sport": "run",
+   "speedMs": 1.5,
+   "cadenceSpm": 170,
+   "activity": "automotive",
+   "why": "activity"
+  },
+  {
+   "sport": "run",
+   "speedMs": 2.9,
+   "cadenceSpm": null,
+   "activity": "unknown",
+   "why": null
+  },
+  {
+   "sport": "run",
+   "speedMs": 2.9,
+   "cadenceSpm": null,
+   "activity": "walking",
+   "why": null
+  },
+  {
+   "sport": "run",
+   "speedMs": 2.9,
+   "cadenceSpm": null,
+   "activity": "running",
+   "why": null
+  },
+  {
+   "sport": "run",
+   "speedMs": 2.9,
+   "cadenceSpm": null,
+   "activity": "automotive",
+   "why": "activity"
+  },
+  {
+   "sport": "run",
+   "speedMs": 2.9,
+   "cadenceSpm": 0,
+   "activity": "unknown",
+   "why": null
+  },
+  {
+   "sport": "run",
+   "speedMs": 2.9,
+   "cadenceSpm": 0,
+   "activity": "walking",
+   "why": null
+  },
+  {
+   "sport": "run",
+   "speedMs": 2.9,
+   "cadenceSpm": 0,
+   "activity": "running",
+   "why": null
+  },
+  {
+   "sport": "run",
+   "speedMs": 2.9,
+   "cadenceSpm": 0,
+   "activity": "automotive",
+   "why": "activity"
+  },
+  {
+   "sport": "run",
+   "speedMs": 2.9,
+   "cadenceSpm": 20,
+   "activity": "unknown",
+   "why": null
+  },
+  {
+   "sport": "run",
+   "speedMs": 2.9,
+   "cadenceSpm": 20,
+   "activity": "walking",
+   "why": null
+  },
+  {
+   "sport": "run",
+   "speedMs": 2.9,
+   "cadenceSpm": 20,
+   "activity": "running",
+   "why": null
+  },
+  {
+   "sport": "run",
+   "speedMs": 2.9,
+   "cadenceSpm": 20,
+   "activity": "automotive",
+   "why": "activity"
+  },
+  {
+   "sport": "run",
+   "speedMs": 2.9,
+   "cadenceSpm": 100,
+   "activity": "unknown",
+   "why": null
+  },
+  {
+   "sport": "run",
+   "speedMs": 2.9,
+   "cadenceSpm": 100,
+   "activity": "walking",
+   "why": null
+  },
+  {
+   "sport": "run",
+   "speedMs": 2.9,
+   "cadenceSpm": 100,
+   "activity": "running",
+   "why": null
+  },
+  {
+   "sport": "run",
+   "speedMs": 2.9,
+   "cadenceSpm": 100,
+   "activity": "automotive",
+   "why": "activity"
+  },
+  {
+   "sport": "run",
+   "speedMs": 2.9,
+   "cadenceSpm": 170,
+   "activity": "unknown",
+   "why": null
+  },
+  {
+   "sport": "run",
+   "speedMs": 2.9,
+   "cadenceSpm": 170,
+   "activity": "walking",
+   "why": null
+  },
+  {
+   "sport": "run",
+   "speedMs": 2.9,
+   "cadenceSpm": 170,
+   "activity": "running",
+   "why": null
+  },
+  {
+   "sport": "run",
+   "speedMs": 2.9,
+   "cadenceSpm": 170,
+   "activity": "automotive",
+   "why": "activity"
+  },
+  {
+   "sport": "run",
+   "speedMs": 3.5,
+   "cadenceSpm": null,
+   "activity": "unknown",
+   "why": null
+  },
+  {
+   "sport": "run",
+   "speedMs": 3.5,
+   "cadenceSpm": null,
+   "activity": "walking",
+   "why": null
+  },
+  {
+   "sport": "run",
+   "speedMs": 3.5,
+   "cadenceSpm": null,
+   "activity": "running",
+   "why": null
+  },
+  {
+   "sport": "run",
+   "speedMs": 3.5,
+   "cadenceSpm": null,
+   "activity": "automotive",
+   "why": "activity"
+  },
+  {
+   "sport": "run",
+   "speedMs": 3.5,
+   "cadenceSpm": 0,
+   "activity": "unknown",
+   "why": null
+  },
+  {
+   "sport": "run",
+   "speedMs": 3.5,
+   "cadenceSpm": 0,
+   "activity": "walking",
+   "why": null
+  },
+  {
+   "sport": "run",
+   "speedMs": 3.5,
+   "cadenceSpm": 0,
+   "activity": "running",
+   "why": null
+  },
+  {
+   "sport": "run",
+   "speedMs": 3.5,
+   "cadenceSpm": 0,
+   "activity": "automotive",
+   "why": "activity"
+  },
+  {
+   "sport": "run",
+   "speedMs": 3.5,
+   "cadenceSpm": 20,
+   "activity": "unknown",
+   "why": null
+  },
+  {
+   "sport": "run",
+   "speedMs": 3.5,
+   "cadenceSpm": 20,
+   "activity": "walking",
+   "why": null
+  },
+  {
+   "sport": "run",
+   "speedMs": 3.5,
+   "cadenceSpm": 20,
+   "activity": "running",
+   "why": null
+  },
+  {
+   "sport": "run",
+   "speedMs": 3.5,
+   "cadenceSpm": 20,
+   "activity": "automotive",
+   "why": "activity"
+  },
+  {
+   "sport": "run",
+   "speedMs": 3.5,
+   "cadenceSpm": 100,
+   "activity": "unknown",
+   "why": null
+  },
+  {
+   "sport": "run",
+   "speedMs": 3.5,
+   "cadenceSpm": 100,
+   "activity": "walking",
+   "why": null
+  },
+  {
+   "sport": "run",
+   "speedMs": 3.5,
+   "cadenceSpm": 100,
+   "activity": "running",
+   "why": null
+  },
+  {
+   "sport": "run",
+   "speedMs": 3.5,
+   "cadenceSpm": 100,
+   "activity": "automotive",
+   "why": "activity"
+  },
+  {
+   "sport": "run",
+   "speedMs": 3.5,
+   "cadenceSpm": 170,
+   "activity": "unknown",
+   "why": null
+  },
+  {
+   "sport": "run",
+   "speedMs": 3.5,
+   "cadenceSpm": 170,
+   "activity": "walking",
+   "why": null
+  },
+  {
+   "sport": "run",
+   "speedMs": 3.5,
+   "cadenceSpm": 170,
+   "activity": "running",
+   "why": null
+  },
+  {
+   "sport": "run",
+   "speedMs": 3.5,
+   "cadenceSpm": 170,
+   "activity": "automotive",
+   "why": "activity"
+  },
+  {
+   "sport": "run",
+   "speedMs": 4.5,
+   "cadenceSpm": null,
+   "activity": "unknown",
+   "why": null
+  },
+  {
+   "sport": "run",
+   "speedMs": 4.5,
+   "cadenceSpm": null,
+   "activity": "walking",
+   "why": null
+  },
+  {
+   "sport": "run",
+   "speedMs": 4.5,
+   "cadenceSpm": null,
+   "activity": "running",
+   "why": null
+  },
+  {
+   "sport": "run",
+   "speedMs": 4.5,
+   "cadenceSpm": null,
+   "activity": "automotive",
+   "why": "activity"
+  },
+  {
+   "sport": "run",
+   "speedMs": 4.5,
+   "cadenceSpm": 0,
+   "activity": "unknown",
+   "why": null
+  },
+  {
+   "sport": "run",
+   "speedMs": 4.5,
+   "cadenceSpm": 0,
+   "activity": "walking",
+   "why": null
+  },
+  {
+   "sport": "run",
+   "speedMs": 4.5,
+   "cadenceSpm": 0,
+   "activity": "running",
+   "why": null
+  },
+  {
+   "sport": "run",
+   "speedMs": 4.5,
+   "cadenceSpm": 0,
+   "activity": "automotive",
+   "why": "activity"
+  },
+  {
+   "sport": "run",
+   "speedMs": 4.5,
+   "cadenceSpm": 20,
+   "activity": "unknown",
+   "why": null
+  },
+  {
+   "sport": "run",
+   "speedMs": 4.5,
+   "cadenceSpm": 20,
+   "activity": "walking",
+   "why": null
+  },
+  {
+   "sport": "run",
+   "speedMs": 4.5,
+   "cadenceSpm": 20,
+   "activity": "running",
+   "why": null
+  },
+  {
+   "sport": "run",
+   "speedMs": 4.5,
+   "cadenceSpm": 20,
+   "activity": "automotive",
+   "why": "activity"
+  },
+  {
+   "sport": "run",
+   "speedMs": 4.5,
+   "cadenceSpm": 100,
+   "activity": "unknown",
+   "why": null
+  },
+  {
+   "sport": "run",
+   "speedMs": 4.5,
+   "cadenceSpm": 100,
+   "activity": "walking",
+   "why": null
+  },
+  {
+   "sport": "run",
+   "speedMs": 4.5,
+   "cadenceSpm": 100,
+   "activity": "running",
+   "why": null
+  },
+  {
+   "sport": "run",
+   "speedMs": 4.5,
+   "cadenceSpm": 100,
+   "activity": "automotive",
+   "why": "activity"
+  },
+  {
+   "sport": "run",
+   "speedMs": 4.5,
+   "cadenceSpm": 170,
+   "activity": "unknown",
+   "why": null
+  },
+  {
+   "sport": "run",
+   "speedMs": 4.5,
+   "cadenceSpm": 170,
+   "activity": "walking",
+   "why": null
+  },
+  {
+   "sport": "run",
+   "speedMs": 4.5,
+   "cadenceSpm": 170,
+   "activity": "running",
+   "why": null
+  },
+  {
+   "sport": "run",
+   "speedMs": 4.5,
+   "cadenceSpm": 170,
+   "activity": "automotive",
+   "why": "activity"
+  },
+  {
+   "sport": "run",
+   "speedMs": 7.5,
+   "cadenceSpm": null,
+   "activity": "unknown",
+   "why": null
+  },
+  {
+   "sport": "run",
+   "speedMs": 7.5,
+   "cadenceSpm": null,
+   "activity": "walking",
+   "why": null
+  },
+  {
+   "sport": "run",
+   "speedMs": 7.5,
+   "cadenceSpm": null,
+   "activity": "running",
+   "why": null
+  },
+  {
+   "sport": "run",
+   "speedMs": 7.5,
+   "cadenceSpm": null,
+   "activity": "automotive",
+   "why": "activity"
+  },
+  {
+   "sport": "run",
+   "speedMs": 7.5,
+   "cadenceSpm": 0,
+   "activity": "unknown",
+   "why": "speed"
+  },
+  {
+   "sport": "run",
+   "speedMs": 7.5,
+   "cadenceSpm": 0,
+   "activity": "walking",
+   "why": "speed"
+  },
+  {
+   "sport": "run",
+   "speedMs": 7.5,
+   "cadenceSpm": 0,
+   "activity": "running",
+   "why": "speed"
+  },
+  {
+   "sport": "run",
+   "speedMs": 7.5,
+   "cadenceSpm": 0,
+   "activity": "automotive",
+   "why": "activity"
+  },
+  {
+   "sport": "run",
+   "speedMs": 7.5,
+   "cadenceSpm": 20,
+   "activity": "unknown",
+   "why": "speed"
+  },
+  {
+   "sport": "run",
+   "speedMs": 7.5,
+   "cadenceSpm": 20,
+   "activity": "walking",
+   "why": "speed"
+  },
+  {
+   "sport": "run",
+   "speedMs": 7.5,
+   "cadenceSpm": 20,
+   "activity": "running",
+   "why": "speed"
+  },
+  {
+   "sport": "run",
+   "speedMs": 7.5,
+   "cadenceSpm": 20,
+   "activity": "automotive",
+   "why": "activity"
+  },
+  {
+   "sport": "run",
+   "speedMs": 7.5,
+   "cadenceSpm": 100,
+   "activity": "unknown",
+   "why": "stride"
+  },
+  {
+   "sport": "run",
+   "speedMs": 7.5,
+   "cadenceSpm": 100,
+   "activity": "walking",
+   "why": "stride"
+  },
+  {
+   "sport": "run",
+   "speedMs": 7.5,
+   "cadenceSpm": 100,
+   "activity": "running",
+   "why": "stride"
+  },
+  {
+   "sport": "run",
+   "speedMs": 7.5,
+   "cadenceSpm": 100,
+   "activity": "automotive",
+   "why": "activity"
+  },
+  {
+   "sport": "run",
+   "speedMs": 7.5,
+   "cadenceSpm": 170,
+   "activity": "unknown",
+   "why": "stride"
+  },
+  {
+   "sport": "run",
+   "speedMs": 7.5,
+   "cadenceSpm": 170,
+   "activity": "walking",
+   "why": "stride"
+  },
+  {
+   "sport": "run",
+   "speedMs": 7.5,
+   "cadenceSpm": 170,
+   "activity": "running",
+   "why": "stride"
+  },
+  {
+   "sport": "run",
+   "speedMs": 7.5,
+   "cadenceSpm": 170,
+   "activity": "automotive",
+   "why": "activity"
+  },
+  {
+   "sport": "run",
+   "speedMs": 9.5,
+   "cadenceSpm": null,
+   "activity": "unknown",
+   "why": "speed"
+  },
+  {
+   "sport": "run",
+   "speedMs": 9.5,
+   "cadenceSpm": null,
+   "activity": "walking",
+   "why": "speed"
+  },
+  {
+   "sport": "run",
+   "speedMs": 9.5,
+   "cadenceSpm": null,
+   "activity": "running",
+   "why": "speed"
+  },
+  {
+   "sport": "run",
+   "speedMs": 9.5,
+   "cadenceSpm": null,
+   "activity": "automotive",
+   "why": "activity"
+  },
+  {
+   "sport": "run",
+   "speedMs": 9.5,
+   "cadenceSpm": 0,
+   "activity": "unknown",
+   "why": "speed"
+  },
+  {
+   "sport": "run",
+   "speedMs": 9.5,
+   "cadenceSpm": 0,
+   "activity": "walking",
+   "why": "speed"
+  },
+  {
+   "sport": "run",
+   "speedMs": 9.5,
+   "cadenceSpm": 0,
+   "activity": "running",
+   "why": "speed"
+  },
+  {
+   "sport": "run",
+   "speedMs": 9.5,
+   "cadenceSpm": 0,
+   "activity": "automotive",
+   "why": "activity"
+  },
+  {
+   "sport": "run",
+   "speedMs": 9.5,
+   "cadenceSpm": 20,
+   "activity": "unknown",
+   "why": "speed"
+  },
+  {
+   "sport": "run",
+   "speedMs": 9.5,
+   "cadenceSpm": 20,
+   "activity": "walking",
+   "why": "speed"
+  },
+  {
+   "sport": "run",
+   "speedMs": 9.5,
+   "cadenceSpm": 20,
+   "activity": "running",
+   "why": "speed"
+  },
+  {
+   "sport": "run",
+   "speedMs": 9.5,
+   "cadenceSpm": 20,
+   "activity": "automotive",
+   "why": "activity"
+  },
+  {
+   "sport": "run",
+   "speedMs": 9.5,
+   "cadenceSpm": 100,
+   "activity": "unknown",
+   "why": "speed"
+  },
+  {
+   "sport": "run",
+   "speedMs": 9.5,
+   "cadenceSpm": 100,
+   "activity": "walking",
+   "why": "speed"
+  },
+  {
+   "sport": "run",
+   "speedMs": 9.5,
+   "cadenceSpm": 100,
+   "activity": "running",
+   "why": "speed"
+  },
+  {
+   "sport": "run",
+   "speedMs": 9.5,
+   "cadenceSpm": 100,
+   "activity": "automotive",
+   "why": "activity"
+  },
+  {
+   "sport": "run",
+   "speedMs": 9.5,
+   "cadenceSpm": 170,
+   "activity": "unknown",
+   "why": "speed"
+  },
+  {
+   "sport": "run",
+   "speedMs": 9.5,
+   "cadenceSpm": 170,
+   "activity": "walking",
+   "why": "speed"
+  },
+  {
+   "sport": "run",
+   "speedMs": 9.5,
+   "cadenceSpm": 170,
+   "activity": "running",
+   "why": "speed"
+  },
+  {
+   "sport": "run",
+   "speedMs": 9.5,
+   "cadenceSpm": 170,
+   "activity": "automotive",
+   "why": "activity"
+  },
+  {
+   "sport": "run",
+   "speedMs": 15,
+   "cadenceSpm": null,
+   "activity": "unknown",
+   "why": "speed"
+  },
+  {
+   "sport": "run",
+   "speedMs": 15,
+   "cadenceSpm": null,
+   "activity": "walking",
+   "why": "speed"
+  },
+  {
+   "sport": "run",
+   "speedMs": 15,
+   "cadenceSpm": null,
+   "activity": "running",
+   "why": "speed"
+  },
+  {
+   "sport": "run",
+   "speedMs": 15,
+   "cadenceSpm": null,
+   "activity": "automotive",
+   "why": "activity"
+  },
+  {
+   "sport": "run",
+   "speedMs": 15,
+   "cadenceSpm": 0,
+   "activity": "unknown",
+   "why": "speed"
+  },
+  {
+   "sport": "run",
+   "speedMs": 15,
+   "cadenceSpm": 0,
+   "activity": "walking",
+   "why": "speed"
+  },
+  {
+   "sport": "run",
+   "speedMs": 15,
+   "cadenceSpm": 0,
+   "activity": "running",
+   "why": "speed"
+  },
+  {
+   "sport": "run",
+   "speedMs": 15,
+   "cadenceSpm": 0,
+   "activity": "automotive",
+   "why": "activity"
+  },
+  {
+   "sport": "run",
+   "speedMs": 15,
+   "cadenceSpm": 20,
+   "activity": "unknown",
+   "why": "speed"
+  },
+  {
+   "sport": "run",
+   "speedMs": 15,
+   "cadenceSpm": 20,
+   "activity": "walking",
+   "why": "speed"
+  },
+  {
+   "sport": "run",
+   "speedMs": 15,
+   "cadenceSpm": 20,
+   "activity": "running",
+   "why": "speed"
+  },
+  {
+   "sport": "run",
+   "speedMs": 15,
+   "cadenceSpm": 20,
+   "activity": "automotive",
+   "why": "activity"
+  },
+  {
+   "sport": "run",
+   "speedMs": 15,
+   "cadenceSpm": 100,
+   "activity": "unknown",
+   "why": "speed"
+  },
+  {
+   "sport": "run",
+   "speedMs": 15,
+   "cadenceSpm": 100,
+   "activity": "walking",
+   "why": "speed"
+  },
+  {
+   "sport": "run",
+   "speedMs": 15,
+   "cadenceSpm": 100,
+   "activity": "running",
+   "why": "speed"
+  },
+  {
+   "sport": "run",
+   "speedMs": 15,
+   "cadenceSpm": 100,
+   "activity": "automotive",
+   "why": "activity"
+  },
+  {
+   "sport": "run",
+   "speedMs": 15,
+   "cadenceSpm": 170,
+   "activity": "unknown",
+   "why": "speed"
+  },
+  {
+   "sport": "run",
+   "speedMs": 15,
+   "cadenceSpm": 170,
+   "activity": "walking",
+   "why": "speed"
+  },
+  {
+   "sport": "run",
+   "speedMs": 15,
+   "cadenceSpm": 170,
+   "activity": "running",
+   "why": "speed"
+  },
+  {
+   "sport": "run",
+   "speedMs": 15,
+   "cadenceSpm": 170,
+   "activity": "automotive",
+   "why": "activity"
+  },
+  {
+   "sport": "hike",
+   "speedMs": null,
+   "cadenceSpm": null,
+   "activity": "unknown",
+   "why": null
+  },
+  {
+   "sport": "hike",
+   "speedMs": null,
+   "cadenceSpm": null,
+   "activity": "walking",
+   "why": null
+  },
+  {
+   "sport": "hike",
+   "speedMs": null,
+   "cadenceSpm": null,
+   "activity": "running",
+   "why": null
+  },
+  {
+   "sport": "hike",
+   "speedMs": null,
+   "cadenceSpm": null,
+   "activity": "automotive",
+   "why": "activity"
+  },
+  {
+   "sport": "hike",
+   "speedMs": null,
+   "cadenceSpm": 0,
+   "activity": "unknown",
+   "why": null
+  },
+  {
+   "sport": "hike",
+   "speedMs": null,
+   "cadenceSpm": 0,
+   "activity": "walking",
+   "why": null
+  },
+  {
+   "sport": "hike",
+   "speedMs": null,
+   "cadenceSpm": 0,
+   "activity": "running",
+   "why": null
+  },
+  {
+   "sport": "hike",
+   "speedMs": null,
+   "cadenceSpm": 0,
+   "activity": "automotive",
+   "why": "activity"
+  },
+  {
+   "sport": "hike",
+   "speedMs": null,
+   "cadenceSpm": 20,
+   "activity": "unknown",
+   "why": null
+  },
+  {
+   "sport": "hike",
+   "speedMs": null,
+   "cadenceSpm": 20,
+   "activity": "walking",
+   "why": null
+  },
+  {
+   "sport": "hike",
+   "speedMs": null,
+   "cadenceSpm": 20,
+   "activity": "running",
+   "why": null
+  },
+  {
+   "sport": "hike",
+   "speedMs": null,
+   "cadenceSpm": 20,
+   "activity": "automotive",
+   "why": "activity"
+  },
+  {
+   "sport": "hike",
+   "speedMs": null,
+   "cadenceSpm": 100,
+   "activity": "unknown",
+   "why": null
+  },
+  {
+   "sport": "hike",
+   "speedMs": null,
+   "cadenceSpm": 100,
+   "activity": "walking",
+   "why": null
+  },
+  {
+   "sport": "hike",
+   "speedMs": null,
+   "cadenceSpm": 100,
+   "activity": "running",
+   "why": null
+  },
+  {
+   "sport": "hike",
+   "speedMs": null,
+   "cadenceSpm": 100,
+   "activity": "automotive",
+   "why": "activity"
+  },
+  {
+   "sport": "hike",
+   "speedMs": null,
+   "cadenceSpm": 170,
+   "activity": "unknown",
+   "why": null
+  },
+  {
+   "sport": "hike",
+   "speedMs": null,
+   "cadenceSpm": 170,
+   "activity": "walking",
+   "why": null
+  },
+  {
+   "sport": "hike",
+   "speedMs": null,
+   "cadenceSpm": 170,
+   "activity": "running",
+   "why": null
+  },
+  {
+   "sport": "hike",
+   "speedMs": null,
+   "cadenceSpm": 170,
+   "activity": "automotive",
+   "why": "activity"
+  },
+  {
+   "sport": "hike",
+   "speedMs": 0,
+   "cadenceSpm": null,
+   "activity": "unknown",
+   "why": null
+  },
+  {
+   "sport": "hike",
+   "speedMs": 0,
+   "cadenceSpm": null,
+   "activity": "walking",
+   "why": null
+  },
+  {
+   "sport": "hike",
+   "speedMs": 0,
+   "cadenceSpm": null,
+   "activity": "running",
+   "why": null
+  },
+  {
+   "sport": "hike",
+   "speedMs": 0,
+   "cadenceSpm": null,
+   "activity": "automotive",
+   "why": "activity"
+  },
+  {
+   "sport": "hike",
+   "speedMs": 0,
+   "cadenceSpm": 0,
+   "activity": "unknown",
+   "why": null
+  },
+  {
+   "sport": "hike",
+   "speedMs": 0,
+   "cadenceSpm": 0,
+   "activity": "walking",
+   "why": null
+  },
+  {
+   "sport": "hike",
+   "speedMs": 0,
+   "cadenceSpm": 0,
+   "activity": "running",
+   "why": null
+  },
+  {
+   "sport": "hike",
+   "speedMs": 0,
+   "cadenceSpm": 0,
+   "activity": "automotive",
+   "why": "activity"
+  },
+  {
+   "sport": "hike",
+   "speedMs": 0,
+   "cadenceSpm": 20,
+   "activity": "unknown",
+   "why": null
+  },
+  {
+   "sport": "hike",
+   "speedMs": 0,
+   "cadenceSpm": 20,
+   "activity": "walking",
+   "why": null
+  },
+  {
+   "sport": "hike",
+   "speedMs": 0,
+   "cadenceSpm": 20,
+   "activity": "running",
+   "why": null
+  },
+  {
+   "sport": "hike",
+   "speedMs": 0,
+   "cadenceSpm": 20,
+   "activity": "automotive",
+   "why": "activity"
+  },
+  {
+   "sport": "hike",
+   "speedMs": 0,
+   "cadenceSpm": 100,
+   "activity": "unknown",
+   "why": null
+  },
+  {
+   "sport": "hike",
+   "speedMs": 0,
+   "cadenceSpm": 100,
+   "activity": "walking",
+   "why": null
+  },
+  {
+   "sport": "hike",
+   "speedMs": 0,
+   "cadenceSpm": 100,
+   "activity": "running",
+   "why": null
+  },
+  {
+   "sport": "hike",
+   "speedMs": 0,
+   "cadenceSpm": 100,
+   "activity": "automotive",
+   "why": "activity"
+  },
+  {
+   "sport": "hike",
+   "speedMs": 0,
+   "cadenceSpm": 170,
+   "activity": "unknown",
+   "why": null
+  },
+  {
+   "sport": "hike",
+   "speedMs": 0,
+   "cadenceSpm": 170,
+   "activity": "walking",
+   "why": null
+  },
+  {
+   "sport": "hike",
+   "speedMs": 0,
+   "cadenceSpm": 170,
+   "activity": "running",
+   "why": null
+  },
+  {
+   "sport": "hike",
+   "speedMs": 0,
+   "cadenceSpm": 170,
+   "activity": "automotive",
+   "why": "activity"
+  },
+  {
+   "sport": "hike",
+   "speedMs": 1.5,
+   "cadenceSpm": null,
+   "activity": "unknown",
+   "why": null
+  },
+  {
+   "sport": "hike",
+   "speedMs": 1.5,
+   "cadenceSpm": null,
+   "activity": "walking",
+   "why": null
+  },
+  {
+   "sport": "hike",
+   "speedMs": 1.5,
+   "cadenceSpm": null,
+   "activity": "running",
+   "why": null
+  },
+  {
+   "sport": "hike",
+   "speedMs": 1.5,
+   "cadenceSpm": null,
+   "activity": "automotive",
+   "why": "activity"
+  },
+  {
+   "sport": "hike",
+   "speedMs": 1.5,
+   "cadenceSpm": 0,
+   "activity": "unknown",
+   "why": null
+  },
+  {
+   "sport": "hike",
+   "speedMs": 1.5,
+   "cadenceSpm": 0,
+   "activity": "walking",
+   "why": null
+  },
+  {
+   "sport": "hike",
+   "speedMs": 1.5,
+   "cadenceSpm": 0,
+   "activity": "running",
+   "why": null
+  },
+  {
+   "sport": "hike",
+   "speedMs": 1.5,
+   "cadenceSpm": 0,
+   "activity": "automotive",
+   "why": "activity"
+  },
+  {
+   "sport": "hike",
+   "speedMs": 1.5,
+   "cadenceSpm": 20,
+   "activity": "unknown",
+   "why": null
+  },
+  {
+   "sport": "hike",
+   "speedMs": 1.5,
+   "cadenceSpm": 20,
+   "activity": "walking",
+   "why": null
+  },
+  {
+   "sport": "hike",
+   "speedMs": 1.5,
+   "cadenceSpm": 20,
+   "activity": "running",
+   "why": null
+  },
+  {
+   "sport": "hike",
+   "speedMs": 1.5,
+   "cadenceSpm": 20,
+   "activity": "automotive",
+   "why": "activity"
+  },
+  {
+   "sport": "hike",
+   "speedMs": 1.5,
+   "cadenceSpm": 100,
+   "activity": "unknown",
+   "why": null
+  },
+  {
+   "sport": "hike",
+   "speedMs": 1.5,
+   "cadenceSpm": 100,
+   "activity": "walking",
+   "why": null
+  },
+  {
+   "sport": "hike",
+   "speedMs": 1.5,
+   "cadenceSpm": 100,
+   "activity": "running",
+   "why": null
+  },
+  {
+   "sport": "hike",
+   "speedMs": 1.5,
+   "cadenceSpm": 100,
+   "activity": "automotive",
+   "why": "activity"
+  },
+  {
+   "sport": "hike",
+   "speedMs": 1.5,
+   "cadenceSpm": 170,
+   "activity": "unknown",
+   "why": null
+  },
+  {
+   "sport": "hike",
+   "speedMs": 1.5,
+   "cadenceSpm": 170,
+   "activity": "walking",
+   "why": null
+  },
+  {
+   "sport": "hike",
+   "speedMs": 1.5,
+   "cadenceSpm": 170,
+   "activity": "running",
+   "why": null
+  },
+  {
+   "sport": "hike",
+   "speedMs": 1.5,
+   "cadenceSpm": 170,
+   "activity": "automotive",
+   "why": "activity"
+  },
+  {
+   "sport": "hike",
+   "speedMs": 2.9,
+   "cadenceSpm": null,
+   "activity": "unknown",
+   "why": null
+  },
+  {
+   "sport": "hike",
+   "speedMs": 2.9,
+   "cadenceSpm": null,
+   "activity": "walking",
+   "why": null
+  },
+  {
+   "sport": "hike",
+   "speedMs": 2.9,
+   "cadenceSpm": null,
+   "activity": "running",
+   "why": null
+  },
+  {
+   "sport": "hike",
+   "speedMs": 2.9,
+   "cadenceSpm": null,
+   "activity": "automotive",
+   "why": "activity"
+  },
+  {
+   "sport": "hike",
+   "speedMs": 2.9,
+   "cadenceSpm": 0,
+   "activity": "unknown",
+   "why": null
+  },
+  {
+   "sport": "hike",
+   "speedMs": 2.9,
+   "cadenceSpm": 0,
+   "activity": "walking",
+   "why": null
+  },
+  {
+   "sport": "hike",
+   "speedMs": 2.9,
+   "cadenceSpm": 0,
+   "activity": "running",
+   "why": null
+  },
+  {
+   "sport": "hike",
+   "speedMs": 2.9,
+   "cadenceSpm": 0,
+   "activity": "automotive",
+   "why": "activity"
+  },
+  {
+   "sport": "hike",
+   "speedMs": 2.9,
+   "cadenceSpm": 20,
+   "activity": "unknown",
+   "why": null
+  },
+  {
+   "sport": "hike",
+   "speedMs": 2.9,
+   "cadenceSpm": 20,
+   "activity": "walking",
+   "why": null
+  },
+  {
+   "sport": "hike",
+   "speedMs": 2.9,
+   "cadenceSpm": 20,
+   "activity": "running",
+   "why": null
+  },
+  {
+   "sport": "hike",
+   "speedMs": 2.9,
+   "cadenceSpm": 20,
+   "activity": "automotive",
+   "why": "activity"
+  },
+  {
+   "sport": "hike",
+   "speedMs": 2.9,
+   "cadenceSpm": 100,
+   "activity": "unknown",
+   "why": null
+  },
+  {
+   "sport": "hike",
+   "speedMs": 2.9,
+   "cadenceSpm": 100,
+   "activity": "walking",
+   "why": null
+  },
+  {
+   "sport": "hike",
+   "speedMs": 2.9,
+   "cadenceSpm": 100,
+   "activity": "running",
+   "why": null
+  },
+  {
+   "sport": "hike",
+   "speedMs": 2.9,
+   "cadenceSpm": 100,
+   "activity": "automotive",
+   "why": "activity"
+  },
+  {
+   "sport": "hike",
+   "speedMs": 2.9,
+   "cadenceSpm": 170,
+   "activity": "unknown",
+   "why": null
+  },
+  {
+   "sport": "hike",
+   "speedMs": 2.9,
+   "cadenceSpm": 170,
+   "activity": "walking",
+   "why": null
+  },
+  {
+   "sport": "hike",
+   "speedMs": 2.9,
+   "cadenceSpm": 170,
+   "activity": "running",
+   "why": null
+  },
+  {
+   "sport": "hike",
+   "speedMs": 2.9,
+   "cadenceSpm": 170,
+   "activity": "automotive",
+   "why": "activity"
+  },
+  {
+   "sport": "hike",
+   "speedMs": 3.5,
+   "cadenceSpm": null,
+   "activity": "unknown",
+   "why": null
+  },
+  {
+   "sport": "hike",
+   "speedMs": 3.5,
+   "cadenceSpm": null,
+   "activity": "walking",
+   "why": null
+  },
+  {
+   "sport": "hike",
+   "speedMs": 3.5,
+   "cadenceSpm": null,
+   "activity": "running",
+   "why": null
+  },
+  {
+   "sport": "hike",
+   "speedMs": 3.5,
+   "cadenceSpm": null,
+   "activity": "automotive",
+   "why": "activity"
+  },
+  {
+   "sport": "hike",
+   "speedMs": 3.5,
+   "cadenceSpm": 0,
+   "activity": "unknown",
+   "why": "speed"
+  },
+  {
+   "sport": "hike",
+   "speedMs": 3.5,
+   "cadenceSpm": 0,
+   "activity": "walking",
+   "why": "speed"
+  },
+  {
+   "sport": "hike",
+   "speedMs": 3.5,
+   "cadenceSpm": 0,
+   "activity": "running",
+   "why": "speed"
+  },
+  {
+   "sport": "hike",
+   "speedMs": 3.5,
+   "cadenceSpm": 0,
+   "activity": "automotive",
+   "why": "activity"
+  },
+  {
+   "sport": "hike",
+   "speedMs": 3.5,
+   "cadenceSpm": 20,
+   "activity": "unknown",
+   "why": "speed"
+  },
+  {
+   "sport": "hike",
+   "speedMs": 3.5,
+   "cadenceSpm": 20,
+   "activity": "walking",
+   "why": "speed"
+  },
+  {
+   "sport": "hike",
+   "speedMs": 3.5,
+   "cadenceSpm": 20,
+   "activity": "running",
+   "why": "speed"
+  },
+  {
+   "sport": "hike",
+   "speedMs": 3.5,
+   "cadenceSpm": 20,
+   "activity": "automotive",
+   "why": "activity"
+  },
+  {
+   "sport": "hike",
+   "speedMs": 3.5,
+   "cadenceSpm": 100,
+   "activity": "unknown",
+   "why": null
+  },
+  {
+   "sport": "hike",
+   "speedMs": 3.5,
+   "cadenceSpm": 100,
+   "activity": "walking",
+   "why": null
+  },
+  {
+   "sport": "hike",
+   "speedMs": 3.5,
+   "cadenceSpm": 100,
+   "activity": "running",
+   "why": null
+  },
+  {
+   "sport": "hike",
+   "speedMs": 3.5,
+   "cadenceSpm": 100,
+   "activity": "automotive",
+   "why": "activity"
+  },
+  {
+   "sport": "hike",
+   "speedMs": 3.5,
+   "cadenceSpm": 170,
+   "activity": "unknown",
+   "why": null
+  },
+  {
+   "sport": "hike",
+   "speedMs": 3.5,
+   "cadenceSpm": 170,
+   "activity": "walking",
+   "why": null
+  },
+  {
+   "sport": "hike",
+   "speedMs": 3.5,
+   "cadenceSpm": 170,
+   "activity": "running",
+   "why": null
+  },
+  {
+   "sport": "hike",
+   "speedMs": 3.5,
+   "cadenceSpm": 170,
+   "activity": "automotive",
+   "why": "activity"
+  },
+  {
+   "sport": "hike",
+   "speedMs": 4.5,
+   "cadenceSpm": null,
+   "activity": "unknown",
+   "why": null
+  },
+  {
+   "sport": "hike",
+   "speedMs": 4.5,
+   "cadenceSpm": null,
+   "activity": "walking",
+   "why": null
+  },
+  {
+   "sport": "hike",
+   "speedMs": 4.5,
+   "cadenceSpm": null,
+   "activity": "running",
+   "why": null
+  },
+  {
+   "sport": "hike",
+   "speedMs": 4.5,
+   "cadenceSpm": null,
+   "activity": "automotive",
+   "why": "activity"
+  },
+  {
+   "sport": "hike",
+   "speedMs": 4.5,
+   "cadenceSpm": 0,
+   "activity": "unknown",
+   "why": "speed"
+  },
+  {
+   "sport": "hike",
+   "speedMs": 4.5,
+   "cadenceSpm": 0,
+   "activity": "walking",
+   "why": "speed"
+  },
+  {
+   "sport": "hike",
+   "speedMs": 4.5,
+   "cadenceSpm": 0,
+   "activity": "running",
+   "why": "speed"
+  },
+  {
+   "sport": "hike",
+   "speedMs": 4.5,
+   "cadenceSpm": 0,
+   "activity": "automotive",
+   "why": "activity"
+  },
+  {
+   "sport": "hike",
+   "speedMs": 4.5,
+   "cadenceSpm": 20,
+   "activity": "unknown",
+   "why": "speed"
+  },
+  {
+   "sport": "hike",
+   "speedMs": 4.5,
+   "cadenceSpm": 20,
+   "activity": "walking",
+   "why": "speed"
+  },
+  {
+   "sport": "hike",
+   "speedMs": 4.5,
+   "cadenceSpm": 20,
+   "activity": "running",
+   "why": "speed"
+  },
+  {
+   "sport": "hike",
+   "speedMs": 4.5,
+   "cadenceSpm": 20,
+   "activity": "automotive",
+   "why": "activity"
+  },
+  {
+   "sport": "hike",
+   "speedMs": 4.5,
+   "cadenceSpm": 100,
+   "activity": "unknown",
+   "why": "stride"
+  },
+  {
+   "sport": "hike",
+   "speedMs": 4.5,
+   "cadenceSpm": 100,
+   "activity": "walking",
+   "why": "stride"
+  },
+  {
+   "sport": "hike",
+   "speedMs": 4.5,
+   "cadenceSpm": 100,
+   "activity": "running",
+   "why": "stride"
+  },
+  {
+   "sport": "hike",
+   "speedMs": 4.5,
+   "cadenceSpm": 100,
+   "activity": "automotive",
+   "why": "activity"
+  },
+  {
+   "sport": "hike",
+   "speedMs": 4.5,
+   "cadenceSpm": 170,
+   "activity": "unknown",
+   "why": null
+  },
+  {
+   "sport": "hike",
+   "speedMs": 4.5,
+   "cadenceSpm": 170,
+   "activity": "walking",
+   "why": null
+  },
+  {
+   "sport": "hike",
+   "speedMs": 4.5,
+   "cadenceSpm": 170,
+   "activity": "running",
+   "why": null
+  },
+  {
+   "sport": "hike",
+   "speedMs": 4.5,
+   "cadenceSpm": 170,
+   "activity": "automotive",
+   "why": "activity"
+  },
+  {
+   "sport": "hike",
+   "speedMs": 7.5,
+   "cadenceSpm": null,
+   "activity": "unknown",
+   "why": "speed"
+  },
+  {
+   "sport": "hike",
+   "speedMs": 7.5,
+   "cadenceSpm": null,
+   "activity": "walking",
+   "why": "speed"
+  },
+  {
+   "sport": "hike",
+   "speedMs": 7.5,
+   "cadenceSpm": null,
+   "activity": "running",
+   "why": "speed"
+  },
+  {
+   "sport": "hike",
+   "speedMs": 7.5,
+   "cadenceSpm": null,
+   "activity": "automotive",
+   "why": "activity"
+  },
+  {
+   "sport": "hike",
+   "speedMs": 7.5,
+   "cadenceSpm": 0,
+   "activity": "unknown",
+   "why": "speed"
+  },
+  {
+   "sport": "hike",
+   "speedMs": 7.5,
+   "cadenceSpm": 0,
+   "activity": "walking",
+   "why": "speed"
+  },
+  {
+   "sport": "hike",
+   "speedMs": 7.5,
+   "cadenceSpm": 0,
+   "activity": "running",
+   "why": "speed"
+  },
+  {
+   "sport": "hike",
+   "speedMs": 7.5,
+   "cadenceSpm": 0,
+   "activity": "automotive",
+   "why": "activity"
+  },
+  {
+   "sport": "hike",
+   "speedMs": 7.5,
+   "cadenceSpm": 20,
+   "activity": "unknown",
+   "why": "speed"
+  },
+  {
+   "sport": "hike",
+   "speedMs": 7.5,
+   "cadenceSpm": 20,
+   "activity": "walking",
+   "why": "speed"
+  },
+  {
+   "sport": "hike",
+   "speedMs": 7.5,
+   "cadenceSpm": 20,
+   "activity": "running",
+   "why": "speed"
+  },
+  {
+   "sport": "hike",
+   "speedMs": 7.5,
+   "cadenceSpm": 20,
+   "activity": "automotive",
+   "why": "activity"
+  },
+  {
+   "sport": "hike",
+   "speedMs": 7.5,
+   "cadenceSpm": 100,
+   "activity": "unknown",
+   "why": "stride"
+  },
+  {
+   "sport": "hike",
+   "speedMs": 7.5,
+   "cadenceSpm": 100,
+   "activity": "walking",
+   "why": "stride"
+  },
+  {
+   "sport": "hike",
+   "speedMs": 7.5,
+   "cadenceSpm": 100,
+   "activity": "running",
+   "why": "stride"
+  },
+  {
+   "sport": "hike",
+   "speedMs": 7.5,
+   "cadenceSpm": 100,
+   "activity": "automotive",
+   "why": "activity"
+  },
+  {
+   "sport": "hike",
+   "speedMs": 7.5,
+   "cadenceSpm": 170,
+   "activity": "unknown",
+   "why": "stride"
+  },
+  {
+   "sport": "hike",
+   "speedMs": 7.5,
+   "cadenceSpm": 170,
+   "activity": "walking",
+   "why": "stride"
+  },
+  {
+   "sport": "hike",
+   "speedMs": 7.5,
+   "cadenceSpm": 170,
+   "activity": "running",
+   "why": "stride"
+  },
+  {
+   "sport": "hike",
+   "speedMs": 7.5,
+   "cadenceSpm": 170,
+   "activity": "automotive",
+   "why": "activity"
+  },
+  {
+   "sport": "hike",
+   "speedMs": 9.5,
+   "cadenceSpm": null,
+   "activity": "unknown",
+   "why": "speed"
+  },
+  {
+   "sport": "hike",
+   "speedMs": 9.5,
+   "cadenceSpm": null,
+   "activity": "walking",
+   "why": "speed"
+  },
+  {
+   "sport": "hike",
+   "speedMs": 9.5,
+   "cadenceSpm": null,
+   "activity": "running",
+   "why": "speed"
+  },
+  {
+   "sport": "hike",
+   "speedMs": 9.5,
+   "cadenceSpm": null,
+   "activity": "automotive",
+   "why": "activity"
+  },
+  {
+   "sport": "hike",
+   "speedMs": 9.5,
+   "cadenceSpm": 0,
+   "activity": "unknown",
+   "why": "speed"
+  },
+  {
+   "sport": "hike",
+   "speedMs": 9.5,
+   "cadenceSpm": 0,
+   "activity": "walking",
+   "why": "speed"
+  },
+  {
+   "sport": "hike",
+   "speedMs": 9.5,
+   "cadenceSpm": 0,
+   "activity": "running",
+   "why": "speed"
+  },
+  {
+   "sport": "hike",
+   "speedMs": 9.5,
+   "cadenceSpm": 0,
+   "activity": "automotive",
+   "why": "activity"
+  },
+  {
+   "sport": "hike",
+   "speedMs": 9.5,
+   "cadenceSpm": 20,
+   "activity": "unknown",
+   "why": "speed"
+  },
+  {
+   "sport": "hike",
+   "speedMs": 9.5,
+   "cadenceSpm": 20,
+   "activity": "walking",
+   "why": "speed"
+  },
+  {
+   "sport": "hike",
+   "speedMs": 9.5,
+   "cadenceSpm": 20,
+   "activity": "running",
+   "why": "speed"
+  },
+  {
+   "sport": "hike",
+   "speedMs": 9.5,
+   "cadenceSpm": 20,
+   "activity": "automotive",
+   "why": "activity"
+  },
+  {
+   "sport": "hike",
+   "speedMs": 9.5,
+   "cadenceSpm": 100,
+   "activity": "unknown",
+   "why": "speed"
+  },
+  {
+   "sport": "hike",
+   "speedMs": 9.5,
+   "cadenceSpm": 100,
+   "activity": "walking",
+   "why": "speed"
+  },
+  {
+   "sport": "hike",
+   "speedMs": 9.5,
+   "cadenceSpm": 100,
+   "activity": "running",
+   "why": "speed"
+  },
+  {
+   "sport": "hike",
+   "speedMs": 9.5,
+   "cadenceSpm": 100,
+   "activity": "automotive",
+   "why": "activity"
+  },
+  {
+   "sport": "hike",
+   "speedMs": 9.5,
+   "cadenceSpm": 170,
+   "activity": "unknown",
+   "why": "speed"
+  },
+  {
+   "sport": "hike",
+   "speedMs": 9.5,
+   "cadenceSpm": 170,
+   "activity": "walking",
+   "why": "speed"
+  },
+  {
+   "sport": "hike",
+   "speedMs": 9.5,
+   "cadenceSpm": 170,
+   "activity": "running",
+   "why": "speed"
+  },
+  {
+   "sport": "hike",
+   "speedMs": 9.5,
+   "cadenceSpm": 170,
+   "activity": "automotive",
+   "why": "activity"
+  },
+  {
+   "sport": "hike",
+   "speedMs": 15,
+   "cadenceSpm": null,
+   "activity": "unknown",
+   "why": "speed"
+  },
+  {
+   "sport": "hike",
+   "speedMs": 15,
+   "cadenceSpm": null,
+   "activity": "walking",
+   "why": "speed"
+  },
+  {
+   "sport": "hike",
+   "speedMs": 15,
+   "cadenceSpm": null,
+   "activity": "running",
+   "why": "speed"
+  },
+  {
+   "sport": "hike",
+   "speedMs": 15,
+   "cadenceSpm": null,
+   "activity": "automotive",
+   "why": "activity"
+  },
+  {
+   "sport": "hike",
+   "speedMs": 15,
+   "cadenceSpm": 0,
+   "activity": "unknown",
+   "why": "speed"
+  },
+  {
+   "sport": "hike",
+   "speedMs": 15,
+   "cadenceSpm": 0,
+   "activity": "walking",
+   "why": "speed"
+  },
+  {
+   "sport": "hike",
+   "speedMs": 15,
+   "cadenceSpm": 0,
+   "activity": "running",
+   "why": "speed"
+  },
+  {
+   "sport": "hike",
+   "speedMs": 15,
+   "cadenceSpm": 0,
+   "activity": "automotive",
+   "why": "activity"
+  },
+  {
+   "sport": "hike",
+   "speedMs": 15,
+   "cadenceSpm": 20,
+   "activity": "unknown",
+   "why": "speed"
+  },
+  {
+   "sport": "hike",
+   "speedMs": 15,
+   "cadenceSpm": 20,
+   "activity": "walking",
+   "why": "speed"
+  },
+  {
+   "sport": "hike",
+   "speedMs": 15,
+   "cadenceSpm": 20,
+   "activity": "running",
+   "why": "speed"
+  },
+  {
+   "sport": "hike",
+   "speedMs": 15,
+   "cadenceSpm": 20,
+   "activity": "automotive",
+   "why": "activity"
+  },
+  {
+   "sport": "hike",
+   "speedMs": 15,
+   "cadenceSpm": 100,
+   "activity": "unknown",
+   "why": "speed"
+  },
+  {
+   "sport": "hike",
+   "speedMs": 15,
+   "cadenceSpm": 100,
+   "activity": "walking",
+   "why": "speed"
+  },
+  {
+   "sport": "hike",
+   "speedMs": 15,
+   "cadenceSpm": 100,
+   "activity": "running",
+   "why": "speed"
+  },
+  {
+   "sport": "hike",
+   "speedMs": 15,
+   "cadenceSpm": 100,
+   "activity": "automotive",
+   "why": "activity"
+  },
+  {
+   "sport": "hike",
+   "speedMs": 15,
+   "cadenceSpm": 170,
+   "activity": "unknown",
+   "why": "speed"
+  },
+  {
+   "sport": "hike",
+   "speedMs": 15,
+   "cadenceSpm": 170,
+   "activity": "walking",
+   "why": "speed"
+  },
+  {
+   "sport": "hike",
+   "speedMs": 15,
+   "cadenceSpm": 170,
+   "activity": "running",
+   "why": "speed"
+  },
+  {
+   "sport": "hike",
+   "speedMs": 15,
+   "cadenceSpm": 170,
+   "activity": "automotive",
+   "why": "activity"
+  },
+  {
+   "sport": "treadmill",
+   "speedMs": null,
+   "cadenceSpm": null,
+   "activity": "unknown",
+   "why": null
+  },
+  {
+   "sport": "treadmill",
+   "speedMs": null,
+   "cadenceSpm": null,
+   "activity": "walking",
+   "why": null
+  },
+  {
+   "sport": "treadmill",
+   "speedMs": null,
+   "cadenceSpm": null,
+   "activity": "running",
+   "why": null
+  },
+  {
+   "sport": "treadmill",
+   "speedMs": null,
+   "cadenceSpm": null,
+   "activity": "automotive",
+   "why": null
+  },
+  {
+   "sport": "treadmill",
+   "speedMs": null,
+   "cadenceSpm": 0,
+   "activity": "unknown",
+   "why": null
+  },
+  {
+   "sport": "treadmill",
+   "speedMs": null,
+   "cadenceSpm": 0,
+   "activity": "walking",
+   "why": null
+  },
+  {
+   "sport": "treadmill",
+   "speedMs": null,
+   "cadenceSpm": 0,
+   "activity": "running",
+   "why": null
+  },
+  {
+   "sport": "treadmill",
+   "speedMs": null,
+   "cadenceSpm": 0,
+   "activity": "automotive",
+   "why": null
+  },
+  {
+   "sport": "treadmill",
+   "speedMs": null,
+   "cadenceSpm": 20,
+   "activity": "unknown",
+   "why": null
+  },
+  {
+   "sport": "treadmill",
+   "speedMs": null,
+   "cadenceSpm": 20,
+   "activity": "walking",
+   "why": null
+  },
+  {
+   "sport": "treadmill",
+   "speedMs": null,
+   "cadenceSpm": 20,
+   "activity": "running",
+   "why": null
+  },
+  {
+   "sport": "treadmill",
+   "speedMs": null,
+   "cadenceSpm": 20,
+   "activity": "automotive",
+   "why": null
+  },
+  {
+   "sport": "treadmill",
+   "speedMs": null,
+   "cadenceSpm": 100,
+   "activity": "unknown",
+   "why": null
+  },
+  {
+   "sport": "treadmill",
+   "speedMs": null,
+   "cadenceSpm": 100,
+   "activity": "walking",
+   "why": null
+  },
+  {
+   "sport": "treadmill",
+   "speedMs": null,
+   "cadenceSpm": 100,
+   "activity": "running",
+   "why": null
+  },
+  {
+   "sport": "treadmill",
+   "speedMs": null,
+   "cadenceSpm": 100,
+   "activity": "automotive",
+   "why": null
+  },
+  {
+   "sport": "treadmill",
+   "speedMs": null,
+   "cadenceSpm": 170,
+   "activity": "unknown",
+   "why": null
+  },
+  {
+   "sport": "treadmill",
+   "speedMs": null,
+   "cadenceSpm": 170,
+   "activity": "walking",
+   "why": null
+  },
+  {
+   "sport": "treadmill",
+   "speedMs": null,
+   "cadenceSpm": 170,
+   "activity": "running",
+   "why": null
+  },
+  {
+   "sport": "treadmill",
+   "speedMs": null,
+   "cadenceSpm": 170,
+   "activity": "automotive",
+   "why": null
+  },
+  {
+   "sport": "treadmill",
+   "speedMs": 0,
+   "cadenceSpm": null,
+   "activity": "unknown",
+   "why": null
+  },
+  {
+   "sport": "treadmill",
+   "speedMs": 0,
+   "cadenceSpm": null,
+   "activity": "walking",
+   "why": null
+  },
+  {
+   "sport": "treadmill",
+   "speedMs": 0,
+   "cadenceSpm": null,
+   "activity": "running",
+   "why": null
+  },
+  {
+   "sport": "treadmill",
+   "speedMs": 0,
+   "cadenceSpm": null,
+   "activity": "automotive",
+   "why": null
+  },
+  {
+   "sport": "treadmill",
+   "speedMs": 0,
+   "cadenceSpm": 0,
+   "activity": "unknown",
+   "why": null
+  },
+  {
+   "sport": "treadmill",
+   "speedMs": 0,
+   "cadenceSpm": 0,
+   "activity": "walking",
+   "why": null
+  },
+  {
+   "sport": "treadmill",
+   "speedMs": 0,
+   "cadenceSpm": 0,
+   "activity": "running",
+   "why": null
+  },
+  {
+   "sport": "treadmill",
+   "speedMs": 0,
+   "cadenceSpm": 0,
+   "activity": "automotive",
+   "why": null
+  },
+  {
+   "sport": "treadmill",
+   "speedMs": 0,
+   "cadenceSpm": 20,
+   "activity": "unknown",
+   "why": null
+  },
+  {
+   "sport": "treadmill",
+   "speedMs": 0,
+   "cadenceSpm": 20,
+   "activity": "walking",
+   "why": null
+  },
+  {
+   "sport": "treadmill",
+   "speedMs": 0,
+   "cadenceSpm": 20,
+   "activity": "running",
+   "why": null
+  },
+  {
+   "sport": "treadmill",
+   "speedMs": 0,
+   "cadenceSpm": 20,
+   "activity": "automotive",
+   "why": null
+  },
+  {
+   "sport": "treadmill",
+   "speedMs": 0,
+   "cadenceSpm": 100,
+   "activity": "unknown",
+   "why": null
+  },
+  {
+   "sport": "treadmill",
+   "speedMs": 0,
+   "cadenceSpm": 100,
+   "activity": "walking",
+   "why": null
+  },
+  {
+   "sport": "treadmill",
+   "speedMs": 0,
+   "cadenceSpm": 100,
+   "activity": "running",
+   "why": null
+  },
+  {
+   "sport": "treadmill",
+   "speedMs": 0,
+   "cadenceSpm": 100,
+   "activity": "automotive",
+   "why": null
+  },
+  {
+   "sport": "treadmill",
+   "speedMs": 0,
+   "cadenceSpm": 170,
+   "activity": "unknown",
+   "why": null
+  },
+  {
+   "sport": "treadmill",
+   "speedMs": 0,
+   "cadenceSpm": 170,
+   "activity": "walking",
+   "why": null
+  },
+  {
+   "sport": "treadmill",
+   "speedMs": 0,
+   "cadenceSpm": 170,
+   "activity": "running",
+   "why": null
+  },
+  {
+   "sport": "treadmill",
+   "speedMs": 0,
+   "cadenceSpm": 170,
+   "activity": "automotive",
+   "why": null
+  },
+  {
+   "sport": "treadmill",
+   "speedMs": 1.5,
+   "cadenceSpm": null,
+   "activity": "unknown",
+   "why": null
+  },
+  {
+   "sport": "treadmill",
+   "speedMs": 1.5,
+   "cadenceSpm": null,
+   "activity": "walking",
+   "why": null
+  },
+  {
+   "sport": "treadmill",
+   "speedMs": 1.5,
+   "cadenceSpm": null,
+   "activity": "running",
+   "why": null
+  },
+  {
+   "sport": "treadmill",
+   "speedMs": 1.5,
+   "cadenceSpm": null,
+   "activity": "automotive",
+   "why": null
+  },
+  {
+   "sport": "treadmill",
+   "speedMs": 1.5,
+   "cadenceSpm": 0,
+   "activity": "unknown",
+   "why": null
+  },
+  {
+   "sport": "treadmill",
+   "speedMs": 1.5,
+   "cadenceSpm": 0,
+   "activity": "walking",
+   "why": null
+  },
+  {
+   "sport": "treadmill",
+   "speedMs": 1.5,
+   "cadenceSpm": 0,
+   "activity": "running",
+   "why": null
+  },
+  {
+   "sport": "treadmill",
+   "speedMs": 1.5,
+   "cadenceSpm": 0,
+   "activity": "automotive",
+   "why": null
+  },
+  {
+   "sport": "treadmill",
+   "speedMs": 1.5,
+   "cadenceSpm": 20,
+   "activity": "unknown",
+   "why": null
+  },
+  {
+   "sport": "treadmill",
+   "speedMs": 1.5,
+   "cadenceSpm": 20,
+   "activity": "walking",
+   "why": null
+  },
+  {
+   "sport": "treadmill",
+   "speedMs": 1.5,
+   "cadenceSpm": 20,
+   "activity": "running",
+   "why": null
+  },
+  {
+   "sport": "treadmill",
+   "speedMs": 1.5,
+   "cadenceSpm": 20,
+   "activity": "automotive",
+   "why": null
+  },
+  {
+   "sport": "treadmill",
+   "speedMs": 1.5,
+   "cadenceSpm": 100,
+   "activity": "unknown",
+   "why": null
+  },
+  {
+   "sport": "treadmill",
+   "speedMs": 1.5,
+   "cadenceSpm": 100,
+   "activity": "walking",
+   "why": null
+  },
+  {
+   "sport": "treadmill",
+   "speedMs": 1.5,
+   "cadenceSpm": 100,
+   "activity": "running",
+   "why": null
+  },
+  {
+   "sport": "treadmill",
+   "speedMs": 1.5,
+   "cadenceSpm": 100,
+   "activity": "automotive",
+   "why": null
+  },
+  {
+   "sport": "treadmill",
+   "speedMs": 1.5,
+   "cadenceSpm": 170,
+   "activity": "unknown",
+   "why": null
+  },
+  {
+   "sport": "treadmill",
+   "speedMs": 1.5,
+   "cadenceSpm": 170,
+   "activity": "walking",
+   "why": null
+  },
+  {
+   "sport": "treadmill",
+   "speedMs": 1.5,
+   "cadenceSpm": 170,
+   "activity": "running",
+   "why": null
+  },
+  {
+   "sport": "treadmill",
+   "speedMs": 1.5,
+   "cadenceSpm": 170,
+   "activity": "automotive",
+   "why": null
+  },
+  {
+   "sport": "treadmill",
+   "speedMs": 2.9,
+   "cadenceSpm": null,
+   "activity": "unknown",
+   "why": null
+  },
+  {
+   "sport": "treadmill",
+   "speedMs": 2.9,
+   "cadenceSpm": null,
+   "activity": "walking",
+   "why": null
+  },
+  {
+   "sport": "treadmill",
+   "speedMs": 2.9,
+   "cadenceSpm": null,
+   "activity": "running",
+   "why": null
+  },
+  {
+   "sport": "treadmill",
+   "speedMs": 2.9,
+   "cadenceSpm": null,
+   "activity": "automotive",
+   "why": null
+  },
+  {
+   "sport": "treadmill",
+   "speedMs": 2.9,
+   "cadenceSpm": 0,
+   "activity": "unknown",
+   "why": null
+  },
+  {
+   "sport": "treadmill",
+   "speedMs": 2.9,
+   "cadenceSpm": 0,
+   "activity": "walking",
+   "why": null
+  },
+  {
+   "sport": "treadmill",
+   "speedMs": 2.9,
+   "cadenceSpm": 0,
+   "activity": "running",
+   "why": null
+  },
+  {
+   "sport": "treadmill",
+   "speedMs": 2.9,
+   "cadenceSpm": 0,
+   "activity": "automotive",
+   "why": null
+  },
+  {
+   "sport": "treadmill",
+   "speedMs": 2.9,
+   "cadenceSpm": 20,
+   "activity": "unknown",
+   "why": null
+  },
+  {
+   "sport": "treadmill",
+   "speedMs": 2.9,
+   "cadenceSpm": 20,
+   "activity": "walking",
+   "why": null
+  },
+  {
+   "sport": "treadmill",
+   "speedMs": 2.9,
+   "cadenceSpm": 20,
+   "activity": "running",
+   "why": null
+  },
+  {
+   "sport": "treadmill",
+   "speedMs": 2.9,
+   "cadenceSpm": 20,
+   "activity": "automotive",
+   "why": null
+  },
+  {
+   "sport": "treadmill",
+   "speedMs": 2.9,
+   "cadenceSpm": 100,
+   "activity": "unknown",
+   "why": null
+  },
+  {
+   "sport": "treadmill",
+   "speedMs": 2.9,
+   "cadenceSpm": 100,
+   "activity": "walking",
+   "why": null
+  },
+  {
+   "sport": "treadmill",
+   "speedMs": 2.9,
+   "cadenceSpm": 100,
+   "activity": "running",
+   "why": null
+  },
+  {
+   "sport": "treadmill",
+   "speedMs": 2.9,
+   "cadenceSpm": 100,
+   "activity": "automotive",
+   "why": null
+  },
+  {
+   "sport": "treadmill",
+   "speedMs": 2.9,
+   "cadenceSpm": 170,
+   "activity": "unknown",
+   "why": null
+  },
+  {
+   "sport": "treadmill",
+   "speedMs": 2.9,
+   "cadenceSpm": 170,
+   "activity": "walking",
+   "why": null
+  },
+  {
+   "sport": "treadmill",
+   "speedMs": 2.9,
+   "cadenceSpm": 170,
+   "activity": "running",
+   "why": null
+  },
+  {
+   "sport": "treadmill",
+   "speedMs": 2.9,
+   "cadenceSpm": 170,
+   "activity": "automotive",
+   "why": null
+  },
+  {
+   "sport": "treadmill",
+   "speedMs": 3.5,
+   "cadenceSpm": null,
+   "activity": "unknown",
+   "why": null
+  },
+  {
+   "sport": "treadmill",
+   "speedMs": 3.5,
+   "cadenceSpm": null,
+   "activity": "walking",
+   "why": null
+  },
+  {
+   "sport": "treadmill",
+   "speedMs": 3.5,
+   "cadenceSpm": null,
+   "activity": "running",
+   "why": null
+  },
+  {
+   "sport": "treadmill",
+   "speedMs": 3.5,
+   "cadenceSpm": null,
+   "activity": "automotive",
+   "why": null
+  },
+  {
+   "sport": "treadmill",
+   "speedMs": 3.5,
+   "cadenceSpm": 0,
+   "activity": "unknown",
+   "why": null
+  },
+  {
+   "sport": "treadmill",
+   "speedMs": 3.5,
+   "cadenceSpm": 0,
+   "activity": "walking",
+   "why": null
+  },
+  {
+   "sport": "treadmill",
+   "speedMs": 3.5,
+   "cadenceSpm": 0,
+   "activity": "running",
+   "why": null
+  },
+  {
+   "sport": "treadmill",
+   "speedMs": 3.5,
+   "cadenceSpm": 0,
+   "activity": "automotive",
+   "why": null
+  },
+  {
+   "sport": "treadmill",
+   "speedMs": 3.5,
+   "cadenceSpm": 20,
+   "activity": "unknown",
+   "why": null
+  },
+  {
+   "sport": "treadmill",
+   "speedMs": 3.5,
+   "cadenceSpm": 20,
+   "activity": "walking",
+   "why": null
+  },
+  {
+   "sport": "treadmill",
+   "speedMs": 3.5,
+   "cadenceSpm": 20,
+   "activity": "running",
+   "why": null
+  },
+  {
+   "sport": "treadmill",
+   "speedMs": 3.5,
+   "cadenceSpm": 20,
+   "activity": "automotive",
+   "why": null
+  },
+  {
+   "sport": "treadmill",
+   "speedMs": 3.5,
+   "cadenceSpm": 100,
+   "activity": "unknown",
+   "why": null
+  },
+  {
+   "sport": "treadmill",
+   "speedMs": 3.5,
+   "cadenceSpm": 100,
+   "activity": "walking",
+   "why": null
+  },
+  {
+   "sport": "treadmill",
+   "speedMs": 3.5,
+   "cadenceSpm": 100,
+   "activity": "running",
+   "why": null
+  },
+  {
+   "sport": "treadmill",
+   "speedMs": 3.5,
+   "cadenceSpm": 100,
+   "activity": "automotive",
+   "why": null
+  },
+  {
+   "sport": "treadmill",
+   "speedMs": 3.5,
+   "cadenceSpm": 170,
+   "activity": "unknown",
+   "why": null
+  },
+  {
+   "sport": "treadmill",
+   "speedMs": 3.5,
+   "cadenceSpm": 170,
+   "activity": "walking",
+   "why": null
+  },
+  {
+   "sport": "treadmill",
+   "speedMs": 3.5,
+   "cadenceSpm": 170,
+   "activity": "running",
+   "why": null
+  },
+  {
+   "sport": "treadmill",
+   "speedMs": 3.5,
+   "cadenceSpm": 170,
+   "activity": "automotive",
+   "why": null
+  },
+  {
+   "sport": "treadmill",
+   "speedMs": 4.5,
+   "cadenceSpm": null,
+   "activity": "unknown",
+   "why": null
+  },
+  {
+   "sport": "treadmill",
+   "speedMs": 4.5,
+   "cadenceSpm": null,
+   "activity": "walking",
+   "why": null
+  },
+  {
+   "sport": "treadmill",
+   "speedMs": 4.5,
+   "cadenceSpm": null,
+   "activity": "running",
+   "why": null
+  },
+  {
+   "sport": "treadmill",
+   "speedMs": 4.5,
+   "cadenceSpm": null,
+   "activity": "automotive",
+   "why": null
+  },
+  {
+   "sport": "treadmill",
+   "speedMs": 4.5,
+   "cadenceSpm": 0,
+   "activity": "unknown",
+   "why": null
+  },
+  {
+   "sport": "treadmill",
+   "speedMs": 4.5,
+   "cadenceSpm": 0,
+   "activity": "walking",
+   "why": null
+  },
+  {
+   "sport": "treadmill",
+   "speedMs": 4.5,
+   "cadenceSpm": 0,
+   "activity": "running",
+   "why": null
+  },
+  {
+   "sport": "treadmill",
+   "speedMs": 4.5,
+   "cadenceSpm": 0,
+   "activity": "automotive",
+   "why": null
+  },
+  {
+   "sport": "treadmill",
+   "speedMs": 4.5,
+   "cadenceSpm": 20,
+   "activity": "unknown",
+   "why": null
+  },
+  {
+   "sport": "treadmill",
+   "speedMs": 4.5,
+   "cadenceSpm": 20,
+   "activity": "walking",
+   "why": null
+  },
+  {
+   "sport": "treadmill",
+   "speedMs": 4.5,
+   "cadenceSpm": 20,
+   "activity": "running",
+   "why": null
+  },
+  {
+   "sport": "treadmill",
+   "speedMs": 4.5,
+   "cadenceSpm": 20,
+   "activity": "automotive",
+   "why": null
+  },
+  {
+   "sport": "treadmill",
+   "speedMs": 4.5,
+   "cadenceSpm": 100,
+   "activity": "unknown",
+   "why": null
+  },
+  {
+   "sport": "treadmill",
+   "speedMs": 4.5,
+   "cadenceSpm": 100,
+   "activity": "walking",
+   "why": null
+  },
+  {
+   "sport": "treadmill",
+   "speedMs": 4.5,
+   "cadenceSpm": 100,
+   "activity": "running",
+   "why": null
+  },
+  {
+   "sport": "treadmill",
+   "speedMs": 4.5,
+   "cadenceSpm": 100,
+   "activity": "automotive",
+   "why": null
+  },
+  {
+   "sport": "treadmill",
+   "speedMs": 4.5,
+   "cadenceSpm": 170,
+   "activity": "unknown",
+   "why": null
+  },
+  {
+   "sport": "treadmill",
+   "speedMs": 4.5,
+   "cadenceSpm": 170,
+   "activity": "walking",
+   "why": null
+  },
+  {
+   "sport": "treadmill",
+   "speedMs": 4.5,
+   "cadenceSpm": 170,
+   "activity": "running",
+   "why": null
+  },
+  {
+   "sport": "treadmill",
+   "speedMs": 4.5,
+   "cadenceSpm": 170,
+   "activity": "automotive",
+   "why": null
+  },
+  {
+   "sport": "treadmill",
+   "speedMs": 7.5,
+   "cadenceSpm": null,
+   "activity": "unknown",
+   "why": null
+  },
+  {
+   "sport": "treadmill",
+   "speedMs": 7.5,
+   "cadenceSpm": null,
+   "activity": "walking",
+   "why": null
+  },
+  {
+   "sport": "treadmill",
+   "speedMs": 7.5,
+   "cadenceSpm": null,
+   "activity": "running",
+   "why": null
+  },
+  {
+   "sport": "treadmill",
+   "speedMs": 7.5,
+   "cadenceSpm": null,
+   "activity": "automotive",
+   "why": null
+  },
+  {
+   "sport": "treadmill",
+   "speedMs": 7.5,
+   "cadenceSpm": 0,
+   "activity": "unknown",
+   "why": null
+  },
+  {
+   "sport": "treadmill",
+   "speedMs": 7.5,
+   "cadenceSpm": 0,
+   "activity": "walking",
+   "why": null
+  },
+  {
+   "sport": "treadmill",
+   "speedMs": 7.5,
+   "cadenceSpm": 0,
+   "activity": "running",
+   "why": null
+  },
+  {
+   "sport": "treadmill",
+   "speedMs": 7.5,
+   "cadenceSpm": 0,
+   "activity": "automotive",
+   "why": null
+  },
+  {
+   "sport": "treadmill",
+   "speedMs": 7.5,
+   "cadenceSpm": 20,
+   "activity": "unknown",
+   "why": null
+  },
+  {
+   "sport": "treadmill",
+   "speedMs": 7.5,
+   "cadenceSpm": 20,
+   "activity": "walking",
+   "why": null
+  },
+  {
+   "sport": "treadmill",
+   "speedMs": 7.5,
+   "cadenceSpm": 20,
+   "activity": "running",
+   "why": null
+  },
+  {
+   "sport": "treadmill",
+   "speedMs": 7.5,
+   "cadenceSpm": 20,
+   "activity": "automotive",
+   "why": null
+  },
+  {
+   "sport": "treadmill",
+   "speedMs": 7.5,
+   "cadenceSpm": 100,
+   "activity": "unknown",
+   "why": null
+  },
+  {
+   "sport": "treadmill",
+   "speedMs": 7.5,
+   "cadenceSpm": 100,
+   "activity": "walking",
+   "why": null
+  },
+  {
+   "sport": "treadmill",
+   "speedMs": 7.5,
+   "cadenceSpm": 100,
+   "activity": "running",
+   "why": null
+  },
+  {
+   "sport": "treadmill",
+   "speedMs": 7.5,
+   "cadenceSpm": 100,
+   "activity": "automotive",
+   "why": null
+  },
+  {
+   "sport": "treadmill",
+   "speedMs": 7.5,
+   "cadenceSpm": 170,
+   "activity": "unknown",
+   "why": null
+  },
+  {
+   "sport": "treadmill",
+   "speedMs": 7.5,
+   "cadenceSpm": 170,
+   "activity": "walking",
+   "why": null
+  },
+  {
+   "sport": "treadmill",
+   "speedMs": 7.5,
+   "cadenceSpm": 170,
+   "activity": "running",
+   "why": null
+  },
+  {
+   "sport": "treadmill",
+   "speedMs": 7.5,
+   "cadenceSpm": 170,
+   "activity": "automotive",
+   "why": null
+  },
+  {
+   "sport": "treadmill",
+   "speedMs": 9.5,
+   "cadenceSpm": null,
+   "activity": "unknown",
+   "why": null
+  },
+  {
+   "sport": "treadmill",
+   "speedMs": 9.5,
+   "cadenceSpm": null,
+   "activity": "walking",
+   "why": null
+  },
+  {
+   "sport": "treadmill",
+   "speedMs": 9.5,
+   "cadenceSpm": null,
+   "activity": "running",
+   "why": null
+  },
+  {
+   "sport": "treadmill",
+   "speedMs": 9.5,
+   "cadenceSpm": null,
+   "activity": "automotive",
+   "why": null
+  },
+  {
+   "sport": "treadmill",
+   "speedMs": 9.5,
+   "cadenceSpm": 0,
+   "activity": "unknown",
+   "why": null
+  },
+  {
+   "sport": "treadmill",
+   "speedMs": 9.5,
+   "cadenceSpm": 0,
+   "activity": "walking",
+   "why": null
+  },
+  {
+   "sport": "treadmill",
+   "speedMs": 9.5,
+   "cadenceSpm": 0,
+   "activity": "running",
+   "why": null
+  },
+  {
+   "sport": "treadmill",
+   "speedMs": 9.5,
+   "cadenceSpm": 0,
+   "activity": "automotive",
+   "why": null
+  },
+  {
+   "sport": "treadmill",
+   "speedMs": 9.5,
+   "cadenceSpm": 20,
+   "activity": "unknown",
+   "why": null
+  },
+  {
+   "sport": "treadmill",
+   "speedMs": 9.5,
+   "cadenceSpm": 20,
+   "activity": "walking",
+   "why": null
+  },
+  {
+   "sport": "treadmill",
+   "speedMs": 9.5,
+   "cadenceSpm": 20,
+   "activity": "running",
+   "why": null
+  },
+  {
+   "sport": "treadmill",
+   "speedMs": 9.5,
+   "cadenceSpm": 20,
+   "activity": "automotive",
+   "why": null
+  },
+  {
+   "sport": "treadmill",
+   "speedMs": 9.5,
+   "cadenceSpm": 100,
+   "activity": "unknown",
+   "why": null
+  },
+  {
+   "sport": "treadmill",
+   "speedMs": 9.5,
+   "cadenceSpm": 100,
+   "activity": "walking",
+   "why": null
+  },
+  {
+   "sport": "treadmill",
+   "speedMs": 9.5,
+   "cadenceSpm": 100,
+   "activity": "running",
+   "why": null
+  },
+  {
+   "sport": "treadmill",
+   "speedMs": 9.5,
+   "cadenceSpm": 100,
+   "activity": "automotive",
+   "why": null
+  },
+  {
+   "sport": "treadmill",
+   "speedMs": 9.5,
+   "cadenceSpm": 170,
+   "activity": "unknown",
+   "why": null
+  },
+  {
+   "sport": "treadmill",
+   "speedMs": 9.5,
+   "cadenceSpm": 170,
+   "activity": "walking",
+   "why": null
+  },
+  {
+   "sport": "treadmill",
+   "speedMs": 9.5,
+   "cadenceSpm": 170,
+   "activity": "running",
+   "why": null
+  },
+  {
+   "sport": "treadmill",
+   "speedMs": 9.5,
+   "cadenceSpm": 170,
+   "activity": "automotive",
+   "why": null
+  },
+  {
+   "sport": "treadmill",
+   "speedMs": 15,
+   "cadenceSpm": null,
+   "activity": "unknown",
+   "why": null
+  },
+  {
+   "sport": "treadmill",
+   "speedMs": 15,
+   "cadenceSpm": null,
+   "activity": "walking",
+   "why": null
+  },
+  {
+   "sport": "treadmill",
+   "speedMs": 15,
+   "cadenceSpm": null,
+   "activity": "running",
+   "why": null
+  },
+  {
+   "sport": "treadmill",
+   "speedMs": 15,
+   "cadenceSpm": null,
+   "activity": "automotive",
+   "why": null
+  },
+  {
+   "sport": "treadmill",
+   "speedMs": 15,
+   "cadenceSpm": 0,
+   "activity": "unknown",
+   "why": null
+  },
+  {
+   "sport": "treadmill",
+   "speedMs": 15,
+   "cadenceSpm": 0,
+   "activity": "walking",
+   "why": null
+  },
+  {
+   "sport": "treadmill",
+   "speedMs": 15,
+   "cadenceSpm": 0,
+   "activity": "running",
+   "why": null
+  },
+  {
+   "sport": "treadmill",
+   "speedMs": 15,
+   "cadenceSpm": 0,
+   "activity": "automotive",
+   "why": null
+  },
+  {
+   "sport": "treadmill",
+   "speedMs": 15,
+   "cadenceSpm": 20,
+   "activity": "unknown",
+   "why": null
+  },
+  {
+   "sport": "treadmill",
+   "speedMs": 15,
+   "cadenceSpm": 20,
+   "activity": "walking",
+   "why": null
+  },
+  {
+   "sport": "treadmill",
+   "speedMs": 15,
+   "cadenceSpm": 20,
+   "activity": "running",
+   "why": null
+  },
+  {
+   "sport": "treadmill",
+   "speedMs": 15,
+   "cadenceSpm": 20,
+   "activity": "automotive",
+   "why": null
+  },
+  {
+   "sport": "treadmill",
+   "speedMs": 15,
+   "cadenceSpm": 100,
+   "activity": "unknown",
+   "why": null
+  },
+  {
+   "sport": "treadmill",
+   "speedMs": 15,
+   "cadenceSpm": 100,
+   "activity": "walking",
+   "why": null
+  },
+  {
+   "sport": "treadmill",
+   "speedMs": 15,
+   "cadenceSpm": 100,
+   "activity": "running",
+   "why": null
+  },
+  {
+   "sport": "treadmill",
+   "speedMs": 15,
+   "cadenceSpm": 100,
+   "activity": "automotive",
+   "why": null
+  },
+  {
+   "sport": "treadmill",
+   "speedMs": 15,
+   "cadenceSpm": 170,
+   "activity": "unknown",
+   "why": null
+  },
+  {
+   "sport": "treadmill",
+   "speedMs": 15,
+   "cadenceSpm": 170,
+   "activity": "walking",
+   "why": null
+  },
+  {
+   "sport": "treadmill",
+   "speedMs": 15,
+   "cadenceSpm": 170,
+   "activity": "running",
+   "why": null
+  },
+  {
+   "sport": "treadmill",
+   "speedMs": 15,
+   "cadenceSpm": 170,
+   "activity": "automotive",
+   "why": null
+  },
+  {
+   "sport": "cycle",
+   "speedMs": null,
+   "cadenceSpm": null,
+   "activity": "unknown",
+   "why": null
+  },
+  {
+   "sport": "cycle",
+   "speedMs": null,
+   "cadenceSpm": null,
+   "activity": "walking",
+   "why": null
+  },
+  {
+   "sport": "cycle",
+   "speedMs": null,
+   "cadenceSpm": null,
+   "activity": "running",
+   "why": null
+  },
+  {
+   "sport": "cycle",
+   "speedMs": null,
+   "cadenceSpm": null,
+   "activity": "automotive",
+   "why": null
+  },
+  {
+   "sport": "cycle",
+   "speedMs": null,
+   "cadenceSpm": 0,
+   "activity": "unknown",
+   "why": null
+  },
+  {
+   "sport": "cycle",
+   "speedMs": null,
+   "cadenceSpm": 0,
+   "activity": "walking",
+   "why": null
+  },
+  {
+   "sport": "cycle",
+   "speedMs": null,
+   "cadenceSpm": 0,
+   "activity": "running",
+   "why": null
+  },
+  {
+   "sport": "cycle",
+   "speedMs": null,
+   "cadenceSpm": 0,
+   "activity": "automotive",
+   "why": null
+  },
+  {
+   "sport": "cycle",
+   "speedMs": null,
+   "cadenceSpm": 20,
+   "activity": "unknown",
+   "why": null
+  },
+  {
+   "sport": "cycle",
+   "speedMs": null,
+   "cadenceSpm": 20,
+   "activity": "walking",
+   "why": null
+  },
+  {
+   "sport": "cycle",
+   "speedMs": null,
+   "cadenceSpm": 20,
+   "activity": "running",
+   "why": null
+  },
+  {
+   "sport": "cycle",
+   "speedMs": null,
+   "cadenceSpm": 20,
+   "activity": "automotive",
+   "why": null
+  },
+  {
+   "sport": "cycle",
+   "speedMs": null,
+   "cadenceSpm": 100,
+   "activity": "unknown",
+   "why": null
+  },
+  {
+   "sport": "cycle",
+   "speedMs": null,
+   "cadenceSpm": 100,
+   "activity": "walking",
+   "why": null
+  },
+  {
+   "sport": "cycle",
+   "speedMs": null,
+   "cadenceSpm": 100,
+   "activity": "running",
+   "why": null
+  },
+  {
+   "sport": "cycle",
+   "speedMs": null,
+   "cadenceSpm": 100,
+   "activity": "automotive",
+   "why": null
+  },
+  {
+   "sport": "cycle",
+   "speedMs": null,
+   "cadenceSpm": 170,
+   "activity": "unknown",
+   "why": null
+  },
+  {
+   "sport": "cycle",
+   "speedMs": null,
+   "cadenceSpm": 170,
+   "activity": "walking",
+   "why": null
+  },
+  {
+   "sport": "cycle",
+   "speedMs": null,
+   "cadenceSpm": 170,
+   "activity": "running",
+   "why": null
+  },
+  {
+   "sport": "cycle",
+   "speedMs": null,
+   "cadenceSpm": 170,
+   "activity": "automotive",
+   "why": null
+  },
+  {
+   "sport": "cycle",
+   "speedMs": 0,
+   "cadenceSpm": null,
+   "activity": "unknown",
+   "why": null
+  },
+  {
+   "sport": "cycle",
+   "speedMs": 0,
+   "cadenceSpm": null,
+   "activity": "walking",
+   "why": null
+  },
+  {
+   "sport": "cycle",
+   "speedMs": 0,
+   "cadenceSpm": null,
+   "activity": "running",
+   "why": null
+  },
+  {
+   "sport": "cycle",
+   "speedMs": 0,
+   "cadenceSpm": null,
+   "activity": "automotive",
+   "why": null
+  },
+  {
+   "sport": "cycle",
+   "speedMs": 0,
+   "cadenceSpm": 0,
+   "activity": "unknown",
+   "why": null
+  },
+  {
+   "sport": "cycle",
+   "speedMs": 0,
+   "cadenceSpm": 0,
+   "activity": "walking",
+   "why": null
+  },
+  {
+   "sport": "cycle",
+   "speedMs": 0,
+   "cadenceSpm": 0,
+   "activity": "running",
+   "why": null
+  },
+  {
+   "sport": "cycle",
+   "speedMs": 0,
+   "cadenceSpm": 0,
+   "activity": "automotive",
+   "why": null
+  },
+  {
+   "sport": "cycle",
+   "speedMs": 0,
+   "cadenceSpm": 20,
+   "activity": "unknown",
+   "why": null
+  },
+  {
+   "sport": "cycle",
+   "speedMs": 0,
+   "cadenceSpm": 20,
+   "activity": "walking",
+   "why": null
+  },
+  {
+   "sport": "cycle",
+   "speedMs": 0,
+   "cadenceSpm": 20,
+   "activity": "running",
+   "why": null
+  },
+  {
+   "sport": "cycle",
+   "speedMs": 0,
+   "cadenceSpm": 20,
+   "activity": "automotive",
+   "why": null
+  },
+  {
+   "sport": "cycle",
+   "speedMs": 0,
+   "cadenceSpm": 100,
+   "activity": "unknown",
+   "why": null
+  },
+  {
+   "sport": "cycle",
+   "speedMs": 0,
+   "cadenceSpm": 100,
+   "activity": "walking",
+   "why": null
+  },
+  {
+   "sport": "cycle",
+   "speedMs": 0,
+   "cadenceSpm": 100,
+   "activity": "running",
+   "why": null
+  },
+  {
+   "sport": "cycle",
+   "speedMs": 0,
+   "cadenceSpm": 100,
+   "activity": "automotive",
+   "why": null
+  },
+  {
+   "sport": "cycle",
+   "speedMs": 0,
+   "cadenceSpm": 170,
+   "activity": "unknown",
+   "why": null
+  },
+  {
+   "sport": "cycle",
+   "speedMs": 0,
+   "cadenceSpm": 170,
+   "activity": "walking",
+   "why": null
+  },
+  {
+   "sport": "cycle",
+   "speedMs": 0,
+   "cadenceSpm": 170,
+   "activity": "running",
+   "why": null
+  },
+  {
+   "sport": "cycle",
+   "speedMs": 0,
+   "cadenceSpm": 170,
+   "activity": "automotive",
+   "why": null
+  },
+  {
+   "sport": "cycle",
+   "speedMs": 1.5,
+   "cadenceSpm": null,
+   "activity": "unknown",
+   "why": null
+  },
+  {
+   "sport": "cycle",
+   "speedMs": 1.5,
+   "cadenceSpm": null,
+   "activity": "walking",
+   "why": null
+  },
+  {
+   "sport": "cycle",
+   "speedMs": 1.5,
+   "cadenceSpm": null,
+   "activity": "running",
+   "why": null
+  },
+  {
+   "sport": "cycle",
+   "speedMs": 1.5,
+   "cadenceSpm": null,
+   "activity": "automotive",
+   "why": null
+  },
+  {
+   "sport": "cycle",
+   "speedMs": 1.5,
+   "cadenceSpm": 0,
+   "activity": "unknown",
+   "why": null
+  },
+  {
+   "sport": "cycle",
+   "speedMs": 1.5,
+   "cadenceSpm": 0,
+   "activity": "walking",
+   "why": null
+  },
+  {
+   "sport": "cycle",
+   "speedMs": 1.5,
+   "cadenceSpm": 0,
+   "activity": "running",
+   "why": null
+  },
+  {
+   "sport": "cycle",
+   "speedMs": 1.5,
+   "cadenceSpm": 0,
+   "activity": "automotive",
+   "why": null
+  },
+  {
+   "sport": "cycle",
+   "speedMs": 1.5,
+   "cadenceSpm": 20,
+   "activity": "unknown",
+   "why": null
+  },
+  {
+   "sport": "cycle",
+   "speedMs": 1.5,
+   "cadenceSpm": 20,
+   "activity": "walking",
+   "why": null
+  },
+  {
+   "sport": "cycle",
+   "speedMs": 1.5,
+   "cadenceSpm": 20,
+   "activity": "running",
+   "why": null
+  },
+  {
+   "sport": "cycle",
+   "speedMs": 1.5,
+   "cadenceSpm": 20,
+   "activity": "automotive",
+   "why": null
+  },
+  {
+   "sport": "cycle",
+   "speedMs": 1.5,
+   "cadenceSpm": 100,
+   "activity": "unknown",
+   "why": null
+  },
+  {
+   "sport": "cycle",
+   "speedMs": 1.5,
+   "cadenceSpm": 100,
+   "activity": "walking",
+   "why": null
+  },
+  {
+   "sport": "cycle",
+   "speedMs": 1.5,
+   "cadenceSpm": 100,
+   "activity": "running",
+   "why": null
+  },
+  {
+   "sport": "cycle",
+   "speedMs": 1.5,
+   "cadenceSpm": 100,
+   "activity": "automotive",
+   "why": null
+  },
+  {
+   "sport": "cycle",
+   "speedMs": 1.5,
+   "cadenceSpm": 170,
+   "activity": "unknown",
+   "why": null
+  },
+  {
+   "sport": "cycle",
+   "speedMs": 1.5,
+   "cadenceSpm": 170,
+   "activity": "walking",
+   "why": null
+  },
+  {
+   "sport": "cycle",
+   "speedMs": 1.5,
+   "cadenceSpm": 170,
+   "activity": "running",
+   "why": null
+  },
+  {
+   "sport": "cycle",
+   "speedMs": 1.5,
+   "cadenceSpm": 170,
+   "activity": "automotive",
+   "why": null
+  },
+  {
+   "sport": "cycle",
+   "speedMs": 2.9,
+   "cadenceSpm": null,
+   "activity": "unknown",
+   "why": null
+  },
+  {
+   "sport": "cycle",
+   "speedMs": 2.9,
+   "cadenceSpm": null,
+   "activity": "walking",
+   "why": null
+  },
+  {
+   "sport": "cycle",
+   "speedMs": 2.9,
+   "cadenceSpm": null,
+   "activity": "running",
+   "why": null
+  },
+  {
+   "sport": "cycle",
+   "speedMs": 2.9,
+   "cadenceSpm": null,
+   "activity": "automotive",
+   "why": null
+  },
+  {
+   "sport": "cycle",
+   "speedMs": 2.9,
+   "cadenceSpm": 0,
+   "activity": "unknown",
+   "why": null
+  },
+  {
+   "sport": "cycle",
+   "speedMs": 2.9,
+   "cadenceSpm": 0,
+   "activity": "walking",
+   "why": null
+  },
+  {
+   "sport": "cycle",
+   "speedMs": 2.9,
+   "cadenceSpm": 0,
+   "activity": "running",
+   "why": null
+  },
+  {
+   "sport": "cycle",
+   "speedMs": 2.9,
+   "cadenceSpm": 0,
+   "activity": "automotive",
+   "why": null
+  },
+  {
+   "sport": "cycle",
+   "speedMs": 2.9,
+   "cadenceSpm": 20,
+   "activity": "unknown",
+   "why": null
+  },
+  {
+   "sport": "cycle",
+   "speedMs": 2.9,
+   "cadenceSpm": 20,
+   "activity": "walking",
+   "why": null
+  },
+  {
+   "sport": "cycle",
+   "speedMs": 2.9,
+   "cadenceSpm": 20,
+   "activity": "running",
+   "why": null
+  },
+  {
+   "sport": "cycle",
+   "speedMs": 2.9,
+   "cadenceSpm": 20,
+   "activity": "automotive",
+   "why": null
+  },
+  {
+   "sport": "cycle",
+   "speedMs": 2.9,
+   "cadenceSpm": 100,
+   "activity": "unknown",
+   "why": null
+  },
+  {
+   "sport": "cycle",
+   "speedMs": 2.9,
+   "cadenceSpm": 100,
+   "activity": "walking",
+   "why": null
+  },
+  {
+   "sport": "cycle",
+   "speedMs": 2.9,
+   "cadenceSpm": 100,
+   "activity": "running",
+   "why": null
+  },
+  {
+   "sport": "cycle",
+   "speedMs": 2.9,
+   "cadenceSpm": 100,
+   "activity": "automotive",
+   "why": null
+  },
+  {
+   "sport": "cycle",
+   "speedMs": 2.9,
+   "cadenceSpm": 170,
+   "activity": "unknown",
+   "why": null
+  },
+  {
+   "sport": "cycle",
+   "speedMs": 2.9,
+   "cadenceSpm": 170,
+   "activity": "walking",
+   "why": null
+  },
+  {
+   "sport": "cycle",
+   "speedMs": 2.9,
+   "cadenceSpm": 170,
+   "activity": "running",
+   "why": null
+  },
+  {
+   "sport": "cycle",
+   "speedMs": 2.9,
+   "cadenceSpm": 170,
+   "activity": "automotive",
+   "why": null
+  },
+  {
+   "sport": "cycle",
+   "speedMs": 3.5,
+   "cadenceSpm": null,
+   "activity": "unknown",
+   "why": null
+  },
+  {
+   "sport": "cycle",
+   "speedMs": 3.5,
+   "cadenceSpm": null,
+   "activity": "walking",
+   "why": null
+  },
+  {
+   "sport": "cycle",
+   "speedMs": 3.5,
+   "cadenceSpm": null,
+   "activity": "running",
+   "why": null
+  },
+  {
+   "sport": "cycle",
+   "speedMs": 3.5,
+   "cadenceSpm": null,
+   "activity": "automotive",
+   "why": null
+  },
+  {
+   "sport": "cycle",
+   "speedMs": 3.5,
+   "cadenceSpm": 0,
+   "activity": "unknown",
+   "why": null
+  },
+  {
+   "sport": "cycle",
+   "speedMs": 3.5,
+   "cadenceSpm": 0,
+   "activity": "walking",
+   "why": null
+  },
+  {
+   "sport": "cycle",
+   "speedMs": 3.5,
+   "cadenceSpm": 0,
+   "activity": "running",
+   "why": null
+  },
+  {
+   "sport": "cycle",
+   "speedMs": 3.5,
+   "cadenceSpm": 0,
+   "activity": "automotive",
+   "why": null
+  },
+  {
+   "sport": "cycle",
+   "speedMs": 3.5,
+   "cadenceSpm": 20,
+   "activity": "unknown",
+   "why": null
+  },
+  {
+   "sport": "cycle",
+   "speedMs": 3.5,
+   "cadenceSpm": 20,
+   "activity": "walking",
+   "why": null
+  },
+  {
+   "sport": "cycle",
+   "speedMs": 3.5,
+   "cadenceSpm": 20,
+   "activity": "running",
+   "why": null
+  },
+  {
+   "sport": "cycle",
+   "speedMs": 3.5,
+   "cadenceSpm": 20,
+   "activity": "automotive",
+   "why": null
+  },
+  {
+   "sport": "cycle",
+   "speedMs": 3.5,
+   "cadenceSpm": 100,
+   "activity": "unknown",
+   "why": null
+  },
+  {
+   "sport": "cycle",
+   "speedMs": 3.5,
+   "cadenceSpm": 100,
+   "activity": "walking",
+   "why": null
+  },
+  {
+   "sport": "cycle",
+   "speedMs": 3.5,
+   "cadenceSpm": 100,
+   "activity": "running",
+   "why": null
+  },
+  {
+   "sport": "cycle",
+   "speedMs": 3.5,
+   "cadenceSpm": 100,
+   "activity": "automotive",
+   "why": null
+  },
+  {
+   "sport": "cycle",
+   "speedMs": 3.5,
+   "cadenceSpm": 170,
+   "activity": "unknown",
+   "why": null
+  },
+  {
+   "sport": "cycle",
+   "speedMs": 3.5,
+   "cadenceSpm": 170,
+   "activity": "walking",
+   "why": null
+  },
+  {
+   "sport": "cycle",
+   "speedMs": 3.5,
+   "cadenceSpm": 170,
+   "activity": "running",
+   "why": null
+  },
+  {
+   "sport": "cycle",
+   "speedMs": 3.5,
+   "cadenceSpm": 170,
+   "activity": "automotive",
+   "why": null
+  },
+  {
+   "sport": "cycle",
+   "speedMs": 4.5,
+   "cadenceSpm": null,
+   "activity": "unknown",
+   "why": null
+  },
+  {
+   "sport": "cycle",
+   "speedMs": 4.5,
+   "cadenceSpm": null,
+   "activity": "walking",
+   "why": null
+  },
+  {
+   "sport": "cycle",
+   "speedMs": 4.5,
+   "cadenceSpm": null,
+   "activity": "running",
+   "why": null
+  },
+  {
+   "sport": "cycle",
+   "speedMs": 4.5,
+   "cadenceSpm": null,
+   "activity": "automotive",
+   "why": null
+  },
+  {
+   "sport": "cycle",
+   "speedMs": 4.5,
+   "cadenceSpm": 0,
+   "activity": "unknown",
+   "why": null
+  },
+  {
+   "sport": "cycle",
+   "speedMs": 4.5,
+   "cadenceSpm": 0,
+   "activity": "walking",
+   "why": null
+  },
+  {
+   "sport": "cycle",
+   "speedMs": 4.5,
+   "cadenceSpm": 0,
+   "activity": "running",
+   "why": null
+  },
+  {
+   "sport": "cycle",
+   "speedMs": 4.5,
+   "cadenceSpm": 0,
+   "activity": "automotive",
+   "why": null
+  },
+  {
+   "sport": "cycle",
+   "speedMs": 4.5,
+   "cadenceSpm": 20,
+   "activity": "unknown",
+   "why": null
+  },
+  {
+   "sport": "cycle",
+   "speedMs": 4.5,
+   "cadenceSpm": 20,
+   "activity": "walking",
+   "why": null
+  },
+  {
+   "sport": "cycle",
+   "speedMs": 4.5,
+   "cadenceSpm": 20,
+   "activity": "running",
+   "why": null
+  },
+  {
+   "sport": "cycle",
+   "speedMs": 4.5,
+   "cadenceSpm": 20,
+   "activity": "automotive",
+   "why": null
+  },
+  {
+   "sport": "cycle",
+   "speedMs": 4.5,
+   "cadenceSpm": 100,
+   "activity": "unknown",
+   "why": null
+  },
+  {
+   "sport": "cycle",
+   "speedMs": 4.5,
+   "cadenceSpm": 100,
+   "activity": "walking",
+   "why": null
+  },
+  {
+   "sport": "cycle",
+   "speedMs": 4.5,
+   "cadenceSpm": 100,
+   "activity": "running",
+   "why": null
+  },
+  {
+   "sport": "cycle",
+   "speedMs": 4.5,
+   "cadenceSpm": 100,
+   "activity": "automotive",
+   "why": null
+  },
+  {
+   "sport": "cycle",
+   "speedMs": 4.5,
+   "cadenceSpm": 170,
+   "activity": "unknown",
+   "why": null
+  },
+  {
+   "sport": "cycle",
+   "speedMs": 4.5,
+   "cadenceSpm": 170,
+   "activity": "walking",
+   "why": null
+  },
+  {
+   "sport": "cycle",
+   "speedMs": 4.5,
+   "cadenceSpm": 170,
+   "activity": "running",
+   "why": null
+  },
+  {
+   "sport": "cycle",
+   "speedMs": 4.5,
+   "cadenceSpm": 170,
+   "activity": "automotive",
+   "why": null
+  },
+  {
+   "sport": "cycle",
+   "speedMs": 7.5,
+   "cadenceSpm": null,
+   "activity": "unknown",
+   "why": null
+  },
+  {
+   "sport": "cycle",
+   "speedMs": 7.5,
+   "cadenceSpm": null,
+   "activity": "walking",
+   "why": null
+  },
+  {
+   "sport": "cycle",
+   "speedMs": 7.5,
+   "cadenceSpm": null,
+   "activity": "running",
+   "why": null
+  },
+  {
+   "sport": "cycle",
+   "speedMs": 7.5,
+   "cadenceSpm": null,
+   "activity": "automotive",
+   "why": null
+  },
+  {
+   "sport": "cycle",
+   "speedMs": 7.5,
+   "cadenceSpm": 0,
+   "activity": "unknown",
+   "why": null
+  },
+  {
+   "sport": "cycle",
+   "speedMs": 7.5,
+   "cadenceSpm": 0,
+   "activity": "walking",
+   "why": null
+  },
+  {
+   "sport": "cycle",
+   "speedMs": 7.5,
+   "cadenceSpm": 0,
+   "activity": "running",
+   "why": null
+  },
+  {
+   "sport": "cycle",
+   "speedMs": 7.5,
+   "cadenceSpm": 0,
+   "activity": "automotive",
+   "why": null
+  },
+  {
+   "sport": "cycle",
+   "speedMs": 7.5,
+   "cadenceSpm": 20,
+   "activity": "unknown",
+   "why": null
+  },
+  {
+   "sport": "cycle",
+   "speedMs": 7.5,
+   "cadenceSpm": 20,
+   "activity": "walking",
+   "why": null
+  },
+  {
+   "sport": "cycle",
+   "speedMs": 7.5,
+   "cadenceSpm": 20,
+   "activity": "running",
+   "why": null
+  },
+  {
+   "sport": "cycle",
+   "speedMs": 7.5,
+   "cadenceSpm": 20,
+   "activity": "automotive",
+   "why": null
+  },
+  {
+   "sport": "cycle",
+   "speedMs": 7.5,
+   "cadenceSpm": 100,
+   "activity": "unknown",
+   "why": null
+  },
+  {
+   "sport": "cycle",
+   "speedMs": 7.5,
+   "cadenceSpm": 100,
+   "activity": "walking",
+   "why": null
+  },
+  {
+   "sport": "cycle",
+   "speedMs": 7.5,
+   "cadenceSpm": 100,
+   "activity": "running",
+   "why": null
+  },
+  {
+   "sport": "cycle",
+   "speedMs": 7.5,
+   "cadenceSpm": 100,
+   "activity": "automotive",
+   "why": null
+  },
+  {
+   "sport": "cycle",
+   "speedMs": 7.5,
+   "cadenceSpm": 170,
+   "activity": "unknown",
+   "why": null
+  },
+  {
+   "sport": "cycle",
+   "speedMs": 7.5,
+   "cadenceSpm": 170,
+   "activity": "walking",
+   "why": null
+  },
+  {
+   "sport": "cycle",
+   "speedMs": 7.5,
+   "cadenceSpm": 170,
+   "activity": "running",
+   "why": null
+  },
+  {
+   "sport": "cycle",
+   "speedMs": 7.5,
+   "cadenceSpm": 170,
+   "activity": "automotive",
+   "why": null
+  },
+  {
+   "sport": "cycle",
+   "speedMs": 9.5,
+   "cadenceSpm": null,
+   "activity": "unknown",
+   "why": null
+  },
+  {
+   "sport": "cycle",
+   "speedMs": 9.5,
+   "cadenceSpm": null,
+   "activity": "walking",
+   "why": null
+  },
+  {
+   "sport": "cycle",
+   "speedMs": 9.5,
+   "cadenceSpm": null,
+   "activity": "running",
+   "why": null
+  },
+  {
+   "sport": "cycle",
+   "speedMs": 9.5,
+   "cadenceSpm": null,
+   "activity": "automotive",
+   "why": null
+  },
+  {
+   "sport": "cycle",
+   "speedMs": 9.5,
+   "cadenceSpm": 0,
+   "activity": "unknown",
+   "why": null
+  },
+  {
+   "sport": "cycle",
+   "speedMs": 9.5,
+   "cadenceSpm": 0,
+   "activity": "walking",
+   "why": null
+  },
+  {
+   "sport": "cycle",
+   "speedMs": 9.5,
+   "cadenceSpm": 0,
+   "activity": "running",
+   "why": null
+  },
+  {
+   "sport": "cycle",
+   "speedMs": 9.5,
+   "cadenceSpm": 0,
+   "activity": "automotive",
+   "why": null
+  },
+  {
+   "sport": "cycle",
+   "speedMs": 9.5,
+   "cadenceSpm": 20,
+   "activity": "unknown",
+   "why": null
+  },
+  {
+   "sport": "cycle",
+   "speedMs": 9.5,
+   "cadenceSpm": 20,
+   "activity": "walking",
+   "why": null
+  },
+  {
+   "sport": "cycle",
+   "speedMs": 9.5,
+   "cadenceSpm": 20,
+   "activity": "running",
+   "why": null
+  },
+  {
+   "sport": "cycle",
+   "speedMs": 9.5,
+   "cadenceSpm": 20,
+   "activity": "automotive",
+   "why": null
+  },
+  {
+   "sport": "cycle",
+   "speedMs": 9.5,
+   "cadenceSpm": 100,
+   "activity": "unknown",
+   "why": null
+  },
+  {
+   "sport": "cycle",
+   "speedMs": 9.5,
+   "cadenceSpm": 100,
+   "activity": "walking",
+   "why": null
+  },
+  {
+   "sport": "cycle",
+   "speedMs": 9.5,
+   "cadenceSpm": 100,
+   "activity": "running",
+   "why": null
+  },
+  {
+   "sport": "cycle",
+   "speedMs": 9.5,
+   "cadenceSpm": 100,
+   "activity": "automotive",
+   "why": null
+  },
+  {
+   "sport": "cycle",
+   "speedMs": 9.5,
+   "cadenceSpm": 170,
+   "activity": "unknown",
+   "why": null
+  },
+  {
+   "sport": "cycle",
+   "speedMs": 9.5,
+   "cadenceSpm": 170,
+   "activity": "walking",
+   "why": null
+  },
+  {
+   "sport": "cycle",
+   "speedMs": 9.5,
+   "cadenceSpm": 170,
+   "activity": "running",
+   "why": null
+  },
+  {
+   "sport": "cycle",
+   "speedMs": 9.5,
+   "cadenceSpm": 170,
+   "activity": "automotive",
+   "why": null
+  },
+  {
+   "sport": "cycle",
+   "speedMs": 15,
+   "cadenceSpm": null,
+   "activity": "unknown",
+   "why": null
+  },
+  {
+   "sport": "cycle",
+   "speedMs": 15,
+   "cadenceSpm": null,
+   "activity": "walking",
+   "why": null
+  },
+  {
+   "sport": "cycle",
+   "speedMs": 15,
+   "cadenceSpm": null,
+   "activity": "running",
+   "why": null
+  },
+  {
+   "sport": "cycle",
+   "speedMs": 15,
+   "cadenceSpm": null,
+   "activity": "automotive",
+   "why": null
+  },
+  {
+   "sport": "cycle",
+   "speedMs": 15,
+   "cadenceSpm": 0,
+   "activity": "unknown",
+   "why": null
+  },
+  {
+   "sport": "cycle",
+   "speedMs": 15,
+   "cadenceSpm": 0,
+   "activity": "walking",
+   "why": null
+  },
+  {
+   "sport": "cycle",
+   "speedMs": 15,
+   "cadenceSpm": 0,
+   "activity": "running",
+   "why": null
+  },
+  {
+   "sport": "cycle",
+   "speedMs": 15,
+   "cadenceSpm": 0,
+   "activity": "automotive",
+   "why": null
+  },
+  {
+   "sport": "cycle",
+   "speedMs": 15,
+   "cadenceSpm": 20,
+   "activity": "unknown",
+   "why": null
+  },
+  {
+   "sport": "cycle",
+   "speedMs": 15,
+   "cadenceSpm": 20,
+   "activity": "walking",
+   "why": null
+  },
+  {
+   "sport": "cycle",
+   "speedMs": 15,
+   "cadenceSpm": 20,
+   "activity": "running",
+   "why": null
+  },
+  {
+   "sport": "cycle",
+   "speedMs": 15,
+   "cadenceSpm": 20,
+   "activity": "automotive",
+   "why": null
+  },
+  {
+   "sport": "cycle",
+   "speedMs": 15,
+   "cadenceSpm": 100,
+   "activity": "unknown",
+   "why": null
+  },
+  {
+   "sport": "cycle",
+   "speedMs": 15,
+   "cadenceSpm": 100,
+   "activity": "walking",
+   "why": null
+  },
+  {
+   "sport": "cycle",
+   "speedMs": 15,
+   "cadenceSpm": 100,
+   "activity": "running",
+   "why": null
+  },
+  {
+   "sport": "cycle",
+   "speedMs": 15,
+   "cadenceSpm": 100,
+   "activity": "automotive",
+   "why": null
+  },
+  {
+   "sport": "cycle",
+   "speedMs": 15,
+   "cadenceSpm": 170,
+   "activity": "unknown",
+   "why": null
+  },
+  {
+   "sport": "cycle",
+   "speedMs": 15,
+   "cadenceSpm": 170,
+   "activity": "walking",
+   "why": null
+  },
+  {
+   "sport": "cycle",
+   "speedMs": 15,
+   "cadenceSpm": 170,
+   "activity": "running",
+   "why": null
+  },
+  {
+   "sport": "cycle",
+   "speedMs": 15,
+   "cadenceSpm": 170,
+   "activity": "automotive",
+   "why": null
+  }
+ ],
+ "timelines": [
+  {
+   "sport": "walk",
+   "step": 5,
+   "rows": [
+    {
+     "speedMs": 1.4,
+     "cadenceSpm": 110,
+     "activity": "walking"
+    },
+    {
+     "speedMs": 1.4,
+     "cadenceSpm": 110,
+     "activity": "walking"
+    },
+    {
+     "speedMs": 1.4,
+     "cadenceSpm": 110,
+     "activity": "walking"
+    },
+    {
+     "speedMs": 1.4,
+     "cadenceSpm": 110,
+     "activity": "walking"
+    },
+    {
+     "speedMs": 1.4,
+     "cadenceSpm": 110,
+     "activity": "walking"
+    },
+    {
+     "speedMs": 1.4,
+     "cadenceSpm": 110,
+     "activity": "walking"
+    },
+    {
+     "speedMs": 14,
+     "cadenceSpm": 0,
+     "activity": "unknown"
+    },
+    {
+     "speedMs": 14,
+     "cadenceSpm": 0,
+     "activity": "unknown"
+    },
+    {
+     "speedMs": 14,
+     "cadenceSpm": 0,
+     "activity": "unknown"
+    },
+    {
+     "speedMs": 14,
+     "cadenceSpm": 0,
+     "activity": "unknown"
+    },
+    {
+     "speedMs": 14,
+     "cadenceSpm": 0,
+     "activity": "unknown"
+    },
+    {
+     "speedMs": 14,
+     "cadenceSpm": 0,
+     "activity": "unknown"
+    },
+    {
+     "speedMs": 14,
+     "cadenceSpm": 0,
+     "activity": "unknown"
+    },
+    {
+     "speedMs": 14,
+     "cadenceSpm": 0,
+     "activity": "unknown"
+    },
+    {
+     "speedMs": 14,
+     "cadenceSpm": 0,
+     "activity": "unknown"
+    },
+    {
+     "speedMs": 14,
+     "cadenceSpm": 0,
+     "activity": "unknown"
+    },
+    {
+     "speedMs": 14,
+     "cadenceSpm": 0,
+     "activity": "unknown"
+    },
+    {
+     "speedMs": 14,
+     "cadenceSpm": 0,
+     "activity": "unknown"
+    },
+    {
+     "speedMs": 1.4,
+     "cadenceSpm": 110,
+     "activity": "walking"
+    },
+    {
+     "speedMs": 1.4,
+     "cadenceSpm": 110,
+     "activity": "walking"
+    },
+    {
+     "speedMs": 1.4,
+     "cadenceSpm": 110,
+     "activity": "walking"
+    },
+    {
+     "speedMs": 1.4,
+     "cadenceSpm": 110,
+     "activity": "walking"
+    },
+    {
+     "speedMs": 1.4,
+     "cadenceSpm": 110,
+     "activity": "walking"
+    },
+    {
+     "speedMs": 1.4,
+     "cadenceSpm": 110,
+     "activity": "walking"
+    }
+   ],
+   "events": [
+    {
+     "i": 12,
+     "kind": "entered",
+     "from": 30,
+     "why": "speed"
+    },
+    {
+     "i": 22,
+     "kind": "left",
+     "at": 90
+    }
+   ],
+   "stretches": [
+    {
+     "from": 30,
+     "to": 90
+    }
+   ],
+   "mode": "foot"
+  },
+  {
+   "sport": "walk",
+   "step": 5,
+   "rows": [
+    {
+     "speedMs": 1.4,
+     "cadenceSpm": 110,
+     "activity": "walking"
+    },
+    {
+     "speedMs": 1.4,
+     "cadenceSpm": 110,
+     "activity": "walking"
+    },
+    {
+     "speedMs": 1.4,
+     "cadenceSpm": 110,
+     "activity": "walking"
+    },
+    {
+     "speedMs": 1.4,
+     "cadenceSpm": 110,
+     "activity": "walking"
+    },
+    {
+     "speedMs": 8,
+     "cadenceSpm": null,
+     "activity": "automotive"
+    },
+    {
+     "speedMs": 8,
+     "cadenceSpm": null,
+     "activity": "automotive"
+    },
+    {
+     "speedMs": 8,
+     "cadenceSpm": null,
+     "activity": "automotive"
+    },
+    {
+     "speedMs": 8,
+     "cadenceSpm": null,
+     "activity": "automotive"
+    },
+    {
+     "speedMs": 8,
+     "cadenceSpm": null,
+     "activity": "automotive"
+    },
+    {
+     "speedMs": 0,
+     "cadenceSpm": null,
+     "activity": "unknown"
+    },
+    {
+     "speedMs": 0,
+     "cadenceSpm": null,
+     "activity": "unknown"
+    },
+    {
+     "speedMs": 0,
+     "cadenceSpm": null,
+     "activity": "unknown"
+    },
+    {
+     "speedMs": 0,
+     "cadenceSpm": null,
+     "activity": "unknown"
+    },
+    {
+     "speedMs": 1.4,
+     "cadenceSpm": 110,
+     "activity": "walking"
+    },
+    {
+     "speedMs": 1.4,
+     "cadenceSpm": 110,
+     "activity": "walking"
+    },
+    {
+     "speedMs": 1.4,
+     "cadenceSpm": 110,
+     "activity": "walking"
+    },
+    {
+     "speedMs": 1.4,
+     "cadenceSpm": 110,
+     "activity": "walking"
+    },
+    {
+     "speedMs": 1.4,
+     "cadenceSpm": 110,
+     "activity": "walking"
+    },
+    {
+     "speedMs": 1.4,
+     "cadenceSpm": 110,
+     "activity": "walking"
+    }
+   ],
+   "events": [
+    {
+     "i": 7,
+     "kind": "entered",
+     "from": 20,
+     "why": "activity"
+    },
+    {
+     "i": 17,
+     "kind": "left",
+     "at": 65
+    }
+   ],
+   "stretches": [
+    {
+     "from": 20,
+     "to": 65
+    }
+   ],
+   "mode": "foot"
+  },
+  {
+   "sport": "run",
+   "step": 5,
+   "rows": [
+    {
+     "speedMs": 3.5,
+     "cadenceSpm": 170,
+     "activity": "running"
+    },
+    {
+     "speedMs": 3.5,
+     "cadenceSpm": 170,
+     "activity": "running"
+    },
+    {
+     "speedMs": 3.5,
+     "cadenceSpm": 170,
+     "activity": "running"
+    },
+    {
+     "speedMs": 3.5,
+     "cadenceSpm": 170,
+     "activity": "running"
+    },
+    {
+     "speedMs": 3.5,
+     "cadenceSpm": 170,
+     "activity": "running"
+    },
+    {
+     "speedMs": 3.5,
+     "cadenceSpm": 170,
+     "activity": "running"
+    },
+    {
+     "speedMs": 14,
+     "cadenceSpm": 0,
+     "activity": "unknown"
+    },
+    {
+     "speedMs": 14,
+     "cadenceSpm": 0,
+     "activity": "unknown"
+    },
+    {
+     "speedMs": 14,
+     "cadenceSpm": 0,
+     "activity": "unknown"
+    },
+    {
+     "speedMs": 14,
+     "cadenceSpm": 0,
+     "activity": "unknown"
+    },
+    {
+     "speedMs": 14,
+     "cadenceSpm": 0,
+     "activity": "unknown"
+    },
+    {
+     "speedMs": 3.5,
+     "cadenceSpm": 170,
+     "activity": "running"
+    },
+    {
+     "speedMs": 3.5,
+     "cadenceSpm": 170,
+     "activity": "running"
+    },
+    {
+     "speedMs": 3.5,
+     "cadenceSpm": 170,
+     "activity": "running"
+    },
+    {
+     "speedMs": 3.5,
+     "cadenceSpm": 170,
+     "activity": "running"
+    },
+    {
+     "speedMs": 3.5,
+     "cadenceSpm": 170,
+     "activity": "running"
+    },
+    {
+     "speedMs": 3.5,
+     "cadenceSpm": 170,
+     "activity": "running"
+    }
+   ],
+   "events": [],
+   "stretches": [],
+   "mode": "foot"
+  },
+  {
+   "sport": "walk",
+   "step": 5,
+   "rows": [
+    {
+     "speedMs": 3.2,
+     "cadenceSpm": null,
+     "activity": "unknown"
+    },
+    {
+     "speedMs": 3.2,
+     "cadenceSpm": null,
+     "activity": "unknown"
+    },
+    {
+     "speedMs": 3.2,
+     "cadenceSpm": null,
+     "activity": "unknown"
+    },
+    {
+     "speedMs": 3.2,
+     "cadenceSpm": null,
+     "activity": "unknown"
+    },
+    {
+     "speedMs": 3.2,
+     "cadenceSpm": null,
+     "activity": "unknown"
+    },
+    {
+     "speedMs": 3.2,
+     "cadenceSpm": null,
+     "activity": "unknown"
+    },
+    {
+     "speedMs": 3.2,
+     "cadenceSpm": null,
+     "activity": "unknown"
+    },
+    {
+     "speedMs": 3.2,
+     "cadenceSpm": null,
+     "activity": "unknown"
+    },
+    {
+     "speedMs": 3.2,
+     "cadenceSpm": null,
+     "activity": "unknown"
+    },
+    {
+     "speedMs": 3.2,
+     "cadenceSpm": null,
+     "activity": "unknown"
+    }
+   ],
+   "events": [],
+   "stretches": [],
+   "mode": "foot"
+  },
+  {
+   "sport": "walk",
+   "step": 5,
+   "rows": [
+    {
+     "speedMs": 14,
+     "cadenceSpm": 0,
+     "activity": "unknown"
+    },
+    {
+     "speedMs": 14,
+     "cadenceSpm": 0,
+     "activity": "unknown"
+    },
+    {
+     "speedMs": 14,
+     "cadenceSpm": 0,
+     "activity": "unknown"
+    },
+    {
+     "speedMs": 0,
+     "cadenceSpm": null,
+     "activity": "unknown"
+    },
+    {
+     "speedMs": 14,
+     "cadenceSpm": 0,
+     "activity": "unknown"
+    },
+    {
+     "speedMs": 14,
+     "cadenceSpm": 0,
+     "activity": "unknown"
+    },
+    {
+     "speedMs": 14,
+     "cadenceSpm": 0,
+     "activity": "unknown"
+    },
+    {
+     "speedMs": 14,
+     "cadenceSpm": 0,
+     "activity": "unknown"
+    },
+    {
+     "speedMs": 14,
+     "cadenceSpm": 0,
+     "activity": "unknown"
+    },
+    {
+     "speedMs": 14,
+     "cadenceSpm": 0,
+     "activity": "unknown"
+    },
+    {
+     "speedMs": 14,
+     "cadenceSpm": 0,
+     "activity": "unknown"
+    },
+    {
+     "speedMs": 14,
+     "cadenceSpm": 0,
+     "activity": "unknown"
+    },
+    {
+     "speedMs": 1.4,
+     "cadenceSpm": 110,
+     "activity": "walking"
+    },
+    {
+     "speedMs": 1.4,
+     "cadenceSpm": 110,
+     "activity": "walking"
+    },
+    {
+     "speedMs": 1.4,
+     "cadenceSpm": 110,
+     "activity": "walking"
+    },
+    {
+     "speedMs": 1.4,
+     "cadenceSpm": 110,
+     "activity": "walking"
+    },
+    {
+     "speedMs": 1.4,
+     "cadenceSpm": 110,
+     "activity": "walking"
+    }
+   ],
+   "events": [
+    {
+     "i": 10,
+     "kind": "entered",
+     "from": 20,
+     "why": "speed"
+    },
+    {
+     "i": 16,
+     "kind": "left",
+     "at": 60
+    }
+   ],
+   "stretches": [
+    {
+     "from": 20,
+     "to": 60
+    }
+   ],
+   "mode": "foot"
+  }
+ ],
+ "segments": [
+  {
+   "sport": "walk",
+   "samples": [
+    {
+     "t": 0,
+     "m": 0,
+     "steps": 0
+    },
+    {
+     "t": 10,
+     "m": 14,
+     "steps": 18
+    },
+    {
+     "t": 20,
+     "m": 28,
+     "steps": 37
+    },
+    {
+     "t": 30,
+     "m": 42,
+     "steps": 55
+    },
+    {
+     "t": 40,
+     "m": 56,
+     "steps": 73
+    },
+    {
+     "t": 50,
+     "m": 70,
+     "steps": 92
+    },
+    {
+     "t": 60,
+     "m": 84,
+     "steps": 110
+    },
+    {
+     "t": 70,
+     "m": 98,
+     "steps": 128
+    },
+    {
+     "t": 80,
+     "m": 112,
+     "steps": 147
+    },
+    {
+     "t": 90,
+     "m": 126,
+     "steps": 165
+    },
+    {
+     "t": 100,
+     "m": 140,
+     "steps": 183
+    },
+    {
+     "t": 110,
+     "m": 280,
+     "steps": 183
+    },
+    {
+     "t": 120,
+     "m": 420,
+     "steps": 183
+    },
+    {
+     "t": 130,
+     "m": 560,
+     "steps": 183
+    },
+    {
+     "t": 140,
+     "m": 700,
+     "steps": 183
+    },
+    {
+     "t": 150,
+     "m": 840,
+     "steps": 183
+    },
+    {
+     "t": 160,
+     "m": 980,
+     "steps": 183
+    },
+    {
+     "t": 170,
+     "m": 1120,
+     "steps": 183
+    },
+    {
+     "t": 180,
+     "m": 1260,
+     "steps": 183
+    },
+    {
+     "t": 190,
+     "m": 1400,
+     "steps": 183
+    },
+    {
+     "t": 200,
+     "m": 1540,
+     "steps": 183
+    },
+    {
+     "t": 210,
+     "m": 1554,
+     "steps": 202
+    },
+    {
+     "t": 220,
+     "m": 1568,
+     "steps": 220
+    },
+    {
+     "t": 230,
+     "m": 1582,
+     "steps": 238
+    },
+    {
+     "t": 240,
+     "m": 1596,
+     "steps": 257
+    }
+   ],
+   "vehicleS": 100,
+   "segments": [
+    {
+     "from": 100,
+     "to": 200
+    }
+   ]
+  },
+  {
+   "sport": "walk",
+   "samples": [
+    {
+     "t": 0,
+     "m": 0,
+     "steps": 0
+    },
+    {
+     "t": 10,
+     "m": 14,
+     "steps": 18
+    },
+    {
+     "t": 20,
+     "m": 28,
+     "steps": 37
+    },
+    {
+     "t": 30,
+     "m": 42,
+     "steps": 55
+    },
+    {
+     "t": 40,
+     "m": 56,
+     "steps": 73
+    },
+    {
+     "t": 50,
+     "m": 70,
+     "steps": 92
+    },
+    {
+     "t": 60,
+     "m": 84,
+     "steps": 110
+    },
+    {
+     "t": 70,
+     "m": 98,
+     "steps": 128
+    },
+    {
+     "t": 80,
+     "m": 112,
+     "steps": 147
+    },
+    {
+     "t": 90,
+     "m": 126,
+     "steps": 165
+    },
+    {
+     "t": 100,
+     "m": 140,
+     "steps": 183
+    },
+    {
+     "t": 110,
+     "m": 154,
+     "steps": 202
+    },
+    {
+     "t": 120,
+     "m": 168,
+     "steps": 220
+    },
+    {
+     "t": 130,
+     "m": 182,
+     "steps": 238
+    },
+    {
+     "t": 140,
+     "m": 196,
+     "steps": 257
+    },
+    {
+     "t": 150,
+     "m": 210,
+     "steps": 275
+    },
+    {
+     "t": 160,
+     "m": 224,
+     "steps": 293
+    },
+    {
+     "t": 170,
+     "m": 238,
+     "steps": 312
+    },
+    {
+     "t": 180,
+     "m": 252,
+     "steps": 330
+    },
+    {
+     "t": 190,
+     "m": 266,
+     "steps": 348
+    }
+   ],
+   "vehicleS": 0,
+   "segments": []
+  },
+  {
+   "sport": "run",
+   "samples": [
+    {
+     "t": 0,
+     "m": 0,
+     "steps": 0
+    },
+    {
+     "t": 10,
+     "m": 40,
+     "steps": 28
+    },
+    {
+     "t": 20,
+     "m": 80,
+     "steps": 57
+    },
+    {
+     "t": 30,
+     "m": 120,
+     "steps": 85
+    },
+    {
+     "t": 40,
+     "m": 160,
+     "steps": 113
+    },
+    {
+     "t": 50,
+     "m": 200,
+     "steps": 142
+    },
+    {
+     "t": 60,
+     "m": 240,
+     "steps": 170
+    },
+    {
+     "t": 70,
+     "m": 280,
+     "steps": 198
+    },
+    {
+     "t": 80,
+     "m": 320,
+     "steps": 227
+    },
+    {
+     "t": 90,
+     "m": 360,
+     "steps": 255
+    },
+    {
+     "t": 100,
+     "m": 400,
+     "steps": 283
+    },
+    {
+     "t": 110,
+     "m": 440,
+     "steps": 312
+    },
+    {
+     "t": 120,
+     "m": 480,
+     "steps": 340
+    },
+    {
+     "t": 130,
+     "m": 520,
+     "steps": 368
+    },
+    {
+     "t": 140,
+     "m": 560,
+     "steps": 397
+    },
+    {
+     "t": 150,
+     "m": 600,
+     "steps": 425
+    },
+    {
+     "t": 160,
+     "m": 640,
+     "steps": 453
+    },
+    {
+     "t": 170,
+     "m": 680,
+     "steps": 482
+    },
+    {
+     "t": 180,
+     "m": 720,
+     "steps": 510
+    },
+    {
+     "t": 190,
+     "m": 760,
+     "steps": 538
+    }
+   ],
+   "vehicleS": 0,
+   "segments": []
+  },
+  {
+   "sport": "walk",
+   "samples": [
+    {
+     "t": 0,
+     "m": 0
+    },
+    {
+     "t": 10,
+     "m": 60
+    },
+    {
+     "t": 20,
+     "m": 120
+    },
+    {
+     "t": 30,
+     "m": 180
+    },
+    {
+     "t": 40,
+     "m": 240
+    },
+    {
+     "t": 50,
+     "m": 300
+    },
+    {
+     "t": 60,
+     "m": 360
+    },
+    {
+     "t": 70,
+     "m": 420
+    },
+    {
+     "t": 80,
+     "m": 480
+    },
+    {
+     "t": 90,
+     "m": 540
+    },
+    {
+     "t": 100,
+     "m": 600
+    },
+    {
+     "t": 110,
+     "m": 660
+    },
+    {
+     "t": 120,
+     "m": 720
+    },
+    {
+     "t": 130,
+     "m": 780
+    },
+    {
+     "t": 140,
+     "m": 840
+    },
+    {
+     "t": 150,
+     "m": 900
+    },
+    {
+     "t": 160,
+     "m": 960
+    },
+    {
+     "t": 170,
+     "m": 1020
+    },
+    {
+     "t": 180,
+     "m": 1080
+    },
+    {
+     "t": 190,
+     "m": 1140
+    }
+   ],
+   "vehicleS": 190,
+   "segments": [
+    {
+     "from": 0,
+     "to": 190
+    }
+   ]
+  },
+  {
+   "sport": "run",
+   "samples": [
+    {
+     "t": 0,
+     "m": 0,
+     "steps": 0
+    },
+    {
+     "t": 10,
+     "m": 30,
+     "steps": 27
+    },
+    {
+     "t": 20,
+     "m": 60,
+     "steps": 53
+    },
+    {
+     "t": 30,
+     "m": 90,
+     "steps": 80
+    },
+    {
+     "t": 40,
+     "m": 120,
+     "steps": 107
+    },
+    {
+     "t": 50,
+     "m": 150,
+     "steps": 133
+    },
+    {
+     "t": 60,
+     "m": 270,
+     "steps": 160
+    },
+    {
+     "t": 70,
+     "m": 390,
+     "steps": 187
+    },
+    {
+     "t": 80,
+     "m": 510,
+     "steps": 213
+    },
+    {
+     "t": 90,
+     "m": 540,
+     "steps": 240
+    },
+    {
+     "t": 100,
+     "m": 570,
+     "steps": 267
+    },
+    {
+     "t": 110,
+     "m": 600,
+     "steps": 293
+    },
+    {
+     "t": 120,
+     "m": 630,
+     "steps": 320
+    }
+   ],
+   "vehicleS": 0,
+   "segments": []
+  }
+ ],
+ "verdicts": [
+  {
+   "footS": 600,
+   "vehicleS": 0,
+   "verdict": "ok"
+  },
+  {
+   "footS": 600,
+   "vehicleS": 100,
+   "verdict": "ok"
+  },
+  {
+   "footS": 300,
+   "vehicleS": 400,
+   "verdict": "vehicle"
+  },
+  {
+   "footS": 40,
+   "vehicleS": 20,
+   "verdict": "vehicle"
+  },
+  {
+   "footS": 0,
+   "vehicleS": 0,
+   "verdict": "ok"
+  },
+  {
+   "footS": 61,
+   "vehicleS": 60,
+   "verdict": "ok"
+  }
+ ]
+}

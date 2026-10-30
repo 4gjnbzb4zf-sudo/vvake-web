@@ -6,6 +6,7 @@ import { showsSpeed } from "@/lib/webapp/speedZones";
 import { clock, dayLabel, distance, pace, speed, timeLabel } from "@/lib/webapp/format";
 import { paceOf } from "@/lib/webapp/geo";
 import { sessionTimes, showsPaused } from "@/lib/webapp/moving";
+import { sourcesLine, vehicleLine } from "@/lib/webapp/vehicle/journal";
 import { sportLabel } from "@/lib/webapp/workout";
 import { useApp } from "./AppContext";
 import { Btn, Card, H1, Kicker, Note, Small } from "./ui";
@@ -34,6 +35,9 @@ export function SessionScreen({ id }: { id: string }) {
   const noHr = !s.avgBpm && hr.length < 2;
   const zones = s.zoneS ?? null;
   const zoneTotal = zones ? zones.reduce((a, b) => a + b, 0) : 0;
+  // Build 58: "Not counted: vehicle detected" / the stretch left out, and a workout in parts with its sources.
+  const vehicle = vehicleLine(s, t.workout, fmt);
+  const sources = sourcesLine(s, t.workout, fmt);
   return (
     <div className="space-y-4">
       <button type="button" className="h-11 text-sm text-muted" onClick={() => history.back()}>
@@ -42,6 +46,7 @@ export function SessionScreen({ id }: { id: string }) {
       <div>
         <Kicker>{`${dayLabel(s.startedAt, lang)} · ${timeLabel(s.startedAt, lang)}`}</Kicker>
         <H1>{sportLabel(s.sport, lang)}</H1>
+        {sources && <Small className="mt-1">{sources}</Small>}
       </div>
       <Card>
         <dl className="grid grid-cols-2 gap-4">
@@ -82,7 +87,8 @@ export function SessionScreen({ id }: { id: string }) {
         {s.pointsDetail && s.pointsDetail.streakBonus > 0 && (
           <Small className="mt-1">{fmt(t.workout.pointsDetail, { base: s.pointsDetail.base, bonus: s.pointsDetail.streakBonus })}</Small>
         )}
-        {noHr && <p className="mt-2 text-sm">{t.workout.noPoints}</p>}
+        {vehicle && <p className="mt-2 text-sm font-semibold text-butter-fg">{vehicle}</p>}
+        {noHr && !s.flags?.includes("vehicle") && <p className="mt-2 text-sm">{t.workout.noPoints}</p>}
       </Card>
       {s.source === "web" && <Note tone="butter">{t.workout.webRule}</Note>}
       {!confirm ? (

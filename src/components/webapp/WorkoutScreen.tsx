@@ -10,6 +10,7 @@ import { sessionTimes, showsPaused } from "@/lib/webapp/moving";
 import { getSportZonesDict } from "@/i18n/sportZones";
 import { RPE_ZONES } from "@/lib/webapp/sportHeart";
 import { kindValue, paceKindText, paceKindUnit, showsSpeed, toggleWorkoutVoice, WORKOUT_VOICE_MODES } from "@/lib/webapp/speedZones";
+import { vehicleLine } from "@/lib/webapp/vehicle/journal";
 import { elapsedS, isPaused, quickSportsFor, sportLabel, sportOf, usesGps, WEB_SPORTS } from "@/lib/webapp/workout";
 import { sports as catalog } from "@/lib/sports";
 import {
@@ -386,6 +387,13 @@ function LiveView() {
           {wk.zoneSource === "speed" && <Small className="mt-1">{t.zones.disclaimer}</Small>}
           {wk.roughGuide && bpm !== null && <Small className="mt-1">{getSportZonesDict(lang).roughGuide}</Small>}
 
+          {wk.vehicle && (
+            // The vehicle guard (build 58): calm, no accusation; it resumes by itself on foot (no need to touch the phone).
+            <div className="mt-3 rounded-xl bg-butter/15 px-3 py-2 text-butter-fg" role="status" aria-live="polite">
+              <p className="text-sm font-semibold">{t.workout.vehicleBanner}</p>
+              <p className="text-xs">{t.workout.vehicleBannerHint}</p>
+            </div>
+          )}
           {!confirmEnd ? (
             <div className="mt-3 flex gap-3">
               {paused ? (
@@ -590,6 +598,7 @@ function SummaryView() {
     );
   const hasHr = s.tier === "B";
   const points = sm.reply?.points;
+  const vehicleNote = vehicleLine(s, t.workout, fmt);
   // Moving time (lib/webapp/moving.ts): the pace and the time shown; the time in all on its own line.
   const p = s.distanceM ? paceOf(s.activeS, s.distanceM) : null;
   const times = s.endedAt ? sessionTimes(s) : null;
@@ -642,8 +651,9 @@ function SummaryView() {
         ) : sm.queued ? (
           <p className="text-sm text-butter-fg">{t.workout.summaryLocal}</p>
         ) : null}
-        {!hasHr && <p className="mt-2 text-sm">{t.workout.noPoints}</p>}
-        {streak && <Small className="mt-2">{fmt(t.workout.streakNow, { n: streak.days })}</Small>}
+        {vehicleNote ? <p className="mt-2 text-sm font-semibold text-butter-fg">{vehicleNote}</p> : null}
+        {!hasHr && !s.flags.includes("vehicle") && <p className="mt-2 text-sm">{t.workout.noPoints}</p>}
+        {streak && !s.flags.includes("vehicle") && <Small className="mt-2">{fmt(t.workout.streakNow, { n: streak.days })}</Small>}
       </Card>
       <Note tone="butter">{t.workout.webRule}</Note>
       {/* "How did it feel?" (a result, every level) then the next steps (the engine: Quiet shows none). */}

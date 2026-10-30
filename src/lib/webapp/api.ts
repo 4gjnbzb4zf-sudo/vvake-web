@@ -148,6 +148,11 @@ export const sessionSchema = z.object({
   ),
   cameraPoints: num,
   cameraReason: str,
+  /** Vehicle guard (build 58): seconds left out as a vehicle stretch (flag "vehicle" when mostly vehicle). */
+  vehicleS: num,
+  /** A workout continued on another device (build 58, watch takeover): the parts merged by the API, in order. */
+  handover: bool,
+  sources: opt(z.array(z.object({ device: z.string(), minutes: z.number(), hr: bool }))),
 });
 export type ApiSession = z.infer<typeof sessionSchema>;
 const sessionsSchema = z.object({ sessions: z.array(sessionSchema), next: str });

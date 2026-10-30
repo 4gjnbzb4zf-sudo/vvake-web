@@ -26,3 +26,5 @@ src/lib/webapp/fixtures/tailor-golden.json
 src/lib/webapp/fixtures/suggest-golden.json
 # Copied byte for byte from the VVFit monorepo (packages/game-core/test/fixtures/journey-golden.json) by scripts/sync-living-core.ts
 src/lib/webapp/fixtures/journey-golden.json
+# Copied byte for byte from the VVFit monorepo (packages/game-core/test/fixtures/vehicle-golden.json) by scripts/sync-vehicle-core.ts
+src/lib/webapp/fixtures/vehicle-golden.json

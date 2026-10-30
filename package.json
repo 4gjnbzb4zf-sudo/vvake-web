@@ -32,7 +32,9 @@
     "sync:living": "tsx scripts/sync-living-core.ts",
     "check:living": "tsx scripts/sync-living-core.ts --check",
     "sync:coach": "tsx scripts/sync-coach-core.ts",
-    "check:coach": "tsx scripts/sync-coach-core.ts --check"
+    "check:coach": "tsx scripts/sync-coach-core.ts --check",
+    "sync:vehicle": "tsx scripts/sync-vehicle-core.ts",
+    "check:vehicle": "tsx scripts/sync-vehicle-core.ts --check"
   },
   "dependencies": {
     "@mediapipe/tasks-vision": "0.10.35",

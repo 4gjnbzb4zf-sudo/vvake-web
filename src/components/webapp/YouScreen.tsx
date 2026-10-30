@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useState, type ReactNode } from "react";
 import type { ApiSession } from "@/lib/webapp/api";
+import { sourcesLine, vehicleLine } from "@/lib/webapp/vehicle/journal";
 import { clock, dayLabel, distance } from "@/lib/webapp/format";
 import { coachVoiceGender, type CoachVoiceGender } from "@/lib/coachVoices";
 import { WORKOUT_VOICE_MODES } from "@/lib/webapp/speedZones";
@@ -204,7 +205,14 @@ export function YouScreen({ focus }: { focus?: Section } = {}) {
               tone={s.source === "web" ? "sky" : s.source === "watch" ? "pulse" : "volt"}
               icon={s.source === "web" ? "⌘" : s.source === "watch" ? "⌚" : "▲"}
               title={sportLabel(s.sport, lang)}
-              detail={`${dayLabel(s.startedAt, lang)} · ${clock(s.activeS)}${s.distanceM ? ` · ${distance(s.distanceM, prefs.units, lang)}` : ""}`}
+              detail={[
+                `${dayLabel(s.startedAt, lang)} · ${clock(s.activeS)}${s.distanceM ? ` · ${distance(s.distanceM, prefs.units, lang)}` : ""}`,
+                // Build 58: a workout in parts (phone · watch) and a vehicle stretch, said plainly.
+                sourcesLine(s, t.workout, fmt),
+                vehicleLine(s, t.workout, fmt),
+              ]
+                .filter(Boolean)
+                .join(" · ")}
               value={typeof s.points === "number" ? fmt(t.workout.points, { n: s.points }) : undefined}
               onClick={() => go({ name: "session", id: s.id })}
             />

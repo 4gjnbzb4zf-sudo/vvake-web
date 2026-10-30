@@ -2488,7 +2488,7 @@ export const fr: Dictionary = {
     title: "Politique de confidentialité",
     description:
       "Ce que les applications VVake pour iPhone et Apple Watch et le site vvake.com recueillent, pourquoi, qui y a accès, combien de temps nous le gardons et vos droits.",
-    updated: "Dernière mise à jour : 2026-10-28",
+    updated: "Dernière mise à jour : 2026-10-30",
     draft: "Version provisoire pour l'aperçu TestFlight. Cette politique sera revue par un avocat avant le lancement public.",
     intro: [
       "VVake (aussi appelée VVake Fit) est une application d'entraînement pour iPhone et Apple Watch, accompagnée du site vvake.com. Cette politique explique simplement quels renseignements nous recueillons, pourquoi, qui d'autre y a accès, combien de temps nous les gardons et ce que vous pouvez faire. Elle couvre les applications (y compris les versions d'essai TestFlight), l'API VVake avec laquelle elles communiquent, le compagnon de bureau pour Mac, le module VVake pour Claude Code et ce site, y compris vvake.com/rewards.",
@@ -2611,6 +2611,14 @@ export const fr: Dictionary = {
             d: "Les données de séance décrites plus haut, et les données de santé que vous cochez pour doser votre plan : âge, sexe, poids, taille, fréquence cardiaque au repos et maximale, sommeil moyen, et deux choix que vous faites vous-même (faible impact seulement ; effort léger seulement, par exemple pendant une grossesse ou sur l'avis d'un professionnel). La variabilité cardiaque et le VO2 max sont utilisés sur votre appareil seulement.",
           },
           {
+            t: "Lancer mes séances pour moi.",
+            d: "Si vous choisissez Me demander ou Automatiquement (dans les réglages de l'app ou sur vvake.com/account), l'app remarque quand vous vous mettez à marcher ou à courir et vous demande avant d'enregistrer (Me demander) ou l'enregistre pour vous (Automatiquement). Pour cela, elle lit, sur l'appareil seulement, ce que la puce de mouvement devine de votre activité (marche, course, véhicule ou immobile) sur votre téléphone et votre montre (Mouvements et forme sur iPhone et Apple Watch ; Activity Recognition des services Google Play sur Android et Wear OS), ainsi que votre historique de pas récent, pour que la séance commence au moment où vous êtes vraiment parti. Rien de cela ne quitte votre appareil : une séance que vous gardez est envoyée comme les autres, avec une marque indiquant qu'elle a été lancée pour vous. Chaque appareil ne demande la permission que lorsque vous choisissez l'une de ces options ; Non la désactive.",
+          },
+          {
+            t: "Vérification véhicule.",
+            d: "Pendant une marche, une course ou une randonnée, l'app vérifie sur l'appareil lui-même si vous semblez être en voiture, en bus ou en train (plus rapide qu'à pied sans pas, des pas plus longs qu'un corps ne le permet, ou la puce de mouvement qui indique un véhicule). Ce passage est mis en pause et retiré de la séance. Rien de nouveau ne quitte votre appareil : la séance porte seulement une marque indiquant qu'un véhicule a été détecté et combien de secondes ont été retirées, si bien qu'une séance faite surtout en véhicule apparaît dans votre journal comme non comptée.",
+          },
+          {
             t: "Ce que nous écrivons dans l'app Santé.",
             d: "Votre Apple Watch enregistre vos séances comme entraînements dans l'app Santé, avec le tracé pour les séances extérieures. Si vous l'autorisez, les séances extérieures enregistrées avec votre iPhone y sont aussi enregistrées, avec leur tracé.",
           },
@@ -2636,6 +2644,10 @@ export const fr: Dictionary = {
           {
             t: "Sauvegarde des parcours (chiffrée de bout en bout).",
             d: "Pour que vos parcours ne soient pas perdus quand vous changez de téléphone, l'application sauvegarde le parcours de chaque entraînement extérieur (enregistré sur votre iPhone ou votre Apple Watch) dans votre compte VVake, chiffré de bout en bout. Votre iPhone le chiffre (AES-256-GCM) avec une clé qui n'existe que sur vos appareils, synchronisée entre eux par le trousseau iCloud ; cette clé ne nous est jamais envoyée. Nous ne gardons que les octets chiffrés et quelques métadonnées (à quel entraînement il appartient, sa taille, quand il a été sauvegardé, et une empreinte qui indique à vos appareils quelle clé l'ouvre). VVake ne peut pas lire vos parcours, et personne d'autre ne peut les télécharger : il n'y a aucun lien public. La sauvegarde d'un parcours est supprimée quand vous supprimez la séance, et toutes le sont quand vous supprimez votre compte. Si vous perdez tous vos appareils et votre trousseau iCloud, personne ne peut plus ouvrir ces sauvegardes, nous non plus.",
+          },
+          {
+            t: "Lancer mes séances pour moi, en arrière-plan (iPhone).",
+            d: "Avec Me demander ou Automatiquement, et seulement si vous autorisez la localisation en arrière-plan, iOS peut réveiller l'app de temps en temps quand vous vous êtes déplacé d'une certaine distance. L'app n'utilise ce réveil que pour lire la puce de mouvement et oublie la position aussitôt : aucun historique de position n'est gardé en dehors d'une séance, rien n'en est envoyé à nos serveurs, et aucun GPS ne tourne en continu pendant l'attente. Sans cette permission, cela ne fonctionne que lorsque l'app est ouverte.",
           },
           {
             t: "Votre ville.",
@@ -2677,6 +2689,10 @@ export const fr: Dictionary = {
           {
             t: "La localisation, seulement pendant une séance ou une recherche de lieux.",
             d: "Quand tu lances une séance en extérieur, ton navigateur te demande si vvake.com peut utiliser ta position. Elle n’est lue que pendant cette séance, page ouverte à l’écran (un navigateur arrête le suivi quand le téléphone se verrouille ou que la page est cachée), pour tracer ton parcours et mesurer distance, allure et dénivelé. Le tracé reste dans ton navigateur : nous recevons seulement les totaux et une distance toutes les 10 secondes, jamais une position. Les tuiles de la carte viennent d’OpenFreeMap, qui voit la zone demandée par ton navigateur, comme sur tout site de cartes. Lieux près de moi lit ta position une fois, quand tu touches Utiliser ma position, et n’envoie qu’un point arrondi à environ 1 km (voir Localisation).",
+          },
+          {
+            t: "Une vérification véhicule, dans ton navigateur.",
+            d: "Pendant une marche, une course ou une randonnée en extérieur, la page vérifie ta vitesse GPS (un navigateur ne compte pas les pas) et met en pause un passage qui ressemble à une voiture, un bus ou un train. Cela se fait dans la page elle-même ; nous recevons seulement la marque de la séance indiquant qu'un véhicule a été détecté et les secondes retirées, jamais une position.",
           },
           {
             t: "La fréquence cardiaque Bluetooth, lue dans ton navigateur.",

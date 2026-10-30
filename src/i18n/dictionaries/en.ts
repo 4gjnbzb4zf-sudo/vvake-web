@@ -2329,7 +2329,7 @@ export const en = {
     title: "Privacy policy",
     description:
       "What the VVake iPhone and Apple Watch apps and vvake.com collect, why, who else sees it, how long we keep it and your rights.",
-    updated: "Last updated: 2026-10-28",
+    updated: "Last updated: 2026-10-30",
     draft: "Draft for the TestFlight preview. This policy will be reviewed by a lawyer before the public launch.",
     intro: [
       "VVake (also called VVake Fit) is a fitness coaching app for iPhone and Apple Watch, with this website, vvake.com. This policy explains in plain words what we collect, why, who else sees it, how long we keep it and what you can do about it. It covers the apps (TestFlight previews included), the VVake API they talk to, the desk companion for Mac, the VVake plugin for Claude Code and this website, including vvake.com/rewards.",
@@ -2452,6 +2452,14 @@ export const en = {
             d: "The session data listed above, and the health fields you tick to size your plan: age, sex, weight, height, resting and maximum heart rate, average sleep, and two choices you make yourself (low-impact only; easy effort only, for example during pregnancy or on a professional's advice). Heart-rate variability and VO2 max are used on your device only.",
           },
           {
+            t: "Start workouts for me.",
+            d: "If you choose Ask me or Start automatically (in the app's settings or on vvake.com/account), the app notices when you start walking or running and asks before recording it (Ask me) or records it for you (Start automatically). To do this it reads, on the device only, the motion chip's guess of what you are doing (walking, running, in a vehicle or still) on your phone and your watch (Motion & Fitness on iPhone and Apple Watch; Google Play services Activity Recognition on Android and Wear OS), and your recent steps history, so the workout starts from when you really set off. None of this leaves your device: a workout you keep is uploaded like any other, with a mark that it was started for you. Each device asks for the permission only when you pick one of these options; Off turns it off.",
+          },
+          {
+            t: "Vehicle check.",
+            d: "During a walk, run or hike, the app checks on the device itself whether you seem to be in a car, bus or train (moving faster than on foot with no steps, steps longer than a body allows, or the motion chip saying vehicle). That stretch is paused and left out of the workout. Nothing new leaves your device: the session only carries a mark that a vehicle was detected and how many seconds were left out, so a session that was mostly a ride shows in your journal as not counted.",
+          },
+          {
             t: "What we write to Apple Health.",
             d: "Your Apple Watch saves your sessions as workouts in Apple Health, with the route for outdoor sessions. If you allow it, the outdoor sessions you record with your iPhone are saved there too, with their route.",
           },
@@ -2477,6 +2485,10 @@ export const en = {
           {
             t: "Route backup (end-to-end encrypted).",
             d: "So your routes aren't lost when you change phones, the app backs each outdoor workout's route (recorded on your iPhone or your Apple Watch) up to your VVake account, end-to-end encrypted. Your iPhone encrypts it (AES-256-GCM) with a key that exists only on your devices, synced between them by iCloud Keychain; that key is never sent to us. We store only the encrypted bytes and a little metadata (which workout it belongs to, its size, when it was saved, and a fingerprint that tells your devices which key opens it). VVake cannot read your routes, and nobody else can download them: there are no public links. A route's backup is deleted when you delete that session, and all of them when you delete your account. If you lose every device and your iCloud Keychain, the backups can't be opened by anyone, including us.",
+          },
+          {
+            t: "Start workouts for me, in the background (iPhone).",
+            d: "With Ask me or Start automatically, and only if you allow location in the background, iOS may wake the app now and then when you have moved some distance. The app uses that wake-up only to read the motion chip and discards the position at once: no location history is kept outside a workout, nothing of it is sent to our servers, and there is no continuous GPS while it waits. Without that permission, it works only while the app is open.",
           },
           {
             t: "Your city.",
@@ -2518,6 +2530,10 @@ export const en = {
           {
             t: "Location, only during a workout or a places search.",
             d: "When you start an outdoor workout, your browser asks whether vvake.com may use your location. It is read only while that workout runs and the page is open on screen (a browser stops tracking when the phone locks or the page is hidden), to draw your route and measure distance, pace and climb. The route stays in your browser: we receive only the totals and a distance every 10 seconds, never a position. The map's tiles come from OpenFreeMap, which sees the map area your browser asks for, like any map site. Places near me reads your position once, when you tap Use my location, and sends only a point rounded to about 1 km (see Location).",
+          },
+          {
+            t: "A vehicle check, in your browser.",
+            d: "During an outdoor walk, run or hike, the page checks your GPS speed (a browser has no step count) and pauses a stretch that looks like a car, bus or train. This runs in the page itself; we receive only the session's mark that a vehicle was detected and the seconds left out, never a position.",
           },
           {
             t: "Bluetooth heart rate, read in your browser.",

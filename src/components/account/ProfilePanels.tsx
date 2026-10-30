@@ -9,6 +9,8 @@ import { ApiError } from "@/lib/rewardsApi";
 import { PlanPills } from "./ConnectionPanels";
 import { Card, linkButton, Pill, Row, Select, smallButton, smallInput, Toggle, useAction, Value } from "./AccountUi";
 import { sectionIndex, type PanelProps } from "./shared";
+import { AUTO_START_MODES, autoStartModeOf, type AutoStartMode } from "@/lib/webapp/vehicle/autoStart";
+import { nextAutoStart } from "@/lib/webapp/vehicle/autoStartPrefs";
 
 /** This browser's device id (src/lib/rewardsApi.ts keeps it), to mark it in the list. */
 function thisDeviceId(): string | null {
@@ -167,6 +169,8 @@ export function AppSection(p: PanelProps) {
     { value: "mdy", label: t.app.dates.mdy },
     { value: "ymd", label: t.app.dates.ymd },
   ];
+  // Start workouts for me (build 58, prefs.autoStart): one mode for every phone and watch; newest wins.
+  const autoStartChoices: Choice<AutoStartMode>[] = AUTO_START_MODES.map((m) => ({ value: m, label: t.app.autoStartModes[m] }));
   const units = me.coach?.units === "imperial" || me.coach?.units === "metric" ? t.app.unitsValue[me.coach.units] : t.notSet;
 
   return (
@@ -218,6 +222,15 @@ export function AppSection(p: PanelProps) {
               checked={prefs.cityClashAlerts !== false}
               disabled={a.busy}
               onChange={(cityClashAlerts) => patch({ cityClashAlerts })}
+            />
+          </Row>
+          <Row label={t.app.autoStart} hint={t.app.autoStartHint} htmlFor="acct-autostart">
+            <Select
+              id="acct-autostart"
+              value={autoStartModeOf((prefs.autoStart as { mode?: unknown } | undefined)?.mode)}
+              options={autoStartChoices}
+              disabled={a.busy}
+              onChange={(mode) => patch({ autoStart: nextAutoStart(prefs.autoStart, mode) })}
             />
           </Row>
           <Row label={t.app.units} hint={t.app.unitsNote}>

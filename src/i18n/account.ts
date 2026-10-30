@@ -82,6 +82,10 @@ const en = {
     cityClash: "City Clash alerts",
     cityClashHint: "When your city is challenged and when a clash goes live.",
     moments: "Moments after a session",
+    autoStart: "Start workouts for me",
+    autoStartHint:
+      "On your phone and watch: when you start walking or running, VVake asks first (Ask me) or records it for you (Start automatically). Each device asks for motion access only when you pick it, and never starts in a vehicle.",
+    autoStartModes: { off: "Off", ask: "Ask me", auto: "Start automatically" },
   },
   reminders: {
     lead: "Your daily rhythm, the daily move and My Pulse alerts. Each phone schedules its own notifications from these.",
@@ -437,6 +441,10 @@ const fr: AccountDict = {
     cityClash: "Alertes City Clash",
     cityClashHint: "Quand ta ville est défiée et quand un clash démarre.",
     moments: "Moments après une séance",
+    autoStart: "Lancer mes séances pour moi",
+    autoStartHint:
+      "Sur ton téléphone et ta montre : quand tu te mets à marcher ou à courir, VVake te demande d'abord (Me demander) ou l'enregistre pour toi (Automatiquement). Chaque appareil demande l'accès aux mouvements seulement quand tu le choisis, et ne lance jamais rien dans un véhicule.",
+    autoStartModes: { off: "Non", ask: "Me demander", auto: "Automatiquement" },
   },
   reminders: {
     lead: "Ton rythme quotidien, le mouvement du jour et les alertes Mon Pulse. Chaque téléphone programme ses propres notifications à partir de ça.",

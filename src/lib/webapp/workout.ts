@@ -4,6 +4,7 @@ import type { Locale } from "@/i18n/config";
 import { emptyTrack, type TrackState } from "./geo";
 import { heartEffort, zoneSeconds, type HeartProfile } from "./heart";
 import type { CameraSummary } from "./camera/cameraPoints";
+import type { VehicleGuardState, VehicleVerdict } from "./vehicle/vehicleGuard";
 
 /**
  * A workout recorded in the browser (vvake.com/app), with the phone app's rules (apps/mobile app/workout.tsx):
@@ -117,6 +118,10 @@ export interface WorkoutSnapshot {
   energyAtStart: number;
   /** Ended: the session is built and waits in the upload queue. */
   endedAt?: number;
+  /** The vehicle guard (foot sports, vehicle/workoutVehicle.ts): its state, kept with the snapshot. */
+  vehicle?: VehicleGuardState;
+  /** Paused by the vehicle guard (not by the athlete): it resumes by itself once on foot again. */
+  vehiclePaused?: boolean;
 }
 
 export function newWorkout(o: { id: string; userId: string; sport: string; now: number; energy: number }): WorkoutSnapshot {
@@ -212,6 +217,8 @@ export interface WebSession {
   hrProfile?: { age: number; restingHr: number; maxHr?: number; female?: boolean; zones?: number[] };
   /** A camera workout (camera/webCameraSession.ts): counts only, never an image or a pose. */
   camera?: CameraSummary;
+  /** Seconds the vehicle guard left out (build 58); with the flag "vehicle" when the session was mostly vehicle. */
+  vehicleS?: number;
 }
 
 export const MINUTES_PER_ENERGY = 5;
@@ -221,7 +228,10 @@ export const MINUTES_PER_ENERGY = 5;
  * effort score at all (the phone never sends an estimate as points). `scored` is the effort within the energy left
  * (the server keeps min(client, its own score from the samples)).
  */
-export function buildSession(w: WorkoutSnapshot, o: { now: number; deviceKey: string; heart: HeartProfile; gps: boolean }): WebSession {
+export function buildSession(
+  w: WorkoutSnapshot,
+  o: { now: number; deviceKey: string; heart: HeartProfile; gps: boolean; vehicle?: { vehicleS: number; verdict: VehicleVerdict } },
+): WebSession {
   const end = w.endedAt ?? o.now;
   const activeS = elapsedS(w, end);
   const samples = w.samples.slice(0, MAX_SAMPLES);
@@ -231,6 +241,9 @@ export function buildSession(w: WorkoutSnapshot, o: { now: number; deviceKey: st
   const hr = withHr ? heartEffort(samples, o.heart, budgetMin) : null;
   const all = withHr ? heartEffort(samples, o.heart) : null;
   const metres = Math.round(w.track.metres);
+  // Mostly vehicle (build 58): kept for the journal, "Not counted: vehicle detected"; nothing scored, no energy spent.
+  const vehicle = o.vehicle?.verdict === "vehicle";
+  const vehicleS = o.vehicle && o.vehicle.vehicleS > 0 ? { vehicleS: o.vehicle.vehicleS } : {};
   return {
     id: w.id,
     sport: w.sport,
@@ -245,8 +258,7 @@ export function buildSession(w: WorkoutSnapshot, o: { now: number; deviceKey: st
           maxBpm: Math.max(...bpms, w.maxBpm ?? 0),
           zoneS: zoneSeconds(samples, o.heart),
           effort: all!.effort,
-          scored: hr!.effort,
-          energyUsed: Math.min(w.energyAtStart, Math.ceil(hr!.activeMin / MINUTES_PER_ENERGY)),
+          ...(vehicle ? {} : { scored: hr!.effort, energyUsed: Math.min(w.energyAtStart, Math.ceil(hr!.activeMin / MINUTES_PER_ENERGY)) }),
           hrProfile: {
             age: o.heart.age,
             restingHr: o.heart.restingHr,
@@ -257,7 +269,8 @@ export function buildSession(w: WorkoutSnapshot, o: { now: number; deviceKey: st
         }
       : {}),
     tier: withHr ? "B" : "C",
-    flags: [],
+    flags: vehicle ? ["vehicle"] : [],
+    ...vehicleS,
     samples,
     deviceKey: o.deviceKey,
   };
