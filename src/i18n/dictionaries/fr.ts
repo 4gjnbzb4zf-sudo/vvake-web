@@ -2586,7 +2586,15 @@ export const fr: Dictionary = {
           },
           {
             t: "Rendez-vous d'entraînement.",
-            d: "Vous pouvez inviter des personnes que vous avez déjà affrontées (amis, votre bande, rivaux de défi) à vous entraîner ensemble. Un rendez-vous n'est visible que par les personnes invitées. Nous gardons son sport, l'heure, la durée, le point de rendez-vous, l'allure que vous avez écrite, le nombre de places, qui est invité, chaque réponse, quand quelqu'un a touché « Je suis là » et les rappels envoyés. Le point de rendez-vous est toujours un lieu public (parking, départ de sentier, parc, piste…) choisi sur la carte, jamais une position saisie : nous n'en gardons que l'identifiant OpenStreetMap. « Je suis là » n'envoie aucune position. Les signalements sont lus par nos modérateurs. Les rendez-vous sont supprimés 90 jours après leur fin, et quand l'organisateur supprime son compte ; vos réponses partent avec votre compte. « Ajouter au calendrier » crée sur votre appareil un fichier avec seulement l'heure, le lieu et l'allure du rendez-vous.",
+            d: "Vous pouvez inviter des personnes que vous avez déjà affrontées (amis, votre bande, rivaux de défi) à vous entraîner ensemble. Un rendez-vous n'est visible que par les personnes invitées. Nous gardons son sport, l'heure, la durée, le point de rendez-vous, l'allure que vous avez écrite, le nombre de places, qui est invité, chaque réponse, quand quelqu'un a touché « Je suis là » et les rappels envoyés. Le point de rendez-vous est un lieu public (parking, départ de sentier, parc, piste…) choisi sur la carte, dont nous ne gardons que l'identifiant OpenStreetMap, ou un point de rendez-vous personnalisé que l'organisateur pose sur la carte (voir ci-dessous). « Je suis là » n'envoie aucune position. Les signalements sont lus par nos modérateurs. Les rendez-vous sont supprimés 90 jours après leur fin, et quand l'organisateur supprime son compte ; vos réponses partent avec votre compte. « Ajouter au calendrier » crée sur votre appareil un fichier avec seulement l'heure, le lieu et l'allure du rendez-vous.",
+          },
+          {
+            t: "Points de rendez-vous personnalisés.",
+            d: "L'organisateur d'un rendez-vous peut appuyer longuement sur la carte pour poser son propre point de rendez-vous, avec un nom (40 caractères au plus), une note facultative (200 au plus) et une photo facultative. Nous gardons ses coordonnées exactes, nécessaires pour se retrouver, et seules les personnes invitées à ce rendez-vous voient le point, sa note et sa photo : il n'apparaît jamais sur les cartes publiques, dans les Spots, les avis sur les lieux ni aucune liste. Quand le point n'est pas dans un lieu public, l'app propose de le déplacer vers le plus proche. La photo est réduite sur votre appareil et ses données de lieu et d'appareil photo (EXIF) sont retirées avant et après l'envoi. Le point, sa note et sa photo sont supprimés 7 jours après la fin du rendez-vous (et avec le rendez-vous ou le compte de l'organisateur). « Ajouter au calendrier » ne met que le nom du point dans le fichier, jamais ses coordonnées.",
+          },
+          {
+            t: "S'entraîner ensemble par appel.",
+            d: "Un rendez-vous peut être un appel plutôt qu'un lieu : chacun s'entraîne où il est et voit un tableau partagé. Chaque app envoie ses propres chiffres toutes les 10 secondes tant que le tableau est ouvert (temps écoulé, distance ou répétitions, zone cardiaque, et si la séance est en cours, en pause ou finie), jamais une position. Seules les personnes du rendez-vous voient le tableau et les encouragements envoyés ; quitter le tableau ne prévient personne. Les chiffres du tableau et les encouragements sont supprimés dans les deux jours suivant le rendez-vous. L'audio de groupe, facultatif, passe par le service temps réel de notre hébergeur (Cloudflare) entre les personnes de l'appel : il n'est jamais enregistré ni conservé, ni par nous ni par lui. Pour garder le service abordable, nous comptons les minutes que chaque compte passe dans l'audio chaque jour (un nombre, pas l'audio). Le coach facultatif de l'appel ne dit que quelques phrases écrites à l'avance, sur chaque téléphone.",
           },
           {
             t: "My Pulse (facultatif).",
@@ -2961,7 +2969,7 @@ export const fr: Dictionary = {
         list: [
           {
             t: "Cloudflare (États-Unis; nos données sont stockées dans l'UE).",
-            d: "Héberge l'API VVake, la base de données et le stockage de fichiers, la liste d'attente, et la vérification anti-robots du formulaire d'inscription du site (Turnstile).",
+            d: "Héberge l'API VVake, la base de données et le stockage de fichiers, la liste d'attente, la vérification anti-robots du formulaire d'inscription du site (Turnstile) et, seulement quand il est activé, l'audio en temps réel de « S'entraîner ensemble par appel » (relayé, jamais enregistré).",
           },
           { t: "Anthropic (États-Unis).", d: "Rédige les réponses du coach (voir Fonctions d'IA)." },
           {
@@ -3012,7 +3020,7 @@ export const fr: Dictionary = {
         id: "where",
         h: "Où vos données sont conservées",
         p: [
-          "Notre base de données (Cloudflare D1) et notre stockage de fichiers (Cloudflare R2 : audio de la voix du coach, images VVaker et sauvegardes chiffrées de vos parcours) se trouvent dans la juridiction européenne de Cloudflare. Les requêtes transitent par le réseau mondial de Cloudflare, et plusieurs fournisseurs ci-dessus sont aux États-Unis : vos données peuvent donc être traitées hors du Québec, du Canada et de l'UE. Nous nous appuyons sur les garanties contractuelles de nos fournisseurs : les conditions de traitement des données de Cloudflare, d'Anthropic et d'ElevenLabs, qui comprennent les clauses contractuelles types de l'UE, font partie de leurs conditions standard.",
+          "Notre base de données (Cloudflare D1) et notre stockage de fichiers (Cloudflare R2 : audio de la voix du coach, images VVaker, sauvegardes chiffrées de vos parcours et photos des points de rendez-vous personnalisés) se trouvent dans la juridiction européenne de Cloudflare. Les requêtes transitent par le réseau mondial de Cloudflare, et plusieurs fournisseurs ci-dessus sont aux États-Unis : vos données peuvent donc être traitées hors du Québec, du Canada et de l'UE. Nous nous appuyons sur les garanties contractuelles de nos fournisseurs : les conditions de traitement des données de Cloudflare, d'Anthropic et d'ElevenLabs, qui comprennent les clauses contractuelles types de l'UE, font partie de leurs conditions standard.",
         ],
         list: [],
       },

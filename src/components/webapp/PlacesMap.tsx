@@ -35,6 +35,8 @@ export function PlacesMap({
   youLabel,
   creditLabel,
   className,
+  onLongPress,
+  pin,
 }: {
   here: LatLon | null;
   places: readonly NearPlace[];
@@ -43,7 +45,16 @@ export function PlacesMap({
   youLabel: string;
   creditLabel: string;
   className?: string;
+  /** A custom meeting point (ADR-0071 §B): long-press (or right-click) where you'll meet. */
+  onLongPress?: (p: LatLon) => void;
+  /** The custom pin to draw, if any. */
+  pin?: LatLon | null;
 }) {
+  const longPress = useRef(onLongPress);
+  useEffect(() => {
+    longPress.current = onLongPress;
+  }, [onLongPress]);
+  const pinMarker = useRef<Marker | null>(null);
   const box = useRef<HTMLDivElement>(null);
   const map = useRef<MlMap | null>(null);
   const me = useRef<Marker | null>(null);
@@ -89,6 +100,22 @@ export function PlacesMap({
             const id = e.features?.[0]?.properties?.id;
             if (typeof id === "string") pick.current(id);
           });
+          // Long-press on touch (600 ms without moving), right-click with a mouse: a custom meeting point.
+          m.on("contextmenu", (e) => longPress.current?.({ lat: e.lngLat.lat, lon: e.lngLat.lng }));
+          let hold: ReturnType<typeof setTimeout> | null = null;
+          const cancel = () => {
+            if (hold) clearTimeout(hold);
+            hold = null;
+          };
+          m.on("touchstart", (e) => {
+            cancel();
+            if (e.originalEvent.touches.length !== 1) return;
+            const at = e.lngLat;
+            hold = setTimeout(() => longPress.current?.({ lat: at.lat, lon: at.lng }), 600);
+          });
+          m.on("touchend", cancel);
+          m.on("touchmove", cancel);
+          m.on("movestart", cancel);
           m.on("mouseenter", "places", () => (m.getCanvas().style.cursor = "pointer"));
           m.on("mouseleave", "places", () => (m.getCanvas().style.cursor = ""));
           setReady(true);
@@ -164,6 +191,22 @@ export function PlacesMap({
       } else me.current.setLngLat([here.lon, here.lat]);
     })();
   }, [here, ready, youLabel]);
+
+  // The custom pin: a volt marker on this page.
+  useEffect(() => {
+    const m = map.current;
+    if (!m || !ready) return;
+    if (!pin) {
+      pinMarker.current?.remove();
+      pinMarker.current = null;
+      return;
+    }
+    void (async () => {
+      const ml = await import("maplibre-gl");
+      if (!pinMarker.current) pinMarker.current = new ml.Marker({ color: "#ccff00" }).setLngLat([pin.lon, pin.lat]).addTo(m);
+      else pinMarker.current.setLngLat([pin.lon, pin.lat]);
+    })();
+  }, [pin, ready]);
 
   return (
     <div className={className}>

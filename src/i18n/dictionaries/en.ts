@@ -2427,7 +2427,15 @@ export const en = {
           },
           {
             t: "Training meetups.",
-            d: 'You can invite people you have already faced (friends, crew, challenge rivals) to train together. A meetup is visible only to the people invited. We keep its sport, time, duration, meeting point, the pace line you typed, how many people may come, who was invited, each answer, when someone tapped "I\'m here" and which reminders were sent. The meeting point is always a public place (a car park, trailhead, park, track…) picked on the map, never a position you type: we store only its OpenStreetMap id. "I\'m here" sends no location. Reports about a meetup are read by our moderators. Meetups are deleted 90 days after they end, and when the host deletes their account; your answers go with your account. "Add to calendar" makes a file on your device with the meetup\'s time, place and pace line only.',
+            d: 'You can invite people you have already faced (friends, crew, challenge rivals) to train together. A meetup is visible only to the people invited. We keep its sport, time, duration, meeting point, the pace line you typed, how many people may come, who was invited, each answer, when someone tapped "I\'m here" and which reminders were sent. The meeting point is a public place (a car park, trailhead, park, track…) picked on the map, for which we store only its OpenStreetMap id, or a custom meeting point the host drops on the map (see below). "I\'m here" sends no location. Reports about a meetup are read by our moderators. Meetups are deleted 90 days after they end, and when the host deletes their account; your answers go with your account. "Add to calendar" makes a file on your device with the meetup\'s time, place and pace line only.',
+          },
+          {
+            t: "Custom meeting points.",
+            d: "The host of a meetup can long-press the map to drop their own meeting point, with a name (up to 40 characters), an optional note (up to 200) and an optional photo. We keep its exact coordinates because you need them to meet, and only the people invited to that meetup can see the point, its note and its photo: it never appears on public maps, Spots, place notes or any list. When the point is not at a public place, the app suggests moving it to the nearest one. The photo is resized on your device and its location and camera data (EXIF) are removed before and after upload. The point, its note and its photo are deleted 7 days after the meetup ends (and with the meetup or the host's account). \"Add to calendar\" puts only the point's name in the file, never its coordinates.",
+          },
+          {
+            t: "Train together over a call.",
+            d: "A meetup can be a call instead of a place: everyone trains where they are and sees a shared board. Each app sends its own numbers every 10 seconds while the board is open (elapsed time, distance or reps, heart-rate zone, and whether it is running, paused or done), never a position. Only the people in that meetup see the board and the cheers sent there; leaving the board tells nobody. Board numbers and cheers are deleted within two days after the meetup. The optional group audio goes through our hosting provider's real-time service (Cloudflare) between the people in the call: it is never recorded or stored, by us or by them. To keep the service affordable we count the minutes each account spends in the audio each day (a number, not the audio). The optional coach on the call only says a few prewritten lines on each phone.",
           },
           {
             t: "My Pulse (optional).",
@@ -2802,7 +2810,7 @@ export const en = {
         list: [
           {
             t: "Cloudflare (United States; our data is stored in the EU).",
-            d: "Hosts the VVake API, the database and file storage, the waitlist, and the bot check on the website's signup form (Turnstile).",
+            d: "Hosts the VVake API, the database and file storage, the waitlist, the bot check on the website's signup form (Turnstile), and, only when it is switched on, the real-time audio of “train together over a call” (forwarded, never recorded).",
           },
           { t: "Anthropic (United States).", d: "Writes the coach's replies (see AI features)." },
           {
@@ -2847,7 +2855,7 @@ export const en = {
         id: "where",
         h: "Where your data is stored",
         p: [
-          "Our database (Cloudflare D1) and file storage (Cloudflare R2: coach voice audio, VVaker images and your encrypted route backups) are in Cloudflare's EU jurisdiction. Requests pass through Cloudflare's worldwide network, and several providers above are in the United States, so your data can be processed outside Québec, Canada and the EU. We rely on our providers' contractual safeguards: Cloudflare's, Anthropic's and ElevenLabs' data processing terms, which include the EU Standard Contractual Clauses, are part of their standard terms.",
+          "Our database (Cloudflare D1) and file storage (Cloudflare R2: coach voice audio, VVaker images, your encrypted route backups and the photos of custom meeting points) are in Cloudflare's EU jurisdiction. Requests pass through Cloudflare's worldwide network, and several providers above are in the United States, so your data can be processed outside Québec, Canada and the EU. We rely on our providers' contractual safeguards: Cloudflare's, Anthropic's and ElevenLabs' data processing terms, which include the EU Standard Contractual Clauses, are part of their standard terms.",
         ],
         list: [],
       },

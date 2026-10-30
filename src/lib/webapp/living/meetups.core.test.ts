@@ -1,4 +1,4 @@
-// Copied from VVFit packages/game-core/test/meetups.test.ts (d5cab170 2026-10-28) by scripts/sync-living-core.ts. Do not edit: re-sync.
+// Copied from VVFit packages/game-core/test/meetups.test.ts (3e812ccd 2026-10-30) by scripts/sync-living-core.ts. Do not edit: re-sync.
 import { describe, expect, it } from "vitest";
 import {
   canInvite,
@@ -41,7 +41,7 @@ describe("checkMeetup", () => {
   };
 
   it("accepts a meetup, cleans the level, dedupes invitees, keys the point", () => {
-    expect(checkMeetup(ok, NOW)).toEqual({ ok: true, pointKey: "osm:node/123", level: "easy pace", invitees: ["b", "c"] });
+    expect(checkMeetup(ok, NOW)).toEqual({ ok: true, pointKey: "osm:node/123", mode: "place", level: "easy pace", invitees: ["b", "c"] });
     expect(checkMeetup({ ...ok, level: "", pointKey: "gh:f25dvkh" }, NOW)).toMatchObject({ ok: true, level: null, pointKey: "gh:f25dvkh" });
   });
 

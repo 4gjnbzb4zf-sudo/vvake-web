@@ -24,6 +24,17 @@ import {
 } from "@/lib/webapp/living/meetups";
 import { osmPlaceKey } from "@/lib/webapp/living/placeNotes";
 import {
+  checkPin,
+  PIN_NAME_MAX,
+  PIN_NOTE_MAX,
+  PIN_TEXT,
+  pinProblemText,
+  pinSafety,
+  snapPin,
+  type PinProblem,
+} from "@/lib/webapp/living/meetupPins";
+import { callOpen, TRAIN_CALL_TEXT } from "@/lib/webapp/living/trainCall";
+import {
   directionsUrl,
   fetchPlaces,
   kindName,
@@ -38,8 +49,35 @@ import { useApp } from "./AppContext";
 import { useLiving } from "./Journey";
 import { NextStepsRow } from "./NextSteps";
 import { PlacesMap } from "./PlacesMap";
+import { TrainCallBoard } from "./TrainCall";
 import { useNow } from "./useNow";
-import { Btn, Card, Field, H1, inputCls, Kicker, List, Note, Row, Small } from "./ui";
+import { Btn, Card, Field, H1, inputCls, Kicker, List, Note, Row, Small, Toggle } from "./ui";
+
+/** A custom meeting point being edited (ADR-0071 §B): seen only by the people invited, deleted 7 days after. */
+interface WebPin {
+  lat: number;
+  lon: number;
+  name: string;
+  note: string;
+  /** Re-encoded in this page as a JPEG (no EXIF), uploaded once the meetup exists. */
+  photo: Blob | null;
+}
+
+/** A photo re-encoded through a canvas (≤ 1280 px JPEG): the re-encode drops every EXIF tag (GPS, camera, time). */
+async function reencodeJpeg(file: File): Promise<Blob | null> {
+  try {
+    const bmp = await createImageBitmap(file);
+    const k = Math.min(1, 1280 / Math.max(bmp.width, bmp.height));
+    const c = document.createElement("canvas");
+    c.width = Math.round(bmp.width * k);
+    c.height = Math.round(bmp.height * k);
+    c.getContext("2d")?.drawImage(bmp, 0, 0, c.width, c.height);
+    bmp.close();
+    return await new Promise((res) => c.toBlob((b) => res(b), "image/jpeg", 0.75));
+  } catch {
+    return null;
+  }
+}
 
 /**
  * Training meetups on the web (VVFit living-app.md §14 "Meetups on the map", docs/05-tech/places-and-meetups.md):
@@ -151,6 +189,9 @@ export function MeetupNewScreen({ sport: routeSport }: { sport?: string }) {
   const [point, setPoint] = useState<NearPlace | null>(null);
   const [friends, setFriends] = useState<Friend[] | null>(null);
   const [invitees, setInvitees] = useState<string[]>([]);
+  const [mode, setMode] = useState<"place" | "call">("place");
+  const [coach, setCoach] = useState(false);
+  const [pin, setPin] = useState<WebPin | null>(null);
   const [busy, setBusy] = useState(false);
   const [msg, setMsg] = useState<string | null>(null);
 
@@ -188,24 +229,52 @@ export function MeetupNewScreen({ sport: routeSport }: { sport?: string }) {
   };
 
   const startMs = Date.parse(when);
-  const pointKey = point ? (osmPlaceKey(point.id) ?? "") : "";
-  const checked = checkMeetup({ sport, startMs, durationMin: duration, pointKey: pointKey || "x", level, maxPeople, invitees }, clock);
-  const problem = !checked.ok ? checked.problem : !point ? ("point" as const) : null;
+  const pointKey = mode === "call" ? "" : pin ? "pin" : point ? (osmPlaceKey(point.id) ?? "") : "";
+  const checked = checkMeetup(
+    { sport, mode, startMs, durationMin: duration, pointKey: mode === "call" ? "" : pointKey || "x", level, maxPeople, invitees },
+    clock,
+  );
+  const pinChecked = mode === "place" && pin ? checkPin(pin) : null;
+  const problem: string | null = !checked.ok
+    ? checked.problem
+    : mode === "place" && !pin && !point
+      ? "point"
+      : pinChecked && !pinChecked.ok
+        ? pinChecked.problem
+        : null;
+  const problemText = (p: string) =>
+    p.startsWith("pin_") ? pinProblemText(p as PinProblem, l) : meetupProblemText(p as Parameters<typeof meetupProblemText>[0], l);
+  const safety = pin && points.kind === "ok" ? pinSafety(pin, points.places) : null;
 
   const create = async () => {
-    if (!checked.ok || !point) return;
+    if (!checked.ok || problem) return;
     setBusy(true);
     setMsg(null);
     try {
+      const where =
+        mode === "call"
+          ? { mode: "call" as const, ...(coach ? { coach: true } : {}) }
+          : pinChecked?.ok
+            ? {
+                point: { key: "pin" },
+                pin: {
+                  name: pinChecked.pin.name,
+                  ...(pinChecked.pin.note ? { note: pinChecked.pin.note } : {}),
+                  lat: pinChecked.pin.lat,
+                  lon: pinChecked.pin.lon,
+                },
+              }
+            : { point: { key: checked.pointKey, ...(point!.set ? { set: point!.set } : {}), near: { lat: point!.lat, lon: point!.lon } } };
       const m = await la.createMeetup({
         sport,
         startsAt: new Date(startMs).toISOString(),
         durationMin: duration,
-        point: { key: checked.pointKey, ...(point.set ? { set: point.set } : {}), near: { lat: point.lat, lon: point.lon } },
+        ...where,
         ...(checked.level ? { level: checked.level } : {}),
         maxPeople,
         invitees: checked.invitees,
       });
+      if (mode === "place" && pin?.photo) await la.putPinPhoto(m.id, new Uint8Array(await pin.photo.arrayBuffer())).catch(() => undefined);
       markSaved(m.id);
       go({ name: "meetup", id: m.id });
     } catch (e) {
@@ -278,69 +347,164 @@ export function MeetupNewScreen({ sport: routeSport }: { sport?: string }) {
       </Card>
 
       <Card className="space-y-3">
-        <Kicker tone="mint">{MEETUP_TEXT.meetingPoint[l]}</Kicker>
-        <Small>{MEETUP_TEXT.pointHint[l]}</Small>
-        {point ? (
-          <div className="flex items-center gap-3">
-            <p className="min-w-0 flex-1 text-sm font-semibold">
-              {point.name ?? kindName(point.kind, lang)}
-              <span className="block text-xs font-normal text-muted">{kindName(point.kind, lang)}</span>
-            </p>
-            <Btn variant="ghost" className="h-10" onClick={() => setPoint(null)}>
-              {L.meetups.change}
+        <div className="flex flex-wrap gap-2" role="radiogroup">
+          {(["place", "call"] as const).map((x) => (
+            <Btn
+              key={x}
+              variant={mode === x ? "volt" : "ghost"}
+              className="h-10"
+              role="radio"
+              aria-checked={mode === x}
+              onClick={() => setMode(x)}
+            >
+              {x === "place" ? TRAIN_CALL_TEXT.modePlace[l] : TRAIN_CALL_TEXT.modeCall[l]}
             </Btn>
-          </div>
-        ) : (
+          ))}
+        </div>
+        {mode === "call" && (
           <>
-            <Btn variant="volt" className="w-full" disabled={points.kind === "loading"} onClick={findPoints}>
-              ◎ {L.meetups.findPoints}
-            </Btn>
-            {points.kind === "loading" && (
-              <p role="status" className="text-sm text-muted">
-                {L.meetups.pointsLoading}
-              </p>
-            )}
-            {points.kind === "denied" && <p className="text-sm text-butter-fg">{L.meetups.pointsDenied}</p>}
-            {points.kind === "error" && <p className="text-sm text-butter-fg">{L.meetups.error}</p>}
-            {points.kind === "ok" && points.places.length === 0 && <p className="text-sm text-muted">{L.meetups.pointsNone}</p>}
-            {points.kind === "ok" && points.places.length > 0 && (
-              <>
-                <PlacesMap
-                  className="h-60"
-                  here={points.here}
-                  places={points.places}
-                  selected={null}
-                  onSelect={(id) => setPoint(points.places.find((p) => p.id === id) ?? null)}
-                  youLabel={t.places.you}
-                  creditLabel={t.places.credit}
-                />
-                <ul className="max-h-72 space-y-1 overflow-y-auto">
-                  {points.places.slice(0, 20).map((p) => (
-                    <li key={p.id}>
-                      <button
-                        type="button"
-                        onClick={() => setPoint(p)}
-                        className="flex min-h-12 w-full items-center gap-3 rounded-xl px-3 text-left hover:bg-surface-2"
-                      >
-                        <span className="min-w-0 flex-1 text-sm">
-                          <span className="block font-medium">{p.name ?? kindName(p.kind, lang)}</span>
-                          <span className="block text-xs text-muted">{kindName(p.kind, lang)}</span>
-                        </span>
-                        <span className="text-xs text-muted tabular-nums">{Math.round(p.distanceM)} m</span>
-                      </button>
-                    </li>
-                  ))}
-                </ul>
-              </>
-            )}
+            <Small>{TRAIN_CALL_TEXT.modeCallHint[l]}</Small>
+            <div className="flex items-center gap-3">
+              <span className="flex-1 text-sm">{TRAIN_CALL_TEXT.coach[l]}</span>
+              <Toggle on={coach} onChange={setCoach} label={TRAIN_CALL_TEXT.coach[l]} />
+            </div>
+            <Small>{TRAIN_CALL_TEXT.coachHint[l]}</Small>
+            <Small>{TRAIN_CALL_TEXT.privacy[l]}</Small>
           </>
         )}
-        <Small>
-          <a className="underline" href={PLACES_LICENSE_URL} target="_blank" rel="noopener noreferrer">
-            {PLACES_ATTRIBUTION}
-          </a>
-        </Small>
       </Card>
+
+      {mode === "place" && (
+        <Card className="space-y-3">
+          <Kicker tone="mint">{MEETUP_TEXT.meetingPoint[l]}</Kicker>
+          <Small>{MEETUP_TEXT.pointHint[l]}</Small>
+          {pin ? (
+            <div className="space-y-2">
+              <Kicker tone="volt">{PIN_TEXT.custom[l]}</Kicker>
+              <Field label={PIN_TEXT.name[l]}>
+                <input
+                  className={inputCls}
+                  maxLength={PIN_NAME_MAX}
+                  value={pin.name}
+                  placeholder={PIN_TEXT.namePlaceholder[l]}
+                  onChange={(e) => setPin({ ...pin, name: e.target.value })}
+                />
+              </Field>
+              <Field label={PIN_TEXT.note[l]}>
+                <textarea
+                  className={inputCls}
+                  maxLength={PIN_NOTE_MAX}
+                  rows={2}
+                  value={pin.note}
+                  placeholder={PIN_TEXT.notePlaceholder[l]}
+                  onChange={(e) => setPin({ ...pin, note: e.target.value })}
+                />
+              </Field>
+              {pin.photo ? (
+                <Btn variant="ghost" className="h-10" onClick={() => setPin({ ...pin, photo: null })}>
+                  {PIN_TEXT.photoRemove[l]}
+                </Btn>
+              ) : (
+                <label className="inline-flex min-h-10 cursor-pointer items-center rounded-lg border border-line bg-surface-2 px-3 text-sm font-semibold">
+                  {PIN_TEXT.photo[l]}
+                  <input
+                    type="file"
+                    accept="image/*"
+                    className="sr-only"
+                    onChange={(e) => {
+                      const f = e.target.files?.[0];
+                      if (f) void reencodeJpeg(f).then((b) => b && setPin((x) => (x ? { ...x, photo: b } : x)));
+                    }}
+                  />
+                </label>
+              )}
+              {safety?.hint && (
+                <Note tone="butter">
+                  {PIN_TEXT.safer[l]}
+                  {safety.snapTo && (
+                    <Btn
+                      variant="ghost"
+                      className="mt-2 h-10 w-full"
+                      onClick={() => {
+                        const n = snapPin(pin, safety.snapTo!);
+                        setPin({ ...pin, lat: n.lat, lon: n.lon, name: n.name });
+                      }}
+                    >
+                      {PIN_TEXT.snap[l]}
+                    </Btn>
+                  )}
+                </Note>
+              )}
+              <Small>{PIN_TEXT.privacy[l]}</Small>
+              <Btn variant="ghost" className="h-10" onClick={() => setPin(null)}>
+                {PIN_TEXT.remove[l]}
+              </Btn>
+            </div>
+          ) : point ? (
+            <div className="flex items-center gap-3">
+              <p className="min-w-0 flex-1 text-sm font-semibold">
+                {point.name ?? kindName(point.kind, lang)}
+                <span className="block text-xs font-normal text-muted">{kindName(point.kind, lang)}</span>
+              </p>
+              <Btn variant="ghost" className="h-10" onClick={() => setPoint(null)}>
+                {L.meetups.change}
+              </Btn>
+            </div>
+          ) : (
+            <>
+              <Btn variant="volt" className="w-full" disabled={points.kind === "loading"} onClick={findPoints}>
+                ◎ {L.meetups.findPoints}
+              </Btn>
+              {points.kind === "loading" && (
+                <p role="status" className="text-sm text-muted">
+                  {L.meetups.pointsLoading}
+                </p>
+              )}
+              {points.kind === "denied" && <p className="text-sm text-butter-fg">{L.meetups.pointsDenied}</p>}
+              {points.kind === "error" && <p className="text-sm text-butter-fg">{L.meetups.error}</p>}
+              {points.kind === "ok" && points.places.length === 0 && <p className="text-sm text-muted">{L.meetups.pointsNone}</p>}
+              {points.kind === "ok" && points.places.length > 0 && (
+                <>
+                  <PlacesMap
+                    className="h-60"
+                    here={points.here}
+                    places={points.places}
+                    selected={null}
+                    onSelect={(id) => setPoint(points.places.find((p) => p.id === id) ?? null)}
+                    youLabel={t.places.you}
+                    creditLabel={t.places.credit}
+                    onLongPress={(p) => setPin({ lat: p.lat, lon: p.lon, name: "", note: "", photo: null })}
+                    pin={pin}
+                  />
+                  <Small>{PIN_TEXT.longPress[l]}</Small>
+                  <ul className="max-h-72 space-y-1 overflow-y-auto">
+                    {points.places.slice(0, 20).map((p) => (
+                      <li key={p.id}>
+                        <button
+                          type="button"
+                          onClick={() => setPoint(p)}
+                          className="flex min-h-12 w-full items-center gap-3 rounded-xl px-3 text-left hover:bg-surface-2"
+                        >
+                          <span className="min-w-0 flex-1 text-sm">
+                            <span className="block font-medium">{p.name ?? kindName(p.kind, lang)}</span>
+                            <span className="block text-xs text-muted">{kindName(p.kind, lang)}</span>
+                          </span>
+                          <span className="text-xs text-muted tabular-nums">{Math.round(p.distanceM)} m</span>
+                        </button>
+                      </li>
+                    ))}
+                  </ul>
+                </>
+              )}
+            </>
+          )}
+          <Small>
+            <a className="underline" href={PLACES_LICENSE_URL} target="_blank" rel="noopener noreferrer">
+              {PLACES_ATTRIBUTION}
+            </a>
+          </Small>
+        </Card>
+      )}
 
       <Card className="space-y-2">
         <Kicker tone="pulse">{MEETUP_TEXT.invite[l]}</Kicker>
@@ -368,10 +532,10 @@ export function MeetupNewScreen({ sport: routeSport }: { sport?: string }) {
         )}
       </Card>
 
-      <Note>{MEETUP_TEXT.safety[l]}</Note>
-      {problem && point && (
+      {mode === "place" && <Note>{MEETUP_TEXT.safety[l]}</Note>}
+      {problem && (point || pin || mode === "call") && (
         <p role="alert" className="text-sm text-butter-fg">
-          {meetupProblemText(problem, l)}
+          {problemText(problem)}
         </p>
       )}
       <Btn big variant="volt" className="w-full" disabled={!!problem || busy} onClick={() => void create()}>
@@ -397,6 +561,7 @@ export function MeetupScreen({ id }: { id: string }) {
   const [msg, setMsg] = useState<string | null>(null);
   const [reporting, setReporting] = useState<null | { personId?: string; name?: string }>(null);
   const [saved] = useState(() => wasJustSaved(id));
+  const tick = useNow(30_000);
   useEffect(() => {
     if (saved) clearSaved();
   }, [saved]);
@@ -433,8 +598,14 @@ export function MeetupScreen({ id }: { id: string }) {
       startMs: Date.parse(m.startsAt),
       durationMin: m.durationMin,
       status: m.status === "cancelled" ? "cancelled" : m.status === "done" ? "done" : "planned",
-      place: m.point.name ?? (m.point.kind ? kindName(m.point.kind, lang) : MEETUP_TEXT.meetingPoint[l]),
-      ...(typeof m.point.lat === "number" && typeof m.point.lon === "number" ? { lat: m.point.lat, lon: m.point.lon } : {}),
+      place:
+        m.mode === "call"
+          ? TRAIN_CALL_TEXT.overCall[l]
+          : (m.point.name ?? (m.point.kind && m.point.kind !== "pin" ? kindName(m.point.kind, lang) : MEETUP_TEXT.meetingPoint[l])),
+      // A custom pin's coordinates never go into a calendar file (they'd outlive the pin's 7 days there).
+      ...(m.point.kind !== "pin" && typeof m.point.lat === "number" && typeof m.point.lon === "number"
+        ? { lat: m.point.lat, lon: m.point.lon }
+        : {}),
       level: m.level ?? null,
       nowMs: Date.now(),
       sequence: m.sequence ?? 0,
@@ -480,7 +651,13 @@ export function MeetupScreen({ id }: { id: string }) {
   const going = m.me.answer === "going" || isHost;
   const closed = m.phase === "done" || m.phase === "cancelled";
   const full = !going && (m.going ?? 0) >= m.maxPeople;
-  const place = m.point.name ?? (m.point.kind ? kindName(m.point.kind, lang) : MEETUP_TEXT.meetingPoint[l]);
+  const isCall = m.mode === "call";
+  const isPin = m.point.kind === "pin";
+  const place = isCall
+    ? TRAIN_CALL_TEXT.overCall[l]
+    : (m.point.name ?? (m.point.kind && !isPin ? kindName(m.point.kind, lang) : MEETUP_TEXT.meetingPoint[l]));
+  const callNow =
+    isCall && going && callOpen({ mode: "call", status: m.status, startMs: Date.parse(m.startsAt), durationMin: m.durationMin }, tick);
   return (
     <div className="space-y-4 pt-2">
       <button type="button" className="h-11 text-sm text-muted" onClick={() => go({ name: "crew" })}>
@@ -510,53 +687,71 @@ export function MeetupScreen({ id }: { id: string }) {
         />
       )}
 
-      <Card>
-        <Kicker tone="mint">{MEETUP_TEXT.meetingPoint[l]}</Kicker>
-        <p className="mt-1 font-semibold">{place}</p>
-        {here.length > 0 ? (
-          <>
-            <PlacesMap
-              className="mt-3 h-56"
-              here={null}
-              places={here}
-              selected={here[0]!.id}
-              onSelect={() => undefined}
-              youLabel={t.places.you}
-              creditLabel={t.places.credit}
-            />
-            <div className="mt-3 flex flex-wrap gap-2">
-              <span className="sr-only">{MEETUP_TEXT.directions[l]}:</span>
-              <a
-                className="inline-flex min-h-10 items-center rounded-lg border border-line bg-surface-2 px-3 text-sm font-semibold"
-                href={directionsUrl({ lat: here[0]!.lat, lon: here[0]!.lon, ...(m.point.name ? { name: m.point.name } : {}) }, "apple")}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                {MEETUP_TEXT.directions[l]} · Apple
+      {isCall ? (
+        <Card className="space-y-2">
+          <Kicker tone="lilac">{TRAIN_CALL_TEXT.modeCall[l]}</Kicker>
+          <Small>{TRAIN_CALL_TEXT.modeCallHint[l]}</Small>
+          {callNow ? (
+            <TrainCallBoard meetupId={m.id} onLeft={() => go({ name: "crew" })} />
+          ) : (
+            !closed && going && <Small>{TRAIN_CALL_TEXT.notOpen[l]}</Small>
+          )}
+          {!callNow && <Small>{TRAIN_CALL_TEXT.privacy[l]}</Small>}
+        </Card>
+      ) : (
+        <Card>
+          <Kicker tone="mint">{isPin ? PIN_TEXT.custom[l] : MEETUP_TEXT.meetingPoint[l]}</Kicker>
+          <p className="mt-1 font-semibold">{place}</p>
+          {isPin && m.point.note && <Small className="mt-1">{m.point.note}</Small>}
+          {isPin && m.point.photo && <PinPhoto id={m.id} alt={place} />}
+          {here.length > 0 ? (
+            <>
+              <PlacesMap
+                className="mt-3 h-56"
+                here={null}
+                places={here}
+                selected={here[0]!.id}
+                onSelect={() => undefined}
+                youLabel={t.places.you}
+                creditLabel={t.places.credit}
+              />
+              <div className="mt-3 flex flex-wrap gap-2">
+                <span className="sr-only">{MEETUP_TEXT.directions[l]}:</span>
+                <a
+                  className="inline-flex min-h-10 items-center rounded-lg border border-line bg-surface-2 px-3 text-sm font-semibold"
+                  href={directionsUrl({ lat: here[0]!.lat, lon: here[0]!.lon, ...(m.point.name ? { name: m.point.name } : {}) }, "apple")}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {isPin ? PIN_TEXT.openInMaps[l] : MEETUP_TEXT.directions[l]} · Apple
+                </a>
+                <a
+                  className="inline-flex min-h-10 items-center rounded-lg border border-line bg-surface-2 px-3 text-sm font-semibold"
+                  href={directionsUrl({ lat: here[0]!.lat, lon: here[0]!.lon }, "google")}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {isPin ? PIN_TEXT.openInMaps[l] : MEETUP_TEXT.directions[l]} · Google
+                </a>
+              </div>
+            </>
+          ) : (
+            <Small className="mt-2">{isPin && m.point.gone ? PIN_TEXT.gone[l] : L.meetups.pointGone}</Small>
+          )}
+          {isPin && !m.point.gone && <Small className="mt-2">{PIN_TEXT.privacy[l]}</Small>}
+          {!isPin && (
+            <Small className="mt-2">
+              <a className="underline" href={PLACES_LICENSE_URL} target="_blank" rel="noopener noreferrer">
+                {PLACES_ATTRIBUTION}
               </a>
-              <a
-                className="inline-flex min-h-10 items-center rounded-lg border border-line bg-surface-2 px-3 text-sm font-semibold"
-                href={directionsUrl({ lat: here[0]!.lat, lon: here[0]!.lon }, "google")}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                {MEETUP_TEXT.directions[l]} · Google
-              </a>
-            </div>
-          </>
-        ) : (
-          <Small className="mt-2">{L.meetups.pointGone}</Small>
-        )}
-        <Small className="mt-2">
-          <a className="underline" href={PLACES_LICENSE_URL} target="_blank" rel="noopener noreferrer">
-            {PLACES_ATTRIBUTION}
-          </a>
-        </Small>
-      </Card>
+            </Small>
+          )}
+        </Card>
+      )}
 
       {!closed && (
         <div className="space-y-2">
-          {m.me.canHere && !m.me.here && (
+          {!isCall && m.me.canHere && !m.me.here && (
             <Btn big variant="volt" className="w-full" disabled={busy} onClick={() => void act(() => la.meetupAct(m.id, "here"))}>
               {MEETUP_TEXT.here[l]}
             </Btn>
@@ -572,10 +767,10 @@ export function MeetupScreen({ id }: { id: string }) {
               {MEETUP_TEXT.leave[l]}
             </Btn>
           )}
-          <Small>{MEETUP_TEXT.noLive[l]}</Small>
+          {!isCall && <Small>{MEETUP_TEXT.noLive[l]}</Small>}
         </div>
       )}
-      {m.phase === "done" && (
+      {m.phase === "done" && !isCall && !isPin && (
         <Btn variant="volt" className="w-full" onClick={() => go({ name: "place-note", key: m.point.key, sport: m.sport })}>
           {MEETUP_TEXT.rateSpot[l]}
         </Btn>
@@ -635,7 +830,7 @@ export function MeetupScreen({ id }: { id: string }) {
           </button>
         )}
       </div>
-      <Note>{MEETUP_TEXT.safety[l]}</Note>
+      {!isCall && <Note>{MEETUP_TEXT.safety[l]}</Note>}
       {reporting && (
         <ReportSheet
           meetup={m}
@@ -729,4 +924,21 @@ function ReportSheet({
       </div>
     </div>
   );
+}
+
+/** A custom pin's photo (members only), read once into this page as a data: URL. */
+function PinPhoto({ id, alt }: { id: string; alt: string }) {
+  const { la } = useLiving();
+  const [src, setSrc] = useState<string | null>(null);
+  useEffect(() => {
+    let live = true;
+    la.pinPhoto(id)
+      .then((u) => live && setSrc(u))
+      .catch(() => undefined);
+    return () => {
+      live = false;
+    };
+  }, [la, id]);
+  // eslint-disable-next-line @next/next/no-img-element
+  return src ? <img src={src} alt={alt} className="mt-3 h-48 w-full rounded-2xl object-cover" /> : null;
 }

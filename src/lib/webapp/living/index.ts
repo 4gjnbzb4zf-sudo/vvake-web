@@ -1,6 +1,8 @@
 // Written by scripts/sync-living-core.ts: the copies, as game-core's index exports them. Do not edit: re-sync.
 export * from "./placeNotes";
 export * from "./meetups";
+export * from "./meetupPins";
+export * from "./trainCall";
 export * from "./celebrations";
 export * from "./leagues";
 export * from "./streakCare";
