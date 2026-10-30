@@ -72,7 +72,8 @@ const en = {
     range: "{a} – {b}",
     fasterThan: "{a} and faster",
     belowZone1: "Slower than zone 1: zone 0 (stopped or barely moving).",
-    noHeart: "Used live when there's no heart rate. Points still need a heart rate.",
+    noHeart:
+      "Used live when there's no heart rate. In the app, a walk or run with just your phone still earns points (about 80% of the same workout with heart rate); prizes need a watch or a heart strap.",
     learn: "Learn from my sessions",
     learnNone: "Not enough sessions yet: it needs at least 3 of this sport (5 minutes and 500 m or more).",
     learnProposal: "From your recent sessions: easy {easy}, hard {hard}.",
@@ -155,7 +156,8 @@ const fr: SportZonesDict = {
     range: "{a} – {b}",
     fasterThan: "{a} et plus vite",
     belowZone1: "Plus lent que la zone 1 : zone 0 (à l’arrêt ou presque).",
-    noHeart: "Utilisées en direct quand il n’y a pas de fréquence cardiaque. Les points demandent toujours une fréquence cardiaque.",
+    noHeart:
+      "Utilisées en direct quand il n’y a pas de fréquence cardiaque. Dans l’app, une marche ou une course avec ton téléphone seul rapporte quand même des points (environ 80 % de la même séance avec fréquence cardiaque) ; les prix demandent une montre ou une ceinture cardio.",
     learn: "Apprendre de mes séances",
     learnNone: "Pas encore assez de séances : il en faut au moins 3 de ce sport (5 minutes et 500 m ou plus).",
     learnProposal: "D’après tes séances récentes : facile {easy}, soutenu {hard}.",

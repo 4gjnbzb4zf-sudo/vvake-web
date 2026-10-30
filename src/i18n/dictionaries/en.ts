@@ -1135,7 +1135,7 @@ export const en = {
       label: "Steps today",
       value: "6,412",
       goal: "of 6,500 · your goal",
-      note: "Steps count too: 1,500 steps keep your streak alive, and on phone-only days they turn into effort for your streak and your points. Prizes are different: phone-only days and Move Quests don't count toward them (they need heart-rate data from a watch).",
+      note: "Steps count too: 1,500 steps keep your streak alive, and a walk or run with just your phone earns about 80% of the points the same workout would earn with heart rate, when the phone's checks agree. Prizes are different: phone-only workouts and Move Quests don't count toward them (they need heart rate from a watch or a heart strap).",
     },
     cheers: ["Cheers, not guilt", "Right moment, not every moment", "Max 2 training nudges a day", "Silent at night"],
   },
@@ -1324,7 +1324,7 @@ export const en = {
       },
       {
         title: "Heart, not speed",
-        body: "Effort is scored from your own heart-rate zones, set from your age and resting heart rate, with a bonus for beating your own baseline. A brisk walk can count as much as a run.",
+        body: "Effort is scored from your own heart-rate zones, set from your age and resting heart rate, with a bonus for beating your own baseline. A brisk walk can count as much as a run. No watch? A walk or run with just your phone earns about 80% of the same workout's points.",
       },
       {
         title: "Squads and rivalries",
@@ -2188,6 +2188,11 @@ export const en = {
       {
         q: "Can I start over after a break?",
         a: "Yes. Fresh start (Settings, on the phone or the watch) resets your plan and schedule, your streak, your daily habits, your custom health settings (heart zones, resting and max heart rate), focus lock and the coach's memory, so you begin again at day 1. Your VVaker, your sessions, your scores, points and prizes, your wallet, VVake Coach Plus, your friends and your Apple Health or Health Connect data all stay: nothing is deleted from them. You hold the button to confirm, so it never happens by accident.",
+      },
+      {
+        q: "Do I need a watch to earn points?",
+        a: "No. A walk, run, hike or ride with just your phone earns about 80% of the points the same workout would earn with heart rate, streak bonus included, when the phone's checks agree (steps that fit the distance, no stretch in a vehicle, the real app). With a watch or a heart strap, a workout can also count toward the weekly prizes; phone-only workouts never do. Workouts in the web app keep their own rule: points with a heart-rate strap, never prizes.",
+        link: "rewards/",
       },
       {
         q: "Is it free? Do I need a wallet or crypto?",
@@ -3570,7 +3575,11 @@ export const en = {
         },
         {
           h: "VVake Coach Plus or the free entry, same prize",
-          p: "Two ways in: VVake Coach Plus or the free entry (no purchase necessary), same rules and same prizes. A week counts if your account, your entry and your linked wallet existed before the week started, you're 18 or older and allowed to receive prizes where you live (you confirm it when linking), you recorded your sessions with the app on a real iPhone or Apple Watch, you moved with heart-rate data from a watch (at least 3 sessions of 10+ minutes or 90 active minutes, with movement; a phone without a heart-rate sensor scores 0), and you answered the week's skill question, as Canadian law requires for prizes. Move Quests never count toward prizes.",
+          p: "Two ways in: VVake Coach Plus or the free entry (no purchase necessary), same rules and same prizes. A week counts if your account, your entry and your linked wallet existed before the week started, you're 18 or older and allowed to receive prizes where you live (you confirm it when linking), you recorded your sessions with the app on a real iPhone or Apple Watch, you moved with heart-rate data from a watch or a heart strap (at least 3 sessions of 10+ minutes or 90 active minutes, with movement; a phone-only workout gets VV points in the app but scores 0 toward prizes), and you answered the week's skill question, as Canadian law requires for prizes. Move Quests never count toward prizes.",
+        },
+        {
+          h: "Points with just your phone, prizes with heart rate",
+          p: "A walk, run, hike or ride recorded with just your phone gets about 80% of the VV points the same workout would get with heart rate, streak bonus included. It counts when the phone's checks agree: steps that fit the distance, no stretch in a car, bus or train, and the real app on a real phone. Prizes still need heart rate from a watch or a heart strap: phone-only points never count toward them, and money never buys a share of the pool.",
         },
         {
           h: "Only the real app counts",

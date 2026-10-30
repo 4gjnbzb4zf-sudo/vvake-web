@@ -38,6 +38,11 @@ export function SessionScreen({ id }: { id: string }) {
   // Build 58: "Not counted: vehicle detected" / the stretch left out, and a workout in parts with its sources.
   const vehicle = vehicleLine(s, t.workout, fmt);
   const sources = sourcesLine(s, t.workout, fmt);
+  // Without heart rate: no points (as before), or, for a phone-only walk or run the server scored (points v2, build 59),
+  // what a watch adds, never a reproach. A web workout's own rule is in its note below.
+  const scored = (s.points ?? 0) > 0;
+  const noHrLine =
+    !noHr || s.flags?.includes("vehicle") ? null : !scored ? t.workout.noPoints : s.source === "web" ? null : t.workout.phoneOnlyPrize;
   return (
     <div className="space-y-4">
       <button type="button" className="h-11 text-sm text-muted" onClick={() => history.back()}>
@@ -88,7 +93,7 @@ export function SessionScreen({ id }: { id: string }) {
           <Small className="mt-1">{fmt(t.workout.pointsDetail, { base: s.pointsDetail.base, bonus: s.pointsDetail.streakBonus })}</Small>
         )}
         {vehicle && <p className="mt-2 text-sm font-semibold text-butter-fg">{vehicle}</p>}
-        {noHr && !s.flags?.includes("vehicle") && <p className="mt-2 text-sm">{t.workout.noPoints}</p>}
+        {noHrLine && <p className="mt-2 text-sm">{noHrLine}</p>}
       </Card>
       {s.source === "web" && <Note tone="butter">{t.workout.webRule}</Note>}
       {!confirm ? (

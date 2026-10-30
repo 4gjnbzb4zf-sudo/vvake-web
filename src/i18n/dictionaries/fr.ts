@@ -1171,7 +1171,7 @@ export const fr: Dictionary = {
       label: "Pas aujourd'hui",
       value: "6 412",
       goal: "sur 6 500 · ton objectif",
-      note: "Les pas comptent aussi : 1 500 pas suffisent à garder ta série, et les jours sans montre, ils deviennent de l'effort pour ta série et tes points. Les prix, c'est autre chose : les jours sans montre et les Move Quests n'y comptent pas (il faut la fréquence cardiaque d'une montre).",
+      note: "Les pas comptent aussi : 1 500 pas suffisent à garder ta série, et une marche ou une course avec ton téléphone seul rapporte environ 80 % des points de la même séance avec fréquence cardiaque, quand les vérifications du téléphone concordent. Les prix, c'est autre chose : les séances au téléphone seul et les Move Quests n'y comptent pas (il faut la fréquence cardiaque d'une montre ou d'une ceinture cardio).",
     },
     cheers: [
       "Des encouragements, pas de culpabilité",
@@ -1375,7 +1375,7 @@ export const fr: Dictionary = {
       },
       {
         title: "Le cœur, pas la vitesse",
-        body: "L'effort est calculé à partir de tes propres zones cardiaques, fixées avec ton âge et ton cardio au repos, avec un bonus quand tu dépasses ta propre base. Une marche rapide peut compter autant qu'une course.",
+        body: "L'effort est calculé à partir de tes propres zones cardiaques, fixées avec ton âge et ton cardio au repos, avec un bonus quand tu dépasses ta propre base. Une marche rapide peut compter autant qu'une course. Pas de montre ? Une marche ou une course avec ton téléphone seul rapporte environ 80 % des points de la même séance.",
       },
       {
         title: "Squads et rivalités",
@@ -2347,6 +2347,11 @@ export const fr: Dictionary = {
       {
         q: "Je peux repartir à zéro après une pause ?",
         a: "Oui. « Repartir à zéro » (dans les réglages, sur le téléphone ou la montre) remet à zéro ton plan et ton programme, ta série, tes habitudes du jour, tes réglages santé perso (zones cardiaques, FC de repos et max), le verrou de concentration et la mémoire du coach : tu recommences au jour 1. Ton VVaker, tes séances, tes scores, points et prix, ton portefeuille, VVake Coach Plus, tes amis et tes données Apple Santé ou Health Connect restent : rien n'y est supprimé. Tu maintiens le bouton pour confirmer, donc ça n'arrive jamais par erreur.",
+      },
+      {
+        q: "Faut-il une montre pour gagner des points ?",
+        a: "Non. Une marche, une course, une rando ou une sortie à vélo avec ton téléphone seul rapporte environ 80 % des points de la même séance avec fréquence cardiaque, bonus de série compris, quand les vérifications du téléphone concordent (des pas qui collent à la distance, aucun passage en véhicule, la vraie app). Avec une montre ou une ceinture cardio, une séance peut aussi compter pour les prix de la semaine ; une séance au téléphone seul, jamais. Les séances de l'app web gardent leur propre règle : des points avec une ceinture cardio, jamais de prix.",
+        link: "rewards/",
       },
       {
         q: "C'est gratuit ? Faut-il un wallet ou des cryptos ?",
@@ -3764,7 +3769,11 @@ export const fr: Dictionary = {
         },
         {
           h: "VVake Coach Plus ou l'inscription gratuite, le même prix",
-          p: "Deux façons d'entrer : VVake Coach Plus ou l'inscription gratuite (aucun achat requis), mêmes règles et mêmes prix. Une semaine compte si ton compte, ton inscription et ton portefeuille lié existaient avant le début de la semaine, que tu as 18 ans ou plus et le droit de recevoir des prix là où tu vis (tu le confirmes en le liant), que tu as bougé avec la fréquence cardiaque d'une montre (au moins 3 séances de 10 minutes ou plus, ou 90 minutes actives en mouvement ; un téléphone sans capteur cardiaque donne 0), que tu as enregistré tes séances avec l'app sur un vrai iPhone ou une vraie Apple Watch, et que tu as répondu à la question d'habileté de la semaine, comme l'exige la loi canadienne pour les prix. Les Move Quests ne comptent jamais pour les prix.",
+          p: "Deux façons d'entrer : VVake Coach Plus ou l'inscription gratuite (aucun achat requis), mêmes règles et mêmes prix. Une semaine compte si ton compte, ton inscription et ton portefeuille lié existaient avant le début de la semaine, que tu as 18 ans ou plus et le droit de recevoir des prix là où tu vis (tu le confirmes en le liant), que tu as bougé avec la fréquence cardiaque d'une montre ou d'une ceinture cardio (au moins 3 séances de 10 minutes ou plus, ou 90 minutes actives en mouvement ; une séance au téléphone seul rapporte des points VV dans l'app mais compte 0 pour les prix), que tu as enregistré tes séances avec l'app sur un vrai iPhone ou une vraie Apple Watch, et que tu as répondu à la question d'habileté de la semaine, comme l'exige la loi canadienne pour les prix. Les Move Quests ne comptent jamais pour les prix.",
+        },
+        {
+          h: "Des points avec ton téléphone seul, des prix avec la fréquence cardiaque",
+          p: "Une marche, une course, une rando ou une sortie à vélo enregistrée avec ton téléphone seul rapporte environ 80 % des points VV de la même séance avec fréquence cardiaque, bonus de série compris. Elle compte quand les vérifications du téléphone concordent : des pas qui collent à la distance, aucun passage en voiture, en bus ou en train, et la vraie app sur un vrai téléphone. Les prix demandent toujours la fréquence cardiaque d'une montre ou d'une ceinture cardio : les points au téléphone seul n'y comptent jamais, et l'argent n'achète jamais une part de la cagnotte.",
         },
         {
           h: "Seule la vraie app compte",
