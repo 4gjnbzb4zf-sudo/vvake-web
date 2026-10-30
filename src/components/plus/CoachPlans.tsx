@@ -6,11 +6,11 @@ const format = (s: string, v: Record<string, string | number>) => s.replace(/\{(
 const usd = (n: number, lang: string) =>
   new Intl.NumberFormat(lang === "fr" ? "fr-FR" : "en-US", { style: "currency", currency: "USD" }).format(n);
 
-/** A plan's line with its numbers ({live} minutes a week, {chars} voice characters a day, {calls} coach calls). */
+/** A plan's line with its numbers ({live} minutes a month, {chars} voice characters a day, {calls} coach calls). */
 export function planLine(line: string, tier: keyof typeof COACH_PLAN_LIMITS, lang: string): string {
   const x = COACH_PLAN_LIMITS[tier];
   const n = (v: number) => new Intl.NumberFormat(lang === "fr" ? "fr-FR" : "en-US").format(v);
-  return format(line, { live: x.liveMinutesWeek, chars: n(x.voiceCharsDay), calls: x.calls });
+  return format(line, { live: x.liveMinutesMonth, chars: n(x.voiceCharsDay), calls: x.calls });
 }
 
 /**
