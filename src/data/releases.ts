@@ -19,6 +19,32 @@ export interface Release {
 
 export const releases: Release[] = [
   {
+    version: "1.0.0 (59)",
+    date: "2026-10-30",
+    channel: "beta",
+    devices: ["iphone", "watch", "android", "wear"],
+    notes: {
+      en: {
+        added: [
+          'Auto-pause for walks, runs, hikes and rides, per sport: Off, Suggest or Automatic (runs and rides start on Automatic, walks and hikes on Suggest). Stop at a light and the workout pauses from the moment you stopped, then picks up from the moment you moved again; a short stop never counts. Suggest asks "Stopped? Pause" and "Moving again? Resume", at most once every 2 minutes. A pause you made yourself never resumes by itself.',
+        ],
+        improved: [
+          "Walks, runs, hikes and rides with just your phone now earn about 80% of the points of the same workout with heart rate, when your steps and GPS agree (a brisk walk counts as real effort). Without the step counter, GPS alone earns about half. Prizes still need a watch or heart strap.",
+          "Daily points from phone-only workouts: up to 60 on Free, 100 with VVake Coach Plus, 150 with VVake Coach Premium: more daily points for your progress. Rankings, leagues and challenges count up to 60 a day for everyone, so paying never ranks you higher.",
+        ],
+      },
+      fr: {
+        added: [
+          "Pause auto pour la marche, la course, la rando et le vélo, par sport : Non, Proposer ou Automatique (course et vélo démarrent en Automatique, marche et rando en Proposer). Arrête-toi à un feu : la séance se met en pause depuis ton arrêt, puis reprend depuis le moment où tu repars ; un arrêt court ne compte jamais. Proposer demande « Arrêté ? Pause » et « Tu repars ? Reprendre », au plus une fois toutes les 2 minutes. Une pause que tu as faite toi-même ne reprend jamais toute seule.",
+        ],
+        improved: [
+          "Tes marches, courses, randos et sorties vélo avec le téléphone seul rapportent environ 80 % des points de la même séance avec le pouls, quand tes pas et le GPS concordent (la marche rapide compte comme un vrai effort). Sans le podomètre, le GPS seul rapporte environ la moitié. Les prix demandent toujours une montre ou une ceinture cardio.",
+          "Points par jour des séances avec le téléphone seul : jusqu'à 60 en Gratuit, 100 avec VVake Coach Plus, 150 avec VVake Coach Premium : plus de points par jour pour ta progression. Les classements, ligues et défis comptent jusqu'à 60 par jour pour tout le monde : payer ne te classe jamais plus haut.",
+        ],
+      },
+    },
+  },
+  {
     version: "1.0.0 (58)",
     date: "2026-10-30",
     channel: "beta",
