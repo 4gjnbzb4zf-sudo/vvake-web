@@ -883,7 +883,7 @@ export const en = {
       {
         icon: "🎙️",
         title: "Live voice coach",
-        body: "Talk hands-free with your coach during your workouts: 5 minutes a week with VVake Coach Plus, 15 with VVake Coach Premium (up to 5 per workout), and minute packs for anyone (coming soon).",
+        body: "Talk hands-free with your coach during your workouts: 60 minutes a month with VVake Coach Plus, 120 with VVake Coach Premium (up to 5 per workout), and minute packs for anyone (coming soon).",
       },
       {
         icon: "🎧",
@@ -3742,7 +3742,7 @@ export const en = {
         plus: {
           name: "VVake Coach Plus",
           lines: [
-            "{live} live coach minutes a week",
+            "{live} live coach minutes a month",
             "Coach replies in the coach's voice: {chars} new characters a day",
             "Coach calls, up to {calls} a week",
             "Custom VVaker, 12-week plan, deeper insights",
@@ -3752,7 +3752,7 @@ export const en = {
         premium: {
           name: "VVake Coach Premium",
           lines: [
-            "{live} live coach minutes a week",
+            "{live} live coach minutes a month",
             "Everything in VVake Coach Plus",
             "The coach's voice: {chars} new characters a day, your freely worded lines too",
             "Coach calls, up to {calls} a day",
@@ -3761,7 +3761,7 @@ export const en = {
         },
       },
       packsTitle: "Minute packs",
-      packsLead: "For any plan, free too: live coach minutes used only after your weekly ones, during a real workout, valid 12 months.",
+      packsLead: "For any plan, free too: live coach minutes used only after your plan's, during a real workout, valid 12 months.",
       pack: "+{n} min",
       pointsNote:
         "The extra daily points are for your own progress (levels, your VVaker, your journey). Leagues, challenges and leaderboards count phone-only points up to 60 a day on every plan, and prizes follow heart-rate effort only: paying never buys a better rank or a bigger prize share.",

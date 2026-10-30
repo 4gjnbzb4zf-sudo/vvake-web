@@ -62,8 +62,8 @@ describe("plans page numbers (the API's defaults)", () => {
     const premium = tiers.premium.lines.map((l) => planLine(l, "premium", lang)).join(" | ");
     expect(plus).not.toMatch(/\{\w+\}/);
     expect(premium).not.toMatch(/\{\w+\}/);
-    expect(plus).toContain(lang === "en" ? "5 live coach minutes a week" : "5 minutes de coach en direct par semaine");
-    expect(premium).toContain(lang === "en" ? "15 live coach minutes a week" : "15 minutes de coach en direct par semaine");
+    expect(plus).toContain(lang === "en" ? "60 live coach minutes a month" : "60 minutes de coach en direct par mois");
+    expect(premium).toContain(lang === "en" ? "120 live coach minutes a month" : "120 minutes de coach en direct par mois");
     expect(plus).toContain(lang === "en" ? "1,000 new characters a day" : "1 000 nouveaux caractères par jour");
     expect(premium).toContain(lang === "en" ? "2,000 new characters a day" : "2 000 nouveaux caractères par jour");
     expect(plus).toContain(lang === "en" ? "up to 3 a week" : "jusqu'à 3 par semaine");

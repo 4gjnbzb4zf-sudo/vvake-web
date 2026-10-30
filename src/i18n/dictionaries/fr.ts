@@ -903,7 +903,7 @@ export const fr: Dictionary = {
       {
         icon: "🎙️",
         title: "Coach vocal en direct",
-        body: "Parle à ton coach sans les mains pendant tes séances : 5 minutes par semaine avec VVake Coach Plus, 15 avec VVake Coach Premium (jusqu'à 5 par séance), et des packs de minutes pour tout le monde (bientôt).",
+        body: "Parle à ton coach sans les mains pendant tes séances : 60 minutes par mois avec VVake Coach Plus, 120 avec VVake Coach Premium (jusqu'à 5 par séance), et des packs de minutes pour tout le monde (bientôt).",
       },
       {
         icon: "🎧",
@@ -3938,7 +3938,7 @@ export const fr: Dictionary = {
         plus: {
           name: "VVake Coach Plus",
           lines: [
-            "{live} minutes de coach en direct par semaine",
+            "{live} minutes de coach en direct par mois",
             "Réponses dans la voix du coach : {chars} nouveaux caractères par jour",
             "Appels du coach, jusqu'à {calls} par semaine",
             "VVaker sur mesure, plan sur 12 semaines, analyses poussées",
@@ -3948,7 +3948,7 @@ export const fr: Dictionary = {
         premium: {
           name: "VVake Coach Premium",
           lines: [
-            "{live} minutes de coach en direct par semaine",
+            "{live} minutes de coach en direct par mois",
             "Tout VVake Coach Plus",
             "La voix du coach : {chars} nouveaux caractères par jour, tes phrases libres aussi",
             "Appels du coach, jusqu'à {calls} par jour",
@@ -3958,7 +3958,7 @@ export const fr: Dictionary = {
       },
       packsTitle: "Packs de minutes",
       packsLead:
-        "Pour toutes les formules, même gratuite : des minutes de coach en direct utilisées seulement après celles de la semaine, pendant une vraie séance, valables 12 mois.",
+        "Pour toutes les formules, même gratuite : des minutes de coach en direct utilisées seulement après celles de ta formule, pendant une vraie séance, valables 12 mois.",
       pack: "+{n} min",
       pointsNote:
         "Les points en plus chaque jour servent à ta propre progression (niveaux, ton VVaker, ton parcours). Ligues, défis et classements comptent les points au téléphone seul jusqu'à 60 par jour dans toutes les formules, et les prix suivent seulement l'effort avec fréquence cardiaque : payer n'achète jamais un meilleur classement ni une plus grosse part des prix.",

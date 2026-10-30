@@ -5,12 +5,13 @@
  */
 export const COACH_PLAN_PRICES = { plus: 6.99, premium: 11.99 } as const;
 /**
- * What each plan includes (the API's defaults): live coach minutes a week, new cloud-voice characters a day, and coach
+ * What each plan includes (the API's config): live coach minutes a month (ADR-0068, founder 2026-10-30: Plus 60,
+ * Premium 120; the API meters a weekly pool of month × 12 / 52), new cloud-voice characters a day, and coach
  * calls (VVake Coach Plus up to 3 a week, "normal"; VVake Coach Premium up to 1 a day, "chatty").
  */
 export const COACH_PLAN_LIMITS = {
-  plus: { liveMinutesWeek: 5, voiceCharsDay: 1000, calls: 3 },
-  premium: { liveMinutesWeek: 15, voiceCharsDay: 2000, calls: 1 },
+  plus: { liveMinutesMonth: 60, voiceCharsDay: 1000, calls: 3 },
+  premium: { liveMinutesMonth: 120, voiceCharsDay: 2000, calls: 1 },
 } as const;
 export const COACH_PACKS = [
   { minutes: 5, usd: 1.49 },
