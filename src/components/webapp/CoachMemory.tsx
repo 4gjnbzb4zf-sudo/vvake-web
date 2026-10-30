@@ -2,7 +2,8 @@
 
 import { useCallback, useEffect, useMemo, useState, type FormEvent } from "react";
 import { getTalkDict, type TalkDict } from "@/i18n/talk";
-import { ApiError } from "@/lib/rewardsApi";
+import { ApiError, type RewardsSession } from "@/lib/rewardsApi";
+import type { Locale } from "@/i18n/config";
 import { MEMORY_KINDS, MEMORY_TEXT_MAX, namesDiagnosis, type CoachMemoryItem, type MemoryKind } from "@/lib/webapp/coach/coachMemory";
 import { metricValue, metricWord } from "@/lib/webapp/coach/coachActions";
 import type { DataCorrection } from "@/lib/webapp/coach/dataCorrections";
@@ -18,6 +19,20 @@ import { Btn, Card, H1, H2, inputCls, Small } from "./ui";
  */
 export function CoachMemoryScreen() {
   const { lang, session, go, t } = useApp();
+  const tk = getTalkDict(lang);
+  return (
+    <div className="space-y-5">
+      <button type="button" className="text-sm text-muted" onClick={() => go({ name: "you" })}>
+        ‹ {t.tabs.you}
+      </button>
+      <H1>{tk.memory.title}</H1>
+      <CoachMemoryEditor lang={lang} session={session} />
+    </div>
+  );
+}
+
+/** The memory and corrections lists, also on vvake.com/account (Coach). */
+export function CoachMemoryEditor({ lang, session }: { lang: Locale; session: RewardsSession }) {
   const tk = getTalkDict(lang);
   const api = useMemo(() => talkApi(session), [session]);
   const [items, setItems] = useState<CoachMemoryItem[] | null | undefined>(undefined);
@@ -59,10 +74,6 @@ export function CoachMemoryScreen() {
   const groups = items ? memoryGroups(items) : [];
   return (
     <div className="space-y-5">
-      <button type="button" className="text-sm text-muted" onClick={() => go({ name: "you" })}>
-        ‹ {t.tabs.you}
-      </button>
-      <H1>{tk.memory.title}</H1>
       <Small>
         {tk.memory.lead}{" "}
         <a className="underline" href={`/${lang}/privacy/`}>
