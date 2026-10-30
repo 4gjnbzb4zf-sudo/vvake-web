@@ -19,6 +19,34 @@ export interface Release {
 
 export const releases: Release[] = [
   {
+    version: "1.0.0 (58)",
+    date: "2026-10-30",
+    channel: "beta",
+    devices: ["iphone", "watch", "android", "wear"],
+    notes: {
+      en: {
+        added: [
+          'Start workouts for me (Settings): Off, Ask me or Start automatically. When you start walking or running, VVake asks "Looks like a walk. Start it?" or starts it for you, from the moment you began. An automatic walk under 5 minutes is dropped, and it ends by itself after 5 still minutes. Never in a vehicle, never twice on phone and watch.',
+          'Continue on your watch: a workout running on your phone can move to your Apple Watch or Wear OS watch when it turns on or comes back in range ("continue on your watch?"). It stays one workout, with both parts shown.',
+        ],
+        fixed: [
+          "A walk or run in a car, bus or train pauses that part (\"Looks like you're in a vehicle, so this part doesn't count.\") and resumes by itself once you walk again. It adds no distance, time or points.",
+          'A session that was mostly in a vehicle stays in your journal as "Not counted: vehicle detected" instead of being refused without a word.',
+        ],
+      },
+      fr: {
+        added: [
+          "Lancer mes séances pour moi (Réglages) : Non, Me demander ou Automatiquement. Quand vous commencez à marcher ou courir, VVake demande « On dirait une marche. Je la lance ? » ou la lance pour vous, depuis le moment où vous avez commencé. Une marche automatique de moins de 5 minutes est oubliée, et elle s'arrête seule après 5 minutes immobile. Jamais en véhicule, jamais en double sur le téléphone et la montre.",
+          "Continuer sur la montre : une séance lancée sur le téléphone peut passer sur votre Apple Watch ou montre Wear OS quand elle s'allume ou revient à portée (« continuer sur ta montre ? »). Cela reste une seule séance, avec ses deux parties.",
+        ],
+        fixed: [
+          "Une marche ou une course en voiture, bus ou train met ce passage en pause (« On dirait que tu es dans un véhicule : cette partie ne compte pas. ») et reprend seule dès que vous marchez à nouveau. Il n'ajoute ni distance, ni temps, ni points.",
+          "Une séance passée surtout en véhicule reste dans votre journal comme « Non compté : véhicule détecté » au lieu d'être refusée sans explication.",
+        ],
+      },
+    },
+  },
+  {
     version: "1.0.0 (57)",
     date: "2026-10-29",
     channel: "beta",
