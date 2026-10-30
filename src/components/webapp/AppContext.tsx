@@ -55,6 +55,8 @@ import {
 
 export type Route =
   | { name: "today" | "plan" | "crew" | "coach" | "you" | "goals" | "rhythm" | "vvaker" | "sensor" | "workout" | "zones" }
+  /** Talk to your coach (ADR-0068): the talk sheet over Today (#/talk, /<lang>/app/talk/). You › Coach memory. */
+  | { name: "talk" | "coach-memory" }
   /** "Your VVake" (ADR-0059): the survey and its summary, and All features (every feature, on or off). */
   | { name: "your-vvake" | "features" }
   /** You, scrolled to the VV points card (Today's points pill). */
@@ -149,6 +151,8 @@ export function parseRoute(hash: string): Route {
     "zones",
     "your-vvake",
     "features",
+    "talk",
+    "coach-memory",
   ] as const;
   return { name: (known as readonly string[]).includes(name ?? "") ? (name as (typeof known)[number]) : "today" };
 }

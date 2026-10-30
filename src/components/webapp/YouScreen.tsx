@@ -19,6 +19,7 @@ import { CoachVoicePicker } from "./CoachVoicePicker";
 import { TailorDevCard } from "./TailorScreen";
 import { ReplayTours, SuggestPicker } from "./Suggest";
 import { getTailorDict } from "@/i18n/tailor";
+import { getTalkDict } from "@/i18n/talk";
 import { packOn, tailorText, TAILOR_FEATURES, TAILOR_PRESET_TEXT } from "@/lib/webapp/tailor/tailor";
 
 /** The section index at the top of You (the phone's You index), in page order. */
@@ -245,6 +246,19 @@ export function YouScreen({ focus }: { focus?: Section } = {}) {
     </List>
   );
 
+  // What your coach remembers (ADR-0068): see, correct, delete; and the Health numbers you corrected.
+  const coachList = (
+    <List>
+      <Row
+        tone="lilac"
+        icon="◉"
+        title={getTalkDict(lang).memory.row}
+        detail={getTalkDict(lang).memory.rowLead}
+        onClick={() => go({ name: "coach-memory" })}
+      />
+    </List>
+  );
+
   const sportsList = (
     <List>
       <Row tone="sky" icon="⏲" title={t.you.speedZones} detail={t.you.speedZonesDetail} onClick={() => go({ name: "zones" })} />
@@ -431,6 +445,8 @@ export function YouScreen({ focus }: { focus?: Section } = {}) {
             {profileCard}
             {devices}
             {sportsList}
+            {coachList}
+            {coachList}
             {packOn(profile, "habits") && habitsList}
             {appCard}
             {accountRows}
