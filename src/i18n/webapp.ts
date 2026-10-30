@@ -481,6 +481,15 @@ const en = {
     autoPausedLine: "Paused automatically. It resumes as soon as you move.",
     // Phone-only points v2 (build 59, ADR-0066): a phone-only session with points, in the journal (no shaming).
     phoneOnlyPrize: "With a watch or heart strap: prize eligible",
+    // Phone trust (ADR-0067): calm, never an accusation.
+    trustReduced: "Some of this session couldn't be verified, so it earned part of its points.",
+    trustHeld:
+      "This session couldn't be verified, so it earns no points for now. It stays in your journal and your streak, and a person will look at it.",
+    trustDuplicate: "This walk was also recorded on another account linked to this one: it counts once.",
+    trustReview: "Being checked: it counts for you now, and for leagues and challenges once checked.",
+    trustCleared: "Checked: all its points count.",
+    indoorSteps: "No GPS distance: your steps count under the indoor rules (up to 60 phone points a day).",
+    indoorBudget: "Today's 60 indoor phone points are already earned.",
     vehicleNotCounted: "Not counted: vehicle detected",
     vehicleLeftOut: "Vehicle stretch left out: {n} min",
     // A workout continued on another device (build 58, watch takeover): its sources in order.
@@ -1407,6 +1416,14 @@ const fr: WebAppDict = {
     vehicleBanner: "On dirait que tu es dans un véhicule : cette partie ne compte pas.",
     vehicleBannerHint: "Elle reprend toute seule dès que tu es à pied.",
     phoneOnlyPrize: "Avec une montre ou une ceinture cardio : éligible aux prix",
+    trustReduced: "Une partie de cette séance n'a pas pu être vérifiée : elle rapporte une partie de ses points.",
+    trustHeld:
+      "Cette séance n'a pas pu être vérifiée : pas de points pour l'instant. Elle reste dans ton journal et ta série, et une personne va la regarder.",
+    trustDuplicate: "Cette sortie est aussi enregistrée sur un autre compte lié à celui-ci : elle compte une seule fois.",
+    trustReview: "En vérification : elle compte pour toi dès maintenant, et pour les ligues et les défis une fois vérifiée.",
+    trustCleared: "Vérifiée : tous ses points comptent.",
+    indoorSteps: "Pas de distance GPS : tes pas comptent avec les règles intérieur (jusqu'à 60 points téléphone par jour).",
+    indoorBudget: "Les 60 points téléphone en intérieur d'aujourd'hui sont déjà gagnés.",
     autoStopped: "Arrêté ?",
     autoMoving: "Tu repars ?",
     autoNotNow: "Pas maintenant",

@@ -7,6 +7,7 @@ import { clock, dayLabel, distance, pace, speed, timeLabel } from "@/lib/webapp/
 import { paceOf } from "@/lib/webapp/geo";
 import { sessionTimes, showsPaused } from "@/lib/webapp/moving";
 import { sourcesLine, vehicleLine } from "@/lib/webapp/vehicle/journal";
+import { trustLine } from "@/lib/webapp/trustLine";
 import { sportLabel } from "@/lib/webapp/workout";
 import { useApp } from "./AppContext";
 import { Btn, Card, H1, Kicker, Note, Small } from "./ui";
@@ -38,6 +39,7 @@ export function SessionScreen({ id }: { id: string }) {
   // Build 58: "Not counted: vehicle detected" / the stretch left out, and a workout in parts with its sources.
   const vehicle = vehicleLine(s, t.workout, fmt);
   const sources = sourcesLine(s, t.workout, fmt);
+  const trust = trustLine(s.flags ?? [], t.workout);
   // Without heart rate: no points (as before), or, for a phone-only walk or run the server scored (points v2, build 59),
   // what a watch adds, never a reproach. A web workout's own rule is in its note below.
   const scored = (s.points ?? 0) > 0;
@@ -94,6 +96,7 @@ export function SessionScreen({ id }: { id: string }) {
         )}
         {vehicle && <p className="mt-2 text-sm font-semibold text-butter-fg">{vehicle}</p>}
         {noHrLine && <p className="mt-2 text-sm">{noHrLine}</p>}
+        {trust && <p className="mt-2 text-sm">{trust}</p>}
       </Card>
       {s.source === "web" && <Note tone="butter">{t.workout.webRule}</Note>}
       {!confirm ? (
