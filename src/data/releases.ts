@@ -19,6 +19,56 @@ export interface Release {
 
 export const releases: Release[] = [
   {
+    version: "1.0.0 (63)",
+    date: "2026-10-30",
+    channel: "beta",
+    devices: ["iphone", "watch", "android", "wear"],
+    notes: {
+      en: {
+        added: [
+          "Nutrition, if you want it: turn it on in Tailor my app (it stays off otherwise). Snap a meal, pick a photo, say it or type it, or search a food: VVake estimates what's on the plate (energy, protein, carbs, fat) and you fix any portion with a slider. After a couple of fixes, it learns your portions.",
+          "Today and this week: fuel targets that follow your training (more carbs on long days, protein spread across meals), or only calm words if you choose Hide numbers.",
+          'Meal ideas and a week plan around your training, cook time, budget and the season, with a grocery list by aisle for your household, "I already have it", a shopping slot to add to your calendar, money-saving tips and links to the big chains\' weekly flyers.',
+          "Your allergies, intolerances, diet and the foods you don't want are strict: every idea, plan, grocery list and coach reply leaves them out.",
+          "The coach can review a meal, suggest ideas, plan your week and add an allergy you mention (you confirm). It asks for a meal photo at most twice a week, only if you switch that on.",
+          "Nutrition on your watch: today's status, last meal, Log a meal by voice.",
+          'Train together over a call: when you plan a meetup, pick "Train together over a call" instead of "Meet at a place". Everyone trains wherever they are and shares a live board: each person\'s time, distance or reps and heart-rate zone, in the order they joined (never a ranking).',
+          "The host starts a shared 10-second countdown. Tap someone on the board to cheer them (👏 🔥 💪 🙂); a cheer for you arrives as a light tap and one line.",
+          '"Leave quietly" takes you off the board without telling anyone.',
+          "The coach on the call is off by default. When the host turns it on, it says a few short lines at the start, halfway, 5 minutes before the end and at the end.",
+          'On your watch: a "Training together" row on Today and a board page in your workout, with the countdown and cheers both ways. Audio stays on your phone or headphones.',
+          "Your own meeting point: long-press the map to drop a pin, name it (\"North gate\"), add a note and a photo if you like. Only the people you invite see it, it's never on public maps or Spots, and it's deleted 7 days after the meetup. If it isn't at a public place, the app says so calmly and offers to snap it to the nearest one.",
+          "Your watch shows a pinned meeting point's name, note, and how far and which way it is, with Open in Maps.",
+        ],
+        improved: [
+          "Meal photos are read to make the estimate and are not kept on our servers. Keep photo saves it on your phone only.",
+          'A meetup over a call shows "Over a call" everywhere, without a meeting point or "I\'m here".',
+        ],
+      },
+      fr: {
+        added: [
+          "La nutrition, si tu la veux : active-la dans Personnaliser mon app (sinon elle reste désactivée). Prends ton repas en photo, choisis une photo, dis-le ou écris-le, ou cherche un aliment : VVake estime ce qu'il y a dans l'assiette (énergie, protéines, glucides, lipides) et tu ajustes chaque portion avec un curseur. Après quelques corrections, il apprend tes portions.",
+          "Aujourd'hui et cette semaine : des repères qui suivent ton entraînement (plus de glucides les jours longs, des protéines à chaque repas), ou seulement des mots simples si tu choisis Masquer les chiffres.",
+          "Des idées de repas et un plan de la semaine selon ton entraînement, ton temps de cuisine, ton budget et la saison, avec une liste de courses par rayon pour ton foyer, « Je l'ai déjà », un créneau de courses à ajouter à ton agenda, des astuces pour économiser et les prospectus des grandes enseignes.",
+          "Tes allergies, intolérances, ton régime et les aliments que tu ne veux pas sont respectés à la lettre : chaque idée, plan, liste de courses et réponse du coach les écarte.",
+          "Le coach peut revoir un repas, proposer des idées, planifier ta semaine et ajouter une allergie que tu mentionnes (tu confirmes). Il te demande une photo de repas au plus deux fois par semaine, seulement si tu l'actives.",
+          "La nutrition sur ta montre : ton état du jour, ton dernier repas, Noter un repas à la voix.",
+          "S'entraîner ensemble par appel : quand tu organises un rendez-vous, choisis « S'entraîner ensemble par appel » au lieu de « Se retrouver quelque part ». Chacun s'entraîne où il est et partage un tableau en direct : le temps, la distance ou les répétitions et la zone cardiaque de chacun, dans l'ordre d'arrivée (jamais un classement).",
+          "L'organisateur lance un compte à rebours commun de 10 secondes. Touche quelqu'un sur le tableau pour l'encourager (👏 🔥 💪 🙂) ; un encouragement pour toi arrive en une légère vibration et une ligne.",
+          "« Partir discrètement » te retire du tableau sans prévenir personne.",
+          "Le coach dans l'appel est désactivé par défaut. Si l'organisateur l'active, il dit quelques phrases courtes au début, à mi-parcours, 5 minutes avant la fin et à la fin.",
+          "Sur ta montre : une ligne « Entraînement ensemble » sur Aujourd'hui et une page tableau pendant la séance, avec le compte à rebours et les encouragements dans les deux sens. Le son reste sur ton téléphone ou tes écouteurs.",
+          "Ton propre point de rendez-vous : appuie longuement sur la carte pour poser un repère, nomme-le (« Porte nord »), ajoute une note et une photo si tu veux. Seules les personnes invitées le voient, il n'apparaît jamais sur les cartes publiques ni dans les Spots, et il est supprimé 7 jours après le rendez-vous. S'il n'est pas dans un lieu public, l'app le signale calmement et propose de le placer sur le plus proche.",
+          "Ta montre affiche le nom d'un point épinglé, sa note, la distance et la direction, avec Ouvrir dans Plans.",
+        ],
+        improved: [
+          "Les photos de repas sont lues pour l'estimation et ne sont pas gardées sur nos serveurs. Garder la photo l'enregistre seulement sur ton téléphone.",
+          "Un rendez-vous par appel indique « Par appel » partout, sans point de rendez-vous ni « Je suis là ».",
+        ],
+      },
+    },
+  },
+  {
     version: "1.0.0 (62)",
     date: "2026-10-30",
     channel: "beta",
