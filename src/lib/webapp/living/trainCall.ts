@@ -1,4 +1,4 @@
-// Copied from VVFit packages/game-core/src/trainCall.ts (3e812ccd 2026-10-30) by scripts/sync-living-core.ts. Do not edit: re-sync.
+// Copied from VVFit packages/game-core/src/trainCall.ts (0bee920f 2026-10-30) by scripts/sync-living-core.ts. Do not edit: re-sync.
 /**
  * "Train together over a call" (ADR-0071 §A, docs/05-tech/places-and-meetups.md "Train together over a call"): a
  * meetup in mode `call` has no meeting point. The people who said "I'm in" each train wherever they are, talk on a

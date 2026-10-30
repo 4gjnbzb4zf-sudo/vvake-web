@@ -1,4 +1,4 @@
-// Copied from VVFit packages/game-core/src/nutrition.ts (67ff6bd3 2026-10-30) by scripts/sync-nutrition-core.ts. Do not edit: re-sync.
+// Copied from VVFit packages/game-core/src/nutrition.ts (030aa498 2026-10-30) by scripts/sync-nutrition-core.ts. Do not edit: re-sync.
 /**
  * VVake Nutrition (ADR-0070, docs/02-product/nutrition.md): OPTIONAL, opt-in through Tailor ("Your VVake" feature
  * `nutrition`, default off, never inferred from use).
@@ -2010,9 +2010,12 @@ export interface NutritionLimit {
  * the local food table, local meal ideas and plans (never an error).
  */
 export const NUTRITION_LIMITS: Readonly<Record<NutritionTier, NutritionLimit>> = {
-  free: { photosPerWeek: 3, textPerDay: 3, suggestPerWeek: 2, plansPerWeek: 0 },
-  plus: { photosPerWeek: 21, textPerDay: 10, suggestPerWeek: 7, plansPerWeek: 1 },
-  premium: { photosPerWeek: 42, textPerDay: 20, suggestPerWeek: 14, plansPerWeek: 2 },
+  // Measured 2026-10-30 (ADR-0070 §Cost): photo ≤ $0.0145 on Opus 5.5 effort low, ≈ $0.0004 on Haiku 5.5; ideas
+  // ≈ $0.0175 / plan ≈ $0.027 on Sonnet 5.5. Free runs on Haiku (≈ $0.04 a month at these caps); Plus fits the
+  // margin rule's headroom (≈ $0.77 a month worst case); Premium: see the ADR (its existing worst case is already over).
+  free: { photosPerWeek: 3, textPerDay: 3, suggestPerWeek: 2, plansPerWeek: 1 },
+  plus: { photosPerWeek: 7, textPerDay: 10, suggestPerWeek: 2, plansPerWeek: 1 },
+  premium: { photosPerWeek: 14, textPerDay: 20, suggestPerWeek: 4, plansPerWeek: 2 },
 };
 
 /** Limits from the server var (JSON `{ "free": {...}, ... }`, partial ok), the defaults filling gaps. Pure. */
